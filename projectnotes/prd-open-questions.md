@@ -1,0 +1,9 @@
+Open Questions
+Card Data Source: What is the most reliable method for obtaining and maintaining up-to-date card data from the official source? gundam-gcg.com/en/cards on the offical site. But I should have an easy way to manually upload card images and data as I come across them on the internet in previews or leaks.
+Legal Compliance: What specific attribution requirements exist for using Gundam Card Game imagery and data? There should be footers on webpages where necessary to make clear that the images and text on teh website are copyrighted by the owner, and that the website is not produced, or endorsed, or affliated in any way with the copyright holders. Along with any other relevant information you think may be ncessary.
+Performance Optimization: Should we implement server-side rendering (SSR) or stick with client-side rendering for optimal performance? Optimal performance.
+Monetization: What revenue model should be considered for long-term sustainability (ads, premium features, partnerships)? ads and easy way for users to leave donations or tips by way of whatever the most popular services for this kind of thing might be?
+Internationalization: Should the site support multiple languages from launch or focus on English initially? Only English
+API Access: Should we provide public API access for third-party developers and tools? Lets decide this later.
+
+Also, when deciding the tech stack, I need consideration for what is going to be the best balance of cost and ease to run this website. Im open to suggestions, but I want to keep the budget around $30 a month at most. Preferably less.
