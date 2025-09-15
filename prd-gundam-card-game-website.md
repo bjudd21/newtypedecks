@@ -126,6 +126,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **Progressive disclosure** of advanced features for new users
 - **Keyboard shortcuts** for power users
 - **Offline capability** for basic card viewing (future consideration)
+- **Ad-ready layout design** with designated spaces for future ad integration
 
 ## Technical Considerations
 
@@ -134,11 +135,12 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **State Management**: Redux Toolkit for complex state management
 - **Styling**: Tailwind CSS for rapid, responsive UI development
 - **Backend**: Next.js API routes (serverless functions)
-- **Database**: PostgreSQL with Prisma ORM (hosted on Railway or Supabase)
+- **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: NextAuth.js for cost-effective user management
+- **Local Development**: Docker Compose for full local environment
 - **Deployment**: Vercel for full-stack deployment (free tier available)
-- **File Storage**: Vercel Blob or Cloudinary for card images
-- **Monetization**: Google AdSense integration and donation/tip services
+- **File Storage**: Local file system for development, Vercel Blob/Cloudinary for production
+- **Monetization**: Donation/tip services (ad integration ready for future implementation)
 
 ### Architecture
 - **Server-Side Rendering (SSR)** with Next.js for optimal performance and SEO
@@ -147,6 +149,24 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **CDN integration** via Vercel Edge Network for fast card image delivery
 - **Progressive Web App (PWA)** capabilities for mobile experience
 - **Serverless functions** for cost-effective scaling
+
+### Local Development Environment
+- **Docker Compose** for complete local development stack
+- **PostgreSQL container** for local database development
+- **Redis container** for local caching and session storage
+- **Local file storage** for card images during development
+- **Environment isolation** between development and production
+- **One-command setup** for new developers
+
+### Code Quality and Development Standards
+- **Simple solutions preferred** over complex implementations
+- **DRY principle** - avoid code duplication, reuse existing functionality
+- **Environment-aware code** - proper handling of dev, test, and prod environments
+- **Clean, organized codebase** with consistent patterns
+- **File size limits** - refactor when files exceed 200-300 lines
+- **No mock data** in dev or prod environments (only in tests)
+- **No stubbing or fake data** patterns in production code
+- **Environment file protection** - never overwrite .env without confirmation
 
 ### Performance Requirements
 - **Page load times** under 2 seconds on 3G connections
@@ -178,7 +198,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 1. **Card Data Source**: ✅ **RESOLVED** - Primary source is gundam-gcg.com/en/cards with manual upload capability for previews and leaks
 2. **Legal Compliance**: ✅ **RESOLVED** - Footer attributions required, clear disclaimers about non-affiliation with copyright holders
 3. **Performance Optimization**: ✅ **RESOLVED** - Focus on optimal performance (SSR recommended for better performance)
-4. **Monetization**: ✅ **RESOLVED** - Ads and donation/tip integration for sustainability
+4. **Monetization**: ✅ **RESOLVED** - Donation/tip integration for sustainability (ads deferred until post-MVP)
 5. **Internationalization**: ✅ **RESOLVED** - English only for initial launch
 6. **API Access**: ✅ **RESOLVED** - Decision deferred to later development phases
 
@@ -187,38 +207,74 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **Monthly Budget**: Maximum $30/month, preferably less
 - **Cost Optimization**: Technology stack must be selected with hosting and operational costs in mind
 - **Scalability**: Solution must be cost-effective while supporting growth
+- **Local Development**: Full local environment with Docker to minimize development costs
+- **Production Deployment**: Only deploy to hosting services after local testing is complete
 
-## Implementation Phases
+## Implementation Milestones
 
-### Phase 1: Card Database MVP (Weeks 1-4)
-- Basic card search and filtering
-- High-quality card display
+### Milestone 1: Complete Card Database Website
+**Goal**: A fully functional, standalone card database website that could be deployed and used independently.
+
+**Features**:
+- Complete Docker-based local development environment
+- Comprehensive card search and filtering system
+- High-quality card display with zoom functionality
 - Mobile-responsive design
-- Data integration from official source
+- Data integration from official source (gundam-gcg.com)
 - Manual card upload functionality for previews/leaks
 - Legal compliance footers and disclaimers
-
-### Phase 2: Deck Building Platform (Weeks 5-8)
-- Drag-and-drop deck construction
-- Deck saving and management
-- Basic analytics and statistics
 - User authentication system
-- Personal collection management
+- Card detail views with rulings and official text
+- Advanced search with boolean operators
+- Image optimization and CDN integration
+- Performance optimization and caching
+
+**Success Criteria**: Users can search, filter, and view all Gundam Card Game cards with a professional, fast, and mobile-friendly experience.
+
+### Milestone 2: Deck Building and Collection Management Platform
+**Goal**: Complete deck building and collection management functionality integrated with the card database.
+
+**Features**:
+- Drag-and-drop deck construction interface
+- Custom category system for deck organization
+- Deck validation and legality checking
+- Deck saving, loading, and management
+- Personal collection tracking with quantity management
 - Collection-deck integration (showing owned cards)
+- Deck analytics and statistics
+- Deck import/export functionality
+- Collection search and filtering
+- Bulk collection import/export
+- Collection statistics and completion tracking
 
-### Phase 3: Enhanced Features (Weeks 9-12)
-- Advanced deck sharing
-- Import/export functionality
-- Performance optimizations
-- User feedback integration
+**Success Criteria**: Users can build, save, and manage decks while tracking their physical card collections with full integration between the two systems.
 
-### Phase 4: Social and Tournament Features (Weeks 13-16)
-- Social features and comments
-- Tournament tracking
-- Advanced analytics
+### Milestone 3: Complete Integrated Solution
+**Goal**: Bring all features together into a cohesive, production-ready platform with advanced features.
+
+**Features**:
+- Deck sharing system (public/private options)
+- Advanced deck analytics and performance metrics
+- Social features and user interactions
+- Tournament tracking and management
+- Donation/tip integration
+- Advanced search and recommendation systems
+- Performance optimizations and monitoring
+- Production deployment and scaling
+- API access for third-party integrations
+- Advanced collection sharing and comparison
 - Market integration planning
-- Monetization integration (ads, donations/tips)
-- API access decision and implementation
+- Future monetization infrastructure
+
+**Success Criteria**: A complete, production-ready Gundam Card Game platform that serves as the definitive resource for the community.
+
+### Post-Milestone 3: Monetization and Growth
+- Google AdSense integration
+- Premium features and subscription models
+- Advanced analytics and business intelligence
+- Community features and tournaments
+- Mobile app development
+- International expansion
 
 ---
 
