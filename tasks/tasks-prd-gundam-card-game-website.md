@@ -101,7 +101,7 @@ _Goal: A fully functional, standalone card database website_
   - [x] 1.16 Establish code quality standards and file size monitoring
 
 - [ ] 2.0 Card Database System
-  - [ ] 2.1 Design and implement database schema for cards (simple, normalized structure)
+  - [x] 2.1 Design and implement database schema for cards (simple, normalized structure)
   - [ ] 2.2 Create card data models and TypeScript interfaces (reusable types)
   - [ ] 2.3 Build card search API endpoints with filtering capabilities (Next.js API routes)
   - [ ] 2.4 Implement card search component with real-time suggestions (reuse existing search patterns)

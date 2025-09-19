@@ -34,12 +34,12 @@ enum UserRole {
   MODERATOR
 }
 
-// Card type model
+// Card type model - Based on official Gundam Card Game rules
 model CardType {
   id          String @id @default(cuid())
   name        String @unique
   description String?
-  category    String? // e.g., "Unit", "Pilot", "Command", "Event", "Support"
+  category    String? // "Unit", "Character", "Command", "Operation", "Generation"
 
   // Relations
   cards Card[]
@@ -91,16 +91,16 @@ model Card {
   description  String?
   officialText String?
   
-  // Game-specific attributes
-  power        Int?     // Attack/Combat power
-  defense      Int?     // Defense value
-  speed        Int?     // Speed/Mobility
-  range        String?  // Attack range (Close, Medium, Long)
-  attribute    String?  // Element/Attribute (Fire, Water, Earth, etc.)
+  // Official Gundam Card Game attributes
+  clashPoints  Int?     // Clash Points (CP) - battle strength
+  price        Int?     // Price - cost to play the card
+  hitPoints    Int?     // Hit Points (HP) - unit durability (for Unit cards)
+  attackPoints Int?     // Attack Points (AP) - damage dealt (for Unit cards)
   faction      String?  // Faction/Group (Earth Federation, Zeon, etc.)
   pilot        String?  // Pilot name for mobile suits
   model        String?  // Mobile suit model number
   series       String?  // Anime series (UC, CE, AD, etc.)
+  nation       String?  // Nation/Country affiliation
   
   // Card mechanics
   abilities    String?  // Special abilities (JSON string)
@@ -128,7 +128,10 @@ model Card {
   @@index([name])
   @@index([faction])
   @@index([series])
+  @@index([nation])
   @@index([keywords])
+  @@index([clashPoints])
+  @@index([price])
   @@map("cards")
 }
 

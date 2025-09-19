@@ -70,16 +70,16 @@ model Card {
   rulings      String?
   officialText String?
   
-  // Game-specific attributes
-  power        Int?     // Attack/Combat power
-  defense      Int?     // Defense value
-  speed        Int?     // Speed/Mobility
-  range        String?  // Attack range (Close, Medium, Long)
-  attribute    String?  // Element/Attribute (Fire, Water, Earth, etc.)
+  // Official Gundam Card Game attributes
+  clashPoints  Int?     // Clash Points (CP) - battle strength
+  price        Int?     // Price - cost to play the card
+  hitPoints    Int?     // Hit Points (HP) - unit durability (for Unit cards)
+  attackPoints Int?     // Attack Points (AP) - damage dealt (for Unit cards)
   faction      String?  // Faction/Group (Earth Federation, Zeon, etc.)
   pilot        String?  // Pilot name for mobile suits
   model        String?  // Mobile suit model number
   series       String?  // Anime series (UC, CE, AD, etc.)
+  nation       String?  // Nation/Country affiliation
   
   // Card mechanics
   abilities    String?  // Special abilities (JSON string)
@@ -120,12 +120,12 @@ model CardType {
 ```
 
 **Purpose**: Categorization of cards by type and function
-**Categories**:
-- **Unit**: Mobile suits, ships, vehicles
-- **Pilot**: Character cards
-- **Command**: Command cards, orders
-- **Event**: Event cards, special effects
-- **Support**: Support cards, equipment
+**Categories** (Based on Official Gundam Card Game Rules):
+- **Unit**: Mobile Suits, Mobile Armors, Cruisers, Colonies - primary combat units
+- **Character**: Pilots and crew members that enhance unit capabilities
+- **Command**: Specific effects, often representing scenes from the anime (discarded after use)
+- **Operation**: Ongoing effects that remain in play to influence game state
+- **Generation**: Resource cards that produce "Nation Power" to play other cards
 
 #### Rarity
 ```sql

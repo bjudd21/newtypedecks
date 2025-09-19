@@ -30,16 +30,16 @@ export interface CreateCardData {
   description?: string;
   officialText?: string;
   
-  // Game-specific attributes
-  power?: number;
-  defense?: number;
-  speed?: number;
-  range?: string;
-  attribute?: string;
-  faction?: string;
-  pilot?: string;
-  model?: string;
-  series?: string;
+  // Official Gundam Card Game attributes
+  clashPoints?: number;  // Clash Points (CP) - battle strength
+  price?: number;        // Price - cost to play the card
+  hitPoints?: number;    // Hit Points (HP) - unit durability (for Unit cards)
+  attackPoints?: number; // Attack Points (AP) - damage dealt (for Unit cards)
+  faction?: string;      // Faction/Group (Earth Federation, Zeon, etc.)
+  pilot?: string;        // Pilot name for mobile suits
+  model?: string;        // Mobile suit model number
+  series?: string;       // Anime series (UC, CE, AD, etc.)
+  nation?: string;       // Nation/Country affiliation
   
   // Card mechanics
   abilities?: string; // JSON string
@@ -65,10 +65,9 @@ export interface CardSearchFilters {
   setId?: string;
   faction?: string;
   series?: string;
+  nation?: string;
   pilot?: string;
   model?: string;
-  attribute?: string;
-  range?: string;
   keywords?: string[];
   tags?: string[];
   isFoil?: boolean;
@@ -76,23 +75,25 @@ export interface CardSearchFilters {
   isAlternate?: boolean;
   language?: string;
   
-  // Numeric ranges
+  // Official Gundam Card Game numeric ranges
   levelMin?: number;
   levelMax?: number;
   costMin?: number;
   costMax?: number;
-  powerMin?: number;
-  powerMax?: number;
-  defenseMin?: number;
-  defenseMax?: number;
-  speedMin?: number;
-  speedMax?: number;
+  clashPointsMin?: number;
+  clashPointsMax?: number;
+  priceMin?: number;
+  priceMax?: number;
+  hitPointsMin?: number;
+  hitPointsMax?: number;
+  attackPointsMin?: number;
+  attackPointsMax?: number;
 }
 
 export interface CardSearchOptions {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'level' | 'cost' | 'power' | 'defense' | 'speed' | 'setNumber' | 'createdAt';
+  sortBy?: 'name' | 'level' | 'cost' | 'clashPoints' | 'price' | 'hitPoints' | 'attackPoints' | 'setNumber' | 'createdAt';
   sortOrder?: 'asc' | 'desc';
   includeRelations?: boolean;
 }
@@ -275,29 +276,40 @@ export interface CardMarketData {
 }
 
 // Utility types for card operations
-export type CardSortField = 'name' | 'level' | 'cost' | 'power' | 'defense' | 'speed' | 'setNumber' | 'createdAt';
+export type CardSortField = 'name' | 'level' | 'cost' | 'clashPoints' | 'price' | 'hitPoints' | 'attackPoints' | 'setNumber' | 'createdAt';
 export type CardSortOrder = 'asc' | 'desc';
 export type CardLanguage = 'en' | 'ja' | 'ko' | 'zh' | 'es' | 'fr' | 'de' | 'it' | 'pt' | 'ru';
 export type CardAttribute = 'fire' | 'water' | 'earth' | 'wind' | 'light' | 'dark' | 'neutral';
 export type CardRange = 'close' | 'medium' | 'long' | 'support' | 'command';
-export type CardCategory = 'unit' | 'pilot' | 'command' | 'event' | 'support' | 'equipment';
+export type CardCategory = 'unit' | 'character' | 'command' | 'operation' | 'generation';
 
-// Constants for card system
+// Constants for official Gundam Card Game system
 export const CARD_CONSTANTS = {
   MAX_LEVEL: 99,
   MAX_COST: 99,
-  MAX_POWER: 999,
-  MAX_DEFENSE: 999,
-  MAX_SPEED: 999,
+  MAX_CLASH_POINTS: 999,
+  MAX_PRICE: 99,
+  MAX_HIT_POINTS: 999,
+  MAX_ATTACK_POINTS: 999,
   MAX_KEYWORDS: 20,
   MAX_TAGS: 10,
   MAX_DESCRIPTION_LENGTH: 1000,
   MAX_OFFICIAL_TEXT_LENGTH: 2000,
   MAX_ABILITIES_LENGTH: 5000,
   SUPPORTED_LANGUAGES: ['en', 'ja', 'ko', 'zh', 'es', 'fr', 'de', 'it', 'pt', 'ru'] as const,
-  SUPPORTED_ATTRIBUTES: ['fire', 'water', 'earth', 'wind', 'light', 'dark', 'neutral'] as const,
-  SUPPORTED_RANGES: ['close', 'medium', 'long', 'support', 'command'] as const,
-  SUPPORTED_CATEGORIES: ['unit', 'pilot', 'command', 'event', 'support', 'equipment'] as const,
+  SUPPORTED_CATEGORIES: ['unit', 'character', 'command', 'operation', 'generation'] as const,
+  SUPPORTED_FACTIONS: [
+    'Earth Federation',
+    'Principality of Zeon',
+    'AEUG',
+    'Titans',
+    'Crossbone Vanguard',
+    'ZAFT',
+    'Orb Union',
+    'Celestial Being',
+    'A-LAWS'
+  ] as const,
+  SUPPORTED_SERIES: ['UC', 'CE', 'AD', 'AC', 'FC', 'AG', 'PD'] as const,
 } as const;
 
 // Validation schemas (for runtime validation)
