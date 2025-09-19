@@ -1,51 +1,36 @@
-# Gundam Card Game Website
-
-A comprehensive website for the Gundam Card Game that serves as both a card database and deck building platform. Built with Next.js, TypeScript, and Tailwind CSS.
-
-## Features
-
-- **Card Database**: Search and filter Gundam Card Game cards with high-resolution images
-- **Deck Building**: Drag-and-drop deck construction with real-time validation
-- **Collection Management**: Track your physical card collection
-- **User Accounts**: Save and share your decks and collections
-- **Mobile Responsive**: Optimized for desktop and mobile devices
-
-## Technology Stack
-
-- **Frontend**: Next.js 13+ with TypeScript
-- **Styling**: Tailwind CSS
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: NextAuth.js
-- **Deployment**: Vercel
-- **State Management**: Redux Toolkit
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-This project is currently in the planning phase. The PRD and task list have been created and are ready for implementation.
+First, run the development server:
 
-### Project Structure
-
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
-GCG/
-├── prd-gundam-card-game-website.md    # Product Requirements Document
-├── tasks/                              # Task lists and implementation guides
-├── cursorrules/                        # Development rules and guidelines
-└── README.md                          # This file
-```
 
-## Development Process
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This project follows a structured development process:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. **PRD Creation**: Complete ✅
-2. **Task List Generation**: Complete ✅
-3. **Project Setup**: In Progress
-4. **Implementation**: Pending
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Legal Notice
+## Learn More
 
-This project is not affiliated with Bandai Namco Entertainment Inc. or any official Gundam Card Game entities. All card images and game content are used under fair use for educational and community purposes.
+To learn more about Next.js, take a look at the following resources:
 
-## License
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-This project is for educational and community use. Please respect the intellectual property rights of Bandai Namco Entertainment Inc.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
