@@ -1,0 +1,168 @@
+// Gundam Card Game Database Schema
+// This schema defines the data models for the Gundam Card Game website
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and user management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  decks       Deck[]
+  collections Collection[]
+
+  @@map("users")
+}
+
+// User roles enum
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+// Card type model
+model CardType {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+
+  // Relations
+  cards Card[]
+
+  @@map("card_types")
+}
+
+// Rarity model
+model Rarity {
+  id          String @id @default(cuid())
+  name        String @unique
+  color       String
+  description String?
+
+  // Relations
+  cards Card[]
+
+  @@map("rarities")
+}
+
+// Set model
+model Set {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  code        String    @unique
+  releaseDate DateTime
+  description String?
+  imageUrl    String?
+
+  // Relations
+  cards Card[]
+
+  @@map("sets")
+}
+
+// Main Card model
+model Card {
+  id           String   @id @default(cuid())
+  name         String
+  level        Int
+  cost         Int
+  typeId       String
+  rarityId     String
+  setId        String
+  setNumber    String
+  imageUrl     String
+  imageUrlSmall String?
+  imageUrlLarge String?
+  description  String
+  rulings      String?
+  officialText String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  type         CardType @relation(fields: [typeId], references: [id])
+  rarity       Rarity   @relation(fields: [rarityId], references: [id])
+  set          Set      @relation(fields: [setId], references: [id])
+  deckCards    DeckCard[]
+  collectionCards CollectionCard[]
+
+  @@unique([setId, setNumber])
+  @@map("cards")
+}
+
+// Deck model
+model Deck {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  isPublic    Boolean  @default(false)
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user  User       @relation(fields: [userId], references: [id])
+  cards DeckCard[]
+
+  @@map("decks")
+}
+
+// Deck-Card relationship model
+model DeckCard {
+  id       String @id @default(cuid())
+  deckId   String
+  cardId   String
+  quantity Int
+  category String?
+
+  // Relations
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  card Card @relation(fields: [cardId], references: [id])
+
+  @@unique([deckId, cardId])
+  @@map("deck_cards")
+}
+
+// Collection model
+model Collection {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user  User             @relation(fields: [userId], references: [id])
+  cards CollectionCard[]
+
+  @@unique([userId])
+  @@map("collections")
+}
+
+// Collection-Card relationship model
+model CollectionCard {
+  id           String @id @default(cuid())
+  collectionId String
+  cardId       String
+  quantity     Int
+
+  // Relations
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  card       Card       @relation(fields: [cardId], references: [id])
+
+  @@unique([collectionId, cardId])
+  @@map("collection_cards")
+}

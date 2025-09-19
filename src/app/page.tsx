@@ -1,24 +1,33 @@
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui';
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="mb-12 text-center">
+        <h1 className="mb-4 text-4xl font-bold text-gray-900">
           Welcome to Gundam Card Game Database
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          The most comprehensive database and deck building platform for the Gundam Card Game. 
-          Search cards, build decks, and manage your collection.
+        <p className="mx-auto max-w-2xl text-xl text-gray-600">
+          The most comprehensive database and deck building platform for the
+          Gundam Card Game. Search cards, build decks, and manage your
+          collection.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6 mb-12">
+      <div className="mb-12 grid gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Card Database</CardTitle>
             <CardDescription>
-              Search and browse all Gundam Card Game cards with advanced filtering
+              Search and browse all Gundam Card Game cards with advanced
+              filtering
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -57,15 +66,15 @@ export default function Home() {
         </Card>
       </div>
 
-      <div className="bg-blue-50 rounded-lg p-8 text-center">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+      <div className="rounded-lg bg-blue-50 p-8 text-center">
+        <h2 className="mb-4 text-2xl font-semibold text-gray-900">
           Coming Soon
         </h2>
-        <p className="text-gray-600 mb-6">
-          We're building the ultimate Gundam Card Game platform. 
-          The card database is currently in development.
+        <p className="mb-6 text-gray-600">
+          We&apos;re building the ultimate Gundam Card Game platform. The card
+          database is currently in development.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Button variant="primary" size="lg">
             Get Notified
           </Button>

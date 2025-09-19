@@ -1,9 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // External packages for server components
   serverExternalPackages: ['@prisma/client'],
-  
+
   // Image optimization configuration
   images: {
     domains: ['localhost', 'gundam-gcg.com'],
@@ -11,13 +11,13 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  
+
   // Output configuration for Docker deployment
   output: 'standalone',
-  
+
   // Compression and optimization
   compress: true,
-  
+
   // Security headers
   async headers() {
     return [
@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Redirects for SEO and user experience
   async redirects() {
     return [

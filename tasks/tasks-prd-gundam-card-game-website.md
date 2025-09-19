@@ -5,6 +5,7 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 ## Relevant Files
 
 ### Created Files (Task 1.0)
+
 - `package.json` - Project dependencies and scripts configuration with all required packages
 - `next.config.ts` - Next.js configuration file with SSR, image optimization, and security headers
 - `tsconfig.json` - TypeScript configuration with strict mode
@@ -24,8 +25,19 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 - `scripts/init-db.sql` - Database initialization script for PostgreSQL container
 - `eslint.config.mjs` - ESLint configuration for code quality
 - `postcss.config.mjs` - PostCSS configuration for Tailwind CSS
+- `prisma/schema.prisma` - Database schema definition with all models for cards, users, decks, and collections
+- `prisma/migrations/` - Database migration files for schema versioning
+- `src/lib/database/index.ts` - Database connection utility with Prisma client and connection testing
+- `src/store/index.ts` - Redux store configuration with typed hooks and middleware
+- `src/store/Provider.tsx` - Redux provider component for Next.js app integration
+- `src/store/slices/authSlice.ts` - Authentication state management slice
+- `src/store/slices/cardSlice.ts` - Card data and search state management slice
+- `src/store/slices/deckSlice.ts` - Deck building and management state slice
+- `src/store/slices/collectionSlice.ts` - Collection tracking state management slice
+- `src/store/slices/uiSlice.ts` - UI state management (theme, notifications, modals)
 
 ### Planned Files (Future Tasks)
+
 - `src/components/card/` - Card-related components (CardDisplay, CardSearch, CardUpload, etc.)
 - `src/components/deck/` - Deck building components (DeckBuilder, DeckList, etc.)
 - `src/components/collection/` - Collection management components
@@ -67,17 +79,18 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 ## Tasks
 
 # MILESTONE 1: Complete Card Database Website
-*Goal: A fully functional, standalone card database website*
+
+_Goal: A fully functional, standalone card database website_
 
 - [ ] 1.0 Project Setup and Infrastructure
   - [x] 1.1 Initialize Next.js project with TypeScript, Tailwind CSS, and SSR configuration
   - [x] 1.2 Set up project structure and folder organization following clean architecture principles
   - [x] 1.3 Configure development environment and tooling (ESLint, Prettier, etc.)
   - [x] 1.4 Create Docker Compose configuration for local development
-  - [ ] 1.5 Set up PostgreSQL container with Docker
-  - [ ] 1.6 Set up Redis container for caching and sessions
-  - [ ] 1.7 Configure Prisma ORM with local PostgreSQL database
-  - [ ] 1.8 Configure Redux Toolkit for state management
+  - [x] 1.5 Set up PostgreSQL container with Docker
+  - [x] 1.6 Set up Redis container for caching and sessions
+  - [x] 1.7 Configure Prisma ORM with local PostgreSQL database
+  - [x] 1.8 Configure Redux Toolkit for state management
   - [ ] 1.9 Set up testing framework (Jest + React Testing Library) with proper mocking for tests only
   - [ ] 1.10 Create basic UI component library with Tailwind CSS (reusable, DRY components)
   - [ ] 1.11 Set up local file storage for card images during development
@@ -121,7 +134,8 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
   - [ ] 4.6 Design ad-ready layout with designated spaces for future ads
 
 # MILESTONE 2: Deck Building and Collection Management Platform
-*Goal: Complete deck building and collection management functionality*
+
+_Goal: Complete deck building and collection management functionality_
 
 - [ ] 5.0 Deck Building Platform
   - [ ] 5.1 Create deck data models and database schema (reuse card schema patterns)
@@ -152,7 +166,8 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
   - [ ] 7.4 Implement deck building recommendations based on collection
 
 # MILESTONE 3: Complete Integrated Solution
-*Goal: Bring all features together into a cohesive, production-ready platform*
+
+_Goal: Bring all features together into a cohesive, production-ready platform_
 
 - [ ] 8.0 Advanced Deck Features
   - [ ] 8.1 Create deck sharing system (public/private options)
@@ -185,6 +200,7 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
   - [ ] 12.4 Plan future monetization strategies
 
 # POST-MILESTONE 3: Future Growth and Monetization
+
 - [ ] 13.0 Advanced Monetization
   - [ ] 13.1 Integrate Google AdSense for ad revenue
   - [ ] 13.2 Optimize ad placement for user experience

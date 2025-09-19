@@ -15,10 +15,11 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Key Requirements and Decisions
 
 ### User Requirements
+
 - **Target Users**: Competitive, casual, and new players (brand new to 3 months experience)
 - **Primary Use Cases**: Both online and in-person play
 - **Core Features**: Card database, deck building, collection management
-- **User Stories**: 
+- **User Stories**:
   - Share deck builds with friends in group chats
   - Export deck builds to text format for other tools
   - Keep a list of built decks for easy reference
@@ -26,6 +27,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
   - See which cards in deck are owned and how many copies
 
 ### Technical Requirements
+
 - **Budget Constraint**: Maximum $30/month, preferably less
 - **Local Development**: Full Docker environment before any cloud hosting
 - **Performance**: Page load times under 2 seconds, search response under 500ms
@@ -33,6 +35,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 - **Legal Compliance**: Proper attribution for Bandai Namco content
 
 ### Data Sources
+
 - **Primary Source**: gundam-gcg.com/en/cards
 - **Manual Uploads**: Support for previews and leaks
 - **Data Management**: Pull into local database, maintain up-to-date information
@@ -40,6 +43,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Technology Stack Decisions
 
 ### Core Stack
+
 - **Frontend**: Next.js 13+ with TypeScript for SSR and optimal performance
 - **Styling**: Tailwind CSS for rapid, responsive UI development
 - **State Management**: Redux Toolkit for complex state management
@@ -48,6 +52,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 - **Authentication**: NextAuth.js for cost-effective user management
 
 ### Development Environment
+
 - **Local Development**: Docker Compose for complete local development stack
 - **Database**: PostgreSQL container with Docker
 - **Caching**: Redis container for caching and session storage
@@ -55,6 +60,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 - **Deployment**: Vercel for full-stack deployment (free tier available)
 
 ### Architecture
+
 - **Server-Side Rendering (SSR)** with Next.js for optimal performance and SEO
 - **RESTful API** using Next.js API routes for card data and deck management
 - **Static Generation** for card database pages to improve performance
@@ -64,6 +70,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Coding Preferences and Standards
 
 ### Core Principles
+
 - **Simple solutions preferred** over complex implementations
 - **DRY principle** - avoid code duplication, reuse existing functionality
 - **Environment-aware code** - proper handling of dev, test, and prod environments
@@ -74,6 +81,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 - **Environment file protection** - never overwrite .env without confirmation
 
 ### Development Practices
+
 - Check for existing similar functionality before creating new code
 - Reuse existing patterns and components
 - Maintain consistent patterns throughout codebase
@@ -83,9 +91,11 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Project Structure - Three Major Milestones
 
 ### Milestone 1: Complete Card Database Website
+
 **Goal**: A fully functional, standalone card database website that could be deployed independently
 
 **Key Features**:
+
 - Complete Docker-based local development environment
 - Comprehensive card search and filtering system
 - High-quality card display with zoom functionality
@@ -102,9 +112,11 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 **Success Criteria**: Users can search, filter, and view all Gundam Card Game cards with a professional, fast, and mobile-friendly experience.
 
 ### Milestone 2: Deck Building and Collection Management Platform
+
 **Goal**: Complete deck building and collection management functionality integrated with the card database
 
 **Key Features**:
+
 - Drag-and-drop deck construction interface
 - Custom category system for deck organization
 - Deck validation and legality checking
@@ -120,9 +132,11 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 **Success Criteria**: Users can build, save, and manage decks while tracking their physical card collections with full integration between the two systems.
 
 ### Milestone 3: Complete Integrated Solution
+
 **Goal**: Bring all features together into a cohesive, production-ready platform with advanced features
 
 **Key Features**:
+
 - Deck sharing system (public/private options)
 - Advanced deck analytics and performance metrics
 - Social features and user interactions
@@ -141,11 +155,13 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Monetization Strategy
 
 ### Current Approach
+
 - **Ads**: Deferred until post-MVP (after full website is complete and satisfactory)
 - **Donations/Tips**: Integrated in Milestone 3 for immediate sustainability
 - **Ad-Ready Design**: Layout designed with designated spaces for future ad integration
 
 ### Future Monetization (Post-Milestone 3)
+
 - Google AdSense integration
 - Premium features and subscription models
 - Advanced analytics and business intelligence
@@ -154,6 +170,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Legal and Compliance
 
 ### Requirements
+
 - **Footer attributions** required for Bandai Namco content
 - **Clear disclaimers** about non-affiliation with copyright holders
 - **Proper attribution** for all copyrighted material
@@ -163,6 +180,7 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 ## Current Project Status
 
 ### Completed Work
+
 1. ✅ **PRD Creation**: Comprehensive Product Requirements Document
 2. ✅ **Task List Generation**: Detailed task breakdown with 3-milestone structure
 3. ✅ **Git Repository Setup**: Local git repository with proper .gitignore
@@ -170,12 +188,14 @@ This is a comprehensive Gundam Card Game website project that serves as both a c
 5. ✅ **Project Documentation**: README and project structure documentation
 
 ### Current State
+
 - **Repository**: Initialized with 2 commits
 - **Branch**: `main`
 - **Status**: Ready to begin Milestone 1 implementation
 - **Next Step**: Start with Task 1.1 - Initialize Next.js project
 
 ### File Structure
+
 ```
 GCG/
 ├── .git/                              # Git repository
@@ -198,12 +218,14 @@ GCG/
 ## Key Decisions Made
 
 ### Development Approach
+
 1. **Docker-First**: Complete local development environment before any cloud hosting
 2. **Milestone-Based**: Three major milestones for manageable development
 3. **Budget-Conscious**: Technology stack optimized for $30/month budget
 4. **Ad-Deferred**: Focus on core functionality before monetization
 
 ### Technical Decisions
+
 1. **Next.js with SSR**: For optimal performance and SEO
 2. **PostgreSQL + Prisma**: For robust data management
 3. **Docker Compose**: For consistent local development
@@ -211,6 +233,7 @@ GCG/
 5. **Tailwind CSS**: For rapid, responsive UI development
 
 ### User Experience Decisions
+
 1. **Mobile-First**: Responsive design for all devices
 2. **Collection Integration**: Show owned cards in deck building
 3. **Manual Uploads**: Support for previews and leaks
@@ -219,12 +242,15 @@ GCG/
 ## Next Steps for Implementation
 
 ### Immediate Next Task
+
 **Task 1.1**: Initialize Next.js project with TypeScript, Tailwind CSS, and SSR configuration
 
 ### Milestone 1 Focus
+
 Complete the card database website as a standalone, deployable application before moving to deck building features.
 
 ### Development Workflow
+
 1. Use Docker Compose for local development
 2. Follow coding preferences and standards
 3. Implement with DRY principles and code reuse
@@ -248,4 +274,4 @@ The project is currently ready to begin implementation of Milestone 1, starting 
 
 ---
 
-*This memory file was created to allow seamless continuation of the project in future sessions. All key decisions, requirements, and current status are documented above.*
+_This memory file was created to allow seamless continuation of the project in future sessions. All key decisions, requirements, and current status are documented above._
