@@ -39,3 +39,6 @@ export type { PaginationProps } from './Pagination';
 
 export { Search } from './Search';
 export type { SearchProps, SearchSuggestion } from './Search';
+
+export { FileUpload } from './FileUpload';
+export type { FileUploadProps } from './FileUpload';

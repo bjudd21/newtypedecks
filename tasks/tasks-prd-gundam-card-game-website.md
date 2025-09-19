@@ -91,12 +91,14 @@ _Goal: A fully functional, standalone card database website_
   - [x] 1.6 Set up Redis container for caching and sessions
   - [x] 1.7 Configure Prisma ORM with local PostgreSQL database
   - [x] 1.8 Configure Redux Toolkit for state management
-  - [ ] 1.9 Set up testing framework (Jest + React Testing Library) with proper mocking for tests only
-  - [ ] 1.10 Create basic UI component library with Tailwind CSS (reusable, DRY components)
-  - [ ] 1.11 Set up local file storage for card images during development
-  - [ ] 1.12 Configure environment variables for local development (.env.example template)
-  - [ ] 1.13 Create development scripts and documentation
-  - [ ] 1.14 Establish code quality standards and file size monitoring
+  - [x] 1.9 Set up testing framework (Jest + React Testing Library) with proper mocking for tests only
+  - [x] 1.10 Create basic UI component library with Tailwind CSS (reusable, DRY components)
+  - [x] 1.11 Set up basic routing and navigation structure
+  - [x] 1.12 Create basic API routes structure for future backend integration
+  - [ ] 1.13 Set up local file storage for card images during development
+  - [ ] 1.14 Configure environment variables for local development (.env.example template)
+  - [ ] 1.15 Create development scripts and documentation
+  - [ ] 1.16 Establish code quality standards and file size monitoring
 
 - [ ] 2.0 Card Database System
   - [ ] 2.1 Design and implement database schema for cards (simple, normalized structure)
