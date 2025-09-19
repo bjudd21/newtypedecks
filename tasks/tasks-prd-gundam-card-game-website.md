@@ -4,17 +4,28 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 
 ## Relevant Files
 
-- `package.json` - Project dependencies and scripts configuration
-- `next.config.js` - Next.js configuration file with SSR and image optimization
-- `tailwind.config.js` - Tailwind CSS configuration
-- `tsconfig.json` - TypeScript configuration
-- `docker-compose.yml` - Docker Compose configuration for local development
-- `docker-compose.dev.yml` - Development-specific Docker configuration
-- `Dockerfile` - Docker configuration for Next.js application
-- `src/app/layout.tsx` - Root layout component with legal compliance footer
-- `src/app/page.tsx` - Home page component
+### Created Files (Task 1.0)
+- `package.json` - Project dependencies and scripts configuration with all required packages
+- `next.config.ts` - Next.js configuration file with SSR, image optimization, and security headers
+- `tsconfig.json` - TypeScript configuration with strict mode
+- `docker-compose.yml` - Docker Compose configuration for local development with PostgreSQL and Redis
+- `Dockerfile` - Docker configuration for Next.js application with multi-stage build
+- `src/app/layout.tsx` - Root layout component with legal compliance footer and responsive navigation
+- `src/app/page.tsx` - Home page component with feature cards and coming soon section
 - `src/app/globals.css` - Global styles and Tailwind imports
-- `src/components/ui/` - Reusable UI components (Button, Input, Card, etc.)
+- `src/components/ui/Button.tsx` - Reusable Button component with variants and loading states
+- `src/components/ui/Input.tsx` - Reusable Input component with label, error, and helper text
+- `src/components/ui/Card.tsx` - Reusable Card component with header, content, and footer
+- `src/components/ui/index.ts` - UI components export file for clean imports
+- `src/lib/types/index.ts` - TypeScript type definitions for cards, users, decks, and collections
+- `src/lib/utils/index.ts` - Utility functions for common operations (cn, formatDate, debounce, etc.)
+- `.prettierrc` - Prettier configuration for code formatting
+- `.env.example` - Example environment variables file with all required variables
+- `scripts/init-db.sql` - Database initialization script for PostgreSQL container
+- `eslint.config.mjs` - ESLint configuration for code quality
+- `postcss.config.mjs` - PostCSS configuration for Tailwind CSS
+
+### Planned Files (Future Tasks)
 - `src/components/card/` - Card-related components (CardDisplay, CardSearch, CardUpload, etc.)
 - `src/components/deck/` - Deck building components (DeckBuilder, DeckList, etc.)
 - `src/components/collection/` - Collection management components
@@ -23,18 +34,13 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 - `src/components/ads/` - Ad components (ready for future integration)
 - `src/lib/database/` - Database connection and models
 - `src/lib/api/` - API route handlers (Next.js API routes)
-- `src/lib/types/` - TypeScript type definitions
-- `src/lib/utils/` - Utility functions and helpers
 - `src/hooks/` - Custom React hooks
 - `src/store/` - Redux store and slices
 - `prisma/schema.prisma` - Database schema definition
 - `prisma/migrations/` - Database migration files
-- `.env.local` - Environment variables for local development
-- `.env.example` - Example environment variables file
 - `public/images/` - Static card images and assets
 - `uploads/` - Local file storage for card images during development
 - `vercel.json` - Vercel deployment configuration (for future production)
-- `scripts/` - Development and deployment scripts
 - `tests/` - Test files for components and utilities
 
 ### Notes
@@ -64,10 +70,10 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 *Goal: A fully functional, standalone card database website*
 
 - [ ] 1.0 Project Setup and Infrastructure
-  - [ ] 1.1 Initialize Next.js project with TypeScript, Tailwind CSS, and SSR configuration
-  - [ ] 1.2 Set up project structure and folder organization following clean architecture principles
-  - [ ] 1.3 Configure development environment and tooling (ESLint, Prettier, etc.)
-  - [ ] 1.4 Create Docker Compose configuration for local development
+  - [x] 1.1 Initialize Next.js project with TypeScript, Tailwind CSS, and SSR configuration
+  - [x] 1.2 Set up project structure and folder organization following clean architecture principles
+  - [x] 1.3 Configure development environment and tooling (ESLint, Prettier, etc.)
+  - [x] 1.4 Create Docker Compose configuration for local development
   - [ ] 1.5 Set up PostgreSQL container with Docker
   - [ ] 1.6 Set up Redis container for caching and sessions
   - [ ] 1.7 Configure Prisma ORM with local PostgreSQL database
