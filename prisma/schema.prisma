@@ -39,6 +39,7 @@ model CardType {
   id          String @id @default(cuid())
   name        String @unique
   description String?
+  category    String? // e.g., "Unit", "Pilot", "Command", "Event", "Support"
 
   // Relations
   cards Card[]
@@ -78,8 +79,8 @@ model Set {
 model Card {
   id           String   @id @default(cuid())
   name         String
-  level        Int
-  cost         Int
+  level        Int?
+  cost         Int?
   typeId       String
   rarityId     String
   setId        String
@@ -87,9 +88,31 @@ model Card {
   imageUrl     String
   imageUrlSmall String?
   imageUrlLarge String?
-  description  String
-  rulings      String?
+  description  String?
   officialText String?
+  
+  // Game-specific attributes
+  power        Int?     // Attack/Combat power
+  defense      Int?     // Defense value
+  speed        Int?     // Speed/Mobility
+  range        String?  // Attack range (Close, Medium, Long)
+  attribute    String?  // Element/Attribute (Fire, Water, Earth, etc.)
+  faction      String?  // Faction/Group (Earth Federation, Zeon, etc.)
+  pilot        String?  // Pilot name for mobile suits
+  model        String?  // Mobile suit model number
+  series       String?  // Anime series (UC, CE, AD, etc.)
+  
+  // Card mechanics
+  abilities    String?  // Special abilities (JSON string)
+  keywords     String[] // Searchable keywords
+  tags         String[] // Categorization tags
+  
+  // Metadata
+  isFoil       Boolean  @default(false)
+  isPromo      Boolean  @default(false)
+  isAlternate  Boolean  @default(false)
+  language     String   @default("en")
+  
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -99,8 +122,13 @@ model Card {
   set          Set      @relation(fields: [setId], references: [id])
   deckCards    DeckCard[]
   collectionCards CollectionCard[]
+  rulings      CardRuling[]
 
   @@unique([setId, setNumber])
+  @@index([name])
+  @@index([faction])
+  @@index([series])
+  @@index([keywords])
   @@map("cards")
 }
 
@@ -165,4 +193,24 @@ model CollectionCard {
 
   @@unique([collectionId, cardId])
   @@map("collection_cards")
+}
+
+// Note: Faction and Series models will be added in future iterations
+// For now, faction and series are stored as string fields in the Card model
+
+// Card ruling model for official rulings and clarifications
+model CardRuling {
+  id          String   @id @default(cuid())
+  cardId      String
+  question    String
+  answer      String
+  source      String?  // Official source (e.g., "Bandai FAQ")
+  isOfficial  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@map("card_rulings")
 }

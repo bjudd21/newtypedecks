@@ -1,107 +1,39 @@
-// Core types for the Gundam Card Game website
+// Global type definitions for the Gundam Card Game application
+// This file serves as the central location for all TypeScript type definitions
 
-export interface Card {
-  id: string;
-  name: string;
-  level: number;
-  cost: number;
-  type: CardType;
-  rarity: Rarity;
-  set: string;
-  setNumber: string;
-  imageUrl: string;
-  imageUrlSmall?: string;
-  imageUrlLarge?: string;
-  description: string;
-  rulings?: string;
-  officialText?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+// Export all card-related types
+export * from './card';
 
-export interface CardType {
-  id: string;
-  name: string;
-  description?: string;
-}
+// Re-export Prisma types for convenience
+export type { 
+  User, 
+  UserRole, 
+  Card, 
+  CardType, 
+  Rarity, 
+  Set, 
+  Deck, 
+  DeckCard, 
+  Collection, 
+  CollectionCard,
+  CardRuling 
+} from '@prisma/client';
 
-export interface Rarity {
-  id: string;
-  name: string;
-  color: string;
-  description?: string;
-}
+// Common utility types
+export type ID = string;
+export type Timestamp = Date;
+export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
-export interface Set {
-  id: string;
-  name: string;
-  code: string;
-  releaseDate: Date;
-  description?: string;
-  imageUrl?: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  name?: string;
-  image?: string;
-  role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface UserRole {
-  id: string;
-  name: 'USER' | 'ADMIN' | 'MODERATOR';
-  permissions: string[];
-}
-
-export interface Deck {
-  id: string;
-  name: string;
-  description?: string;
-  isPublic: boolean;
-  userId: string;
-  cards: DeckCard[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface DeckCard {
-  id: string;
-  deckId: string;
-  cardId: string;
-  quantity: number;
-  category?: string;
-  card: Card;
-}
-
-export interface Collection {
-  id: string;
-  userId: string;
-  cards: CollectionCard[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CollectionCard {
-  id: string;
-  collectionId: string;
-  cardId: string;
-  quantity: number;
-  card: Card;
-}
-
-// API Response types
-export interface ApiResponse<T> {
-  data: T;
-  message?: string;
+// API response types
+export interface ApiResponse<T = any> {
   success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 }
 
-export interface PaginatedResponse<T> {
-  data: T[];
+export interface PaginatedResponse<T = any> extends ApiResponse<T[]> {
   pagination: {
     page: number;
     limit: number;
@@ -110,20 +42,81 @@ export interface PaginatedResponse<T> {
   };
 }
 
+// Form and validation types
+export interface FormField {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea' | 'checkbox' | 'radio';
+  required?: boolean;
+  placeholder?: string;
+  options?: Array<{ value: string; label: string }>;
+  validation?: {
+    min?: number;
+    max?: number;
+    pattern?: RegExp;
+    message?: string;
+  };
+}
+
+export interface ValidationError {
+  field: string;
+  message: string;
+  code?: string;
+}
+
+// UI component types
+export interface ComponentProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export interface LoadingState {
+  isLoading: boolean;
+  error?: string | null;
+}
+
 // Search and filter types
-export interface CardSearchFilters {
-  name?: string;
-  level?: number;
-  cost?: number;
-  type?: string;
-  rarity?: string;
-  set?: string;
+export interface SearchParams {
+  query?: string;
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'level' | 'cost' | 'createdAt';
+  sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }
 
+export interface FilterOption {
+  value: string;
+  label: string;
+  count?: number;
+}
+
+// File upload types
+export interface FileUploadResult {
+  success: boolean;
+  url?: string;
+  error?: string;
+  file?: {
+    name: string;
+    size: number;
+    type: string;
+  };
+}
+
+// Environment and configuration types
+export interface AppConfig {
+  apiUrl: string;
+  uploadUrl: string;
+  maxFileSize: number;
+  supportedFormats: string[];
+  features: {
+    deckBuilding: boolean;
+    collection: boolean;
+    trading: boolean;
+    tournaments: boolean;
+  };
+}
+
+// Legacy types for backward compatibility
 export interface SearchResult<T> {
   items: T[];
   total: number;
