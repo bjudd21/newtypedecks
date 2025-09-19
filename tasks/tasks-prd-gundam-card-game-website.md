@@ -95,7 +95,7 @@ _Goal: A fully functional, standalone card database website_
   - [x] 1.10 Create basic UI component library with Tailwind CSS (reusable, DRY components)
   - [x] 1.11 Set up basic routing and navigation structure
   - [x] 1.12 Create basic API routes structure for future backend integration
-  - [ ] 1.13 Set up local file storage for card images during development
+  - [x] 1.13 Set up local file storage for card images during development
   - [ ] 1.14 Configure environment variables for local development (.env.example template)
   - [ ] 1.15 Create development scripts and documentation
   - [ ] 1.16 Establish code quality standards and file size monitoring

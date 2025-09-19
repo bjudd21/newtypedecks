@@ -13,7 +13,11 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "docker:dev": "docker-compose up -d",
-    "docker:down": "docker-compose down"
+    "docker:down": "docker-compose down",
+    "setup:env": "node scripts/setup-env.js",
+    "env:create": "node scripts/setup-env.js --create",
+    "env:validate": "node scripts/setup-env.js --validate",
+    "env:secrets": "node scripts/setup-env.js --secrets"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
