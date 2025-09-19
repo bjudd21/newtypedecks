@@ -36,7 +36,10 @@
     "setup:full": "npm run setup && npm run db:migrate && npm run db:seed",
     "dev:full": "npm run docker:dev && npm run dev",
     "check": "npm run type-check && npm run lint && npm run test:ci",
-    "precommit": "npm run format && npm run check"
+    "check:sizes": "node scripts/check-file-sizes.js --check",
+    "precommit": "npm run format && npm run check",
+    "quality": "npm run check && npm run check:sizes",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
@@ -67,6 +70,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
+    "husky": "^8.0.3",
+    "glob": "^10.3.10",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

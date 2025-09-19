@@ -1,0 +1,599 @@
+{
+  "timestamp": "2025-09-19T13:12:17.487Z",
+  "summary": {
+    "passed": 68,
+    "warnings": 2,
+    "errors": 0,
+    "total": 70
+  },
+  "files": [
+    {
+      "file": "src/lib/config/environment.ts",
+      "lines": 242,
+      "limit": 300,
+      "percentage": 80.66666666666666,
+      "size": 6707,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/ui/Search.tsx",
+      "lines": 243,
+      "limit": 300,
+      "percentage": 81,
+      "size": 7381,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/api/auth/login/route.ts",
+      "lines": 37,
+      "limit": 300,
+      "percentage": 12.333333333333334,
+      "size": 958,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/logout/route.ts",
+      "lines": 28,
+      "limit": 300,
+      "percentage": 9.333333333333334,
+      "size": 693,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/me/route.ts",
+      "lines": 63,
+      "limit": 300,
+      "percentage": 21,
+      "size": 1673,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/register/route.ts",
+      "lines": 39,
+      "limit": 300,
+      "percentage": 13,
+      "size": 1065,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/[id]/route.ts",
+      "lines": 100,
+      "limit": 300,
+      "percentage": 33.33333333333333,
+      "size": 2577,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/route.ts",
+      "lines": 73,
+      "limit": 300,
+      "percentage": 24.333333333333336,
+      "size": 1915,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/[cardId]/route.ts",
+      "lines": 98,
+      "limit": 300,
+      "percentage": 32.666666666666664,
+      "size": 2705,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/route.ts",
+      "lines": 66,
+      "limit": 300,
+      "percentage": 22,
+      "size": 1774,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/[id]/route.ts",
+      "lines": 99,
+      "limit": 300,
+      "percentage": 33,
+      "size": 2467,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/route.ts",
+      "lines": 71,
+      "limit": 300,
+      "percentage": 23.666666666666668,
+      "size": 1857,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/health/route.test.ts",
+      "lines": 49,
+      "limit": 300,
+      "percentage": 16.333333333333332,
+      "size": 1158,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/health/route.ts",
+      "lines": 29,
+      "limit": 300,
+      "percentage": 9.666666666666666,
+      "size": 698,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/upload/card-image/route.ts",
+      "lines": 40,
+      "limit": 300,
+      "percentage": 13.333333333333334,
+      "size": 1080,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/index.ts",
+      "lines": 3,
+      "limit": 300,
+      "percentage": 1,
+      "size": 72,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/index.ts",
+      "lines": 5,
+      "limit": 300,
+      "percentage": 1.6666666666666667,
+      "size": 154,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/index.ts",
+      "lines": 45,
+      "limit": 300,
+      "percentage": 15,
+      "size": 1174,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/index.ts",
+      "lines": 4,
+      "limit": 300,
+      "percentage": 1.3333333333333335,
+      "size": 83,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/response.ts",
+      "lines": 71,
+      "limit": 300,
+      "percentage": 23.666666666666668,
+      "size": 1209,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/validation.ts",
+      "lines": 125,
+      "limit": 300,
+      "percentage": 41.66666666666667,
+      "size": 2884,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/environment.test.ts",
+      "lines": 68,
+      "limit": 300,
+      "percentage": 22.666666666666664,
+      "size": 2404,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/index.ts",
+      "lines": 3,
+      "limit": 300,
+      "percentage": 1,
+      "size": 56,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/database/index.ts",
+      "lines": 42,
+      "limit": 300,
+      "percentage": 14.000000000000002,
+      "size": 1135,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/fileUpload.ts",
+      "lines": 183,
+      "limit": 300,
+      "percentage": 61,
+      "size": 4825,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/imageProcessing.ts",
+      "lines": 165,
+      "limit": 300,
+      "percentage": 55.00000000000001,
+      "size": 4269,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/index.ts",
+      "lines": 5,
+      "limit": 300,
+      "percentage": 1.6666666666666667,
+      "size": 143,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/validation.test.ts",
+      "lines": 154,
+      "limit": 300,
+      "percentage": 51.33333333333333,
+      "size": 5117,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/validation.ts",
+      "lines": 134,
+      "limit": 300,
+      "percentage": 44.666666666666664,
+      "size": 3246,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/types/index.ts",
+      "lines": 143,
+      "limit": 300,
+      "percentage": 47.66666666666667,
+      "size": 2420,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/utils/index.ts",
+      "lines": 150,
+      "limit": 300,
+      "percentage": 50,
+      "size": 3969,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/index.ts",
+      "lines": 42,
+      "limit": 300,
+      "percentage": 14.000000000000002,
+      "size": 1477,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/authSlice.ts",
+      "lines": 67,
+      "limit": 300,
+      "percentage": 22.333333333333332,
+      "size": 1646,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/cardSlice.ts",
+      "lines": 105,
+      "limit": 300,
+      "percentage": 35,
+      "size": 2190,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/collectionSlice.ts",
+      "lines": 126,
+      "limit": 300,
+      "percentage": 42,
+      "size": 3582,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/deckSlice.ts",
+      "lines": 101,
+      "limit": 300,
+      "percentage": 33.666666666666664,
+      "size": 2825,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/uiSlice.test.ts",
+      "lines": 167,
+      "limit": 300,
+      "percentage": 55.666666666666664,
+      "size": 4284,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/uiSlice.ts",
+      "lines": 193,
+      "limit": 300,
+      "percentage": 64.33333333333333,
+      "size": 4717,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/about/page.tsx",
+      "lines": 134,
+      "limit": 300,
+      "percentage": 44.666666666666664,
+      "size": 5751,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/page.tsx",
+      "lines": 99,
+      "limit": 300,
+      "percentage": 33,
+      "size": 3402,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/page.tsx",
+      "lines": 62,
+      "limit": 300,
+      "percentage": 20.666666666666668,
+      "size": 2139,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/collection/page.tsx",
+      "lines": 99,
+      "limit": 300,
+      "percentage": 33,
+      "size": 3740,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/decks/[id]/page.tsx",
+      "lines": 111,
+      "limit": 300,
+      "percentage": 37,
+      "size": 4257,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/decks/page.tsx",
+      "lines": 98,
+      "limit": 300,
+      "percentage": 32.666666666666664,
+      "size": 3581,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "lines": 78,
+      "limit": 300,
+      "percentage": 26,
+      "size": 2560,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "lines": 89,
+      "limit": 300,
+      "percentage": 29.666666666666668,
+      "size": 2634,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/PageLayout.tsx",
+      "lines": 19,
+      "limit": 300,
+      "percentage": 6.333333333333334,
+      "size": 420,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/Breadcrumb.tsx",
+      "lines": 83,
+      "limit": 300,
+      "percentage": 27.666666666666668,
+      "size": 2066,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/MobileMenu.tsx",
+      "lines": 74,
+      "limit": 300,
+      "percentage": 24.666666666666668,
+      "size": 2137,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/Navbar.tsx",
+      "lines": 36,
+      "limit": 300,
+      "percentage": 12,
+      "size": 850,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Badge.test.tsx",
+      "lines": 101,
+      "limit": 300,
+      "percentage": 33.666666666666664,
+      "size": 3094,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Badge.tsx",
+      "lines": 94,
+      "limit": 300,
+      "percentage": 31.333333333333336,
+      "size": 2118,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Button.test.tsx",
+      "lines": 76,
+      "limit": 300,
+      "percentage": 25.333333333333336,
+      "size": 2392,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Button.tsx",
+      "lines": 80,
+      "limit": 300,
+      "percentage": 26.666666666666668,
+      "size": 2207,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Card.tsx",
+      "lines": 98,
+      "limit": 300,
+      "percentage": 32.666666666666664,
+      "size": 2085,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/FileUpload.tsx",
+      "lines": 189,
+      "limit": 300,
+      "percentage": 63,
+      "size": 5361,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Input.tsx",
+      "lines": 51,
+      "limit": 300,
+      "percentage": 17,
+      "size": 1423,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Modal.tsx",
+      "lines": 116,
+      "limit": 300,
+      "percentage": 38.666666666666664,
+      "size": 2879,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Pagination.tsx",
+      "lines": 184,
+      "limit": 300,
+      "percentage": 61.33333333333333,
+      "size": 5512,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Select.tsx",
+      "lines": 200,
+      "limit": 300,
+      "percentage": 66.66666666666666,
+      "size": 6300,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Spinner.tsx",
+      "lines": 123,
+      "limit": 300,
+      "percentage": 41,
+      "size": 2678,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Toast.tsx",
+      "lines": 182,
+      "limit": 300,
+      "percentage": 60.66666666666667,
+      "size": 5575,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/test-utils.tsx",
+      "lines": 150,
+      "limit": 300,
+      "percentage": 50,
+      "size": 3817,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/Provider.tsx",
+      "lines": 14,
+      "limit": 300,
+      "percentage": 4.666666666666667,
+      "size": 316,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/health/route.test.ts",
+      "lines": 49,
+      "limit": 500,
+      "percentage": 9.8,
+      "size": 1158,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/environment.test.ts",
+      "lines": 68,
+      "limit": 500,
+      "percentage": 13.600000000000001,
+      "size": 2404,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/validation.test.ts",
+      "lines": 154,
+      "limit": 500,
+      "percentage": 30.8,
+      "size": 5117,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/uiSlice.test.ts",
+      "lines": 167,
+      "limit": 500,
+      "percentage": 33.4,
+      "size": 4284,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Badge.test.tsx",
+      "lines": 101,
+      "limit": 500,
+      "percentage": 20.200000000000003,
+      "size": 3094,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Button.test.tsx",
+      "lines": 76,
+      "limit": 500,
+      "percentage": 15.2,
+      "size": 2392,
+      "status": "passed"
+    }
+  ],
+  "config": {
+    "limits": {
+      "src/**/*.ts": 300,
+      "src/**/*.tsx": 300,
+      "src/**/*.js": 300,
+      "src/**/*.jsx": 300,
+      "src/**/*.test.ts": 500,
+      "src/**/*.test.tsx": 500,
+      "src/**/*.spec.ts": 500,
+      "src/**/*.spec.tsx": 500
+    },
+    "ignore": [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "dist/**",
+      "coverage/**",
+      "*.config.js",
+      "*.config.mjs",
+      "*.config.ts",
+      "scripts/**",
+      "docs/**",
+      "prisma/migrations/**"
+    ],
+    "warningThreshold": 0.8,
+    "errorThreshold": 1
+  }
+}
