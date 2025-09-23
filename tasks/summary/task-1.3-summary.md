@@ -112,3 +112,4 @@ The development environment is now ready for:
 - **Task 1.4** - Create Docker Compose configuration
 - **Task 1.5** - Set up PostgreSQL container
 - **Task 1.6** - Set up Redis container
+

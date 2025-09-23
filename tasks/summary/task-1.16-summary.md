@@ -258,3 +258,4 @@ npm run format:check       # Prettier check
 ## Related PRD Context
 
 This task establishes the quality foundation for the Gundam Card Game website, ensuring that all code meets high standards for maintainability, performance, and reliability. The quality system will scale with the project and maintain code quality as the application grows.
+

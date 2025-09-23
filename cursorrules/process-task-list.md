@@ -35,6 +35,14 @@ Guidelines for managing task lists in markdown files to track progress on comple
    - List every file created or modified.
    - Give each file a one‑line description of its purpose.
 
+3. **Produce Task list summary files"**
+The AI assistant must also document each task completion summary in a corresponding task step summary document for later reference. 
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/summary`
+- **Filename:** `task-[task-num]summary.md` (e.g., `task-1.1-summary.md`)
+
+
 ## AI Instructions
 
 When working with task lists, the AI must:

@@ -212,3 +212,4 @@ This component library provides the foundation for:
 ## Related PRD Context
 
 This task establishes the visual foundation for the Gundam Card Game website, providing a consistent, accessible, and maintainable component system that will be used throughout the application for card display, search, and user interactions.
+

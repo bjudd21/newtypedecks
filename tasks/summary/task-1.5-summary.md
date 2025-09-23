@@ -117,3 +117,4 @@ The PostgreSQL container is now ready for:
 - **Task 1.6** - Set up Redis container for caching and sessions
 - **Task 1.7** - Configure Prisma ORM with local PostgreSQL database
 - **Task 2.1** - Design and implement database schema for cards
+

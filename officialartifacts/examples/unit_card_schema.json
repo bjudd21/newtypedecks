@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Unit Card",
+  "description": "Schema for Gundam Card Game Unit cards",
+  "type": "object",
+  "properties": {
+    "cardNumber": {
+      "type": "string",
+      "description": "The serial number of the card"
+    },
+    "cardName": {
+      "type": "string",
+      "description": "The name of the card"
+    },
+    "alternateNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional card names if the card has multiple names"
+    },
+    "cardType": {
+      "type": "string",
+      "enum": ["Unit"],
+      "description": "Card type - always 'Unit' for Unit cards"
+    },
+    "color": {
+      "type": "string",
+      "enum": ["blue", "green", "red", "white"],
+      "description": "The color of the card"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Card traits such as group, class, or type"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone designation of the Unit"
+    },
+    "ap": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Attack Points - offensive strength in battle"
+    },
+    "hp": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Hit Points - defensive strength"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of resources required to play this card"
+    },
+    "cost": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cost paid when playing the card by resting Resources"
+    },
+    "linkConditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["pilotName", "trait"],
+            "description": "Type of link condition"
+          },
+          "value": {
+            "type": "string",
+            "description": "The specific pilot name or trait required"
+          }
+        },
+        "required": ["type", "value"]
+      },
+      "description": "Conditions necessary to create a Link Unit"
+    },
+    "cardText": {
+      "type": "string",
+      "description": "The card's effect text"
+    },
+    "keywordEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Numerical value for effects that have them"
+          }
+        },
+        "required": ["keyword"]
+      },
+      "description": "Keyword effects on the card"
+    },
+    "triggeredEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trigger": {
+            "type": "string",
+            "enum": ["Deploy", "Attack", "Destroyed", "When Paired", "When Linked"]
+          },
+          "condition": {
+            "type": "string",
+            "description": "Additional conditions for the trigger"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The effect text"
+          },
+          "oncePerTurn": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this effect can only be used once per turn"
+          }
+        },
+        "required": ["trigger", "effect"]
+      },
+      "description": "Triggered effects on the card"
+    },
+    "activatedEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timing": {
+            "type": "string",
+            "enum": ["Activate･Main", "Activate･Action"]
+          },
+          "cost": {
+            "type": "string",
+            "description": "Cost or condition to activate the effect"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The effect text"
+          },
+          "oncePerTurn": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this effect can only be used once per turn"
+          }
+        },
+        "required": ["timing", "effect"]
+      },
+      "description": "Activated effects on the card"
+    },
+    "constantEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string",
+            "description": "Condition for the constant effect to be active"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The constant effect text"
+          }
+        },
+        "required": ["effect"]
+      },
+      "description": "Constant effects on the card"
+    },
+    "rarity": {
+      "type": "string",
+      "description": "Indicator of the card's rarity"
+    },
+    "illustrator": {
+      "type": "string",
+      "description": "Name of the card's illustrator"
+    },
+    "copyright": {
+      "type": "string",
+      "description": "Copyright notice"
+    }
+  },
+  "required": [
+    "cardNumber",
+    "cardName",
+    "cardType",
+    "color",
+    "ap",
+    "hp",
+    "level",
+    "cost"
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Token",
+  "description": "Schema for Gundam Card Game tokens",
+  "type": "object",
+  "properties": {
+    "tokenName": {
+      "type": "string",
+      "description": "The name of the token"
+    },
+    "tokenType": {
+      "type": "string",
+      "enum": ["Unit", "Base", "Resource"],
+      "description": "What type of game piece this token represents"
+    },
+    "isEXToken": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is an EX Base or EX Resource token"
+    },
+    "color": {
+      "type": "null",
+      "description": "Tokens are treated as having no color"
+    },
+    "level": {
+      "type": "integer",
+      "enum": [0],
+      "description": "Token Lv is always treated as zero"
+    },
+    "cost": {
+      "type": "integer",
+      "enum": [0],
+      "description": "Token cost is always treated as zero"
+    },
+    "ap": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Attack Points for Unit and Base tokens"
+    },
+    "hp": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Hit Points for Unit and Base tokens"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Traits the token may have"
+    },
+    "cardText": {
+      "type": "string",
+      "description": "Any effect text on the token"
+    },
+    "keywordEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Numerical value for effects that have them"
+          }
+        },
+        "required": ["keyword"]
+      },
+      "description": "Keyword effects on the token"
+    },
+    "constantEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string",
+            "description": "Condition for the constant effect to be active"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The constant effect text"
+          }
+        },
+        "required": ["effect"]
+      },
+      "description": "Constant effects on the token"
+    },
+    "triggeredEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trigger": {
+            "type": "string",
+            "enum": ["Deploy", "Attack", "Destroyed"]
+          },
+          "condition": {
+            "type": "string",
+            "description": "Additional conditions for the trigger"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The effect text"
+          }
+        },
+        "required": ["trigger", "effect"]
+      },
+      "description": "Triggered effects on the token"
+    },
+    "activatedEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timing": {
+            "type": "string",
+            "enum": ["Activate･Main", "Activate･Action"]
+          },
+          "cost": {
+            "type": "string",
+            "description": "Cost or condition to activate the effect"
+          },
+          "effect": {
+            "type": "string",
+            "description": "The effect text"
+          }
+        },
+        "required": ["timing", "effect"]
+      },
+      "description": "Activated effects on the token"
+    },
+    "specialRules": {
+      "type": "object",
+      "properties": {
+        "exBaseRules": {
+          "type": "object",
+          "properties": {
+            "startingAP": {
+              "type": "integer",
+              "enum": [0],
+              "description": "EX Base starts with 0 AP"
+            },
+            "startingHP": {
+              "type": "integer",
+              "enum": [3],
+              "description": "EX Base starts with 3 HP"
+            },
+            "placedAtStart": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "EX Base is placed in base section at game start"
+            }
+          },
+          "description": "Special rules for EX Base tokens"
+        },
+        "exResourceRules": {
+          "type": "object",
+          "properties": {
+            "temporaryUse": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "EX Resource is removed when used to pay costs"
+            },
+            "playerTwoOnly": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "Only Player Two gets EX Resource at start"
+            },
+            "placedAtStart": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "EX Resource is placed at game start"
+            }
+          },
+          "description": "Special rules for EX Resource tokens"
+        },
+        "removalRules": {
+          "type": "object",
+          "properties": {
+            "removedWhenLeavingField": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "Token is removed from game when it leaves battle/resource/shield area"
+            },
+            "triggersActivateBeforeRemoval": {
+              "type": "boolean",
+              "enum": [true],
+              "description": "Triggers like 'when destroyed' activate before token is removed"
+            }
+          },
+          "description": "Rules about token removal from the game"
+        }
+      },
+      "description": "Special rules that apply to tokens"
+    }
+  },
+  "required": [
+    "tokenName",
+    "tokenType"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "tokenType": {
+            "enum": ["Unit", "Base"]
+          }
+        }
+      },
+      "then": {
+        "required": ["ap", "hp"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "isEXToken": {
+            "enum": [true]
+          },
+          "tokenType": {
+            "enum": ["Base"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "specialRules": {
+            "required": ["exBaseRules"]
+          }
+        },
+        "required": ["specialRules"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "isEXToken": {
+            "enum": [true]
+          },
+          "tokenType": {
+            "enum": ["Resource"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "specialRules": {
+            "required": ["exResourceRules"]
+          }
+        },
+        "required": ["specialRules"]
+      }
+    }
+  ]

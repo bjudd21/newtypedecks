@@ -1,0 +1,312 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gundam Card Game - Unified Card Schema",
+  "description": "A unified schema that can represent any card type in the Gundam Card Game",
+  "type": "object",
+  "properties": {
+    "cardNumber": {
+      "type": "string",
+      "description": "The serial number of the card"
+    },
+    "cardName": {
+      "type": "string",
+      "description": "The name of the card"
+    },
+    "alternateNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional card names if the card has multiple names"
+    },
+    "cardType": {
+      "type": "string",
+      "enum": ["Unit", "Pilot", "Command", "Base", "Resource"],
+      "description": "The type of card"
+    },
+    "color": {
+      "type": ["string", "null"],
+      "enum": ["blue", "green", "red", "white", null],
+      "description": "The color of the card (null for Resource cards and tokens)"
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Card traits such as group, class, or type"
+    },
+    "zone": {
+      "type": "string",
+      "description": "The zone designation (mainly for Unit and Base cards)"
+    },
+    "ap": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Attack Points - offensive strength (Unit and Base cards)"
+    },
+    "hp": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Hit Points - defensive strength (Unit and Base cards)"
+    },
+    "apModifier": {
+      "type": "integer",
+      "description": "AP modifier for Pilot cards and Command cards with Pilot effects"
+    },
+    "hpModifier": {
+      "type": "integer", 
+      "description": "HP modifier for Pilot cards and Command cards with Pilot effects"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of resources required to play this card (not applicable to Resource cards)"
+    },
+    "cost": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cost paid when playing the card (not applicable to Resource cards)"
+    },
+    "linkConditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["pilotName", "trait"]
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "value"]
+      },
+      "description": "Link conditions for Unit cards"
+    },
+    "cardText": {
+      "type": "string",
+      "description": "The main effect text of the card"
+    },
+    "effects": {
+      "type": "object",
+      "properties": {
+        "keywordEffects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "keyword": {
+                "type": "string",
+                "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+              },
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": ["keyword"]
+          }
+        },
+        "triggeredEffects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "trigger": {
+                "type": "string",
+                "enum": ["Deploy", "Attack", "Destroyed", "When Paired", "When Linked", "During Pair", "During Link", "Burst"]
+              },
+              "condition": {
+                "type": "string"
+              },
+              "effect": {
+                "type": "string"
+              },
+              "oncePerTurn": {
+                "type": "boolean",
+                "default": false
+              }
+            },
+            "required": ["trigger", "effect"]
+          }
+        },
+        "activatedEffects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timing": {
+                "type": "string",
+                "enum": ["Activate･Main", "Activate･Action"]
+              },
+              "cost": {
+                "type": "string"
+              },
+              "effect": {
+                "type": "string"
+              },
+              "oncePerTurn": {
+                "type": "boolean",
+                "default": false
+              }
+            },
+            "required": ["timing", "effect"]
+          }
+        },
+        "constantEffects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "effect": {
+                "type": "string"
+              }
+            },
+            "required": ["effect"]
+          }
+        },
+        "commandEffects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timing": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["Main", "Action"]
+                },
+                "minItems": 1
+              },
+              "effect": {
+                "type": "string"
+              },
+              "targetRequired": {
+                "type": "boolean",
+                "default": false
+              }
+            },
+            "required": ["timing", "effect"]
+          },
+          "description": "Command effects for Command cards"
+        }
+      },
+      "description": "All effects on the main card"
+    },
+    "pilotEffects": {
+      "type": "object",
+      "properties": {
+        "pilotName": {
+          "type": "string",
+          "description": "Name when used as a Pilot (for Command cards with Pilot effects)"
+        },
+        "pilotCardEffects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/properties/effects/properties/triggeredEffects/items"
+          },
+          "description": "Effects that belong to the Pilot card itself"
+        },
+        "unitEffects": {
+          "$ref": "#/properties/effects",
+          "description": "Effects gained by the paired Unit"
+        }
+      },
+      "description": "Pilot-related effects for Pilot cards and Command cards with Pilot effects"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "rarity": {
+          "type": "string"
+        },
+        "illustrator": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "set": {
+          "type": "string",
+          "description": "Which set or expansion this card is from"
+        },
+        "setNumber": {
+          "type": "string",
+          "description": "Card number within the set"
+        }
+      }
+    }
+  },
+  "required": [
+    "cardNumber",
+    "cardName",
+    "cardType"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "cardType": {
+            "enum": ["Unit", "Base"]
+          }
+        }
+      },
+      "then": {
+        "required": ["color", "ap", "hp", "level", "cost"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "cardType": {
+            "enum": ["Pilot", "Command"]
+          }
+        }
+      },
+      "then": {
+        "required": ["color", "level", "cost"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "cardType": {
+            "enum": ["Unit"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "linkConditions": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "cardType": {
+            "enum": ["Resource"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "color": {
+            "enum": [null]
+          },
+          "level": false,
+          "cost": false,
+          "ap": false,
+          "hp": false
+        }
+      }
+    }
+  ]
+}
