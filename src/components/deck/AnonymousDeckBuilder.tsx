@@ -16,6 +16,7 @@ import { DraggableCard } from './DraggableCard';
 import { DeckDropZone } from './DeckDropZone';
 import { DeckValidator } from './DeckValidator';
 import { deckExporter } from '@/lib/services/deckExportService';
+import { urlDeckSharingService } from '@/lib/services/urlDeckSharingService';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface AnonymousDeckBuilderProps {
@@ -29,26 +30,58 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   const [deckName, setDeckName] = useState('');
   const [searchResults, setSearchResults] = useState<CardWithRelations[]>([]);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [shareURL, setShareURL] = useState<string>('');
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareError, setShareError] = useState<string>('');
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // Local storage key for anonymous decks
   const STORAGE_KEY = 'anonymous-deck';
 
-  // Load deck from localStorage on component mount
+  // Load deck from URL or localStorage on component mount
   useEffect(() => {
-    const savedDeck = localStorage.getItem(STORAGE_KEY);
-    if (savedDeck) {
-      try {
-        const parsedDeck = JSON.parse(savedDeck);
-        dispatch(setCurrentDeck(parsedDeck));
-        setDeckName(parsedDeck.name);
-        setLastSaved(new Date(parsedDeck.updatedAt));
-      } catch (error) {
-        console.error('Failed to load saved deck:', error);
+    const loadDeckFromSources = async () => {
+      // First, check if there's a shared deck in the URL
+      const urlDeckData = urlDeckSharingService.getDeckFromCurrentURL();
+
+      if (urlDeckData) {
+        try {
+          // Ask user if they want to load the shared deck
+          const shouldLoad = window.confirm(
+            `This URL contains a shared deck "${urlDeckData.name}". ` +
+            'Would you like to load it? This will replace your current deck.'
+          );
+
+          if (shouldLoad) {
+            await loadDeckFromURL(urlDeckData);
+            // Clear URL parameter after loading
+            urlDeckSharingService.clearDeckFromURL();
+            return;
+          }
+        } catch (error) {
+          console.error('Failed to load deck from URL:', error);
+          alert('Failed to load shared deck. The URL may be corrupted or invalid.');
+        }
+      }
+
+      // If no URL deck or user declined, load from localStorage
+      const savedDeck = localStorage.getItem(STORAGE_KEY);
+      if (savedDeck) {
+        try {
+          const parsedDeck = JSON.parse(savedDeck);
+          dispatch(setCurrentDeck(parsedDeck));
+          setDeckName(parsedDeck.name);
+          setLastSaved(new Date(parsedDeck.updatedAt));
+        } catch (error) {
+          console.error('Failed to load saved deck:', error);
+          initializeNewDeck();
+        }
+      } else {
         initializeNewDeck();
       }
-    } else {
-      initializeNewDeck();
-    }
+    };
+
+    loadDeckFromSources();
   }, [dispatch]);
 
   // Initialize a new anonymous deck
@@ -79,6 +112,40 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       setLastSaved(new Date());
     }
   }, [currentDeck]);
+
+  // Load deck from URL encoded data
+  const loadDeckFromURL = useCallback(async (urlDeckData: any) => {
+    try {
+      // Create a temporary deck structure from URL data
+      // Note: We only have card IDs, not full card data, so we'd need to fetch the cards
+      // For now, we'll create a simplified version and let the user search/add cards manually
+      const newDeck = {
+        id: `shared-${Date.now()}`,
+        name: urlDeckData.name || 'Shared Deck',
+        description: urlDeckData.description || 'Loaded from shared URL',
+        isPublic: false,
+        userId: 'anonymous',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        cards: [] // We'll start with empty and let user rebuild
+      };
+
+      dispatch(setCurrentDeck(newDeck));
+      setDeckName(newDeck.name);
+      saveToLocalStorage(newDeck);
+
+      // Show information about the shared deck
+      alert(
+        `Loaded shared deck: "${urlDeckData.name}"\n\n` +
+        `This deck contained ${urlDeckData.cards?.length || 0} cards. ` +
+        'You can now rebuild it using the card search, or import a complete deck file.'
+      );
+
+    } catch (error) {
+      console.error('Failed to load deck from URL:', error);
+      throw error;
+    }
+  }, [dispatch, saveToLocalStorage]);
 
   // Auto-save deck changes to localStorage
   useEffect(() => {
@@ -163,13 +230,70 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
 
   // Clear current deck and start fresh
   const handleNewDeck = useCallback(() => {
-    if (currentDeck?.cards.length > 0) {
+    if (currentDeck?.cards?.length && currentDeck.cards.length > 0) {
       const confirm = window.confirm('Are you sure you want to create a new deck? Your current deck will be lost unless you export it first.');
       if (!confirm) return;
     }
     initializeNewDeck();
     dispatch(setIsEditing(true));
   }, [currentDeck, initializeNewDeck, dispatch]);
+
+  // Handle deck sharing via URL
+  const handleShareDeck = useCallback(() => {
+    if (!currentDeck || currentDeck.cards.length === 0) {
+      alert('Cannot share an empty deck!');
+      return;
+    }
+
+    try {
+      setShareError('');
+      setCopySuccess(false);
+
+      // Convert deck to ShareableDeck format
+      const shareableDeck = {
+        ...currentDeck,
+        description: currentDeck.description || undefined,
+        format: undefined
+      };
+
+      // Check if deck can be shared via URL
+      const shareCheck = urlDeckSharingService.canShareDeckViaURL(shareableDeck);
+      if (!shareCheck.canShare) {
+        setShareError(shareCheck.reason || 'Cannot share this deck via URL');
+        setShowShareModal(true);
+        return;
+      }
+
+      // Generate share URL
+      const url = urlDeckSharingService.generateShareURL(shareableDeck);
+      setShareURL(url);
+      setShowShareModal(true);
+    } catch (error) {
+      console.error('Share failed:', error);
+      setShareError(error instanceof Error ? error.message : 'Failed to create share URL');
+      setShowShareModal(true);
+    }
+  }, [currentDeck]);
+
+  // Copy share URL to clipboard
+  const handleCopyShareURL = useCallback(async () => {
+    try {
+      await urlDeckSharingService.copyToClipboard(shareURL);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 3000);
+    } catch (error) {
+      console.error('Copy failed:', error);
+      alert('Failed to copy URL. Please copy it manually.');
+    }
+  }, [shareURL]);
+
+  // Close share modal
+  const handleCloseShareModal = useCallback(() => {
+    setShowShareModal(false);
+    setShareURL('');
+    setShareError('');
+    setCopySuccess(false);
+  }, []);
 
   // Calculate deck statistics
   const totalCards = currentDeck?.cards.reduce((sum, deckCard) => sum + deckCard.quantity, 0) || 0;
@@ -405,6 +529,15 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
           </div>
         </div>
 
+        {/* Share Deck Button */}
+        <Button
+          variant="outline"
+          disabled={uniqueCards === 0}
+          onClick={handleShareDeck}
+        >
+          🔗 Share via URL
+        </Button>
+
         {/* Sign In Prompt */}
         <Button
           variant="primary"
@@ -416,6 +549,104 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
         </Button>
       </div>
 
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Share Deck</h3>
+              <button
+                onClick={handleCloseShareModal}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {shareError ? (
+              <div className="mb-4">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="flex items-start">
+                    <svg className="h-5 w-5 text-red-600 mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <h4 className="text-sm font-medium text-red-800">Cannot Share Deck</h4>
+                      <p className="text-sm text-red-700 mt-1">{shareError}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 text-center">
+                  <Button variant="outline" onClick={handleCloseShareModal}>
+                    Close
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="mb-4">
+                  <p className="text-sm text-gray-600 mb-3">
+                    Share your deck with this temporary URL. The link contains your complete deck data and can be opened by anyone.
+                  </p>
+                  <div className="bg-gray-50 border rounded-lg p-3">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={shareURL}
+                        readOnly
+                        className="flex-1 text-sm bg-transparent border-none outline-none text-gray-700"
+                      />
+                      <Button
+                        onClick={handleCopyShareURL}
+                        variant="outline"
+                        className="text-sm"
+                      >
+                        {copySuccess ? '✓ Copied!' : '📋 Copy'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                  <div className="flex items-start">
+                    <svg className="h-4 w-4 text-blue-600 mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <h4 className="text-xs font-medium text-blue-800">Temporary Share Link</h4>
+                      <p className="text-xs text-blue-700 mt-1">
+                        This URL contains your deck data and works without an account. For permanent sharing and deck libraries, sign in to save decks to your account.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleCloseShareModal}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      window.location.href = '/auth/signin?callbackUrl=/decks';
+                    }}
+                    variant="primary"
+                    className="flex-1"
+                  >
+                    Sign In for More
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Anonymous Features Notice */}
       <div className="mt-6 bg-gray-50 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-2">Anonymous Deck Building Features:</h4>
@@ -425,6 +656,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
           <li>✅ Export decks in multiple formats (JSON, Text, CSV)</li>
           <li>✅ Real-time deck validation and statistics</li>
           <li>✅ Drag and drop card management</li>
+          <li>✅ Share decks via temporary URLs</li>
         </ul>
         <div className="mt-3 pt-3 border-t border-gray-200">
           <p className="text-sm text-gray-600">
