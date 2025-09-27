@@ -1,10 +1,11 @@
 // Deck slice for Redux store
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Deck, DeckCard, Card } from '@prisma/client';
+import { Deck, DeckCard } from '@prisma/client';
+import { CardWithRelations } from '@/lib/types/card';
 
 // Types
 interface DeckWithCards extends Deck {
-  cards: (DeckCard & { card: Card })[];
+  cards: (DeckCard & { card: CardWithRelations })[];
 }
 
 interface DeckState {
@@ -44,7 +45,7 @@ const deckSlice = createSlice({
     // Local deck editing actions (for optimistic updates)
     addCardToCurrentDeck: (
       state,
-      action: PayloadAction<{ card: Card; quantity: number; category?: string }>
+      action: PayloadAction<{ card: CardWithRelations; quantity: number; category?: string }>
     ) => {
       if (state.currentDeck) {
         const existingCard = state.currentDeck.cards.find(

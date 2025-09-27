@@ -1,7 +1,6 @@
 // Individual deck detail page
 import { Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
-import { Skeleton } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Skeleton } from '@/components/ui';
 import { PageLayout } from '@/components/layout';
 
 interface DeckDetailPageProps {

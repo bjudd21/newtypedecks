@@ -1,0 +1,63 @@
+import { getServerSession } from 'next-auth/next';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/lib/auth';
+import { SignInForm } from '@/components/auth/SignInForm';
+
+interface SignInPageProps {
+  searchParams: {
+    callbackUrl?: string;
+    error?: string;
+  };
+}
+
+export default async function SignInPage({ searchParams }: SignInPageProps) {
+  const session = await getServerSession(authOptions);
+
+  // Redirect if user is already signed in
+  if (session) {
+    redirect(searchParams.callbackUrl || '/');
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        {searchParams.error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm text-center">
+            {getErrorMessage(searchParams.error)}
+          </div>
+        )}
+        <SignInForm
+          callbackUrl={searchParams.callbackUrl}
+          className="max-w-md mx-auto"
+        />
+      </div>
+    </div>
+  );
+}
+
+function getErrorMessage(error: string): string {
+  switch (error) {
+    case 'CredentialsSignin':
+      return 'Invalid email or password. Please try again.';
+    case 'OAuthSignin':
+    case 'OAuthCallback':
+    case 'OAuthCreateAccount':
+    case 'EmailCreateAccount':
+      return 'There was an issue with your OAuth provider. Please try again.';
+    case 'Callback':
+      return 'There was an issue with the authentication callback. Please try again.';
+    case 'OAuthAccountNotLinked':
+      return 'This email is already associated with another account. Please sign in with your original method.';
+    case 'EmailSignin':
+      return 'There was an issue sending the email. Please try again.';
+    case 'SessionRequired':
+      return 'Please sign in to access this page.';
+    default:
+      return 'An error occurred during sign in. Please try again.';
+  }
+}
+
+export const metadata = {
+  title: 'Sign In | Gundam Card Game',
+  description: 'Sign in to your Gundam Card Game account',
+};

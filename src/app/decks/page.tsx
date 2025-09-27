@@ -1,97 +1,103 @@
-// Decks page - Deck building and management interface
-import { Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
-import { Skeleton } from '@/components/ui';
-import { PageLayout } from '@/components/layout';
+'use client';
+
+/**
+ * Decks page - Comprehensive deck management interface
+ */
+
+import { useState, Suspense } from 'react';
+import { Card, CardContent, Button } from '@/components/ui';
+import { DeckBuilder, PublicDeckBrowser } from '@/components/deck';
+import { useAuth } from '@/hooks';
+import { ReduxProvider } from '@/store/Provider';
+
+type TabType = 'builder' | 'community' | 'my-decks';
 
 export default function DecksPage() {
+  const { isAuthenticated } = useAuth();
+  const [activeTab, setActiveTab] = useState<TabType>('builder');
+
+  const tabs = [
+    { id: 'builder', label: '🃏 Deck Builder', description: 'Build new decks' },
+    { id: 'community', label: '🌍 Community Decks', description: 'Browse public decks' },
+    ...(isAuthenticated ? [{ id: 'my-decks', label: '📚 My Decks', description: 'Manage saved decks' }] : [])
+  ] as const;
+
   return (
-    <PageLayout>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Deck Builder</h1>
-        <p className="text-gray-600">
-          Build, manage, and share your Gundam Card Game decks
+    <ReduxProvider>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Deck Management</h1>
+          <p className="text-gray-600">
+            Build, manage, and discover Gundam Card Game decks
+          </p>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="mb-6">
+          <nav className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as TabType)}
+                className={`
+                  flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors
+                  ${activeTab === tab.id
+                    ? 'bg-white text-blue-700 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }
+                `}
+              >
+                <div>
+                  <div>{tab.label}</div>
+                  <div className="text-xs text-gray-500">{tab.description}</div>
+                </div>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Tab Content */}
+        <Suspense fallback={
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        }>
+          {activeTab === 'builder' && (
+            <DeckBuilder />
+          )}
+
+          {activeTab === 'community' && (
+            <PublicDeckBrowser />
+          )}
+
+          {activeTab === 'my-decks' && isAuthenticated && (
+            <MyDecksManager />
+          )}
+        </Suspense>
+      </div>
+    </ReduxProvider>
+  );
+}
+
+// Simple My Decks component (placeholder for now)
+function MyDecksManager() {
+  return (
+    <Card>
+      <CardContent className="text-center py-12">
+        <p className="text-gray-600 mb-4">Personal deck management coming soon!</p>
+        <p className="text-sm text-gray-500">
+          For now, use the Deck Builder to create and save decks, and the Dashboard to view your saved decks.
         </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Deck List */}
-        <div className="lg:col-span-1">
-          <Card>
-            <CardHeader>
-              <CardTitle>My Decks</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Suspense fallback={<Skeleton lines={4} />}>
-                <div className="space-y-3">
-                  <p className="text-sm text-gray-500">
-                    Your saved decks will appear here.
-                  </p>
-                  <Skeleton lines={3} />
-                </div>
-              </Suspense>
-            </CardContent>
-          </Card>
+        <div className="mt-6 space-x-3">
+          <Button onClick={() => window.location.href = '/decks/builder'}>
+            Build New Deck
+          </Button>
+          <Button variant="outline" onClick={() => window.location.href = '/dashboard'}>
+            View Dashboard
+          </Button>
         </div>
-
-        {/* Deck Builder */}
-        <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Deck Builder</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Suspense fallback={<Skeleton lines={8} />}>
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Card Search */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Search Cards
-                      </label>
-                      <Skeleton className="h-10 w-full" />
-                    </div>
-                    
-                    {/* Deck Name */}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Deck Name
-                      </label>
-                      <Skeleton className="h-10 w-full" />
-                    </div>
-                  </div>
-
-                  {/* Deck Contents */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Deck Contents
-                    </label>
-                    <div className="border rounded-lg p-4 min-h-64">
-                      <Skeleton lines={6} />
-                    </div>
-                  </div>
-
-                  {/* Deck Statistics */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center">
-                      <Skeleton className="h-8 w-16 mx-auto mb-1" />
-                      <p className="text-sm text-gray-600">Total Cards</p>
-                    </div>
-                    <div className="text-center">
-                      <Skeleton className="h-8 w-16 mx-auto mb-1" />
-                      <p className="text-sm text-gray-600">Unique Cards</p>
-                    </div>
-                    <div className="text-center">
-                      <Skeleton className="h-8 w-16 mx-auto mb-1" />
-                      <p className="text-sm text-gray-600">Deck Cost</p>
-                    </div>
-                  </div>
-                </div>
-              </Suspense>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </PageLayout>
+      </CardContent>
+    </Card>
   );
 }

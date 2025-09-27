@@ -42,3 +42,42 @@ export type { SearchProps, SearchSuggestion } from './Search';
 
 export { FileUpload } from './FileUpload';
 export type { FileUploadProps } from './FileUpload';
+
+export {
+  OptimizedImage,
+  CardImage,
+  AvatarImage,
+  useImagePreloader,
+  useImagePrefetcher,
+} from './OptimizedImage';
+export type {
+  OptimizedImageProps,
+  CardImageProps,
+  AvatarImageProps,
+} from './OptimizedImage';
+
+export {
+  InfiniteScroll,
+  VirtualizedInfiniteScroll,
+  useInfiniteScroll,
+} from './InfiniteScroll';
+export type {
+  InfiniteScrollProps,
+  VirtualizedInfiniteScrollProps,
+  UseInfiniteScrollOptions,
+  UseInfiniteScrollReturn,
+} from './InfiniteScroll';
+
+export { AdvancedFilters } from './AdvancedFilters';
+export type {
+  AdvancedFiltersProps,
+  AdvancedFilterOptions,
+  FilterRange,
+} from './AdvancedFilters';
+
+export { AdvancedSort } from './AdvancedSort';
+export type {
+  AdvancedSortProps,
+  SortOption,
+  ActiveSort,
+} from './AdvancedSort';

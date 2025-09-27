@@ -15,6 +15,12 @@ import type {
   CardSearchResult,
 } from '../types/card';
 import { CardModel, CardValidator, CardUtils } from '../models/card';
+import { DatabaseOptimizationService } from './databaseOptimizationService';
+import { searchCache } from './searchCacheService';
+import { searchAnalytics } from './searchAnalyticsService';
+
+// Get the optimization service instance
+const dbOptimizer = DatabaseOptimizationService.getInstance();
 
 // Initialize Prisma client (will be imported from database/index.ts in real usage)
 let prisma: PrismaClient;
@@ -37,128 +43,98 @@ export class CardService {
    */
   static async searchCards(
     filters: CardSearchFilters = {},
-    options: CardSearchOptions = {}
+    options: CardSearchOptions = {},
+    context: {
+      sessionId?: string;
+      userId?: string;
+      source?: 'manual' | 'suggestion' | 'filter' | 'sort';
+      userAgent?: string;
+      referer?: string;
+    } = {}
   ): Promise<CardSearchResult> {
-    const db = await getDatabaseClient();
-    const {
-      page = 1,
-      limit = 20,
-      sortBy = 'name',
-      sortOrder = 'asc',
-      includeRelations = true
-    } = options;
+    const startTime = Date.now();
 
-    const skip = (page - 1) * limit;
+    // Try to get from cache first
+    const cachedResult = await searchCache.get(filters, options);
+    if (cachedResult) {
+      // Track cache hit
+      const responseTime = Date.now() - startTime;
+      await searchAnalytics.trackSearch(
+        filters,
+        options,
+        cachedResult.total,
+        responseTime,
+        { ...context, source: context.source || 'manual' }
+      );
 
-    // Build where clause from filters
-    const whereClause: any = {};
-
-    // Text search filters
-    if (filters.name) {
-      whereClause.name = {
-        contains: filters.name,
-        mode: 'insensitive'
-      };
+      return cachedResult;
     }
 
-    // Exact match filters
-    if (filters.typeId) whereClause.typeId = filters.typeId;
-    if (filters.rarityId) whereClause.rarityId = filters.rarityId;
-    if (filters.setId) whereClause.setId = filters.setId;
-    if (filters.faction) whereClause.faction = filters.faction;
-    if (filters.series) whereClause.series = filters.series;
-    if (filters.nation) whereClause.nation = filters.nation;
-    if (filters.pilot) whereClause.pilot = { contains: filters.pilot, mode: 'insensitive' };
-    if (filters.model) whereClause.model = { contains: filters.model, mode: 'insensitive' };
-    if (filters.language) whereClause.language = filters.language;
+    // If not in cache, query database with monitoring
+    const result = await dbOptimizer.monitorQuery(
+      'search-cards',
+      async () => {
+        const db = await getDatabaseClient();
+        const {
+          page = 1,
+          limit = 20,
+          sortBy = 'name',
+          sortOrder = 'asc',
+          includeRelations = true
+        } = options;
 
-    // Boolean filters
-    if (filters.isFoil !== undefined) whereClause.isFoil = filters.isFoil;
-    if (filters.isPromo !== undefined) whereClause.isPromo = filters.isPromo;
-    if (filters.isAlternate !== undefined) whereClause.isAlternate = filters.isAlternate;
+        const skip = (page - 1) * limit;
 
-    // Numeric range filters
-    const numericFilters: any = {};
-    if (filters.levelMin !== undefined || filters.levelMax !== undefined) {
-      numericFilters.level = {};
-      if (filters.levelMin !== undefined) numericFilters.level.gte = filters.levelMin;
-      if (filters.levelMax !== undefined) numericFilters.level.lte = filters.levelMax;
-    }
-    if (filters.costMin !== undefined || filters.costMax !== undefined) {
-      numericFilters.cost = {};
-      if (filters.costMin !== undefined) numericFilters.cost.gte = filters.costMin;
-      if (filters.costMax !== undefined) numericFilters.cost.lte = filters.costMax;
-    }
-    if (filters.clashPointsMin !== undefined || filters.clashPointsMax !== undefined) {
-      numericFilters.clashPoints = {};
-      if (filters.clashPointsMin !== undefined) numericFilters.clashPoints.gte = filters.clashPointsMin;
-      if (filters.clashPointsMax !== undefined) numericFilters.clashPoints.lte = filters.clashPointsMax;
-    }
-    if (filters.priceMin !== undefined || filters.priceMax !== undefined) {
-      numericFilters.price = {};
-      if (filters.priceMin !== undefined) numericFilters.price.gte = filters.priceMin;
-      if (filters.priceMax !== undefined) numericFilters.price.lte = filters.priceMax;
-    }
-    if (filters.hitPointsMin !== undefined || filters.hitPointsMax !== undefined) {
-      numericFilters.hitPoints = {};
-      if (filters.hitPointsMin !== undefined) numericFilters.hitPoints.gte = filters.hitPointsMin;
-      if (filters.hitPointsMax !== undefined) numericFilters.hitPoints.lte = filters.hitPointsMax;
-    }
-    if (filters.attackPointsMin !== undefined || filters.attackPointsMax !== undefined) {
-      numericFilters.attackPoints = {};
-      if (filters.attackPointsMin !== undefined) numericFilters.attackPoints.gte = filters.attackPointsMin;
-      if (filters.attackPointsMax !== undefined) numericFilters.attackPoints.lte = filters.attackPointsMax;
-    }
-    Object.assign(whereClause, numericFilters);
+        // Use optimized query builder
+        const { where: whereClause, orderBy } = dbOptimizer.buildOptimizedCardQuery(filters, options);
 
-    // Array filters (keywords and tags)
-    if (filters.keywords && filters.keywords.length > 0) {
-      whereClause.keywords = {
-        hasEvery: filters.keywords
-      };
-    }
-    if (filters.tags && filters.tags.length > 0) {
-      whereClause.tags = {
-        hasEvery: filters.tags
-      };
-    }
+        // Include relations if requested
+        const include = includeRelations ? {
+          type: true,
+          rarity: true,
+          set: true,
+          rulings: true
+        } : undefined;
 
-    // Include relations if requested
-    const include = includeRelations ? {
-      type: true,
-      rarity: true,
-      set: true,
-      rulings: true
-    } : undefined;
+        // Execute queries
+        const [cards, total] = await Promise.all([
+          db.card.findMany({
+            where: whereClause,
+            include,
+            skip,
+            take: limit,
+            orderBy
+          }) as Promise<CardWithRelations[]>,
+          db.card.count({ where: whereClause })
+        ]);
 
-    // Build order by clause
-    const orderBy: any = {};
-    if (sortBy === 'name') orderBy.name = sortOrder;
-    else if (sortBy === 'createdAt') orderBy.createdAt = sortOrder;
-    else if (sortBy === 'setNumber') orderBy.setNumber = sortOrder;
-    else orderBy[sortBy] = sortOrder;
+        const totalPages = Math.ceil(total / limit);
 
-    // Execute queries
-    const [cards, total] = await Promise.all([
-      db.card.findMany({
-        where: whereClause,
-        include,
-        skip,
-        take: limit,
-        orderBy
-      }) as Promise<CardWithRelations[]>,
-      db.card.count({ where: whereClause })
-    ]);
+        return {
+          cards,
+          total,
+          page,
+          limit,
+          totalPages
+        };
+      },
+      { filters, options }
+    );
 
-    const totalPages = Math.ceil(total / limit);
+    // Track the search analytics
+    const responseTime = Date.now() - startTime;
+    await searchAnalytics.trackSearch(
+      filters,
+      options,
+      result.total,
+      responseTime,
+      { ...context, source: context.source || 'manual' }
+    );
 
-    return {
-      cards,
-      total,
-      page,
-      limit,
-      totalPages
-    };
+    // Cache the result for future requests
+    await searchCache.set(filters, options, result);
+
+    return result;
   }
 
   /**
@@ -236,6 +212,16 @@ export class CardService {
       }
     }) as CardWithRelations;
 
+    // Invalidate related cache entries
+    await searchCache.invalidateByFilters({
+      typeId: card.typeId,
+      rarityId: card.rarityId,
+      setId: card.setId,
+      faction: card.faction || undefined,
+      series: card.series || undefined,
+      nation: card.nation || undefined
+    });
+
     return card;
   }
 
@@ -253,6 +239,19 @@ export class CardService {
 
     const { id, ...updateData } = data;
 
+    // Get the existing card to know which cache entries to invalidate
+    const existingCard = await db.card.findUnique({
+      where: { id },
+      select: {
+        typeId: true,
+        rarityId: true,
+        setId: true,
+        faction: true,
+        series: true,
+        nation: true
+      }
+    });
+
     // Update the card
     const card = await db.card.update({
       where: { id },
@@ -265,6 +264,27 @@ export class CardService {
       }
     }) as CardWithRelations;
 
+    // Invalidate cache entries for both old and new values
+    if (existingCard) {
+      await searchCache.invalidateByFilters({
+        typeId: existingCard.typeId,
+        rarityId: existingCard.rarityId,
+        setId: existingCard.setId,
+        faction: existingCard.faction || undefined,
+        series: existingCard.series || undefined,
+        nation: existingCard.nation || undefined
+      });
+    }
+
+    await searchCache.invalidateByFilters({
+      typeId: card.typeId,
+      rarityId: card.rarityId,
+      setId: card.setId,
+      faction: card.faction || undefined,
+      series: card.series || undefined,
+      nation: card.nation || undefined
+    });
+
     return card;
   }
 
@@ -275,9 +295,35 @@ export class CardService {
     const db = await getDatabaseClient();
 
     try {
+      // Get the card details before deleting to invalidate cache
+      const cardToDelete = await db.card.findUnique({
+        where: { id },
+        select: {
+          typeId: true,
+          rarityId: true,
+          setId: true,
+          faction: true,
+          series: true,
+          nation: true
+        }
+      });
+
       await db.card.delete({
         where: { id }
       });
+
+      // Invalidate cache entries
+      if (cardToDelete) {
+        await searchCache.invalidateByFilters({
+          typeId: cardToDelete.typeId,
+          rarityId: cardToDelete.rarityId,
+          setId: cardToDelete.setId,
+          faction: cardToDelete.faction || undefined,
+          series: cardToDelete.series || undefined,
+          nation: cardToDelete.nation || undefined
+        });
+      }
+
       return true;
     } catch {
       return false;

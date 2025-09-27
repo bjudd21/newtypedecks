@@ -6,10 +6,43 @@ const nextConfig: NextConfig = {
 
   // Image optimization configuration
   images: {
-    domains: ['localhost', 'gundam-gcg.com'],
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Local and production domains
+    domains: [
+      'localhost',
+      '127.0.0.1',
+      'gundam-gcg.com',
+      'cdn.gundam-gcg.com',
+    ],
+    // CDN domains for external providers
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.imagekit.io',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudflare.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.gundam-gcg.com',
+      },
+    ],
+    // Supported formats (in order of preference)
+    formats: ['image/avif', 'image/webp'],
+    // Device breakpoints for responsive images
+    deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    // Icon and small image sizes
+    imageSizes: [16, 24, 32, 48, 64, 96, 128, 256, 384],
+    // Optimization settings
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days cache
+    dangerouslyAllowSVG: false, // Security: disable SVG processing
+    contentDispositionType: 'attachment', // Security: force download for unknown types
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   // Output configuration for Docker deployment

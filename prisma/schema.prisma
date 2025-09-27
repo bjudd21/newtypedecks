@@ -12,19 +12,69 @@ datasource db {
 
 // User model for authentication and user management
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  image     String?
-  role      UserRole @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String?   // For credentials auth
+  name          String?
+  image         String?
+  role          UserRole  @default(USER)
+  emailVerified DateTime? // For NextAuth
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  // Relations
-  decks       Deck[]
-  collections Collection[]
+  // NextAuth relations
+  accounts Account[]
+  sessions Session[]
+
+  // Application relations
+  decks               Deck[]
+  collections         Collection[]
+  submissions         CardSubmission[]
+  reviewedSubmissions CardSubmission[] @relation("ReviewedSubmissions")
 
   @@map("users")
+}
+
+// NextAuth Account model
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+// NextAuth Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// NextAuth Verification Token model
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 // User roles enum
@@ -123,15 +173,51 @@ model Card {
   deckCards    DeckCard[]
   collectionCards CollectionCard[]
   rulings      CardRuling[]
+  submissions  CardSubmission[]
 
   @@unique([setId, setNumber])
+  // Single field indexes for basic searches
   @@index([name])
+  @@index([pilot])
+  @@index([model])
   @@index([faction])
   @@index([series])
   @@index([nation])
   @@index([keywords])
+  @@index([tags])
+  @@index([level])
+  @@index([cost])
   @@index([clashPoints])
   @@index([price])
+  @@index([hitPoints])
+  @@index([attackPoints])
+  @@index([isFoil])
+  @@index([isPromo])
+  @@index([isAlternate])
+  @@index([language])
+  @@index([createdAt])
+  @@index([updatedAt])
+
+  // Composite indexes for common filter combinations
+  @@index([faction, series])
+  @@index([typeId, rarityId])
+  @@index([setId, createdAt])
+  @@index([level, cost])
+  @@index([faction, level])
+  @@index([series, faction])
+  @@index([name, faction])
+  @@index([isFoil, isPromo])
+
+  // Full-text search indexes for text fields
+  @@index([name, pilot, model])
+
+  // Performance indexes for sorting
+  @@index([name, createdAt])
+  @@index([level, name])
+  @@index([cost, name])
+  @@index([clashPoints, name])
+  @@index([createdAt, name])
+
   @@map("cards")
 }
 
@@ -216,4 +302,116 @@ model CardRuling {
   card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
   @@map("card_rulings")
+}
+
+// Card submission model for manual uploads (previews, leaks, community submissions)
+model CardSubmission {
+  id            String   @id @default(cuid())
+
+  // Submission metadata
+  submittedBy   String?  // User ID if authenticated, null for anonymous
+  submitterName String?  // Display name for anonymous submissions
+  submitterEmail String? // Contact email
+
+  // Card data (similar to Card model but as submission)
+  name         String
+  level        Int?
+  cost         Int?
+  typeId       String?  // Optional - can be created during approval
+  rarityId     String?  // Optional - can be created during approval
+  setId        String?  // Optional - can be created during approval
+  setName      String?  // Set name for new sets
+  setCode      String?  // Set code for new sets
+  setNumber    String
+
+  // Image uploads
+  imageUrl     String?  // Main card image
+  imageFile    String?  // Uploaded file path
+
+  // Card content
+  description  String?
+  officialText String?
+  abilities    String?  // JSON string of abilities
+
+  // Game attributes
+  clashPoints  Int?
+  price        Int?
+  hitPoints    Int?
+  attackPoints Int?
+  faction      String?
+  pilot        String?
+  model        String?
+  series       String?
+  nation       String?
+  keywords     String[] @default([])
+  tags         String[] @default([])
+
+  // Submission flags
+  isFoil       Boolean  @default(false)
+  isPromo      Boolean  @default(false)
+  isAlternate  Boolean  @default(false)
+  isLeak       Boolean  @default(false)    // Leaked card
+  isPreview    Boolean  @default(false)    // Official preview
+  language     String   @default("en")
+
+  // Approval workflow
+  status       SubmissionStatus @default(PENDING)
+  priority     SubmissionPriority @default(NORMAL)
+
+  // Review data
+  reviewedBy   String?  // Admin user ID who reviewed
+  reviewedAt   DateTime?
+  reviewNotes  String?  // Admin notes
+  rejectionReason String? // Reason for rejection
+
+  // Publication
+  publishedCardId String? // ID of created card if approved
+  publishedAt     DateTime?
+
+  // Timestamps
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  user         User?    @relation(fields: [submittedBy], references: [id])
+  reviewer     User?    @relation("ReviewedSubmissions", fields: [reviewedBy], references: [id])
+  publishedCard Card?   @relation(fields: [publishedCardId], references: [id])
+
+  // Single field indexes
+  @@index([status])
+  @@index([priority])
+  @@index([createdAt])
+  @@index([submittedBy])
+  @@index([reviewedBy])
+  @@index([reviewedAt])
+  @@index([publishedAt])
+  @@index([name])
+  @@index([faction])
+  @@index([series])
+  @@index([isLeak])
+  @@index([isPreview])
+
+  // Composite indexes for admin queries
+  @@index([status, priority])
+  @@index([status, createdAt])
+  @@index([priority, createdAt])
+  @@index([submittedBy, status])
+  @@index([reviewedBy, reviewedAt])
+
+  @@map("card_submissions")
+}
+
+enum SubmissionStatus {
+  PENDING     // Awaiting review
+  APPROVED    // Approved for publication
+  REJECTED    // Rejected
+  PUBLISHED   // Published as card
+  ARCHIVED    // Archived/hidden
+}
+
+enum SubmissionPriority {
+  LOW         // Low priority
+  NORMAL      // Normal priority
+  HIGH        // High priority (leaks, official previews)
+  URGENT      // Urgent (time-sensitive)
 }

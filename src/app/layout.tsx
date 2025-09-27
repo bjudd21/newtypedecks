@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ReduxProvider } from '@/store/Provider';
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import { AuthStatus } from '@/components/auth/AuthStatus';
 import { Navbar, MobileMenu } from '@/components/navigation';
 
 const inter = Inter({
@@ -36,7 +38,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen bg-gray-50 font-sans antialiased">
-        <ReduxProvider>
+        <AuthProvider>
+          <ReduxProvider>
           <div className="flex min-h-screen flex-col">
                   <header className="border-b bg-white relative">
                     <div className="container mx-auto px-4 py-4">
@@ -44,7 +47,10 @@ export default function RootLayout({
                         <h1 className="text-2xl font-bold text-gray-900">
                           Gundam Card Game
                         </h1>
-                        <Navbar />
+                        <div className="hidden md:flex items-center space-x-6">
+                          <Navbar />
+                          <AuthStatus />
+                        </div>
                         <MobileMenu />
                       </div>
                     </div>
@@ -70,7 +76,8 @@ export default function RootLayout({
               </div>
             </footer>
           </div>
-        </ReduxProvider>
+          </ReduxProvider>
+        </AuthProvider>
       </body>
     </html>
   );

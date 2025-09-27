@@ -1,5 +1,6 @@
 // Individual card API endpoints
 import { NextRequest, NextResponse } from 'next/server';
+import { CardService } from '@/lib/services/cardService';
 
 interface RouteParams {
   params: Promise<{
@@ -12,27 +13,35 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    // TODO: Implement actual database query with Prisma
-    // For now, return mock response structure
-    const mockCard = {
-      id,
-      name: 'Sample Card',
-      level: 3,
-      cost: 2,
-      type: 'Mobile Suit',
-      rarity: 'Common',
-      set: 'Sample Set',
-      setNumber: '001',
-      imageUrl: '/placeholder-card.jpg',
-      description: 'This is a sample card description.',
-      rulings: 'Sample rulings text.',
-      officialText: 'Sample official text.',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
+    // Validate ID format (UUID)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return NextResponse.json(
+        {
+          error: 'Invalid card ID',
+          message: 'Card ID must be a valid UUID',
+        },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json(mockCard, { status: 200 });
+    // Get card by ID using CardService
+    const card = await CardService.getCardById(id, true);
+
+    if (!card) {
+      return NextResponse.json(
+        {
+          error: 'Card not found',
+          message: `No card found with ID: ${id}`,
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(card, { status: 200 });
   } catch (error) {
+    console.error('Cards API GET by ID error:', error);
+
     return NextResponse.json(
       {
         error: 'Failed to fetch card',
@@ -49,19 +58,68 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const { id } = await params;
     const body = await request.json();
 
-    // TODO: Implement card update with Prisma
-    // TODO: Add authentication and authorization checks
-    // TODO: Validate card data
+    // Validate ID format (UUID)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return NextResponse.json(
+        {
+          error: 'Invalid card ID',
+          message: 'Card ID must be a valid UUID',
+        },
+        { status: 400 }
+      );
+    }
+
+    // TODO: Add authentication and authorization checks for admin users
+    // For now, allow card updates without authentication (development only)
+
+    // Check if card exists first
+    const existingCard = await CardService.getCardById(id, false);
+    if (!existingCard) {
+      return NextResponse.json(
+        {
+          error: 'Card not found',
+          message: `No card found with ID: ${id}`,
+        },
+        { status: 404 }
+      );
+    }
+
+    // Update card using CardService
+    const updatedCard = await CardService.updateCard({ id, ...body });
 
     return NextResponse.json(
       {
-        message: 'Card update endpoint - not yet implemented',
-        id,
-        data: body,
+        message: 'Card updated successfully',
+        card: updatedCard,
       },
-      { status: 501 }
+      { status: 200 }
     );
   } catch (error) {
+    console.error('Cards API PUT error:', error);
+
+    // Handle validation errors
+    if (error instanceof Error && error.message.includes('Validation failed')) {
+      return NextResponse.json(
+        {
+          error: 'Invalid card data',
+          message: error.message,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Handle unique constraint errors
+    if (error instanceof Error && error.message.includes('Unique constraint')) {
+      return NextResponse.json(
+        {
+          error: 'Duplicate card',
+          message: 'A card with the same set and number already exists',
+        },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json(
       {
         error: 'Failed to update card',
@@ -77,17 +135,67 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    // TODO: Implement card deletion with Prisma
-    // TODO: Add authentication and authorization checks
+    // Validate ID format (UUID)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return NextResponse.json(
+        {
+          error: 'Invalid card ID',
+          message: 'Card ID must be a valid UUID',
+        },
+        { status: 400 }
+      );
+    }
+
+    // TODO: Add authentication and authorization checks for admin users
+    // For now, allow card deletion without authentication (development only)
+
+    // Check if card exists first
+    const existingCard = await CardService.getCardById(id, false);
+    if (!existingCard) {
+      return NextResponse.json(
+        {
+          error: 'Card not found',
+          message: `No card found with ID: ${id}`,
+        },
+        { status: 404 }
+      );
+    }
+
+    // Delete card using CardService
+    const success = await CardService.deleteCard(id);
+
+    if (!success) {
+      return NextResponse.json(
+        {
+          error: 'Failed to delete card',
+          message: 'Card could not be deleted due to database constraints',
+        },
+        { status: 409 }
+      );
+    }
 
     return NextResponse.json(
       {
-        message: 'Card deletion endpoint - not yet implemented',
+        message: 'Card deleted successfully',
         id,
       },
-      { status: 501 }
+      { status: 200 }
     );
   } catch (error) {
+    console.error('Cards API DELETE error:', error);
+
+    // Handle foreign key constraint errors
+    if (error instanceof Error && error.message.includes('Foreign key constraint')) {
+      return NextResponse.json(
+        {
+          error: 'Cannot delete card',
+          message: 'Card is referenced by other records and cannot be deleted',
+        },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json(
       {
         error: 'Failed to delete card',
