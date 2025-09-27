@@ -35,11 +35,17 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/app/cards/[id]/page.tsx` - Individual card detail page
 - `src/app/submit/page.tsx` - Public card submission page
 
-### Deck Building Files
+### Deck Building Files (CREATED)
 - `src/app/api/decks/route.ts` - Deck CRUD API endpoints
-- `src/components/deck/DeckBuilder.tsx` - Interactive deck building component
-- `src/components/deck/DeckList.tsx` - Deck listing component
-- `src/app/decks/page.tsx` - Deck management page
+- `src/components/deck/DeckBuilder.tsx` - Interactive deck building component for authenticated users
+- `src/components/deck/AnonymousDeckBuilder.tsx` - Anonymous deck building with localStorage persistence
+- `src/components/deck/DeckCardSearch.tsx` - Card search integration for deck building
+- `src/components/deck/DraggableCard.tsx` - Drag and drop card management
+- `src/components/deck/DeckDropZone.tsx` - Drop zones for deck building
+- `src/components/deck/DeckValidator.tsx` - Real-time deck validation
+- `src/components/deck/DeckShare.tsx` - Deck sharing functionality
+- `src/components/deck/PublicDeckBrowser.tsx` - Community deck browsing
+- `src/app/decks/page.tsx` - Dual-mode deck management page (authenticated/anonymous)
 - `src/app/decks/[id]/page.tsx` - Individual deck page
 
 ### User System Files (CREATED)
@@ -134,12 +140,12 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
   - [ ] 3.7 Add social login options (Google, Discord)
 
 - [ ] 4.0 Anonymous Deck Building
-  - [ ] 4.1 Create basic deck building interface without user accounts
-  - [ ] 4.2 Implement drag-and-drop functionality for temporary decks
-  - [ ] 4.3 Add predictive search for adding cards to decks
-  - [ ] 4.4 Build deck validation and legality checking
-  - [ ] 4.5 Create deck export functionality (text format)
-  - [ ] 4.6 Implement basic deck statistics display
+  - [x] 4.1 Create basic deck building interface without user accounts
+  - [x] 4.2 Implement drag-and-drop functionality for temporary decks
+  - [x] 4.3 Add predictive search for adding cards to decks
+  - [x] 4.4 Build deck validation and legality checking
+  - [x] 4.5 Create deck export functionality (text format)
+  - [x] 4.6 Implement basic deck statistics display
   - [ ] 4.7 Add deck sharing via URL (temporary, session-based)
 
 - [x] 5.0 Persistent Deck Management (Authenticated Users)
