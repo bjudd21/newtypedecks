@@ -106,6 +106,14 @@ Based on the PRD analysis, this is a greenfield project that needs to be built f
 - Enhanced `src/app/layout.tsx` - Updated layout with AuthProvider and AuthStatus integration
 - Enhanced `src/app/decks/page.tsx` - Multi-tab deck interface (builder, community, personal decks)
 
+#### Card Submission System (Task 2.9 - Completed)
+
+- `src/app/submit/page.tsx` - Public card submission page for community contributions
+- `src/components/forms/CardUploadForm.tsx` - Comprehensive form for card data and image upload (existing)
+- `src/app/api/submissions/route.ts` - Card submission API with validation and admin review workflow (existing)
+- Enhanced `src/components/navigation/Navbar.tsx` - Added Submit link to main navigation
+- Enhanced `src/components/navigation/MobileMenu.tsx` - Added Submit link to mobile navigation
+
 ### Planned Files (Future Tasks)
 
 - `src/components/card/` - Card-related components (CardDisplay, CardSearch, CardUpload, etc.)
@@ -181,7 +189,7 @@ This phase delivers a complete, deployable website that can operate independentl
   - [x] 2.6 Build advanced filtering system (Level, Cost, Type, Rarity, Set) - avoid code duplication
   - [x] 2.7 Implement card detail view with rulings and official text
   - [x] 2.8 Set up card data import system from official source (gundam-gcg.com) - environment-aware
-  - [ ] 2.9 Create manual card upload system for previews and leaks
+  - [x] 2.9 Create manual card upload system for previews and leaks
   - [ ] 2.10 Add image optimization and CDN integration (Vercel Edge Network)
   - [ ] 2.11 Implement search result pagination and performance optimization
   - [ ] 2.12 Add legal compliance footers and disclaimers to card pages

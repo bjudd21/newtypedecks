@@ -2,13 +2,13 @@
  * CardImage component - High-resolution card image display
  *
  * This component handles card images with multiple resolutions, loading states,
- * zoom functionality, and proper fallbacks. Uses Next.js Image for optimization.
+ * zoom functionality, and proper fallbacks. Uses OptimizedImage for CDN and advanced optimization.
  */
 
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { cn } from '@/lib/utils';
 
 export interface CardImageProps {
@@ -160,7 +160,7 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Image */}
         {selectedImageUrl && !hasError && (
-          <Image
+          <OptimizedImage
             src={selectedImageUrl}
             alt={`${name} card image`}
             width={sizeConfig.width}
@@ -169,7 +169,11 @@ export const CardImage: React.FC<CardImageProps> = ({
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
-            sizes={`${sizeConfig.width}px`}
+            format="auto"
+            fit="cover"
+            quality={size === 'fullsize' ? 95 : 85}
+            enableResponsive={size !== 'thumbnail'}
+            enableCache={true}
           />
         )}
 
@@ -208,13 +212,18 @@ export const CardImage: React.FC<CardImageProps> = ({
             </button>
 
             <div className="relative">
-              <Image
+              <OptimizedImage
                 src={zoomImageUrl}
                 alt={`${name} card image (full size)`}
                 width={600}
                 height={750}
                 className="object-contain max-w-full max-h-[80vh] rounded-lg"
                 priority
+                format="auto"
+                fit="contain"
+                quality={95}
+                enableResponsive={true}
+                enableCache={true}
               />
 
               {/* Image info overlay */}
