@@ -1,5 +1,6 @@
 // Deck components exports
 export { DeckBuilder } from './DeckBuilder';
+export { AnonymousDeckBuilder } from './AnonymousDeckBuilder';
 export { DeckCardSearch } from './DeckCardSearch';
 export { DraggableCard } from './DraggableCard';
 export { DeckDropZone } from './DeckDropZone';

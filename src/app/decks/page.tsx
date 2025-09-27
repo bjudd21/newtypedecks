@@ -6,7 +6,7 @@
 
 import { useState, Suspense } from 'react';
 import { Card, CardContent, Button } from '@/components/ui';
-import { DeckBuilder, PublicDeckBrowser } from '@/components/deck';
+import { DeckBuilder, AnonymousDeckBuilder, PublicDeckBrowser } from '@/components/deck';
 import { useAuth } from '@/hooks';
 import { ReduxProvider } from '@/store/Provider';
 
@@ -17,7 +17,11 @@ export default function DecksPage() {
   const [activeTab, setActiveTab] = useState<TabType>('builder');
 
   const tabs = [
-    { id: 'builder', label: '🃏 Deck Builder', description: 'Build new decks' },
+    {
+      id: 'builder',
+      label: '🃏 Deck Builder',
+      description: isAuthenticated ? 'Build and save new decks' : 'Build decks (saved locally)'
+    },
     { id: 'community', label: '🌍 Community Decks', description: 'Browse public decks' },
     ...(isAuthenticated ? [{ id: 'my-decks', label: '📚 My Decks', description: 'Manage saved decks' }] : [])
   ] as const;
@@ -64,7 +68,7 @@ export default function DecksPage() {
           </div>
         }>
           {activeTab === 'builder' && (
-            <DeckBuilder />
+            isAuthenticated ? <DeckBuilder /> : <AnonymousDeckBuilder />
           )}
 
           {activeTab === 'community' && (
