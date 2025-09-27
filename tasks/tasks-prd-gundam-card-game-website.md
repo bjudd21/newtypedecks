@@ -15,6 +15,9 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/components/ui/InfiniteScroll.tsx` - Advanced infinite scroll component
 - `src/components/ui/OptimizedImage.tsx` - CDN-integrated image optimization component
 - `src/components/ui/index.ts` - UI components export file
+- `src/components/layout/CopyrightDisclaimer.tsx` - Copyright attribution component for Bandai Namco content
+- `src/components/layout/NonAffiliationStatement.tsx` - Non-affiliation disclaimer component
+- `src/components/layout/LegalComplianceFooter.tsx` - Comprehensive legal compliance footer
 
 ### Database and Types
 - `prisma/schema.prisma` - Database schema for cards, users, decks, collections
@@ -139,14 +142,14 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
   - [ ] 3.6 Implement password reset and email verification
   - [ ] 3.7 Add social login options (Google, Discord)
 
-- [ ] 4.0 Anonymous Deck Building
+- [x] 4.0 Anonymous Deck Building
   - [x] 4.1 Create basic deck building interface without user accounts
   - [x] 4.2 Implement drag-and-drop functionality for temporary decks
   - [x] 4.3 Add predictive search for adding cards to decks
   - [x] 4.4 Build deck validation and legality checking
   - [x] 4.5 Create deck export functionality (text format)
   - [x] 4.6 Implement basic deck statistics display
-  - [ ] 4.7 Add deck sharing via URL (temporary, session-based)
+  - [x] 4.7 Add deck sharing via URL (temporary, session-based)
 
 - [x] 5.0 Persistent Deck Management (Authenticated Users)
   - [x] 5.1 Create user deck storage and management system
@@ -169,7 +172,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 
 - [ ] 7.0 Legal Compliance and Production Setup
   - [ ] 7.1 Create legal compliance footer components
-  - [ ] 7.2 Add copyright disclaimers and non-affiliation statements
+  - [x] 7.2 Add copyright disclaimers and non-affiliation statements
   - [ ] 7.3 Implement basic attribution for Bandai Namco content
   - [ ] 7.4 Create privacy notice for users
   - [ ] 7.5 Add accessibility support (alt text, keyboard navigation)
