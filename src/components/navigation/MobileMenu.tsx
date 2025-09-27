@@ -11,6 +11,7 @@ const navigation = [
   { name: 'Cards', href: '/cards' },
   { name: 'Decks', href: '/decks' },
   { name: 'Collection', href: '/collection' },
+  { name: 'Submit', href: '/submit' },
   { name: 'About', href: '/about' },
 ];
 
