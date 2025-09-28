@@ -3,6 +3,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { generateId, KEYBOARD_CODES } from '@/lib/utils/accessibility';
 
 export interface SearchSuggestion {
   id: string;
@@ -47,6 +48,12 @@ const Search: React.FC<SearchProps> = ({
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Generate unique IDs for accessibility
+  const inputId = useRef(generateId('search-input')).current;
+  const listboxId = useRef(generateId('search-listbox')).current;
+  const labelId = useRef(generateId('search-label')).current;
+  const errorId = useRef(generateId('search-error')).current;
 
   const filteredSuggestions = suggestions
     .filter(
@@ -93,24 +100,24 @@ const Search: React.FC<SearchProps> = ({
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (!isOpen || filteredSuggestions.length === 0) {
-      if (event.key === 'Enter' && onSearch) {
+      if (event.key === KEYBOARD_CODES.ENTER && onSearch) {
         onSearch(value);
       }
       return;
     }
 
     switch (event.key) {
-      case 'ArrowDown':
+      case KEYBOARD_CODES.ARROW_DOWN:
         event.preventDefault();
         setHighlightedIndex((prev) =>
           prev < filteredSuggestions.length - 1 ? prev + 1 : prev
         );
         break;
-      case 'ArrowUp':
+      case KEYBOARD_CODES.ARROW_UP:
         event.preventDefault();
         setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : -1));
         break;
-      case 'Enter':
+      case KEYBOARD_CODES.ENTER:
         event.preventDefault();
         if (
           highlightedIndex >= 0 &&
@@ -121,7 +128,7 @@ const Search: React.FC<SearchProps> = ({
           onSearch(value);
         }
         break;
-      case 'Escape':
+      case KEYBOARD_CODES.ESCAPE:
         setIsOpen(false);
         setHighlightedIndex(-1);
         break;
@@ -146,7 +153,11 @@ const Search: React.FC<SearchProps> = ({
   return (
     <div className={cn('relative', className)}>
       {label && (
-        <label className="mb-2 block text-sm font-medium text-gray-700">
+        <label
+          id={labelId}
+          htmlFor={inputId}
+          className="mb-2 block text-sm font-medium text-gray-700"
+        >
           {label}
         </label>
       )}
@@ -159,6 +170,7 @@ const Search: React.FC<SearchProps> = ({
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -170,6 +182,7 @@ const Search: React.FC<SearchProps> = ({
           </div>
           <input
             ref={inputRef}
+            id={inputId}
             type="text"
             value={value}
             onChange={(e) => handleInputChange(e.target.value)}
@@ -177,6 +190,16 @@ const Search: React.FC<SearchProps> = ({
             onFocus={handleInputFocus}
             placeholder={placeholder}
             disabled={disabled}
+            role="combobox"
+            aria-expanded={isOpen && filteredSuggestions.length > 0}
+            aria-controls={isOpen ? listboxId : undefined}
+            aria-activedescendant={
+              highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
+            }
+            aria-labelledby={label ? labelId : undefined}
+            aria-describedby={error ? errorId : undefined}
+            aria-autocomplete="list"
+            autoComplete="off"
             className={cn(
               'block w-full rounded-md border py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500',
               error
@@ -193,9 +216,11 @@ const Search: React.FC<SearchProps> = ({
                 setHighlightedIndex(-1);
                 inputRef.current?.focus();
               }}
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+              aria-label="Clear search"
+              tabIndex={-1}
             >
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -208,13 +233,21 @@ const Search: React.FC<SearchProps> = ({
 
         {/* Suggestions dropdown */}
         {isOpen && showSuggestions && filteredSuggestions.length > 0 && (
-          <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <div
+            id={listboxId}
+            role="listbox"
+            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            aria-label="Search suggestions"
+          >
             {filteredSuggestions.map((suggestion, index) => (
               <div
                 key={suggestion.id}
+                id={`${listboxId}-option-${index}`}
+                role="option"
+                aria-selected={index === highlightedIndex}
                 onClick={() => handleSuggestionSelect(suggestion)}
                 className={cn(
-                  'relative cursor-pointer select-none px-4 py-2 hover:bg-blue-50',
+                  'relative cursor-pointer select-none px-4 py-2 hover:bg-blue-50 focus:outline-none focus:bg-blue-50',
                   index === highlightedIndex && 'bg-blue-100 text-blue-900'
                 )}
               >
@@ -224,7 +257,7 @@ const Search: React.FC<SearchProps> = ({
                   </span>
                   {suggestion.category && (
                     <span className="text-xs text-gray-500">
-                      {suggestion.category}
+                      in {suggestion.category}
                     </span>
                   )}
                 </div>
@@ -234,7 +267,11 @@ const Search: React.FC<SearchProps> = ({
         )}
       </div>
 
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+      {error && (
+        <p id={errorId} className="mt-1 text-sm text-red-600" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

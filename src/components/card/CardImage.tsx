@@ -11,6 +11,7 @@ import React, { useState, useCallback } from 'react';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { CardImageAttribution } from '@/components/layout/BandaiNamcoAttribution';
 import { cn } from '@/lib/utils';
+import { getCardImageProps, handleKeyboardActivation, KEYBOARD_CODES } from '@/lib/utils/accessibility';
 
 export interface CardImageProps {
   /** Card name for alt text */
@@ -104,8 +105,15 @@ export const CardImage: React.FC<CardImageProps> = ({
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    handleKeyboardActivation(event, handleClick);
+  };
+
   const selectedImageUrl = getImageUrl();
   const zoomImageUrl = getZoomImageUrl();
+
+  // Generate accessibility props for card image
+  const cardImageA11yProps = getCardImageProps(name, size, clickToZoom || !!onClick);
 
   // Placeholder component
   const renderPlaceholder = () => {
@@ -141,14 +149,28 @@ export const CardImage: React.FC<CardImageProps> = ({
           'relative overflow-hidden rounded-lg border bg-gray-50',
           sizeConfig.className,
           className,
-          (clickToZoom || onClick) && 'cursor-pointer hover:shadow-lg transition-shadow',
+          (clickToZoom || onClick) && 'cursor-pointer hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
           hasError && 'border-gray-200'
         )}
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        {...(clickToZoom || onClick ? {
+          tabIndex: 0,
+          role: 'button',
+          'aria-label': `${name} card image${clickToZoom ? ' - Click to zoom' : ''}`,
+        } : {
+          role: 'img',
+          'aria-label': `${name} card image`,
+        })}
       >
         {/* Loading state */}
         {isLoading && showPlaceholder && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+          <div
+            className="absolute inset-0 flex items-center justify-center bg-gray-100"
+            role="status"
+            aria-label={`Loading ${name} card image`}
+            aria-live="polite"
+          >
             <div className="animate-pulse">
               <div className="w-8 h-8 bg-gray-200 rounded"></div>
             </div>
@@ -157,7 +179,11 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Error state or no image */}
         {(hasError || !selectedImageUrl) && (
-          <div className="absolute inset-0">
+          <div
+            className="absolute inset-0"
+            role="img"
+            aria-label={`${name} card image unavailable`}
+          >
             {renderPlaceholder()}
           </div>
         )}
@@ -188,8 +214,11 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Zoom indicator */}
         {clickToZoom && !hasError && selectedImageUrl && (
-          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="bg-black bg-opacity-50 text-white p-1 rounded">
+          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <div
+              className="bg-black bg-opacity-50 text-white p-1 rounded"
+              aria-hidden="true"
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
               </svg>
@@ -198,7 +227,7 @@ export const CardImage: React.FC<CardImageProps> = ({
         )}
 
         {/* Special card indicators */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
+        <div className="absolute top-2 left-2 flex flex-col gap-1" aria-hidden="true">
           {/* Foil indicator */}
           <div className="w-2 h-2 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full animate-pulse"></div>
         </div>
@@ -209,13 +238,23 @@ export const CardImage: React.FC<CardImageProps> = ({
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4"
           onClick={() => setShowZoom(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="zoom-modal-title"
+          aria-describedby="zoom-modal-description"
         >
           <div className="relative max-w-4xl max-h-full">
             <button
               onClick={() => setShowZoom(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              onKeyDown={(e) => {
+                if (e.key === KEYBOARD_CODES.ESCAPE) {
+                  setShowZoom(false);
+                }
+              }}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded-md p-1"
+              aria-label="Close zoom view"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -242,8 +281,8 @@ export const CardImage: React.FC<CardImageProps> = ({
 
               {/* Image info overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">
-                <h3 className="text-white font-semibold text-lg">{name}</h3>
-                <p className="text-gray-300 text-sm">Click anywhere to close</p>
+                <h3 id="zoom-modal-title" className="text-white font-semibold text-lg">{name}</h3>
+                <p id="zoom-modal-description" className="text-gray-300 text-sm">Card image zoom view. Press Escape or click anywhere to close</p>
               </div>
             </div>
           </div>

@@ -62,8 +62,32 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/components/auth/SignUpForm.tsx` - User registration form with validation
 - `src/components/auth/AuthStatus.tsx` - Navigation authentication status component
 - `src/components/auth/AuthGuard.tsx` - Route protection components
+- `src/components/auth/ForgotPasswordForm.tsx` - Password reset request form component
+- `src/components/auth/ResetPasswordForm.tsx` - Password reset confirmation form component
+- `src/components/auth/EmailVerificationBanner.tsx` - Email verification status banner component
 - `src/app/auth/signin/page.tsx` - Sign-in page with error handling
 - `src/app/auth/signup/page.tsx` - Registration page
+- `src/app/auth/forgot-password/page.tsx` - Forgot password page
+- `src/app/auth/reset-password/page.tsx` - Reset password page with client component
+- `src/app/auth/reset-password/ResetPasswordClient.tsx` - Client component for password reset handling
+- `src/app/auth/verify-email/page.tsx` - Email verification page
+- `src/app/auth/verify-email/EmailVerificationClient.tsx` - Client component for email verification
+- `src/app/api/auth/forgot-password/route.ts` - Password reset request API endpoint
+- `src/app/api/auth/reset-password/route.ts` - Password reset confirmation API endpoint
+- `src/app/api/auth/send-verification/route.ts` - Email verification sending API endpoint
+- `src/app/api/auth/verify-email/route.ts` - Email verification confirmation API endpoint
+- `src/lib/services/emailService.ts` - Email service for transactional emails
+- `src/lib/config/email.ts` - Email configuration and transport setup
+- `src/lib/utils/tokens.ts` - Token generation and validation utilities
+- `src/lib/config/oauth.ts` - OAuth provider configuration utilities
+- `src/app/auth/error/page.tsx` - OAuth and authentication error page
+- `src/app/auth/error/AuthErrorClient.tsx` - Client component for authentication error handling
+- `src/components/layout/PrivacyNotice.tsx` - Comprehensive privacy policy component with multiple variants
+- `src/components/layout/TermsOfService.tsx` - Terms of service component with detailed legal guidelines
+- `src/components/layout/CookieNotice.tsx` - Cookie policy and consent management component
+- `src/app/privacy/page.tsx` - Privacy policy page
+- `src/app/terms/page.tsx` - Terms of service page
+- `src/app/cookies/page.tsx` - Cookie policy page
 - `src/hooks/useAuth.ts` - Authentication state management hook
 - `src/app/profile/page.tsx` - User profile management page
 - `src/app/dashboard/page.tsx` - User dashboard with personalized content
@@ -91,6 +115,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/lib/services/imageCacheService.ts` - Advanced image caching and preloading
 - `src/lib/config/environment.ts` - Comprehensive environment configuration
 - `src/lib/types/card.ts` - Complete card type definitions
+- `src/lib/utils/accessibility.ts` - Comprehensive accessibility utilities and helpers
 - `src/store/Provider.tsx` - Redux provider for Next.js integration
 - `src/store/slices/` - Redux slices for auth, cards, decks, collections, UI
 
@@ -101,6 +126,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `tasks/summary/task-3.0-summary.md` - User authentication system completion summary
 - `tasks/summary/task-5.0-summary.md` - Persistent deck management completion summary
 - `tasks/summary/task-6.0-summary.md` - Collection management system completion summary
+- `tasks/summary/task-7.5-summary.md` - Accessibility support implementation summary
 
 ### Notes
 
@@ -140,8 +166,8 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
   - [x] 3.3 Implement user profile management
   - [x] 3.4 Set up protected routes and authentication middleware
   - [x] 3.5 Create user dashboard and account settings
-  - [ ] 3.6 Implement password reset and email verification
-  - [ ] 3.7 Add social login options (Google, Discord)
+  - [x] 3.6 Implement password reset and email verification
+  - [x] 3.7 Add social login options (Google, Discord)
 
 - [x] 4.0 Anonymous Deck Building
   - [x] 4.1 Create basic deck building interface without user accounts
@@ -171,12 +197,12 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
   - [ ] 6.7 Create collection export functionality for backup
   - [ ] 6.8 Integrate collection data with deck building (show owned cards)
 
-- [ ] 7.0 Legal Compliance and Production Setup
-  - [ ] 7.1 Create legal compliance footer components
+- [x] 7.0 Legal Compliance and Production Setup
+  - [x] 7.1 Create legal compliance footer components
   - [x] 7.2 Add copyright disclaimers and non-affiliation statements
   - [x] 7.3 Implement basic attribution for Bandai Namco content
-  - [ ] 7.4 Create privacy notice for users
-  - [ ] 7.5 Add accessibility support (alt text, keyboard navigation)
+  - [x] 7.4 Create privacy notice for users
+  - [x] 7.5 Add accessibility support (alt text, keyboard navigation)
   - [ ] 7.6 Set up production deployment configuration
   - [ ] 7.7 Implement monitoring and error tracking
 

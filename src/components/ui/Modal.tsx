@@ -1,8 +1,9 @@
 // Modal component for overlays and dialogs
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { trapFocus, KEYBOARD_CODES } from '@/lib/utils/accessibility';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -25,10 +26,12 @@ const Modal: React.FC<ModalProps> = ({
   closeOnOverlayClick = true,
   className,
 }) => {
-  // Handle escape key
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Handle escape key and focus management
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === KEYBOARD_CODES.ESCAPE && isOpen) {
         onClose();
       }
     };
@@ -36,6 +39,16 @@ const Modal: React.FC<ModalProps> = ({
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
+
+      // Set up focus trap
+      if (modalRef.current) {
+        const cleanup = trapFocus(modalRef.current);
+        return () => {
+          cleanup();
+          document.removeEventListener('keydown', handleEscape);
+          document.body.style.overflow = 'unset';
+        };
+      }
     }
 
     return () => {
@@ -66,6 +79,7 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleOverlayClick}
     >
       <div
+        ref={modalRef}
         className={cn(
           'w-full rounded-lg bg-white shadow-xl',
           sizeClasses[size],
@@ -94,6 +108,7 @@ const Modal: React.FC<ModalProps> = ({
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
