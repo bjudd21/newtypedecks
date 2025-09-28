@@ -17,6 +17,7 @@ import { DeckDropZone } from './DeckDropZone';
 import { DeckValidator } from './DeckValidator';
 import { deckExporter } from '@/lib/services/deckExportService';
 import { urlDeckSharingService } from '@/lib/services/urlDeckSharingService';
+import { pwaService } from '@/lib/services/pwaService';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface AnonymousDeckBuilderProps {
@@ -34,9 +35,65 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareError, setShareError] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
+  const [pendingSyncCount, setPendingSyncCount] = useState(0);
+  const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'offline' | 'error'>('saved');
 
   // Local storage key for anonymous decks
   const STORAGE_KEY = 'anonymous-deck';
+
+  // Setup PWA event listeners
+  useEffect(() => {
+    // Initial online status
+    setIsOnline(navigator.onLine);
+
+    // Listen for online/offline events
+    const handleOnline = () => {
+      setIsOnline(true);
+      setSaveStatus('saved');
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+      setSaveStatus('offline');
+    };
+
+    // Listen for PWA service events
+    const unsubscribeOnline = pwaService.on('online', handleOnline);
+    const unsubscribeOffline = pwaService.on('online', (online: boolean) => {
+      if (!online) handleOffline();
+    });
+
+    const unsubscribeDeckSynced = pwaService.on('deckSynced', (deck: any) => {
+      console.log('Deck synced:', deck.name);
+      loadPendingSyncCount();
+    });
+
+    // Browser events
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Load initial pending sync count
+    loadPendingSyncCount();
+
+    return () => {
+      unsubscribeOnline();
+      unsubscribeOffline();
+      unsubscribeDeckSynced();
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Load pending sync count
+  const loadPendingSyncCount = async () => {
+    try {
+      const offlineDecks = await pwaService.getOfflineDecks();
+      setPendingSyncCount(offlineDecks.length);
+    } catch (error) {
+      console.error('Failed to load pending sync count:', error);
+    }
+  };
 
   // Load deck from URL or localStorage on component mount
   useEffect(() => {
@@ -101,17 +158,41 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
     saveToLocalStorage(newDeck);
   }, [dispatch]);
 
-  // Save current deck to localStorage
-  const saveToLocalStorage = useCallback((deck = currentDeck) => {
+  // Save current deck to localStorage and optionally to offline storage
+  const saveToLocalStorage = useCallback(async (deck = currentDeck, saveOffline = false) => {
     if (deck) {
+      setSaveStatus('saving');
+
       const deckToSave = {
         ...deck,
         updatedAt: new Date()
       };
+
+      // Always save to localStorage for immediate access
       localStorage.setItem(STORAGE_KEY, JSON.stringify(deckToSave));
       setLastSaved(new Date());
+
+      // Save to offline storage if requested or if offline
+      if (saveOffline || !isOnline) {
+        try {
+          await pwaService.saveOfflineDeck({
+            id: deckToSave.id,
+            name: deckToSave.name,
+            cards: deckToSave.cards || [],
+            createdAt: deckToSave.createdAt
+          });
+
+          await loadPendingSyncCount();
+          setSaveStatus(isOnline ? 'saved' : 'offline');
+        } catch (error) {
+          console.error('Failed to save deck offline:', error);
+          setSaveStatus('error');
+        }
+      } else {
+        setSaveStatus('saved');
+      }
     }
-  }, [currentDeck]);
+  }, [currentDeck, isOnline]);
 
   // Load deck from URL encoded data
   const loadDeckFromURL = useCallback(async (urlDeckData: any) => {
@@ -350,10 +431,72 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
             </Button>
           </div>
 
-          {/* Local Save Status */}
-          {lastSaved && (
-            <div className="text-sm text-gray-600">
-              💾 Automatically saved locally {lastSaved.toLocaleTimeString()}
+          {/* Save Status with Offline Support */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm">
+              {saveStatus === 'saving' && (
+                <>
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600"></div>
+                  <span className="text-blue-600">Saving...</span>
+                </>
+              )}
+              {saveStatus === 'saved' && lastSaved && (
+                <>
+                  <span className="text-green-600">✓</span>
+                  <span className="text-gray-600">Saved {lastSaved.toLocaleTimeString()}</span>
+                </>
+              )}
+              {saveStatus === 'offline' && lastSaved && (
+                <>
+                  <span className="text-orange-600">📡</span>
+                  <span className="text-orange-600">Saved offline {lastSaved.toLocaleTimeString()}</span>
+                </>
+              )}
+              {saveStatus === 'error' && (
+                <>
+                  <span className="text-red-600">⚠️</span>
+                  <span className="text-red-600">Save failed</span>
+                </>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Online/Offline indicator */}
+              <div className={`w-3 h-3 rounded-full ${
+                isOnline ? 'bg-green-500' : 'bg-red-500'
+              }`} />
+              <span className="text-xs text-gray-600">
+                {isOnline ? 'Online' : 'Offline'}
+              </span>
+
+              {/* Pending sync indicator */}
+              {pendingSyncCount > 0 && (
+                <div className="flex items-center gap-1">
+                  <span className="text-xs text-orange-600">
+                    {pendingSyncCount} pending sync
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Offline Mode Notice */}
+          {!isOnline && (
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+              <div className="flex items-start gap-2">
+                <span className="text-orange-600">📡</span>
+                <div className="text-sm">
+                  <div className="font-medium text-orange-900">You're offline</div>
+                  <div className="text-orange-700">
+                    Your deck changes are being saved locally and will sync automatically when you're back online.
+                  </div>
+                  {pendingSyncCount > 0 && (
+                    <div className="text-orange-600 mt-1">
+                      {pendingSyncCount} deck{pendingSyncCount === 1 ? '' : 's'} waiting to sync
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
         </div>

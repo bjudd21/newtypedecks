@@ -11,7 +11,11 @@ const navigation = [
   { name: 'Home', href: '/', description: 'Go to home page' },
   { name: 'Cards', href: '/cards', description: 'Browse card database' },
   { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
+  { name: 'Compare', href: '/decks/compare', description: 'Compare multiple decks' },
+  { name: 'Recommendations', href: '/decks/recommendations', description: 'Get personalized deck suggestions' },
+  { name: 'Tournament', href: '/tournament', description: 'Tournament preparation tools' },
   { name: 'Collection', href: '/collection', description: 'Manage your card collection' },
+  { name: 'Community', href: '/community', description: 'Connect with other players' },
   { name: 'Submit', href: '/submit', description: 'Submit new cards' },
   { name: 'About', href: '/about', description: 'About this website' },
 ];
