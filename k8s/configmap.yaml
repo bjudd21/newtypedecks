@@ -1,0 +1,26 @@
+# ConfigMap for Gundam Card Game application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gundam-gcg-config
+  namespace: gundam-gcg
+  labels:
+    app: gundam-card-game
+    component: config
+data:
+  NODE_ENV: "production"
+  NEXT_TELEMETRY_DISABLED: "1"
+  SMTP_PORT: "587"
+  CDN_PROVIDER: "vercel"
+  MAX_FILE_SIZE: "10485760"
+  ALLOWED_FILE_TYPES: "image/jpeg,image/png,image/webp,image/avif"
+  UPLOAD_DIR: "/app/uploads"
+  RATE_LIMIT_REQUESTS_PER_MINUTE: "60"
+  RATE_LIMIT_API_REQUESTS_PER_MINUTE: "30"
+  ENABLE_USER_REGISTRATION: "true"
+  ENABLE_CARD_SUBMISSIONS: "true"
+  ENABLE_ANONYMOUS_DECK_BUILDING: "true"
+  ENABLE_SOCIAL_LOGIN: "true"
+  CACHE_TTL_SECONDS: "3600"
+  IMAGE_CACHE_TTL_DAYS: "7"
+  API_CACHE_TTL_MINUTES: "15"

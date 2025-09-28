@@ -1,0 +1,8 @@
+# Kubernetes namespace for Gundam Card Game application
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gundam-gcg
+  labels:
+    app: gundam-card-game
+    environment: production

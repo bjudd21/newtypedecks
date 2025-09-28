@@ -74,6 +74,24 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // Production optimizations
+  poweredByHeader: false, // Remove X-Powered-By header
+  generateEtags: true, // Enable ETags for caching
+
+  // Bundle analyzer (only in development)
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config: any) => {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+        })
+      );
+      return config;
+    },
+  }),
+
   // Redirects for SEO and user experience
   async redirects() {
     return [
@@ -83,6 +101,11 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
     ];
+  },
+
+  // Performance monitoring
+  experimental: {
+    webVitalsAttribution: ['CLS', 'LCP'],
   },
 };
 
