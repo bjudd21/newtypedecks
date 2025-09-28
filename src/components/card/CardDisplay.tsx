@@ -10,6 +10,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, Badge } from '@/components/ui';
+import { GameContentAttribution } from '@/components/layout/BandaiNamcoAttribution';
 import type { CardWithRelations } from '@/lib/types/card';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +19,7 @@ export interface CardDisplayProps {
   className?: string;
   showFullDetails?: boolean;
   onClick?: (card: CardWithRelations) => void;
+  showAttribution?: boolean;
 }
 
 export const CardDisplay: React.FC<CardDisplayProps> = ({
@@ -25,6 +27,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
   className,
   showFullDetails = false,
   onClick,
+  showAttribution = true,
 }) => {
   const handleClick = () => {
     if (onClick) {
@@ -185,6 +188,13 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
             </Badge>
           )}
         </div>
+
+        {/* Attribution */}
+        {showAttribution && (
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <GameContentAttribution className="text-xs" />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

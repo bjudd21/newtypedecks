@@ -6,19 +6,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { GameContentAttribution, AttributionTooltip } from '@/components/layout';
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-gray-900">
+        <h1 className="mb-4 text-4xl font-bold text-gray-900 flex items-center justify-center gap-2">
           Welcome to Gundam Card Game Database
+          <AttributionTooltip />
         </h1>
         <p className="mx-auto max-w-2xl text-xl text-gray-600">
           The most comprehensive database and deck building platform for the
           Gundam Card Game. Search cards, build decks, and manage your
           collection.
         </p>
+        <div className="mt-4">
+          <GameContentAttribution className="text-sm" />
+        </div>
       </div>
 
       <div className="mb-12 grid gap-6 md:grid-cols-3">

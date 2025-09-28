@@ -9,6 +9,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
+import { CardImageAttribution } from '@/components/layout/BandaiNamcoAttribution';
 import { cn } from '@/lib/utils';
 
 export interface CardImageProps {
@@ -34,6 +35,8 @@ export interface CardImageProps {
   placeholder?: React.ReactNode;
   /** Priority loading for above-the-fold images */
   priority?: boolean;
+  /** Show Bandai Namco attribution overlay */
+  showAttribution?: boolean;
 }
 
 const SIZE_CONFIGS = {
@@ -56,6 +59,7 @@ export const CardImage: React.FC<CardImageProps> = ({
   showPlaceholder = true,
   placeholder,
   priority = false,
+  showAttribution = true,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -177,6 +181,11 @@ export const CardImage: React.FC<CardImageProps> = ({
           />
         )}
 
+        {/* Attribution overlay */}
+        {showAttribution && selectedImageUrl && !hasError && (
+          <CardImageAttribution className="pointer-events-none" />
+        )}
+
         {/* Zoom indicator */}
         {clickToZoom && !hasError && selectedImageUrl && (
           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -225,6 +234,11 @@ export const CardImage: React.FC<CardImageProps> = ({
                 enableResponsive={true}
                 enableCache={true}
               />
+
+              {/* Attribution overlay for zoom */}
+              {showAttribution && (
+                <CardImageAttribution className="pointer-events-none" />
+              )}
 
               {/* Image info overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">

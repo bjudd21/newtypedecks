@@ -18,6 +18,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/components/layout/CopyrightDisclaimer.tsx` - Copyright attribution component for Bandai Namco content
 - `src/components/layout/NonAffiliationStatement.tsx` - Non-affiliation disclaimer component
 - `src/components/layout/LegalComplianceFooter.tsx` - Comprehensive legal compliance footer
+- `src/components/layout/BandaiNamcoAttribution.tsx` - Flexible attribution component for Bandai Namco content
 
 ### Database and Types
 - `prisma/schema.prisma` - Database schema for cards, users, decks, collections
@@ -173,7 +174,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - [ ] 7.0 Legal Compliance and Production Setup
   - [ ] 7.1 Create legal compliance footer components
   - [x] 7.2 Add copyright disclaimers and non-affiliation statements
-  - [ ] 7.3 Implement basic attribution for Bandai Namco content
+  - [x] 7.3 Implement basic attribution for Bandai Namco content
   - [ ] 7.4 Create privacy notice for users
   - [ ] 7.5 Add accessibility support (alt text, keyboard navigation)
   - [ ] 7.6 Set up production deployment configuration

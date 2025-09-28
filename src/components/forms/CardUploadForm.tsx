@@ -9,6 +9,7 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@/components/ui';
+import { ContentAttributionBadge } from '@/components/layout/BandaiNamcoAttribution';
 import type { CreateSubmissionData, SubmissionPriority } from '@/lib/types/submission';
 
 export interface CardUploadFormProps {
@@ -192,10 +193,19 @@ export const CardUploadForm: React.FC<CardUploadFormProps> = ({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle>Submit Card</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>Submit Card</CardTitle>
+          <ContentAttributionBadge />
+        </div>
         <p className="text-sm text-gray-600">
           Submit a new card for review. All submissions will be reviewed before publication.
         </p>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
+          <p className="text-xs text-blue-800">
+            <strong>Note:</strong> You may only submit official Gundam Card Game cards owned by Bandai Namco Entertainment Inc.
+            All submissions are subject to copyright verification and community review.
+          </p>
+        </div>
       </CardHeader>
 
       <CardContent>
