@@ -450,7 +450,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
             loadCollection();
             // Show success message
             if (result.success > 0) {
-              alert(`Successfully imported ${result.success} cards to your collection!`);
+              console.warn(`Successfully imported ${result.success} cards to your collection!`);
             }
           }}
         />
@@ -465,7 +465,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
             loadCollection();
             // Show results summary
             if (result.result?.success > 0) {
-              alert(`Successfully imported ${result.result.success} cards to your collection!`);
+              console.warn(`Successfully imported ${result.result.success} cards to your collection!`);
             }
           }}
         />
@@ -479,7 +479,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
             console.log('Export completed:', result);
             // Show success message
             if (result.success) {
-              alert(`Export completed successfully! File: ${result.filename}`);
+              console.warn(`Export completed successfully! File: ${result.filename}`);
             }
           }}
         />

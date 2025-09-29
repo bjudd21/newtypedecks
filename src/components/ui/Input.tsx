@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import * as React from 'react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -22,17 +22,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || generatedId;
 
     const variants = {
-      default: "border-gray-700 bg-gray-900/50 text-white focus:border-cyan-400 focus:ring-cyan-400/50",
-      cyber: "border-cyan-400/50 bg-gray-900/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20",
-      neon: "border-green-400/50 bg-gray-900/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20",
-      plasma: "border-purple-500/50 bg-gray-900/70 text-purple-100 focus:border-purple-500 focus:ring-purple-500/30 focus:shadow-lg focus:shadow-purple-500/20"
+      default: 'border-gray-700 bg-gray-900/50 text-white focus:border-cyan-400 focus:ring-cyan-400/50',
+      cyber: 'border-cyan-400/50 bg-gray-900/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
+      neon: 'border-green-400/50 bg-gray-900/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',
+      plasma: 'border-purple-500/50 bg-gray-900/70 text-purple-100 focus:border-purple-500 focus:ring-purple-500/30 focus:shadow-lg focus:shadow-purple-500/20'
     };
 
     const labelVariants = {
-      default: "text-gray-400",
-      cyber: "text-cyan-400",
-      neon: "text-green-400",
-      plasma: "text-purple-400"
+      default: 'text-gray-400',
+      cyber: 'text-cyan-400',
+      neon: 'text-green-400',
+      plasma: 'text-purple-400'
     };
 
     return (
@@ -42,16 +42,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             htmlFor={inputId}
             suppressHydrationWarning={!id}
             className={cn(
-              "mb-2 block text-sm font-tech font-medium uppercase tracking-wide transition-colors duration-300",
+              'mb-2 block text-sm font-tech font-medium uppercase tracking-wide transition-colors duration-300',
               labelVariants[variant],
-              isFocused && variant === 'cyber' && "text-cyan-300",
-              isFocused && variant === 'neon' && "text-green-300",
-              isFocused && variant === 'plasma' && "text-purple-300"
+              isFocused && variant === 'cyber' && 'text-cyan-300',
+              isFocused && variant === 'neon' && 'text-green-300',
+              isFocused && variant === 'plasma' && 'text-purple-300'
             )}
             animate={{
               scale: isFocused ? 1.02 : 1,
             }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
             {label}
           </motion.label>
@@ -81,22 +81,22 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               scale: 1.01,
               y: -1
             }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             {...(props as any)}
           />
 
           {/* Scan line animation on focus */}
           <motion.div
             className={cn(
-              "absolute bottom-0 left-0 h-0.5 rounded-full",
-              variant === 'cyber' && "bg-cyan-400",
-              variant === 'neon' && "bg-green-400",
-              variant === 'plasma' && "bg-purple-500",
-              variant === 'default' && "bg-cyan-400"
+              'absolute bottom-0 left-0 h-0.5 rounded-full',
+              variant === 'cyber' && 'bg-cyan-400',
+              variant === 'neon' && 'bg-green-400',
+              variant === 'plasma' && 'bg-purple-500',
+              variant === 'default' && 'bg-cyan-400'
             )}
-            initial={{ width: "0%" }}
-            animate={{ width: isFocused ? "100%" : "0%" }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ width: '0%' }}
+            animate={{ width: isFocused ? '100%' : '0%' }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
           />
 
           {/* Floating particles on focus for special variants */}
@@ -106,14 +106,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 <motion.div
                   key={i}
                   className={cn(
-                    "absolute w-1 h-1 rounded-full pointer-events-none",
-                    variant === 'cyber' && "bg-cyan-400",
-                    variant === 'neon' && "bg-green-400",
-                    variant === 'plasma' && "bg-purple-500"
+                    'absolute w-1 h-1 rounded-full pointer-events-none',
+                    variant === 'cyber' && 'bg-cyan-400',
+                    variant === 'neon' && 'bg-green-400',
+                    variant === 'plasma' && 'bg-purple-500'
                   )}
                   initial={{
-                    x: "50%",
-                    y: "50%",
+                    x: '50%',
+                    y: '50%',
                     opacity: 0,
                     scale: 0
                   }}
@@ -127,7 +127,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     duration: 1.5,
                     repeat: Infinity,
                     delay: i * 0.2,
-                    ease: "easeInOut"
+                    ease: 'easeInOut'
                   }}
                 />
               ))}

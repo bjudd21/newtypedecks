@@ -1,39 +1,39 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border font-tech font-medium uppercase tracking-wider transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2",
+  'inline-flex items-center rounded-full border font-tech font-medium uppercase tracking-wider transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2',
   {
     variants: {
       variant: {
-        default: "border-gray-600 bg-gray-800/50 text-gray-300 hover:bg-gray-700/50",
-        primary: "border-cyan-400/50 bg-cyan-900/30 text-cyan-300 hover:bg-cyan-800/50 shadow-lg shadow-cyan-400/20",
-        secondary: "border-gray-500 bg-gray-700/50 text-gray-200 hover:bg-gray-600/50",
-        success: "border-green-400/50 bg-green-900/30 text-green-300 hover:bg-green-800/50 shadow-lg shadow-green-400/20",
-        warning: "border-yellow-400/50 bg-yellow-900/30 text-yellow-300 hover:bg-yellow-800/50 shadow-lg shadow-yellow-400/20",
-        destructive: "border-red-400/50 bg-red-900/30 text-red-300 hover:bg-red-800/50 shadow-lg shadow-red-400/20",
-        cyber: "border-cyan-400 bg-gradient-to-r from-cyan-900/40 to-blue-900/40 text-cyan-100 hover:from-cyan-800/60 hover:to-blue-800/60 shadow-lg shadow-cyan-400/30",
-        neon: "border-green-400 bg-gradient-to-r from-green-900/40 to-emerald-900/40 text-green-100 hover:from-green-800/60 hover:to-emerald-800/60 shadow-lg shadow-green-400/30",
-        plasma: "border-purple-400 bg-gradient-to-r from-purple-900/40 to-pink-900/40 text-purple-100 hover:from-purple-800/60 hover:to-pink-800/60 shadow-lg shadow-purple-400/30",
-        hologram: "border-cyan-400/30 bg-transparent text-cyan-300 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/10"
+        default: 'border-gray-600 bg-gray-800/50 text-gray-300 hover:bg-gray-700/50',
+        primary: 'border-cyan-400/50 bg-cyan-900/30 text-cyan-300 hover:bg-cyan-800/50 shadow-lg shadow-cyan-400/20',
+        secondary: 'border-gray-500 bg-gray-700/50 text-gray-200 hover:bg-gray-600/50',
+        success: 'border-green-400/50 bg-green-900/30 text-green-300 hover:bg-green-800/50 shadow-lg shadow-green-400/20',
+        warning: 'border-yellow-400/50 bg-yellow-900/30 text-yellow-300 hover:bg-yellow-800/50 shadow-lg shadow-yellow-400/20',
+        destructive: 'border-red-400/50 bg-red-900/30 text-red-300 hover:bg-red-800/50 shadow-lg shadow-red-400/20',
+        cyber: 'border-cyan-400 bg-gradient-to-r from-cyan-900/40 to-blue-900/40 text-cyan-100 hover:from-cyan-800/60 hover:to-blue-800/60 shadow-lg shadow-cyan-400/30',
+        neon: 'border-green-400 bg-gradient-to-r from-green-900/40 to-emerald-900/40 text-green-100 hover:from-green-800/60 hover:to-emerald-800/60 shadow-lg shadow-green-400/30',
+        plasma: 'border-purple-400 bg-gradient-to-r from-purple-900/40 to-pink-900/40 text-purple-100 hover:from-purple-800/60 hover:to-pink-800/60 shadow-lg shadow-purple-400/30',
+        hologram: 'border-cyan-400/30 bg-transparent text-cyan-300 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/10'
       },
       size: {
-        default: "px-2.5 py-0.5 text-xs",
-        sm: "px-2 py-0.5 text-xs",
-        lg: "px-3 py-1 text-sm",
-        xl: "px-4 py-1.5 text-base"
+        default: 'px-2.5 py-0.5 text-xs',
+        sm: 'px-2 py-0.5 text-xs',
+        lg: 'px-3 py-1 text-sm',
+        xl: 'px-4 py-1.5 text-base'
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: 'default',
+      size: 'default',
     },
   }
-)
+);
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -61,14 +61,14 @@ function Badge({ className, variant, size, animate = false, children, ...props }
         <motion.div
           className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
           animate={{
-            x: ["-100%", "100%"],
+            x: ['-100%', '100%'],
             opacity: [0, 0.7, 0]
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
             repeatDelay: 4,
-            ease: "linear"
+            ease: 'linear'
           }}
         />
       )}
@@ -82,7 +82,7 @@ function Badge({ className, variant, size, animate = false, children, ...props }
       <motion.div
         whileHover={{ scale: 1.05, y: -1 }}
         whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       >
         {badgeElement}
       </motion.div>
@@ -124,7 +124,7 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
       variant={rarityVariant as any}
       size={size}
       animate={animate}
-      className={cn("select-none", className)}
+      className={cn('select-none', className)}
     >
       <motion.span
         initial={{ opacity: 0 }}
@@ -145,7 +145,7 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
           transition={{
             duration: 1.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: 'easeInOut'
           }}
         >
           ✦
@@ -155,4 +155,4 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
   );
 };
 
-export { Badge, badgeVariants }
+export { Badge, badgeVariants };

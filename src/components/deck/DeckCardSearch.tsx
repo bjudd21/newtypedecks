@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import CardSearch from '@/components/card/CardSearch';
 import { CardWithRelations } from '@/lib/types/card';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { useCollection } from '@/hooks';
 
 interface DragData {

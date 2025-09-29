@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-09-28T21:49:06.044Z",
+  "timestamp": "2025-09-29T13:02:17.547Z",
   "summary": {
     "passed": 164,
-    "warnings": 15,
+    "warnings": 16,
     "errors": 74,
-    "total": 253
+    "total": 254
   },
   "files": [
     {
@@ -689,10 +689,10 @@
     },
     {
       "file": "src/components/layout/CookieNotice.tsx",
-      "lines": 274,
+      "lines": 276,
       "limit": 300,
-      "percentage": 91.33333333333333,
-      "size": 11842,
+      "percentage": 92,
+      "size": 11857,
       "status": "warning"
     },
     {
@@ -717,6 +717,14 @@
       "limit": 300,
       "percentage": 86.66666666666667,
       "size": 10365,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "lines": 256,
+      "limit": 300,
+      "percentage": 85.33333333333334,
+      "size": 14365,
       "status": "warning"
     },
     {
@@ -1273,10 +1281,10 @@
     },
     {
       "file": "src/app/api/cards/search/route.ts",
-      "lines": 169,
+      "lines": 185,
       "limit": 300,
-      "percentage": 56.333333333333336,
-      "size": 7497,
+      "percentage": 61.66666666666667,
+      "size": 8363,
       "status": "passed"
     },
     {
@@ -1457,10 +1465,10 @@
     },
     {
       "file": "src/components/ui/Input.tsx",
-      "lines": 51,
+      "lines": 165,
       "limit": 300,
-      "percentage": 17,
-      "size": 1423,
+      "percentage": 55.00000000000001,
+      "size": 5589,
       "status": "passed"
     },
     {
@@ -1473,18 +1481,18 @@
     },
     {
       "file": "src/components/ui/Card.tsx",
-      "lines": 98,
+      "lines": 149,
       "limit": 300,
-      "percentage": 32.666666666666664,
-      "size": 2085,
+      "percentage": 49.666666666666664,
+      "size": 4702,
       "status": "passed"
     },
     {
       "file": "src/components/ui/Button.tsx",
-      "lines": 81,
+      "lines": 158,
       "limit": 300,
-      "percentage": 27,
-      "size": 2238,
+      "percentage": 52.666666666666664,
+      "size": 6235,
       "status": "passed"
     },
     {
@@ -1497,10 +1505,10 @@
     },
     {
       "file": "src/components/ui/Badge.tsx",
-      "lines": 94,
+      "lines": 159,
       "limit": 300,
-      "percentage": 31.333333333333336,
-      "size": 2118,
+      "percentage": 53,
+      "size": 5442,
       "status": "passed"
     },
     {
@@ -1569,10 +1577,10 @@
     },
     {
       "file": "src/components/layout/LegalComplianceFooter.tsx",
-      "lines": 231,
+      "lines": 233,
       "limit": 300,
-      "percentage": 77,
-      "size": 9593,
+      "percentage": 77.66666666666666,
+      "size": 9608,
       "status": "passed"
     },
     {
@@ -1728,14 +1736,6 @@
       "status": "passed"
     },
     {
-      "file": "src/app/page.tsx",
-      "lines": 94,
-      "limit": 300,
-      "percentage": 31.333333333333336,
-      "size": 2891,
-      "status": "passed"
-    },
-    {
       "file": "src/app/layout.tsx",
       "lines": 230,
       "limit": 300,
@@ -1797,6 +1797,14 @@
       "limit": 300,
       "percentage": 40.33333333333333,
       "size": 4654,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/demo/page.tsx",
+      "lines": 236,
+      "limit": 300,
+      "percentage": 78.66666666666666,
+      "size": 8969,
       "status": "passed"
     },
     {

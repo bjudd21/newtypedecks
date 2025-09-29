@@ -39,7 +39,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const [deckFormat, setDeckFormat] = useState('Standard');
   const [isPublic, setIsPublic] = useState(false);
   const [savedDeckId, setSavedDeckId] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [_searchQuery, _setSearchQuery] = useState('');
   const [showVersionHistory, setShowVersionHistory] = useState(false);
   const [showTemplateCreator, setShowTemplateCreator] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
@@ -112,7 +112,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   }, []);
 
   // Handle card drops into deck areas
-  const handleCardDrop = useCallback((cardId: string, action: 'move' | 'copy') => {
+  const handleCardDrop = useCallback((cardId: string, _action: 'move' | 'copy') => {
     // Find the card in search results
     const card = searchResults.find(c => c.id === cardId);
     if (card) {
@@ -134,12 +134,12 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   // Handle save deck
   const handleSaveDeck = useCallback(async () => {
     if (!isAuthenticated) {
-      alert('Please sign in to save decks!');
+      console.warn('Please sign in to save decks!');
       return;
     }
 
     if (!currentDeck || currentDeck.cards.length === 0) {
-      alert('Cannot save an empty deck!');
+      console.warn('Cannot save an empty deck!');
       return;
     }
 
@@ -163,7 +163,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         // Update existing deck
         const updatedDeck = await updateDeck(savedDeckId, deckData);
         if (updatedDeck) {
-          alert('Deck updated successfully!');
+          console.warn('Deck updated successfully!');
         }
       } else {
         // Create new deck
@@ -178,7 +178,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             description: newDeck.description,
             userId: user?.id || 'authenticated'
           }));
-          alert('Deck saved successfully!');
+          console.warn('Deck saved successfully!');
         }
       }
     } catch (error) {
@@ -214,7 +214,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
       deckExporter.downloadDeck(exportableDeck, options);
     } catch (error) {
       console.error('Export failed:', error);
-      alert('Export failed. Please try again.');
+      console.warn('Export failed. Please try again.');
     }
   }, [currentDeck, deckName]);
 
@@ -554,7 +554,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
           <Button
             variant="outline"
             onClick={() => {
-              alert('Sign in to save and share your decks!\n\nYou can create an account or sign in with Google/Discord to start building your deck collection.');
+              console.warn('Sign in to save and share your decks!');
             }}
           >
             💾 Sign in to Save
