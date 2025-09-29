@@ -10,68 +10,18 @@ import {
 } from '@/components/ui';
 import { Button } from '@/components/ui/Button';
 import { GameContentAttribution, AttributionTooltip } from '@/components/layout';
+import { CardDatabaseSearch } from '@/components/card/CardDatabaseSearch';
 
 export default function Home() {
   return (
     <div className="min-h-screen particle-field relative z-10">
-      {/* Hero Section */}
+      {/* Search Interface Hero */}
       <div className="container mx-auto px-4 py-20">
-        <div className="mb-20 text-center relative">
-          <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full cyber-border bg-black/40 backdrop-blur-strong">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full pulse-cyber"></div>
-            <span className="tech-text text-sm font-medium uppercase tracking-wider">System Online</span>
-          </div>
+        <CardDatabaseSearch className="mb-20" />
 
-          <h1 className="mb-8 relative z-10">
-            <span className="block text-neon mb-2">Gundam Card Game</span>
-            <span className="block text-gradient">Neural Interface</span>
-            <AttributionTooltip />
-          </h1>
-
-          <div className="mx-auto max-w-5xl space-y-8 relative">
-            <p className="text-xl md:text-2xl tech-text font-light leading-relaxed text-cyan-300">
-              The most advanced database and tactical platform for the
-              <span className="text-neon font-medium"> Gundam Card Game</span>. Deploy cards, construct decks, and dominate the battlefield.
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              <div className="flex flex-col items-center gap-3 p-4 rounded-lg neon-border bg-black/30 backdrop-blur-strong">
-                <div className="w-3 h-3 rounded-full pulse-cyber"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-neon">1000+</div>
-                  <div className="text-xs tech-text uppercase tracking-wider opacity-80">Cards</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-3 p-4 rounded-lg plasma-border bg-black/30 backdrop-blur-strong">
-                <div className="w-3 h-3 rounded-full pulse-plasma"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-plasma">AI</div>
-                  <div className="text-xs tech-text uppercase tracking-wider opacity-80">Search</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-3 p-4 rounded-lg cyber-border bg-black/30 backdrop-blur-strong">
-                <div className="w-3 h-3 rounded-full pulse-neon"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-energy">∞</div>
-                  <div className="text-xs tech-text uppercase tracking-wider opacity-80">Decks</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-3 p-4 rounded-lg neon-border bg-black/30 backdrop-blur-strong">
-                <div className="w-3 h-3 rounded-full pulse-cyber"></div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-cyber">PWA</div>
-                  <div className="text-xs tech-text uppercase tracking-wider opacity-80">Ready</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12">
-            <GameContentAttribution className="text-xs opacity-60 tech-text" />
-          </div>
+        <div className="text-center mb-12">
+          <GameContentAttribution className="text-xs opacity-60 tech-text" />
+          <AttributionTooltip />
         </div>
 
         {/* Neural Interface Modules */}
