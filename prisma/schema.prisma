@@ -12,15 +12,19 @@ datasource db {
 
 // User model for authentication and user management
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  password      String?   // For credentials auth
-  name          String?
-  image         String?
-  role          UserRole  @default(USER)
-  emailVerified DateTime? // For NextAuth
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                     String    @id @default(cuid())
+  email                  String    @unique
+  password               String?   // For credentials auth
+  name                   String?
+  image                  String?
+  role                   UserRole  @default(USER)
+  emailVerified          DateTime? // For NextAuth
+  passwordResetToken     String?   // Password reset token
+  passwordResetExpires   DateTime? // Password reset token expiration
+  emailVerificationToken String?   // Email verification token
+  emailVerificationExpires DateTime? // Email verification token expiration
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
 
   // NextAuth relations
   accounts Account[]
@@ -28,9 +32,12 @@ model User {
 
   // Application relations
   decks               Deck[]
+  deckVersions        DeckVersion[]
   collections         Collection[]
   submissions         CardSubmission[]
   reviewedSubmissions CardSubmission[] @relation("ReviewedSubmissions")
+  favoriteDecks       UserFavoriteDeck[]
+  templateUsage       DeckTemplateUsage[]
 
   @@map("users")
 }
@@ -171,6 +178,7 @@ model Card {
   rarity       Rarity   @relation(fields: [rarityId], references: [id])
   set          Set      @relation(fields: [setId], references: [id])
   deckCards    DeckCard[]
+  deckVersionCards DeckVersionCard[]
   collectionCards CollectionCard[]
   rulings      CardRuling[]
   submissions  CardSubmission[]
@@ -228,14 +236,70 @@ model Deck {
   description String?
   isPublic    Boolean  @default(false)
   userId      String
+
+  // Versioning
+  currentVersion Int     @default(1)
+  versionName    String? // Optional name for the current version
+
+  // Templates and Favorites
+  isTemplate     Boolean  @default(false) // Whether this deck can be used as a template
+  templateSource String?  // Source attribution for templates ("Official", "Community", etc.)
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  user  User       @relation(fields: [userId], references: [id])
-  cards DeckCard[]
+  user          User                @relation(fields: [userId], references: [id])
+  cards         DeckCard[]
+  versions      DeckVersion[]
+  favoritedBy   UserFavoriteDeck[]  // Users who favorited this deck
+  templateUsage DeckTemplateUsage[] // Tracks usage of this deck as template
 
   @@map("decks")
+}
+
+// Deck Version model for revision history
+model DeckVersion {
+  id          String   @id @default(cuid())
+  deckId      String
+  version     Int      // Version number (1, 2, 3, etc.)
+  name        String   // Deck name at this version
+  description String?  // Deck description at this version
+  versionName String?  // Optional name for this version ("Initial Build", "Tournament Ready", etc.)
+  isPublic    Boolean  @default(false)
+
+  // Version metadata
+  changeNote  String?  // Notes about what changed in this version
+  createdBy   String   // User who created this version
+  createdAt   DateTime @default(now())
+
+  // Snapshot of deck cards at this version
+  cards       DeckVersionCard[]
+
+  // Relations
+  deck        Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  creator     User @relation(fields: [createdBy], references: [id])
+
+  @@unique([deckId, version])
+  @@index([deckId, version])
+  @@index([deckId, createdAt])
+  @@map("deck_versions")
+}
+
+// Deck Version Card relationship - snapshot of cards in a specific version
+model DeckVersionCard {
+  id        String @id @default(cuid())
+  versionId String
+  cardId    String
+  quantity  Int
+  category  String?
+
+  // Relations
+  version   DeckVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  card      Card        @relation(fields: [cardId], references: [id])
+
+  @@unique([versionId, cardId])
+  @@map("deck_version_cards")
 }
 
 // Deck-Card relationship model
@@ -414,4 +478,41 @@ enum SubmissionPriority {
   NORMAL      // Normal priority
   HIGH        // High priority (leaks, official previews)
   URGENT      // Urgent (time-sensitive)
+}
+
+// User Favorite Decks - tracks which decks users have marked as favorites
+model UserFavoriteDeck {
+  id       String @id @default(cuid())
+  userId   String
+  deckId   String
+
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, deckId])
+  @@index([userId])
+  @@index([deckId])
+  @@map("user_favorite_decks")
+}
+
+// Deck Template Usage - tracks when templates are used to create new decks
+model DeckTemplateUsage {
+  id           String   @id @default(cuid())
+  templateId   String   // The deck that was used as a template
+  createdDeckId String? // The new deck created from this template (nullable in case deck is deleted)
+  userId       String   // User who used the template
+
+  createdAt    DateTime @default(now())
+
+  // Relations
+  template    Deck  @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  user        User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([templateId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("deck_template_usage")
 }

@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select, Badge } from '@/components/ui';
 import { useAuth, useCollection } from '@/hooks';
+import { CollectionImporter } from './CollectionImporter';
+import { AdvancedImporter } from './AdvancedImporter';
+import { CollectionExporter } from './CollectionExporter';
 
 interface CollectionCard {
   cardId: string;
@@ -47,6 +50,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
   const [editingCard, setEditingCard] = useState<string | null>(null);
   const [editQuantity, setEditQuantity] = useState<number>(0);
   const [editCondition, setEditCondition] = useState<string>('Near Mint');
+  const [currentTab, setCurrentTab] = useState<'view' | 'import' | 'advanced' | 'export'>('view');
 
   // Load collection on mount and filter changes
   const loadCollection = useCallback(async () => {
@@ -157,11 +161,62 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
         </div>
       )}
 
-      {/* Filters */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Filter Collection</CardTitle>
-        </CardHeader>
+      {/* Tab Navigation */}
+      <div className="mb-6">
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            <button
+              onClick={() => setCurrentTab('view')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                currentTab === 'view'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📖 View Collection
+            </button>
+            <button
+              onClick={() => setCurrentTab('import')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                currentTab === 'import'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📥 Import Cards
+            </button>
+            <button
+              onClick={() => setCurrentTab('advanced')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                currentTab === 'advanced'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              🔧 Advanced Import
+            </button>
+            <button
+              onClick={() => setCurrentTab('export')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                currentTab === 'export'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              📤 Export Collection
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      {/* Tab Content */}
+      {currentTab === 'view' && (
+        <>
+          {/* Filters */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Filter Collection</CardTitle>
+            </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
@@ -383,6 +438,52 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
           )}
         </CardContent>
       </Card>
+        </>
+      )}
+
+      {/* Import Tab */}
+      {currentTab === 'import' && (
+        <CollectionImporter
+          onImportComplete={(result) => {
+            console.log('Import completed:', result);
+            // Refresh collection after import
+            loadCollection();
+            // Show success message
+            if (result.success > 0) {
+              alert(`Successfully imported ${result.success} cards to your collection!`);
+            }
+          }}
+        />
+      )}
+
+      {/* Advanced Import Tab */}
+      {currentTab === 'advanced' && (
+        <AdvancedImporter
+          onImportComplete={(result) => {
+            console.log('Advanced import completed:', result);
+            // Refresh collection after import
+            loadCollection();
+            // Show results summary
+            if (result.result?.success > 0) {
+              alert(`Successfully imported ${result.result.success} cards to your collection!`);
+            }
+          }}
+        />
+      )}
+
+      {/* Export Tab */}
+      {currentTab === 'export' && (
+        <CollectionExporter
+          collectionStats={collection?.statistics}
+          onExportComplete={(result) => {
+            console.log('Export completed:', result);
+            // Show success message
+            if (result.success) {
+              alert(`Export completed successfully! File: ${result.filename}`);
+            }
+          }}
+        />
+      )}
     </div>
   );
 };

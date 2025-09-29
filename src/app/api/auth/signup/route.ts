@@ -6,6 +6,9 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createUser, validateEmail, validatePassword, checkRateLimit } from '@/lib/auth-utils';
+import { prisma } from '@/lib/database';
+import { sendEmailVerification } from '@/lib/services/emailService';
+import { generateUrlSafeToken, generateEmailVerificationExpiration } from '@/lib/utils/tokens';
 
 export async function POST(request: NextRequest) {
   try {
@@ -69,15 +72,47 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Generate and send email verification
+    try {
+      const verificationToken = generateUrlSafeToken();
+      const verificationExpires = generateEmailVerificationExpiration();
+
+      // Save verification token to database
+      await prisma.user.update({
+        where: { id: result.user!.id },
+        data: {
+          emailVerificationToken: verificationToken,
+          emailVerificationExpires: verificationExpires,
+        },
+      });
+
+      // Create verification URL
+      const verificationUrl = `${process.env.NEXTAUTH_URL}/auth/verify-email?token=${verificationToken}`;
+
+      // Send verification email
+      const emailSent = await sendEmailVerification(result.user!.email, {
+        username: result.user!.name || result.user!.email,
+        verificationUrl,
+      });
+
+      if (!emailSent) {
+        console.warn('Failed to send verification email to:', result.user!.email);
+      }
+    } catch (emailError) {
+      console.error('Error sending verification email:', emailError);
+      // Don't fail the registration if email sending fails
+    }
+
     // Return success (don't include sensitive data)
     return NextResponse.json(
       {
-        message: 'User created successfully',
+        message: 'User created successfully. Please check your email to verify your account.',
         user: {
           id: result.user!.id,
           email: result.user!.email,
           name: result.user!.name,
           role: result.user!.role,
+          emailVerified: result.user!.emailVerified,
         },
       },
       { status: 201 }

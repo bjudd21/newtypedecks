@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import CardSearch from '@/components/card/CardSearch';
 import { CardWithRelations } from '@/lib/types/card';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { useCollection } from '@/hooks';
 
 interface DragData {
   cardId: string;
@@ -14,9 +15,10 @@ interface DragData {
 interface SearchResultCardProps {
   card: CardWithRelations;
   onClick: () => void;
+  ownedQuantity?: number;
 }
 
-const SearchResultCard: React.FC<SearchResultCardProps> = ({ card, onClick }) => {
+const SearchResultCard: React.FC<SearchResultCardProps> = ({ card, onClick, ownedQuantity = 0 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDragStart = (e: React.DragEvent) => {
@@ -44,6 +46,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ card, onClick }) =>
       className={`
         flex items-center gap-3 p-3 text-left border rounded-lg hover:bg-gray-50 hover:border-blue-300 transition-colors cursor-pointer
         ${isDragging ? 'opacity-50 transform scale-95' : ''}
+        ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''}
       `}
     >
       {/* Card Image Placeholder */}
@@ -89,6 +92,11 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ card, onClick }) =>
           {card.set?.name} #{card.setNumber}
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
+          {ownedQuantity > 0 && (
+            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+              Owned: {ownedQuantity}
+            </span>
+          )}
         </div>
       </div>
 
@@ -116,12 +124,26 @@ interface DeckCardSearchProps {
 export const DeckCardSearch: React.FC<DeckCardSearchProps> = ({
   onCardSelect,
   onSearchResults,
-  placeholder = "Search cards to add to deck...",
+  placeholder = 'Search cards to add to deck...',
   showFilters = false,
   limit = 10,
   className
 }) => {
   const [searchResults, setSearchResults] = useState<CardWithRelations[]>([]);
+  const [cardQuantities, setCardQuantities] = useState<Record<string, number>>({});
+  const { getCardQuantities } = useCollection();
+
+  // Fetch collection quantities when search results change
+  useEffect(() => {
+    if (searchResults.length > 0) {
+      const cardIds = searchResults.map(card => card.id);
+      getCardQuantities(cardIds).then(quantities => {
+        setCardQuantities(quantities);
+      });
+    } else {
+      setCardQuantities({});
+    }
+  }, [searchResults, getCardQuantities]);
 
   // Handle search results from CardSearch component
   const handleSearchResults = useCallback((cards: CardWithRelations[]) => {
@@ -160,6 +182,7 @@ export const DeckCardSearch: React.FC<DeckCardSearchProps> = ({
                 key={card.id}
                 card={card}
                 onClick={() => handleCardClick(card)}
+                ownedQuantity={cardQuantities[card.id] || 0}
               />
             ))}
           </div>

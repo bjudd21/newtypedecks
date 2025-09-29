@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Legal Compliance Footer Component
  *
@@ -109,21 +111,47 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               </div>
             </div>
 
-            {/* Contact & Resources */}
+            {/* Legal Links & Resources */}
             <div>
-              <h4 className="text-md font-semibold mb-4">Official Resources</h4>
-              <div className="space-y-2 text-sm">
-                <a
-                  href="https://www.bandainamcoent.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  → Bandai Namco Entertainment Official Site
-                </a>
-                <p className="text-gray-400 text-xs mt-2">
-                  For official rules, tournaments, and support, visit the official website.
-                </p>
+              <h4 className="text-md font-semibold mb-4">Legal & Resources</h4>
+              <div className="space-y-3">
+                <div>
+                  <h5 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Legal Information</h5>
+                  <div className="space-y-1 text-sm">
+                    <a
+                      href="/privacy"
+                      className="block text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      Privacy Policy
+                    </a>
+                    <a
+                      href="/terms"
+                      className="block text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      Terms of Service
+                    </a>
+                    <a
+                      href="/cookies"
+                      className="block text-blue-400 hover:text-blue-300 transition-colors"
+                    >
+                      Cookie Policy
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <h5 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Official Resources</h5>
+                  <a
+                    href="https://www.bandainamcoent.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-blue-400 hover:text-blue-300 transition-colors text-sm"
+                  >
+                    → Bandai Namco Entertainment
+                  </a>
+                  <p className="text-gray-400 text-xs mt-1">
+                    For official rules and tournaments
+                  </p>
+                </div>
               </div>
             </div>
           </div>

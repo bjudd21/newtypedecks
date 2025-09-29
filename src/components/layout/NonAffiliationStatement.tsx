@@ -18,7 +18,7 @@ export const NonAffiliationStatement: React.FC<NonAffiliationStatementProps> = (
   variant = 'inline',
   showIcon = true
 }) => {
-  const Icon = ({ className: iconClass = "" }) => (
+  const Icon = ({ className: iconClass = '' }) => (
     <svg
       className={`h-5 w-5 ${iconClass}`}
       fill="none"
@@ -44,7 +44,7 @@ export const NonAffiliationStatement: React.FC<NonAffiliationStatementProps> = (
               <Icon className="text-blue-400" />
             </div>
           )}
-          <div className={showIcon ? "ml-3" : ""}>
+          <div className={showIcon ? 'ml-3' : ''}>
             <p className="text-sm text-blue-700">
               <strong className="font-medium">Unofficial Fan Site Notice:</strong>{' '}
               This website is not affiliated with, endorsed by, or sponsored by Bandai Namco Entertainment Inc.
@@ -65,7 +65,7 @@ export const NonAffiliationStatement: React.FC<NonAffiliationStatementProps> = (
               <Icon className="text-blue-500 mt-1" />
             </div>
           )}
-          <div className={showIcon ? "ml-4" : ""}>
+          <div className={showIcon ? 'ml-4' : ''}>
             <h3 className="text-lg font-medium text-gray-900 mb-3">
               Independent Fan Website
             </h3>

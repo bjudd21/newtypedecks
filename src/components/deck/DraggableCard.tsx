@@ -11,6 +11,7 @@ interface DraggableCardProps {
   onRemove: () => void;
   isEditing: boolean;
   className?: string;
+  ownedQuantity?: number;
 }
 
 interface DragData {
@@ -25,7 +26,8 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   onQuantityChange,
   onRemove,
   isEditing,
-  className = ''
+  className = '',
+  ownedQuantity = 0
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -131,6 +133,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           {card.set?.name} #{card.setNumber}
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
+          {ownedQuantity > 0 && (
+            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+              Owned: {ownedQuantity}
+            </span>
+          )}
         </div>
       </div>
 

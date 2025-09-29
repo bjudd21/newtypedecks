@@ -11,11 +11,15 @@ import {
   setIsEditing
 } from '@/store/slices/deckSlice';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge, Select } from '@/components/ui';
-import { useAuth, useDecks } from '@/hooks';
+import { useAuth, useDecks, useCollection } from '@/hooks';
 import { DeckCardSearch } from './DeckCardSearch';
 import { DraggableCard } from './DraggableCard';
 import { DeckDropZone } from './DeckDropZone';
 import { DeckValidator } from './DeckValidator';
+import { DeckVersionHistory } from './DeckVersionHistory';
+import { DeckTemplateCreator } from './DeckTemplateCreator';
+import { FavoriteButton } from './FavoriteButton';
+import { DeckAnalyticsDisplay } from '@/components/analytics';
 import { deckExporter } from '@/lib/services/deckExportService';
 import type { CardWithRelations } from '@/lib/types/card';
 
@@ -28,6 +32,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const { currentDeck, isEditing } = useSelector((state: RootState) => state.decks);
   const { isAuthenticated, user } = useAuth();
   const { createDeck, updateDeck, error: deckError, isLoading: deckLoading, clearError } = useDecks();
+  const { getCardQuantities } = useCollection();
 
   const [deckName, setDeckName] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
@@ -35,6 +40,10 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const [isPublic, setIsPublic] = useState(false);
   const [savedDeckId, setSavedDeckId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showVersionHistory, setShowVersionHistory] = useState(false);
+  const [showTemplateCreator, setShowTemplateCreator] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [collectionQuantities, setCollectionQuantities] = useState<Record<string, number>>({});
 
   // Initialize a new deck
   useEffect(() => {
@@ -61,6 +70,18 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
       }
     }
   }, [currentDeck, dispatch, isAuthenticated, user]);
+
+  // Fetch collection quantities when deck changes (for authenticated users only)
+  useEffect(() => {
+    if (isAuthenticated && currentDeck && currentDeck.cards.length > 0) {
+      const cardIds = currentDeck.cards.map(deckCard => deckCard.card.id);
+      getCardQuantities(cardIds).then(quantities => {
+        setCollectionQuantities(quantities);
+      });
+    } else {
+      setCollectionQuantities({});
+    }
+  }, [currentDeck, isAuthenticated, getCardQuantities]);
 
   // Handle card selection from search
   const handleCardSelect = useCallback((card: CardWithRelations) => {
@@ -171,7 +192,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
 
     const exportableDeck = {
       name: deckName,
-      description: `Exported from Gundam Card Game Builder`,
+      description: 'Exported from Gundam Card Game Builder',
       cards: currentDeck.cards.map(deckCard => ({
         card: deckCard.card,
         quantity: deckCard.quantity,
@@ -233,6 +254,26 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             >
               {isEditing ? 'Done Editing' : 'Edit Deck'}
             </Button>
+
+            {/* Version History Toggle (authenticated users with saved decks only) */}
+            {isAuthenticated && savedDeckId && (
+              <Button
+                onClick={() => setShowVersionHistory(!showVersionHistory)}
+                variant={showVersionHistory ? 'primary' : 'outline'}
+              >
+                {showVersionHistory ? 'Hide History' : 'Version History'}
+              </Button>
+            )}
+
+            {/* Favorite Button (authenticated users with saved decks only) */}
+            {isAuthenticated && savedDeckId && (
+              <FavoriteButton
+                deckId={savedDeckId}
+                deckName={deckName}
+                size="md"
+                variant="button"
+              />
+            )}
           </div>
 
           {/* Deck Settings (for authenticated users) */}
@@ -377,6 +418,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
                             }
                             onRemove={() => handleQuantityChange(deckCard.cardId, 0)}
                             isEditing={isEditing}
+                            ownedQuantity={collectionQuantities[deckCard.card.id] || 0}
                           />
                         ))}
                       </div>
@@ -435,6 +477,26 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             onClick={handleSaveDeck}
           >
             {deckLoading ? 'Saving...' : (savedDeckId ? 'Update Deck' : 'Save Deck')}
+          </Button>
+        )}
+
+        {/* Create Template (authenticated users with saved decks only) */}
+        {isAuthenticated && savedDeckId && uniqueCards > 0 && (
+          <Button
+            variant="outline"
+            onClick={() => setShowTemplateCreator(!showTemplateCreator)}
+          >
+            {showTemplateCreator ? 'Hide Template Creator' : 'Create Template'}
+          </Button>
+        )}
+
+        {/* Deck Analytics */}
+        {uniqueCards > 0 && (
+          <Button
+            variant="outline"
+            onClick={() => setShowAnalytics(!showAnalytics)}
+          >
+            {showAnalytics ? 'Hide Analytics' : '📊 Deck Analytics'}
           </Button>
         )}
 
@@ -500,12 +562,69 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         )}
       </div>
 
+      {/* Version History Section */}
+      {showVersionHistory && isAuthenticated && savedDeckId && (
+        <div className="mt-6">
+          <DeckVersionHistory
+            deckId={savedDeckId}
+            currentVersion={currentDeck?.currentVersion}
+            onVersionRestore={() => {
+              // Refresh the page to show restored deck
+              window.location.reload();
+            }}
+            onVersionDelete={() => {
+              // Version deleted, refresh might be needed
+              console.log('Version deleted');
+            }}
+          />
+        </div>
+      )}
+
+      {/* Template Creator Section */}
+      {showTemplateCreator && isAuthenticated && savedDeckId && (
+        <div className="mt-6">
+          <DeckTemplateCreator
+            deckId={savedDeckId}
+            deckName={deckName}
+            deckDescription={deckDescription}
+            cardCount={totalCards}
+            onTemplateCreated={(templateId) => {
+              console.log('Template created:', templateId);
+              setShowTemplateCreator(false);
+            }}
+          />
+        </div>
+      )}
+
+      {/* Deck Analytics Section */}
+      {showAnalytics && currentDeck && currentDeck.cards.length > 0 && (
+        <div className="mt-6">
+          <DeckAnalyticsDisplay
+            deckCards={currentDeck.cards.map(deckCard => ({
+              card: deckCard.card,
+              quantity: deckCard.quantity,
+              category: deckCard.category || 'main'
+            }))}
+            deckName={deckName}
+            onAnalysisUpdate={(analytics) => {
+              // Could store analytics in state for other uses
+              console.log('Deck analytics updated:', analytics);
+            }}
+          />
+        </div>
+      )}
+
       {/* Deck Status Indicator */}
       {isAuthenticated && (
         <div className="mt-4 text-sm text-gray-600">
           {savedDeckId ? (
             <span className="flex items-center gap-1">
               ✅ <strong>{deckName}</strong> is saved to your collection
+              {currentDeck?.currentVersion && (
+                <Badge variant="secondary" className="ml-2 text-xs">
+                  v{currentDeck.currentVersion}
+                </Badge>
+              )}
             </span>
           ) : uniqueCards > 0 ? (
             <span className="flex items-center gap-1">

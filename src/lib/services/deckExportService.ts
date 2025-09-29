@@ -195,7 +195,7 @@ export class DeckExportService {
     }
 
     if (options.includeStats && deck.metadata) {
-      output += `\n## Deck Statistics\n`;
+      output += '\n## Deck Statistics\n';
       output += `Total Cards: ${deck.metadata.totalCards}\n`;
       output += `Unique Cards: ${deck.metadata.uniqueCards}\n`;
       output += `Total Cost: ${deck.metadata.totalCost}\n`;
@@ -318,7 +318,7 @@ export class DeckExportService {
    * Export to MTG Arena format (for compatibility with other deck builders)
    */
   private exportToMTGAFormat(deck: ExportableDeck, options: ExportOptions): string {
-    let output = `Deck\n`;
+    let output = 'Deck\n';
 
     const sortedCards = this.sortCards(deck.cards, options);
 
@@ -340,11 +340,11 @@ export class DeckExportService {
    * Export to Cockatrice format
    */
   private exportToCockatriceFormat(deck: ExportableDeck, options: ExportOptions): string {
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-    xml += `<cockatrice_deck version="1">\n`;
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<cockatrice_deck version="1">\n';
     xml += `  <deckname>${this.escapeXML(deck.name)}</deckname>\n`;
     xml += `  <comments>${this.escapeXML(deck.description || '')}</comments>\n`;
-    xml += `  <zone name="main">\n`;
+    xml += '  <zone name="main">\n';
 
     const sortedCards = this.sortCards(deck.cards, options);
 
@@ -352,8 +352,8 @@ export class DeckExportService {
       xml += `    <card number="${deckCard.quantity}" name="${this.escapeXML(deckCard.card.name)}"/>\n`;
     }
 
-    xml += `  </zone>\n`;
-    xml += `</cockatrice_deck>\n`;
+    xml += '  </zone>\n';
+    xml += '</cockatrice_deck>\n';
 
     return xml;
   }

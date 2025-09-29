@@ -191,44 +191,101 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       }
     });
 
-    // If cards are being updated, replace all cards
+    // If cards are being updated, replace all cards and create version
     if (cards && Array.isArray(cards)) {
-      // Delete existing cards
-      await prisma.deckCard.deleteMany({
-        where: { deckId: id }
-      });
+      const result = await prisma.$transaction(async (tx) => {
+        // Get current deck with cards for version creation
+        const currentDeck = await tx.deck.findUnique({
+          where: { id },
+          include: {
+            deckCards: true
+          }
+        });
 
-      // Add new cards
-      await prisma.deckCard.createMany({
-        data: cards.map((card: any) => ({
-          deckId: id,
-          cardId: card.cardId || card.card?.id,
-          quantity: Math.max(1, Math.min(4, parseInt(card.quantity) || 1)),
-          category: card.category || 'main'
-        }))
-      });
+        if (!currentDeck) {
+          throw new Error('Deck not found');
+        }
 
-      // Fetch updated deck with new cards
-      const finalDeck = await prisma.deck.findUnique({
-        where: { id },
-        include: {
-          deckCards: {
-            include: {
-              card: {
-                include: {
-                  type: true,
-                  rarity: true,
-                  faction: true,
+        // Get the next version number
+        const lastVersion = await tx.deckVersion.findFirst({
+          where: { deckId: id },
+          orderBy: { version: 'desc' },
+          select: { version: true }
+        });
+
+        const nextVersion = (lastVersion?.version || 0) + 1;
+
+        // Create version snapshot of current state (before update)
+        if (currentDeck.deckCards.length > 0) {
+          await tx.deckVersion.create({
+            data: {
+              deckId: id,
+              version: nextVersion,
+              name: currentDeck.name,
+              description: currentDeck.description,
+              versionName: `Version ${nextVersion}`,
+              changeNote: 'Automatic version created before deck update',
+              isPublic: currentDeck.isPublic,
+              createdBy: session.user.id,
+              cards: {
+                create: currentDeck.deckCards.map(deckCard => ({
+                  cardId: deckCard.cardId,
+                  quantity: deckCard.quantity,
+                  category: deckCard.category
+                }))
+              }
+            }
+          });
+
+          // Update deck's version tracking
+          await tx.deck.update({
+            where: { id },
+            data: {
+              currentVersion: nextVersion,
+              updatedAt: new Date()
+            }
+          });
+        }
+
+        // Delete existing cards
+        await tx.deckCard.deleteMany({
+          where: { deckId: id }
+        });
+
+        // Add new cards
+        await tx.deckCard.createMany({
+          data: cards.map((card: any) => ({
+            deckId: id,
+            cardId: card.cardId || card.card?.id,
+            quantity: Math.max(1, Math.min(4, parseInt(card.quantity) || 1)),
+            category: card.category || 'main'
+          }))
+        });
+
+        // Fetch updated deck with new cards
+        const finalDeck = await tx.deck.findUnique({
+          where: { id },
+          include: {
+            deckCards: {
+              include: {
+                card: {
+                  include: {
+                    type: true,
+                    rarity: true,
+                    set: true,
+                  }
                 }
               }
             }
           }
-        }
+        });
+
+        return finalDeck;
       });
 
       return NextResponse.json({
         message: 'Deck updated successfully',
-        deck: finalDeck
+        deck: result
       });
     }
 

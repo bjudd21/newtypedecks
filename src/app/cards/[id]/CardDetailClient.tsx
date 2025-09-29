@@ -464,7 +464,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                         {/* Ruling header */}
                         <div className="flex flex-wrap items-center gap-2 mb-2">
                           <Badge
-                            variant={ruling.isOfficial ? "default" : "secondary"}
+                            variant={ruling.isOfficial ? 'default' : 'secondary'}
                             className={`text-xs ${ruling.isOfficial ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}
                           >
                             {ruling.isOfficial ? 'Official' : 'Community'}

@@ -329,7 +329,7 @@ export class DeckValidationService {
       isValid: isFocused,
       message: isFocused
         ? `Good faction focus (${primaryFactions.map(f => `${f.faction}: ${f.percent.toFixed(1)}%`).join(', ')})`
-        : `Consider focusing on fewer factions for better synergy`,
+        : 'Consider focusing on fewer factions for better synergy',
       details: isFocused ? undefined : `Current factions: ${Object.entries(factionCounts).map(([f, c]) => `${f} (${c})`).join(', ')}`
     };
   }

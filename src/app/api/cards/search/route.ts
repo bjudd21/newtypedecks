@@ -144,26 +144,42 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
-  return NextResponse.json(
-    {
-      error: 'Method not allowed',
-      message: 'Use POST method with search filters in request body',
-      example: {
-        filters: {
-          name: 'Gundam',
-          faction: 'Earth Federation',
-          levelMin: 1,
-          levelMax: 5
-        },
-        options: {
-          page: 1,
-          limit: 20,
-          sortBy: 'name',
-          sortOrder: 'asc'
-        }
-      }
-    },
-    { status: 405 }
-  );
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+
+    // Parse query parameters for basic GET support
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '20')));
+    const sortBy = searchParams.get('sortBy') || 'name';
+    const sortOrder = (searchParams.get('sortOrder') || 'asc') as 'asc' | 'desc';
+
+    // Basic filters from query params
+    const filters: CardSearchFilters = {};
+    const search = searchParams.get('search')?.trim();
+    if (search) {
+      filters.name = search;
+    }
+
+    const options: CardSearchOptions = {
+      page,
+      limit,
+      sortBy: ['name', 'level', 'cost', 'clashPoints', 'price', 'hitPoints', 'attackPoints', 'setNumber', 'createdAt']
+        .includes(sortBy) ? sortBy as any : 'name',
+      sortOrder,
+      includeRelations: true,
+    };
+
+    // Execute search using CardService
+    const result: CardSearchResult = await CardService.searchCards(filters, options);
+
+    return NextResponse.json(result, { status: 200 });
+
+  } catch (error) {
+    console.error('Card search GET API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error', message: 'An unexpected error occurred' },
+      { status: 500 }
+    );
+  }
 }

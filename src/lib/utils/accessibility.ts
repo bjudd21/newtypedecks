@@ -186,7 +186,7 @@ export function createAccessibleFormField(fieldName: string): AccessibleFormFiel
 }
 
 export function getAriaDescribedBy(field: AccessibleFormField, hasError?: boolean): string | undefined {
-  const describedBy = [...field.describedBy];
+  const describedBy = field.describedBy ? [...field.describedBy] : [];
 
   if (hasError && field.errorId) {
     describedBy.push(field.errorId);

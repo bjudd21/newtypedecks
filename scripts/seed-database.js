@@ -109,7 +109,6 @@ async function seedDatabase() {
     await prisma.set.deleteMany();
     await prisma.rarity.deleteMany();
     await prisma.cardType.deleteMany();
-    await prisma.userRole.deleteMany();
     await prisma.user.deleteMany();
     
     // Seed card types

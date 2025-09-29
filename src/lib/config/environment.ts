@@ -96,9 +96,27 @@ interface EnvironmentConfig {
 function getEnvVar(key: string, fallback?: string): string {
   const value = process.env[key];
   if (!value && fallback === undefined) {
+    // In development, provide helpful defaults instead of throwing immediately
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Warning: Environment variable ${key} is not set, using default`);
+      return getDefaultValue(key);
+    }
     throw new Error(`Environment variable ${key} is required but not set`);
   }
   return value || fallback || '';
+}
+
+/**
+ * Get default values for development
+ */
+function getDefaultValue(key: string): string {
+  const defaults: Record<string, string> = {
+    DATABASE_URL: 'postgresql://gundam_user:gundam_password@localhost:5432/gundam_card_game',
+    REDIS_URL: 'redis://localhost:6379',
+    NEXTAUTH_URL: 'http://localhost:3000',
+    NEXTAUTH_SECRET: 'dev-secret-key-please-change-in-production'
+  };
+  return defaults[key] || '';
 }
 
 /**
@@ -245,9 +263,10 @@ export const env: EnvironmentConfig = {
 };
 
 /**
- * Validate environment on module load (only in non-test environments)
+ * Validate environment on module load (only in production environments)
+ * Skip validation in development to allow for flexible .env loading
  */
-if (env.NODE_ENV !== 'test') {
+if (env.NODE_ENV === 'production') {
   validateEnvironment();
 }
 

@@ -224,6 +224,28 @@ export function useCollection() {
     }
   }, [isAuthenticated, getCollection]);
 
+  const getCardQuantities = useCallback(async (cardIds: string[]): Promise<Record<string, number>> => {
+    if (!isAuthenticated || cardIds.length === 0) {
+      return {};
+    }
+
+    try {
+      const collection = await getCollection();
+      if (!collection) return {};
+
+      const quantities: Record<string, number> = {};
+      cardIds.forEach(cardId => {
+        const collectionCard = collection.cards.find(cc => cc.cardId === cardId);
+        quantities[cardId] = collectionCard?.quantity || 0;
+      });
+
+      return quantities;
+    } catch (error) {
+      console.error('Error getting card quantities:', error);
+      return {};
+    }
+  }, [isAuthenticated, getCollection]);
+
   return {
     isLoading,
     error,
@@ -233,5 +255,6 @@ export function useCollection() {
     updateCollection,
     removeFromCollection,
     getCardQuantity,
+    getCardQuantities,
   };
 }
