@@ -149,8 +149,12 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       description: 'Built without an account',
       isPublic: false,
       userId: 'anonymous',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      currentVersion: 1,
+      versionName: null,
+      isTemplate: false,
+      templateSource: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       cards: []
     };
     dispatch(setCurrentDeck(newDeck));
@@ -159,13 +163,13 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   }, [dispatch]);
 
   // Save current deck to localStorage and optionally to offline storage
-  const saveToLocalStorage = useCallback(async (deck = currentDeck, saveOffline = false) => {
+  const saveToLocalStorage = useCallback(async (deck: typeof currentDeck, saveOffline = false) => {
     if (deck) {
       setSaveStatus('saving');
 
       const deckToSave = {
         ...deck,
-        updatedAt: new Date()
+        updatedAt: new Date().toISOString()
       };
 
       // Always save to localStorage for immediate access
@@ -192,7 +196,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
         setSaveStatus('saved');
       }
     }
-  }, [currentDeck, isOnline]);
+  }, [isOnline]);
 
   // Load deck from URL encoded data
   const loadDeckFromURL = useCallback(async (urlDeckData: any) => {
@@ -206,8 +210,12 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
         description: urlDeckData.description || 'Loaded from shared URL',
         isPublic: false,
         userId: 'anonymous',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        currentVersion: 1,
+        versionName: null,
+        isTemplate: false,
+        templateSource: null,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         cards: [] // We'll start with empty and let user rebuild
       };
 
@@ -231,7 +239,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   // Auto-save deck changes to localStorage
   useEffect(() => {
     if (currentDeck && currentDeck.id.startsWith('anonymous-')) {
-      saveToLocalStorage();
+      saveToLocalStorage(currentDeck);
     }
   }, [currentDeck, saveToLocalStorage]);
 
@@ -332,9 +340,16 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
 
       // Convert deck to ShareableDeck format
       const shareableDeck = {
-        ...currentDeck,
+        id: currentDeck.id,
+        name: currentDeck.name,
         description: currentDeck.description || undefined,
-        format: undefined
+        format: undefined,
+        cards: currentDeck.cards.map(deckCard => ({
+          cardId: deckCard.cardId,
+          card: deckCard.card,
+          quantity: deckCard.quantity,
+          category: deckCard.category || 'main'
+        }))
       };
 
       // Check if deck can be shared via URL

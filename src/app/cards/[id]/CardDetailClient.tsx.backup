@@ -162,7 +162,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Card Image */}
         <div>
-          <Card className="bg-gray-800 border-gray-700">
+          <Card>
             <CardContent className="p-6">
               <CardImage
                 name={card.name}
@@ -181,7 +181,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
         {/* Card Details */}
         <div className="space-y-6">
           {/* Basic Information */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card>
             <CardHeader>
               <CardTitle>Card Information</CardTitle>
             </CardHeader>
@@ -189,7 +189,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Type and Rarity */}
                 <div>
-                  <label className="text-sm font-medium text-gray-300">Type</label>
+                  <label className="text-sm font-medium text-gray-700">Type</label>
                   <div className="mt-1">
                     {card.type ? (
                       <Badge variant="secondary">{card.type.name}</Badge>
@@ -200,7 +200,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-300">Rarity</label>
+                  <label className="text-sm font-medium text-gray-700">Rarity</label>
                   <div className="mt-1">
                     {card.rarity ? (
                       <Badge variant="info">{card.rarity.name}</Badge>
@@ -213,7 +213,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                 {/* Level and Cost */}
                 {(card.level !== null && card.level !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Level</label>
+                    <label className="text-sm font-medium text-gray-700">Level</label>
                     <div className="mt-1">
                       <Badge variant="info">Level {card.level}</Badge>
                     </div>
@@ -222,7 +222,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
                 {(card.cost !== null && card.cost !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Cost</label>
+                    <label className="text-sm font-medium text-gray-700">Cost</label>
                     <div className="mt-1">
                       <Badge variant="info">Cost {card.cost}</Badge>
                     </div>
@@ -232,59 +232,59 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                 {/* Combat Stats */}
                 {(card.clashPoints !== null && card.clashPoints !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Clash Points</label>
-                    <div className="mt-1 text-white">{card.clashPoints}</div>
+                    <label className="text-sm font-medium text-gray-700">Clash Points</label>
+                    <div className="mt-1 text-gray-900">{card.clashPoints}</div>
                   </div>
                 )}
 
                 {(card.hitPoints !== null && card.hitPoints !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Hit Points</label>
-                    <div className="mt-1 text-white">{card.hitPoints}</div>
+                    <label className="text-sm font-medium text-gray-700">Hit Points</label>
+                    <div className="mt-1 text-gray-900">{card.hitPoints}</div>
                   </div>
                 )}
 
                 {(card.attackPoints !== null && card.attackPoints !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Attack Points</label>
-                    <div className="mt-1 text-white">{card.attackPoints}</div>
+                    <label className="text-sm font-medium text-gray-700">Attack Points</label>
+                    <div className="mt-1 text-gray-900">{card.attackPoints}</div>
                   </div>
                 )}
 
                 {(card.price !== null && card.price !== undefined) && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Price</label>
-                    <div className="mt-1 text-white">{card.price}</div>
+                    <label className="text-sm font-medium text-gray-700">Price</label>
+                    <div className="mt-1 text-gray-900">{card.price}</div>
                   </div>
                 )}
 
                 {/* Faction and Series */}
                 {card.faction && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Faction</label>
-                    <div className="mt-1 text-white">{card.faction}</div>
+                    <label className="text-sm font-medium text-gray-700">Faction</label>
+                    <div className="mt-1 text-gray-900">{card.faction}</div>
                   </div>
                 )}
 
                 {card.series && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Series</label>
-                    <div className="mt-1 text-white">{card.series}</div>
+                    <label className="text-sm font-medium text-gray-700">Series</label>
+                    <div className="mt-1 text-gray-900">{card.series}</div>
                   </div>
                 )}
 
                 {card.nation && (
                   <div>
-                    <label className="text-sm font-medium text-gray-300">Nation</label>
-                    <div className="mt-1 text-white">{card.nation}</div>
+                    <label className="text-sm font-medium text-gray-700">Nation</label>
+                    <div className="mt-1 text-gray-900">{card.nation}</div>
                   </div>
                 )}
 
                 {/* Set Information */}
                 {card.set && (
                   <div className="sm:col-span-2">
-                    <label className="text-sm font-medium text-gray-300">Set</label>
-                    <div className="mt-1 text-white">
+                    <label className="text-sm font-medium text-gray-700">Set</label>
+                    <div className="mt-1 text-gray-900">
                       {card.set.name} #{card.setNumber}
                     </div>
                   </div>
@@ -294,17 +294,17 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
               {/* Special indicators */}
               <div className="mt-4 flex gap-2">
                 {card.isFoil && (
-                  <Badge variant="secondary" className="bg-yellow-800/30 text-yellow-800">
+                  <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
                     Foil
                   </Badge>
                 )}
                 {card.isPromo && (
-                  <Badge variant="secondary" className="bg-purple-800/30 text-purple-800">
+                  <Badge variant="secondary" className="bg-purple-100 text-purple-800">
                     Promo
                   </Badge>
                 )}
                 {card.isAlternate && (
-                  <Badge variant="secondary" className="bg-green-800/30 text-green-800">
+                  <Badge variant="secondary" className="bg-green-100 text-green-800">
                     Alt Art
                   </Badge>
                 )}
@@ -314,19 +314,19 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
           {/* Description */}
           {card.description && (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card>
               <CardHeader>
                 <CardTitle>Description</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-300 leading-relaxed">{card.description}</p>
+                <p className="text-gray-700 leading-relaxed">{card.description}</p>
               </CardContent>
             </Card>
           )}
 
           {/* Official Text */}
           {card.officialText && (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -336,8 +336,8 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="bg-blue-900/20 border-l-4 border-blue-400 p-4 rounded-r-md">
-                  <div className="text-gray-200 leading-relaxed whitespace-pre-line font-mono text-sm">
+                <div className="bg-gray-50 border-l-4 border-blue-400 p-4 rounded-r-md">
+                  <div className="text-gray-800 leading-relaxed whitespace-pre-line font-mono text-sm">
                     {card.officialText}
                   </div>
                 </div>
@@ -347,7 +347,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
           {/* Abilities */}
           {card.abilities && (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,7 +362,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                     try {
                       const abilities = JSON.parse(card.abilities);
                       return Array.isArray(abilities) ? abilities.map((ability: any, index: number) => (
-                        <div key={index} className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
+                        <div key={index} className="bg-purple-50 border-l-4 border-purple-400 p-3 rounded-r-md">
                           <h4 className="font-semibold text-purple-900 text-sm mb-1">
                             {ability.name || `Ability ${index + 1}`}
                           </h4>
@@ -376,7 +376,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                           )}
                         </div>
                       )) : (
-                        <div className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
+                        <div className="bg-purple-50 border-l-4 border-purple-400 p-3 rounded-r-md">
                           <p className="text-purple-800 text-sm leading-relaxed">
                             {typeof abilities === 'string' ? abilities : JSON.stringify(abilities)}
                           </p>
@@ -385,7 +385,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                     } catch (e) {
                       // If JSON parsing fails, display as plain text
                       return (
-                        <div className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
+                        <div className="bg-purple-50 border-l-4 border-purple-400 p-3 rounded-r-md">
                           <p className="text-purple-800 text-sm leading-relaxed">
                             {card.abilities}
                           </p>
@@ -400,7 +400,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
           {/* Keywords */}
           {card.keywords && card.keywords.length > 0 && (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card>
               <CardHeader>
                 <CardTitle>Keywords</CardTitle>
               </CardHeader>
@@ -418,7 +418,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
           {/* Rulings */}
           {card.rulings && card.rulings.length > 0 && (
-            <Card className="bg-gray-800 border-gray-700">
+            <Card>
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <CardTitle className="flex items-center gap-2">
@@ -426,7 +426,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Rulings & Clarifications
-                    <span className="text-sm font-normal text-gray-400">
+                    <span className="text-sm font-normal text-gray-500">
                       ({filteredRulings.length} of {card.rulings.length})
                     </span>
                   </CardTitle>
@@ -436,7 +436,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                     <select
                       value={rulingsFilter}
                       onChange={(e) => setRulingsFilter(e.target.value as 'all' | 'official' | 'community')}
-                      className="px-3 py-1 text-sm border border-gray-700 bg-gray-800 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="all">All Rulings</option>
                       <option value="official">Official Only</option>
@@ -448,7 +448,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                       placeholder="Search rulings..."
                       value={rulingsSearch}
                       onChange={(e) => setRulingsSearch(e.target.value)}
-                      className="px-3 py-1 text-sm border border-gray-700 bg-gray-800 text-white rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                 </div>
@@ -459,24 +459,24 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                     {filteredRulings.map((ruling, index) => (
                       <div
                         key={ruling.id}
-                        className={`border-l-4 pl-4 ${ruling.isOfficial ? 'border-green-400 bg-green-900/20' : 'border-blue-400 bg-blue-900/20'} p-3 rounded-r-md`}
+                        className={`border-l-4 pl-4 ${ruling.isOfficial ? 'border-green-400 bg-green-50' : 'border-blue-400 bg-blue-50'} p-3 rounded-r-md`}
                       >
                         {/* Ruling header */}
                         <div className="flex flex-wrap items-center gap-2 mb-2">
                           <Badge
                             variant={ruling.isOfficial ? 'default' : 'secondary'}
-                            className={`text-xs ${ruling.isOfficial ? 'bg-green-800/30 text-green-800' : 'bg-blue-800/30 text-blue-800'}`}
+                            className={`text-xs ${ruling.isOfficial ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}
                           >
                             {ruling.isOfficial ? 'Official' : 'Community'}
                           </Badge>
 
                           {ruling.source && (
-                            <Badge variant="secondary" className="text-xs bg-gray-700 text-gray-300">
+                            <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-700">
                               {ruling.source}
                             </Badge>
                           )}
 
-                          <span className="text-xs text-gray-400 ml-auto">
+                          <span className="text-xs text-gray-500 ml-auto">
                             Updated: {new Date(ruling.updatedAt).toLocaleDateString()}
                           </span>
                         </div>
@@ -500,8 +500,8 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                     <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <h3 className="mt-2 text-sm font-medium text-white">No rulings found</h3>
-                    <p className="mt-1 text-sm text-gray-400">
+                    <h3 className="mt-2 text-sm font-medium text-gray-900">No rulings found</h3>
+                    <p className="mt-1 text-sm text-gray-500">
                       {rulingsSearch || rulingsFilter !== 'all' ? 'Try adjusting your filters.' : 'No rulings available for this card.'}
                     </p>
                   </div>
@@ -511,10 +511,10 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
           )}
 
           {/* Card Metadata */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Card Metadata
@@ -524,24 +524,24 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                 {/* Card ID */}
                 <div>
-                  <label className="font-medium text-gray-300">Card ID</label>
-                  <div className="mt-1 text-gray-400 font-mono text-xs break-all">
+                  <label className="font-medium text-gray-700">Card ID</label>
+                  <div className="mt-1 text-gray-600 font-mono text-xs break-all">
                     {card.id}
                   </div>
                 </div>
 
                 {/* Language */}
                 <div>
-                  <label className="font-medium text-gray-300">Language</label>
-                  <div className="mt-1 text-white">
+                  <label className="font-medium text-gray-700">Language</label>
+                  <div className="mt-1 text-gray-900">
                     {card.language?.toUpperCase() || 'EN'}
                   </div>
                 </div>
 
                 {/* Database Info */}
                 <div>
-                  <label className="font-medium text-gray-300">Last Updated</label>
-                  <div className="mt-1 text-gray-400">
+                  <label className="font-medium text-gray-700">Last Updated</label>
+                  <div className="mt-1 text-gray-600">
                     {new Date(card.updatedAt).toLocaleDateString()}
                   </div>
                 </div>
@@ -549,8 +549,8 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                 {/* Card Count Info */}
                 {card.keywords && card.keywords.length > 0 && (
                   <div>
-                    <label className="font-medium text-gray-300">Keywords Count</label>
-                    <div className="mt-1 text-white">
+                    <label className="font-medium text-gray-700">Keywords Count</label>
+                    <div className="mt-1 text-gray-900">
                       {card.keywords.length} keywords
                     </div>
                   </div>
@@ -558,8 +558,8 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
                 {card.tags && card.tags.length > 0 && (
                   <div>
-                    <label className="font-medium text-gray-300">Tags Count</label>
-                    <div className="mt-1 text-white">
+                    <label className="font-medium text-gray-700">Tags Count</label>
+                    <div className="mt-1 text-gray-900">
                       {card.tags.length} tags
                     </div>
                   </div>
@@ -567,8 +567,8 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
                 {card.rulings && card.rulings.length > 0 && (
                   <div>
-                    <label className="font-medium text-gray-300">Rulings Count</label>
-                    <div className="mt-1 text-white">
+                    <label className="font-medium text-gray-700">Rulings Count</label>
+                    <div className="mt-1 text-gray-900">
                       {card.rulings.length} rulings
                     </div>
                   </div>
@@ -577,11 +577,11 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
 
               {/* Tags Section */}
               {card.tags && card.tags.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-gray-700">
-                  <h4 className="font-medium text-gray-300 mb-2">Tags</h4>
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <h4 className="font-medium text-gray-700 mb-2">Tags</h4>
                   <div className="flex flex-wrap gap-1">
                     {card.tags.map((tag, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs bg-gray-700 text-gray-300">
+                      <Badge key={index} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
                         #{tag}
                       </Badge>
                     ))}
@@ -603,7 +603,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
         </Button>
 
         <Link href="/cards">
-          <Button variant="cyber">
+          <Button variant="primary">
             Browse More Cards
           </Button>
         </Link>
@@ -632,7 +632,7 @@ function CardDetailSkeleton() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Image skeleton */}
         <div>
-          <Card className="bg-gray-800 border-gray-700">
+          <Card>
             <CardContent className="p-6">
               <Skeleton className="aspect-[3/4] w-full max-w-md mx-auto" />
             </CardContent>
@@ -642,7 +642,7 @@ function CardDetailSkeleton() {
         {/* Details skeleton */}
         <div className="space-y-6">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Card key={index} className="bg-gray-800 border-gray-700">
+            <Card key={index}>
               <CardHeader>
                 <Skeleton className="h-6 w-32" />
               </CardHeader>

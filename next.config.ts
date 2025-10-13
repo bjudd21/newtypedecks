@@ -94,13 +94,7 @@ const nextConfig: NextConfig = {
 
   // Redirects for SEO and user experience
   async redirects() {
-    return [
-      {
-        source: '/cards',
-        destination: '/cards/search',
-        permanent: false,
-      },
-    ];
+    return [];
   },
 
   // Performance monitoring

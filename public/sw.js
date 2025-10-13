@@ -1,5 +1,5 @@
 // Service Worker for Gundam Card Game PWA
-const CACHE_NAME = 'gcg-database-v1';
+const CACHE_NAME = 'gcg-database-v4-compact-overlay';
 const OFFLINE_URL = '/offline';
 
 // Resources to cache on install

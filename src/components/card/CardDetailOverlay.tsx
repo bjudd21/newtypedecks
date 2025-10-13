@@ -36,10 +36,10 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
       onKeyDown={handleKeyDown}
       tabIndex={-1}
     >
-      <div className="bg-gray-900 rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-gray-700">
+      <div className="bg-gray-900 rounded-xl shadow-2xl max-w-5xl w-full max-h-[88vh] overflow-hidden border border-gray-700 flex flex-col">
         {/* Header */}
-        <div className="sticky top-0 bg-gray-900 border-b border-gray-700 p-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-white">{card.name}</h1>
+        <div className="bg-gray-900 border-b border-gray-700 px-4 py-3 flex items-center justify-between flex-shrink-0">
+          <h1 className="text-xl font-bold text-white">{card.name}</h1>
           <Button
             variant="outline"
             size="sm"
@@ -53,8 +53,8 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="p-4 overflow-y-auto flex-1">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left Column - Image */}
             <div className="space-y-4">
               <div className="aspect-[5/7] bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
@@ -75,50 +75,50 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
             </div>
 
             {/* Right Column - Details */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {/* Basic Info */}
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div className="flex flex-wrap gap-2">
                   {card.rarity && (
                     <Badge className={`${
-                      card.rarity.toLowerCase() === 'rare' ? 'bg-yellow-600' :
-                      card.rarity.toLowerCase() === 'super rare' ? 'bg-red-600' :
-                      card.rarity.toLowerCase() === 'ultra rare' ? 'bg-purple-600' :
+                      card.rarity.name?.toLowerCase() === 'rare' ? 'bg-yellow-600' :
+                      card.rarity.name?.toLowerCase() === 'super rare' ? 'bg-red-600' :
+                      card.rarity.name?.toLowerCase() === 'ultra rare' ? 'bg-purple-600' :
                       'bg-gray-600'
                     }`}>
-                      {card.rarity}
+                      {card.rarity.name}
                     </Badge>
                   )}
                   {card.type && (
-                    <Badge className="bg-blue-600">{card.type}</Badge>
+                    <Badge className="bg-blue-600">{card.type.name}</Badge>
                   )}
                   {card.faction && (
                     <Badge className="bg-green-600">{card.faction}</Badge>
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   {card.cost !== undefined && (
-                    <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
-                      <div className="text-sm text-gray-400">Cost</div>
+                    <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
+                      <div className="text-xs text-gray-400">Cost</div>
                       <div className="text-lg font-bold text-white">{card.cost}</div>
                     </div>
                   )}
                   {card.level !== undefined && (
-                    <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
-                      <div className="text-sm text-gray-400">Level</div>
+                    <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
+                      <div className="text-xs text-gray-400">Level</div>
                       <div className="text-lg font-bold text-white">{card.level}</div>
                     </div>
                   )}
                   {card.attack !== undefined && (
-                    <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
-                      <div className="text-sm text-gray-400">Attack</div>
+                    <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
+                      <div className="text-xs text-gray-400">Attack</div>
                       <div className="text-lg font-bold text-white">{card.attack}</div>
                     </div>
                   )}
                   {card.defense !== undefined && (
-                    <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
-                      <div className="text-sm text-gray-400">Defense</div>
+                    <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
+                      <div className="text-xs text-gray-400">Defense</div>
                       <div className="text-lg font-bold text-white">{card.defense}</div>
                     </div>
                   )}
@@ -127,22 +127,22 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
 
               {/* Series/Set Info */}
               {(card.series || card.setName) && (
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-2">Set Information</h3>
+                <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
+                  <h3 className="text-sm font-semibold text-white mb-1.5">Set Information</h3>
                   {card.series && (
-                    <div className="mb-2">
+                    <div className="mb-1 text-sm">
                       <span className="text-gray-400">Series: </span>
                       <span className="text-white">{card.series}</span>
                     </div>
                   )}
                   {card.setName && (
-                    <div className="mb-2">
+                    <div className="mb-1 text-sm">
                       <span className="text-gray-400">Set: </span>
                       <span className="text-white">{card.setName}</span>
                     </div>
                   )}
                   {card.cardNumber && (
-                    <div>
+                    <div className="text-sm">
                       <span className="text-gray-400">Card Number: </span>
                       <span className="text-white">{card.cardNumber}</span>
                     </div>
@@ -152,24 +152,24 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
 
               {/* Description/Effect */}
               {card.description && (
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-2">Card Text</h3>
-                  <p className="text-gray-300 leading-relaxed">{card.description}</p>
+                <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
+                  <h3 className="text-sm font-semibold text-white mb-1.5">Card Text</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">{card.description}</p>
                 </div>
               )}
 
               {/* Pilot/Model Info */}
               {(card.pilot || card.model) && (
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-2">Mobile Suit Information</h3>
+                <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
+                  <h3 className="text-sm font-semibold text-white mb-1.5">Mobile Suit Information</h3>
                   {card.pilot && (
-                    <div className="mb-2">
+                    <div className="mb-1 text-sm">
                       <span className="text-gray-400">Pilot: </span>
                       <span className="text-white">{card.pilot}</span>
                     </div>
                   )}
                   {card.model && (
-                    <div>
+                    <div className="text-sm">
                       <span className="text-gray-400">Model: </span>
                       <span className="text-white">{card.model}</span>
                     </div>
@@ -179,11 +179,11 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
 
               {/* Abilities/Keywords */}
               {card.abilities && card.abilities.length > 0 && (
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold text-white mb-2">Abilities</h3>
+                <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
+                  <h3 className="text-sm font-semibold text-white mb-1.5">Abilities</h3>
                   <div className="flex flex-wrap gap-2">
                     {card.abilities.map((ability, index) => (
-                      <Badge key={index} className="bg-purple-600">
+                      <Badge key={index} className="bg-purple-600 text-xs">
                         {ability}
                       </Badge>
                     ))}
@@ -192,7 +192,7 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
               )}
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-3 pt-2">
                 <Button variant="cyber" className="flex-1">
                   Add to Deck
                 </Button>

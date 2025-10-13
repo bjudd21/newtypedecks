@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { getNavItemProps } from '@/lib/utils/accessibility';
 
+// Force fresh render - purple theme
+
 const navigation = [
   { name: 'Home', href: '/', description: 'Go to home page' },
   { name: 'Cards', href: '/cards', description: 'Browse card database' },
@@ -37,9 +39,9 @@ export function Navbar() {
             key={item.name}
             href={item.href}
             className={cn(
-              'text-gray-600 hover:text-gray-900 transition-colors duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1',
-              isActive && 'text-blue-600 font-medium'
+              'text-gray-300 hover:text-white transition-colors duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 rounded-md px-2 py-1',
+              isActive && 'text-[#6b5a8a] font-medium'
             )}
             {...navProps}
           >

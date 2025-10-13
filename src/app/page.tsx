@@ -1,205 +1,198 @@
 'use client';
 
 import Link from 'next/link';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { GameContentAttribution, AttributionTooltip } from '@/components/layout';
-import { CardDatabaseSearch } from '@/components/card/CardDatabaseSearch';
+import { Badge } from '@/components/ui/Badge';
+import { Card, CardContent } from '@/components/ui/Card';
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/cards?q=${encodeURIComponent(searchQuery)}`;
+    }
+  };
+
   return (
-    <div className="min-h-screen particle-field relative z-10">
-      {/* Search Interface Hero */}
-      <div className="container mx-auto px-4 py-20">
-        <CardDatabaseSearch className="mb-20" />
+    <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
+      {/* Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center justify-center px-4 py-20">
+        <div className="w-full max-w-3xl mx-auto text-center">
+          {/* Main Heading */}
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-light mb-8 text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Gundam Card Game is a powerful <span className="font-semibold">card search</span>
+          </motion.h1>
 
-        <div className="text-center mb-12">
-          <GameContentAttribution className="text-xs opacity-60 tech-text" />
-          <AttributionTooltip />
-        </div>
-
-        {/* Neural Interface Modules */}
-        <div className="mb-20 grid gap-8 md:grid-cols-3">
-          <div className="card-enhanced p-8 group relative z-20">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl cyber-border bg-black/50 flex items-center justify-center glow-cyber pulse-cyber">
-                <svg className="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14-7H3a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2z" />
+          {/* Search Bar */}
+          <motion.form
+            onSubmit={handleSearch}
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="relative">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold tech-text uppercase tracking-wide text-neon">Database Module</h3>
-                <div className="text-xs tech-text opacity-60 uppercase tracking-wider">Neural Search Engine</div>
-              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for cards..."
+                className="w-full py-4 pl-12 pr-4 bg-[#2d2640] border border-[#443a5c] rounded-md text-base text-white placeholder-gray-500 focus:outline-none focus:border-[#6b5a8a] focus:ring-2 focus:ring-[#6b5a8a]/30 transition-all"
+              />
             </div>
-            <p className="text-cyan-300 mb-8 leading-relaxed tech-text">
-              Advanced neural network-powered card database with quantum search algorithms,
-              holographic display rendering, and predictive analysis systems
-            </p>
+          </motion.form>
+
+          {/* Quick Action Buttons */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-3 mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             <Link href="/cards">
-              <Button variant="cyber" size="lg" className="w-full relative z-10">
-                Initialize Database
+              <Button variant="secondary" size="sm" className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white">
+                Advanced Search
               </Button>
             </Link>
-          </div>
-
-          <div className="card-enhanced p-8 group relative z-20">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl neon-border bg-black/50 flex items-center justify-center glow-neon pulse-neon">
-                <svg className="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold tech-text uppercase tracking-wide text-neon">Tactical Module</h3>
-                <div className="text-xs tech-text opacity-60 uppercase tracking-wider">Deck Constructor</div>
-              </div>
-            </div>
-            <p className="text-cyan-300 mb-8 leading-relaxed tech-text">
-              Military-grade deck construction system with real-time tactical analysis,
-              threat assessment protocols, and strategic optimization algorithms
-            </p>
             <Link href="/decks">
-              <Button variant="neon" size="lg" className="w-full relative z-10">
-                Deploy Constructor
+              <Button variant="secondary" size="sm" className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white">
+                Deck Builder
               </Button>
+            </Link>
+            <Link href="/cards?view=sets">
+              <Button variant="secondary" size="sm" className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white">
+                All Sets
+              </Button>
+            </Link>
+            <Link href="/cards/random">
+              <Button variant="secondary" size="sm" className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white">
+                Random Card
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* News Items */}
+          <motion.div
+            className="flex flex-col items-center gap-2 text-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="flex items-center gap-2">
+              <Badge className="bg-orange-600 text-white font-semibold text-xs">NEW</Badge>
+              <span className="text-gray-300">Latest Booster Set Available</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-blue-600 text-white font-semibold text-xs">NEW</Badge>
+              <span className="text-gray-300">Starter Decks Released</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-blue-600 text-white font-semibold text-xs">NEW</Badge>
+              <span className="text-gray-300">Tournament Season 2025</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Recent Decks Section */}
+      <section className="py-16 px-4 border-t border-[#2d2640]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-semibold text-white">Recent Decks</h2>
+            <Link href="/community/decks" className="text-sm text-gray-400 hover:text-white transition-colors">
+              View recent decks →
             </Link>
           </div>
 
-          <div className="card-enhanced p-8 group relative z-20">
-            <div className="mb-6 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl plasma-border bg-black/50 flex items-center justify-center glow-plasma pulse-plasma">
-                <svg className="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold tech-text uppercase tracking-wide text-plasma">Archive Module</h3>
-                <div className="text-xs tech-text opacity-60 uppercase tracking-wider">Collection Matrix</div>
-              </div>
-            </div>
-            <p className="text-cyan-300 mb-8 leading-relaxed tech-text">
-              Quantum storage system for personal asset tracking with dimensional
-              cataloging, completion analytics, and acquisition recommendations
-            </p>
-            <Link href="/collection">
-              <Button variant="plasma" size="lg" className="w-full relative z-10">
-                Access Archive
-              </Button>
-            </Link>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {[1, 2, 3, 4, 5].map((deck) => (
+              <motion.div
+                key={deck}
+                whileHover={{ y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Card className="bg-[#2d2640] border-[#443a5c] overflow-hidden hover:border-[#6b5a8a] transition-colors cursor-pointer">
+                  <div className="aspect-[3/4] bg-gradient-to-br from-gray-700 to-gray-800 relative">
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                      <div className="text-center">
+                        <div className="text-3xl mb-2">🤖</div>
+                        <div className="text-xs">Deck {deck}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <CardContent className="p-3">
+                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
+                      <span>5 views</span>
+                      <span>•</span>
+                      <span>2 days ago</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-white truncate">Sample Deck Name</h3>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Neural Network Status */}
-        <div className="card-enhanced p-16 text-center relative overflow-hidden mb-20">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-deep-space to-nebula-dark"></div>
-
-          <div className="relative z-10">
-            <div className="mb-8 inline-flex items-center gap-3 px-6 py-3 rounded-full cyber-border bg-black/60 backdrop-blur-strong">
-              <div className="w-3 h-3 rounded-full pulse-cyber"></div>
-              <span className="tech-text text-sm font-medium uppercase tracking-widest">Neural Network Status</span>
-              <div className="w-3 h-3 rounded-full pulse-neon"></div>
+      {/* Footer */}
+      <footer className="border-t border-[#2d2640] bg-[#0f0d15] py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+            <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">CARDS</h3>
+              <ul className="space-y-2">
+                <li><Link href="/cards" className="text-sm text-gray-500 hover:text-white transition-colors">Advanced Search</Link></li>
+                <li><Link href="/cards?view=sets" className="text-sm text-gray-500 hover:text-white transition-colors">Browse Sets</Link></li>
+              </ul>
             </div>
-
-            <h2 className="mb-8 relative">
-              <span className="block text-gradient text-4xl md:text-6xl mb-4">System Architecture</span>
-              <span className="block text-neon text-2xl md:text-3xl tech-text">Fully Operational</span>
-            </h2>
-
-            <div className="mb-12 max-w-4xl mx-auto">
-              <p className="text-xl tech-text leading-relaxed text-cyan-300 mb-6">
-                Advanced quantum-computational platform featuring neural deck analysis,
-                holographic card visualization, and predictive meta-game algorithms.
-              </p>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div className="p-4 neon-border bg-black/30 backdrop-blur-strong rounded-lg">
-                  <div className="text-3xl font-bold text-neon mb-1">∞</div>
-                  <div className="text-xs tech-text uppercase opacity-80">Possibilities</div>
-                </div>
-                <div className="p-4 cyber-border bg-black/30 backdrop-blur-strong rounded-lg">
-                  <div className="text-3xl font-bold text-cyber mb-1">AI</div>
-                  <div className="text-xs tech-text uppercase opacity-80">Enhanced</div>
-                </div>
-                <div className="p-4 plasma-border bg-black/30 backdrop-blur-strong rounded-lg">
-                  <div className="text-3xl font-bold text-plasma mb-1">24/7</div>
-                  <div className="text-xs tech-text uppercase opacity-80">Active</div>
-                </div>
-                <div className="p-4 neon-border bg-black/30 backdrop-blur-strong rounded-lg">
-                  <div className="text-3xl font-bold text-energy mb-1">PWA</div>
-                  <div className="text-xs tech-text uppercase opacity-80">Ready</div>
-                </div>
-              </div>
+            <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">TOOLS</h3>
+              <ul className="space-y-2">
+                <li><Link href="/decks" className="text-sm text-gray-500 hover:text-white transition-colors">Deck Builder</Link></li>
+                <li><Link href="/collection" className="text-sm text-gray-500 hover:text-white transition-colors">Collection</Link></li>
+              </ul>
             </div>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Button variant="cyber" size="xl" className="px-10 relative z-10">
-                Initialize Access
-              </Button>
-              <Button variant="hologram" size="xl" className="px-10 relative z-10">
-                System Diagnostics
-              </Button>
+            <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">COMMUNITY</h3>
+              <ul className="space-y-2">
+                <li><Link href="/community" className="text-sm text-gray-500 hover:text-white transition-colors">Community Hub</Link></li>
+                <li><Link href="/community/decks" className="text-sm text-gray-500 hover:text-white transition-colors">Shared Decks</Link></li>
+              </ul>
             </div>
+            <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">DEVELOPERS</h3>
+              <ul className="space-y-2">
+                <li><Link href="/api" className="text-sm text-gray-500 hover:text-white transition-colors">API Documentation</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">MORE</h3>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="text-sm text-gray-500 hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/help" className="text-sm text-gray-500 hover:text-white transition-colors">Help</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-[#2d2640] text-center text-xs text-gray-600">
+            <p>© {new Date().getFullYear()} Gundam Card Game Database. Not affiliated with Bandai Namco.</p>
           </div>
         </div>
-
-        {/* System Specifications */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div className="card-enhanced p-6 text-center group">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-xl cyber-border bg-black/50 flex items-center justify-center glow-cyber">
-              <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="tech-text uppercase tracking-wide text-neon mb-3">Quantum Speed</h3>
-            <p className="text-sm text-cyan-300 tech-text leading-relaxed">
-              Hyper-optimized neural processing with instantaneous search algorithms and real-time data streams
-            </p>
-          </div>
-
-          <div className="card-enhanced p-6 text-center group">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-xl neon-border bg-black/50 flex items-center justify-center glow-neon">
-              <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="tech-text uppercase tracking-wide text-neon mb-3">Battle Ready</h3>
-            <p className="text-sm text-cyan-300 tech-text leading-relaxed">
-              Military-grade tournament protocols with tactical validation and strategic meta-analysis systems
-            </p>
-          </div>
-
-          <div className="card-enhanced p-6 text-center group">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-xl plasma-border bg-black/50 flex items-center justify-center glow-plasma">
-              <svg className="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h3 className="tech-text uppercase tracking-wide text-plasma mb-3">Neural Network</h3>
-            <p className="text-sm text-cyan-300 tech-text leading-relaxed">
-              Advanced social consciousness protocols enabling collective intelligence and strategic collaboration
-            </p>
-          </div>
-
-          <div className="card-enhanced p-6 text-center group">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-xl cyber-border bg-black/50 flex items-center justify-center glow-cyber">
-              <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 className="tech-text uppercase tracking-wide text-neon mb-3">Omnipresent</h3>
-            <p className="text-sm text-cyan-300 tech-text leading-relaxed">
-              Multi-dimensional compatibility matrix with offline consciousness backup and sync protocols
-            </p>
-          </div>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 }

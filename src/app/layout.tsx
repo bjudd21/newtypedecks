@@ -4,7 +4,6 @@ import './globals.css';
 import { ReduxProvider } from '@/store/Provider';
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import { AuthStatus } from '@/components/auth/AuthStatus';
-import { EmailVerificationBanner } from '@/components/auth/EmailVerificationBanner';
 import { Navbar, MobileMenu } from '@/components/navigation';
 import { LegalComplianceFooter } from '@/components/layout';
 import { MonitoringProvider, MonitoringErrorBoundary } from '@/components/monitoring/MonitoringProvider';
@@ -30,10 +29,10 @@ export const metadata: Metadata = {
     userScalable: false,
     viewportFit: 'cover'
   },
-  themeColor: '#3b82f6',
+  themeColor: '#6b5a8a',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'GCG Database',
     startupImage: [
       {
@@ -107,7 +106,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="msapplication-TileColor" content="#6b5a8a" />
         <meta name="msapplication-tap-highlight" content="no" />
 
         {/* Apple touch icons */}
@@ -121,14 +120,14 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-screen bg-gray-50 font-sans antialiased">
+      <body className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625] font-sans antialiased">
         <AuthProvider>
           <ReduxProvider>
             <div className="flex min-h-screen flex-col">
-              <header className="border-b bg-white relative">
+              <header className="border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm sticky top-0 z-50">
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold text-gray-900">
+                    <h1 className="text-2xl font-bold text-white">
                       Gundam Card Game
                     </h1>
                     <div className="hidden md:flex items-center space-x-6">
@@ -145,13 +144,6 @@ export default function RootLayout({
                   </div>
                 </div>
               </header>
-
-              <EmailVerificationBanner />
-
-              {/* PWA Install Prompt */}
-              <div className="container mx-auto px-4 pt-4">
-                <PWAInstallPrompt />
-              </div>
 
               <main className="flex-1">{children}</main>
 
