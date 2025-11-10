@@ -234,18 +234,6 @@ export function NewCardsPageClient() {
               aria-pressed={selectedColors.includes('white')}
             />
             <button
-              onClick={() => toggleColorFilter('yellow')}
-              className={cn(
-                'w-7 h-7 rounded-md bg-yellow-600 transition-all duration-300 shadow-md cursor-pointer',
-                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
-                selectedColors.includes('yellow')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
-              )}
-              title="Filter by Yellow"
-              aria-pressed={selectedColors.includes('yellow')}
-            />
-            <button
               onClick={() => toggleColorFilter('colorless')}
               className={cn(
                 'w-7 h-7 rounded-md bg-gray-400 transition-all duration-300 shadow-md cursor-pointer',
