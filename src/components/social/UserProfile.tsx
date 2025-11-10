@@ -21,7 +21,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [followerCount, setFollowerCount] = useState(0);
+  const [_followerCount, setFollowerCount] = useState(0);
   const [activeTab, setActiveTab] = useState<'overview' | 'decks' | 'activity' | 'badges'>('overview');
 
   useEffect(() => {

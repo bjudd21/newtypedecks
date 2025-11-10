@@ -21,7 +21,7 @@ export function NewCardsPageClient() {
   const [totalPages, setTotalPages] = useState(0);
 
   // Filter states
-  const [selectedSets, setSelectedSets] = useState<string[]>([]);
+  const [_selectedSets, setSelectedSets] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<CardSortField>('name');

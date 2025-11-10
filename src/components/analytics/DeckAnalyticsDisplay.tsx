@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
 import { DeckAnalytics, DeckCard, deckAnalyticsService } from '@/lib/services/deckAnalyticsService';
 import { DistributionChart } from './DistributionChart';
 import { SuggestionsList } from './SuggestionsList';

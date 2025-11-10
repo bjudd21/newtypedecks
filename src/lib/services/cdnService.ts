@@ -5,7 +5,7 @@
  */
 
 import { env } from '@/lib/config/environment';
-import type { ProcessedImage, ProcessedImageVariant } from '@/lib/storage/imageProcessing';
+import type { ProcessedImage } from '@/lib/storage/imageProcessing';
 
 export interface CDNConfig {
   provider: 'cloudinary' | 'imagekit' | 'cloudflare' | 'aws' | 'vercel' | 'local';

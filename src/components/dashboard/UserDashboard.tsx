@@ -80,7 +80,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
           Welcome back{user.name ? `, ${user.name.split(' ')[0]}` : ''}!
         </h1>
         <p className="text-gray-600">
-          Ready to dive into the Gundam Card Game? Here's your personal dashboard.
+          Ready to dive into the Gundam Card Game? Here&apos;s your personal dashboard.
         </p>
       </div>
 

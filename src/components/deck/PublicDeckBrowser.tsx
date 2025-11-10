@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select, Badge } from '@/components/ui';
 
 interface PublicDeck {
@@ -108,7 +109,8 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
       const fullDeck = await response.json();
 
       if (!response.ok) {
-        alert('Failed to load deck details');
+        // TODO: Replace with proper UI notification component
+        console.warn('Failed to load deck details');
         return;
       }
 
@@ -126,7 +128,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
       router.push('/decks/builder?import=true');
     } catch (error) {
       console.error('Error copying deck:', error);
-      alert('Failed to copy deck');
+      console.warn('TODO: Replace with proper UI notification - Failed to copy deck');
     }
   }, [router]);
 
@@ -283,9 +285,11 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                           {deck.cardPreview.map((cardEntry, index) => (
                             <div key={index} className="flex-shrink-0">
                               {cardEntry.card.imageUrl ? (
-                                <img
+                                <Image
                                   src={cardEntry.card.imageUrl}
                                   alt={cardEntry.card.name}
+                                  width={48}
+                                  height={64}
                                   className="w-12 h-16 object-cover rounded border"
                                 />
                               ) : (

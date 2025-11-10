@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { CardWithRelations } from '@/lib/types/card';
-import { Badge } from '@/components/ui';
 
 interface CardGridProps {
   cards: CardWithRelations[];

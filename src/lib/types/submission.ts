@@ -7,9 +7,7 @@
 import type {
   CardSubmission as PrismaCardSubmission,
   SubmissionStatus,
-  SubmissionPriority,
-  User,
-  Card
+  SubmissionPriority
 } from '@prisma/client';
 
 // Re-export Prisma enums

@@ -121,7 +121,7 @@ export function createSkipLink(targetId: string, text: string = 'Skip to main co
 /**
  * Color contrast helpers
  */
-export function getContrastRatio(foreground: string, background: string): number {
+export function getContrastRatio(_foreground: string, _background: string): number {
   // Simplified contrast ratio calculation
   // In a real implementation, you'd convert hex/rgb to luminance values
   // This is a placeholder for demonstration
@@ -134,7 +134,7 @@ export function getContrastRatio(foreground: string, background: string): number
 export function addFocusVisibleSupport(): void {
   // Add focus-visible polyfill support
   let hadKeyboardEvent = true;
-  const keyboardThrottleTimeout = 100;
+  const _keyboardThrottleTimeout = 100; // Reserved for future throttle implementation
 
   function onPointerDown() {
     hadKeyboardEvent = false;

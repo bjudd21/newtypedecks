@@ -86,7 +86,8 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
 
   // Handle removing favorite
   const handleRemoveFavorite = async (deckId: string) => {
-    if (!confirm('Remove this deck from your favorites?')) {
+    // TODO: Replace with proper confirmation dialog component
+    if (!window.confirm('Remove this deck from your favorites?')) {
       return;
     }
 
@@ -112,8 +113,8 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
       }
     } catch (err) {
       console.error('Error removing favorite:', err);
-      alert(err instanceof Error ? err.message : 'Failed to remove favorite');
-    } finally {
+      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to remove favorite'}`);
+    } finally{
       setRemovingId(null);
     }
   };

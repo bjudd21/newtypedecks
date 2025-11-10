@@ -114,7 +114,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
             className={`px-3 py-1 rounded-full text-sm font-bold ${getScoreColor(validationSummary.score)}`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.3 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.3 }}
           >
             {validationSummary.score}/100
           </motion.div>
@@ -227,7 +227,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
               className="bg-gradient-to-r from-green-900/20 to-green-800/20 border border-green-500/30 rounded-xl p-4 text-center"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               <motion.div
                 className="text-green-300 font-bold text-sm mb-1"

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { CardWithRelations } from '@/lib/types/card';
 import { Button, Badge } from '@/components/ui';
 
@@ -59,9 +60,11 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
             <div className="space-y-4">
               <div className="aspect-[5/7] bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
                 {card.imageUrl ? (
-                  <img
+                  <Image
                     src={card.imageUrl}
                     alt={card.name}
+                    width={500}
+                    height={700}
                     className="w-full h-full object-cover"
                   />
                 ) : (

@@ -5,7 +5,7 @@
  * before importing into the database.
  */
 
-import { CardModel, CardValidator } from '@/lib/models/card';
+import { CardValidator } from '@/lib/models/card';
 import type { CreateCardData, CardValidationResult } from '@/lib/types/card';
 import type { RawCardData } from './dataScraperService';
 import { prisma } from '@/lib/database';

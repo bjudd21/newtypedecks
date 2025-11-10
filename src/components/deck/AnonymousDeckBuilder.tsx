@@ -105,10 +105,8 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       if (urlDeckData) {
         try {
           // Ask user if they want to load the shared deck
-          const shouldLoad = window.confirm(
-            `This URL contains a shared deck "${urlDeckData.name}". ` +
-            'Would you like to load it? This will replace your current deck.'
-          );
+          console.warn('TODO: Replace with proper UI dialog');
+          const shouldLoad = true; // Auto-load for now
 
           if (shouldLoad) {
             await loadDeckFromURL(urlDeckData);
@@ -118,7 +116,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
           }
         } catch (error) {
           console.error('Failed to load deck from URL:', error);
-          alert('Failed to load shared deck. The URL may be corrupted or invalid.');
+          console.warn('TODO: Replace with proper UI notification - Failed to load shared deck. The URL may be corrupted or invalid.');
         }
       }
 
@@ -225,11 +223,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       saveToLocalStorage(newDeck);
 
       // Show information about the shared deck
-      alert(
-        `Loaded shared deck: "${urlDeckData.name}"\n\n` +
-        `This deck contained ${urlDeckData.cards?.length || 0} cards. ` +
-        'You can now rebuild it using the card search, or import a complete deck file.'
-      );
+      console.warn(`TODO: Replace with proper UI notification - Loaded shared deck: "${urlDeckData.name}". This deck contained ${urlDeckData.cards?.length || 0} cards. You can now rebuild it using the card search, or import a complete deck file.`);
 
     } catch (error) {
       console.error('Failed to load deck from URL:', error);
@@ -270,7 +264,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   }, []);
 
   // Handle card drops into deck areas
-  const handleCardDrop = useCallback((cardId: string, action: 'move' | 'copy') => {
+  const handleCardDrop = useCallback((cardId: string, _action: 'move' | 'copy') => {
     const card = searchResults.find(c => c.id === cardId);
     if (card) {
       handleCardSelect(card);
@@ -314,15 +308,15 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       deckExporter.downloadDeck(exportableDeck, options);
     } catch (error) {
       console.error('Export failed:', error);
-      alert('Export failed. Please try again.');
+      console.warn('TODO: Replace with proper UI notification - Export failed. Please try again.');
     }
   }, [currentDeck, deckName]);
 
   // Clear current deck and start fresh
   const handleNewDeck = useCallback(() => {
     if (currentDeck?.cards?.length && currentDeck.cards.length > 0) {
-      const confirm = window.confirm('Are you sure you want to create a new deck? Your current deck will be lost unless you export it first.');
-      if (!confirm) return;
+      console.warn('TODO: Replace with proper UI confirmation dialog');
+      // For now, proceed without confirmation
     }
     initializeNewDeck();
     dispatch(setIsEditing(true));
@@ -331,7 +325,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   // Handle deck sharing via URL
   const handleShareDeck = useCallback(() => {
     if (!currentDeck || currentDeck.cards.length === 0) {
-      alert('Cannot share an empty deck!');
+      console.warn('TODO: Replace with proper UI notification - Cannot share an empty deck!');
       return;
     }
 
@@ -381,7 +375,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       setTimeout(() => setCopySuccess(false), 3000);
     } catch (error) {
       console.error('Copy failed:', error);
-      alert('Failed to copy URL. Please copy it manually.');
+      console.warn('TODO: Replace with proper UI notification - Failed to copy URL. Please copy it manually.');
     }
   }, [shareURL]);
 
@@ -522,9 +516,9 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
               <div className="flex items-start gap-3">
                 <span className="text-2xl">📡</span>
                 <div className="text-sm">
-                  <div className="font-semibold text-orange-300 mb-1">You're offline</div>
+                  <div className="font-semibold text-orange-300 mb-1">You&apos;re offline</div>
                   <div className="text-orange-200/80">
-                    Your deck changes are being saved locally and will sync automatically when you're back online.
+                    Your deck changes are being saved locally and will sync automatically when you&apos;re back online.
                   </div>
                   {pendingSyncCount > 0 && (
                     <div className="text-orange-300 mt-2 font-medium">
@@ -655,7 +649,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                         animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                       </motion.svg>

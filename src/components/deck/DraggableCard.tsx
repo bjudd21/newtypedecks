@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CardWithRelations } from '@/lib/types/card';
 import { Badge } from '@/components/ui';
@@ -99,9 +100,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
       {/* Card Image Placeholder */}
       <div className="w-12 h-16 bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded flex-shrink-0 flex items-center justify-center border border-[#443a5c] overflow-hidden">
         {card.imageUrl ? (
-          <img
+          <Image
             src={card.imageUrl}
             alt={card.name}
+            width={48}
+            height={64}
             className="w-full h-full object-cover"
           />
         ) : (

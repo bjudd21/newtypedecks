@@ -212,7 +212,7 @@ class URLDeckSharingService {
       }
 
       return { canShare: true };
-    } catch (error) {
+    } catch (_error) {
       return { canShare: false, reason: 'Failed to analyze deck for sharing' };
     }
   }

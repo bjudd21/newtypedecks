@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
 
 interface DeckCard {
@@ -120,7 +121,7 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
   const modifiedCards = changes.filter(c => c.type === 'modified');
   const unchangedCards = changes.filter(c => c.type === 'unchanged');
 
-  const getChangeIcon = (type: CardChange['type']) => {
+  const _getChangeIcon = (type: CardChange['type']) => {
     switch (type) {
       case 'added':
         return '➕';
@@ -206,9 +207,11 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
                   <div className="space-y-2">
                     {addedCards.map((change) => (
                       <div key={change.cardId} className="flex items-center gap-3 p-2 bg-green-50 border border-green-200 rounded">
-                        <img
+                        <Image
                           src={change.card.imageUrl}
                           alt={change.card.name}
+                          width={40}
+                          height={40}
                           className="w-10 h-10 object-cover rounded"
                         />
                         <div className="flex-1">
@@ -235,9 +238,11 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
                   <div className="space-y-2">
                     {removedCards.map((change) => (
                       <div key={change.cardId} className="flex items-center gap-3 p-2 bg-red-50 border border-red-200 rounded">
-                        <img
+                        <Image
                           src={change.card.imageUrl}
                           alt={change.card.name}
+                          width={40}
+                          height={40}
                           className="w-10 h-10 object-cover rounded opacity-75"
                         />
                         <div className="flex-1">
@@ -264,9 +269,11 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
                   <div className="space-y-2">
                     {modifiedCards.map((change) => (
                       <div key={change.cardId} className="flex items-center gap-3 p-2 bg-yellow-50 border border-yellow-200 rounded">
-                        <img
+                        <Image
                           src={change.card.imageUrl}
                           alt={change.card.name}
+                          width={40}
+                          height={40}
                           className="w-10 h-10 object-cover rounded"
                         />
                         <div className="flex-1">
@@ -299,9 +306,11 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
                   <div className="mt-2 space-y-2">
                     {unchangedCards.map((change) => (
                       <div key={change.cardId} className="flex items-center gap-3 p-2 bg-gray-50 border border-gray-200 rounded opacity-75">
-                        <img
+                        <Image
                           src={change.card.imageUrl}
                           alt={change.card.name}
+                          width={32}
+                          height={32}
                           className="w-8 h-8 object-cover rounded"
                         />
                         <div className="flex-1">

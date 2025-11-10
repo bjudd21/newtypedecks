@@ -49,7 +49,7 @@ export async function initializeUploadDirectories(): Promise<void> {
     const gitkeepPath = path.join(process.cwd(), dir, '.gitkeep');
     try {
       await fs.writeFile(gitkeepPath, '# Keep this directory in git\n', { flag: 'wx' });
-    } catch (error) {
+    } catch (_error) {
       // File might already exist, which is fine
     }
   }

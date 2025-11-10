@@ -65,7 +65,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
                 <p className="text-sm text-yellow-800">
                   <strong>Important:</strong> By using this website, you agree to these terms.
-                  If you don't agree, please don't use the site.
+                  If you don&apos;t agree, please don&apos;t use the site.
                 </p>
               </div>
               <p className="text-gray-700">

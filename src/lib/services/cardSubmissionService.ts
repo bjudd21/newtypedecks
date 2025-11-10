@@ -8,7 +8,6 @@ import { prisma } from '@/lib/database';
 import { CardService } from './cardService';
 import { SubmissionImageService } from './submissionImageService';
 import type {
-  CardSubmission,
   CardSubmissionWithRelations,
   CreateSubmissionData,
   UpdateSubmissionData,

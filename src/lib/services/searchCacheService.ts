@@ -249,7 +249,7 @@ export class SearchCacheService {
    * Clear expired entries
    */
   async cleanup(): Promise<number> {
-    const now = Date.now();
+    const _now = Date.now();
     let removedCount = 0;
 
     for (const [key, entry] of this.cache.entries()) {

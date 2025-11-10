@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui';
 
 interface AdminLayoutProps {
   children: React.ReactNode;

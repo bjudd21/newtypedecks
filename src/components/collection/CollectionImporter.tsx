@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Select, Input } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, Select } from '@/components/ui';
 
 interface ImportResult {
   success: number;

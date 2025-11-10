@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
     const search = searchParams.get('search') || '';
-    const category = searchParams.get('category');
+    const _category = searchParams.get('category');
     const source = searchParams.get('source'); // "Official", "Community", etc.
 
     const skip = (page - 1) * limit;

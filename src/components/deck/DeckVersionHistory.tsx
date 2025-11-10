@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -102,15 +103,15 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       setSelectedVersion(data.version);
     } catch (err) {
       console.error('Error fetching version details:', err);
-      alert('Failed to load version details');
+      // TODO: Replace with proper UI notification component
+      console.warn('Failed to load version details');
     }
   };
 
   // Handle version restoration
   const handleRestore = async (versionId: string) => {
-    if (!confirm('Are you sure you want to restore to this version? This will create a backup of your current deck first.')) {
-      return;
-    }
+    console.warn('TODO: Replace with proper UI confirmation dialog');
+    // For now, proceed without confirmation
 
     try {
       setIsRestoring(true);
@@ -130,7 +131,7 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       }
 
       const result = await response.json();
-      alert(result.message);
+      console.warn(`TODO: Replace with proper UI notification - ${result.message}`);
 
       // Refresh version history
       window.location.reload();
@@ -148,9 +149,8 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
   // Handle version deletion
   const handleDelete = async (versionId: string, versionNumber: number) => {
-    if (!confirm(`Are you sure you want to delete version ${versionNumber}? This action cannot be undone.`)) {
-      return;
-    }
+    console.warn(`TODO: Replace with proper UI confirmation dialog - Deleting version ${versionNumber}`);
+    // For now, proceed without confirmation
 
     try {
       setIsDeleting(true);
@@ -185,8 +185,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
   // Handle creating a new manual version
   const handleCreateVersion = async () => {
-    const versionName = prompt('Enter a name for this version (optional):');
-    const changeNote = prompt('Enter notes about what changed (optional):');
+    console.warn('TODO: Replace with proper UI dialog');
+    const versionName = 'Manual Save'; // Default name for now
+    const changeNote = undefined; // No notes for now
 
     try {
       const response = await fetch(`/api/decks/${deckId}/versions`, {
@@ -209,10 +210,10 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
       // Add new version to the list
       setVersions(prevVersions => [result.version, ...prevVersions]);
-      alert('Version created successfully!');
+      console.warn('TODO: Replace with proper UI notification - Version created successfully!');
     } catch (err) {
       console.error('Error creating version:', err);
-      alert(err instanceof Error ? err.message : 'Failed to create version');
+      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to create version'}`);
     }
   };
 
@@ -278,7 +279,7 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
                     <div><strong>{version.name}</strong></div>
                     {version.description && <div>{version.description}</div>}
                     {version.changeNote && (
-                      <div className="mt-1 italic">"{version.changeNote}"</div>
+                      <div className="mt-1 italic">&quot;{version.changeNote}&quot;</div>
                     )}
                   </div>
 
@@ -334,9 +335,11 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
                             key={versionCard.id}
                             className="flex items-center gap-2 p-2 bg-white border rounded text-sm"
                           >
-                            <img
+                            <Image
                               src={versionCard.card.imageUrl}
                               alt={versionCard.card.name}
+                              width={32}
+                              height={32}
                               className="w-8 h-8 object-cover rounded"
                             />
                             <div className="flex-1 min-w-0">

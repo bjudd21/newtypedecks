@@ -1,4 +1,4 @@
-import type { CardWithRelations } from '@/lib/types/card';
+// import type { CardWithRelations } from '@/lib/types/card';
 
 export interface UserProfile {
   id: string;

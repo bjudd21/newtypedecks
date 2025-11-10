@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Select, Input, Badge } from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@/components/ui';
 
 interface ExportFormat {
   id: string;

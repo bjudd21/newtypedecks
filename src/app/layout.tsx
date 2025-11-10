@@ -6,8 +6,7 @@ import { AuthProvider } from '@/components/auth/AuthProvider';
 import { AuthStatus } from '@/components/auth/AuthStatus';
 import { Navbar, MobileMenu } from '@/components/navigation';
 import { LegalComplianceFooter } from '@/components/layout';
-import { MonitoringProvider, MonitoringErrorBoundary } from '@/components/monitoring/MonitoringProvider';
-import { PWAInstallPrompt, PWAStatus } from '@/components/pwa';
+import { PWAStatus } from '@/components/pwa';
 import Script from 'next/script';
 import Link from 'next/link';
 

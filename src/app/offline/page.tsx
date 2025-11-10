@@ -76,14 +76,14 @@ export default function OfflinePage() {
                 </svg>
               </div>
               <CardTitle className="text-2xl font-bold text-gray-900">
-                You're Offline
+                You&apos;re Offline
               </CardTitle>
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-center mb-6">
               <p className="text-gray-600 mb-4">
-                This page isn't available offline. Check your internet connection and try again.
+                This page isn&apos;t available offline. Check your internet connection and try again.
               </p>
 
               {/* Online Status Indicator */}
@@ -178,7 +178,7 @@ export default function OfflinePage() {
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Recently viewed content is available offline</li>
                 <li>• Your decks are saved locally while offline</li>
-                <li>• Changes will sync when you're back online</li>
+                <li>• Changes will sync when you&apos;re back online</li>
                 <li>• Install this app for better offline experience</li>
               </ul>
             </div>

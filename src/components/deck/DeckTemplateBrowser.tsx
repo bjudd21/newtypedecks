@@ -103,11 +103,12 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
   // Handle creating deck from template
   const handleCreateFromTemplate = async (templateId: string) => {
     if (!isAuthenticated) {
-      alert('Please sign in to create decks from templates!');
+      console.warn('TODO: Replace with proper UI notification - Please sign in to create decks from templates!');
       return;
     }
 
-    const deckName = prompt('Enter a name for your new deck:');
+    console.warn('TODO: Replace with proper UI dialog');
+    const deckName = 'New Deck from Template'; // Default name for now
     if (!deckName?.trim()) return;
 
     try {
@@ -130,7 +131,7 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
       }
 
       const result = await response.json();
-      alert(`Deck "${result.deck.name}" created successfully from template!`);
+      console.warn(`TODO: Replace with proper UI notification - Deck "${result.deck.name}" created successfully from template!`);
 
       if (onCreateFromTemplate) {
         onCreateFromTemplate(templateId);
@@ -140,7 +141,7 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
       fetchTemplates();
     } catch (err) {
       console.error('Error creating deck from template:', err);
-      alert(err instanceof Error ? err.message : 'Failed to create deck from template');
+      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to create deck from template'}`);
     } finally {
       setIsCreating(false);
     }

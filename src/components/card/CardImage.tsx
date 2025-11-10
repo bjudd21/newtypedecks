@@ -113,7 +113,7 @@ export const CardImage: React.FC<CardImageProps> = ({
   const zoomImageUrl = getZoomImageUrl();
 
   // Generate accessibility props for card image
-  const cardImageA11yProps = getCardImageProps(name, size, clickToZoom || !!onClick);
+  const _cardImageA11yProps = getCardImageProps(name, size, clickToZoom || !!onClick);
 
   // Placeholder component
   const renderPlaceholder = () => {

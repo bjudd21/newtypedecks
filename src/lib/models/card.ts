@@ -10,15 +10,12 @@ import {
   type CreateCardData,
   type UpdateCardData,
   type CardSearchFilters,
-  type CardSearchOptions,
   type CardValidationResult,
   type CardAbility,
-  type CardMechanics,
   type CardImageInfo,
   type CardSortField,
   type CardSortOrder,
   type CardLanguage,
-  type CardCategory,
   CARD_CONSTANTS,
   CARD_VALIDATION_SCHEMAS
 } from '../types/card';
@@ -312,7 +309,7 @@ export class CardValidator {
    */
   static validateUpdateData(data: UpdateCardData): CardValidationResult {
     const errors: string[] = [];
-    const warnings: string[] = [];
+    const _warnings: string[] = []; // Reserved for future validation warnings
 
     if (!data.id) {
       errors.push('Card ID is required for updates');

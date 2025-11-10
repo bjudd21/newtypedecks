@@ -53,7 +53,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   // Toggle favorite status
   const handleToggleFavorite = async () => {
     if (!isAuthenticated) {
-      alert('Please sign in to favorite decks!');
+      console.warn('TODO: Replace with proper UI notification - Please sign in to favorite decks!');
       return;
     }
 
@@ -97,7 +97,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       }
     } catch (err) {
       console.error('Error toggling favorite:', err);
-      alert(err instanceof Error ? err.message : 'Failed to update favorite');
+      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to update favorite'}`);
     } finally {
       setIsLoading(false);
     }

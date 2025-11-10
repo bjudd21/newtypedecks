@@ -1,6 +1,5 @@
 // Cards page - Main card database and search interface
 import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui';
 import { NewCardsPageClient } from './NewCardsPageClient';
 
 export default function CardsPage() {

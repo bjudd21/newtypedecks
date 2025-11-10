@@ -151,7 +151,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { cardId, quantity, condition = 'Near Mint', action = 'add' } = await request.json();
+    const { cardId, quantity, condition: _condition = 'Near Mint', action = 'add' } = await request.json();
 
     // Validate input
     if (!cardId) {

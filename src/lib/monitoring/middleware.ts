@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { errorTracker, performanceMonitor } from './sentry';
+import { errorTracker } from './sentry';
 import { businessMetrics } from './analytics';
 import { logger, createRequestLogger } from './logger';
 import { measureAPI } from './performance';
@@ -34,7 +34,7 @@ async function extractUserId(request: NextRequest): Promise<string | undefined> 
       return undefined;
     }
     return undefined;
-  } catch (error) {
+  } catch (_error) {
     return undefined;
   }
 }

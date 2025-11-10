@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
@@ -73,12 +74,12 @@ export default async function FavoritesPage() {
             <p className="text-green-700 text-sm mb-4">
               Create your own decks using the deck builder. Save them and share with the community.
             </p>
-            <a
+            <Link
               href="/decks"
               className="inline-flex items-center text-green-700 hover:text-green-800 text-sm font-medium"
             >
               Deck Builder →
-            </a>
+            </Link>
           </div>
 
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
@@ -88,12 +89,12 @@ export default async function FavoritesPage() {
             <p className="text-purple-700 text-sm mb-4">
               Explore public decks shared by other players in the community.
             </p>
-            <a
+            <Link
               href="/decks?filter=public"
               className="inline-flex items-center text-purple-700 hover:text-purple-800 text-sm font-medium"
             >
               Community Decks →
-            </a>
+            </Link>
           </div>
         </div>
 

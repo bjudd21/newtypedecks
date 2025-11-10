@@ -364,7 +364,7 @@ function generateTextExport(collectionCards: any[], options: any) {
 }
 
 // Generate deck list format export
-function generateDeckListExport(collectionCards: any[], options: any) {
+function generateDeckListExport(collectionCards: any[], _options: any) {
   const lines: string[] = [];
 
   lines.push('// Gundam Card Game Collection');

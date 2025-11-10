@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const body = await request.json();
     const {
-      type = 'full', // 'full', 'sets', 'cards'
+      type: _type = 'full', // 'full', 'sets', 'cards'
       options = {},
       setIds,
       cardTypes,

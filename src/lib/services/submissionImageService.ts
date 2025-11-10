@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { validateFile, generateSafeFilename } from '@/lib/storage/validation';
+import { validateFile } from '@/lib/storage/validation';
 import { processCardImage, ProcessedImage } from '@/lib/storage/imageProcessing';
 
 export interface SubmissionImageUploadOptions {

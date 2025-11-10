@@ -6,11 +6,10 @@
  */
 
 import { env, isDevelopment } from '@/lib/config/environment';
-import { CardModel } from '@/lib/models/card';
 import { CardService } from './cardService';
 import { DataScraperService } from './dataScraperService';
 import { DataValidationService } from './dataValidationService';
-import type { CreateCardData, CardImportData } from '@/lib/types/card';
+import type { CreateCardData } from '@/lib/types/card';
 
 export interface ImportResult {
   success: boolean;
@@ -98,7 +97,7 @@ export class DataImportService {
       throw new Error('Import is already running');
     }
 
-    const startTime = Date.now();
+    const _startTime = Date.now(); // Reserved for future timing/metrics
     this.isRunning = true;
 
     try {
@@ -206,7 +205,7 @@ export class DataImportService {
   private async processBatch(
     dataSources: any[],
     options: ImportOptions,
-    maxRetries: number
+    _maxRetries: number // Reserved for future retry logic
   ): Promise<{ processed: number; successful: number; failed: number; errors: string[]; warnings: string[] }> {
     let processed = 0;
     let successful = 0;

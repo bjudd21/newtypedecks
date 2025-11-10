@@ -382,7 +382,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                           </p>
                         </div>
                       );
-                    } catch (e) {
+                    } catch (_e) {
                       // If JSON parsing fails, display as plain text
                       return (
                         <div className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
@@ -456,7 +456,7 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
               <CardContent>
                 {filteredRulings.length > 0 ? (
                   <div className="space-y-4">
-                    {filteredRulings.map((ruling, index) => (
+                    {filteredRulings.map((ruling, _index) => (
                       <div
                         key={ruling.id}
                         className={`border-l-4 pl-4 ${ruling.isOfficial ? 'border-green-400 bg-green-900/20' : 'border-blue-400 bg-blue-900/20'} p-3 rounded-r-md`}

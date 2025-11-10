@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { monitoringHealthCheck } from '@/lib/monitoring';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const health = await monitoringHealthCheck();
 

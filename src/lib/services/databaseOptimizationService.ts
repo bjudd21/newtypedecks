@@ -4,7 +4,6 @@
  * Handles query optimization, performance monitoring, and database health checks
  */
 
-import { prisma } from '@/lib/database';
 import type { CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
 
 export interface QueryPerformanceMetrics {

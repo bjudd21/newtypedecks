@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-10T05:11:41.807Z",
+  "timestamp": "2025-11-10T14:01:52.189Z",
   "summary": {
     "passed": 161,
-    "warnings": 18,
+    "warnings": 17,
     "errors": 62,
-    "total": 241
+    "total": 240
   },
   "files": [
     {
@@ -481,10 +481,10 @@
     },
     {
       "file": "src/app/cards/NewCardsPageClient.tsx",
-      "lines": 316,
+      "lines": 499,
       "limit": 300,
-      "percentage": 105.33333333333333,
-      "size": 13640,
+      "percentage": 166.33333333333334,
+      "size": 20379,
       "status": "error"
     },
     {
@@ -517,14 +517,6 @@
       "limit": 300,
       "percentage": 88.33333333333333,
       "size": 6320,
-      "status": "warning"
-    },
-    {
-      "file": "src/lib/auth 2.ts",
-      "lines": 272,
-      "limit": 300,
-      "percentage": 90.66666666666666,
-      "size": 7136,
       "status": "warning"
     },
     {
@@ -1441,18 +1433,18 @@
     },
     {
       "file": "src/components/navigation/Navbar.tsx",
-      "lines": 51,
+      "lines": 54,
       "limit": 300,
-      "percentage": 17,
-      "size": 1504,
+      "percentage": 18,
+      "size": 1828,
       "status": "passed"
     },
     {
       "file": "src/components/navigation/MobileMenu.tsx",
-      "lines": 159,
+      "lines": 162,
       "limit": 300,
-      "percentage": 53,
-      "size": 4957,
+      "percentage": 54,
+      "size": 5156,
       "status": "passed"
     },
     {
@@ -1564,7 +1556,7 @@
       "lines": 136,
       "limit": 300,
       "percentage": 45.33333333333333,
-      "size": 5057,
+      "size": 5108,
       "status": "passed"
     },
     {

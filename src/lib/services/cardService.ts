@@ -78,7 +78,7 @@ export class CardService {
         const {
           page = 1,
           limit = 20,
-          sortBy = 'name',
+          sortBy: _sortBy = 'name',
           sortOrder = 'asc',
           includeRelations = true
         } = options;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 import type { CardSubmissionWithDetails } from '@/lib/types/submission';
 
@@ -94,9 +95,11 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           {/* Card Image */}
           {submission.imageUrl && (
             <div className="flex justify-center">
-              <img
+              <Image
                 src={submission.imageUrl}
                 alt={`Card preview for ${submission.name}`}
+                width={192}
+                height={256}
                 className="max-w-48 max-h-64 object-contain rounded-lg border"
               />
             </div>

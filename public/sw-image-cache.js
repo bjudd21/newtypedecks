@@ -16,7 +16,7 @@ const IMAGE_URL_PATTERNS = [
   /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/i,
 ];
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', (_event) => {
   console.log('Image cache service worker installing...');
   self.skipWaiting();
 });
@@ -155,7 +155,7 @@ async function getCurrentCacheSize() {
           const blob = await response.blob();
           totalSize += blob.size;
         }
-      } catch (error) {
+      } catch (_error) {
         console.warn('Error calculating cache size for:', request.url);
       }
     }
@@ -182,7 +182,7 @@ async function evictLRUEntries() {
           const cacheDate = new Date(response.headers.get('sw-cached-date') || 0);
           entries.push({ request, cacheDate });
         }
-      } catch (error) {
+      } catch (_error) {
         console.warn('Error reading cache entry:', request.url);
       }
     }

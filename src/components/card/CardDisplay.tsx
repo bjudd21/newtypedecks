@@ -8,6 +8,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, Badge } from '@/components/ui';
 import { GameContentAttribution } from '@/components/layout/BandaiNamcoAttribution';
@@ -59,11 +60,12 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
           <div className="ml-3 flex-shrink-0">
             <div className="w-16 h-20 bg-gray-200 rounded border overflow-hidden">
               {card.imageUrlSmall || card.imageUrl ? (
-                <img
+                <Image
                   src={card.imageUrlSmall || card.imageUrl}
                   alt={card.name}
+                  width={64}
+                  height={80}
                   className="w-full h-full object-cover"
-                  loading="lazy"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-100">

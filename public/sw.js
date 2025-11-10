@@ -13,7 +13,7 @@ const STATIC_CACHE_URLS = [
 ];
 
 // Resources to cache dynamically
-const DYNAMIC_CACHE_URLS = [
+const _DYNAMIC_CACHE_URLS = [
   '/api/cards',
   '/api/decks',
   '/api/collections'

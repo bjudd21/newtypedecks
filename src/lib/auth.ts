@@ -162,7 +162,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     // Sign in callback - controls if user is allowed to sign in
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile: _profile }) {
       // Allow all sign ins for credentials provider
       if (account?.provider === 'credentials') {
         return true;
@@ -205,7 +205,7 @@ export const authOptions: NextAuthOptions = {
 
   // Events
   events: {
-    async signIn({ user, account, profile, isNewUser }) {
+    async signIn({ user, account, profile: _profile, isNewUser }) {
       console.log('User signed in:', {
         userId: user.id,
         email: user.email,

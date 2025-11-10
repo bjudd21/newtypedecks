@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Badge } from '@/components/ui';
 
 interface CompetitiveRatingProps {
   rating: number;
