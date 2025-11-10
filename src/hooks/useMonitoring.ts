@@ -164,7 +164,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
   ) => {
     if (!trackUserActions) return;
 
-    businessMetrics.trackUserAction(action, resource, session?.user?.id, {
+    analytics.trackUserAction(action, resource, session?.user?.id, {
       component: componentName,
       ...metadata,
     });

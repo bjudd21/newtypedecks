@@ -191,7 +191,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 <div className="flex items-center gap-3">
                   <Button
                     onClick={handleFollowToggle}
-                    variant={isFollowing ? 'outline' : 'primary'}
+                    variant={isFollowing ? 'outline' : 'default'}
                     size="sm"
                   >
                     {isFollowing ? 'Unfollow' : 'Follow'}
@@ -204,7 +204,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
               {isOwnProfile && (
                 <div className="flex items-center gap-3">
-                  <Button variant="primary" size="sm">
+                  <Button variant="default" size="sm">
                     ✏️ Edit Profile
                   </Button>
                   <Button variant="outline" size="sm">

@@ -214,7 +214,7 @@ export function UserProfile({ user }: UserProfileProps) {
             {isEditing && (
               <div className="flex space-x-3 pt-4">
                 <Button
-                  variant="primary"
+                  variant="default"
                   onClick={handleSave}
                   disabled={isLoading}
                 >

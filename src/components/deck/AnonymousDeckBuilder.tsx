@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import {
@@ -153,8 +154,8 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       versionName: null,
       isTemplate: false,
       templateSource: null,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
       cards: []
     };
     dispatch(setCurrentDeck(newDeck));
@@ -169,7 +170,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
 
       const deckToSave = {
         ...deck,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date()
       };
 
       // Always save to localStorage for immediate access
@@ -214,8 +215,8 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
         versionName: null,
         isTemplate: false,
         templateSource: null,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         cards: [] // We'll start with empty and let user rebuild
       };
 
@@ -344,6 +345,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
         name: currentDeck.name,
         description: currentDeck.description || undefined,
         format: undefined,
+        createdAt: currentDeck.createdAt,
         cards: currentDeck.cards.map(deckCard => ({
           cardId: deckCard.cardId,
           card: deckCard.card,
@@ -408,25 +410,35 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   }, {} as Record<string, typeof currentDeck.cards>) || {};
 
   return (
-    <div className={className}>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       {/* Anonymous Deck Header */}
       <div className="mb-6">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <div className="flex items-start gap-3">
+        <motion.div
+          className="bg-gradient-to-r from-[#2d2640] to-[#3a3050] border border-[#8b7aaa]/30 rounded-xl p-5 mb-6 shadow-lg hover:shadow-[#8b7aaa]/20 transition-all duration-300"
+          whileHover={{ scale: 1.01 }}
+        >
+          <div className="flex items-start gap-4">
             <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <div className="w-10 h-10 rounded-lg bg-[#8b7aaa]/20 flex items-center justify-center">
+                <svg className="h-6 w-6 text-[#a89ec7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-blue-800">Anonymous Deck Building</h3>
-              <p className="text-sm text-blue-700 mt-1">
+              <h3 className="text-base font-semibold text-[#a89ec7] mb-1">Anonymous Deck Building</h3>
+              <p className="text-sm text-gray-300 leading-relaxed">
                 Your deck is saved locally in your browser.
-                <span className="font-medium"> Sign in to save decks permanently and share them with others!</span>
+                <span className="font-medium text-[#8b7aaa]"> Sign in to save decks permanently and share them with others!</span>
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         <div className="space-y-4">
           <div className="flex items-center gap-4">
@@ -440,105 +452,141 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
             </div>
             <Button
               onClick={() => dispatch(setIsEditing(!isEditing))}
-              variant={isEditing ? 'primary' : 'outline'}
+              variant={isEditing ? 'default' : 'outline'}
             >
               {isEditing ? 'Done Editing' : 'Edit Deck'}
             </Button>
           </div>
 
           {/* Save Status with Offline Support */}
-          <div className="flex items-center justify-between">
+          <motion.div
+            className="flex items-center justify-between"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             <div className="flex items-center gap-2 text-sm">
               {saveStatus === 'saving' && (
                 <>
-                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600"></div>
-                  <span className="text-blue-600">Saving...</span>
+                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-[#8b7aaa]"></div>
+                  <span className="text-[#8b7aaa]">Saving...</span>
                 </>
               )}
               {saveStatus === 'saved' && lastSaved && (
                 <>
-                  <span className="text-green-600">✓</span>
-                  <span className="text-gray-600">Saved {lastSaved.toLocaleTimeString()}</span>
+                  <span className="text-green-400">✓</span>
+                  <span className="text-gray-400">Saved {lastSaved.toLocaleTimeString()}</span>
                 </>
               )}
               {saveStatus === 'offline' && lastSaved && (
                 <>
-                  <span className="text-orange-600">📡</span>
-                  <span className="text-orange-600">Saved offline {lastSaved.toLocaleTimeString()}</span>
+                  <span className="text-orange-400">📡</span>
+                  <span className="text-orange-400">Saved offline {lastSaved.toLocaleTimeString()}</span>
                 </>
               )}
               {saveStatus === 'error' && (
                 <>
-                  <span className="text-red-600">⚠️</span>
-                  <span className="text-red-600">Save failed</span>
+                  <span className="text-red-400">⚠️</span>
+                  <span className="text-red-400">Save failed</span>
                 </>
               )}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {/* Online/Offline indicator */}
-              <div className={`w-3 h-3 rounded-full ${
-                isOnline ? 'bg-green-500' : 'bg-red-500'
-              }`} />
-              <span className="text-xs text-gray-600">
-                {isOnline ? 'Online' : 'Offline'}
-              </span>
+              <div className="flex items-center gap-2">
+                <div className={`w-2.5 h-2.5 rounded-full shadow-lg ${
+                  isOnline ? 'bg-green-400 shadow-green-400/50' : 'bg-red-400 shadow-red-400/50'
+                } animate-pulse`} />
+                <span className="text-xs text-gray-400 font-medium">
+                  {isOnline ? 'Online' : 'Offline'}
+                </span>
+              </div>
 
               {/* Pending sync indicator */}
               {pendingSyncCount > 0 && (
-                <div className="flex items-center gap-1">
-                  <span className="text-xs text-orange-600">
-                    {pendingSyncCount} pending sync
-                  </span>
-                </div>
+                <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/30">
+                  {pendingSyncCount} pending
+                </Badge>
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* Offline Mode Notice */}
           {!isOnline && (
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-              <div className="flex items-start gap-2">
-                <span className="text-orange-600">📡</span>
+            <motion.div
+              className="bg-gradient-to-r from-orange-900/20 to-orange-800/20 border border-orange-500/30 rounded-xl p-4 shadow-lg"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">📡</span>
                 <div className="text-sm">
-                  <div className="font-medium text-orange-900">You're offline</div>
-                  <div className="text-orange-700">
+                  <div className="font-semibold text-orange-300 mb-1">You're offline</div>
+                  <div className="text-orange-200/80">
                     Your deck changes are being saved locally and will sync automatically when you're back online.
                   </div>
                   {pendingSyncCount > 0 && (
-                    <div className="text-orange-600 mt-1">
+                    <div className="text-orange-300 mt-2 font-medium">
                       {pendingSyncCount} deck{pendingSyncCount === 1 ? '' : 's'} waiting to sync
                     </div>
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
 
         {/* Deck Statistics */}
-        <div className="grid grid-cols-3 gap-4 mt-4">
-          <div className="bg-gray-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-gray-900">{totalCards}</div>
-            <div className="text-sm text-gray-600">Total Cards</div>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-gray-900">{uniqueCards}</div>
-            <div className="text-sm text-gray-600">Unique Cards</div>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-gray-900">{totalCost}</div>
-            <div className="text-sm text-gray-600">Total Cost</div>
-          </div>
-        </div>
+        <motion.div
+          className="grid grid-cols-3 gap-4 mt-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <motion.div
+            className="bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded-xl p-5 text-center border border-[#443a5c] shadow-lg hover:shadow-[#8b7aaa]/20 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -5 }}
+          >
+            <div className="text-3xl font-bold bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-transparent">
+              {totalCards}
+            </div>
+            <div className="text-sm text-gray-400 mt-2 font-medium">Total Cards</div>
+          </motion.div>
+          <motion.div
+            className="bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded-xl p-5 text-center border border-[#443a5c] shadow-lg hover:shadow-[#8b7aaa]/20 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ delay: 0.05 }}
+          >
+            <div className="text-3xl font-bold bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-transparent">
+              {uniqueCards}
+            </div>
+            <div className="text-sm text-gray-400 mt-2 font-medium">Unique Cards</div>
+          </motion.div>
+          <motion.div
+            className="bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded-xl p-5 text-center border border-[#443a5c] shadow-lg hover:shadow-[#8b7aaa]/20 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ delay: 0.1 }}
+          >
+            <div className="text-3xl font-bold bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-transparent">
+              {totalCost}
+            </div>
+            <div className="text-sm text-gray-400 mt-2 font-medium">Total Cost</div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <motion.div
+        className="grid grid-cols-1 xl:grid-cols-3 gap-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+      >
         {/* Card Search Panel */}
-        <div className="xl:col-span-1">
-          <Card>
+        <div className="xl:col-span-1 space-y-6">
+          <Card className="bg-[#2d2640] border-[#443a5c]">
             <CardHeader>
-              <CardTitle>Add Cards</CardTitle>
+              <CardTitle className="text-[#a89ec7] text-lg">ADD CARDS</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -549,7 +597,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
                   showFilters={false}
                   limit={10}
                 />
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-400 bg-[#1a1625]/50 p-3 rounded-lg border border-[#443a5c]/30">
                   Click or drag cards to add them to your deck. All changes are saved automatically to your browser.
                 </div>
               </div>
@@ -557,7 +605,11 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
           </Card>
 
           {/* Deck Validation */}
-          <div className="mt-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
             <DeckValidator
               cards={currentDeck?.cards.map(deckCard => ({
                 card: deckCard.card,
@@ -567,14 +619,19 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
               showDetails={false}
               onlyErrors={true}
             />
-          </div>
+          </motion.div>
         </div>
 
         {/* Deck Contents Panel */}
         <div className="xl:col-span-2">
-          <Card>
+          <Card className="bg-[#2d2640] border-[#443a5c]">
             <CardHeader>
-              <CardTitle>Deck Contents ({totalCards} cards)</CardTitle>
+              <CardTitle className="text-[#a89ec7] text-lg flex items-center gap-2">
+                DECK CONTENTS
+                <Badge className="bg-[#8b7aaa]/20 text-[#a89ec7] border-[#8b7aaa]/30">
+                  {totalCards} cards
+                </Badge>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <DeckDropZone
@@ -586,21 +643,33 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
               >
                 <div className="space-y-4">
                   {uniqueCards === 0 ? (
-                    <div className="text-center py-8 text-gray-500">
-                      <svg className="h-16 w-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <motion.div
+                      className="text-center py-12"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <motion.svg
+                        className="h-20 w-20 mx-auto mb-4 text-[#8b7aaa]/30"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                      </svg>
-                      <p className="text-lg font-medium">Your deck is empty</p>
-                      <p>Start by searching for cards to add</p>
-                    </div>
+                      </motion.svg>
+                      <p className="text-xl font-semibold text-[#a89ec7] mb-2">Your deck is empty</p>
+                      <p className="text-gray-400">Start by searching for cards to add</p>
+                    </motion.div>
                   ) : (
                     Object.entries(cardsByType).map(([typeName, cards]) => (
                       <div key={typeName} className="space-y-2">
-                        <div className="flex items-center gap-2 sticky top-0 bg-white py-1">
-                          <Badge variant="secondary" className="text-xs">
+                        <div className="flex items-center gap-2 sticky top-0 bg-[#2d2640] py-2 z-10">
+                          <Badge variant="secondary" className="text-xs bg-[#8b7aaa]/20 text-[#a89ec7] border-[#8b7aaa]/30">
                             {typeName}
                           </Badge>
-                          <span className="text-sm text-gray-600">
+                          <span className="text-sm text-gray-400">
                             ({cards.reduce((sum, card) => sum + card.quantity, 0)} cards)
                           </span>
                         </div>
@@ -625,7 +694,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
             </CardContent>
           </Card>
         </div>
-      </div>
+      </motion.div>
 
       {/* Detailed Validation Panel */}
       <div className="mt-6 hidden lg:block">
@@ -698,7 +767,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
 
         {/* Sign In Prompt */}
         <Button
-          variant="primary"
+          variant="default"
           onClick={() => {
             window.location.href = '/auth/signin?callbackUrl=/decks';
           }}
@@ -767,14 +836,14 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                <div className="bg-gradient-to-r from-[#2d2640] to-[#3a3050] border border-[#8b7aaa]/30 rounded-lg p-3 mb-4">
                   <div className="flex items-start">
-                    <svg className="h-4 w-4 text-blue-600 mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-4 w-4 text-[#a89ec7] mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div>
-                      <h4 className="text-xs font-medium text-blue-800">Temporary Share Link</h4>
-                      <p className="text-xs text-blue-700 mt-1">
+                      <h4 className="text-xs font-semibold text-[#a89ec7]">Temporary Share Link</h4>
+                      <p className="text-xs text-gray-300 mt-1">
                         This URL contains your deck data and works without an account. For permanent sharing and deck libraries, sign in to save decks to your account.
                       </p>
                     </div>
@@ -793,7 +862,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
                     onClick={() => {
                       window.location.href = '/auth/signin?callbackUrl=/decks';
                     }}
-                    variant="primary"
+                    variant="default"
                     className="flex-1"
                   >
                     Sign In for More
@@ -806,23 +875,46 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       )}
 
       {/* Anonymous Features Notice */}
-      <div className="mt-6 bg-gray-50 rounded-lg p-4">
-        <h4 className="font-medium text-gray-900 mb-2">Anonymous Deck Building Features:</h4>
-        <ul className="text-sm text-gray-700 space-y-1">
-          <li>✅ Build decks with full card search and filtering</li>
-          <li>✅ Automatic local saving (persists until you clear browser data)</li>
-          <li>✅ Export decks in multiple formats (JSON, Text, CSV)</li>
-          <li>✅ Real-time deck validation and statistics</li>
-          <li>✅ Drag and drop card management</li>
-          <li>✅ Share decks via temporary URLs</li>
+      <motion.div
+        className="mt-8 bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded-xl p-6 border border-[#443a5c] shadow-lg"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+      >
+        <h4 className="font-semibold text-[#a89ec7] text-lg mb-4">Anonymous Deck Building Features:</h4>
+        <ul className="text-sm text-gray-300 space-y-2">
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Build decks with full card search and filtering
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Automatic local saving (persists until you clear browser data)
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Export decks in multiple formats (JSON, Text, CSV)
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Real-time deck validation and statistics
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Drag and drop card management
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-green-400">✅</span>
+            Share decks via temporary URLs
+          </li>
         </ul>
-        <div className="mt-3 pt-3 border-t border-gray-200">
-          <p className="text-sm text-gray-600">
-            <strong>Want more?</strong> Sign in to save decks permanently, share them with others, and access your deck collection from any device!
+        <div className="mt-4 pt-4 border-t border-[#443a5c]">
+          <p className="text-sm text-gray-300">
+            <strong className="text-[#a89ec7]">Want more?</strong> Sign in to save decks permanently, share them with others, and access your deck collection from any device!
           </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

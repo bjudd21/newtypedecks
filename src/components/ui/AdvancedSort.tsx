@@ -264,7 +264,7 @@ export const AdvancedSort: React.FC<AdvancedSortProps> = ({
                       <div className="flex gap-1">
                         <Button
                           onClick={() => addSort(option.key, 'asc')}
-                          variant={isActive && activeSorts.find(s => s.field === option.key)?.order === 'asc' ? 'primary' : 'outline'}
+                          variant={isActive && activeSorts.find(s => s.field === option.key)?.order === 'asc' ? 'default' : 'outline'}
                           size="sm"
                           className="text-xs flex-1"
                           disabled={!isActive && activeSorts.length >= maxSorts}
@@ -273,7 +273,7 @@ export const AdvancedSort: React.FC<AdvancedSortProps> = ({
                         </Button>
                         <Button
                           onClick={() => addSort(option.key, 'desc')}
-                          variant={isActive && activeSorts.find(s => s.field === option.key)?.order === 'desc' ? 'primary' : 'outline'}
+                          variant={isActive && activeSorts.find(s => s.field === option.key)?.order === 'desc' ? 'default' : 'outline'}
                           size="sm"
                           className="text-xs flex-1"
                           disabled={!isActive && activeSorts.length >= maxSorts}

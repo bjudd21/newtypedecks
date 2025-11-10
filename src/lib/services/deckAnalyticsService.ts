@@ -222,11 +222,11 @@ class DeckAnalyticsService {
 
     deckCards.forEach(dc => {
       const cost = dc.card.cost || 1;
-      const power = dc.card.power || 0;
-      const toughness = dc.card.toughness || 0;
+      const attackPoints = dc.card.attackPoints || 0;
+      const hitPoints = dc.card.hitPoints || 0;
 
-      // Simple efficiency: (power + toughness) / cost
-      const efficiency = cost > 0 ? (power + toughness) / cost : 0;
+      // Simple efficiency: (attackPoints + hitPoints) / cost
+      const efficiency = cost > 0 ? (attackPoints + hitPoints) / cost : 0;
       totalEfficiency += efficiency * dc.quantity;
       cardCount += dc.quantity;
     });

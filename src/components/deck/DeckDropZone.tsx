@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface DragData {
@@ -117,25 +118,27 @@ export const DeckDropZone: React.FC<DeckDropZoneProps> = ({
   }, [isActive, onCardDrop]);
 
   return (
-    <div
+    <motion.div
       onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        'relative border-2 border-dashed rounded-lg transition-all duration-200',
+        'relative border-2 border-dashed rounded-xl transition-all duration-300',
         {
-          'border-blue-300 bg-blue-50': isDragOver && isActive,
-          'border-gray-300': !isDragOver && isActive,
-          'border-gray-200 opacity-50': !isActive,
+          'border-[#8b7aaa] bg-[#8b7aaa]/10 shadow-lg shadow-[#8b7aaa]/20': isDragOver && isActive,
+          'border-[#443a5c] hover:border-[#8b7aaa]/50': !isDragOver && isActive,
+          'border-[#443a5c]/30 opacity-50': !isActive,
         },
         className
       )}
       style={{ minHeight: `${minHeight}px` }}
+      animate={isDragOver ? { scale: 1.02 } : { scale: 1 }}
+      transition={{ duration: 0.2 }}
     >
       {/* Drop zone content */}
       <div className="p-4">
-        <div className="text-sm font-medium text-gray-700 mb-2">
+        <div className="text-sm font-semibold text-gray-400 mb-2 uppercase tracking-wide">
           {title}
         </div>
 
@@ -149,33 +152,64 @@ export const DeckDropZone: React.FC<DeckDropZoneProps> = ({
       </div>
 
       {/* Drag overlay */}
-      {isDragOver && isActive && (
-        <div className="absolute inset-0 bg-blue-100 bg-opacity-50 border-2 border-blue-400 border-dashed rounded-lg flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-blue-600 font-medium">
-              Drop {draggedCardName && `"${draggedCardName}"`} here
-            </div>
-            <div className="text-blue-500 text-sm mt-1">
-              Add to {title.toLowerCase()}
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isDragOver && isActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-gradient-to-br from-[#8b7aaa]/20 to-[#6b5a8a]/20 backdrop-blur-sm border-2 border-[#8b7aaa] border-dashed rounded-xl flex items-center justify-center z-10"
+          >
+            <motion.div
+              className="text-center"
+              initial={{ scale: 0.8, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-5xl mb-3"
+              >
+                📥
+              </motion.div>
+              <div className="text-[#a89ec7] font-semibold text-lg">
+                Drop {draggedCardName && `'${draggedCardName}'`} here
+              </div>
+              <div className="text-[#8b7aaa] text-sm mt-2">
+                Add to {title.toLowerCase()}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Empty state */}
       {!children && !isDragOver && (
-        <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-          <div className="text-center">
-            <svg className="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <motion.svg
+              className="w-16 h-16 mx-auto mb-3 text-[#8b7aaa]/30"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
-            <div className="text-sm">
+            </motion.svg>
+            <div className="text-sm text-gray-400 font-medium">
               Drag cards here or use search
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

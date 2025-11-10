@@ -227,12 +227,16 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Import Format
               </label>
-              <Select value={selectedFormat} onValueChange={handleFormatChange}>
-                <option value="csv">CSV/TSV File</option>
-                <option value="json">JSON Format</option>
-                <option value="decklist">Deck List</option>
-                <option value="mtga">MTG Arena Format</option>
-              </Select>
+              <Select
+                value={selectedFormat}
+                onChange={handleFormatChange}
+                options={[
+                  { value: 'csv', label: 'CSV/TSV File' },
+                  { value: 'json', label: 'JSON Format' },
+                  { value: 'decklist', label: 'Deck List' },
+                  { value: 'mtga', label: 'MTG Arena Format' }
+                ]}
+              />
               <div className="text-xs text-gray-500 mt-1">
                 {getFormatDescription(selectedFormat)}
               </div>
@@ -243,11 +247,15 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Update Behavior
               </label>
-              <Select value={updateBehavior} onValueChange={setUpdateBehavior}>
-                <option value="add">Add to existing quantities</option>
-                <option value="replace">Replace existing quantities</option>
-                <option value="skip">Skip cards already in collection</option>
-              </Select>
+              <Select
+                value={updateBehavior}
+                onChange={setUpdateBehavior}
+                options={[
+                  { value: 'add', label: 'Add to existing quantities' },
+                  { value: 'replace', label: 'Replace existing quantities' },
+                  { value: 'skip', label: 'Skip cards already in collection' }
+                ]}
+              />
               <div className="text-xs text-gray-500 mt-1">
                 How to handle cards that are already in your collection
               </div>
@@ -314,7 +322,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
               <Button
                 onClick={handleImport}
                 disabled={!importData.trim() || isImporting}
-                variant="primary"
+                variant="default"
                 className="flex-1"
               >
                 {isImporting ? 'Importing...' : 'Import to Collection'}

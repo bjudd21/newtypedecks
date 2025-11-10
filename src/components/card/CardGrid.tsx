@@ -82,7 +82,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
       {/* Card ID/Number at bottom */}
       <div className="mt-2 text-center">
         <p className="text-xs text-gray-500 font-mono tracking-tight">
-          {card.cardNumber || card.id}
+          {card.setNumber || card.id}
         </p>
       </div>
     </div>

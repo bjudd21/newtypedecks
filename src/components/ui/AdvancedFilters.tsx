@@ -161,7 +161,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
         <div className="flex items-center gap-2">
           <h3 className="text-lg font-medium">Advanced Filters</h3>
           {activeFilterCount > 0 && (
-            <Badge variant="primary" className="text-xs">
+            <Badge variant="default" className="text-xs">
               {activeFilterCount} active
             </Badge>
           )}

@@ -471,7 +471,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
 
               {validationErrors.length === 0 && previewData.length > 0 && (
                 <div className="flex gap-2">
-                  <Button onClick={() => setCurrentStep('options')} variant="primary">
+                  <Button onClick={() => setCurrentStep('options')} variant="default">
                     Continue to Options
                   </Button>
                   <Button onClick={handleImport} variant="outline">
@@ -496,12 +496,13 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
                   </label>
                   <Select
                     value={importOptions.updateBehavior}
-                    onValueChange={(value) => setImportOptions(prev => ({ ...prev, updateBehavior: value }))}
-                  >
-                    <option value="add">Add to existing quantities</option>
-                    <option value="replace">Replace existing quantities</option>
-                    <option value="skip">Skip existing cards</option>
-                  </Select>
+                    onChange={(value: string) => setImportOptions(prev => ({ ...prev, updateBehavior: value }))}
+                    options={[
+                      { value: 'add', label: 'Add to existing quantities' },
+                      { value: 'replace', label: 'Replace existing quantities' },
+                      { value: 'skip', label: 'Skip existing cards' }
+                    ]}
+                  />
                 </div>
 
                 <div>
@@ -510,12 +511,13 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
                   </label>
                   <Select
                     value={importOptions.batchSize.toString()}
-                    onValueChange={(value) => setImportOptions(prev => ({ ...prev, batchSize: parseInt(value) }))}
-                  >
-                    <option value="50">50 cards per batch</option>
-                    <option value="100">100 cards per batch</option>
-                    <option value="250">250 cards per batch</option>
-                  </Select>
+                    onChange={(value: string) => setImportOptions(prev => ({ ...prev, batchSize: parseInt(value) }))}
+                    options={[
+                      { value: '50', label: '50 cards per batch' },
+                      { value: '100', label: '100 cards per batch' },
+                      { value: '250', label: '250 cards per batch' }
+                    ]}
+                  />
                 </div>
               </div>
 
@@ -533,7 +535,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={handleImport} variant="primary" disabled={isProcessing}>
+                <Button onClick={handleImport} variant="default" disabled={isProcessing}>
                   {isProcessing ? 'Importing...' : 'Start Import'}
                 </Button>
                 <Button onClick={() => setCurrentStep('validate')} variant="outline">

@@ -257,7 +257,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
               <div className="flex gap-2">
                 <Button
                   onClick={handleApprove}
-                  variant="primary"
+                  variant="default"
                   size="sm"
                   disabled={isLoading}
                 >
@@ -293,7 +293,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
               {submission.status === 'PENDING' && (
                 <Button
                   onClick={() => setShowReviewForm(true)}
-                  variant="primary"
+                  variant="default"
                   size="sm"
                   disabled={isLoading || showReviewForm}
                 >
@@ -304,7 +304,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
               {submission.status === 'APPROVED' && onPublish && (
                 <Button
                   onClick={handlePublish}
-                  variant="primary"
+                  variant="default"
                   size="sm"
                   disabled={isLoading}
                 >

@@ -71,7 +71,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
     setFilters(prev => ({
       ...prev,
       [field]: value,
-      page: field !== 'page' ? 1 : value // Reset to page 1 when changing filters
+      page: field !== 'page' ? 1 : (typeof value === 'number' ? value : parseInt(value) || 1) // Reset to page 1 when changing filters
     }));
   }, []);
 
@@ -235,15 +235,16 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
               </label>
               <Select
                 value={filters.rarity}
-                onValueChange={(value) => handleFilterChange('rarity', value)}
-              >
-                <option value="">All Rarities</option>
-                <option value="Common">Common</option>
-                <option value="Uncommon">Uncommon</option>
-                <option value="Rare">Rare</option>
-                <option value="Super Rare">Super Rare</option>
-                <option value="Secret Rare">Secret Rare</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('rarity', value)}
+                options={[
+                  { value: '', label: 'All Rarities' },
+                  { value: 'Common', label: 'Common' },
+                  { value: 'Uncommon', label: 'Uncommon' },
+                  { value: 'Rare', label: 'Rare' },
+                  { value: 'Super Rare', label: 'Super Rare' },
+                  { value: 'Secret Rare', label: 'Secret Rare' }
+                ]}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -251,14 +252,15 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
               </label>
               <Select
                 value={filters.type}
-                onValueChange={(value) => handleFilterChange('type', value)}
-              >
-                <option value="">All Types</option>
-                <option value="Unit">Unit</option>
-                <option value="Command">Command</option>
-                <option value="Pilot">Pilot</option>
-                <option value="Operation">Operation</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('type', value)}
+                options={[
+                  { value: '', label: 'All Types' },
+                  { value: 'Unit', label: 'Unit' },
+                  { value: 'Command', label: 'Command' },
+                  { value: 'Pilot', label: 'Pilot' },
+                  { value: 'Operation', label: 'Operation' }
+                ]}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -266,14 +268,15 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
               </label>
               <Select
                 value={filters.faction}
-                onValueChange={(value) => handleFilterChange('faction', value)}
-              >
-                <option value="">All Factions</option>
-                <option value="Earth Federation">Earth Federation</option>
-                <option value="Principality of Zeon">Principality of Zeon</option>
-                <option value="AEUG">AEUG</option>
-                <option value="Titans">Titans</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('faction', value)}
+                options={[
+                  { value: '', label: 'All Factions' },
+                  { value: 'Earth Federation', label: 'Earth Federation' },
+                  { value: 'Principality of Zeon', label: 'Principality of Zeon' },
+                  { value: 'AEUG', label: 'AEUG' },
+                  { value: 'Titans', label: 'Titans' }
+                ]}
+              />
             </div>
           </div>
         </CardContent>
@@ -361,14 +364,12 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
                           <label className="block text-xs text-gray-600">Condition</label>
                           <Select
                             value={editCondition}
-                            onValueChange={setEditCondition}
-                          >
-                            {conditions.map(condition => (
-                              <option key={condition} value={condition}>
-                                {condition}
-                              </option>
-                            ))}
-                          </Select>
+                            onChange={setEditCondition}
+                            options={conditions.map(condition => ({
+                              value: condition,
+                              label: condition
+                            }))}
+                          />
                         </div>
                         <div className="pt-4">
                           <Button

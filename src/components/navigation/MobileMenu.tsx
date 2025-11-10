@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 import { getNavItemProps, handleKeyboardActivation, KEYBOARD_CODES, trapFocus } from '@/lib/utils/accessibility';
 
 const navigation = [
-  { name: 'Home', href: '/', description: 'Go to home page' },
   { name: 'Cards', href: '/cards', description: 'Browse card database' },
   { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
   { name: 'Collection', href: '/collection', description: 'Manage your card collection' },

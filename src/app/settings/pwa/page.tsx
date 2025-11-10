@@ -183,7 +183,7 @@ export default function PWASettingsPage() {
                   </div>
                   <Button
                     onClick={handleInstallApp}
-                    variant="primary"
+                    variant="default"
                     disabled={actionLoading === 'install'}
                   >
                     {actionLoading === 'install' ? 'Installing...' : 'Install App'}
@@ -209,7 +209,7 @@ export default function PWASettingsPage() {
                     </div>
                     <Button
                       onClick={handleUpdateApp}
-                      variant="primary"
+                      variant="default"
                       size="sm"
                       disabled={actionLoading === 'update'}
                     >

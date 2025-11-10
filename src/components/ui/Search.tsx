@@ -1,9 +1,9 @@
 // Search component for filtering and searching
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId } from 'react';
 import { cn } from '@/lib/utils';
-import { generateId, KEYBOARD_CODES } from '@/lib/utils/accessibility';
+import { KEYBOARD_CODES } from '@/lib/utils/accessibility';
 
 export interface SearchSuggestion {
   id: string;
@@ -49,11 +49,12 @@ const Search: React.FC<SearchProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Generate unique IDs for accessibility
-  const inputId = useRef(generateId('search-input')).current;
-  const listboxId = useRef(generateId('search-listbox')).current;
-  const labelId = useRef(generateId('search-label')).current;
-  const errorId = useRef(generateId('search-error')).current;
+  // Generate unique IDs for accessibility (SSR-safe)
+  const baseId = useId();
+  const inputId = `search-input-${baseId}`;
+  const listboxId = `search-listbox-${baseId}`;
+  const labelId = `search-label-${baseId}`;
+  const errorId = `search-error-${baseId}`;
 
   const filteredSuggestions = suggestions
     .filter(

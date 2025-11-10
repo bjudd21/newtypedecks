@@ -147,7 +147,7 @@ export default function OfflinePage() {
             <div className="space-y-3">
               <Button
                 onClick={handleRetry}
-                variant="primary"
+                variant="default"
                 className="w-full"
                 disabled={!isOnline}
               >

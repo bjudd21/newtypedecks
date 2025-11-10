@@ -181,12 +181,12 @@ export function withMonitoring<T extends any[]>(
 }
 
 // Database query monitoring wrapper
-export function monitorDatabaseQuery<T>(
+export async function monitorDatabaseQuery<T>(
   operation: string,
   query: () => Promise<T>,
   tableName?: string
 ): Promise<T> {
-  return measureAPI(
+  return await measureAPI(
     `DB ${operation}${tableName ? ` on ${tableName}` : ''}`,
     async () => {
       const result = await query();
@@ -199,16 +199,16 @@ export function monitorDatabaseQuery<T>(
       return result;
     },
     { operation, table: tableName }
-  );
+  ) as Promise<T>;
 }
 
 // Authentication monitoring wrapper
-export function monitorAuth<T>(
+export async function monitorAuth<T>(
   action: string,
   authFunction: () => Promise<T>,
   userId?: string
 ): Promise<T> {
-  return measureAPI(
+  return await measureAPI(
     `Auth ${action}`,
     async () => {
       try {
@@ -229,16 +229,16 @@ export function monitorAuth<T>(
       }
     },
     { action, userId }
-  );
+  ) as Promise<T>;
 }
 
 // File upload monitoring wrapper
-export function monitorFileUpload<T>(
+export async function monitorFileUpload<T>(
   fileName: string,
   fileSize: number,
   uploadFunction: () => Promise<T>
 ): Promise<T> {
-  return measureAPI(
+  return await measureAPI(
     `Upload ${fileName}`,
     async () => {
       try {
@@ -266,7 +266,7 @@ export function monitorFileUpload<T>(
       }
     },
     { fileName, fileSize }
-  );
+  ) as Promise<T>;
 }
 
 // Rate limiting monitoring

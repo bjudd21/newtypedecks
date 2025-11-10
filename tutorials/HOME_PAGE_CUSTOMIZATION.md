@@ -1,6 +1,8 @@
 # Home Page Customization Guide
 
-This guide shows you how to easily customize the home page (`src/app/page.tsx`) without breaking anything.
+This guide shows you how to easily customize the purple-themed home page (`src/app/page.tsx`) without breaking anything.
+
+> **Note**: The entire website uses a consistent purple theme. When making changes, maintain the purple color palette for visual consistency.
 
 ## File Location
 `/Users/mkv/Documents/Projects/GCG/src/app/page.tsx`
@@ -11,7 +13,7 @@ This guide shows you how to easily customize the home page (`src/app/page.tsx`) 
 
 ### 1. Change the Main Heading Text
 
-**Location:** Lines 26-33
+**Component:** Hero Heading (in Hero Section)
 
 **Current:**
 ```tsx
@@ -36,7 +38,7 @@ The ultimate <span className="font-semibold">Gundam card community</span>
 
 ### 2. Change Search Bar Placeholder Text
 
-**Location:** Line 53
+**Component:** Hero Search Bar (in Hero Section)
 
 **Current:**
 ```tsx
@@ -54,7 +56,7 @@ placeholder="What card are you looking for?"
 
 ### 3. Modify Quick Action Buttons
 
-**Location:** Lines 66-86
+**Component:** Quick Action Buttons (below Hero Search Bar)
 
 **Current buttons:**
 - Advanced Search → `/cards`
@@ -84,7 +86,7 @@ Browse All Cards
 
 ### 4. Update News Badges
 
-**Location:** Lines 95-106
+**Component:** Announcement Items (in Announcements Section)
 
 **Current:**
 ```tsx
@@ -125,7 +127,7 @@ Browse All Cards
 
 ### 5. Change "Recent Decks" Section Title
 
-**Location:** Line 115
+**Component:** Section Heading (in Content Sections)
 
 **Current:**
 ```tsx
@@ -143,7 +145,7 @@ Browse All Cards
 
 ### 6. Change Footer Links
 
-**Location:** Lines 155-190
+**Component:** Footer (in Legal Compliance Footer)
 
 **Add a new footer column:**
 ```tsx
@@ -167,54 +169,69 @@ Browse All Cards
 
 ---
 
-## Color Customization
+## Purple Theme Customization
+
+> **Important**: The entire website uses a consistent purple theme. When customizing colors, stay within the purple palette to maintain visual consistency across all pages.
+
+### Purple Theme Color Reference
+- `#1a1625` - Deep purple-black (primary background)
+- `#2a1f3d` - Medium purple-gray (secondary background)
+- `#2d2640` - Card backgrounds
+- `#3a3050` - Lighter surfaces, hover states
+- `#443a5c` - Default borders
+- `#6b5a8a` - Interactive borders
+- `#8b7aaa` - Active borders, primary purple
+- `#a89ec7` - Text and headings
 
 ### Background Gradient
 
-**Location:** Line 21
+**Component:** Page Background (root container)
 
 **Current:**
 ```tsx
 className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]"
 ```
 
-**Examples:**
+**Purple Theme Examples:**
 ```tsx
 // Darker purple gradient
 className="min-h-screen bg-gradient-to-b from-[#0f0d15] via-[#1a1625] to-[#0f0d15]"
 
-// Blue-purple gradient
-className="min-h-screen bg-gradient-to-b from-[#1a1b2e] via-[#2a1f3d] to-[#1a1b2e]"
-
-// Lighter purple
+// Lighter purple (more visible)
 className="min-h-screen bg-gradient-to-b from-[#2a1f3d] via-[#3a2f4d] to-[#2a1f3d]"
+
+// Three-tone gradient
+className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2d2640] to-[#1a1625]"
 ```
 
 ### Search Bar Colors
 
-**Location:** Line 54
+**Component:** Hero Search Bar input field
 
-**Current:**
+**Current Purple Theme:**
 ```tsx
 className="w-full py-4 pl-12 pr-4 bg-[#2d2640] border border-[#443a5c] rounded-md text-base text-white placeholder-gray-500 focus:outline-none focus:border-[#6b5a8a] focus:ring-2 focus:ring-[#6b5a8a]/30 transition-all"
 ```
 
-**Color meanings:**
-- `bg-[#2d2640]` - Background color
-- `border-[#443a5c]` - Border color
-- `focus:border-[#6b5a8a]` - Border color when focused
-- `focus:ring-[#6b5a8a]/30` - Glow effect when focused
+**Purple Theme Color Breakdown:**
+- `bg-[#2d2640]` - Card background purple
+- `border-[#443a5c]` - Default border purple
+- `focus:border-[#6b5a8a]` - Interactive border purple when focused
+- `focus:ring-[#6b5a8a]/30` - Purple glow effect (30% opacity)
 
-**Examples:**
+**Purple Theme Variations:**
 ```tsx
-// Lighter background
+// Lighter background (more prominent)
 bg-[#3a3050]
 
-// Brighter focus border
+// Brighter focus (more visible interaction)
 focus:border-[#8b7aaa]
 
 // Stronger glow effect
 focus:ring-[#6b5a8a]/50
+
+// Alternative: gradient border on focus
+focus:border-[#8b7aaa] focus:ring-[#8b7aaa]/40
 ```
 
 ---
@@ -223,7 +240,7 @@ focus:ring-[#6b5a8a]/50
 
 ### Hero Text Animation Speed
 
-**Location:** Lines 26-33
+**Component:** Hero Heading animation
 
 **Current:**
 ```tsx
@@ -246,21 +263,27 @@ transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
 
 ### Button Hover Effects
 
-**Location:** Lines 67, 72, 77, 82
+**Component:** Quick Action Buttons
 
-**Current:**
+**Current Purple Theme:**
 ```tsx
 className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white"
 ```
 
-**Examples:**
+**Purple Theme Examples:**
 ```tsx
-// Brighter hover
+// Brighter purple hover
 hover:bg-[#4a4060]
 
-// Add scale effect (requires adding to motion component)
+// Subtle border highlight on hover
+hover:border-[#6b5a8a]
+
+// Add scale effect with Framer Motion
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
+
+// Purple gradient hover effect
+hover:bg-gradient-to-r hover:from-[#8b7aaa] hover:to-[#6b5a8a]
 ```
 
 ---
@@ -269,7 +292,7 @@ whileTap={{ scale: 0.95 }}
 
 ### Hero Section Height
 
-**Location:** Line 23
+**Component:** Hero Section container
 
 **Current:**
 ```tsx
@@ -290,7 +313,7 @@ min-h-screen
 
 ### Content Width
 
-**Location:** Line 24
+**Component:** Hero Section content wrapper
 
 **Current:**
 ```tsx
@@ -313,7 +336,7 @@ max-w-6xl
 
 ## Advanced: Recent Decks Grid
 
-**Location:** Line 121
+**Component:** Recent Decks Section grid layout
 
 **Current:** 5 columns on large screens
 ```tsx
@@ -334,7 +357,7 @@ gap-6
 
 ### Number of Deck Cards Shown
 
-**Location:** Line 122
+**Component:** Recent Decks cards array
 
 **Current:** Shows 5 placeholder decks
 ```tsx
@@ -356,10 +379,11 @@ gap-6
 
 1. **Always keep a backup** - Copy the file before making changes
 2. **Test one change at a time** - Easier to find issues
-3. **Keep the file structure** - Don't remove closing tags `</div>`, `</section>`, etc.
-4. **Preserve className syntax** - Always keep quotes around class names
-5. **Check browser console** - Press F12 in browser to see errors
-6. **Use hard refresh** - Press ⌘⇧R (Mac) or Ctrl⇧R (Windows) to see changes
+3. **Maintain purple theme consistency** - Use colors from the purple palette
+4. **Keep the file structure** - Don't remove closing tags `</div>`, `</section>`, etc.
+5. **Preserve className syntax** - Always keep quotes around class names
+6. **Check browser console** - Press F12 in browser to see errors
+7. **Use hard refresh** - Press ⌘⇧R (Mac) or Ctrl⇧R (Windows) to see changes
 
 ---
 
@@ -378,6 +402,8 @@ gap-6
 ### Colors Look Wrong?
 - Hex colors must start with `#` and be in brackets: `[#1a1625]`
 - Use Tailwind color names for standard colors: `text-white`, `bg-purple-600`
+- **Stay within the purple theme** - Use the purple palette colors for consistency
+- Avoid using blue, cyan, or green for primary UI elements (they're reserved for status indicators)
 
 ---
 

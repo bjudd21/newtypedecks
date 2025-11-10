@@ -182,7 +182,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           {/* Sign In Button */}
           <Button
             type="submit"
-            variant="primary"
+            variant="default"
             disabled={isLoading}
             className="w-full"
           >

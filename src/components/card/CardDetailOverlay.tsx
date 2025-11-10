@@ -110,23 +110,23 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
                       <div className="text-lg font-bold text-white">{card.level}</div>
                     </div>
                   )}
-                  {card.attack !== undefined && (
+                  {card.attackPoints !== undefined && (
                     <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
                       <div className="text-xs text-gray-400">Attack</div>
-                      <div className="text-lg font-bold text-white">{card.attack}</div>
+                      <div className="text-lg font-bold text-white">{card.attackPoints}</div>
                     </div>
                   )}
-                  {card.defense !== undefined && (
+                  {card.hitPoints !== undefined && (
                     <div className="bg-gray-800 p-2.5 rounded-lg border border-gray-700">
-                      <div className="text-xs text-gray-400">Defense</div>
-                      <div className="text-lg font-bold text-white">{card.defense}</div>
+                      <div className="text-xs text-gray-400">HP</div>
+                      <div className="text-lg font-bold text-white">{card.hitPoints}</div>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Series/Set Info */}
-              {(card.series || card.setName) && (
+              {(card.series || card.set?.name) && (
                 <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
                   <h3 className="text-sm font-semibold text-white mb-1.5">Set Information</h3>
                   {card.series && (
@@ -135,16 +135,16 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
                       <span className="text-white">{card.series}</span>
                     </div>
                   )}
-                  {card.setName && (
+                  {card.set?.name && (
                     <div className="mb-1 text-sm">
                       <span className="text-gray-400">Set: </span>
-                      <span className="text-white">{card.setName}</span>
+                      <span className="text-white">{card.set.name}</span>
                     </div>
                   )}
-                  {card.cardNumber && (
+                  {card.setNumber && (
                     <div className="text-sm">
                       <span className="text-gray-400">Card Number: </span>
-                      <span className="text-white">{card.cardNumber}</span>
+                      <span className="text-white">{card.setNumber}</span>
                     </div>
                   )}
                 </div>
@@ -181,13 +181,7 @@ export const CardDetailOverlay: React.FC<CardDetailOverlayProps> = ({
               {card.abilities && card.abilities.length > 0 && (
                 <div className="bg-gray-800 p-3 rounded-lg border border-gray-700">
                   <h3 className="text-sm font-semibold text-white mb-1.5">Abilities</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {card.abilities.map((ability, index) => (
-                      <Badge key={index} className="bg-purple-600 text-xs">
-                        {ability}
-                      </Badge>
-                    ))}
-                  </div>
+                  <p className="text-gray-300 text-sm leading-relaxed">{card.abilities}</p>
                 </div>
               )}
 

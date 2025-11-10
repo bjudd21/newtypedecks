@@ -155,14 +155,15 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
               </label>
               <Select
                 value={filters.format}
-                onValueChange={(value) => handleFilterChange('format', value)}
-              >
-                <option value="">All Formats</option>
-                <option value="Standard">Standard</option>
-                <option value="Advanced">Advanced</option>
-                <option value="Casual">Casual</option>
-                <option value="Custom">Custom</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('format', value)}
+                options={[
+                  { value: '', label: 'All Formats' },
+                  { value: 'Standard', label: 'Standard' },
+                  { value: 'Advanced', label: 'Advanced' },
+                  { value: 'Casual', label: 'Casual' },
+                  { value: 'Custom', label: 'Custom' }
+                ]}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -170,12 +171,13 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
               </label>
               <Select
                 value={filters.sortBy}
-                onValueChange={(value) => handleFilterChange('sortBy', value)}
-              >
-                <option value="updatedAt">Recently Updated</option>
-                <option value="createdAt">Recently Created</option>
-                <option value="name">Name</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('sortBy', value)}
+                options={[
+                  { value: 'updatedAt', label: 'Recently Updated' },
+                  { value: 'createdAt', label: 'Recently Created' },
+                  { value: 'name', label: 'Name' }
+                ]}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -183,11 +185,12 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
               </label>
               <Select
                 value={filters.sortOrder}
-                onValueChange={(value) => handleFilterChange('sortOrder', value)}
-              >
-                <option value="desc">Descending</option>
-                <option value="asc">Ascending</option>
-              </Select>
+                onChange={(value: string) => handleFilterChange('sortOrder', value)}
+                options={[
+                  { value: 'desc', label: 'Descending' },
+                  { value: 'asc', label: 'Ascending' }
+                ]}
+              />
             </div>
           </div>
         </CardContent>
@@ -301,7 +304,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                     {/* Actions */}
                     <div className="flex space-x-2">
                       <Button
-                        variant="primary"
+                        variant="default"
                         size="sm"
                         onClick={() => handleViewDeck(deck.id)}
                         className="flex-1"

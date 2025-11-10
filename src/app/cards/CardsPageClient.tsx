@@ -410,7 +410,7 @@ export function CardsPageClient() {
               <div className="mt-4">
                 <Button
                   onClick={handleSearch}
-                  variant="primary"
+                  variant="default"
                   className="mx-auto"
                 >
                   Browse All Cards

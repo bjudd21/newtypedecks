@@ -272,7 +272,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                   <div className="flex items-center gap-2">
                     <Button
                       onClick={() => handleDeckClick(favorite.deck.id)}
-                      variant="primary"
+                      variant="default"
                       size="sm"
                     >
                       View Deck

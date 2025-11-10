@@ -128,14 +128,15 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
               </label>
               <Select
                 value={templateSource}
-                onValueChange={setTemplateSource}
-              >
-                <option value="Community">Community</option>
-                <option value="Tournament">Tournament</option>
-                <option value="Competitive">Competitive</option>
-                <option value="Casual">Casual</option>
-                <option value="Beginner">Beginner-Friendly</option>
-              </Select>
+                onChange={setTemplateSource}
+                options={[
+                  { value: 'Community', label: 'Community' },
+                  { value: 'Tournament', label: 'Tournament' },
+                  { value: 'Competitive', label: 'Competitive' },
+                  { value: 'Casual', label: 'Casual' },
+                  { value: 'Beginner', label: 'Beginner-Friendly' }
+                ]}
+              />
               <div className="text-xs text-gray-500 mt-1">
                 Choose the category that best describes this deck template.
               </div>
@@ -176,7 +177,7 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
               <Button
                 onClick={handleCreateTemplate}
                 disabled={isCreating || !templateName.trim() || cardCount === 0}
-                variant="primary"
+                variant="default"
                 className="flex-1"
               >
                 {isCreating ? 'Creating Template...' : 'Create Template'}

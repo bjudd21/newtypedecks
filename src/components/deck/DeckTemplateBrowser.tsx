@@ -193,23 +193,25 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
 
               <Select
                 value={sourceFilter}
-                onValueChange={setSourceFilter}
-              >
-                <option value="">All Sources</option>
-                <option value="Official">Official</option>
-                <option value="Community">Community</option>
-                <option value="Tournament">Tournament</option>
-              </Select>
+                onChange={setSourceFilter}
+                options={[
+                  { value: '', label: 'All Sources' },
+                  { value: 'Official', label: 'Official' },
+                  { value: 'Community', label: 'Community' },
+                  { value: 'Tournament', label: 'Tournament' }
+                ]}
+              />
 
               <Select
                 value={sortBy}
-                onValueChange={setSortBy}
-              >
-                <option value="usage">Most Used</option>
-                <option value="favorites">Most Favorited</option>
-                <option value="recent">Most Recent</option>
-                <option value="name">Name</option>
-              </Select>
+                onChange={setSortBy}
+                options={[
+                  { value: 'usage', label: 'Most Used' },
+                  { value: 'favorites', label: 'Most Favorited' },
+                  { value: 'recent', label: 'Most Recent' },
+                  { value: 'name', label: 'Name' }
+                ]}
+              />
             </div>
           </div>
 
@@ -292,7 +294,7 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
                         handleCreateFromTemplate(template.id);
                       }}
                       size="sm"
-                      variant="primary"
+                      variant="default"
                       disabled={isCreating}
                       className="flex-1"
                     >

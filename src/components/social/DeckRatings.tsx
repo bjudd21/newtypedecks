@@ -131,7 +131,7 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
             {isAuthenticated && !userRating && (
               <Button
                 onClick={() => setShowRatingForm(!showRatingForm)}
-                variant="primary"
+                variant="default"
                 size="sm"
               >
                 Write Review
@@ -435,7 +435,7 @@ const RatingForm: React.FC<RatingFormProps> = ({
         <div className="flex items-center gap-3">
           <Button
             onClick={handleSubmit}
-            variant="primary"
+            variant="default"
             disabled={rating === 0 || isSubmitting}
           >
             {isSubmitting ? 'Submitting...' : existingRating ? 'Update Review' : 'Submit Review'}

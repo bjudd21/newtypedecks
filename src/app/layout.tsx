@@ -9,6 +9,7 @@ import { LegalComplianceFooter } from '@/components/layout';
 import { MonitoringProvider, MonitoringErrorBoundary } from '@/components/monitoring/MonitoringProvider';
 import { PWAInstallPrompt, PWAStatus } from '@/components/pwa';
 import Script from 'next/script';
+import Link from 'next/link';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -127,9 +128,9 @@ export default function RootLayout({
               <header className="border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm sticky top-0 z-50">
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold text-white">
+                    <Link href="/" className="text-2xl font-bold text-white hover:text-[#8b7aaa] transition-colors duration-200 cursor-pointer">
                       Newtype Decks
-                    </h1>
+                    </Link>
                     <div className="hidden md:flex items-center space-x-6">
                       <Navbar />
                       <div className="flex items-center gap-4">

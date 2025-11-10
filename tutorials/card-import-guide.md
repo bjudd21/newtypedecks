@@ -494,4 +494,4 @@ When requesting card imports, you can:
 
 ---
 
-*Last Updated: 2025-10-13*
+*Last Updated: November 2024*

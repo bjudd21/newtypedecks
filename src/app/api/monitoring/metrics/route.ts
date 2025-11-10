@@ -69,13 +69,7 @@ export async function GET(request: NextRequest) {
             },
           },
         }),
-        prisma.session.count({
-          where: {
-            createdAt: {
-              gte: since,
-            },
-          },
-        }),
+        prisma.session.count(),
       ]);
 
       metrics.business = {

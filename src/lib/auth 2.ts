@@ -138,7 +138,6 @@ export const authOptions: NextAuthOptions = {
       // Initial sign in
       if (user) {
         token.role = user.role;
-        token.emailVerified = user.emailVerified;
       }
 
       // Handle session update
@@ -155,7 +154,6 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.sub!;
         session.user.role = token.role;
-        session.user.emailVerified = token.emailVerified;
       }
 
       return session;

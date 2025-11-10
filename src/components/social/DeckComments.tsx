@@ -148,7 +148,7 @@ export const DeckComments: React.FC<DeckCommentsProps> = ({
             {isAuthenticated && (
               <Button
                 onClick={() => setShowCommentForm(!showCommentForm)}
-                variant="primary"
+                variant="default"
                 size="sm"
               >
                 💬 Add Comment
@@ -222,7 +222,7 @@ export const DeckComments: React.FC<DeckCommentsProps> = ({
               <div className="text-blue-700 text-sm mb-3">
                 Sign in to comment, like posts, and engage with the community
               </div>
-              <Button variant="primary" size="sm">
+              <Button variant="default" size="sm">
                 Sign In
               </Button>
             </div>
@@ -478,7 +478,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
               </Button>
               <Button
                 onClick={handleSubmit}
-                variant="primary"
+                variant="default"
                 size="sm"
                 disabled={!content.trim() || isSubmitting}
               >

@@ -8,18 +8,15 @@ This folder contains user-facing guides, tutorials, and reference documentation 
 - **[webpage-anatomy.md](./webpage-anatomy.md)** - Complete UI component reference guide
   - Terminology and naming conventions for all webpage components
   - File locations and code references
-  - Color palette and responsive breakpoints
+  - Purple theme color palette and responsive breakpoints
+  - Deck builder components
   - Quick reference chart for effective communication
 
-- **[HOME_PAGE_CUSTOMIZATION.md](./HOME_PAGE_CUSTOMIZATION.md)** - Guide to customizing the home page
-  - Hero section modifications
-  - Announcement updates
+- **[HOME_PAGE_CUSTOMIZATION.md](./HOME_PAGE_CUSTOMIZATION.md)** - Guide to customizing the purple-themed home page
+  - Hero section modifications with purple theme
+  - Announcement updates and badge styling
   - Content section customization
-
-- **[CARD_DETAIL_DARK_THEME.md](./CARD_DETAIL_DARK_THEME.md)** - Dark theme implementation guide
-  - Card detail overlay styling
-  - Theme color configurations
-  - Component-specific dark mode patterns
+  - Animation and layout adjustments
 
 ### 🛠️ Setup & Configuration
 - **[LOCAL_SETUP_GUIDE.md](./LOCAL_SETUP_GUIDE.md)** - Step-by-step local development setup
@@ -59,6 +56,10 @@ See the `/docs` folder for technical documentation:
 - `project-memory.md` - Project state and memory
 - `prd-gundam-card-game-website.md` - Product Requirements Document
 
+## Purple Theme Consistency
+
+> **Note**: The entire website uses a consistent purple theme. All customization guides reference the purple color palette. When creating custom content, maintain this purple theme for visual consistency across all pages.
+
 ## Contributing
 
 When adding new tutorials:
@@ -67,7 +68,11 @@ When adding new tutorials:
 3. Add the tutorial to this README with a brief description
 4. Include code examples and screenshots where helpful
 5. Keep tutorials focused on "how-to" rather than "what is"
+6. Maintain purple theme consistency in all examples
+7. Use component names instead of line numbers when possible
 
 ---
+
+*Last Updated: November 2024*
 
 *For technical API documentation, see `/docs`. For project requirements, see the PRD in the root folder.*

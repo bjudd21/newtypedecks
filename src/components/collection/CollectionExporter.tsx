@@ -348,7 +348,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
               <Button
                 onClick={handleQuickExport}
                 disabled={isExporting}
-                variant="primary"
+                variant="default"
                 className="flex-1"
               >
                 {isExporting ? 'Exporting...' : `Export as ${selectedFormat.name}`}

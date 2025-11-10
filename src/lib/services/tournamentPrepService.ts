@@ -1,5 +1,4 @@
 import { deckAnalyticsService, type DeckAnalytics, type DeckCard } from './deckAnalyticsService';
-import { deckComparisonService, type ComparisonDeck } from './deckComparisonService';
 import type { CardWithRelations } from '@/lib/types/card';
 
 export interface TournamentDeck {

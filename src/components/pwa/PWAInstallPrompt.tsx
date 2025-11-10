@@ -113,7 +113,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
         <div className="flex items-center gap-3 mt-4">
           <Button
             onClick={handleInstall}
-            variant="primary"
+            variant="default"
             size="sm"
             disabled={isInstalling}
             className="bg-blue-600 hover:bg-blue-700"

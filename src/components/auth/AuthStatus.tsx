@@ -32,7 +32,7 @@ export function AuthStatus({ className = '' }: AuthStatusProps) {
           Sign In
         </Button>
         <Button
-          variant="primary"
+          variant="default"
           size="sm"
           onClick={() => router.push('/auth/signup')}
         >

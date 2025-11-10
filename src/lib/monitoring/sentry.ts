@@ -13,7 +13,7 @@ export const sentryConfig = {
   debug: process.env.NODE_ENV === 'development',
   replaysOnErrorSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
-  beforeSend(event: Sentry.Event) {
+  beforeSend(event: Sentry.ErrorEvent) {
     // Filter out common non-critical errors
     if (event.exception) {
       const error = event.exception.values?.[0];
@@ -34,7 +34,7 @@ export const sentryConfig = {
 
     return event;
   },
-};
+} as Sentry.BrowserOptions;
 
 // Initialize Sentry
 export function initSentry() {
@@ -97,10 +97,10 @@ export const errorTracker = {
     }
   },
 
-  // Start a transaction for performance monitoring
-  startTransaction(name: string, operation: string) {
+  // Start a span for performance monitoring
+  startSpan(name: string, operation: string) {
     if (process.env.SENTRY_DSN) {
-      return Sentry.startTransaction({ name, op: operation });
+      return Sentry.startInactiveSpan({ name, op: operation });
     }
     return null;
   },

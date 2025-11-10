@@ -220,7 +220,7 @@ export const PWAStatus: React.FC<PWAStatusProps> = ({
               </div>
               <Button
                 onClick={handleUpdateApp}
-                variant="primary"
+                variant="default"
                 size="sm"
                 className="text-xs bg-green-600 hover:bg-green-700"
               >

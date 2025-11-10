@@ -268,7 +268,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
               <>
                 <Button
                   onClick={() => handleBatchOperation('approve')}
-                  variant="primary"
+                  variant="default"
                   size="sm"
                 >
                   Batch Approve

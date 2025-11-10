@@ -142,6 +142,68 @@ Components:
 
 ---
 
+## Deck Builder Page
+
+**Route**: `/decks`
+**File**: `src/app/decks/page.tsx`, `src/components/deck/AnonymousDeckBuilder.tsx`
+
+### Tab Navigation
+**Location**: Top of page below header
+Components:
+- **Tab Buttons**: "My Decks", "Public Decks", "Favorites", "Templates"
+- **Active Tab Indicator**: Purple gradient background on selected tab
+- **Sign In Banner**: Purple gradient prompt for unauthenticated users
+
+### Anonymous Deck Builder
+**Location**: Main content area when not signed in
+**File**: `src/components/deck/AnonymousDeckBuilder.tsx`
+
+Components:
+
+#### Information Banner
+- **Purple gradient header** with info icon
+- **Local save notification** text
+- **Sign in prompt** link
+
+#### Deck Statistics Cards
+Three animated cards showing:
+- **Total Cards count** with purple gradient number
+- **Unique Cards count** with purple gradient number
+- **Total Cost** with purple gradient number
+- **Hover animations** (scale and lift effects)
+
+#### Add Cards Panel (Left)
+- **Card Search component** with autocomplete
+- **Search results list** with card previews
+- **Usage instructions** in info box
+- **Deck Validator** widget showing errors only
+
+#### Deck Contents Panel (Right)
+- **Deck Drop Zone** with drag-and-drop support
+- **Card list** grouped by type
+- **Draggable Card components** with quantity controls
+- **Empty state** with animated icon
+
+#### Deck Actions Bar
+- **New Deck button**
+- **Export Deck dropdown** (JSON, Text, CSV)
+- **Share via URL button**
+- **Sign In button** with prominent styling
+
+#### Save Status Indicator
+- **Auto-save status** (Saved/Saving/Offline/Error)
+- **Online/Offline indicator** with animated dot
+- **Pending sync counter** badge
+- **Last saved timestamp**
+
+#### Offline Mode Banner
+**Conditional display when offline**:
+- **Orange gradient background**
+- **Offline icon** and message
+- **Pending sync information**
+
+---
+
 ## Card Detail Overlay
 
 **Route**: Opens as modal on card click
@@ -256,19 +318,27 @@ Text: Small gray label, large white number
 
 ## Color Palette
 
-### Primary Theme Colors
-- **Background Primary**: `#1a1625`
-- **Background Secondary**: `#2a1f3d`
-- **Card Background**: `#2d2640`
-- **Border Primary**: `#443a5c`
-- **Border Hover**: `#6b5a8a`
-- **Accent Primary**: `#6b5a8a`
-- **Accent Hover**: `#8b7aaa`
+### Primary Purple Theme Colors
+The entire website uses a consistent purple theme inspired by Gundam aesthetics:
+
+- **Background Primary**: `#1a1625` (Deep purple-black)
+- **Background Secondary**: `#2a1f3d` (Medium purple-gray)
+- **Background Tertiary**: `#2d2640` (Card backgrounds)
+- **Background Light**: `#3a3050` (Hover states, lighter surfaces)
+- **Border Primary**: `#443a5c` (Default borders)
+- **Border Hover**: `#6b5a8a` (Interactive element borders)
+- **Border Active**: `#8b7aaa` (Active/selected borders)
+- **Text Primary**: `#a89ec7` (Headings, labels)
+- **Text Secondary**: `#8b7aaa` (Muted text)
+- **Accent Gradient Start**: `#8b7aaa` (Primary purple)
+- **Accent Gradient End**: `#6b5a8a` (Deeper purple)
 
 ### Status Colors
 - **Online**: Green (`#22c55e`)
 - **Offline**: Red (`#ef4444`)
 - **Warning**: Yellow (`#eab308`)
+- **Success**: Green (`#10b981`)
+- **Error**: Red (`#ef4444`)
 
 ---
 
@@ -294,13 +364,20 @@ src/
 ├── app/
 │   ├── layout.tsx                 # Root layout with header/footer
 │   ├── page.tsx                   # Home page with hero section
-│   └── cards/
-│       ├── page.tsx              # Cards page wrapper
-│       └── NewCardsPageClient.tsx # Cards page main component
+│   ├── cards/
+│   │   ├── page.tsx              # Cards page wrapper
+│   │   └── CardsPageClient.tsx   # Cards page main component
+│   └── decks/
+│       └── page.tsx              # Deck builder page
 ├── components/
 │   ├── card/
 │   │   ├── CardGrid.tsx          # Card grid layout
 │   │   └── CardDetailOverlay.tsx # Card detail modal
+│   ├── deck/
+│   │   ├── AnonymousDeckBuilder.tsx  # Anonymous deck building
+│   │   ├── DeckDropZone.tsx      # Drag-and-drop zone
+│   │   ├── DraggableCard.tsx     # Card with quantity controls
+│   │   └── DeckValidator.tsx     # Deck validation widget
 │   ├── navigation/
 │   │   ├── Navbar.tsx            # Main navigation
 │   │   └── MobileMenu.tsx        # Mobile navigation
@@ -349,4 +426,4 @@ src/
 
 ---
 
-*Last Updated: 2025-10-13*
+*Last Updated: November 2024*

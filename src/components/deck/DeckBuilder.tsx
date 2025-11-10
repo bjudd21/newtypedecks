@@ -54,6 +54,10 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         description: '',
         isPublic: false,
         userId: isAuthenticated ? user?.id || 'authenticated' : 'anonymous',
+        currentVersion: 1,
+        versionName: null,
+        isTemplate: false,
+        templateSource: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         cards: []
@@ -175,7 +179,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             ...currentDeck,
             id: newDeck.id,
             name: newDeck.name,
-            description: newDeck.description,
+            description: newDeck.description || null,
             userId: user?.id || 'authenticated'
           }));
           console.warn('Deck saved successfully!');
@@ -250,7 +254,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             </div>
             <Button
               onClick={() => dispatch(setIsEditing(!isEditing))}
-              variant={isEditing ? 'primary' : 'outline'}
+              variant={isEditing ? 'default' : 'outline'}
             >
               {isEditing ? 'Done Editing' : 'Edit Deck'}
             </Button>
@@ -259,7 +263,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             {isAuthenticated && savedDeckId && (
               <Button
                 onClick={() => setShowVersionHistory(!showVersionHistory)}
-                variant={showVersionHistory ? 'primary' : 'outline'}
+                variant={showVersionHistory ? 'default' : 'outline'}
               >
                 {showVersionHistory ? 'Hide History' : 'Version History'}
               </Button>
@@ -296,13 +300,14 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
                 </label>
                 <Select
                   value={deckFormat}
-                  onValueChange={setDeckFormat}
-                >
-                  <option value="Standard">Standard</option>
-                  <option value="Advanced">Advanced</option>
-                  <option value="Casual">Casual</option>
-                  <option value="Custom">Custom</option>
-                </Select>
+                  onChange={setDeckFormat}
+                  options={[
+                    { value: 'Standard', label: 'Standard' },
+                    { value: 'Advanced', label: 'Advanced' },
+                    { value: 'Casual', label: 'Casual' },
+                    { value: 'Custom', label: 'Custom' }
+                  ]}
+                />
               </div>
               <div className="flex items-center space-x-2 pt-6">
                 <input
@@ -455,6 +460,10 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
               description: '',
               isPublic: false,
               userId: isAuthenticated ? user?.id || 'authenticated' : 'anonymous',
+              currentVersion: 1,
+              versionName: null,
+              isTemplate: false,
+              templateSource: null,
               createdAt: new Date(),
               updatedAt: new Date(),
               cards: []
@@ -472,7 +481,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         {/* Save/Update Deck (authenticated users only) */}
         {isAuthenticated && (
           <Button
-            variant="primary"
+            variant="default"
             disabled={uniqueCards === 0 || deckLoading}
             onClick={handleSaveDeck}
           >
@@ -603,7 +612,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             deckCards={currentDeck.cards.map(deckCard => ({
               card: deckCard.card,
               quantity: deckCard.quantity,
-              category: deckCard.category || 'main'
+              category: (deckCard.category as 'main' | 'side' | 'extra' | undefined) || 'main'
             }))}
             deckName={deckName}
             onAnalysisUpdate={(analytics) => {

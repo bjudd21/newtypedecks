@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { CardGrid } from '@/components/card/CardGrid';
 import { CardDetailOverlay } from '@/components/card/CardDetailOverlay';
 import { Input, Button, Badge } from '@/components/ui';
-import type { CardWithRelations, CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
+import type { CardWithRelations, CardSearchFilters, CardSearchOptions, CardSortField } from '@/lib/types/card';
 
 export function NewCardsPageClient() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export function NewCardsPageClient() {
 
   // Filter states
   const [selectedSets, setSelectedSets] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState<CardSortField>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   // Initialize from URL params
@@ -207,7 +207,7 @@ export function NewCardsPageClient() {
               value={`${sortBy}:${sortOrder}`}
               onChange={(e) => {
                 const [field, order] = e.target.value.split(':');
-                setSortBy(field);
+                setSortBy(field as CardSortField);
                 setSortOrder(order as 'asc' | 'desc');
               }}
               className="bg-[#2d2640] border-[#443a5c] text-white text-sm h-8 px-3 rounded-md focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30 focus:outline-none"
