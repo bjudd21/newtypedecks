@@ -17,9 +17,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Newtype Decks - Gundam Card Game Database',
+  title: 'Gundam Deck Builder - Gundam Card Game Database',
   description:
-    'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
+    'Gundam Deck Builder: A comprehensive database and deck building platform for the Gundam Card Game',
   keywords: ['gundam', 'card game', 'database', 'deck building', 'collection'],
   authors: [{ name: 'Gundam Card Game Community' }],
   manifest: '/manifest.json',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Newtype Decks',
+    title: 'Gundam Deck Builder',
     startupImage: [
       {
         url: '/icons/apple-splash-2048-2732.png',
@@ -79,9 +79,9 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: 'Newtype Decks - Gundam Card Game Database',
+    title: 'Gundam Deck Builder - Gundam Card Game Database',
     description:
-      'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
+      'Gundam Deck Builder: A comprehensive database and deck building platform for the Gundam Card Game',
     type: 'website',
     locale: 'en_US',
   },
@@ -100,10 +100,10 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         {/* PWA meta tags */}
-        <meta name="application-name" content="Newtype Decks" />
+        <meta name="application-name" content="Gundam Deck Builder" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Newtype Decks" />
+        <meta name="apple-mobile-web-app-title" content="Gundam Deck Builder" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -129,7 +129,7 @@ export default function RootLayout({
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
                     <Link href="/" className="text-2xl font-bold text-white hover:text-[#8b7aaa] transition-colors duration-200 cursor-pointer">
-                      Newtype Decks
+                      Gundam Deck Builder
                     </Link>
                     <div className="hidden md:flex items-center space-x-6">
                       <Navbar />

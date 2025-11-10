@@ -1,4 +1,4 @@
-// Service Worker for Newtype Decks (Gundam Card Game) PWA
+// Service Worker for Gundam Deck Builder (Gundam Card Game) PWA
 const CACHE_NAME = 'gcg-database-v7-core';
 const OFFLINE_URL = '/offline';
 
