@@ -454,8 +454,8 @@ class TournamentPrepService {
    * Generate sideboard plan
    */
   private generateSideboardPlan(
-    deck: TournamentDeck,
-    archetype: string
+    _deck: TournamentDeck,
+    _archetype: string
   ): MatchupAnalysis['sideboarding'] {
     // This would analyze the sideboard and suggest changes
     // For now, return a template

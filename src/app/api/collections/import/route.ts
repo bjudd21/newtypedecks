@@ -284,18 +284,21 @@ async function parseCSVData(csvData: string): Promise<ImportCard[]> {
 }
 
 // Parse JSON data
-function parseJSONData(jsonData: any): ImportCard[] {
+function parseJSONData(jsonData: unknown): ImportCard[] {
   if (!Array.isArray(jsonData)) {
     throw new Error('JSON data must be an array of card objects');
   }
 
-  return jsonData.map((item: any) => ({
-    cardId: item.cardId || item.id,
-    cardName: item.cardName || item.name,
-    quantity: parseInt(item.quantity) || parseInt(item.count) || 1,
-    setName: item.setName || item.set,
-    setNumber: item.setNumber || item.number
-  })).filter(card => card.quantity > 0);
+  return jsonData.map((item: unknown) => {
+    const itemObj = item as Record<string, unknown>;
+    return {
+      cardId: (itemObj.cardId || itemObj.id) as string | undefined,
+      cardName: (itemObj.cardName || itemObj.name) as string | undefined,
+      quantity: parseInt(String(itemObj.quantity || itemObj.count || 1)),
+      setName: itemObj.setName as string | undefined || itemObj.set as string | undefined,
+      setNumber: itemObj.setNumber as string | undefined || itemObj.number as string | undefined
+    };
+  }).filter(card => card.quantity > 0);
 }
 
 // Parse deck list format (quantity cardname)

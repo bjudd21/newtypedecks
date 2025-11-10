@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { CardWithRelations } from '@/lib/types/card';
 
 interface CardGridProps {
@@ -28,10 +29,12 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
       {/* Card Image Container */}
       <div className="aspect-[5/7] relative bg-[#1a1625] rounded-lg overflow-hidden border-2 border-[#443a5c] hover:border-[#6b5a8a] transition-all shadow-lg hover:shadow-2xl hover:shadow-[#6b5a8a]/40">
         {card.imageUrl ? (
-          <img
+          <Image
             src={card.imageUrl}
             alt={card.name}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#2a1f3d] to-[#1a1625]">

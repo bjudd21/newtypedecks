@@ -196,8 +196,8 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          versionName: versionName?.trim() || undefined,
-          changeNote: changeNote?.trim() || undefined
+          versionName: (versionName as string | undefined)?.trim() || undefined,
+          changeNote: (changeNote as string | undefined)?.trim() || undefined
         })
       });
 

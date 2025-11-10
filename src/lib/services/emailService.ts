@@ -31,7 +31,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 
     if (!transporter) {
       // In development, log email to console
-      console.log('📧 Email would be sent:', {
+      console.warn('📧 Email would be sent:', {
         to: options.to,
         subject: options.subject,
         text: options.text,
@@ -45,7 +45,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       ...options,
     });
 
-    console.log('Email sent successfully:', result.messageId);
+    console.warn('Email sent successfully:', result.messageId);
     return true;
   } catch (error) {
     console.error('Failed to send email:', error);

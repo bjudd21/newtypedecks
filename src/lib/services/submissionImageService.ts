@@ -177,7 +177,7 @@ export class SubmissionImageService {
       ? '/api/uploads/submissions'
       : process.env.CDN_BASE_URL || '/uploads/submissions';
 
-    const basePath = path.dirname(imageFile);
+    const _basePath = path.dirname(imageFile);
     const filename = path.basename(imageFile);
     const baseName = path.parse(filename).name;
     const ext = path.parse(filename).ext;

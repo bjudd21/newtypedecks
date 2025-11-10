@@ -13,6 +13,7 @@ import type {
   CardSearchFilters,
   CardSearchOptions,
   CardSearchResult,
+  CardSortField,
 } from '../types/card';
 import { CardModel, CardValidator, CardUtils } from '../models/card';
 import { DatabaseOptimizationService } from './databaseOptimizationService';
@@ -79,7 +80,7 @@ export class CardService {
           page = 1,
           limit = 20,
           sortBy: _sortBy = 'name',
-          sortOrder = 'asc',
+          sortOrder: _sortOrder = 'asc',
           includeRelations = true
         } = options;
 
@@ -103,7 +104,7 @@ export class CardService {
             include,
             skip,
             take: limit,
-            orderBy
+            orderBy: orderBy as any // TODO: Fix buildOptimizedCardQuery to return proper Prisma types
           }) as Promise<CardWithRelations[]>,
           db.card.count({ where: whereClause })
         ]);
@@ -118,14 +119,14 @@ export class CardService {
           totalPages
         };
       },
-      { filters, options }
+      { filters: filters as Record<string, unknown>, options: options as Record<string, unknown> } // TODO: Update monitorQuery to accept proper types
     );
 
     // Track the search analytics
     const responseTime = Date.now() - startTime;
     await searchAnalytics.trackSearch(
-      filters,
-      options,
+      filters as CardSearchFilters,
+      options as CardSearchOptions,
       result.total,
       responseTime,
       { ...context, source: context.source || 'manual' }
@@ -541,7 +542,7 @@ export const CardHelpers = {
    * Get sortable value for card
    */
   getSortableValue: (card: CardWithRelations, field: string) =>
-    new CardModel(card).getSortableValue(field as any),
+    new CardModel(card).getSortableValue(field as CardSortField),
 
   /**
    * Validate card data

@@ -16,7 +16,7 @@ export interface PWAState {
 export interface OfflineDeck {
   id: string;
   name: string;
-  cards: any[];
+  cards: unknown[];
   createdAt: Date;
   synced: boolean;
 }
@@ -36,7 +36,8 @@ export interface PWAInstallPrompt {
 class PWAService {
   private deferredPrompt: PWAInstallPrompt | null = null;
   private registration: ServiceWorkerRegistration | null = null;
-  private listeners: Map<string, Function[]> = new Map();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private listeners: Map<string, ((...args: any[]) => any)[]> = new Map();
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -54,7 +55,7 @@ class PWAService {
     // PWA install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
-      this.deferredPrompt = e as any;
+      this.deferredPrompt = e as any; // TODO: Add proper BeforeInstallPromptEvent type
       this.emit('installable', true);
     });
 
@@ -87,7 +88,7 @@ class PWAService {
         scope: '/'
       });
 
-      console.log('Service Worker registered successfully');
+      console.warn('Service Worker registered successfully');
       this.emit('serviceWorkerRegistered', true);
 
       // Listen for service worker updates
@@ -137,7 +138,8 @@ class PWAService {
     callbacks.forEach(callback => callback(data));
   }
 
-  public on(event: string, callback: Function) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public on(event: string, callback: (...args: any[]) => any) {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, []);
     }
@@ -177,7 +179,7 @@ class PWAService {
   public isInstalled(): boolean {
     // Check if running in standalone mode (installed PWA)
     return window.matchMedia('(display-mode: standalone)').matches ||
-           (window.navigator as any).standalone === true;
+           (window.navigator as any).standalone === true; // TODO: Add proper Navigator type with standalone
   }
 
   // Service Worker Management
@@ -252,7 +254,7 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as any).sync.register('sync-deck-saves');
+          await (registration as any).sync.register('sync-deck-saves'); // TODO: Add proper SyncManager type
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);
@@ -273,7 +275,7 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as any).sync.register('sync-collection-updates');
+          await (registration as any).sync.register('sync-collection-updates'); // TODO: Add proper SyncManager type
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);
@@ -364,7 +366,7 @@ class PWAService {
         }
       }
 
-      console.log('Offline data sync completed');
+      console.warn('Offline data sync completed');
     } catch (error) {
       console.error('Offline data sync failed:', error);
     }

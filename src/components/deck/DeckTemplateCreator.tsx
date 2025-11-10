@@ -62,7 +62,7 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
       }
 
       const result = await response.json();
-      alert(`Template "${result.template.name}" created successfully!`);
+      console.warn(`Template "${result.template.name}" created successfully!`);
 
       // Reset form
       setTemplateName(`${deckName} Template`);

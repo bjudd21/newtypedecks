@@ -293,7 +293,7 @@ export const PWAStatus: React.FC<PWAStatusProps> = ({
             <div className="bg-orange-50 border border-orange-200 rounded p-3">
               <div className="text-orange-900 font-medium mb-1">📡 Offline Mode</div>
               <div className="text-orange-700 text-sm mb-2">
-                You're currently offline. Your changes will sync automatically when you're back online.
+                You&apos;re currently offline. Your changes will sync automatically when you&apos;re back online.
               </div>
               {pendingSync > 0 && (
                 <div className="text-orange-600 text-xs">

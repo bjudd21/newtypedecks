@@ -64,10 +64,11 @@ export async function GET(request: NextRequest) {
 
     // Build search options
     const validSortFields = ['name', 'level', 'cost', 'clashPoints', 'price', 'hitPoints', 'attackPoints', 'setNumber', 'createdAt'] as const;
+    type ValidSortField = typeof validSortFields[number];
     const options: CardSearchOptions = {
       page,
       limit,
-      sortBy: validSortFields.includes(sortBy as any) ? sortBy as any : 'name',
+      sortBy: validSortFields.includes(sortBy as ValidSortField) ? sortBy as ValidSortField : 'name',
       sortOrder,
       includeRelations: true,
     };

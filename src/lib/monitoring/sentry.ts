@@ -46,12 +46,12 @@ export function initSentry() {
 // Error tracking helpers
 export const errorTracker = {
   // Capture exceptions with context
-  captureException(error: Error, context?: Record<string, any>) {
+  captureException(error: Error, context?: Record<string, unknown>) {
     if (process.env.SENTRY_DSN) {
       Sentry.withScope((scope) => {
         if (context) {
           Object.entries(context).forEach(([key, value]) => {
-            scope.setContext(key, value);
+            scope.setContext(key, value as Record<string, unknown>);
           });
         }
         Sentry.captureException(error);
@@ -62,19 +62,19 @@ export const errorTracker = {
   },
 
   // Capture messages with different levels
-  captureMessage(message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, any>) {
+  captureMessage(message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, unknown>) {
     if (process.env.SENTRY_DSN) {
       Sentry.withScope((scope) => {
         scope.setLevel(level);
         if (context) {
           Object.entries(context).forEach(([key, value]) => {
-            scope.setContext(key, value);
+            scope.setContext(key, value as Record<string, unknown>);
           });
         }
         Sentry.captureMessage(message);
       });
     } else {
-      console.log(`[${level.toUpperCase()}] ${message}`, context);
+      console.warn(`[${level.toUpperCase()}] ${message}`, context);
     }
   },
 
@@ -86,7 +86,7 @@ export const errorTracker = {
   },
 
   // Add breadcrumb for debugging
-  addBreadcrumb(message: string, category: string, data?: Record<string, any>) {
+  addBreadcrumb(message: string, category: string, data?: Record<string, unknown>) {
     if (process.env.SENTRY_DSN) {
       Sentry.addBreadcrumb({
         message,
@@ -113,7 +113,7 @@ export const errorTracker = {
   },
 
   // Set context for additional debugging info
-  setContext(key: string, context: Record<string, any>) {
+  setContext(key: string, context: Record<string, unknown>) {
     if (process.env.SENTRY_DSN) {
       Sentry.setContext(key, context);
     }
@@ -200,7 +200,7 @@ export const performanceMonitor = {
   },
 
   // Track user interactions
-  trackUserAction(action: string, component: string, metadata?: Record<string, any>) {
+  trackUserAction(action: string, component: string, metadata?: Record<string, unknown>) {
     errorTracker.addBreadcrumb(
       `User ${action}`,
       'user',
@@ -219,7 +219,7 @@ export function trackFeatureUsage(feature: string, enabled: boolean, userId?: st
 }
 
 // Custom instrumentation
-export function instrumentFunction<T extends (...args: any[]) => any>(
+export function instrumentFunction<T extends (...args: unknown[]) => unknown>(
   fn: T,
   name: string,
   category: string = 'function'
@@ -231,9 +231,9 @@ export function instrumentFunction<T extends (...args: any[]) => any>(
       const result = fn(...args);
 
       // Handle promises
-      if (result && typeof result.then === 'function') {
-        return result
-          .then((value: any) => {
+      if (result && typeof (result as { then?: unknown }).then === 'function') {
+        return (result as Promise<unknown>)
+          .then((value: unknown) => {
             performanceMonitor.trackAPICall(name, category, Date.now() - start, true);
             return value;
           })

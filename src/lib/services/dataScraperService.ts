@@ -32,7 +32,7 @@ export interface RawCardData {
     code: string;
     number: string;
   };
-  attributes?: Record<string, any>;
+  attributes?: Record<string, unknown>;
   text?: {
     description?: string;
     officialText?: string;
@@ -339,7 +339,7 @@ export class DataScraperService {
         let match;
 
         while ((match = setLinkRegex.exec(html)) !== null) {
-          const [, href, setName] = match;
+          const [, href, _setName] = match;
           const setId = this.extractSetIdFromUrl(href);
 
           // Filter by requested set IDs if provided
@@ -384,7 +384,7 @@ export class DataScraperService {
         let match;
 
         while ((match = cardLinkRegex.exec(html)) !== null) {
-          const [, href, cardName] = match;
+          const [, href, _cardName] = match;
           const cardType = this.extractCardTypeFromUrl(href);
 
           // Filter by requested card types if provided

@@ -61,7 +61,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   // Generate preview of import data
   const generatePreview = useCallback((data: string, format: string) => {
     try {
-      let preview: any[] = [];
+      let preview: unknown[] = [];
 
       switch (format) {
         case 'csv':
@@ -112,7 +112,9 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           break;
       }
 
-      setPreviewCards(preview.filter(card => card?.cardName && card?.quantity > 0));
+      setPreviewCards(preview.filter((card): card is { cardName: string; quantity: number } =>
+        Boolean(card && typeof card === 'object' && 'cardName' in card && 'quantity' in card && card.cardName && typeof card.quantity === 'number' && card.quantity > 0)
+      ));
     } catch (error) {
       console.error('Preview generation failed:', error);
       setPreviewCards([]);

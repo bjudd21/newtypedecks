@@ -19,7 +19,7 @@ interface ValidationError {
 }
 
 interface AdvancedImporterProps {
-  onImportComplete?: (result: any) => void;
+  onImportComplete?: (result: unknown) => void;
   className?: string;
 }
 
@@ -119,7 +119,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   // Validate and generate preview
   const validateAndPreview = useCallback((data: string) => {
     const errors: ValidationError[] = [];
-    const preview: any[] = [];
+    const preview: unknown[] = [];
 
     if (!data.trim()) {
       setValidationErrors([]);
@@ -275,7 +275,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   // Handle import
   const handleImport = useCallback(async () => {
     if (validationErrors.length > 0) {
-      alert('Please fix validation errors before importing');
+      console.warn('Please fix validation errors before importing');
       return;
     }
 
@@ -313,7 +313,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
       setCurrentStep('select');
     } catch (error) {
       console.error('Import error:', error);
-      alert(`Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      console.warn(`Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsProcessing(false);
     }

@@ -1,15 +1,17 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select, Badge } from '@/components/ui';
 import { useAuth, useCollection } from '@/hooks';
 import { CollectionImporter } from './CollectionImporter';
 import { AdvancedImporter } from './AdvancedImporter';
 import { CollectionExporter } from './CollectionExporter';
+import type { Card as CardType } from '@/lib/types';
 
 interface CollectionCard {
   cardId: string;
-  card: any;
+  card: CardType;
   quantity: number;
   condition: string;
   addedAt: Date | string;
@@ -77,7 +79,10 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
 
   const handleUpdateCard = useCallback(async (cardId: string, quantity: number, condition: string) => {
     if (quantity <= 0) {
-      if (confirm('Are you sure you want to remove this card from your collection?')) {
+      // TODO: Replace with proper confirmation dialog component
+      // eslint-disable-next-line no-alert
+      const confirmed = window.confirm('Are you sure you want to remove this card from your collection?');
+      if (confirmed) {
         const success = await removeFromCollection(cardId);
         if (success) {
           loadCollection();
@@ -317,10 +322,12 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
                 >
                   <div className="flex items-center space-x-4">
                     {collectionCard.card.imageUrl && (
-                      <img
+                      <Image
                         src={collectionCard.card.imageUrl}
                         alt={collectionCard.card.name}
-                        className="w-16 h-20 object-cover rounded"
+                        width={64}
+                        height={80}
+                        className="object-cover rounded"
                       />
                     )}
                     <div>
@@ -329,14 +336,14 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
                       </h3>
                       <div className="flex items-center space-x-2 mt-1">
                         <Badge variant="secondary" className="text-xs">
-                          {collectionCard.card.rarity?.name || 'Unknown'}
+                          {(collectionCard.card as unknown as { rarity?: { name: string } }).rarity?.name || 'Unknown'}
                         </Badge>
                         <Badge variant="outline" className="text-xs">
-                          {collectionCard.card.type?.name || 'Unknown'}
+                          {(collectionCard.card as unknown as { type?: { name: string } }).type?.name || 'Unknown'}
                         </Badge>
                         {collectionCard.card.faction && (
                           <Badge variant="outline" className="text-xs">
-                            {collectionCard.card.faction.name}
+                            {typeof collectionCard.card.faction === 'string' ? collectionCard.card.faction : 'Unknown'}
                           </Badge>
                         )}
                       </div>
@@ -446,7 +453,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
       {currentTab === 'import' && (
         <CollectionImporter
           onImportComplete={(result) => {
-            console.log('Import completed:', result);
+            console.warn('Import completed:', result);
             // Refresh collection after import
             loadCollection();
             // Show success message
@@ -460,13 +467,14 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
       {/* Advanced Import Tab */}
       {currentTab === 'advanced' && (
         <AdvancedImporter
-          onImportComplete={(result) => {
-            console.log('Advanced import completed:', result);
+          onImportComplete={(result: unknown) => {
+            console.warn('Advanced import completed:', result);
             // Refresh collection after import
             loadCollection();
             // Show results summary
-            if (result.result?.success > 0) {
-              console.warn(`Successfully imported ${result.result.success} cards to your collection!`);
+            const resultObj = result as { result?: { success: number } };
+            if (resultObj.result?.success && resultObj.result.success > 0) {
+              console.warn(`Successfully imported ${resultObj.result.success} cards to your collection!`);
             }
           }}
         />
@@ -476,11 +484,12 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({ className 
       {currentTab === 'export' && (
         <CollectionExporter
           collectionStats={collection?.statistics}
-          onExportComplete={(result) => {
-            console.log('Export completed:', result);
+          onExportComplete={(result: unknown) => {
+            console.warn('Export completed:', result);
             // Show success message
-            if (result.success) {
-              console.warn(`Export completed successfully! File: ${result.filename}`);
+            const resultObj = result as { success?: boolean; filename?: string };
+            if (resultObj.success) {
+              console.warn(`Export completed successfully! File: ${resultObj.filename}`);
             }
           }}
         />

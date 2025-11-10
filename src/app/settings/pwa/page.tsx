@@ -100,7 +100,10 @@ export default function PWASettingsPage() {
   };
 
   const handleClearCache = async () => {
-    if (!confirm('Are you sure you want to clear the cache? This will remove all cached content and may require re-downloading data.')) {
+    // TODO: Replace with proper confirmation dialog component
+    // eslint-disable-next-line no-alert
+    const confirmed = window.confirm('Are you sure you want to clear the cache? This will remove all cached content and may require re-downloading data.');
+    if (!confirmed) {
       return;
     }
 
@@ -116,7 +119,10 @@ export default function PWASettingsPage() {
   };
 
   const handleUnregisterSW = async () => {
-    if (!confirm('Are you sure you want to disable offline features? The app will no longer work offline.')) {
+    // TODO: Replace with proper confirmation dialog component
+    // eslint-disable-next-line no-alert
+    const confirmed = window.confirm('Are you sure you want to disable offline features? The app will no longer work offline.');
+    if (!confirmed) {
       return;
     }
 
@@ -292,13 +298,13 @@ export default function PWASettingsPage() {
               <div className="text-center py-6">
                 <div className="text-gray-600 mb-2">No offline data</div>
                 <div className="text-sm text-gray-500">
-                  Data you create while offline will appear here and sync when you're back online
+                  Data you create while offline will appear here and sync when you&apos;re back online
                 </div>
               </div>
             ) : (
               <div className="space-y-3">
                 <div className="text-sm text-gray-600 mb-3">
-                  The following data is stored offline and will sync when you're online:
+                  The following data is stored offline and will sync when you&apos;re online:
                 </div>
                 {offlineDecks.map((deck) => (
                   <div key={deck.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -399,7 +405,7 @@ export default function PWASettingsPage() {
                 <div className="text-yellow-900 font-medium mb-1">⚠️ Warning</div>
                 <div className="text-yellow-700 text-sm">
                   Disabling the service worker will remove all offline functionality.
-                  You'll need to refresh the page to re-enable offline features.
+                  You&apos;ll need to refresh the page to re-enable offline features.
                 </div>
               </div>
             </div>

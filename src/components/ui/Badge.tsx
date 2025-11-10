@@ -121,9 +121,11 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
 
   const rarityVariant = getRarityVariant(rarity);
 
+  type BadgeVariant = 'default' | 'primary' | 'secondary' | 'outline' | 'success' | 'info' | 'warning' | 'destructive' | 'cyber' | 'neon' | 'plasma' | 'hologram';
+
   return (
     <Badge
-      variant={rarityVariant as any}
+      variant={rarityVariant as BadgeVariant}
       size={size}
       animate={animate}
       className={cn('select-none', className)}

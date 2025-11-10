@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
+import Image from 'next/image';
 import CardSearch from '@/components/card/CardSearch';
 import { CardWithRelations } from '@/lib/types/card';
 import { useCollection } from '@/hooks';
@@ -49,15 +50,19 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ card, onClick, owne
       `}
     >
       {/* Card Image Placeholder */}
-      <div className="w-12 h-16 bg-gray-200 rounded flex-shrink-0 flex items-center justify-center">
+      <div className="w-12 h-16 bg-gray-200 rounded flex-shrink-0 relative overflow-hidden">
         {card.imageUrl ? (
-          <img
+          <Image
             src={card.imageUrl}
             alt={card.name}
-            className="w-full h-full object-cover rounded"
+            fill
+            className="object-cover"
+            sizes="48px"
           />
         ) : (
-          <span className="text-xs text-gray-500">IMG</span>
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-xs text-gray-500">IMG</span>
+          </div>
         )}
       </div>
 

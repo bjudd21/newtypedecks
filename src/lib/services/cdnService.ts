@@ -242,7 +242,7 @@ export class CDNService {
    * Generate ImageKit URL
    */
   private generateImageKitUrl(imagePath: string, options: ImageUrlOptions): string {
-    const { width, height, quality, format, fit } = options;
+    const { width, height, quality, format, fit: _fit } = options;
 
     const params = new URLSearchParams();
 

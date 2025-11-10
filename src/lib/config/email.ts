@@ -46,7 +46,7 @@ export async function createTransporter(): Promise<Transporter | null> {
   const config = getEmailConfig();
 
   if (!config) {
-    console.log('📧 Email not configured - emails will be logged to console');
+    console.warn('📧 Email not configured - emails will be logged to console');
     return null;
   }
 
@@ -55,7 +55,7 @@ export async function createTransporter(): Promise<Transporter | null> {
 
     // Verify connection
     await transporter.verify();
-    console.log('📧 Email service connected successfully');
+    console.warn('📧 Email service connected successfully');
 
     return transporter;
   } catch (error) {

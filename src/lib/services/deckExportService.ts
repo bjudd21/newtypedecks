@@ -380,22 +380,25 @@ export class DeckExportService {
       }
 
       // Convert imported card data back to DeckCard format
-      const cards: DeckCard[] = data.cards.map((cardData: any) => ({
-        card: {
-          id: cardData.id,
-          name: cardData.name,
-          cost: cardData.cost,
-          setNumber: cardData.setNumber,
-          type: cardData.type ? { name: cardData.type } : null,
-          rarity: cardData.rarity ? { name: cardData.rarity } : null,
-          set: cardData.set ? { name: cardData.set } : null,
-          faction: cardData.faction,
-          pilot: cardData.pilot,
-          model: cardData.model
-        } as CardWithRelations,
-        quantity: cardData.quantity,
-        category: cardData.category
-      }));
+      const cards: DeckCard[] = data.cards.map((cardData: unknown) => {
+        const card = cardData as Record<string, unknown>;
+        return {
+          card: {
+            id: card.id,
+            name: card.name,
+            cost: card.cost,
+            setNumber: card.setNumber,
+            type: card.type ? { name: card.type as string } : null,
+            rarity: card.rarity ? { name: card.rarity as string } : null,
+            set: card.set ? { name: card.set as string } : null,
+            faction: card.faction,
+            pilot: card.pilot,
+            model: card.model
+          } as CardWithRelations,
+          quantity: card.quantity as number,
+          category: card.category as string
+        };
+      });
 
       const deck: ExportableDeck = {
         name: data.name,
@@ -406,7 +409,7 @@ export class DeckExportService {
       };
 
       return { success: true, deck, errors, warnings };
-    } catch (error) {
+    } catch (_error) {
       return {
         success: false,
         errors: ['Invalid JSON format'],
@@ -453,7 +456,7 @@ export class DeckExportService {
               type: null,
               rarity: null,
               set: null
-            } as any,
+            } as unknown as CardWithRelations,
             quantity,
             category: 'main'
           });
@@ -524,19 +527,20 @@ export class DeckExportService {
         continue;
       }
 
+      const rowObj = row as Record<string, unknown>;
       cards.push({
         card: {
           id: `import-${Date.now()}-${i}`,
           name,
-          cost: row.cost ? parseInt(row.cost) : null,
-          setNumber: row['set number'] || row.setnumber || '',
-          type: row.type ? { name: row.type } : null,
-          rarity: row.rarity ? { name: row.rarity } : null,
-          set: row.set ? { name: row.set } : null,
-          faction: row.faction,
-          pilot: row.pilot,
-          model: row.model
-        } as any,
+          cost: rowObj.cost ? parseInt(String(rowObj.cost)) : null,
+          setNumber: (rowObj['set number'] as string) || (rowObj.setnumber as string) || '',
+          type: rowObj.type ? { name: rowObj.type as string } : null,
+          rarity: rowObj.rarity ? { name: rowObj.rarity as string } : null,
+          set: rowObj.set ? { name: rowObj.set as string } : null,
+          faction: rowObj.faction as string | null,
+          pilot: rowObj.pilot as string | null,
+          model: rowObj.model as string | null
+        } as CardWithRelations,
         quantity,
         category: row.category || 'main'
       });

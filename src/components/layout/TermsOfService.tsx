@@ -109,7 +109,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     <li>Keep your login information secure and confidential</li>
                     <li>Use accurate information when creating your account</li>
                     <li>Notify us immediately of any security breaches</li>
-                    <li>You're responsible for all activity under your account</li>
+                    <li>You&apos;re responsible for all activity under your account</li>
                   </ul>
                 </div>
                 <div className="bg-blue-50 rounded-lg p-4">
@@ -189,7 +189,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                   <h4 className="font-medium text-yellow-800 mb-2">⚠️ Service Availability</h4>
                   <p className="text-sm text-yellow-700">
-                    This is a community project provided "as is" without warranties.
+                    This is a community project provided &quot;as is&quot; without warranties.
                     We cannot guarantee 100% uptime or data preservation.
                   </p>
                 </div>
@@ -203,7 +203,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <h4 className="font-medium text-blue-800 mb-2">🔗 External Links</h4>
                   <p className="text-sm text-blue-700">
-                    We're not responsible for content on external websites linked from our site.
+                    We&apos;re not responsible for content on external websites linked from our site.
                   </p>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 </p>
                 <p className="text-sm text-gray-600">
                   This is a community project. For questions or concerns, please check the
-                  project's documentation or contact the maintainers through official channels.
+                  project&apos;s documentation or contact the maintainers through official channels.
                 </p>
               </div>
             </section>

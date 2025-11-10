@@ -65,8 +65,9 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       if (!online) handleOffline();
     });
 
-    const unsubscribeDeckSynced = pwaService.on('deckSynced', (deck: any) => {
-      console.log('Deck synced:', deck.name);
+    const unsubscribeDeckSynced = pwaService.on('deckSynced', (deck: unknown) => {
+      const deckObj = deck as { name?: string };
+      console.warn('Deck synced:', deckObj.name);
       loadPendingSyncCount();
     });
 
@@ -198,15 +199,16 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
   }, [isOnline]);
 
   // Load deck from URL encoded data
-  const loadDeckFromURL = useCallback(async (urlDeckData: any) => {
+  const loadDeckFromURL = useCallback(async (urlDeckData: unknown) => {
     try {
+      const deckData = urlDeckData as { name?: string; description?: string; cards?: unknown[] };
       // Create a temporary deck structure from URL data
       // Note: We only have card IDs, not full card data, so we'd need to fetch the cards
       // For now, we'll create a simplified version and let the user search/add cards manually
       const newDeck = {
         id: `shared-${Date.now()}`,
-        name: urlDeckData.name || 'Shared Deck',
-        description: urlDeckData.description || 'Loaded from shared URL',
+        name: deckData.name || 'Shared Deck',
+        description: deckData.description || 'Loaded from shared URL',
         isPublic: false,
         userId: 'anonymous',
         currentVersion: 1,
@@ -223,7 +225,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({ clas
       saveToLocalStorage(newDeck);
 
       // Show information about the shared deck
-      console.warn(`TODO: Replace with proper UI notification - Loaded shared deck: "${urlDeckData.name}". This deck contained ${urlDeckData.cards?.length || 0} cards. You can now rebuild it using the card search, or import a complete deck file.`);
+      console.warn(`TODO: Replace with proper UI notification - Loaded shared deck: "${deckData.name}". This deck contained ${deckData.cards?.length || 0} cards. You can now rebuild it using the card search, or import a complete deck file.`);
 
     } catch (error) {
       console.error('Failed to load deck from URL:', error);

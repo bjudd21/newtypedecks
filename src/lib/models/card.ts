@@ -20,6 +20,9 @@ import {
   CARD_VALIDATION_SCHEMAS
 } from '../types/card';
 
+type CardFaction = typeof CARD_CONSTANTS.SUPPORTED_FACTIONS[number];
+type CardSeries = typeof CARD_CONSTANTS.SUPPORTED_SERIES[number];
+
 /**
  * Card Model Class - Provides reusable card data manipulation methods
  */
@@ -264,12 +267,12 @@ export class CardValidator {
     }
 
     // Faction validation
-    if (data.faction && !CARD_CONSTANTS.SUPPORTED_FACTIONS.includes(data.faction as any)) {
+    if (data.faction && !CARD_CONSTANTS.SUPPORTED_FACTIONS.includes(data.faction as CardFaction)) {
       warnings.push(`Faction "${data.faction}" is not in the standard faction list`);
     }
 
     // Series validation
-    if (data.series && !CARD_CONSTANTS.SUPPORTED_SERIES.includes(data.series as any)) {
+    if (data.series && !CARD_CONSTANTS.SUPPORTED_SERIES.includes(data.series as CardSeries)) {
       warnings.push(`Series "${data.series}" is not in the standard series list`);
     }
 

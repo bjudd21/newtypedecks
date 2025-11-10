@@ -174,7 +174,7 @@ export function withMonitoring<T extends any[]>(
   return async (req: NextRequest, ...args: T): Promise<NextResponse> => {
     return middleware(req, async (request, context) => {
       // Set monitoring context for the handler
-      (request as any).monitoring = context;
+      (request as any).monitoring = context; // TODO: Extend NextRequest type with monitoring property
       return handler(request, ...args);
     });
   };

@@ -250,7 +250,7 @@ export function getNavItemProps(href: string, isActive: boolean, label?: string)
  * Accessible list and table props
  */
 export function getListProps(label: string, description?: string) {
-  const props: Record<string, any> = {
+  const props: Record<string, unknown> = {
     role: 'list',
     'aria-label': label,
   };
@@ -271,7 +271,7 @@ export function getListProps(label: string, description?: string) {
 export function getCardImageProps(cardName: string, size?: string, isInteractive?: boolean) {
   const alt = `${cardName} card image${size ? ` (${size})` : ''}`;
 
-  const props: Record<string, any> = {
+  const props: Record<string, unknown> = {
     alt,
     role: isInteractive ? 'button' : 'img',
   };

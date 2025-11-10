@@ -2,10 +2,11 @@
 
 import { useState, useCallback } from 'react';
 import { useAuth } from './useAuth';
+import type { CardWithRelations } from '@/lib/types/card';
 
 interface CollectionCard {
   cardId: string;
-  card: any;
+  card: CardWithRelations;
   quantity: number;
   condition: string;
   addedAt: Date | string;

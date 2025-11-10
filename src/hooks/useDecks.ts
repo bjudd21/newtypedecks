@@ -2,10 +2,11 @@
 
 import { useState, useCallback } from 'react';
 import { useAuth } from './useAuth';
+import type { CardWithRelations } from '@/lib/types/card';
 
 interface DeckCard {
   cardId: string;
-  card: any;
+  card: CardWithRelations;
   quantity: number;
   category?: string;
 }
@@ -23,6 +24,13 @@ interface Deck {
   colors?: string[];
   createdAt: Date | string;
   updatedAt: Date | string;
+}
+
+interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
 }
 
 interface CreateDeckData {
@@ -179,7 +187,7 @@ export function useDecks() {
     limit?: number;
     search?: string;
     format?: string;
-  }): Promise<{ decks: Deck[]; pagination: any } | null> => {
+  }): Promise<{ decks: Deck[]; pagination: Pagination } | null> => {
     if (!isAuthenticated) {
       setError('Authentication required');
       return null;

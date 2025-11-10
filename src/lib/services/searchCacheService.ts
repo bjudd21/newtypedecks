@@ -99,9 +99,9 @@ export class SearchCacheService {
     Object.entries(filters).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
         if (Array.isArray(value) && value.length > 0) {
-          normalized[key as keyof CardSearchFilters] = [...value].sort() as any;
+          (normalized as Record<string, unknown>)[key] = [...value].sort();
         } else if (!Array.isArray(value)) {
-          normalized[key as keyof CardSearchFilters] = value;
+          (normalized as Record<string, unknown>)[key] = value;
         }
       }
     });
@@ -375,7 +375,7 @@ export class SearchCacheService {
 
     // Note: In a real implementation, you would call the actual search service
     // This is just a placeholder to show the concept
-    console.log('Preloading popular searches:', popularSearches.length);
+    console.warn('Preloading popular searches:', popularSearches.length);
   }
 }
 

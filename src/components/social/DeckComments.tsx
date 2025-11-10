@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 import { socialService, type DeckComment } from '@/lib/services/socialService';
 import { useAuth } from '@/hooks';
@@ -119,7 +120,7 @@ export const DeckComments: React.FC<DeckCommentsProps> = ({
     }
   };
 
-  const formatTimeAgo = (date: Date) => {
+  const _formatTimeAgo = (date: Date) => {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMinutes = Math.floor(diffMs / (1000 * 60));
@@ -276,10 +277,12 @@ const CommentCard: React.FC<CommentCardProps> = ({
         {/* Avatar */}
         <div className="flex-shrink-0">
           {comment.userAvatar ? (
-            <img
+            <Image
               src={comment.userAvatar}
               alt={comment.userName}
-              className="w-10 h-10 rounded-full"
+              width={40}
+              height={40}
+              className="rounded-full"
             />
           ) : (
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
@@ -362,10 +365,12 @@ const CommentCard: React.FC<CommentCardProps> = ({
                 <div key={reply.id} className="flex items-start gap-3">
                   <div className="flex-shrink-0">
                     {reply.userAvatar ? (
-                      <img
+                      <Image
                         src={reply.userAvatar}
                         alt={reply.userName}
-                        className="w-8 h-8 rounded-full"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                       />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-xs font-bold">

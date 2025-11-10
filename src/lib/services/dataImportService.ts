@@ -139,7 +139,7 @@ export class DataImportService {
 
     try {
       // Step 1: Discover available card data
-      console.log('🔍 Discovering card data sources...');
+      console.warn('🔍 Discovering card data sources...');
       const dataSources = await this.scraperService.discoverCardSources({
         setIds: options.setIds,
         cardTypes: options.cardTypes,
@@ -153,7 +153,7 @@ export class DataImportService {
       for (let i = 0; i < dataSources.length; i += batchSize) {
         const batch = dataSources.slice(i, i + batchSize);
 
-        console.log(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(dataSources.length / batchSize)} (${batch.length} items)`);
+        console.warn(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(dataSources.length / batchSize)} (${batch.length} items)`);
 
         const batchResult = await this.processBatch(batch, options, maxRetries);
 
@@ -203,7 +203,7 @@ export class DataImportService {
    * Process a batch of card data
    */
   private async processBatch(
-    dataSources: any[],
+    dataSources: unknown[],
     options: ImportOptions,
     _maxRetries: number // Reserved for future retry logic
   ): Promise<{ processed: number; successful: number; failed: number; errors: string[]; warnings: string[] }> {
@@ -217,11 +217,12 @@ export class DataImportService {
       processed++;
 
       try {
+        const sourceObj = source as { url: string };
         // Scrape card data
-        const rawCardData = await this.scraperService.scrapeCardData(source.url);
+        const rawCardData = await this.scraperService.scrapeCardData(sourceObj.url);
 
         if (!rawCardData) {
-          warnings.push(`No data found for ${source.url}`);
+          warnings.push(`No data found for ${sourceObj.url}`);
           continue;
         }
 
@@ -229,13 +230,13 @@ export class DataImportService {
         const validationResult = await this.validationService.validateCardData(rawCardData);
 
         if (!validationResult.isValid) {
-          errors.push(`Validation failed for ${source.url}: ${validationResult.errors.join(', ')}`);
+          errors.push(`Validation failed for ${sourceObj.url}: ${validationResult.errors.join(', ')}`);
           failed++;
           continue;
         }
 
         if (validationResult.warnings.length > 0) {
-          warnings.push(...validationResult.warnings.map(w => `${source.url}: ${w}`));
+          warnings.push(...validationResult.warnings.map(w => `${sourceObj.url}: ${w}`));
         }
 
         const transformedData = await this.validationService.transformCardData(rawCardData);
@@ -248,7 +249,7 @@ export class DataImportService {
 
         // Dry run - don't actually import
         if (options.dryRun) {
-          console.log(`[DRY RUN] Would import: ${transformedData.name}`);
+          console.warn(`[DRY RUN] Would import: ${transformedData.name}`);
           successful++;
           continue;
         }
@@ -258,16 +259,17 @@ export class DataImportService {
         successful++;
 
         if (isDevelopment) {
-          console.log(`✅ Imported: ${transformedData.name}`);
+          console.warn(`✅ Imported: ${transformedData.name}`);
         }
 
       } catch (error) {
+        const sourceObj = source as { url: string };
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        errors.push(`Failed to process ${source.url}: ${errorMessage}`);
+        errors.push(`Failed to process ${sourceObj.url}: ${errorMessage}`);
         failed++;
 
         // Retry logic could be added here
-        console.error(`❌ Failed to process ${source.url}:`, error);
+        console.error(`❌ Failed to process ${sourceObj.url}:`, error);
       }
     }
 
@@ -323,21 +325,21 @@ export class DataImportService {
     const { totalProcessed, successfulImports, failures, duration } = result;
     const durationSeconds = (duration / 1000).toFixed(2);
 
-    console.log('\n📊 Import Summary:');
-    console.log(`   Total Processed: ${totalProcessed}`);
-    console.log(`   ✅ Successful: ${successfulImports}`);
-    console.log(`   ❌ Failed: ${failures}`);
-    console.log(`   ⏱️  Duration: ${durationSeconds}s`);
-    console.log(`   📈 Success Rate: ${totalProcessed > 0 ? ((successfulImports / totalProcessed) * 100).toFixed(1) : 0}%`);
+    console.warn('\n📊 Import Summary:');
+    console.warn(`   Total Processed: ${totalProcessed}`);
+    console.warn(`   ✅ Successful: ${successfulImports}`);
+    console.warn(`   ❌ Failed: ${failures}`);
+    console.warn(`   ⏱️  Duration: ${durationSeconds}s`);
+    console.warn(`   📈 Success Rate: ${totalProcessed > 0 ? ((successfulImports / totalProcessed) * 100).toFixed(1) : 0}%`);
 
     if (result.errors.length > 0) {
-      console.log('\n❌ Errors:');
-      result.errors.forEach(error => console.log(`   - ${error}`));
+      console.warn('\n❌ Errors:');
+      result.errors.forEach(error => console.warn(`   - ${error}`));
     }
 
     if (result.warnings.length > 0) {
-      console.log('\n⚠️  Warnings:');
-      result.warnings.forEach(warning => console.log(`   - ${warning}`));
+      console.warn('\n⚠️  Warnings:');
+      result.warnings.forEach(warning => console.warn(`   - ${warning}`));
     }
   }
 

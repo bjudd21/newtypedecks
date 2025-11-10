@@ -180,7 +180,7 @@ export const CardSearch: React.FC<CardSearchProps> = ({
   };
 
   // Handle filter changes
-  const handleFilterChange = (key: keyof CardSearchFilters, value: any) => {
+  const handleFilterChange = (key: keyof CardSearchFilters, value: unknown) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
 

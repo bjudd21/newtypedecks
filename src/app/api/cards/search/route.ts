@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
       isAlternate: typeof filters.isAlternate === 'boolean' ? filters.isAlternate : undefined,
 
       // Array filters
-      keywords: Array.isArray(filters.keywords) ? filters.keywords.filter((k: any) => typeof k === 'string') : undefined,
-      tags: Array.isArray(filters.tags) ? filters.tags.filter((t: any) => typeof t === 'string') : undefined,
+      keywords: Array.isArray(filters.keywords) ? filters.keywords.filter((k: unknown) => typeof k === 'string') : undefined,
+      tags: Array.isArray(filters.tags) ? filters.tags.filter((t: unknown) => typeof t === 'string') : undefined,
 
       // Numeric range filters with validation
       levelMin: typeof filters.levelMin === 'number' && filters.levelMin >= 0 ? filters.levelMin : undefined,
@@ -161,11 +161,12 @@ export async function GET(request: NextRequest) {
       filters.name = search;
     }
 
+    const validSortFields = ['name', 'level', 'cost', 'clashPoints', 'price', 'hitPoints', 'attackPoints', 'setNumber', 'createdAt'] as const;
+    type ValidSortField = typeof validSortFields[number];
     const options: CardSearchOptions = {
       page,
       limit,
-      sortBy: ['name', 'level', 'cost', 'clashPoints', 'price', 'hitPoints', 'attackPoints', 'setNumber', 'createdAt']
-        .includes(sortBy) ? sortBy as any : 'name',
+      sortBy: validSortFields.includes(sortBy as ValidSortField) ? sortBy as ValidSortField : 'name',
       sortOrder,
       includeRelations: true,
     };

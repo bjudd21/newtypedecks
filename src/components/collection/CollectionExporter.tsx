@@ -18,7 +18,7 @@ interface CollectionExporterProps {
     uniqueCards: number;
     totalValue?: number;
   };
-  onExportComplete?: (result: any) => void;
+  onExportComplete?: (result: unknown) => void;
   className?: string;
 }
 
@@ -81,7 +81,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
   }, []);
 
   // Handle option change
-  const handleOptionChange = useCallback((option: string, value: any) => {
+  const handleOptionChange = useCallback((option: string, value: unknown) => {
     setExportOptions(prev => ({
       ...prev,
       [option]: value
@@ -184,7 +184,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
         onExportComplete(result);
       }
 
-      alert(`Export completed! ${result.recordCount} records exported.`);
+      console.warn(`Export completed! ${result.recordCount} records exported.`);
     } catch (err) {
       console.error('Advanced export error:', err);
       setError(err instanceof Error ? err.message : 'Export failed');

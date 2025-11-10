@@ -96,7 +96,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                   </ul>
                 </div>
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h4 className="font-medium text-red-800 mb-2">❌ What We Don't Do</h4>
+                  <h4 className="font-medium text-red-800 mb-2">❌ What We Don&apos;t Do</h4>
                   <ul className="text-sm text-red-700 space-y-1">
                     <li>• Sell your personal information</li>
                     <li>• Share data with third parties</li>
@@ -169,7 +169,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                     Questions about this privacy notice or your data?
                   </p>
                   <p className="text-sm text-gray-600">
-                    This is a community project. For privacy concerns, please check the project's
+                    This is a community project. For privacy concerns, please check the project&apos;s
                     GitHub repository or contact the maintainers through the official channels.
                   </p>
                 </div>

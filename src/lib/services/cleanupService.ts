@@ -23,7 +23,7 @@ export class CleanupService {
    * Run all cleanup tasks
    */
   async runCleanup(): Promise<void> {
-    console.log('Starting cleanup tasks...');
+    console.warn('Starting cleanup tasks...');
 
     try {
       // Clean up temporary files
@@ -32,7 +32,7 @@ export class CleanupService {
       // Clean up orphaned submission images (future enhancement)
       // await this.cleanupOrphanedImages();
 
-      console.log('Cleanup tasks completed successfully');
+      console.warn('Cleanup tasks completed successfully');
     } catch (error) {
       console.error('Error during cleanup:', error);
     }
@@ -42,7 +42,7 @@ export class CleanupService {
    * Clean up temporary files
    */
   private async cleanupTempFiles(): Promise<void> {
-    console.log('Cleaning up temporary files...');
+    console.warn('Cleaning up temporary files...');
 
     const maxAge = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -53,7 +53,7 @@ export class CleanupService {
       // Clean general temp files
       await cleanupGeneralTempFiles(maxAge);
 
-      console.log('Temporary files cleanup completed');
+      console.warn('Temporary files cleanup completed');
     } catch (error) {
       console.error('Error cleaning up temp files:', error);
     }
@@ -64,7 +64,7 @@ export class CleanupService {
    * (Images that exist on disk but have no corresponding database record)
    */
   private async cleanupOrphanedImages(): Promise<void> {
-    console.log('Cleaning up orphaned images...');
+    console.warn('Cleaning up orphaned images...');
     // TODO: Implement orphaned image cleanup
     // This would involve:
     // 1. Scanning the uploads/submissions directory
@@ -76,7 +76,7 @@ export class CleanupService {
    * Schedule cleanup to run periodically
    */
   startPeriodicCleanup(intervalMs: number = 6 * 60 * 60 * 1000): void { // Default: every 6 hours
-    console.log(`Starting periodic cleanup with interval: ${intervalMs}ms`);
+    console.warn(`Starting periodic cleanup with interval: ${intervalMs}ms`);
 
     // Run cleanup immediately
     this.runCleanup();

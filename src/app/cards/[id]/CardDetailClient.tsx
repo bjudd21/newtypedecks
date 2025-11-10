@@ -361,21 +361,24 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
                   {(() => {
                     try {
                       const abilities = JSON.parse(card.abilities);
-                      return Array.isArray(abilities) ? abilities.map((ability: any, index: number) => (
-                        <div key={index} className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
-                          <h4 className="font-semibold text-purple-900 text-sm mb-1">
-                            {ability.name || `Ability ${index + 1}`}
-                          </h4>
-                          <p className="text-purple-800 text-sm leading-relaxed">
-                            {ability.description || ability}
-                          </p>
-                          {ability.cost && (
-                            <p className="text-purple-600 text-xs mt-1">
-                              Cost: {ability.cost}
+                      return Array.isArray(abilities) ? abilities.map((ability: unknown, index: number) => {
+                        const abilityObj = ability as Record<string, unknown>;
+                        return (
+                          <div key={index} className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
+                            <h4 className="font-semibold text-purple-900 text-sm mb-1">
+                              {(abilityObj.name as string) || `Ability ${index + 1}`}
+                            </h4>
+                            <p className="text-purple-800 text-sm leading-relaxed">
+                              {(abilityObj.description as string) || String(ability)}
                             </p>
-                          )}
-                        </div>
-                      )) : (
+                            {abilityObj.cost != null && (
+                              <p className="text-purple-600 text-xs mt-1">
+                                Cost: {String(abilityObj.cost)}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      }) : (
                         <div className="bg-purple-900/20 border-l-4 border-purple-400 p-3 rounded-r-md">
                           <p className="text-purple-800 text-sm leading-relaxed">
                             {typeof abilities === 'string' ? abilities : JSON.stringify(abilities)}

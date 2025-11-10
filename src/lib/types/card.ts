@@ -144,8 +144,8 @@ export interface CardComparison {
   card2: CardWithRelations;
   differences: {
     attribute: string;
-    card1Value: any;
-    card2Value: any;
+    card1Value: unknown;
+    card2Value: unknown;
   }[];
   similarities: string[];
 }

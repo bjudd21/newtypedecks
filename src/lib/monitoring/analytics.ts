@@ -7,7 +7,7 @@ import '../../../types/global';
 
 export interface AnalyticsEvent {
   name: string;
-  properties?: Record<string, any>;
+  properties?: Record<string, unknown>;
   userId?: string;
   timestamp?: Date;
 }
@@ -24,7 +24,7 @@ export interface UserMetric {
   userId: string;
   action: string;
   resource?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   timestamp?: Date;
 }
 
@@ -39,7 +39,7 @@ class AnalyticsProvider {
   // Track custom events
   trackEvent(event: AnalyticsEvent) {
     if (!this.isEnabled) {
-      console.log('Analytics Event:', event);
+      console.warn('Analytics Event:', event);
       return;
     }
 
@@ -74,7 +74,7 @@ class AnalyticsProvider {
   }
 
   // Track user interactions
-  trackUserAction(action: string, resource: string, userId?: string, metadata?: Record<string, any>) {
+  trackUserAction(action: string, resource: string, userId?: string, metadata?: Record<string, unknown>) {
     this.trackEvent({
       name: 'user_action',
       properties: {
@@ -100,7 +100,7 @@ class AnalyticsProvider {
   }
 
   // Track errors
-  trackError(error: Error, context?: Record<string, any>) {
+  trackError(error: Error, context?: Record<string, unknown>) {
     this.trackEvent({
       name: 'error',
       properties: {
@@ -112,7 +112,7 @@ class AnalyticsProvider {
   }
 
   // Set user properties
-  setUser(userId: string, properties?: Record<string, any>) {
+  setUser(userId: string, properties?: Record<string, unknown>) {
     if (!this.isEnabled) return;
 
     // Google Analytics
@@ -315,7 +315,7 @@ export const businessMetrics = {
   },
 
   // Error metrics
-  trackError(error: Error, context?: Record<string, any>) {
+  trackError(error: Error, context?: Record<string, unknown>) {
     analytics.trackError(error, context);
     metricsCollector.collectMetric({
       name: 'error_count',
@@ -323,7 +323,7 @@ export const businessMetrics = {
       unit: 'count',
       tags: {
         error_type: error.constructor.name,
-        ...context,
+        ...(context as Record<string, string>),
       },
     });
   },
@@ -334,7 +334,7 @@ export function trackWebVitals() {
   if (typeof window === 'undefined') return;
 
   // Core Web Vitals
-  function sendToAnalytics(metric: any) {
+  function sendToAnalytics(metric: { name: string; value: number; id: string; delta: number }) {
     analytics.trackEvent({
       name: 'web_vital',
       properties: {

@@ -26,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
 export async function testDatabaseConnection(): Promise<boolean> {
   try {
     await prisma.$connect();
-    console.log('✅ Database connected successfully');
+    console.warn('✅ Database connected successfully');
     return true;
   } catch (error) {
     console.error('❌ Database connection failed:', error);
@@ -37,5 +37,5 @@ export async function testDatabaseConnection(): Promise<boolean> {
 // Graceful shutdown function
 export async function disconnectDatabase(): Promise<void> {
   await prisma.$disconnect();
-  console.log('🔌 Database disconnected');
+  console.warn('🔌 Database disconnected');
 }

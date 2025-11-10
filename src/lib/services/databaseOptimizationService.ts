@@ -12,8 +12,8 @@ export interface QueryPerformanceMetrics {
   duration: number;
   timestamp: Date;
   resultCount: number;
-  filters: any;
-  options: any;
+  filters: Record<string, unknown>;
+  options: Record<string, unknown>;
 }
 
 export interface DatabaseHealthMetrics {
@@ -54,7 +54,7 @@ export class DatabaseOptimizationService {
   async monitorQuery<T>(
     queryId: string,
     queryFn: () => Promise<T>,
-    context: { filters?: any; options?: any } = {}
+    context: { filters?: Record<string, unknown>; options?: Record<string, unknown> } = {}
   ): Promise<T> {
     const startTime = Date.now();
 
@@ -95,8 +95,8 @@ export class DatabaseOptimizationService {
    * Optimize card search query based on filters
    */
   buildOptimizedCardQuery(filters: CardSearchFilters, options: CardSearchOptions) {
-    const where: any = {};
-    const orderBy: any[] = [];
+    const where: Record<string, unknown> = {};
+    const orderBy: unknown[] = [];
 
     // Build efficient where clause
     if (filters.name) {
@@ -137,39 +137,39 @@ export class DatabaseOptimizationService {
 
     // Range filters (use indexes)
     if (filters.levelMin !== undefined || filters.levelMax !== undefined) {
-      where.level = {};
-      if (filters.levelMin !== undefined) where.level.gte = filters.levelMin;
-      if (filters.levelMax !== undefined) where.level.lte = filters.levelMax;
+      where.level = {} as { gte?: number; lte?: number };
+      if (filters.levelMin !== undefined) (where.level as { gte?: number; lte?: number }).gte = filters.levelMin;
+      if (filters.levelMax !== undefined) (where.level as { gte?: number; lte?: number }).lte = filters.levelMax;
     }
 
     if (filters.costMin !== undefined || filters.costMax !== undefined) {
-      where.cost = {};
-      if (filters.costMin !== undefined) where.cost.gte = filters.costMin;
-      if (filters.costMax !== undefined) where.cost.lte = filters.costMax;
+      where.cost = {} as { gte?: number; lte?: number };
+      if (filters.costMin !== undefined) (where.cost as { gte?: number; lte?: number }).gte = filters.costMin;
+      if (filters.costMax !== undefined) (where.cost as { gte?: number; lte?: number }).lte = filters.costMax;
     }
 
     if (filters.clashPointsMin !== undefined || filters.clashPointsMax !== undefined) {
-      where.clashPoints = {};
-      if (filters.clashPointsMin !== undefined) where.clashPoints.gte = filters.clashPointsMin;
-      if (filters.clashPointsMax !== undefined) where.clashPoints.lte = filters.clashPointsMax;
+      where.clashPoints = {} as { gte?: number; lte?: number };
+      if (filters.clashPointsMin !== undefined) (where.clashPoints as { gte?: number; lte?: number }).gte = filters.clashPointsMin;
+      if (filters.clashPointsMax !== undefined) (where.clashPoints as { gte?: number; lte?: number }).lte = filters.clashPointsMax;
     }
 
     if (filters.priceMin !== undefined || filters.priceMax !== undefined) {
-      where.price = {};
-      if (filters.priceMin !== undefined) where.price.gte = filters.priceMin;
-      if (filters.priceMax !== undefined) where.price.lte = filters.priceMax;
+      where.price = {} as { gte?: number; lte?: number };
+      if (filters.priceMin !== undefined) (where.price as { gte?: number; lte?: number }).gte = filters.priceMin;
+      if (filters.priceMax !== undefined) (where.price as { gte?: number; lte?: number }).lte = filters.priceMax;
     }
 
     if (filters.hitPointsMin !== undefined || filters.hitPointsMax !== undefined) {
-      where.hitPoints = {};
-      if (filters.hitPointsMin !== undefined) where.hitPoints.gte = filters.hitPointsMin;
-      if (filters.hitPointsMax !== undefined) where.hitPoints.lte = filters.hitPointsMax;
+      where.hitPoints = {} as { gte?: number; lte?: number };
+      if (filters.hitPointsMin !== undefined) (where.hitPoints as { gte?: number; lte?: number }).gte = filters.hitPointsMin;
+      if (filters.hitPointsMax !== undefined) (where.hitPoints as { gte?: number; lte?: number }).lte = filters.hitPointsMax;
     }
 
     if (filters.attackPointsMin !== undefined || filters.attackPointsMax !== undefined) {
-      where.attackPoints = {};
-      if (filters.attackPointsMin !== undefined) where.attackPoints.gte = filters.attackPointsMin;
-      if (filters.attackPointsMax !== undefined) where.attackPoints.lte = filters.attackPointsMax;
+      where.attackPoints = {} as { gte?: number; lte?: number };
+      if (filters.attackPointsMin !== undefined) (where.attackPoints as { gte?: number; lte?: number }).gte = filters.attackPointsMin;
+      if (filters.attackPointsMax !== undefined) (where.attackPoints as { gte?: number; lte?: number }).lte = filters.attackPointsMax;
     }
 
     // Array filters
@@ -315,10 +315,10 @@ export class DatabaseOptimizationService {
       }
 
       // Log maintenance suggestions
-      console.log('Database maintenance suggestions:');
-      console.log('- Run ANALYZE on frequently queried tables');
-      console.log('- Consider VACUUM FULL during low-traffic periods');
-      console.log('- Monitor index usage and remove unused indexes');
+      console.warn('Database maintenance suggestions:');
+      console.warn('- Run ANALYZE on frequently queried tables');
+      console.warn('- Consider VACUUM FULL during low-traffic periods');
+      console.warn('- Monitor index usage and remove unused indexes');
 
       tasksPerformed.push('Generated maintenance recommendations');
 

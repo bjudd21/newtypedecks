@@ -14,13 +14,13 @@ export async function GET(request: NextRequest) {
     // Status filter
     const statusParam = searchParams.get('status');
     if (statusParam) {
-      filters.status = statusParam.split(',') as any;
+      filters.status = statusParam.split(',') as import('@prisma/client').SubmissionStatus[];
     }
 
     // Priority filter
     const priorityParam = searchParams.get('priority');
     if (priorityParam) {
-      filters.priority = priorityParam.split(',') as any;
+      filters.priority = priorityParam.split(',') as import('@prisma/client').SubmissionPriority[];
     }
 
     // Other filters
@@ -62,11 +62,16 @@ export async function GET(request: NextRequest) {
     }
 
     // Parse options
+    const validSortFields = ['name', 'createdAt', 'updatedAt', 'status', 'priority'] as const;
+    const validSortOrders = ['asc', 'desc'] as const;
+    const sortBy = searchParams.get('sortBy') || 'createdAt';
+    const sortOrder = searchParams.get('sortOrder') || 'desc';
+
     const options: SubmissionSearchOptions = {
       page: parseInt(searchParams.get('page') || '1', 10),
       limit: parseInt(searchParams.get('limit') || '20', 10),
-      sortBy: (searchParams.get('sortBy') as any) || 'createdAt',
-      sortOrder: (searchParams.get('sortOrder') as any) || 'desc',
+      sortBy: validSortFields.includes(sortBy as any) ? sortBy as typeof validSortFields[number] : 'createdAt',
+      sortOrder: validSortOrders.includes(sortOrder as any) ? sortOrder as typeof validSortOrders[number] : 'desc',
       includeRelations: searchParams.get('includeRelations') !== 'false',
     };
 

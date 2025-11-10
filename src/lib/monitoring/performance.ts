@@ -12,10 +12,10 @@ export interface PerformanceEntry {
   endTime: number;
   duration: number;
   type: 'api' | 'database' | 'component' | 'page' | 'user-action';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
-export interface ResourceUsage {
+export interface ResourceUsage extends Record<string, unknown> {
   memory: {
     used: number;
     total: number;
@@ -51,7 +51,7 @@ class PerformanceMonitor {
   }
 
   // Start performance timing
-  startTiming(name: string, type: PerformanceEntry['type'], metadata?: Record<string, any>): string {
+  startTiming(name: string, type: PerformanceEntry['type'], metadata?: Record<string, unknown>): string {
     const timerId = `${type}:${name}:${Date.now()}`;
     this.activeTimers.set(timerId, performance.now());
 
@@ -64,7 +64,7 @@ class PerformanceMonitor {
   }
 
   // End performance timing
-  endTiming(timerId: string, metadata?: Record<string, any>): PerformanceEntry | null {
+  endTiming(timerId: string, metadata?: Record<string, unknown>): PerformanceEntry | null {
     const startTime = this.activeTimers.get(timerId);
     if (!startTime) {
       logger.warn(`Timer not found: ${timerId}`);
@@ -92,7 +92,7 @@ class PerformanceMonitor {
       name: `${type}_duration`,
       value: duration,
       unit: 'ms',
-      tags: { operation: name, ...metadata },
+      tags: { operation: name, ...(metadata as Record<string, string>) },
     });
 
     // Log slow operations
@@ -122,7 +122,7 @@ class PerformanceMonitor {
     name: string,
     type: PerformanceEntry['type'],
     fn: () => T | Promise<T>,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): T | Promise<T> {
     const timerId = this.startTiming(name, type, metadata);
 
@@ -130,14 +130,14 @@ class PerformanceMonitor {
       const result = fn();
 
       // Handle promises
-      if (result && typeof (result as any).then === 'function') {
+      if (result && typeof (result as { then?: unknown }).then === 'function') {
         return (result as Promise<T>)
           .then((value) => {
             this.endTiming(timerId);
             return value;
           })
           .catch((error) => {
-            this.endTiming(timerId, { error: error.message });
+            this.endTiming(timerId, { error: (error as Error).message });
             throw error;
           });
       }
@@ -221,7 +221,7 @@ class PerformanceMonitor {
   private getBrowserResourceUsage(): ResourceUsage | null {
     if (!('memory' in performance)) return null;
 
-    const memory = (performance as any).memory;
+    const memory = (performance as any).memory; // TODO: Add proper PerformanceMemory type
     return {
       memory: {
         used: memory.usedJSHeapSize,
@@ -410,35 +410,35 @@ class PerformanceMonitor {
 export const performanceMonitor = new PerformanceMonitor();
 
 // Convenience functions
-export function measureAPI<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, any>) {
+export function measureAPI<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
   return performanceMonitor.measure(name, 'api', fn, metadata);
 }
 
-export function measureDB<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, any>) {
+export function measureDB<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
   return performanceMonitor.measure(name, 'database', fn, metadata);
 }
 
-export function measureComponent<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, any>) {
+export function measureComponent<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
   return performanceMonitor.measure(name, 'component', fn, metadata);
 }
 
-export function measureUserAction<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, any>) {
+export function measureUserAction<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
   return performanceMonitor.measure(name, 'user-action', fn, metadata);
 }
 
 // Performance decorator
 export function measurePerformance(type: PerformanceEntry['type'], operationName?: string) {
-  return function <T extends (...args: any[]) => any>(
-    target: any,
+  return function <T extends (...args: unknown[]) => unknown>(
+    target: unknown,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<T>
   ) {
     const method = descriptor.value!;
-    const name = operationName || `${target.constructor.name}.${propertyName}`;
+    const name = operationName || `${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`;
 
-    descriptor.value = (function (this: any, ...args: any[]) {
+    descriptor.value = (function (this: unknown, ...args: unknown[]) {
       return performanceMonitor.measure(name, type, () => method.apply(this, args));
-    } as any) as T;
+    }) as T;
 
     return descriptor;
   };

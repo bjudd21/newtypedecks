@@ -87,6 +87,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
   // Handle removing favorite
   const handleRemoveFavorite = async (deckId: string) => {
     // TODO: Replace with proper confirmation dialog component
+    // eslint-disable-next-line no-alert
     if (!window.confirm('Remove this deck from your favorites?')) {
       return;
     }

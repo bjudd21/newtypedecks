@@ -9,6 +9,25 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
 
+interface CollectionCardData {
+  card: {
+    id: string;
+    name: string;
+    setNumber?: string | null;
+    description?: string | null;
+    cost?: number | null;
+    marketPrice?: number | null;
+    type?: { name: string } | null;
+    rarity?: { name: string } | null;
+    set?: { name: string; code: string } | null;
+    [key: string]: unknown;
+  };
+  quantity: number;
+  condition?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -78,7 +97,7 @@ export async function GET(request: NextRequest) {
     }
 
     const exportData = await generateExportData(
-      userCollection.cards,
+      userCollection.cards as unknown as CollectionCardData[],
       format,
       {
         includeMetadata,
@@ -159,7 +178,7 @@ export async function POST(request: NextRequest) {
 
     // Generate export with custom options
     const exportData = await generateExportData(
-      userCollection.cards,
+      userCollection.cards as unknown as CollectionCardData[],
       format,
       {
         ...options,
@@ -188,7 +207,7 @@ export async function POST(request: NextRequest) {
 
 // Helper function to generate export data in various formats
 async function generateExportData(
-  collectionCards: any[],
+  collectionCards: CollectionCardData[],
   format: string,
   options: any = {}
 ) {
@@ -211,7 +230,7 @@ async function generateExportData(
 }
 
 // Generate CSV export
-function generateCSVExport(collectionCards: any[], options: any) {
+function generateCSVExport(collectionCards: CollectionCardData[], options: any) {
   const headers = ['Card Name', 'Quantity', 'Set Name', 'Set Number', 'Type', 'Rarity'];
 
   if (options.includeConditions) {
@@ -263,7 +282,7 @@ function generateCSVExport(collectionCards: any[], options: any) {
 }
 
 // Generate JSON export
-function generateJSONExport(collectionCards: any[], options: any, timestamp: string) {
+function generateJSONExport(collectionCards: CollectionCardData[], options: any, timestamp: string) {
   const exportData: any = {
     exportInfo: {
       format: 'gundam-card-game-collection',
@@ -330,7 +349,7 @@ function generateJSONExport(collectionCards: any[], options: any, timestamp: str
 }
 
 // Generate simple text list export
-function generateTextExport(collectionCards: any[], options: any) {
+function generateTextExport(collectionCards: CollectionCardData[], options: any) {
   const lines: string[] = [];
 
   if (options.includeMetadata) {
@@ -364,7 +383,7 @@ function generateTextExport(collectionCards: any[], options: any) {
 }
 
 // Generate deck list format export
-function generateDeckListExport(collectionCards: any[], _options: any) {
+function generateDeckListExport(collectionCards: CollectionCardData[], _options: any) {
   const lines: string[] = [];
 
   lines.push('// Gundam Card Game Collection');
@@ -385,7 +404,7 @@ function generateDeckListExport(collectionCards: any[], _options: any) {
 }
 
 // Generate Excel export (would require additional library)
-function generateExcelExport(collectionCards: any[], options: any) {
+function generateExcelExport(collectionCards: CollectionCardData[], options: any) {
   // For now, return CSV format with Excel-friendly headers
   // In a full implementation, you'd use a library like 'xlsx' or 'exceljs'
   return generateCSVExport(collectionCards, options);

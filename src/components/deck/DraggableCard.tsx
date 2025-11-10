@@ -72,8 +72,8 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   return (
     <motion.div
       draggable={isEditing}
-      onDragStart={handleDragStart as any}
-      onDragEnd={handleDragEnd as any}
+      onDragStart={handleDragStart as any} // TODO: Fix type conflict between HTML drag and framer-motion
+      onDragEnd={handleDragEnd as any} // TODO: Fix type conflict between HTML drag and framer-motion
       className={`
         ${className}
         ${isEditing ? 'cursor-move' : 'cursor-default'}

@@ -291,7 +291,7 @@ export const AdvancedSort: React.FC<AdvancedSortProps> = ({
             <div className="text-xs text-gray-500 bg-white border rounded p-2">
               <strong>Tips:</strong> Sort priority determines which field is sorted first.
               Lower numbers have higher priority. Use multiple sorts to create complex ordering
-              like "Level (High-Low), then Name (A-Z)".
+              like &quot;Level (High-Low), then Name (A-Z)&quot;.
             </div>
           </div>
         </div>

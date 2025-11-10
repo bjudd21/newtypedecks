@@ -33,7 +33,7 @@ export async function createUser(data: {
   password: string;
   name?: string;
   role?: UserRole;
-}): Promise<{ success: boolean; user?: any; error?: string }> {
+}): Promise<{ success: boolean; user?: import('@prisma/client').User; error?: string }> {
   try {
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -69,7 +69,7 @@ export async function createUser(data: {
 
     return {
       success: true,
-      user,
+      user: user as import('@prisma/client').User,
     };
   } catch (error) {
     console.error('Error creating user:', error);

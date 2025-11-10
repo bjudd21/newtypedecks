@@ -140,7 +140,7 @@ export const MetaGameInsights: React.FC<MetaGameInsightsProps> = ({
             ].map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'popular' | 'trending' | 'archetypes')}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
@@ -284,7 +284,7 @@ export const MetaGameInsights: React.FC<MetaGameInsightsProps> = ({
               </div>
             ) : (
               <div className="space-y-3">
-                {metaData.trendingCards.map((trendData, index) => {
+                {metaData.trendingCards.map((trendData, _index) => {
                   const trendColor = trendData.trendDirection === 'up' ? 'text-green-600' :
                                    trendData.trendDirection === 'down' ? 'text-red-600' : 'text-gray-600';
                   const trendIcon = trendData.trendDirection === 'up' ? '📈' :
@@ -335,7 +335,7 @@ export const MetaGameInsights: React.FC<MetaGameInsightsProps> = ({
               </div>
             ) : (
               <div className="space-y-4">
-                {metaData.popularArchetypes.map((archetype, index) => (
+                {metaData.popularArchetypes.map((archetype, _index) => (
                   <div key={archetype.name} className="border rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>

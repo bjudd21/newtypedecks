@@ -84,7 +84,7 @@ export class ImportSchedulerService {
       this.scheduleNextRun(schedule.id);
     }
 
-    console.log(`📅 Scheduled import added: ${schedule.name} (${schedule.cron})`);
+    console.warn(`📅 Scheduled import added: ${schedule.name} (${schedule.cron})`);
   }
 
   /**
@@ -216,7 +216,7 @@ export class ImportSchedulerService {
     this.importHistory.push(history);
 
     try {
-      console.log(`🚀 Starting import: ${schedule.name}`);
+      console.warn(`🚀 Starting import: ${schedule.name}`);
 
       if (!this.dataImportService.isEnabled()) {
         throw new Error('Data import is disabled');
@@ -244,7 +244,7 @@ export class ImportSchedulerService {
         }
       }
 
-      console.log(`✅ Import completed: ${schedule.name}`);
+      console.warn(`✅ Import completed: ${schedule.name}`);
       return result;
 
     } catch (error) {
@@ -310,7 +310,7 @@ export class ImportSchedulerService {
     this.timers.set(id, timer);
 
     if (isDevelopment) {
-      console.log(`⏰ Next run for ${schedule.name}: ${nextRun.toLocaleString()}`);
+      console.warn(`⏰ Next run for ${schedule.name}: ${nextRun.toLocaleString()}`);
     }
   }
 
@@ -326,7 +326,7 @@ export class ImportSchedulerService {
         return null;
       }
 
-      const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
+      const [minute, hour, _dayOfMonth, _month, _dayOfWeek] = parts;
 
       const now = new Date();
       const next = new Date(now);
@@ -424,6 +424,6 @@ export class ImportSchedulerService {
     }
     this.timers.clear();
 
-    console.log('📄 Import scheduler shut down');
+    console.warn('📄 Import scheduler shut down');
   }
 }

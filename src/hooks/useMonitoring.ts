@@ -19,12 +19,12 @@ export interface UseMonitoringOptions {
 }
 
 export interface MonitoringHookResult {
-  trackEvent: (eventName: string, properties?: Record<string, any>) => void;
-  trackUserAction: (action: string, resource: string, metadata?: Record<string, any>) => void;
-  trackError: (error: Error, context?: Record<string, any>) => void;
+  trackEvent: (eventName: string, properties?: Record<string, unknown>) => void;
+  trackUserAction: (action: string, resource: string, metadata?: Record<string, unknown>) => void;
+  trackError: (error: Error, context?: Record<string, unknown>) => void;
   trackPerformance: <T>(name: string, fn: () => T | Promise<T>) => T | Promise<T>;
   startTiming: (name: string) => () => void;
-  setUserContext: (context: Record<string, any>) => void;
+  setUserContext: (context: Record<string, unknown>) => void;
 }
 
 export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHookResult {
@@ -36,7 +36,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
     trackErrors = true,
   } = options;
 
-  const router = useRouter();
+  const _router = useRouter();
   const { data: session } = useSession();
   const mountTimeRef = useRef(Date.now());
   const activeTimersRef = useRef<Map<string, number>>(new Map());
@@ -145,7 +145,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
   }, [componentName, trackErrors]);
 
   // Track custom events
-  const trackEvent = useCallback((eventName: string, properties?: Record<string, any>) => {
+  const trackEvent = useCallback((eventName: string, properties?: Record<string, unknown>) => {
     analytics.trackEvent({
       name: eventName,
       properties: {
@@ -160,7 +160,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
   const trackUserAction = useCallback((
     action: string,
     resource: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ) => {
     if (!trackUserActions) return;
 
@@ -177,7 +177,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
   }, [componentName, session?.user?.id, trackUserActions]);
 
   // Track errors
-  const trackError = useCallback((error: Error, context?: Record<string, any>) => {
+  const trackError = useCallback((error: Error, context?: Record<string, unknown>) => {
     if (!trackErrors) return;
 
     errorTracker.captureException(error, {
@@ -223,7 +223,7 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
   }, [componentName]);
 
   // Set user context
-  const setUserContext = useCallback((context: Record<string, any>) => {
+  const setUserContext = useCallback((context: Record<string, unknown>) => {
     errorTracker.setContext('user', {
       component: componentName,
       ...context,
@@ -249,7 +249,7 @@ export function usePageMonitoring(pageName: string) {
     trackPerformance: true,
   });
 
-  const trackPageAction = useCallback((action: string, metadata?: Record<string, any>) => {
+  const trackPageAction = useCallback((action: string, metadata?: Record<string, unknown>) => {
     monitoring.trackUserAction(action, 'page', {
       page: pageName,
       ...metadata,
@@ -332,7 +332,7 @@ export function useFormMonitoring(formName: string) {
     monitoring.trackUserAction('form_start', 'form', { formName });
   }, [monitoring, formName]);
 
-  const trackFormSubmit = useCallback((success: boolean, errors?: Record<string, any>) => {
+  const trackFormSubmit = useCallback((success: boolean, errors?: Record<string, unknown>) => {
     monitoring.trackUserAction('form_submit', 'form', {
       formName,
       success,

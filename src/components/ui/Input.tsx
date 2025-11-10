@@ -82,7 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               y: -1
             }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            {...(props as any)}
+            {...(props as any)} // TODO: Fix motion component type conflicts with InputHTMLAttributes
           />
 
           {/* Scan line animation on focus */}

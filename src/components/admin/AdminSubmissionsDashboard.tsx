@@ -215,7 +215,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
                 value={filters.status?.[0] || ''}
                 onChange={(e) => setFilters(prev => ({
                   ...prev,
-                  status: e.target.value ? [e.target.value as any] : undefined
+                  status: e.target.value ? [e.target.value as import('@prisma/client').SubmissionStatus] : undefined
                 }))}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
@@ -230,7 +230,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
                 value={filters.priority?.[0] || ''}
                 onChange={(e) => setFilters(prev => ({
                   ...prev,
-                  priority: e.target.value ? [e.target.value as any] : undefined
+                  priority: e.target.value ? [e.target.value as import('@prisma/client').SubmissionPriority] : undefined
                 }))}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >

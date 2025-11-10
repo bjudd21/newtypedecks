@@ -150,9 +150,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         );
       }
 
-      const cardIds = cards.map((c: any) => c.cardId || c.card?.id).filter(Boolean);
+      const cardIds = cards.map((c: unknown) => {
+        const cardObj = c as Record<string, unknown>;
+        return cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id;
+      }).filter(Boolean);
       const existingCards = await prisma.card.findMany({
-        where: { id: { in: cardIds } },
+        where: { id: { in: cardIds as string[] } },
         select: { id: true }
       });
 
@@ -250,12 +253,15 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
         // Add new cards
         await tx.deckCard.createMany({
-          data: cards.map((card: any) => ({
-            deckId: id,
-            cardId: card.cardId || card.card?.id,
-            quantity: Math.max(1, Math.min(4, parseInt(card.quantity) || 1)),
-            category: card.category || 'main'
-          }))
+          data: cards.map((card: unknown) => {
+            const cardObj = card as Record<string, unknown>;
+            return {
+              deckId: id,
+              cardId: (cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id) as string,
+              quantity: Math.max(1, Math.min(4, parseInt(String(cardObj.quantity || 1)))),
+              category: (cardObj.category as string) || 'main'
+            };
+          })
         });
 
         // Fetch updated deck with new cards

@@ -583,7 +583,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             }}
             onVersionDelete={() => {
               // Version deleted, refresh might be needed
-              console.log('Version deleted');
+              console.warn('Version deleted');
             }}
           />
         </div>
@@ -598,7 +598,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             deckDescription={deckDescription}
             cardCount={totalCards}
             onTemplateCreated={(templateId) => {
-              console.log('Template created:', templateId);
+              console.warn('Template created:', templateId);
               setShowTemplateCreator(false);
             }}
           />
@@ -617,7 +617,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
             deckName={deckName}
             onAnalysisUpdate={(analytics) => {
               // Could store analytics in state for other uses
-              console.log('Deck analytics updated:', analytics);
+              console.warn('Deck analytics updated:', analytics);
             }}
           />
         </div>

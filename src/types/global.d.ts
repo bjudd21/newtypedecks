@@ -7,16 +7,16 @@ declare global {
     gtag?: (
       command: 'config' | 'event' | 'set',
       targetId: string,
-      config?: Record<string, any>
+      config?: Record<string, unknown>
     ) => void;
     mixpanel?: {
-      track: (eventName: string, properties?: Record<string, any>) => void;
+      track: (eventName: string, properties?: Record<string, unknown>) => void;
       identify: (userId: string) => void;
       people?: {
-        set: (properties: Record<string, any>) => void;
+        set: (properties: Record<string, unknown>) => void;
       };
     };
-    dataLayer?: any[];
+    dataLayer?: unknown[];
   }
 }
 

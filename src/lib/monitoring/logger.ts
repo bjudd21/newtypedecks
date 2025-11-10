@@ -9,7 +9,7 @@ export interface LogEntry {
   level: LogLevel;
   message: string;
   timestamp: string;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   error?: Error;
   userId?: string;
   requestId?: string;
@@ -105,10 +105,10 @@ class Logger {
 
     switch (entry.level) {
       case 'debug':
-        console.debug(formatted);
+        console.warn(formatted);
         break;
       case 'info':
-        console.info(formatted);
+        console.warn(formatted);
         break;
       case 'warn':
         console.warn(formatted);
@@ -292,16 +292,16 @@ export function createComponentLogger(component: string): Logger {
 
 // Performance logging decorator
 export function logPerformance(operation: string) {
-  return function <T extends (...args: any[]) => any>(
-    target: any,
+  return function <T extends (...args: unknown[]) => unknown>(
+    target: unknown,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<T>
   ) {
     const method = descriptor.value!;
 
-    descriptor.value = (async function (this: any, ...args: any[]) {
+    descriptor.value = (async function (this: unknown, ...args: unknown[]) {
       const start = Date.now();
-      const methodLogger = createComponentLogger(`${target.constructor.name}.${propertyName}`);
+      const methodLogger = createComponentLogger(`${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`);
 
       try {
         const result = await method.apply(this, args);
@@ -314,7 +314,7 @@ export function logPerformance(operation: string) {
         methodLogger.error(`${operation} failed`, error as Error);
         throw error;
       }
-    } as any) as T;
+    }) as T;
 
     return descriptor;
   };
@@ -322,14 +322,14 @@ export function logPerformance(operation: string) {
 
 // Error logging decorator
 export function logErrors(component: string) {
-  return function <T extends (...args: any[]) => any>(
-    target: any,
+  return function <T extends (...args: unknown[]) => unknown>(
+    target: unknown,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<T>
   ) {
     const method = descriptor.value!;
 
-    descriptor.value = (async function (this: any, ...args: any[]) {
+    descriptor.value = (async function (this: unknown, ...args: unknown[]) {
       const methodLogger = createComponentLogger(`${component}.${propertyName}`);
 
       try {
@@ -340,7 +340,7 @@ export function logErrors(component: string) {
         });
         throw error;
       }
-    } as any) as T;
+    }) as T;
 
     return descriptor;
   };

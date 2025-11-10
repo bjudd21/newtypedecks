@@ -79,7 +79,7 @@ export async function processCardImage(
 
     // Generate filenames
     const baseName = path.parse(filename).name;
-    const originalExt = path.parse(filename).ext;
+    const _originalExt = path.parse(filename).ext;
 
     // Determine optimal output format based on input
     const outputFormat = determineOptimalFormat(metadata.format || 'jpeg');
@@ -290,7 +290,7 @@ async function processImageVariant(
     quality,
     enableProgressive = true,
     enableOptimization = true,
-    preserveOriginal = false,
+    preserveOriginal: _preserveOriginal = false,
   } = options;
 
   // Determine output path
@@ -313,7 +313,11 @@ async function processImageVariant(
   }
 
   // Apply format-specific optimizations
-  const outputQuality = getOptimalQuality(format as any, variant);
+  const validFormats = ['jpeg', 'png', 'webp', 'avif'] as const;
+  const outputQuality = getOptimalQuality(
+    validFormats.includes(format as typeof validFormats[number]) ? format as typeof validFormats[number] : 'jpeg',
+    variant
+  );
 
   switch (format) {
     case 'jpeg':

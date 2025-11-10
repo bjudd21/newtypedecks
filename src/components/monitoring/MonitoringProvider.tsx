@@ -14,9 +14,9 @@ import { logger } from '@/lib/monitoring/logger';
 
 interface MonitoringContextType {
   isInitialized: boolean;
-  trackError: (error: Error, context?: Record<string, any>) => void;
-  trackEvent: (name: string, properties?: Record<string, any>) => void;
-  trackPerformance: (name: string, duration: number, metadata?: Record<string, any>) => void;
+  trackError: (error: Error, context?: Record<string, unknown>) => void;
+  trackEvent: (name: string, properties?: Record<string, unknown>) => void;
+  trackPerformance: (name: string, duration: number, metadata?: Record<string, unknown>) => void;
 }
 
 const MonitoringContext = createContext<MonitoringContextType | undefined>(undefined);
@@ -43,7 +43,7 @@ export function MonitoringProvider({
   enablePerformanceMonitoring = true,
 }: MonitoringProviderProps) {
   const [isInitialized, setIsInitialized] = useState(false);
-  const [scriptsLoaded, setScriptsLoaded] = useState({
+  const [_scriptsLoaded, setScriptsLoaded] = useState({
     googleAnalytics: false,
     mixpanel: false,
   });
@@ -118,13 +118,13 @@ export function MonitoringProvider({
   // Context value
   const contextValue: MonitoringContextType = {
     isInitialized,
-    trackError: (error: Error, context?: Record<string, any>) => {
+    trackError: (error: Error, context?: Record<string, unknown>) => {
       errorTracker.captureException(error, context);
     },
-    trackEvent: (name: string, properties?: Record<string, any>) => {
+    trackEvent: (name: string, properties?: Record<string, unknown>) => {
       analytics.trackEvent({ name, properties });
     },
-    trackPerformance: (name: string, duration: number, metadata?: Record<string, any>) => {
+    trackPerformance: (name: string, duration: number, metadata?: Record<string, unknown>) => {
       performanceMonitor.measure(name, 'component', () => Promise.resolve(), metadata);
     },
   };
@@ -259,8 +259,8 @@ export class MonitoringErrorBoundary extends React.Component<
                 </h3>
                 <div className="mt-2 text-sm text-gray-500">
                   <p>
-                    We're sorry, but something unexpected happened. The error has been
-                    reported and we're working to fix it.
+                    We&apos;re sorry, but something unexpected happened. The error has been
+                    reported and we&apos;re working to fix it.
                   </p>
                 </div>
                 <div className="mt-4">

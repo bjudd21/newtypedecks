@@ -265,7 +265,7 @@ export class SearchAnalyticsService {
       .sort((a, b) => b[1].count - a[1].count)
       .slice(0, limit);
 
-    return popularPatterns.map(([key, pattern]) => ({
+    return popularPatterns.map(([_key, pattern]) => ({
       query: this.patternToReadableQuery(pattern.filters),
       filters: pattern.filters as CardSearchFilters,
       options: { sortBy: 'name', sortOrder: 'asc' as const },
@@ -494,10 +494,10 @@ export class SearchAnalyticsService {
       .reduce((obj, key) => {
         const value = filters[key as keyof CardSearchFilters];
         if (value !== undefined && value !== null && value !== '') {
-          obj[key] = value;
+          (obj as Record<string, unknown>)[key] = value;
         }
         return obj;
-      }, {} as any);
+      }, {} as Record<string, unknown>);
 
     return JSON.stringify(sortedFilters);
   }

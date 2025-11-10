@@ -127,7 +127,7 @@ export interface Notification {
   type: 'comment' | 'rating' | 'like' | 'follow' | 'deck_featured' | 'badge_earned';
   title: string;
   message: string;
-  data?: Record<string, any>; // Additional data like deck ID, comment ID, etc.
+  data?: Record<string, unknown>; // Additional data like deck ID, comment ID, etc.
   isRead: boolean;
   createdAt: Date;
   expiresAt?: Date;
@@ -141,7 +141,7 @@ export interface ActivityFeed {
   userAvatar?: string;
   title: string;
   description: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
   createdAt: Date;
 }
 
@@ -217,7 +217,7 @@ class SocialService {
   /**
    * Get deck ratings
    */
-  async getDeckRatings(deckId: string, page = 1, limit = 10): Promise<{
+  async getDeckRatings(deckId: string, _page = 1, _limit = 10): Promise<{
     ratings: DeckRating[];
     totalCount: number;
     averageRating: number;
@@ -293,7 +293,7 @@ class SocialService {
   /**
    * Get deck comments
    */
-  async getDeckComments(deckId: string, page = 1, limit = 20): Promise<{
+  async getDeckComments(deckId: string, _page = 1, _limit = 20): Promise<{
     comments: DeckComment[];
     totalCount: number;
   }> {
@@ -371,7 +371,7 @@ class SocialService {
   /**
    * Like/unlike deck
    */
-  async toggleDeckLike(deckId: string, userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
+  async toggleDeckLike(_deckId: string, _userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
     // This would update in database
     return {
       isLiked: true, // Toggled state
@@ -382,7 +382,7 @@ class SocialService {
   /**
    * Follow/unfollow user
    */
-  async toggleUserFollow(followingId: string, followerId: string): Promise<{ isFollowing: boolean; followerCount: number }> {
+  async toggleUserFollow(_followingId: string, _followerId: string): Promise<{ isFollowing: boolean; followerCount: number }> {
     // This would update in database
     return {
       isFollowing: true, // Toggled state
@@ -393,7 +393,7 @@ class SocialService {
   /**
    * Get user's activity feed
    */
-  async getUserActivityFeed(userId: string, page = 1, limit = 20): Promise<ActivityFeed[]> {
+  async getUserActivityFeed(userId: string, _page = 1, _limit = 20): Promise<ActivityFeed[]> {
     // Mock implementation
     return [
       {
@@ -459,14 +459,14 @@ class SocialService {
   /**
    * Mark notification as read
    */
-  async markNotificationRead(notificationId: string): Promise<void> {
+  async markNotificationRead(_notificationId: string): Promise<void> {
     // This would update in database
   }
 
   /**
    * Mark all notifications as read
    */
-  async markAllNotificationsRead(userId: string): Promise<void> {
+  async markAllNotificationsRead(_userId: string): Promise<void> {
     // This would update all user notifications in database
   }
 
@@ -495,7 +495,7 @@ class SocialService {
   /**
    * Search users
    */
-  async searchUsers(query: string, limit = 10): Promise<UserProfile[]> {
+  async searchUsers(query: string, _limit = 10): Promise<UserProfile[]> {
     // This would search users in database
     // For now, return empty array
     return [];
@@ -504,7 +504,7 @@ class SocialService {
   /**
    * Get popular decks (social metrics based)
    */
-  async getPopularDecks(timeframe: 'day' | 'week' | 'month' | 'all' = 'week', limit = 20): Promise<SocialDeckData[]> {
+  async getPopularDecks(_timeframe: 'day' | 'week' | 'month' | 'all' = 'week', _limit = 20): Promise<SocialDeckData[]> {
     // Mock implementation
     return [
       {
@@ -532,11 +532,11 @@ class SocialService {
    * Report content (comment, deck, user)
    */
   async reportContent(
-    type: 'comment' | 'deck' | 'user',
-    contentId: string,
-    reporterId: string,
-    reason: string,
-    description?: string
+    _type: 'comment' | 'deck' | 'user',
+    _contentId: string,
+    _reporterId: string,
+    _reason: string,
+    _description?: string
   ): Promise<void> {
     // This would create a report in database for moderation
   }
@@ -544,7 +544,7 @@ class SocialService {
   /**
    * Get user badges and achievements
    */
-  async getUserBadges(userId: string): Promise<UserBadge[]> {
+  async getUserBadges(_userId: string): Promise<UserBadge[]> {
     // Mock implementation
     return [
       {
@@ -571,7 +571,7 @@ class SocialService {
   /**
    * Vote comment as helpful/unhelpful
    */
-  async voteCommentHelpful(commentId: string, userId: string, isHelpful: boolean): Promise<{ helpfulVotes: number }> {
+  async voteCommentHelpful(_commentId: string, _userId: string, _isHelpful: boolean): Promise<{ helpfulVotes: number }> {
     // This would update in database
     return { helpfulVotes: 12 };
   }
@@ -579,7 +579,7 @@ class SocialService {
   /**
    * Like/unlike comment
    */
-  async toggleCommentLike(commentId: string, userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
+  async toggleCommentLike(_commentId: string, _userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
     // This would update in database
     return {
       isLiked: true,

@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { DeckTemplateBrowser } from '@/components/deck';
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function TemplatesPage() {
 
         {/* Template Browser */}
         <DeckTemplateBrowser
-          onCreateFromTemplate={(templateId) => {
+          onCreateFromTemplate={(_templateId) => {
             // Redirect to deck builder with new deck
             window.location.href = '/decks';
           }}
@@ -95,18 +96,18 @@ export default function TemplatesPage() {
             Have a great deck to share? Create a template from your own decks to help other players!
           </p>
           <div className="space-x-4">
-            <a
+            <Link
               href="/decks"
               className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Go to Deck Builder
-            </a>
-            <a
+            </Link>
+            <Link
               href="/favorites"
               className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
               View My Favorites
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 import { socialService, type DeckRating } from '@/lib/services/socialService';
 import { useAuth } from '@/hooks';
@@ -248,10 +249,12 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0">
                         {rating.userAvatar ? (
-                          <img
+                          <Image
                             src={rating.userAvatar}
                             alt={rating.userName}
-                            className="w-10 h-10 rounded-full"
+                            width={40}
+                            height={40}
+                            className="rounded-full"
                           />
                         ) : (
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">

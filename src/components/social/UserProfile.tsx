@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 import { socialService, type UserProfile as UserProfileType } from '@/lib/services/socialService';
 import { useAuth } from '@/hooks';
@@ -120,10 +121,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             {/* Avatar */}
             <div className="flex-shrink-0">
               {profile.avatar ? (
-                <img
+                <Image
                   src={profile.avatar}
                   alt={profile.displayName}
-                  className="w-24 h-24 rounded-full object-cover"
+                  width={96}
+                  height={96}
+                  className="rounded-full object-cover"
                 />
               ) : (
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
@@ -229,7 +232,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             ].map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'decks' | 'activity' | 'badges')}
                 className={`py-3 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'

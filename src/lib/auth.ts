@@ -206,7 +206,7 @@ export const authOptions: NextAuthOptions = {
   // Events
   events: {
     async signIn({ user, account, profile: _profile, isNewUser }) {
-      console.log('User signed in:', {
+      console.warn('User signed in:', {
         userId: user.id,
         email: user.email,
         provider: account?.provider,
@@ -215,14 +215,14 @@ export const authOptions: NextAuthOptions = {
     },
 
     async signOut({ session }) {
-      console.log('User signed out:', {
+      console.warn('User signed out:', {
         userId: session?.user?.id,
         email: session?.user?.email,
       });
     },
 
     async createUser({ user }) {
-      console.log('New user created:', {
+      console.warn('New user created:', {
         userId: user.id,
         email: user.email,
       });

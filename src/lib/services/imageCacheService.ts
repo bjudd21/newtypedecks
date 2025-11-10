@@ -88,7 +88,7 @@ export class ImageCacheService {
       // Set up cleanup intervals
       this.setupCleanupTasks();
 
-      console.log('Image cache service initialized');
+      console.warn('Image cache service initialized');
     } catch (error) {
       console.warn('Failed to initialize image cache:', error);
     }
@@ -203,7 +203,7 @@ export class ImageCacheService {
         cacheMisses: 0,
       };
 
-      console.log('Image cache cleared');
+      console.warn('Image cache cleared');
     } catch (error) {
       console.error('Failed to clear cache:', error);
     }
@@ -241,7 +241,7 @@ export class ImageCacheService {
     if ('serviceWorker' in navigator) {
       try {
         const registration = await navigator.serviceWorker.register('/sw-image-cache.js');
-        console.log('Image cache service worker registered:', registration);
+        console.warn('Image cache service worker registered:', registration);
       } catch (error) {
         console.warn('Failed to register service worker:', error);
       }
@@ -351,7 +351,7 @@ export class ImageCacheService {
 
     // Set priority if supported
     if ('priority' in Request.prototype) {
-      (fetchOptions as any).priority = priority;
+      (fetchOptions as any).priority = priority; // TODO: Add proper RequestInit type with priority
     }
 
     const response = await fetch(url, fetchOptions);
@@ -464,7 +464,7 @@ export class ImageCacheService {
     for (const item of this.memoryCache.values()) {
       try {
         URL.revokeObjectURL(URL.createObjectURL(item.blob));
-      } catch (error) {
+      } catch (_error) {
         // Ignore cleanup errors
       }
     }

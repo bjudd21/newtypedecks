@@ -82,7 +82,7 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const updateFilters = (section: keyof AdvancedFilterOptions, key: string, value: any) => {
+  const updateFilters = (section: keyof AdvancedFilterOptions, key: string, value: unknown) => {
     const newFilters = {
       ...filters,
       [section]: {
@@ -100,14 +100,14 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({
   };
 
   const addArrayFilter = (section: keyof AdvancedFilterOptions, key: string, value: string) => {
-    const current = (filters[section] as any)[key] || [];
+    const current = (filters[section] as Record<string, string[]>)[key] || [];
     if (!current.includes(value)) {
       updateFilters(section, key, [...current, value]);
     }
   };
 
   const removeArrayFilter = (section: keyof AdvancedFilterOptions, key: string, value: string) => {
-    const current = (filters[section] as any)[key] || [];
+    const current = (filters[section] as Record<string, string[]>)[key] || [];
     updateFilters(section, key, current.filter((item: string) => item !== value));
   };
 

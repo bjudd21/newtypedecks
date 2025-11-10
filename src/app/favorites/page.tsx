@@ -46,7 +46,7 @@ export default async function FavoritesPage() {
           }}
           onRemoveFavorite={() => {
             // Refresh handled by component
-            console.log('Favorite removed');
+            console.warn('Favorite removed');
           }}
         />
 

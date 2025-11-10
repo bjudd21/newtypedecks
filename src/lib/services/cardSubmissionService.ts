@@ -125,7 +125,7 @@ export class CardSubmissionService {
     const skip = (page - 1) * limit;
 
     // Build where clause
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (filters.status && filters.status.length > 0) {
       where.status = { in: filters.status };
@@ -152,9 +152,9 @@ export class CardSubmissionService {
     }
 
     if (filters.dateFrom || filters.dateTo) {
-      where.createdAt = {};
-      if (filters.dateFrom) where.createdAt.gte = filters.dateFrom;
-      if (filters.dateTo) where.createdAt.lte = filters.dateTo;
+      where.createdAt = {} as { gte?: Date; lte?: Date };
+      if (filters.dateFrom) (where.createdAt as { gte?: Date; lte?: Date }).gte = filters.dateFrom;
+      if (filters.dateTo) (where.createdAt as { gte?: Date; lte?: Date }).lte = filters.dateTo;
     }
 
     if (filters.name) {
@@ -236,8 +236,8 @@ export class CardSubmissionService {
    */
   static async publishSubmission(
     submissionId: string,
-    publishedBy: string
-  ): Promise<{ submission: CardSubmissionWithRelations; card: any }> {
+    _publishedBy: string
+  ): Promise<{ submission: CardSubmissionWithRelations; card: import('@prisma/client').Card }> {
     const submission = await this.getSubmissionById(submissionId);
 
     if (!submission) {
