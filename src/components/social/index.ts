@@ -14,5 +14,5 @@ export type {
   Follow,
   Notification,
   ActivityFeed,
-  CommunityStats
+  CommunityStats,
 } from '@/lib/services/socialService';

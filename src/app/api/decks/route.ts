@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     if (search) {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } }
+        { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -55,23 +55,23 @@ export async function GET(request: NextRequest) {
                 include: {
                   type: true,
                   rarity: true,
-                }
-              }
-            }
+                },
+              },
+            },
           },
           _count: {
-            select: { cards: true }
-          }
+            select: { cards: true },
+          },
         },
         orderBy: { updatedAt: 'desc' },
         skip,
         take: limit,
       }),
-      prisma.deck.count({ where })
+      prisma.deck.count({ where }),
     ]);
 
     // Calculate deck statistics
-    const decksWithStats = decks.map(deck => ({
+    const decksWithStats = decks.map((deck) => ({
       id: deck.id,
       name: deck.name,
       description: deck.description,
@@ -80,8 +80,13 @@ export async function GET(request: NextRequest) {
       updatedAt: deck.updatedAt,
       cardCount: deck.cards.reduce((sum, dc) => sum + dc.quantity, 0),
       uniqueCards: deck.cards.length,
-      totalCost: deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0),
-      colors: [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))],
+      totalCost: deck.cards.reduce(
+        (sum, dc) => sum + (dc.card.cost || 0) * dc.quantity,
+        0
+      ),
+      colors: [
+        ...new Set(deck.cards.map((dc) => dc.card.faction).filter(Boolean)),
+      ],
     }));
 
     return NextResponse.json({
@@ -90,8 +95,8 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
     console.error('Get decks error:', error);
@@ -138,13 +143,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate cards exist
-    const cardIds = cards.map((c: unknown) => {
-      const cardObj = c as Record<string, unknown>;
-      return cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id;
-    }).filter(Boolean);
+    const cardIds = cards
+      .map((c: unknown) => {
+        const cardObj = c as Record<string, unknown>;
+        return (
+          cardObj.cardId ||
+          (cardObj.card as Record<string, unknown> | undefined)?.id
+        );
+      })
+      .filter(Boolean);
     const existingCards = await prisma.card.findMany({
       where: { id: { in: cardIds as string[] } },
-      select: { id: true }
+      select: { id: true },
     });
 
     if (existingCards.length !== new Set(cardIds).size) {
@@ -165,12 +175,17 @@ export async function POST(request: NextRequest) {
           create: cards.map((card: unknown) => {
             const cardObj = card as Record<string, unknown>;
             return {
-              cardId: (cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id) as string,
-              quantity: Math.max(1, Math.min(4, parseInt(String(cardObj.quantity || 1)))),
-              category: (cardObj.category as string) || 'main'
+              cardId: (cardObj.cardId ||
+                (cardObj.card as Record<string, unknown> | undefined)
+                  ?.id) as string,
+              quantity: Math.max(
+                1,
+                Math.min(4, parseInt(String(cardObj.quantity || 1)))
+              ),
+              category: (cardObj.category as string) || 'main',
             };
-          })
-        }
+          }),
+        },
       },
       include: {
         cards: {
@@ -179,17 +194,17 @@ export async function POST(request: NextRequest) {
               include: {
                 type: true,
                 rarity: true,
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
 
     return NextResponse.json(
       {
         message: 'Deck created successfully',
-        deck
+        deck,
       },
       { status: 201 }
     );

@@ -19,7 +19,11 @@ export function useAuth() {
     // Role hierarchy: ADMIN > MODERATOR > USER
     switch (requiredRole) {
       case UserRole.USER:
-        return userRole === UserRole.USER || userRole === UserRole.MODERATOR || userRole === UserRole.ADMIN;
+        return (
+          userRole === UserRole.USER ||
+          userRole === UserRole.MODERATOR ||
+          userRole === UserRole.ADMIN
+        );
       case UserRole.MODERATOR:
         return userRole === UserRole.MODERATOR || userRole === UserRole.ADMIN;
       case UserRole.ADMIN:

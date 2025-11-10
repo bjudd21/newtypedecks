@@ -40,17 +40,17 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
     <Card className={cn('transition-shadow hover:shadow-md', className)}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-lg text-gray-900 truncate">
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-lg font-semibold text-gray-900">
               {card.name}
             </h3>
             {card.pilot && (
-              <p className="text-sm text-gray-600 truncate">
+              <p className="truncate text-sm text-gray-600">
                 Pilot: {card.pilot}
               </p>
             )}
             {card.model && (
-              <p className="text-sm text-gray-500 truncate">
+              <p className="truncate text-sm text-gray-500">
                 Model: {card.model}
               </p>
             )}
@@ -58,19 +58,29 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
 
           {/* Card image thumbnail */}
           <div className="ml-3 flex-shrink-0">
-            <div className="w-16 h-20 bg-gray-200 rounded border overflow-hidden">
+            <div className="h-20 w-16 overflow-hidden rounded border bg-gray-200">
               {card.imageUrlSmall || card.imageUrl ? (
                 <Image
                   src={card.imageUrlSmall || card.imageUrl}
                   alt={card.name}
                   width={64}
                   height={80}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <div className="flex h-full w-full items-center justify-center bg-gray-100">
+                  <svg
+                    className="h-6 w-6 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
                   </svg>
                 </div>
               )}
@@ -79,7 +89,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
         </div>
 
         {/* Card metadata badges */}
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="mt-3 flex flex-wrap gap-2">
           {card.type && (
             <Badge variant="secondary" className="text-xs">
               {card.type.name}
@@ -135,7 +145,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
         {/* Description preview */}
         {card.description && (
           <div className="mt-3">
-            <p className="text-sm text-gray-600 line-clamp-2">
+            <p className="line-clamp-2 text-sm text-gray-600">
               {card.description}
             </p>
           </div>
@@ -146,14 +156,18 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
           <div className="mt-4 space-y-2">
             {card.officialText && (
               <div>
-                <h4 className="font-medium text-sm text-gray-700 mb-1">Official Text:</h4>
+                <h4 className="mb-1 text-sm font-medium text-gray-700">
+                  Official Text:
+                </h4>
                 <p className="text-sm text-gray-600">{card.officialText}</p>
               </div>
             )}
 
             {card.keywords && card.keywords.length > 0 && (
               <div>
-                <h4 className="font-medium text-sm text-gray-700 mb-1">Keywords:</h4>
+                <h4 className="mb-1 text-sm font-medium text-gray-700">
+                  Keywords:
+                </h4>
                 <div className="flex flex-wrap gap-1">
                   {card.keywords.map((keyword, index) => (
                     <Badge key={index} variant="default" className="text-xs">
@@ -173,19 +187,28 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
         )}
 
         {/* Special indicators */}
-        <div className="flex gap-1 mt-3">
+        <div className="mt-3 flex gap-1">
           {card.isFoil && (
-            <Badge variant="secondary" className="text-xs bg-yellow-100 text-yellow-800">
+            <Badge
+              variant="secondary"
+              className="bg-yellow-100 text-xs text-yellow-800"
+            >
               Foil
             </Badge>
           )}
           {card.isPromo && (
-            <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-800">
+            <Badge
+              variant="secondary"
+              className="bg-purple-100 text-xs text-purple-800"
+            >
               Promo
             </Badge>
           )}
           {card.isAlternate && (
-            <Badge variant="secondary" className="text-xs bg-green-100 text-green-800">
+            <Badge
+              variant="secondary"
+              className="bg-green-100 text-xs text-green-800"
+            >
               Alt Art
             </Badge>
           )}
@@ -193,7 +216,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
 
         {/* Attribution */}
         {showAttribution && (
-          <div className="mt-3 pt-3 border-t border-gray-100">
+          <div className="mt-3 border-t border-gray-100 pt-3">
             <GameContentAttribution className="text-xs" />
           </div>
         )}
@@ -205,7 +228,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
     return (
       <button
         onClick={handleClick}
-        className="w-full text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+        className="w-full rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         {cardContent}
       </button>
@@ -215,7 +238,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
   return (
     <Link
       href={`/cards/${card.id}`}
-      className="block focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+      className="block rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       {cardContent}
     </Link>

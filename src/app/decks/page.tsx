@@ -7,7 +7,11 @@
 import { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, Button } from '@/components/ui';
-import { DeckBuilder, AnonymousDeckBuilder, PublicDeckBrowser } from '@/components/deck';
+import {
+  DeckBuilder,
+  AnonymousDeckBuilder,
+  PublicDeckBrowser,
+} from '@/components/deck';
 import { useAuth } from '@/hooks';
 import { ReduxProvider } from '@/store/Provider';
 
@@ -21,10 +25,24 @@ export default function DecksPage() {
     {
       id: 'builder',
       label: '🃏 Deck Builder',
-      description: isAuthenticated ? 'Build and save new decks' : 'Build decks (saved locally)'
+      description: isAuthenticated
+        ? 'Build and save new decks'
+        : 'Build decks (saved locally)',
     },
-    { id: 'community', label: '🌍 Community Decks', description: 'Browse public decks' },
-    ...(isAuthenticated ? [{ id: 'my-decks', label: '📚 My Decks', description: 'Manage saved decks' }] : [])
+    {
+      id: 'community',
+      label: '🌍 Community Decks',
+      description: 'Browse public decks',
+    },
+    ...(isAuthenticated
+      ? [
+          {
+            id: 'my-decks',
+            label: '📚 My Decks',
+            description: 'Manage saved decks',
+          },
+        ]
+      : []),
   ] as const;
 
   return (
@@ -37,7 +55,7 @@ export default function DecksPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-transparent">
+            <h1 className="mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-4xl font-bold text-transparent text-white">
               Deck Management
             </h1>
             <p className="text-gray-400">
@@ -52,16 +70,17 @@ export default function DecksPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <nav className="flex space-x-2 bg-[#2d2640] p-2 rounded-xl border border-[#443a5c] shadow-lg">
+            <nav className="flex space-x-2 rounded-xl border border-[#443a5c] bg-[#2d2640] p-2 shadow-lg">
               {tabs.map((tab, index) => (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
                   className={`
-                    flex-1 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 relative
-                    ${activeTab === tab.id
-                      ? 'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg shadow-[#8b7aaa]/30'
-                      : 'text-gray-400 hover:text-white hover:bg-[#3a3050]'
+                    relative flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300
+                    ${
+                      activeTab === tab.id
+                        ? 'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg shadow-[#8b7aaa]/30'
+                        : 'text-gray-400 hover:bg-[#3a3050] hover:text-white'
                     }
                   `}
                   whileHover={{ scale: 1.02 }}
@@ -72,7 +91,9 @@ export default function DecksPage() {
                 >
                   <div>
                     <div className="font-semibold">{tab.label}</div>
-                    <div className={`text-xs mt-1 ${activeTab === tab.id ? 'text-gray-200' : 'text-gray-500'}`}>
+                    <div
+                      className={`mt-1 text-xs ${activeTab === tab.id ? 'text-gray-200' : 'text-gray-500'}`}
+                    >
                       {tab.description}
                     </div>
                   </div>
@@ -82,20 +103,22 @@ export default function DecksPage() {
           </motion.div>
 
           {/* Tab Content */}
-          <Suspense fallback={
-            <motion.div
-              className="text-center py-16"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="relative mx-auto mb-6">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#443a5c] border-t-[#8b7aaa] mx-auto"></div>
-                <div className="absolute inset-0 rounded-full bg-[#8b7aaa]/10 blur-xl"></div>
-              </div>
-              <p className="text-gray-400 text-lg">Loading deck builder...</p>
-            </motion.div>
-          }>
+          <Suspense
+            fallback={
+              <motion.div
+                className="py-16 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="relative mx-auto mb-6">
+                  <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-[#443a5c] border-t-[#8b7aaa]"></div>
+                  <div className="absolute inset-0 rounded-full bg-[#8b7aaa]/10 blur-xl"></div>
+                </div>
+                <p className="text-lg text-gray-400">Loading deck builder...</p>
+              </motion.div>
+            }
+          >
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 20 }}
@@ -103,13 +126,10 @@ export default function DecksPage() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
             >
-              {activeTab === 'builder' && (
-                isAuthenticated ? <DeckBuilder /> : <AnonymousDeckBuilder />
-              )}
+              {activeTab === 'builder' &&
+                (isAuthenticated ? <DeckBuilder /> : <AnonymousDeckBuilder />)}
 
-              {activeTab === 'community' && (
-                <PublicDeckBrowser />
-              )}
+              {activeTab === 'community' && <PublicDeckBrowser />}
 
               {activeTab === 'my-decks' && isAuthenticated && (
                 <MyDecksManager />
@@ -130,30 +150,33 @@ function MyDecksManager() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="bg-[#2d2640] border-[#443a5c]">
-        <CardContent className="text-center py-16">
+      <Card className="border-[#443a5c] bg-[#2d2640]">
+        <CardContent className="py-16 text-center">
           <motion.div
-            className="text-6xl mb-4"
+            className="mb-4 text-6xl"
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
           >
             📚
           </motion.div>
-          <h3 className="text-2xl font-bold text-white mb-4">Personal Deck Management</h3>
-          <p className="text-gray-400 mb-2">This feature is coming soon!</p>
-          <p className="text-sm text-gray-500 max-w-md mx-auto mb-8">
-            For now, use the Deck Builder to create and save decks, and the Dashboard to view your saved decks.
+          <h3 className="mb-4 text-2xl font-bold text-white">
+            Personal Deck Management
+          </h3>
+          <p className="mb-2 text-gray-400">This feature is coming soon!</p>
+          <p className="mx-auto mb-8 max-w-md text-sm text-gray-500">
+            For now, use the Deck Builder to create and save decks, and the
+            Dashboard to view your saved decks.
           </p>
-          <div className="flex gap-3 justify-center">
+          <div className="flex justify-center gap-3">
             <Button
-              onClick={() => window.location.href = '/decks'}
-              className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa] text-white shadow-lg hover:shadow-[#8b7aaa]/30"
+              onClick={() => (window.location.href = '/decks')}
+              className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg hover:from-[#a89ec7] hover:to-[#8b7aaa] hover:shadow-[#8b7aaa]/30"
             >
               Build New Deck
             </Button>
             <Button
               variant="outline"
-              onClick={() => window.location.href = '/dashboard'}
+              onClick={() => (window.location.href = '/dashboard')}
               className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
             >
               View Dashboard

@@ -85,7 +85,7 @@ class PWAService {
   private async registerServiceWorker(): Promise<void> {
     try {
       this.registration = await navigator.serviceWorker.register('/sw.js', {
-        scope: '/'
+        scope: '/',
       });
 
       console.warn('Service Worker registered successfully');
@@ -96,7 +96,10 @@ class PWAService {
         const newWorker = this.registration?.installing;
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            if (
+              newWorker.state === 'installed' &&
+              navigator.serviceWorker.controller
+            ) {
               this.emit('updateAvailable', true);
             }
           });
@@ -107,7 +110,6 @@ class PWAService {
       navigator.serviceWorker.addEventListener('message', (event) => {
         this.handleServiceWorkerMessage(event);
       });
-
     } catch (error) {
       console.error('Service Worker registration failed:', error);
     }
@@ -135,7 +137,7 @@ class PWAService {
   // Event emitter methods
   private emit(event: string, data: any) {
     const callbacks = this.listeners.get(event) || [];
-    callbacks.forEach(callback => callback(data));
+    callbacks.forEach((callback) => callback(data));
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -178,8 +180,10 @@ class PWAService {
 
   public isInstalled(): boolean {
     // Check if running in standalone mode (installed PWA)
-    return window.matchMedia('(display-mode: standalone)').matches ||
-           (window.navigator as any).standalone === true; // TODO: Add proper Navigator type with standalone
+    return (
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as any).standalone === true
+    ); // TODO: Add proper Navigator type with standalone
   }
 
   // Service Worker Management
@@ -233,24 +237,28 @@ class PWAService {
         }
       };
 
-      navigator.serviceWorker.controller.postMessage(
-        { type: 'CLEAR_CACHE' },
-        [messageChannel.port2]
-      );
+      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' }, [
+        messageChannel.port2,
+      ]);
     });
   }
 
   // Offline Data Management
-  public async saveOfflineDeck(deck: Omit<OfflineDeck, 'synced'>): Promise<void> {
+  public async saveOfflineDeck(
+    deck: Omit<OfflineDeck, 'synced'>
+  ): Promise<void> {
     const deckData: OfflineDeck = {
       ...deck,
-      synced: false
+      synced: false,
     };
 
     await this.storeOfflineData('pending-deck-saves', deckData);
 
     // Register background sync if available
-    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+    if (
+      'serviceWorker' in navigator &&
+      'sync' in window.ServiceWorkerRegistration.prototype
+    ) {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
@@ -262,16 +270,21 @@ class PWAService {
     }
   }
 
-  public async saveOfflineCollectionUpdate(update: Omit<OfflineCollectionUpdate, 'synced'>): Promise<void> {
+  public async saveOfflineCollectionUpdate(
+    update: Omit<OfflineCollectionUpdate, 'synced'>
+  ): Promise<void> {
     const updateData: OfflineCollectionUpdate = {
       ...update,
-      synced: false
+      synced: false,
     };
 
     await this.storeOfflineData('pending-collection-updates', updateData);
 
     // Register background sync if available
-    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+    if (
+      'serviceWorker' in navigator &&
+      'sync' in window.ServiceWorkerRegistration.prototype
+    ) {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
@@ -287,7 +300,9 @@ class PWAService {
     return await this.getOfflineData('pending-deck-saves');
   }
 
-  public async getOfflineCollectionUpdates(): Promise<OfflineCollectionUpdate[]> {
+  public async getOfflineCollectionUpdates(): Promise<
+    OfflineCollectionUpdate[]
+  > {
     return await this.getOfflineData('pending-collection-updates');
   }
 
@@ -377,12 +392,12 @@ class PWAService {
       const response = await fetch('/api/decks', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: deck.name,
-          cards: deck.cards
-        })
+          cards: deck.cards,
+        }),
       });
 
       if (response.ok) {
@@ -395,17 +410,19 @@ class PWAService {
     }
   }
 
-  private async syncCollectionUpdate(update: OfflineCollectionUpdate): Promise<void> {
+  private async syncCollectionUpdate(
+    update: OfflineCollectionUpdate
+  ): Promise<void> {
     try {
       const response = await fetch('/api/collections', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           cardId: update.cardId,
-          quantity: update.quantity
-        })
+          quantity: update.quantity,
+        }),
       });
 
       if (response.ok) {
@@ -418,7 +435,10 @@ class PWAService {
     }
   }
 
-  private async removeOfflineData(storeName: string, id: string): Promise<void> {
+  private async removeOfflineData(
+    storeName: string,
+    id: string
+  ): Promise<void> {
     return new Promise((resolve) => {
       const request = indexedDB.open('GCG-Offline', 1);
 
@@ -450,7 +470,7 @@ class PWAService {
       isOnline: this.isOnline(),
       isServiceWorkerRegistered: this.registration !== null,
       updateAvailable: false, // This would be set by service worker events
-      cacheSize
+      cacheSize,
     };
   }
 

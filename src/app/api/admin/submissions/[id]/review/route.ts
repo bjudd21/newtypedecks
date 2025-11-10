@@ -48,13 +48,18 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     }
 
     // Review the submission
-    const submission = await CardSubmissionService.reviewSubmission(reviewData, reviewedBy);
+    const submission = await CardSubmissionService.reviewSubmission(
+      reviewData,
+      reviewedBy
+    );
 
-    return NextResponse.json({
-      message: `Submission ${reviewData.status.toLowerCase()} successfully`,
-      submission,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: `Submission ${reviewData.status.toLowerCase()} successfully`,
+        submission,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Submission review API error:', error);
 

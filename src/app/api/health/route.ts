@@ -39,12 +39,13 @@ export async function GET(_request: NextRequest) {
     };
 
     // Determine overall health status
-    const allChecksPass = Object.values(healthData.checks).every(check => check === true);
+    const allChecksPass = Object.values(healthData.checks).every(
+      (check) => check === true
+    );
     healthData.status = allChecksPass ? 'healthy' : 'degraded';
 
     const statusCode = allChecksPass ? 200 : 503;
     return NextResponse.json(healthData, { status: statusCode });
-
   } catch (error) {
     console.error('Health check failed:', error);
 

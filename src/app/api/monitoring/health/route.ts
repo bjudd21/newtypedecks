@@ -39,15 +39,14 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         status: success ? 'success' : 'error',
-        message: success ? 'Monitoring initialized' : 'Failed to initialize monitoring',
+        message: success
+          ? 'Monitoring initialized'
+          : 'Failed to initialize monitoring',
         timestamp: new Date().toISOString(),
       });
     }
 
-    return NextResponse.json(
-      { error: 'Invalid action' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (error) {
     console.error('Monitoring action failed:', error);
 

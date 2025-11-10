@@ -52,7 +52,10 @@ export async function POST(request: NextRequest) {
       });
 
       return NextResponse.json(
-        { error: 'Reset token has expired. Please request a new password reset.' },
+        {
+          error:
+            'Reset token has expired. Please request a new password reset.',
+        },
         { status: 400 }
       );
     }

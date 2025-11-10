@@ -6,7 +6,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+} from '@/components/ui';
 
 export default function OfflinePage() {
   const [isOnline, setIsOnline] = useState(false);
@@ -43,7 +49,7 @@ export default function OfflinePage() {
       try {
         const cacheNames = await caches.keys();
         await Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
+          cacheNames.map((cacheName) => caches.delete(cacheName))
         );
 
         // Reload after cache clear
@@ -55,14 +61,14 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="max-w-lg w-full">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-lg">
         <Card>
           <CardHeader className="text-center">
             <div className="mb-4">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center">
+              <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-200">
                 <svg
-                  className="w-12 h-12 text-gray-400"
+                  className="h-12 w-12 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -81,27 +87,30 @@ export default function OfflinePage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-center mb-6">
-              <p className="text-gray-600 mb-4">
-                This page isn&apos;t available offline. Check your internet connection and try again.
+            <div className="mb-6 text-center">
+              <p className="mb-4 text-gray-600">
+                This page isn&apos;t available offline. Check your internet
+                connection and try again.
               </p>
 
               {/* Online Status Indicator */}
-              <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="mb-4 flex items-center justify-center gap-2">
                 <div
-                  className={`w-3 h-3 rounded-full ${
+                  className={`h-3 w-3 rounded-full ${
                     isOnline ? 'bg-green-500' : 'bg-red-500'
                   }`}
                 />
-                <span className={`text-sm ${
-                  isOnline ? 'text-green-600' : 'text-red-600'
-                }`}>
+                <span
+                  className={`text-sm ${
+                    isOnline ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
                   {isOnline ? 'Connected' : 'Disconnected'}
                 </span>
               </div>
 
               {lastAttempt && (
-                <p className="text-xs text-gray-500 mb-4">
+                <p className="mb-4 text-xs text-gray-500">
                   Last attempt: {lastAttempt.toLocaleTimeString()}
                 </p>
               )}
@@ -109,35 +118,45 @@ export default function OfflinePage() {
 
             {/* Available Offline Content */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              <h3 className="mb-3 text-lg font-semibold text-gray-900">
                 Available Offline
               </h3>
               <div className="space-y-2">
-                <div className="flex items-center gap-3 p-2 rounded-lg bg-green-50">
-                  <div className="w-8 h-8 rounded bg-green-100 flex items-center justify-center">
+                <div className="flex items-center gap-3 rounded-lg bg-green-50 p-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded bg-green-100">
                     🃏
                   </div>
                   <div>
-                    <div className="font-medium text-green-900">Recently Viewed Cards</div>
-                    <div className="text-sm text-green-700">Cached card data</div>
+                    <div className="font-medium text-green-900">
+                      Recently Viewed Cards
+                    </div>
+                    <div className="text-sm text-green-700">
+                      Cached card data
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-2 rounded-lg bg-blue-50">
-                  <div className="w-8 h-8 rounded bg-blue-100 flex items-center justify-center">
+                <div className="flex items-center gap-3 rounded-lg bg-blue-50 p-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-100">
                     📚
                   </div>
                   <div>
                     <div className="font-medium text-blue-900">Saved Decks</div>
-                    <div className="text-sm text-blue-700">Local deck storage</div>
+                    <div className="text-sm text-blue-700">
+                      Local deck storage
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-2 rounded-lg bg-purple-50">
-                  <div className="w-8 h-8 rounded bg-purple-100 flex items-center justify-center">
+                <div className="flex items-center gap-3 rounded-lg bg-purple-50 p-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded bg-purple-100">
                     💾
                   </div>
                   <div>
-                    <div className="font-medium text-purple-900">Collection Data</div>
-                    <div className="text-sm text-purple-700">Cached collection info</div>
+                    <div className="font-medium text-purple-900">
+                      Collection Data
+                    </div>
+                    <div className="text-sm text-purple-700">
+                      Cached collection info
+                    </div>
                   </div>
                 </div>
               </div>
@@ -155,11 +174,7 @@ export default function OfflinePage() {
               </Button>
 
               <div className="grid grid-cols-2 gap-3">
-                <Button
-                  onClick={goHome}
-                  variant="outline"
-                  className="w-full"
-                >
+                <Button onClick={goHome} variant="outline" className="w-full">
                   Go Home
                 </Button>
                 <Button
@@ -173,9 +188,11 @@ export default function OfflinePage() {
             </div>
 
             {/* Tips */}
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium text-gray-900 mb-2">💡 Offline Tips</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
+            <div className="mt-6 rounded-lg bg-gray-50 p-4">
+              <h4 className="mb-2 font-medium text-gray-900">
+                💡 Offline Tips
+              </h4>
+              <ul className="space-y-1 text-sm text-gray-600">
                 <li>• Recently viewed content is available offline</li>
                 <li>• Your decks are saved locally while offline</li>
                 <li>• Changes will sync when you&apos;re back online</li>
@@ -184,15 +201,17 @@ export default function OfflinePage() {
             </div>
 
             {/* PWA Install Prompt */}
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
-              <div className="text-blue-900 font-medium mb-1">📱 Install App</div>
-              <div className="text-blue-700 text-sm mb-2">
+            <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-center">
+              <div className="mb-1 font-medium text-blue-900">
+                📱 Install App
+              </div>
+              <div className="mb-2 text-sm text-blue-700">
                 Get better offline access and app-like experience
               </div>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-blue-700 border-blue-300"
+                className="border-blue-300 text-blue-700"
                 onClick={() => {
                   // Installation will be handled by the PWA install prompt
                   window.dispatchEvent(new CustomEvent('pwa-install-prompt'));

@@ -112,8 +112,9 @@ export class DataScraperService {
       dataSources.push(...cards);
 
       // Sort by priority (sets first, then cards)
-      return dataSources.sort((a, b) => b.metadata.priority - a.metadata.priority);
-
+      return dataSources.sort(
+        (a, b) => b.metadata.priority - a.metadata.priority
+      );
     } catch (error) {
       console.error('Error discovering card sources:', error);
       return dataSources;
@@ -135,7 +136,6 @@ export class DataScraperService {
 
       const html = await response.text();
       return await this.parseCardData(html, url);
-
     } catch (error) {
       console.error(`Error scraping card data from ${url}:`, error);
       throw error;
@@ -145,7 +145,10 @@ export class DataScraperService {
   /**
    * Parse HTML content to extract card data
    */
-  private async parseCardData(html: string, sourceUrl: string): Promise<RawCardData | null> {
+  private async parseCardData(
+    html: string,
+    sourceUrl: string
+  ): Promise<RawCardData | null> {
     try {
       // This is a simplified parser - in reality, you'd use a proper HTML parser like cheerio
       const cardData: RawCardData = {
@@ -157,13 +160,17 @@ export class DataScraperService {
       };
 
       // Parse card name
-      const nameMatch = html.match(/<h1[^>]*class="[^"]*card-name[^"]*"[^>]*>([^<]+)<\/h1>/i);
+      const nameMatch = html.match(
+        /<h1[^>]*class="[^"]*card-name[^"]*"[^>]*>([^<]+)<\/h1>/i
+      );
       if (nameMatch) {
         cardData.name = this.cleanText(nameMatch[1]);
       }
 
       // Parse image URL
-      const imageMatch = html.match(/<img[^>]*class="[^"]*card-image[^"]*"[^>]*src="([^"]+)"/i);
+      const imageMatch = html.match(
+        /<img[^>]*class="[^"]*card-image[^"]*"[^>]*src="([^"]+)"/i
+      );
       if (imageMatch) {
         cardData.imageUrl = this.resolveUrl(imageMatch[1]);
       }
@@ -179,7 +186,6 @@ export class DataScraperService {
 
       // Only return data if we have a valid card name
       return cardData.name ? cardData : null;
-
     } catch (error) {
       console.error(`Error parsing card data from ${sourceUrl}:`, error);
       return null;
@@ -193,24 +199,32 @@ export class DataScraperService {
     const setInfo: Partial<{ name: string; code: string; number: string }> = {};
 
     // Parse set name
-    const setNameMatch = html.match(/<span[^>]*class="[^"]*set-name[^"]*"[^>]*>([^<]+)<\/span>/i);
+    const setNameMatch = html.match(
+      /<span[^>]*class="[^"]*set-name[^"]*"[^>]*>([^<]+)<\/span>/i
+    );
     if (setNameMatch) {
       setInfo.name = this.cleanText(setNameMatch[1]);
     }
 
     // Parse set code
-    const setCodeMatch = html.match(/<span[^>]*class="[^"]*set-code[^"]*"[^>]*>([^<]+)<\/span>/i);
+    const setCodeMatch = html.match(
+      /<span[^>]*class="[^"]*set-code[^"]*"[^>]*>([^<]+)<\/span>/i
+    );
     if (setCodeMatch) {
       setInfo.code = this.cleanText(setCodeMatch[1]);
     }
 
     // Parse card number
-    const numberMatch = html.match(/<span[^>]*class="[^"]*card-number[^"]*"[^>]*>([^<]+)<\/span>/i);
+    const numberMatch = html.match(
+      /<span[^>]*class="[^"]*card-number[^"]*"[^>]*>([^<]+)<\/span>/i
+    );
     if (numberMatch) {
       setInfo.number = this.cleanText(numberMatch[1]);
     }
 
-    return Object.keys(setInfo).length > 0 ? setInfo as { name: string; code: string; number: string } : undefined;
+    return Object.keys(setInfo).length > 0
+      ? (setInfo as { name: string; code: string; number: string })
+      : undefined;
   }
 
   /**
@@ -220,25 +234,33 @@ export class DataScraperService {
     const stats: RawCardData['stats'] = {};
 
     // Parse level
-    const levelMatch = html.match(/<span[^>]*class="[^"]*level[^"]*"[^>]*>(\d+)<\/span>/i);
+    const levelMatch = html.match(
+      /<span[^>]*class="[^"]*level[^"]*"[^>]*>(\d+)<\/span>/i
+    );
     if (levelMatch) {
       stats.level = parseInt(levelMatch[1], 10);
     }
 
     // Parse cost
-    const costMatch = html.match(/<span[^>]*class="[^"]*cost[^"]*"[^>]*>(\d+)<\/span>/i);
+    const costMatch = html.match(
+      /<span[^>]*class="[^"]*cost[^"]*"[^>]*>(\d+)<\/span>/i
+    );
     if (costMatch) {
       stats.cost = parseInt(costMatch[1], 10);
     }
 
     // Parse clash points
-    const cpMatch = html.match(/<span[^>]*class="[^"]*clash-points[^"]*"[^>]*>(\d+)<\/span>/i);
+    const cpMatch = html.match(
+      /<span[^>]*class="[^"]*clash-points[^"]*"[^>]*>(\d+)<\/span>/i
+    );
     if (cpMatch) {
       stats.clashPoints = parseInt(cpMatch[1], 10);
     }
 
     // Parse hit points
-    const hpMatch = html.match(/<span[^>]*class="[^"]*hit-points[^"]*"[^>]*>(\d+)<\/span>/i);
+    const hpMatch = html.match(
+      /<span[^>]*class="[^"]*hit-points[^"]*"[^>]*>(\d+)<\/span>/i
+    );
     if (hpMatch) {
       stats.hitPoints = parseInt(hpMatch[1], 10);
     }
@@ -253,25 +275,33 @@ export class DataScraperService {
     const categories: RawCardData['categories'] = {};
 
     // Parse faction
-    const factionMatch = html.match(/<span[^>]*class="[^"]*faction[^"]*"[^>]*>([^<]+)<\/span>/i);
+    const factionMatch = html.match(
+      /<span[^>]*class="[^"]*faction[^"]*"[^>]*>([^<]+)<\/span>/i
+    );
     if (factionMatch) {
       categories.faction = this.cleanText(factionMatch[1]);
     }
 
     // Parse pilot
-    const pilotMatch = html.match(/<span[^>]*class="[^"]*pilot[^"]*"[^>]*>([^<]+)<\/span>/i);
+    const pilotMatch = html.match(
+      /<span[^>]*class="[^"]*pilot[^"]*"[^>]*>([^<]+)<\/span>/i
+    );
     if (pilotMatch) {
       categories.pilot = this.cleanText(pilotMatch[1]);
     }
 
     // Parse keywords
-    const keywordMatches = html.match(/<div[^>]*class="[^"]*keywords[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    const keywordMatches = html.match(
+      /<div[^>]*class="[^"]*keywords[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+    );
     if (keywordMatches) {
-      const keywordTags = keywordMatches[1].match(/<span[^>]*>([^<]+)<\/span>/g);
+      const keywordTags = keywordMatches[1].match(
+        /<span[^>]*>([^<]+)<\/span>/g
+      );
       if (keywordTags) {
-        categories.keywords = keywordTags.map(tag =>
-          this.cleanText(tag.replace(/<[^>]+>/g, ''))
-        ).filter(Boolean);
+        categories.keywords = keywordTags
+          .map((tag) => this.cleanText(tag.replace(/<[^>]+>/g, '')))
+          .filter(Boolean);
       }
     }
 
@@ -285,15 +315,21 @@ export class DataScraperService {
     const text: RawCardData['text'] = {};
 
     // Parse description
-    const descMatch = html.match(/<div[^>]*class="[^"]*description[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    const descMatch = html.match(
+      /<div[^>]*class="[^"]*description[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+    );
     if (descMatch) {
       text.description = this.cleanText(descMatch[1].replace(/<[^>]+>/g, ''));
     }
 
     // Parse official text
-    const officialMatch = html.match(/<div[^>]*class="[^"]*official-text[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    const officialMatch = html.match(
+      /<div[^>]*class="[^"]*official-text[^"]*"[^>]*>([\s\S]*?)<\/div>/i
+    );
     if (officialMatch) {
-      text.officialText = this.cleanText(officialMatch[1].replace(/<[^>]+>/g, ''));
+      text.officialText = this.cleanText(
+        officialMatch[1].replace(/<[^>]+>/g, '')
+      );
     }
 
     return Object.keys(text).length > 0 ? text : undefined;
@@ -335,7 +371,8 @@ export class DataScraperService {
         const html = await response.text();
 
         // Parse set links from HTML
-        const setLinkRegex = /<a[^>]*href="([^"]*\/sets\/[^"]+)"[^>]*>([^<]+)<\/a>/gi;
+        const setLinkRegex =
+          /<a[^>]*href="([^"]*\/sets\/[^"]+)"[^>]*>([^<]+)<\/a>/gi;
         let match;
 
         while ((match = setLinkRegex.exec(html)) !== null) {
@@ -357,7 +394,6 @@ export class DataScraperService {
           });
         }
       }
-
     } catch (error) {
       console.error('Error discovering card sets:', error);
     }
@@ -368,7 +404,9 @@ export class DataScraperService {
   /**
    * Discover individual cards from the source
    */
-  private async discoverIndividualCards(cardTypes?: string[]): Promise<DataSource[]> {
+  private async discoverIndividualCards(
+    cardTypes?: string[]
+  ): Promise<DataSource[]> {
     const dataSources: DataSource[] = [];
 
     try {
@@ -380,7 +418,8 @@ export class DataScraperService {
         const html = await response.text();
 
         // Parse card links from HTML
-        const cardLinkRegex = /<a[^>]*href="([^"]*\/cards\/[^"]+)"[^>]*>([^<]+)<\/a>/gi;
+        const cardLinkRegex =
+          /<a[^>]*href="([^"]*\/cards\/[^"]+)"[^>]*>([^<]+)<\/a>/gi;
         let match;
 
         while ((match = cardLinkRegex.exec(html)) !== null) {
@@ -388,7 +427,11 @@ export class DataScraperService {
           const cardType = this.extractCardTypeFromUrl(href);
 
           // Filter by requested card types if provided
-          if (cardTypes && cardTypes.length > 0 && !cardTypes.includes(cardType)) {
+          if (
+            cardTypes &&
+            cardTypes.length > 0 &&
+            !cardTypes.includes(cardType)
+          ) {
             continue;
           }
 
@@ -402,7 +445,6 @@ export class DataScraperService {
           });
         }
       }
-
     } catch (error) {
       console.error('Error discovering individual cards:', error);
     }
@@ -413,11 +455,16 @@ export class DataScraperService {
   /**
    * Make HTTP request with retry logic
    */
-  private async makeRequest(url: string, options?: RequestInit): Promise<Response> {
+  private async makeRequest(
+    url: string,
+    options?: RequestInit
+  ): Promise<Response> {
     const requestOptions: RequestInit = {
       headers: {
         'User-Agent': this.config.userAgent!,
-        ...(this.config.apiKey && { 'Authorization': `Bearer ${this.config.apiKey}` }),
+        ...(this.config.apiKey && {
+          Authorization: `Bearer ${this.config.apiKey}`,
+        }),
         ...options?.headers,
       },
       ...options,
@@ -428,7 +475,10 @@ export class DataScraperService {
     for (let attempt = 1; attempt <= this.config.maxRetries; attempt++) {
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), this.config.timeout);
+        const timeout = setTimeout(
+          () => controller.abort(),
+          this.config.timeout
+        );
 
         const response = await fetch(url, {
           ...requestOptions,
@@ -437,7 +487,6 @@ export class DataScraperService {
 
         clearTimeout(timeout);
         return response;
-
       } catch (error) {
         lastError = error instanceof Error ? error : new Error('Unknown error');
 
@@ -471,7 +520,7 @@ export class DataScraperService {
    * Sleep utility
    */
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**

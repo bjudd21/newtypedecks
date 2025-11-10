@@ -20,6 +20,7 @@
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ and npm
 - Docker (for PostgreSQL and Redis)
 - Git
@@ -90,18 +91,21 @@ npm run env:secrets      # Generate secure secrets
 ### Technology Stack
 
 **Frontend:**
+
 - Next.js 15 with App Router
 - React with TypeScript
 - Redux Toolkit for state management
 - Tailwind CSS for styling
 
 **Backend:**
+
 - Next.js API routes
 - Prisma ORM
 - PostgreSQL database
 - Redis for caching/sessions
 
 **Development:**
+
 - Jest & React Testing Library
 - Docker Compose
 - ESLint & Prettier
@@ -147,16 +151,19 @@ prisma/
 ### Request Flow
 
 **Page Request:**
+
 ```
 Browser → Next.js → Page Component → Prisma → PostgreSQL → Back to User
 ```
 
 **API Request:**
+
 ```
 Browser → Next.js API Route → Validation → Prisma → PostgreSQL → JSON Response
 ```
 
 **Authentication:**
+
 ```
 User Login → NextAuth → Check Database → Create Session → Store in Redis → Return Cookie
 ```
@@ -180,34 +187,40 @@ npm run env:validate
 
 ### Required Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection | `postgresql://user:pass@localhost:5432/db` |
-| `REDIS_URL` | Redis connection | `redis://localhost:6379` |
-| `NEXTAUTH_URL` | Application base URL | `http://localhost:3000` |
-| `NEXTAUTH_SECRET` | JWT secret (generate with openssl) | `your-secret-key` |
+| Variable          | Description                        | Example                                    |
+| ----------------- | ---------------------------------- | ------------------------------------------ |
+| `DATABASE_URL`    | PostgreSQL connection              | `postgresql://user:pass@localhost:5432/db` |
+| `REDIS_URL`       | Redis connection                   | `redis://localhost:6379`                   |
+| `NEXTAUTH_URL`    | Application base URL               | `http://localhost:3000`                    |
+| `NEXTAUTH_SECRET` | JWT secret (generate with openssl) | `your-secret-key`                          |
 
 ### Optional Variables
 
 #### Application Settings
+
 - `NODE_ENV` - Environment mode (`development`, `production`, `test`)
 - `NEXT_PUBLIC_APP_URL` - Public app URL
 - `NEXT_PUBLIC_APP_NAME` - Application name
 
 #### Database
+
 - `DATABASE_POOL_MIN` - Minimum connection pool size (default: 2)
 - `DATABASE_POOL_MAX` - Maximum connection pool size (default: 10)
 
 #### File Storage
+
 **Local Development:**
+
 - `UPLOAD_DIR` - Upload directory (default: `./uploads`)
 
 **Production Options:**
+
 - `VERCEL_BLOB_READ_WRITE_TOKEN` - Vercel Blob storage
 - `CLOUDINARY_URL` - Cloudinary connection string
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_S3_BUCKET` - AWS S3
 
 #### Email (Production)
+
 - `EMAIL_SERVER_HOST` - SMTP server
 - `EMAIL_SERVER_PORT` - SMTP port
 - `EMAIL_SERVER_USER` - SMTP username
@@ -215,26 +228,32 @@ npm run env:validate
 - `EMAIL_FROM` - From address
 
 #### OAuth Providers
+
 **Google:**
+
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 - `NEXT_PUBLIC_GOOGLE_CLIENT_ID` (for UI visibility)
 
 **Discord:**
+
 - `DISCORD_CLIENT_ID`
 - `DISCORD_CLIENT_SECRET`
 - `NEXT_PUBLIC_DISCORD_CLIENT_ID` (for UI visibility)
 
 **GitHub:**
+
 - `GITHUB_CLIENT_ID`
 - `GITHUB_CLIENT_SECRET`
 
 #### Monitoring
+
 - `NEXT_PUBLIC_GA_TRACKING_ID` - Google Analytics
 - `SENTRY_DSN` - Sentry error tracking
 - `SENTRY_ORG`, `SENTRY_PROJECT` - Sentry configuration
 
 #### Security
+
 - `CORS_ORIGINS` - Allowed CORS origins (comma-separated)
 - `SESSION_MAX_AGE` - Session duration (default: 30 days)
 - `RATE_LIMIT_MAX` - Max requests per window (default: 100)
@@ -243,6 +262,7 @@ npm run env:validate
 ### Environment-Specific Setup
 
 **Development:**
+
 ```bash
 DATABASE_URL="postgresql://gundam_user:gundam_password@localhost:5432/gundam_card_game"
 REDIS_URL="redis://localhost:6379"
@@ -251,6 +271,7 @@ NEXTAUTH_SECRET="development-secret-key"
 ```
 
 **Production:**
+
 ```bash
 NODE_ENV=production
 NEXT_PUBLIC_APP_URL=https://your-domain.com
@@ -261,6 +282,7 @@ NEXTAUTH_SECRET="production-secret-key"
 ```
 
 **Testing:**
+
 ```bash
 NODE_ENV=test
 TEST_DATABASE_URL="postgresql://gundam_user:gundam_password@localhost:5432/gundam_card_game_test"
@@ -283,22 +305,27 @@ TEST_REDIS_URL="redis://localhost:6379/1"
 ### Design System
 
 **Colors:**
+
 - Purple theme: `#6b5a8a` (primary), `#1a1625` to `#2a1f3d` (gradients)
 - Status colors: Success (#10b981), Warning (#f59e0b), Error (#ef4444)
 
 **Typography:**
+
 - Font: Inter (sans-serif)
 - Sizes: xs (0.75rem) to 3xl (1.875rem)
 
 **Spacing:**
+
 - Scale: 1 (0.25rem) to 16 (4rem)
 
 **Breakpoints:**
+
 - sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
 
 ### UI Components
 
 #### Button
+
 ```tsx
 import { Button } from '@/components/ui';
 
@@ -320,12 +347,14 @@ import { Button } from '@/components/ui';
 ```
 
 **Props:**
+
 - `variant`: 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive'
 - `size`: 'sm' | 'default' | 'lg'
 - `disabled`, `isLoading`: boolean
 - `onClick`: () => void
 
 #### Input
+
 ```tsx
 import { Input } from '@/components/ui';
 
@@ -335,27 +364,33 @@ import { Input } from '@/components/ui';
   type="email"
   error="Required field"
   helperText="We'll never share your email"
-/>
+/>;
 ```
 
 #### Card
+
 ```tsx
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from '@/components/ui';
 
 <Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
   </CardHeader>
-  <CardContent>
-    Content goes here
-  </CardContent>
+  <CardContent>Content goes here</CardContent>
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 #### Modal
+
 ```tsx
 import { Modal } from '@/components/ui';
 
@@ -366,10 +401,11 @@ import { Modal } from '@/components/ui';
   size="md"
 >
   <p>Modal content</p>
-</Modal>
+</Modal>;
 ```
 
 #### Badge
+
 ```tsx
 import { Badge } from '@/components/ui';
 
@@ -380,6 +416,7 @@ import { Badge } from '@/components/ui';
 ```
 
 #### Spinner & Loading
+
 ```tsx
 import { Spinner, LoadingOverlay, Skeleton } from '@/components/ui';
 
@@ -393,19 +430,17 @@ import { Spinner, LoadingOverlay, Skeleton } from '@/components/ui';
 ```
 
 #### Toast
+
 ```tsx
 import { Toast, ToastContainer } from '@/components/ui';
 
 <ToastContainer position="top-right">
-  <Toast
-    type="success"
-    message="Success!"
-    onClose={() => {}}
-  />
-</ToastContainer>
+  <Toast type="success" message="Success!" onClose={() => {}} />
+</ToastContainer>;
 ```
 
 #### Select
+
 ```tsx
 import { Select } from '@/components/ui';
 
@@ -419,10 +454,11 @@ const options = [
   value={value}
   onChange={setValue}
   placeholder="Select..."
-/>
+/>;
 ```
 
 #### Pagination
+
 ```tsx
 import { Pagination } from '@/components/ui';
 
@@ -431,10 +467,11 @@ import { Pagination } from '@/components/ui';
   totalPages={totalPages}
   onPageChange={setPage}
   siblings={2}
-/>
+/>;
 ```
 
 #### Search
+
 ```tsx
 import { Search } from '@/components/ui';
 
@@ -444,10 +481,11 @@ import { Search } from '@/components/ui';
   onSearch={handleSearch}
   placeholder="Search..."
   debounceTime={300}
-/>
+/>;
 ```
 
 #### FileUpload
+
 ```tsx
 import { FileUpload } from '@/components/ui';
 
@@ -456,7 +494,7 @@ import { FileUpload } from '@/components/ui';
   accept="image/*"
   maxSize={5 * 1024 * 1024}
   multiple={false}
-/>
+/>;
 ```
 
 ### Navigation Components
@@ -475,6 +513,7 @@ import { Navbar, MobileMenu, Breadcrumb } from '@/components/navigation';
 ### Creating New Components
 
 1. **Create component file:**
+
 ```tsx
 // src/components/ui/NewComponent.tsx
 export interface NewComponentProps {
@@ -486,15 +525,12 @@ export const NewComponent: React.FC<NewComponentProps> = ({
   className,
   children,
 }) => {
-  return (
-    <div className={cn('base-styles', className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn('base-styles', className)}>{children}</div>;
 };
 ```
 
 2. **Add to index:**
+
 ```tsx
 // src/components/ui/index.ts
 export { NewComponent } from './NewComponent';
@@ -502,6 +538,7 @@ export type { NewComponentProps } from './NewComponent';
 ```
 
 3. **Write tests:**
+
 ```tsx
 // src/components/ui/NewComponent.test.tsx
 import { render, screen } from '@/lib/test-utils';
@@ -518,6 +555,7 @@ describe('NewComponent', () => {
 ### Accessibility
 
 All components follow WCAG AA standards:
+
 - **Keyboard navigation** - All interactive elements accessible via keyboard
 - **Screen reader support** - Proper ARIA labels and semantic HTML
 - **Color contrast** - WCAG AA compliant combinations
@@ -529,28 +567,29 @@ All components follow WCAG AA standards:
 
 ### File Size Limits
 
-| File Type | Maximum Lines | Purpose |
-|-----------|---------------|---------|
-| TypeScript/JavaScript | 300 lines | General source files |
-| React Components | 300 lines | UI components |
-| Test Files | 500 lines | Unit/integration tests |
-| Configuration | No limit | Config files |
+| File Type             | Maximum Lines | Purpose                |
+| --------------------- | ------------- | ---------------------- |
+| TypeScript/JavaScript | 300 lines     | General source files   |
+| React Components      | 300 lines     | UI components          |
+| Test Files            | 500 lines     | Unit/integration tests |
+| Configuration         | No limit      | Config files           |
 
 **Refactoring trigger**: Files approaching limits should be split into smaller modules.
 
 ### Code Complexity
 
-| Metric | Limit | Description |
-|--------|-------|-------------|
-| Cyclomatic Complexity | 10 | Independent paths through code |
-| Maximum Depth | 4 | Nesting level |
-| Maximum Parameters | 4 | Function parameters |
-| Maximum Statements | 20 | Statements per function |
-| Maximum Lines per Function | 50 | Lines per function |
+| Metric                     | Limit | Description                    |
+| -------------------------- | ----- | ------------------------------ |
+| Cyclomatic Complexity      | 10    | Independent paths through code |
+| Maximum Depth              | 4     | Nesting level                  |
+| Maximum Parameters         | 4     | Function parameters            |
+| Maximum Statements         | 20    | Statements per function        |
+| Maximum Lines per Function | 50    | Lines per function             |
 
 ### Code Style
 
 **TypeScript/JavaScript:**
+
 - Indentation: 2 spaces
 - Quotes: Single quotes
 - Semicolons: Always
@@ -558,6 +597,7 @@ All components follow WCAG AA standards:
 - Trailing commas: ES5 style
 
 **Import Organization:**
+
 ```typescript
 // 1. Node modules
 import React from 'react';
@@ -573,6 +613,7 @@ import { types } from './types';
 ```
 
 **Naming Conventions:**
+
 - Files: `kebab-case.tsx` (components: `PascalCase.tsx`)
 - Variables: `camelCase`
 - Constants: `UPPER_SNAKE_CASE`
@@ -582,6 +623,7 @@ import { types } from './types';
 ### Quality Tools
 
 **ESLint Rules:**
+
 - `no-console` - Warn on console.log
 - `no-debugger` - Error on debugger
 - `@typescript-eslint/no-unused-vars` - Error on unused vars
@@ -589,6 +631,7 @@ import { types } from './types';
 - `react/jsx-key` - Require keys in lists
 
 **Prettier Configuration:**
+
 ```json
 {
   "semi": true,
@@ -600,6 +643,7 @@ import { types } from './types';
 ```
 
 **File Size Monitoring:**
+
 ```bash
 # Check file sizes
 npm run check:sizes
@@ -611,6 +655,7 @@ node scripts/check-file-sizes.js --check
 ### Pre-commit Hooks
 
 Automatically run before each commit:
+
 1. Type checking (`npm run type-check`)
 2. Linting (`npm run lint`)
 3. Formatting (`npm run format:check`)
@@ -620,6 +665,7 @@ Automatically run before each commit:
 ### Best Practices
 
 #### Performance
+
 ```typescript
 // ✅ Good - Memoized component
 const ExpensiveComponent = React.memo(({ data }) => {
@@ -635,6 +681,7 @@ const ExpensiveComponent = ({ data }) => {
 ```
 
 #### Database Queries
+
 ```typescript
 // ✅ Good - Select specific fields
 const users = await prisma.user.findMany({
@@ -646,6 +693,7 @@ const users = await prisma.user.findMany();
 ```
 
 #### Security
+
 ```typescript
 // ✅ Good - Validate input
 const createUser = async (data: CreateUserData) => {
@@ -660,6 +708,7 @@ const createUser = async (data: any) => {
 ```
 
 #### Error Handling
+
 ```typescript
 // ✅ Good - Proper error handling
 export async function GET(request: NextRequest) {
@@ -679,6 +728,7 @@ export async function GET(request: NextRequest) {
 ### Quality Checks
 
 **Manual Checklist:**
+
 - [ ] Functionality works as expected
 - [ ] Code follows project conventions
 - [ ] No obvious performance issues
@@ -689,6 +739,7 @@ export async function GET(request: NextRequest) {
 - [ ] No overly complex code
 
 **Self-Review:**
+
 - [ ] Run `npm run check` locally
 - [ ] All tests pass
 - [ ] File sizes within limits
@@ -744,6 +795,7 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID="your-discord-client-id"
 ### Testing
 
 **Development:**
+
 1. Start server: `npm run dev`
 2. Navigate to `/auth/signin`
 3. Verify OAuth buttons appear
@@ -752,11 +804,13 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID="your-discord-client-id"
 ### Troubleshooting
 
 **Buttons not appearing:**
+
 - Check environment variables are set
 - Verify `NEXT_PUBLIC_*` variables configured
 - Restart server after env changes
 
 **OAuth errors:**
+
 - Verify redirect URIs match exactly
 - Check client ID/secret are correct
 - Ensure OAuth consent screen configured
@@ -775,21 +829,25 @@ NEXT_PUBLIC_DISCORD_CLIENT_ID="your-discord-client-id"
 ### Making Changes
 
 1. **Create feature branch:**
+
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
 2. **Make changes:**
+
 - Follow existing patterns
 - Write tests for new functionality
 - Update documentation
 
 3. **Test changes:**
+
 ```bash
 npm run check  # Type-check, lint, and tests
 ```
 
 4. **Commit changes:**
+
 ```bash
 git add .
 git commit -m "feat: add your feature description"
@@ -798,6 +856,7 @@ git commit -m "feat: add your feature description"
 ### Commit Message Format
 
 Use conventional commits:
+
 - `feat:` - New features
 - `fix:` - Bug fixes
 - `docs:` - Documentation changes
@@ -825,6 +884,7 @@ Use conventional commits:
 ### Database Changes
 
 1. **Modify schema:**
+
 ```prisma
 // prisma/schema.prisma
 model NewModel {
@@ -836,11 +896,13 @@ model NewModel {
 ```
 
 2. **Create migration:**
+
 ```bash
 npm run db:migrate
 ```
 
 3. **Generate Prisma client:**
+
 ```bash
 npm run db:generate
 ```
@@ -848,6 +910,7 @@ npm run db:generate
 ### API Development
 
 1. **Create route file:**
+
 ```typescript
 // src/app/api/example/route.ts
 import { NextRequest, NextResponse } from 'next/server';
@@ -857,24 +920,20 @@ export async function GET(request: NextRequest) {
     const data = { message: 'Hello' };
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal error' }, { status: 500 });
   }
 }
 ```
 
 2. **Write tests:**
+
 ```typescript
 // src/app/api/example/route.test.ts
 import { GET } from './route';
 
 describe('/api/example', () => {
   it('returns success', async () => {
-    const response = await GET(
-      new Request('http://localhost/api/example')
-    );
+    const response = await GET(new Request('http://localhost/api/example'));
     expect(response.status).toBe(200);
   });
 });
@@ -887,16 +946,19 @@ describe('/api/example', () => {
 ### Testing Strategy
 
 **Unit Tests:**
+
 - Test individual functions/utilities
 - Mock external dependencies
 - Focus on business logic
 
 **Component Tests:**
+
 - Test React components in isolation
 - Use React Testing Library
 - Test user interactions
 
 **Integration Tests:**
+
 - Test API endpoints
 - Test database interactions
 - Test component integration
@@ -951,16 +1013,19 @@ npm test -- --verbose
 ### Debugging Tools
 
 **React Developer Tools:**
+
 - Component hierarchy inspection
 - Props and state examination
 - Performance profiling
 
 **Redux DevTools:**
+
 - Action tracking
 - State inspection
 - Time-travel debugging
 
 **Prisma Studio:**
+
 - Visual database browser
 - Data editing
 - Query testing
@@ -972,6 +1037,7 @@ npm run db:studio
 ```
 
 **Next.js DevTools:**
+
 - Performance monitoring
 - Route inspection
 - API route debugging
@@ -979,6 +1045,7 @@ npm run db:studio
 ### Common Issues
 
 **Database Connection:**
+
 ```bash
 # Check Docker services
 docker ps
@@ -991,6 +1058,7 @@ npm run db:studio
 ```
 
 **Build Issues:**
+
 ```bash
 # Clear cache
 rm -rf .next
@@ -1005,6 +1073,7 @@ npm install
 ```
 
 **Test Failures:**
+
 ```bash
 # Run specific test
 npm test -- Button.test.tsx
@@ -1017,6 +1086,7 @@ npm test -- --clearCache
 ```
 
 **Port Conflicts:**
+
 ```bash
 # Port 3000 in use
 lsof -ti:3000 | xargs kill
@@ -1028,18 +1098,21 @@ npm run dev
 ### Performance Optimization
 
 **Frontend:**
+
 - Use `React.memo` for expensive components
 - Implement code splitting
 - Optimize images with `next/image`
 - Use proper caching strategies
 
 **Backend:**
+
 - Optimize database queries
 - Use Redis for caching
 - Minimize API response sizes
 - Implement pagination
 
 **Build:**
+
 - Analyze bundle size
 - Enable compression
 - Use production builds
@@ -1048,6 +1121,7 @@ npm run dev
 ### IDE Configuration
 
 **VS Code Settings:**
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -1060,6 +1134,7 @@ npm run dev
 ```
 
 **Recommended Extensions:**
+
 - ESLint
 - Prettier
 - TypeScript Importer
@@ -1072,6 +1147,7 @@ npm run dev
 ## Resources
 
 ### Documentation
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
@@ -1079,11 +1155,13 @@ npm run dev
 - [React Testing Library](https://testing-library.com/react)
 
 ### Tools
+
 - [React Developer Tools](https://react.dev/learn/react-developer-tools)
 - [Redux DevTools](https://github.com/reduxjs/redux-devtools)
 - [Prisma Studio](https://www.prisma.io/studio)
 
 ### Community
+
 - [Next.js Discord](https://discord.gg/nextjs)
 - [Prisma Discord](https://discord.gg/prisma)
 - [React Community](https://react.dev/community)

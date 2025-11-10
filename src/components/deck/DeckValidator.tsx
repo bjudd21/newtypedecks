@@ -2,8 +2,18 @@
 
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { deckValidator, type DeckValidationSummary, type ValidationResult } from '@/lib/services/deckValidationService';
-import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
+import {
+  deckValidator,
+  type DeckValidationSummary,
+  type ValidationResult,
+} from '@/lib/services/deckValidationService';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@/components/ui';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface DeckCard {
@@ -23,7 +33,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
   cards,
   className = '',
   showDetails = true,
-  onlyErrors = false
+  onlyErrors = false,
 }) => {
   // Calculate validation results
   const validationSummary: DeckValidationSummary = useMemo(() => {
@@ -44,7 +54,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
       results = [
         ...validationSummary.errors,
         ...validationSummary.warnings,
-        ...validationSummary.info
+        ...validationSummary.info,
       ];
     }
 
@@ -53,9 +63,12 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
 
   // Get validation score color
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-300 bg-green-500/20 border border-green-500/30';
-    if (score >= 70) return 'text-[#a89ec7] bg-[#8b7aaa]/20 border border-[#8b7aaa]/30';
-    if (score >= 50) return 'text-yellow-300 bg-yellow-500/20 border border-yellow-500/30';
+    if (score >= 90)
+      return 'text-green-300 bg-green-500/20 border border-green-500/30';
+    if (score >= 70)
+      return 'text-[#a89ec7] bg-[#8b7aaa]/20 border border-[#8b7aaa]/30';
+    if (score >= 50)
+      return 'text-yellow-300 bg-yellow-500/20 border border-yellow-500/30';
     return 'text-red-300 bg-red-500/20 border border-red-500/30';
   };
 
@@ -63,34 +76,48 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
   const getSeverityDisplay = (severity: string) => {
     switch (severity) {
       case 'error':
-        return { icon: '🚨', color: 'text-red-300 bg-red-900/20 border-red-500/30' };
+        return {
+          icon: '🚨',
+          color: 'text-red-300 bg-red-900/20 border-red-500/30',
+        };
       case 'warning':
-        return { icon: '⚠️', color: 'text-yellow-300 bg-yellow-900/20 border-yellow-500/30' };
+        return {
+          icon: '⚠️',
+          color: 'text-yellow-300 bg-yellow-900/20 border-yellow-500/30',
+        };
       case 'info':
-        return { icon: 'ℹ️', color: 'text-[#a89ec7] bg-[#8b7aaa]/10 border-[#8b7aaa]/30' };
+        return {
+          icon: 'ℹ️',
+          color: 'text-[#a89ec7] bg-[#8b7aaa]/10 border-[#8b7aaa]/30',
+        };
       default:
-        return { icon: '📝', color: 'text-gray-400 bg-[#2d2640] border-[#443a5c]' };
+        return {
+          icon: '📝',
+          color: 'text-gray-400 bg-[#2d2640] border-[#443a5c]',
+        };
     }
   };
 
   if (cards.length === 0) {
     return (
-      <Card className={`${className} bg-[#2d2640] border-[#443a5c]`}>
+      <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-[#a89ec7] text-base uppercase tracking-wide">
+          <CardTitle className="flex items-center gap-2 text-base uppercase tracking-wide text-[#a89ec7]">
             <span>📋</span>
             Deck Validation
           </CardTitle>
         </CardHeader>
         <CardContent>
           <motion.div
-            className="text-center py-6"
+            className="py-6 text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
             <div className="text-sm text-gray-400">No cards in deck</div>
-            <div className="text-xs mt-1 text-gray-500">Add cards to see validation results</div>
+            <div className="mt-1 text-xs text-gray-500">
+              Add cards to see validation results
+            </div>
           </motion.div>
         </CardContent>
       </Card>
@@ -98,7 +125,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
   }
 
   return (
-    <Card className={`${className} bg-[#2d2640] border-[#443a5c]`}>
+    <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -108,13 +135,20 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
             >
               {validationSummary.isValid ? '✅' : '❌'}
             </motion.span>
-            <span className="text-[#a89ec7] text-base uppercase tracking-wide">Deck Validation</span>
+            <span className="text-base uppercase tracking-wide text-[#a89ec7]">
+              Deck Validation
+            </span>
           </div>
           <motion.div
-            className={`px-3 py-1 rounded-full text-sm font-bold ${getScoreColor(validationSummary.score)}`}
+            className={`rounded-full px-3 py-1 text-sm font-bold ${getScoreColor(validationSummary.score)}`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.3 }}
+            transition={{
+              type: 'spring',
+              stiffness: 300,
+              damping: 20,
+              delay: 0.3,
+            }}
           >
             {validationSummary.score}/100
           </motion.div>
@@ -124,16 +158,26 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
         <div className="space-y-4">
           {/* Summary */}
           <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-semibold text-[#a89ec7]">{validationSummary.isValid ? 'Valid' : 'Invalid'}</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold text-[#a89ec7]">
+                {validationSummary.isValid ? 'Valid' : 'Invalid'}
+              </span>
               {validationSummary.errors.length > 0 && (
-                <Badge variant="secondary" className="bg-red-500/20 text-red-300 border-red-500/30">
-                  {validationSummary.errors.length} error{validationSummary.errors.length !== 1 ? 's' : ''}
+                <Badge
+                  variant="secondary"
+                  className="border-red-500/30 bg-red-500/20 text-red-300"
+                >
+                  {validationSummary.errors.length} error
+                  {validationSummary.errors.length !== 1 ? 's' : ''}
                 </Badge>
               )}
               {validationSummary.warnings.length > 0 && (
-                <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-300 border-yellow-500/30">
-                  {validationSummary.warnings.length} warning{validationSummary.warnings.length !== 1 ? 's' : ''}
+                <Badge
+                  variant="secondary"
+                  className="border-yellow-500/30 bg-yellow-500/20 text-yellow-300"
+                >
+                  {validationSummary.warnings.length} warning
+                  {validationSummary.warnings.length !== 1 ? 's' : ''}
                 </Badge>
               )}
             </div>
@@ -142,12 +186,14 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
           {/* Validation Results */}
           {showDetails && displayResults.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-sm font-semibold text-[#a89ec7] uppercase tracking-wide">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-[#a89ec7]">
                 {onlyErrors ? 'Errors' : 'Validation Results'}
               </h4>
 
               {displayResults.map((result, index) => {
-                const { icon, color } = getSeverityDisplay(result.rule.severity);
+                const { icon, color } = getSeverityDisplay(
+                  result.rule.severity
+                );
 
                 return (
                   <motion.div
@@ -155,26 +201,24 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className={`border rounded-lg p-3 ${color}`}
+                    className={`rounded-lg border p-3 ${color}`}
                   >
                     <div className="flex items-start gap-2">
                       <span className="text-lg">{icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm">
+                      <div className="min-w-0 flex-1">
+                        <div className="text-sm font-semibold">
                           {result.rule.name}
                         </div>
-                        <div className="text-sm mt-1">
-                          {result.message}
-                        </div>
+                        <div className="mt-1 text-sm">{result.message}</div>
                         {result.details && (
-                          <div className="text-xs mt-2 opacity-75">
+                          <div className="mt-2 text-xs opacity-75">
                             {result.details}
                           </div>
                         )}
                       </div>
                       <Badge
                         variant="secondary"
-                        className="text-xs ml-2 bg-[#8b7aaa]/20 text-[#a89ec7] border-[#8b7aaa]/30"
+                        className="ml-2 border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-xs text-[#a89ec7]"
                       >
                         {result.rule.category}
                       </Badge>
@@ -193,11 +237,16 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h4 className="text-sm font-semibold text-[#a89ec7] uppercase tracking-wide">Suggestions</h4>
-              <div className="bg-[#1a1625]/50 rounded-lg p-3 border border-[#443a5c]">
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-[#a89ec7]">
+                Suggestions
+              </h4>
+              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-3">
                 {suggestions.map((suggestion, index) => (
-                  <div key={index} className="text-sm text-gray-300 py-1 flex items-start gap-2">
-                    <span className="text-[#8b7aaa] mt-0.5">💡</span>
+                  <div
+                    key={index}
+                    className="flex items-start gap-2 py-1 text-sm text-gray-300"
+                  >
+                    <span className="mt-0.5 text-[#8b7aaa]">💡</span>
                     <span>{suggestion}</span>
                   </div>
                 ))}
@@ -210,13 +259,15 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <span className="text-gray-400">Total Cards:</span>
-                <span className="font-semibold ml-1 text-[#a89ec7]">
+                <span className="ml-1 font-semibold text-[#a89ec7]">
                   {cards.reduce((sum, card) => sum + card.quantity, 0)}
                 </span>
               </div>
               <div>
                 <span className="text-gray-400">Unique Cards:</span>
-                <span className="font-semibold ml-1 text-[#a89ec7]">{cards.length}</span>
+                <span className="ml-1 font-semibold text-[#a89ec7]">
+                  {cards.length}
+                </span>
               </div>
             </div>
           </div>
@@ -224,19 +275,19 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
           {/* Tournament Ready Indicator */}
           {validationSummary.isValid && validationSummary.score >= 80 && (
             <motion.div
-              className="bg-gradient-to-r from-green-900/20 to-green-800/20 border border-green-500/30 rounded-xl p-4 text-center"
+              className="rounded-xl border border-green-500/30 bg-gradient-to-r from-green-900/20 to-green-800/20 p-4 text-center"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               <motion.div
-                className="text-green-300 font-bold text-sm mb-1"
+                className="mb-1 text-sm font-bold text-green-300"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
               >
                 🏆 Tournament Ready!
               </motion.div>
-              <div className="text-green-400 text-xs">
+              <div className="text-xs text-green-400">
                 Your deck meets all major requirements for competitive play
               </div>
             </motion.div>

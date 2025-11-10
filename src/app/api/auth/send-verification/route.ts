@@ -8,7 +8,10 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
 import { sendEmailVerification } from '@/lib/services/emailService';
-import { generateUrlSafeToken, generateEmailVerificationExpiration } from '@/lib/utils/tokens';
+import {
+  generateUrlSafeToken,
+  generateEmailVerificationExpiration,
+} from '@/lib/utils/tokens';
 
 export async function POST(_request: NextRequest) {
   try {
@@ -27,10 +30,7 @@ export async function POST(_request: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     if (user.emailVerified) {

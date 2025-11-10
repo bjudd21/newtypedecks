@@ -2,7 +2,14 @@
 
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { Button, Input, Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import {
+  Button,
+  Input,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui';
 import { validateEmail } from '@/lib/auth-utils';
 
 interface User {
@@ -28,10 +35,10 @@ export function UserProfile({ user }: UserProfileProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors((prev) => ({ ...prev, [field]: '' }));
     }
   };
 
@@ -87,7 +94,7 @@ export function UserProfile({ user }: UserProfileProps) {
         user: {
           name: formData.name,
           email: formData.email,
-        }
+        },
       });
 
       setIsEditing(false);
@@ -137,7 +144,7 @@ export function UserProfile({ user }: UserProfileProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {/* Profile Information */}
       <Card>
         <CardHeader>
@@ -157,7 +164,7 @@ export function UserProfile({ user }: UserProfileProps) {
         </CardHeader>
         <CardContent>
           {errors.general && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm mb-4">
+            <div className="mb-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {errors.general}
             </div>
           )}
@@ -176,7 +183,7 @@ export function UserProfile({ user }: UserProfileProps) {
                 />
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Full Name
                   </label>
                   <p className="text-gray-900">{user.name || 'No name set'}</p>
@@ -197,7 +204,7 @@ export function UserProfile({ user }: UserProfileProps) {
                 />
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-700">
                     Email Address
                   </label>
                   <p className="text-gray-900">{user.email}</p>
@@ -207,10 +214,12 @@ export function UserProfile({ user }: UserProfileProps) {
 
             {/* Role */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Account Role
               </label>
-              <p className="text-gray-900 capitalize">{user.role.toLowerCase()}</p>
+              <p className="capitalize text-gray-900">
+                {user.role.toLowerCase()}
+              </p>
             </div>
 
             {isEditing && (
@@ -243,15 +252,17 @@ export function UserProfile({ user }: UserProfileProps) {
         <CardContent>
           <div className="space-y-4">
             {/* Change Password */}
-            <div className="border rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-2">Password</h3>
-              <p className="text-sm text-gray-600 mb-3">
+            <div className="rounded-lg border p-4">
+              <h3 className="mb-2 font-medium text-gray-900">Password</h3>
+              <p className="mb-3 text-sm text-gray-600">
                 Change your password to keep your account secure.
               </p>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => {/* TODO: Implement password change */}}
+                onClick={() => {
+                  /* TODO: Implement password change */
+                }}
                 disabled={isLoading}
               >
                 Change Password
@@ -259,20 +270,25 @@ export function UserProfile({ user }: UserProfileProps) {
             </div>
 
             {/* Account Statistics */}
-            <div className="border rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-2">Account Statistics</h3>
-              <div className="text-sm space-y-1">
-                <p className="text-gray-600">Member since: {new Date().toLocaleDateString()}</p>
+            <div className="rounded-lg border p-4">
+              <h3 className="mb-2 font-medium text-gray-900">
+                Account Statistics
+              </h3>
+              <div className="space-y-1 text-sm">
+                <p className="text-gray-600">
+                  Member since: {new Date().toLocaleDateString()}
+                </p>
                 <p className="text-gray-600">Total decks created: 0</p>
                 <p className="text-gray-600">Cards in collection: 0</p>
               </div>
             </div>
 
             {/* Danger Zone */}
-            <div className="border border-red-200 rounded-lg p-4 bg-red-50">
-              <h3 className="font-medium text-red-900 mb-2">Danger Zone</h3>
-              <p className="text-sm text-red-600 mb-3">
-                Once you delete your account, there is no going back. Please be certain.
+            <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+              <h3 className="mb-2 font-medium text-red-900">Danger Zone</h3>
+              <p className="mb-3 text-sm text-red-600">
+                Once you delete your account, there is no going back. Please be
+                certain.
               </p>
               <Button
                 variant="outline"

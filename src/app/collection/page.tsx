@@ -8,7 +8,7 @@ export default function CollectionPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Collection</h1>
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">My Collection</h1>
         <p className="text-gray-600">
           Track and manage your personal Gundam Card Game collection
         </p>

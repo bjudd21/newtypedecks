@@ -26,6 +26,7 @@ Before deploying to production, ensure:
 ## Platform Quick Starts
 
 ### Vercel (Fastest - Recommended for Next.js)
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -36,10 +37,12 @@ vercel
 # Deploy to production
 vercel --prod
 ```
+
 **Time to deploy**: ~5 minutes
 **Best for**: Simple deployments, automatic scaling, edge functions
 
 ### Docker (Self-Hosted)
+
 ```bash
 # Build and deploy
 docker-compose -f docker-compose.prod.yml up -d
@@ -47,14 +50,17 @@ docker-compose -f docker-compose.prod.yml up -d
 # Run migrations
 docker-compose exec app npx prisma migrate deploy
 ```
+
 **Time to deploy**: ~15 minutes
 **Best for**: Full control, custom infrastructure, multi-service setups
 
 ### Railway (Easy - One-Click)
+
 ```bash
 # Connect GitHub repo, Railway handles the rest
 # Configure env vars in Railway dashboard
 ```
+
 **Time to deploy**: ~10 minutes
 **Best for**: Quick prototypes, automatic deploys, simple setup
 
@@ -234,6 +240,7 @@ kubectl logs -f deployment/gundam-gcg-app -n gundam-gcg
 ### AWS ECS/Fargate
 
 1. **Build and Push Image**
+
    ```bash
    # Build for production
    docker build -t gundam-gcg .
@@ -253,6 +260,7 @@ kubectl logs -f deployment/gundam-gcg-app -n gundam-gcg
 ### Google Cloud Run
 
 1. **Deploy with Cloud Build**
+
    ```bash
    gcloud builds submit --tag gcr.io/PROJECT_ID/gundam-gcg
    gcloud run deploy --image gcr.io/PROJECT_ID/gundam-gcg --platform managed
@@ -296,6 +304,7 @@ curl https://your-domain.com/api/health
 ```
 
 Response includes:
+
 - Application status
 - Database connectivity
 - Memory usage
@@ -305,6 +314,7 @@ Response includes:
 ### Monitoring Setup
 
 1. **Prometheus + Grafana**
+
    ```bash
    # Add monitoring stack
    docker-compose -f docker-compose.monitoring.yml up -d
@@ -386,6 +396,7 @@ upstream nextjs {
 ### Common Issues
 
 1. **Database Connection Failed**
+
    ```bash
    # Check database container
    docker-compose ps db
@@ -398,6 +409,7 @@ upstream nextjs {
    ```
 
 2. **Application Not Starting**
+
    ```bash
    # Check application logs
    docker-compose logs app
@@ -410,6 +422,7 @@ upstream nextjs {
    ```
 
 3. **High Memory Usage**
+
    ```bash
    # Monitor memory usage
    docker stats
@@ -419,6 +432,7 @@ upstream nextjs {
    ```
 
 4. **SSL Certificate Issues**
+
    ```bash
    # Test SSL configuration
    openssl s_client -connect your-domain.com:443
@@ -430,6 +444,7 @@ upstream nextjs {
 ### Performance Issues
 
 1. **Slow Database Queries**
+
    ```sql
    -- Enable query logging
    SET log_statement = 'all';
@@ -439,6 +454,7 @@ upstream nextjs {
    ```
 
 2. **High CPU Usage**
+
    ```bash
    # Profile Node.js application
    docker-compose exec app node --prof server.js

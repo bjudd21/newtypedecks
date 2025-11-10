@@ -1,6 +1,6 @@
 /**
  * Card-related TypeScript interfaces and types
- * 
+ *
  * This file defines comprehensive types for the Gundam Card Game card system,
  * including all the enhanced attributes and relationships.
  */
@@ -29,23 +29,23 @@ export interface CreateCardData {
   imageUrlLarge?: string;
   description?: string;
   officialText?: string;
-  
+
   // Official Gundam Card Game attributes
-  clashPoints?: number;  // Clash Points (CP) - battle strength
-  price?: number;        // Price - cost to play the card
-  hitPoints?: number;    // Hit Points (HP) - unit durability (for Unit cards)
+  clashPoints?: number; // Clash Points (CP) - battle strength
+  price?: number; // Price - cost to play the card
+  hitPoints?: number; // Hit Points (HP) - unit durability (for Unit cards)
   attackPoints?: number; // Attack Points (AP) - damage dealt (for Unit cards)
-  faction?: string;      // Faction/Group (Earth Federation, Zeon, etc.)
-  pilot?: string;        // Pilot name for mobile suits
-  model?: string;        // Mobile suit model number
-  series?: string;       // Anime series (UC, CE, AD, etc.)
-  nation?: string;       // Nation/Country affiliation
-  
+  faction?: string; // Faction/Group (Earth Federation, Zeon, etc.)
+  pilot?: string; // Pilot name for mobile suits
+  model?: string; // Mobile suit model number
+  series?: string; // Anime series (UC, CE, AD, etc.)
+  nation?: string; // Nation/Country affiliation
+
   // Card mechanics
   abilities?: string; // JSON string
   keywords?: string[];
   tags?: string[];
-  
+
   // Metadata
   isFoil?: boolean;
   isPromo?: boolean;
@@ -74,7 +74,7 @@ export interface CardSearchFilters {
   isPromo?: boolean;
   isAlternate?: boolean;
   language?: string;
-  
+
   // Official Gundam Card Game numeric ranges
   levelMin?: number;
   levelMax?: number;
@@ -93,7 +93,16 @@ export interface CardSearchFilters {
 export interface CardSearchOptions {
   page?: number;
   limit?: number;
-  sortBy?: 'name' | 'level' | 'cost' | 'clashPoints' | 'price' | 'hitPoints' | 'attackPoints' | 'setNumber' | 'createdAt';
+  sortBy?:
+    | 'name'
+    | 'level'
+    | 'cost'
+    | 'clashPoints'
+    | 'price'
+    | 'hitPoints'
+    | 'attackPoints'
+    | 'setNumber'
+    | 'createdAt';
   sortOrder?: 'asc' | 'desc';
   includeRelations?: boolean;
 }
@@ -276,12 +285,43 @@ export interface CardMarketData {
 }
 
 // Utility types for card operations
-export type CardSortField = 'name' | 'level' | 'cost' | 'clashPoints' | 'price' | 'hitPoints' | 'attackPoints' | 'setNumber' | 'createdAt';
+export type CardSortField =
+  | 'name'
+  | 'level'
+  | 'cost'
+  | 'clashPoints'
+  | 'price'
+  | 'hitPoints'
+  | 'attackPoints'
+  | 'setNumber'
+  | 'createdAt';
 export type CardSortOrder = 'asc' | 'desc';
-export type CardLanguage = 'en' | 'ja' | 'ko' | 'zh' | 'es' | 'fr' | 'de' | 'it' | 'pt' | 'ru';
-export type CardAttribute = 'fire' | 'water' | 'earth' | 'wind' | 'light' | 'dark' | 'neutral';
+export type CardLanguage =
+  | 'en'
+  | 'ja'
+  | 'ko'
+  | 'zh'
+  | 'es'
+  | 'fr'
+  | 'de'
+  | 'it'
+  | 'pt'
+  | 'ru';
+export type CardAttribute =
+  | 'fire'
+  | 'water'
+  | 'earth'
+  | 'wind'
+  | 'light'
+  | 'dark'
+  | 'neutral';
 export type CardRange = 'close' | 'medium' | 'long' | 'support' | 'command';
-export type CardCategory = 'unit' | 'character' | 'command' | 'operation' | 'generation';
+export type CardCategory =
+  | 'unit'
+  | 'character'
+  | 'command'
+  | 'operation'
+  | 'generation';
 
 // Constants for official Gundam Card Game system
 export const CARD_CONSTANTS = {
@@ -296,8 +336,25 @@ export const CARD_CONSTANTS = {
   MAX_DESCRIPTION_LENGTH: 1000,
   MAX_OFFICIAL_TEXT_LENGTH: 2000,
   MAX_ABILITIES_LENGTH: 5000,
-  SUPPORTED_LANGUAGES: ['en', 'ja', 'ko', 'zh', 'es', 'fr', 'de', 'it', 'pt', 'ru'] as const,
-  SUPPORTED_CATEGORIES: ['unit', 'character', 'command', 'operation', 'generation'] as const,
+  SUPPORTED_LANGUAGES: [
+    'en',
+    'ja',
+    'ko',
+    'zh',
+    'es',
+    'fr',
+    'de',
+    'it',
+    'pt',
+    'ru',
+  ] as const,
+  SUPPORTED_CATEGORIES: [
+    'unit',
+    'character',
+    'command',
+    'operation',
+    'generation',
+  ] as const,
   SUPPORTED_FACTIONS: [
     'Earth Federation',
     'Principality of Zeon',
@@ -307,7 +364,7 @@ export const CARD_CONSTANTS = {
     'ZAFT',
     'Orb Union',
     'Celestial Being',
-    'A-LAWS'
+    'A-LAWS',
   ] as const,
   SUPPORTED_SERIES: ['UC', 'CE', 'AD', 'AC', 'FC', 'AG', 'PD'] as const,
 } as const;

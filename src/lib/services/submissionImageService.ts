@@ -1,7 +1,10 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { validateFile } from '@/lib/storage/validation';
-import { processCardImage, ProcessedImage } from '@/lib/storage/imageProcessing';
+import {
+  processCardImage,
+  ProcessedImage,
+} from '@/lib/storage/imageProcessing';
 
 export interface SubmissionImageUploadOptions {
   cardName: string;
@@ -38,7 +41,7 @@ export class SubmissionImageService {
         return {
           success: false,
           error: 'File validation failed',
-          message: validation.errors.map(e => e.message).join(', '),
+          message: validation.errors.map((e) => e.message).join(', '),
         };
       }
 
@@ -65,13 +68,18 @@ export class SubmissionImageService {
 
       // Process image and create multiple sizes with optimization
       const outputDir = path.join(process.cwd(), this.UPLOADS_DIR);
-      const processedImage = await processCardImage(tempPath, outputDir, filename, {
-        enableProgressive: true,
-        enableOptimization: true,
-        generateWebP: true,
-        generateAVIF: false, // Disable AVIF for now due to compatibility
-        preserveOriginal: true,
-      });
+      const processedImage = await processCardImage(
+        tempPath,
+        outputDir,
+        filename,
+        {
+          enableProgressive: true,
+          enableOptimization: true,
+          generateWebP: true,
+          generateAVIF: false, // Disable AVIF for now due to compatibility
+          preserveOriginal: true,
+        }
+      );
 
       // Clean up temp file
       try {
@@ -81,13 +89,23 @@ export class SubmissionImageService {
       }
 
       // Generate URLs (for development, these are file paths)
-      const baseUrl = process.env.NODE_ENV === 'development'
-        ? '/api/uploads/submissions'
-        : process.env.CDN_BASE_URL || '/uploads/submissions';
+      const baseUrl =
+        process.env.NODE_ENV === 'development'
+          ? '/api/uploads/submissions'
+          : process.env.CDN_BASE_URL || '/uploads/submissions';
 
-      const relativeOriginal = path.relative(path.join(process.cwd(), this.UPLOADS_DIR), processedImage.original.path);
-      const relativeThumbnail = path.relative(path.join(process.cwd(), this.UPLOADS_DIR), processedImage.thumbnail.path);
-      const relativeLarge = path.relative(path.join(process.cwd(), this.UPLOADS_DIR), processedImage.large.path);
+      const relativeOriginal = path.relative(
+        path.join(process.cwd(), this.UPLOADS_DIR),
+        processedImage.original.path
+      );
+      const relativeThumbnail = path.relative(
+        path.join(process.cwd(), this.UPLOADS_DIR),
+        processedImage.thumbnail.path
+      );
+      const relativeLarge = path.relative(
+        path.join(process.cwd(), this.UPLOADS_DIR),
+        processedImage.large.path
+      );
 
       const imageUrl = `${baseUrl}/${relativeOriginal.replace(/\\/g, '/')}`;
       const thumbnailUrl = `${baseUrl}/${relativeThumbnail.replace(/\\/g, '/')}`;
@@ -102,13 +120,13 @@ export class SubmissionImageService {
         processedImage,
         message: 'Image uploaded and processed successfully',
       };
-
     } catch (error) {
       console.error('Submission image upload error:', error);
       return {
         success: false,
         error: 'Upload failed',
-        message: error instanceof Error ? error.message : 'Unknown error occurred',
+        message:
+          error instanceof Error ? error.message : 'Unknown error occurred',
       };
     }
   }
@@ -116,7 +134,9 @@ export class SubmissionImageService {
   /**
    * Delete submission image files
    */
-  static async deleteSubmissionImage(imageFile: string): Promise<{ success: boolean; error?: string }> {
+  static async deleteSubmissionImage(
+    imageFile: string
+  ): Promise<{ success: boolean; error?: string }> {
     try {
       // Delete all variants of the image
       const basePath = path.dirname(imageFile);
@@ -126,18 +146,28 @@ export class SubmissionImageService {
 
       // Construct paths for all variants
       const originalPath = imageFile;
-      const thumbnailPath = path.join(path.dirname(basePath), 'thumbnails', `${baseName}-thumb${ext}`);
-      const largePath = path.join(path.dirname(basePath), 'large', `${baseName}-large${ext}`);
+      const thumbnailPath = path.join(
+        path.dirname(basePath),
+        'thumbnails',
+        `${baseName}-thumb${ext}`
+      );
+      const largePath = path.join(
+        path.dirname(basePath),
+        'large',
+        `${baseName}-large${ext}`
+      );
 
       // Delete files (ignore errors if files don't exist)
-      const deletePromises = [originalPath, thumbnailPath, largePath].map(async (filePath) => {
-        try {
-          await fs.unlink(filePath);
-        } catch (error) {
-          // File might not exist, which is fine
-          console.warn(`Could not delete ${filePath}:`, error);
+      const deletePromises = [originalPath, thumbnailPath, largePath].map(
+        async (filePath) => {
+          try {
+            await fs.unlink(filePath);
+          } catch (error) {
+            // File might not exist, which is fine
+            console.warn(`Could not delete ${filePath}:`, error);
+          }
         }
-      });
+      );
 
       await Promise.all(deletePromises);
 
@@ -173,9 +203,10 @@ export class SubmissionImageService {
    * Generate image URLs for a submission
    */
   static generateImageUrls(imageFile: string) {
-    const baseUrl = process.env.NODE_ENV === 'development'
-      ? '/api/uploads/submissions'
-      : process.env.CDN_BASE_URL || '/uploads/submissions';
+    const baseUrl =
+      process.env.NODE_ENV === 'development'
+        ? '/api/uploads/submissions'
+        : process.env.CDN_BASE_URL || '/uploads/submissions';
 
     const _basePath = path.dirname(imageFile);
     const filename = path.basename(imageFile);
@@ -185,7 +216,10 @@ export class SubmissionImageService {
     const uploadsDir = path.join(process.cwd(), this.UPLOADS_DIR);
 
     const relativeOriginal = path.relative(uploadsDir, imageFile);
-    const relativeThumbnail = path.join('thumbnails', `${baseName}-thumb${ext}`);
+    const relativeThumbnail = path.join(
+      'thumbnails',
+      `${baseName}-thumb${ext}`
+    );
     const relativeLarge = path.join('large', `${baseName}-large${ext}`);
 
     return {
@@ -198,7 +232,9 @@ export class SubmissionImageService {
   /**
    * Clean up old temporary files
    */
-  static async cleanupTempFiles(maxAge: number = 24 * 60 * 60 * 1000): Promise<void> {
+  static async cleanupTempFiles(
+    maxAge: number = 24 * 60 * 60 * 1000
+  ): Promise<void> {
     try {
       const tempDir = path.join(process.cwd(), this.TEMP_DIR);
       await fs.mkdir(tempDir, { recursive: true });

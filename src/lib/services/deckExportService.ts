@@ -104,14 +104,14 @@ export class DeckExportService {
           return {
             success: false,
             errors: [`Unsupported import format: ${format}`],
-            warnings: []
+            warnings: [],
           };
       }
     } catch (error) {
       return {
         success: false,
         errors: [error instanceof Error ? error.message : 'Unknown error'],
-        warnings: []
+        warnings: [],
       };
     }
   }
@@ -123,14 +123,14 @@ export class DeckExportService {
     const totalCards = deck.cards.reduce((sum, card) => sum + card.quantity, 0);
     const uniqueCards = deck.cards.length;
     const totalCost = deck.cards.reduce(
-      (sum, deckCard) => sum + ((deckCard.card.cost || 0) * deckCard.quantity),
+      (sum, deckCard) => sum + (deckCard.card.cost || 0) * deckCard.quantity,
       0
     );
 
     const factions = Array.from(
       new Set(
         deck.cards
-          .map(deckCard => deckCard.card.faction)
+          .map((deckCard) => deckCard.card.faction)
           .filter((faction): faction is string => Boolean(faction))
       )
     );
@@ -138,7 +138,7 @@ export class DeckExportService {
     const sets = Array.from(
       new Set(
         deck.cards
-          .map(deckCard => deckCard.card.set?.name)
+          .map((deckCard) => deckCard.card.set?.name)
           .filter((setName): setName is string => Boolean(setName))
       )
     );
@@ -150,8 +150,8 @@ export class DeckExportService {
         uniqueCards,
         totalCost,
         factions,
-        sets
-      }
+        sets,
+      },
     };
   }
 
@@ -165,7 +165,7 @@ export class DeckExportService {
       createdAt: deck.createdAt.toISOString(),
       format: 'Gundam Card Game',
       ...(options.includeMetadata && { metadata: deck.metadata }),
-      cards: this.sortCards(deck.cards, options).map(deckCard => ({
+      cards: this.sortCards(deck.cards, options).map((deckCard) => ({
         id: deckCard.card.id,
         name: deckCard.card.name,
         quantity: deckCard.quantity,
@@ -177,8 +177,8 @@ export class DeckExportService {
         rarity: deckCard.card.rarity?.name,
         faction: deckCard.card.faction,
         pilot: deckCard.card.pilot,
-        model: deckCard.card.model
-      }))
+        model: deckCard.card.model,
+      })),
     };
 
     return JSON.stringify(exportData, null, 2);
@@ -225,7 +225,10 @@ export class DeckExportService {
 
       for (const [type, cards] of cardsByType.entries()) {
         const sortedCards = this.sortCards(cards, options);
-        const typeTotal = sortedCards.reduce((sum, card) => sum + card.quantity, 0);
+        const typeTotal = sortedCards.reduce(
+          (sum, card) => sum + card.quantity,
+          0
+        );
 
         output += `## ${type} (${typeTotal} cards)\n`;
 
@@ -286,7 +289,7 @@ export class DeckExportService {
       'Faction',
       'Pilot',
       'Model',
-      'Category'
+      'Category',
     ];
 
     let csv = headers.join(',') + '\n';
@@ -305,7 +308,7 @@ export class DeckExportService {
         `"${deckCard.card.faction?.replace(/"/g, '""') || ''}"`,
         `"${deckCard.card.pilot?.replace(/"/g, '""') || ''}"`,
         `"${deckCard.card.model?.replace(/"/g, '""') || ''}"`,
-        `"${deckCard.category || 'main'}"`
+        `"${deckCard.category || 'main'}"`,
       ];
 
       csv += row.join(',') + '\n';
@@ -317,7 +320,10 @@ export class DeckExportService {
   /**
    * Export to MTG Arena format (for compatibility with other deck builders)
    */
-  private exportToMTGAFormat(deck: ExportableDeck, options: ExportOptions): string {
+  private exportToMTGAFormat(
+    deck: ExportableDeck,
+    options: ExportOptions
+  ): string {
     let output = 'Deck\n';
 
     const sortedCards = this.sortCards(deck.cards, options);
@@ -339,7 +345,10 @@ export class DeckExportService {
   /**
    * Export to Cockatrice format
    */
-  private exportToCockatriceFormat(deck: ExportableDeck, options: ExportOptions): string {
+  private exportToCockatriceFormat(
+    deck: ExportableDeck,
+    options: ExportOptions
+  ): string {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml += '<cockatrice_deck version="1">\n';
     xml += `  <deckname>${this.escapeXML(deck.name)}</deckname>\n`;
@@ -393,10 +402,10 @@ export class DeckExportService {
             set: card.set ? { name: card.set as string } : null,
             faction: card.faction,
             pilot: card.pilot,
-            model: card.model
+            model: card.model,
           } as CardWithRelations,
           quantity: card.quantity as number,
-          category: card.category as string
+          category: card.category as string,
         };
       });
 
@@ -405,7 +414,7 @@ export class DeckExportService {
         description: data.description,
         cards,
         createdAt: data.createdAt ? new Date(data.createdAt) : new Date(),
-        metadata: data.metadata
+        metadata: data.metadata,
       };
 
       return { success: true, deck, errors, warnings };
@@ -413,7 +422,7 @@ export class DeckExportService {
       return {
         success: false,
         errors: ['Invalid JSON format'],
-        warnings: []
+        warnings: [],
       };
     }
   }
@@ -423,15 +432,24 @@ export class DeckExportService {
    */
   private importFromText(content: string): ImportResult {
     const errors: string[] = [];
-    const warnings: string[] = ['Text import has limited functionality - only card names and quantities'];
+    const warnings: string[] = [
+      'Text import has limited functionality - only card names and quantities',
+    ];
 
-    const lines = content.split('\n').map(line => line.trim()).filter(Boolean);
+    const lines = content
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
     const cards: DeckCard[] = [];
     let deckName = 'Imported Deck';
 
     for (const line of lines) {
       // Skip comments and headers
-      if (line.startsWith('#') || line.startsWith('//') || line.startsWith('--')) {
+      if (
+        line.startsWith('#') ||
+        line.startsWith('//') ||
+        line.startsWith('--')
+      ) {
         if (line.startsWith('# ')) {
           deckName = line.substring(2).trim();
         }
@@ -439,7 +457,9 @@ export class DeckExportService {
       }
 
       // Parse card lines: "4x Card Name" or "4 Card Name"
-      const match = line.match(/^(\d+)x?\s+(.+?)(?:\s*\([^)]+\))?(?:\s*\[[^\]]+\])?$/);
+      const match = line.match(
+        /^(\d+)x?\s+(.+?)(?:\s*\([^)]+\))?(?:\s*\[[^\]]+\])?$/
+      );
 
       if (match) {
         const [, quantityStr, cardName] = match;
@@ -455,10 +475,10 @@ export class DeckExportService {
               setNumber: '',
               type: null,
               rarity: null,
-              set: null
+              set: null,
             } as unknown as CardWithRelations,
             quantity,
-            category: 'main'
+            category: 'main',
           });
         } else {
           warnings.push(`Invalid quantity for "${cardName}": ${quantity}`);
@@ -475,14 +495,14 @@ export class DeckExportService {
     const deck: ExportableDeck = {
       name: deckName,
       cards,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     return {
       success: errors.length === 0,
       deck: errors.length === 0 ? deck : undefined,
       errors,
-      warnings
+      warnings,
     };
   }
 
@@ -493,21 +513,24 @@ export class DeckExportService {
     const errors: string[] = [];
     const warnings: string[] = [];
 
-    const lines = content.split('\n').map(line => line.trim()).filter(Boolean);
+    const lines = content
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
 
     if (lines.length < 2) {
       return {
         success: false,
         errors: ['CSV must have at least a header row and one data row'],
-        warnings: []
+        warnings: [],
       };
     }
 
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+    const headers = lines[0].split(',').map((h) => h.trim().replace(/"/g, ''));
     const cards: DeckCard[] = [];
 
     for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+      const values = lines[i].split(',').map((v) => v.trim().replace(/"/g, ''));
 
       if (values.length !== headers.length) {
         warnings.push(`Row ${i + 1} has incorrect number of columns`);
@@ -533,30 +556,33 @@ export class DeckExportService {
           id: `import-${Date.now()}-${i}`,
           name,
           cost: rowObj.cost ? parseInt(String(rowObj.cost)) : null,
-          setNumber: (rowObj['set number'] as string) || (rowObj.setnumber as string) || '',
+          setNumber:
+            (rowObj['set number'] as string) ||
+            (rowObj.setnumber as string) ||
+            '',
           type: rowObj.type ? { name: rowObj.type as string } : null,
           rarity: rowObj.rarity ? { name: rowObj.rarity as string } : null,
           set: rowObj.set ? { name: rowObj.set as string } : null,
           faction: rowObj.faction as string | null,
           pilot: rowObj.pilot as string | null,
-          model: rowObj.model as string | null
+          model: rowObj.model as string | null,
         } as CardWithRelations,
         quantity,
-        category: row.category || 'main'
+        category: row.category || 'main',
       });
     }
 
     const deck: ExportableDeck = {
       name: 'CSV Import',
       cards,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     return {
       success: cards.length > 0,
       deck: cards.length > 0 ? deck : undefined,
       errors,
-      warnings
+      warnings,
     };
   }
 
@@ -578,7 +604,9 @@ export class DeckExportService {
           comparison = (a.card.cost || 0) - (b.card.cost || 0);
           break;
         case 'type':
-          comparison = (a.card.type?.name || '').localeCompare(b.card.type?.name || '');
+          comparison = (a.card.type?.name || '').localeCompare(
+            b.card.type?.name || ''
+          );
           break;
         case 'quantity':
           comparison = a.quantity - b.quantity;
@@ -609,12 +637,18 @@ export class DeckExportService {
    */
   private getFileExtension(format: string): string {
     switch (format) {
-      case 'json': return 'json';
-      case 'text': return 'txt';
-      case 'csv': return 'csv';
-      case 'mtga': return 'txt';
-      case 'cockatrice': return 'cod';
-      default: return 'txt';
+      case 'json':
+        return 'json';
+      case 'text':
+        return 'txt';
+      case 'csv':
+        return 'csv';
+      case 'mtga':
+        return 'txt';
+      case 'cockatrice':
+        return 'cod';
+      default:
+        return 'txt';
     }
   }
 
@@ -623,17 +657,25 @@ export class DeckExportService {
    */
   private getMimeType(format: string): string {
     switch (format) {
-      case 'json': return 'application/json';
-      case 'csv': return 'text/csv';
-      case 'cockatrice': return 'application/xml';
-      default: return 'text/plain';
+      case 'json':
+        return 'application/json';
+      case 'csv':
+        return 'text/csv';
+      case 'cockatrice':
+        return 'application/xml';
+      default:
+        return 'text/plain';
     }
   }
 
   /**
    * Download file to user's computer
    */
-  private downloadFile(content: string, filename: string, mimeType: string): void {
+  private downloadFile(
+    content: string,
+    filename: string,
+    mimeType: string
+  ): void {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

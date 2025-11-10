@@ -6,9 +6,20 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import { PWAStatus } from '@/components/pwa';
-import { pwaService, type PWAState, type OfflineDeck } from '@/lib/services/pwaService';
+import {
+  pwaService,
+  type PWAState,
+  type OfflineDeck,
+} from '@/lib/services/pwaService';
 
 export default function PWASettingsPage() {
   const [pwaState, setPwaState] = useState<PWAState>({
@@ -17,7 +28,7 @@ export default function PWASettingsPage() {
     isOnline: true,
     isServiceWorkerRegistered: false,
     updateAvailable: false,
-    cacheSize: 0
+    cacheSize: 0,
   });
   const [offlineDecks, setOfflineDecks] = useState<OfflineDeck[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +39,7 @@ export default function PWASettingsPage() {
 
     // Listen for PWA events
     const unsubscribeOnline = pwaService.on('online', (isOnline: boolean) => {
-      setPwaState(prev => ({ ...prev, isOnline }));
+      setPwaState((prev) => ({ ...prev, isOnline }));
       if (isOnline) {
         loadOfflineData();
       }
@@ -39,7 +50,7 @@ export default function PWASettingsPage() {
     });
 
     const unsubscribeCacheCleared = pwaService.on('cacheCleared', () => {
-      setPwaState(prev => ({ ...prev, cacheSize: 0 }));
+      setPwaState((prev) => ({ ...prev, cacheSize: 0 }));
     });
 
     return () => {
@@ -53,7 +64,7 @@ export default function PWASettingsPage() {
     try {
       const [state, decks] = await Promise.all([
         pwaService.getPWAState(),
-        pwaService.getOfflineDecks()
+        pwaService.getOfflineDecks(),
       ]);
 
       setPwaState(state);
@@ -102,7 +113,9 @@ export default function PWASettingsPage() {
   const handleClearCache = async () => {
     // TODO: Replace with proper confirmation dialog component
     // eslint-disable-next-line no-alert
-    const confirmed = window.confirm('Are you sure you want to clear the cache? This will remove all cached content and may require re-downloading data.');
+    const confirmed = window.confirm(
+      'Are you sure you want to clear the cache? This will remove all cached content and may require re-downloading data.'
+    );
     if (!confirmed) {
       return;
     }
@@ -121,7 +134,9 @@ export default function PWASettingsPage() {
   const handleUnregisterSW = async () => {
     // TODO: Replace with proper confirmation dialog component
     // eslint-disable-next-line no-alert
-    const confirmed = window.confirm('Are you sure you want to disable offline features? The app will no longer work offline.');
+    const confirmed = window.confirm(
+      'Are you sure you want to disable offline features? The app will no longer work offline.'
+    );
     if (!confirmed) {
       return;
     }
@@ -139,9 +154,9 @@ export default function PWASettingsPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+      <div className="container mx-auto max-w-4xl px-4 py-8">
+        <div className="py-12 text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
           <p className="text-gray-600">Loading PWA settings...</p>
         </div>
       </div>
@@ -149,11 +164,9 @@ export default function PWASettingsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto max-w-4xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          PWA Settings
-        </h1>
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">PWA Settings</h1>
         <p className="text-gray-600">
           Manage app installation, offline features, and cached data
         </p>
@@ -173,18 +186,26 @@ export default function PWASettingsPage() {
               {pwaState.isInstalled ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Badge variant="primary" className="bg-green-100 text-green-800">
+                    <Badge
+                      variant="primary"
+                      className="bg-green-100 text-green-800"
+                    >
                       ✓ Installed
                     </Badge>
-                    <span className="text-gray-700">App is installed and running</span>
+                    <span className="text-gray-700">
+                      App is installed and running
+                    </span>
                   </div>
                 </div>
               ) : pwaState.isInstallable ? (
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-medium text-gray-900 mb-1">Install as App</div>
+                    <div className="mb-1 font-medium text-gray-900">
+                      Install as App
+                    </div>
                     <div className="text-sm text-gray-600">
-                      Install the Gundam Card Game Database as a native app for better performance and offline access
+                      Install the Gundam Card Game Database as a native app for
+                      better performance and offline access
                     </div>
                   </div>
                   <Button
@@ -192,25 +213,33 @@ export default function PWASettingsPage() {
                     variant="default"
                     disabled={actionLoading === 'install'}
                   >
-                    {actionLoading === 'install' ? 'Installing...' : 'Install App'}
+                    {actionLoading === 'install'
+                      ? 'Installing...'
+                      : 'Install App'}
                   </Button>
                 </div>
               ) : (
-                <div className="text-center py-4">
-                  <div className="text-gray-600 mb-2">App installation not available</div>
+                <div className="py-4 text-center">
+                  <div className="mb-2 text-gray-600">
+                    App installation not available
+                  </div>
                   <div className="text-sm text-gray-500">
-                    Try using a supported browser or check if the app is already installed
+                    Try using a supported browser or check if the app is already
+                    installed
                   </div>
                 </div>
               )}
 
               {pwaState.updateAvailable && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-medium text-green-900 mb-1">Update Available</div>
+                      <div className="mb-1 font-medium text-green-900">
+                        Update Available
+                      </div>
                       <div className="text-sm text-green-700">
-                        A new version of the app is available with improvements and bug fixes
+                        A new version of the app is available with improvements
+                        and bug fixes
                       </div>
                     </div>
                     <Button
@@ -219,7 +248,9 @@ export default function PWASettingsPage() {
                       size="sm"
                       disabled={actionLoading === 'update'}
                     >
-                      {actionLoading === 'update' ? 'Updating...' : 'Update Now'}
+                      {actionLoading === 'update'
+                        ? 'Updating...'
+                        : 'Update Now'}
                     </Button>
                   </div>
                 </div>
@@ -254,14 +285,18 @@ export default function PWASettingsPage() {
                       disabled={actionLoading === 'clearCache'}
                       className="mt-1"
                     >
-                      {actionLoading === 'clearCache' ? 'Clearing...' : 'Clear Cache'}
+                      {actionLoading === 'clearCache'
+                        ? 'Clearing...'
+                        : 'Clear Cache'}
                     </Button>
                   )}
                 </div>
               </div>
 
               <div className="border-t pt-4">
-                <h4 className="font-medium text-gray-900 mb-2">Cached Content</h4>
+                <h4 className="mb-2 font-medium text-gray-900">
+                  Cached Content
+                </h4>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">Application Files</span>
@@ -295,27 +330,35 @@ export default function PWASettingsPage() {
           </CardHeader>
           <CardContent>
             {offlineDecks.length === 0 ? (
-              <div className="text-center py-6">
-                <div className="text-gray-600 mb-2">No offline data</div>
+              <div className="py-6 text-center">
+                <div className="mb-2 text-gray-600">No offline data</div>
                 <div className="text-sm text-gray-500">
-                  Data you create while offline will appear here and sync when you&apos;re back online
+                  Data you create while offline will appear here and sync when
+                  you&apos;re back online
                 </div>
               </div>
             ) : (
               <div className="space-y-3">
-                <div className="text-sm text-gray-600 mb-3">
-                  The following data is stored offline and will sync when you&apos;re online:
+                <div className="mb-3 text-sm text-gray-600">
+                  The following data is stored offline and will sync when
+                  you&apos;re online:
                 </div>
                 {offlineDecks.map((deck) => (
-                  <div key={deck.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={deck.id}
+                    className="flex items-center justify-between rounded-lg bg-gray-50 p-3"
+                  >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded bg-blue-100 flex items-center justify-center">
+                      <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-100">
                         🃏
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">{deck.name}</div>
+                        <div className="font-medium text-gray-900">
+                          {deck.name}
+                        </div>
                         <div className="text-sm text-gray-600">
-                          {deck.cards.length} cards • Created {deck.createdAt.toLocaleDateString()}
+                          {deck.cards.length} cards • Created{' '}
+                          {deck.createdAt.toLocaleDateString()}
                         </div>
                       </div>
                     </div>
@@ -326,12 +369,13 @@ export default function PWASettingsPage() {
                 ))}
 
                 {!pwaState.isOnline && (
-                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mt-4">
-                    <div className="text-orange-900 font-medium mb-1">
+                  <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-3">
+                    <div className="mb-1 font-medium text-orange-900">
                       📡 Currently Offline
                     </div>
-                    <div className="text-orange-700 text-sm">
-                      Data will automatically sync when you reconnect to the internet
+                    <div className="text-sm text-orange-700">
+                      Data will automatically sync when you reconnect to the
+                      internet
                     </div>
                   </div>
                 )}
@@ -349,13 +393,19 @@ export default function PWASettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-900">Service Worker</div>
+                  <div className="font-medium text-gray-900">
+                    Service Worker
+                  </div>
                   <div className="text-sm text-gray-600">
                     Controls offline functionality and background sync
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant={pwaState.isServiceWorkerRegistered ? 'primary' : 'outline'}>
+                  <Badge
+                    variant={
+                      pwaState.isServiceWorkerRegistered ? 'primary' : 'outline'
+                    }
+                  >
                     {pwaState.isServiceWorkerRegistered ? 'Active' : 'Inactive'}
                   </Badge>
                   {pwaState.isServiceWorkerRegistered && (
@@ -365,35 +415,63 @@ export default function PWASettingsPage() {
                       size="sm"
                       disabled={actionLoading === 'unregister'}
                     >
-                      {actionLoading === 'unregister' ? 'Disabling...' : 'Disable'}
+                      {actionLoading === 'unregister'
+                        ? 'Disabling...'
+                        : 'Disable'}
                     </Button>
                   )}
                 </div>
               </div>
 
               <div className="border-t pt-4">
-                <h4 className="font-medium text-gray-900 mb-2">Offline Features</h4>
+                <h4 className="mb-2 font-medium text-gray-900">
+                  Offline Features
+                </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
-                    <span className={pwaState.isServiceWorkerRegistered ? 'text-green-600' : 'text-gray-400'}>
+                    <span
+                      className={
+                        pwaState.isServiceWorkerRegistered
+                          ? 'text-green-600'
+                          : 'text-gray-400'
+                      }
+                    >
                       {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
                     </span>
                     <span>Offline page access</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={pwaState.isServiceWorkerRegistered ? 'text-green-600' : 'text-gray-400'}>
+                    <span
+                      className={
+                        pwaState.isServiceWorkerRegistered
+                          ? 'text-green-600'
+                          : 'text-gray-400'
+                      }
+                    >
                       {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
                     </span>
                     <span>Background data sync</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={pwaState.isServiceWorkerRegistered ? 'text-green-600' : 'text-gray-400'}>
+                    <span
+                      className={
+                        pwaState.isServiceWorkerRegistered
+                          ? 'text-green-600'
+                          : 'text-gray-400'
+                      }
+                    >
                       {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
                     </span>
                     <span>Cached resource serving</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={pwaState.isServiceWorkerRegistered ? 'text-green-600' : 'text-gray-400'}>
+                    <span
+                      className={
+                        pwaState.isServiceWorkerRegistered
+                          ? 'text-green-600'
+                          : 'text-gray-400'
+                      }
+                    >
                       {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
                     </span>
                     <span>Offline deck building</span>
@@ -401,11 +479,14 @@ export default function PWASettingsPage() {
                 </div>
               </div>
 
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                <div className="text-yellow-900 font-medium mb-1">⚠️ Warning</div>
-                <div className="text-yellow-700 text-sm">
-                  Disabling the service worker will remove all offline functionality.
-                  You&apos;ll need to refresh the page to re-enable offline features.
+              <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
+                <div className="mb-1 font-medium text-yellow-900">
+                  ⚠️ Warning
+                </div>
+                <div className="text-sm text-yellow-700">
+                  Disabling the service worker will remove all offline
+                  functionality. You&apos;ll need to refresh the page to
+                  re-enable offline features.
                 </div>
               </div>
             </div>

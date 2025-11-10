@@ -17,11 +17,13 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({
-      rarities,
-      total: rarities.length,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        rarities,
+        total: rarities.length,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Rarities API GET error:', error);
 

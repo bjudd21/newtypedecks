@@ -2,7 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import { formatDistanceToNow } from 'date-fns';
 
 interface DeckVersion {
@@ -50,10 +57,12 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
   currentVersion,
   onVersionRestore,
   onVersionDelete,
-  className
+  className,
 }) => {
   const [versions, setVersions] = useState<DeckVersion[]>([]);
-  const [selectedVersion, setSelectedVersion] = useState<DeckVersion | null>(null);
+  const [selectedVersion, setSelectedVersion] = useState<DeckVersion | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isRestoring, setIsRestoring] = useState(false);
@@ -75,7 +84,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
         setVersions(data.versions || []);
       } catch (err) {
         console.error('Error fetching versions:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load version history');
+        setError(
+          err instanceof Error ? err.message : 'Failed to load version history'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -94,7 +105,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
     }
 
     try {
-      const response = await fetch(`/api/decks/${deckId}/versions/${version.id}`);
+      const response = await fetch(
+        `/api/decks/${deckId}/versions/${version.id}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch version details');
       }
@@ -117,13 +130,16 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       setIsRestoring(true);
       setError(null);
 
-      const response = await fetch(`/api/decks/${deckId}/versions/${versionId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ action: 'restore' })
-      });
+      const response = await fetch(
+        `/api/decks/${deckId}/versions/${versionId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ action: 'restore' }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -131,7 +147,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       }
 
       const result = await response.json();
-      console.warn(`TODO: Replace with proper UI notification - ${result.message}`);
+      console.warn(
+        `TODO: Replace with proper UI notification - ${result.message}`
+      );
 
       // Refresh version history
       window.location.reload();
@@ -141,7 +159,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       }
     } catch (err) {
       console.error('Error restoring version:', err);
-      setError(err instanceof Error ? err.message : 'Failed to restore version');
+      setError(
+        err instanceof Error ? err.message : 'Failed to restore version'
+      );
     } finally {
       setIsRestoring(false);
     }
@@ -149,16 +169,21 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
   // Handle version deletion
   const handleDelete = async (versionId: string, versionNumber: number) => {
-    console.warn(`TODO: Replace with proper UI confirmation dialog - Deleting version ${versionNumber}`);
+    console.warn(
+      `TODO: Replace with proper UI confirmation dialog - Deleting version ${versionNumber}`
+    );
     // For now, proceed without confirmation
 
     try {
       setIsDeleting(true);
       setError(null);
 
-      const response = await fetch(`/api/decks/${deckId}/versions/${versionId}`, {
-        method: 'DELETE'
-      });
+      const response = await fetch(
+        `/api/decks/${deckId}/versions/${versionId}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -166,7 +191,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       }
 
       // Remove from local state
-      setVersions(prevVersions => prevVersions.filter(v => v.id !== versionId));
+      setVersions((prevVersions) =>
+        prevVersions.filter((v) => v.id !== versionId)
+      );
 
       if (selectedVersion?.id === versionId) {
         setSelectedVersion(null);
@@ -197,8 +224,8 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
         },
         body: JSON.stringify({
           versionName: (versionName as string | undefined)?.trim() || undefined,
-          changeNote: (changeNote as string | undefined)?.trim() || undefined
-        })
+          changeNote: (changeNote as string | undefined)?.trim() || undefined,
+        }),
       });
 
       if (!response.ok) {
@@ -209,11 +236,15 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
       const result = await response.json();
 
       // Add new version to the list
-      setVersions(prevVersions => [result.version, ...prevVersions]);
-      console.warn('TODO: Replace with proper UI notification - Version created successfully!');
+      setVersions((prevVersions) => [result.version, ...prevVersions]);
+      console.warn(
+        'TODO: Replace with proper UI notification - Version created successfully!'
+      );
     } catch (err) {
       console.error('Error creating version:', err);
-      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to create version'}`);
+      console.warn(
+        `TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to create version'}`
+      );
     }
   };
 
@@ -242,48 +273,64 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
         </CardHeader>
         <CardContent>
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm">
+            <div className="mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {error}
             </div>
           )}
 
           {versions.length === 0 ? (
-            <div className="text-center text-gray-600 py-8">
+            <div className="py-8 text-center text-gray-600">
               <div className="text-lg font-medium">No versions yet</div>
-              <div className="text-sm mt-1">
-                Versions are created automatically when you make changes to your deck.
+              <div className="mt-1 text-sm">
+                Versions are created automatically when you make changes to your
+                deck.
               </div>
             </div>
           ) : (
             <div className="space-y-4">
               {versions.map((version) => (
-                <div key={version.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center justify-between mb-2">
+                <div
+                  key={version.id}
+                  className="rounded-lg border p-4 transition-colors hover:bg-gray-50"
+                >
+                  <div className="mb-2 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Badge
-                        variant={version.version === currentVersion ? 'primary' : 'secondary'}
+                        variant={
+                          version.version === currentVersion
+                            ? 'primary'
+                            : 'secondary'
+                        }
                       >
                         v{version.version}
                         {version.version === currentVersion && ' (Current)'}
                       </Badge>
                       {version.versionName && (
-                        <span className="font-medium text-gray-900">{version.versionName}</span>
+                        <span className="font-medium text-gray-900">
+                          {version.versionName}
+                        </span>
                       )}
                     </div>
                     <div className="text-sm text-gray-600">
-                      {formatDistanceToNow(new Date(version.createdAt), { addSuffix: true })}
+                      {formatDistanceToNow(new Date(version.createdAt), {
+                        addSuffix: true,
+                      })}
                     </div>
                   </div>
 
-                  <div className="text-sm text-gray-600 mb-2">
-                    <div><strong>{version.name}</strong></div>
+                  <div className="mb-2 text-sm text-gray-600">
+                    <div>
+                      <strong>{version.name}</strong>
+                    </div>
                     {version.description && <div>{version.description}</div>}
                     {version.changeNote && (
-                      <div className="mt-1 italic">&quot;{version.changeNote}&quot;</div>
+                      <div className="mt-1 italic">
+                        &quot;{version.changeNote}&quot;
+                      </div>
                     )}
                   </div>
 
-                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                  <div className="mb-3 flex items-center gap-4 text-xs text-gray-500">
                     <span>{version.cardCount} cards</span>
                     <span>{version.uniqueCards} unique</span>
                     <span>{version.totalCost} total cost</span>
@@ -296,7 +343,9 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
                       variant="outline"
                       size="sm"
                     >
-                      {selectedVersion?.id === version.id ? 'Hide Details' : 'View Cards'}
+                      {selectedVersion?.id === version.id
+                        ? 'Hide Details'
+                        : 'View Cards'}
                     </Button>
 
                     {version.version !== currentVersion && (
@@ -312,11 +361,13 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
                     {versions.length > 1 && (
                       <Button
-                        onClick={() => handleDelete(version.id, version.version)}
+                        onClick={() =>
+                          handleDelete(version.id, version.version)
+                        }
                         variant="outline"
                         size="sm"
                         disabled={isDeleting}
-                        className="text-red-600 hover:text-red-700 hover:border-red-300"
+                        className="text-red-600 hover:border-red-300 hover:text-red-700"
                       >
                         {isDeleting ? 'Deleting...' : 'Delete'}
                       </Button>
@@ -325,27 +376,30 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
 
                   {/* Version Details */}
                   {selectedVersion?.id === version.id && (
-                    <div className="mt-4 pt-4 border-t">
-                      <div className="text-sm font-medium text-gray-900 mb-2">
+                    <div className="mt-4 border-t pt-4">
+                      <div className="mb-2 text-sm font-medium text-gray-900">
                         Cards in this version:
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
+                      <div className="grid max-h-64 grid-cols-1 gap-2 overflow-y-auto sm:grid-cols-2">
                         {selectedVersion.cards.map((versionCard) => (
                           <div
                             key={versionCard.id}
-                            className="flex items-center gap-2 p-2 bg-white border rounded text-sm"
+                            className="flex items-center gap-2 rounded border bg-white p-2 text-sm"
                           >
                             <Image
                               src={versionCard.card.imageUrl}
                               alt={versionCard.card.name}
                               width={32}
                               height={32}
-                              className="w-8 h-8 object-cover rounded"
+                              className="h-8 w-8 rounded object-cover"
                             />
-                            <div className="flex-1 min-w-0">
-                              <div className="font-medium truncate">{versionCard.card.name}</div>
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate font-medium">
+                                {versionCard.card.name}
+                              </div>
                               <div className="text-xs text-gray-500">
-                                {versionCard.card.type.name} • {versionCard.card.rarity.name}
+                                {versionCard.card.type.name} •{' '}
+                                {versionCard.card.rarity.name}
                               </div>
                             </div>
                             <div className="text-xs text-gray-600">

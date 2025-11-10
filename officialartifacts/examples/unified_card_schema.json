@@ -55,7 +55,7 @@
       "description": "AP modifier for Pilot cards and Command cards with Pilot effects"
     },
     "hpModifier": {
-      "type": "integer", 
+      "type": "integer",
       "description": "HP modifier for Pilot cards and Command cards with Pilot effects"
     },
     "level": {
@@ -99,7 +99,14 @@
             "properties": {
               "keyword": {
                 "type": "string",
-                "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+                "enum": [
+                  "Repair",
+                  "Breach",
+                  "Support",
+                  "Blocker",
+                  "First Strike",
+                  "High-Maneuver"
+                ]
               },
               "value": {
                 "type": "integer",
@@ -116,7 +123,16 @@
             "properties": {
               "trigger": {
                 "type": "string",
-                "enum": ["Deploy", "Attack", "Destroyed", "When Paired", "When Linked", "During Pair", "During Link", "Burst"]
+                "enum": [
+                  "Deploy",
+                  "Attack",
+                  "Destroyed",
+                  "When Paired",
+                  "When Linked",
+                  "During Pair",
+                  "During Link",
+                  "Burst"
+                ]
               },
               "condition": {
                 "type": "string"
@@ -242,11 +258,7 @@
       }
     }
   },
-  "required": [
-    "cardNumber",
-    "cardName",
-    "cardType"
-  ],
+  "required": ["cardNumber", "cardName", "cardType"],
   "allOf": [
     {
       "if": {

@@ -1,4 +1,8 @@
-import { deckAnalyticsService, type DeckAnalytics, type DeckCard } from './deckAnalyticsService';
+import {
+  deckAnalyticsService,
+  type DeckAnalytics,
+  type DeckCard,
+} from './deckAnalyticsService';
 import type { CardWithRelations } from '@/lib/types/card';
 
 export interface TournamentDeck {
@@ -50,7 +54,13 @@ export interface TournamentValidation {
 }
 
 export interface ValidationError {
-  type: 'deck_size' | 'sideboard_size' | 'banned_card' | 'restricted_card' | 'max_copies' | 'invalid_format';
+  type:
+    | 'deck_size'
+    | 'sideboard_size'
+    | 'banned_card'
+    | 'restricted_card'
+    | 'max_copies'
+    | 'invalid_format';
   message: string;
   cardId?: string;
   cardName?: string;
@@ -140,7 +150,7 @@ class TournamentPrepService {
       sideboardSize: 15,
       maxCopiesPerCard: 3,
       bannedCards: [],
-      restrictedCards: []
+      restrictedCards: [],
     },
     advanced: {
       name: 'Advanced',
@@ -149,7 +159,7 @@ class TournamentPrepService {
       sideboardSize: 20,
       maxCopiesPerCard: 4,
       bannedCards: [],
-      restrictedCards: []
+      restrictedCards: [],
     },
     limited: {
       name: 'Limited',
@@ -158,8 +168,8 @@ class TournamentPrepService {
       sideboardSize: 0,
       maxCopiesPerCard: 1,
       bannedCards: [],
-      restrictedCards: []
-    }
+      restrictedCards: [],
+    },
   };
 
   /**
@@ -173,12 +183,14 @@ class TournamentPrepService {
     if (!format) {
       return {
         isValid: false,
-        errors: [{
-          type: 'invalid_format',
-          message: `Unknown tournament format: ${formatName}`
-        }],
+        errors: [
+          {
+            type: 'invalid_format',
+            message: `Unknown tournament format: ${formatName}`,
+          },
+        ],
         warnings: [],
-        format: this.formats.standard
+        format: this.formats.standard,
       };
     }
 
@@ -186,31 +198,37 @@ class TournamentPrepService {
     const warnings: ValidationWarning[] = [];
 
     // Validate main deck size
-    const mainDeckSize = deck.mainDeck.reduce((sum, card) => sum + card.quantity, 0);
+    const mainDeckSize = deck.mainDeck.reduce(
+      (sum, card) => sum + card.quantity,
+      0
+    );
     if (mainDeckSize < format.minDeckSize) {
       errors.push({
         type: 'deck_size',
         message: `Main deck too small: ${mainDeckSize} cards (minimum ${format.minDeckSize})`,
         currentValue: mainDeckSize,
-        requiredValue: format.minDeckSize
+        requiredValue: format.minDeckSize,
       });
     } else if (mainDeckSize > format.maxDeckSize) {
       errors.push({
         type: 'deck_size',
         message: `Main deck too large: ${mainDeckSize} cards (maximum ${format.maxDeckSize})`,
         currentValue: mainDeckSize,
-        requiredValue: format.maxDeckSize
+        requiredValue: format.maxDeckSize,
       });
     }
 
     // Validate sideboard size
-    const sideboardSize = deck.sideboard.reduce((sum, card) => sum + card.quantity, 0);
+    const sideboardSize = deck.sideboard.reduce(
+      (sum, card) => sum + card.quantity,
+      0
+    );
     if (sideboardSize > format.sideboardSize) {
       errors.push({
         type: 'sideboard_size',
         message: `Sideboard too large: ${sideboardSize} cards (maximum ${format.sideboardSize})`,
         currentValue: sideboardSize,
-        requiredValue: format.sideboardSize
+        requiredValue: format.sideboardSize,
       });
     }
 
@@ -218,13 +236,13 @@ class TournamentPrepService {
     const allCards = [...deck.mainDeck, ...deck.sideboard];
     const cardCounts = new Map<string, number>();
 
-    allCards.forEach(deckCard => {
+    allCards.forEach((deckCard) => {
       const currentCount = cardCounts.get(deckCard.card.id) || 0;
       cardCounts.set(deckCard.card.id, currentCount + deckCard.quantity);
     });
 
     cardCounts.forEach((count, cardId) => {
-      const card = allCards.find(dc => dc.card.id === cardId)?.card;
+      const card = allCards.find((dc) => dc.card.id === cardId)?.card;
       if (!card) return;
 
       // Check max copies per card
@@ -235,7 +253,7 @@ class TournamentPrepService {
           cardId,
           cardName: card.name,
           currentValue: count,
-          requiredValue: format.maxCopiesPerCard
+          requiredValue: format.maxCopiesPerCard,
         });
       }
 
@@ -245,12 +263,14 @@ class TournamentPrepService {
           type: 'banned_card',
           message: `${card.name} is banned in ${format.name} format`,
           cardId,
-          cardName: card.name
+          cardName: card.name,
         });
       }
 
       // Check restricted cards
-      const restriction = format.restrictedCards.find(r => r.cardId === cardId);
+      const restriction = format.restrictedCards.find(
+        (r) => r.cardId === cardId
+      );
       if (restriction && count > restriction.maxCopies) {
         errors.push({
           type: 'restricted_card',
@@ -258,18 +278,21 @@ class TournamentPrepService {
           cardId,
           cardName: card.name,
           currentValue: count,
-          requiredValue: restriction.maxCopies
+          requiredValue: restriction.maxCopies,
         });
       }
     });
 
     // Generate warnings for suboptimal builds
-    if (mainDeckSize === format.minDeckSize && format.maxDeckSize > format.minDeckSize) {
+    if (
+      mainDeckSize === format.minDeckSize &&
+      format.maxDeckSize > format.minDeckSize
+    ) {
       warnings.push({
         type: 'suboptimal_size',
         message: `Deck is at minimum size (${mainDeckSize} cards)`,
         suggestion: `Consider increasing to ${Math.min(60, format.maxDeckSize)} cards for better consistency`,
-        severity: 'low'
+        severity: 'low',
       });
     }
 
@@ -279,7 +302,7 @@ class TournamentPrepService {
           type: 'weak_synergy',
           message: 'Low card synergy detected',
           suggestion: 'Consider focusing on cards that work well together',
-          severity: 'medium'
+          severity: 'medium',
         });
       }
 
@@ -288,7 +311,7 @@ class TournamentPrepService {
           type: 'high_variance',
           message: 'Deck may be inconsistent',
           suggestion: 'Review card distribution and consider better balance',
-          severity: 'high'
+          severity: 'high',
         });
       }
     }
@@ -297,7 +320,7 @@ class TournamentPrepService {
       isValid: errors.length === 0,
       errors,
       warnings,
-      format
+      format,
     };
   }
 
@@ -329,7 +352,8 @@ class TournamentPrepService {
     // For now, we'll generate representative analysis
 
     const archetypeData = this.getArchetypeData(archetype);
-    const deckAnalytics = deck.analytics || await deckAnalyticsService.analyzeDeck(deck.mainDeck);
+    const deckAnalytics =
+      deck.analytics || (await deckAnalyticsService.analyzeDeck(deck.mainDeck));
 
     // Calculate winrate estimate based on deck characteristics vs archetype
     let winrateEstimate = 50;
@@ -337,7 +361,10 @@ class TournamentPrepService {
     // Adjust based on play style matchups
     if (archetype.includes('Aggro') && deckAnalytics.averageCost >= 4) {
       winrateEstimate -= 15; // Control vs Aggro disadvantage
-    } else if (archetype.includes('Control') && deckAnalytics.averageCost <= 3) {
+    } else if (
+      archetype.includes('Control') &&
+      deckAnalytics.averageCost <= 3
+    ) {
       winrateEstimate += 10; // Aggro vs Control advantage
     }
 
@@ -352,7 +379,7 @@ class TournamentPrepService {
       winrateEstimate,
       gameplan: this.generateGameplan(deck, archetype, deckAnalytics),
       sideboarding: this.generateSideboardPlan(deck, archetype),
-      playTips: this.generatePlayTips(archetype, deckAnalytics)
+      playTips: this.generatePlayTips(archetype, deckAnalytics),
     };
   }
 
@@ -363,36 +390,39 @@ class TournamentPrepService {
     const archetypes: Record<string, MatchupAnalysis['opponent']> = {
       'Aggro Rush': {
         archetype: 'Aggro Rush',
-        description: 'Fast, aggressive deck focusing on early pressure and quick wins',
+        description:
+          'Fast, aggressive deck focusing on early pressure and quick wins',
         commonCards: [], // Would be populated from database
-        strategy: 'Apply early pressure, win before turn 6-7'
+        strategy: 'Apply early pressure, win before turn 6-7',
       },
       'Control Lock': {
         archetype: 'Control Lock',
         description: 'Defensive deck with removal and late-game threats',
         commonCards: [],
-        strategy: 'Control early game, win with powerful late-game threats'
+        strategy: 'Control early game, win with powerful late-game threats',
       },
       'Midrange Value': {
         archetype: 'Midrange Value',
         description: 'Balanced deck with efficient threats and answers',
         commonCards: [],
-        strategy: 'Trade efficiently, apply pressure when ahead'
+        strategy: 'Trade efficiently, apply pressure when ahead',
       },
       'Combo Engine': {
         archetype: 'Combo Engine',
         description: 'Synergy-based deck with powerful card interactions',
         commonCards: [],
-        strategy: 'Assemble combo pieces, protect the combo'
-      }
+        strategy: 'Assemble combo pieces, protect the combo',
+      },
     };
 
-    return archetypes[archetype] || {
-      archetype,
-      description: 'Unknown archetype',
-      commonCards: [],
-      strategy: 'Varies'
-    };
+    return (
+      archetypes[archetype] || {
+        archetype,
+        description: 'Unknown archetype',
+        commonCards: [],
+        strategy: 'Varies',
+      }
+    );
   }
 
   /**
@@ -407,7 +437,7 @@ class TournamentPrepService {
       onPlay: [],
       onDraw: [],
       keyCards: [],
-      avoidCards: []
+      avoidCards: [],
     };
 
     if (archetype.includes('Aggro')) {
@@ -415,35 +445,35 @@ class TournamentPrepService {
         gameplan.onPlay = [
           'Prioritize early defensive plays',
           'Look for card advantage engines',
-          'Stabilize around turn 4-5'
+          'Stabilize around turn 4-5',
         ];
         gameplan.onDraw = [
           'Focus on survival tools',
           'Accept early damage for card advantage',
-          'Plan for late-game dominance'
+          'Plan for late-game dominance',
         ];
       } else {
         gameplan.onPlay = [
           'Race aggressively',
           'Prioritize efficient threats',
-          'Avoid trading unless favorable'
+          'Avoid trading unless favorable',
         ];
         gameplan.onDraw = [
           'Look for removal spells',
           'Trade efficiently to slow them down',
-          'Counter-attack when possible'
+          'Counter-attack when possible',
         ];
       }
     } else if (archetype.includes('Control')) {
       gameplan.onPlay = [
         'Apply early pressure',
         'Force them to react',
-        'Avoid overextending into sweepers'
+        'Avoid overextending into sweepers',
       ];
       gameplan.onDraw = [
         'Build board presence gradually',
         'Hold up interaction',
-        'Pressure their life total'
+        'Pressure their life total',
       ];
     }
 
@@ -465,22 +495,25 @@ class TournamentPrepService {
       priorityOrder: [
         'Bring in targeted answers',
         'Remove dead cards',
-        'Adjust threat density'
-      ]
+        'Adjust threat density',
+      ],
     };
   }
 
   /**
    * Generate play tips for matchup
    */
-  private generatePlayTips(archetype: string, analytics: DeckAnalytics): string[] {
+  private generatePlayTips(
+    archetype: string,
+    analytics: DeckAnalytics
+  ): string[] {
     const tips: string[] = [];
 
     if (archetype.includes('Aggro')) {
       tips.push(
         'Prioritize life total preservation',
         'Look for favorable trades early',
-        'Don\'t be afraid to take some damage to develop'
+        "Don't be afraid to take some damage to develop"
       );
     } else if (archetype.includes('Control')) {
       tips.push(
@@ -524,7 +557,7 @@ class TournamentPrepService {
       rounds: [],
       result: 'ongoing',
       startTime: new Date(),
-      notes: ''
+      notes: '',
     };
   }
 
@@ -543,15 +576,17 @@ class TournamentPrepService {
       playerResult: result,
       onPlay,
       keyMoments,
-      duration
+      duration,
     };
 
     match.rounds.push(round);
 
     // Update match result based on best-of-3
     if (match.rounds.length >= 2) {
-      const wins = match.rounds.filter(r => r.playerResult === 'win').length;
-      const losses = match.rounds.filter(r => r.playerResult === 'loss').length;
+      const wins = match.rounds.filter((r) => r.playerResult === 'win').length;
+      const losses = match.rounds.filter(
+        (r) => r.playerResult === 'loss'
+      ).length;
 
       if (wins >= 2) {
         match.result = 'win';
@@ -592,8 +627,13 @@ class TournamentPrepService {
       let matchWins = 0;
       let matchLosses = 0;
 
-      for (let game = 1; game <= 3 && matchWins < 2 && matchLosses < 2; game++) {
-        const onPlay = game === 1 ? Math.random() > 0.5 : matchWins < matchLosses;
+      for (
+        let game = 1;
+        game <= 3 && matchWins < 2 && matchLosses < 2;
+        game++
+      ) {
+        const onPlay =
+          game === 1 ? Math.random() > 0.5 : matchWins < matchLosses;
         const winChance = matchup.winrateEstimate / 100;
         const adjustedWinChance = onPlay ? winChance * 1.05 : winChance * 0.95; // Slight play advantage
 
@@ -609,14 +649,15 @@ class TournamentPrepService {
         round,
         opponent,
         result: matchResult,
-        games
+        games,
       });
 
       if (matchResult === 'win') totalWins++;
       totalMatches++;
     }
 
-    const overallWinrate = totalMatches > 0 ? (totalWins / totalMatches) * 100 : 0;
+    const overallWinrate =
+      totalMatches > 0 ? (totalWins / totalMatches) * 100 : 0;
 
     return {
       format,
@@ -625,7 +666,7 @@ class TournamentPrepService {
       opponents,
       results,
       overallWinrate,
-      expectedPlacement: this.calculateExpectedPlacement(totalWins, rounds)
+      expectedPlacement: this.calculateExpectedPlacement(totalWins, rounds),
     };
   }
 
@@ -663,7 +704,10 @@ class TournamentPrepService {
   /**
    * Calculate expected tournament placement
    */
-  private calculateExpectedPlacement(wins: number, totalRounds: number): {
+  private calculateExpectedPlacement(
+    wins: number,
+    totalRounds: number
+  ): {
     min: number;
     max: number;
     average: number;
@@ -677,8 +721,11 @@ class TournamentPrepService {
 
     return {
       min: Math.max(1, Math.floor(averagePlacement - totalPlayers * 0.2)),
-      max: Math.min(totalPlayers, Math.ceil(averagePlacement + totalPlayers * 0.2)),
-      average: Math.round(averagePlacement)
+      max: Math.min(
+        totalPlayers,
+        Math.ceil(averagePlacement + totalPlayers * 0.2)
+      ),
+      average: Math.round(averagePlacement),
     };
   }
 
@@ -695,25 +742,25 @@ class TournamentPrepService {
           percentage: 25,
           winrate: 58,
           keyCards: [],
-          description: 'Fast aggressive strategy'
+          description: 'Fast aggressive strategy',
         },
         {
           name: 'Control Lock',
           percentage: 20,
           winrate: 55,
           keyCards: [],
-          description: 'Defensive control strategy'
+          description: 'Defensive control strategy',
         },
         {
           name: 'Midrange Value',
           percentage: 18,
           winrate: 52,
           keyCards: [],
-          description: 'Balanced midrange approach'
-        }
+          description: 'Balanced midrange approach',
+        },
       ],
       risingArchetypes: ['Combo Engine'],
-      fallingArchetypes: ['Artifact Ramp']
+      fallingArchetypes: ['Artifact Ramp'],
     };
   }
 
@@ -727,7 +774,10 @@ class TournamentPrepService {
   /**
    * Update tournament format (admin function)
    */
-  updateFormat(formatName: string, updates: Partial<TournamentFormat>): TournamentFormat {
+  updateFormat(
+    formatName: string,
+    updates: Partial<TournamentFormat>
+  ): TournamentFormat {
     const format = this.formats[formatName.toLowerCase()];
     if (!format) {
       throw new Error(`Unknown format: ${formatName}`);

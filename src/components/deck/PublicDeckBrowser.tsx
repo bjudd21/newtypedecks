@@ -3,7 +3,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+  Select,
+  Badge,
+} from '@/components/ui';
 
 interface PublicDeck {
   id: string;
@@ -37,7 +46,9 @@ interface PublicDeckBrowserProps {
   className?: string;
 }
 
-export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className }) => {
+export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
+  className,
+}) => {
   const router = useRouter();
   const [decks, setDecks] = useState<PublicDeck[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,14 +57,14 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
     page: 1,
     limit: 12,
     total: 0,
-    pages: 0
+    pages: 0,
   });
 
   const [filters, setFilters] = useState({
     search: '',
     format: '',
     sortBy: 'updatedAt',
-    sortOrder: 'desc'
+    sortOrder: 'desc',
   });
 
   const loadPublicDecks = useCallback(async () => {
@@ -64,7 +75,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
-        ...filters
+        ...filters,
       });
 
       const response = await fetch(`/api/decks/public?${params.toString()}`);
@@ -76,9 +87,10 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
       }
 
       setDecks(data.decks);
-      setPagination(prev => ({ ...prev, ...data.pagination }));
+      setPagination((prev) => ({ ...prev, ...data.pagination }));
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load public decks';
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to load public decks';
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -90,47 +102,55 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
   }, [loadPublicDecks]);
 
   const handleFilterChange = useCallback((field: string, value: string) => {
-    setFilters(prev => ({ ...prev, [field]: value }));
-    setPagination(prev => ({ ...prev, page: 1 })); // Reset to page 1
+    setFilters((prev) => ({ ...prev, [field]: value }));
+    setPagination((prev) => ({ ...prev, page: 1 })); // Reset to page 1
   }, []);
 
   const handlePageChange = useCallback((newPage: number) => {
-    setPagination(prev => ({ ...prev, page: newPage }));
+    setPagination((prev) => ({ ...prev, page: newPage }));
   }, []);
 
-  const handleViewDeck = useCallback((deckId: string) => {
-    router.push(`/decks/${deckId}`);
-  }, [router]);
+  const handleViewDeck = useCallback(
+    (deckId: string) => {
+      router.push(`/decks/${deckId}`);
+    },
+    [router]
+  );
 
-  const handleCopyDeck = useCallback(async (deck: PublicDeck) => {
-    try {
-      // First get the full deck details
-      const response = await fetch(`/api/decks/${deck.id}`);
-      const fullDeck = await response.json();
+  const handleCopyDeck = useCallback(
+    async (deck: PublicDeck) => {
+      try {
+        // First get the full deck details
+        const response = await fetch(`/api/decks/${deck.id}`);
+        const fullDeck = await response.json();
 
-      if (!response.ok) {
-        // TODO: Replace with proper UI notification component
-        console.warn('Failed to load deck details');
-        return;
+        if (!response.ok) {
+          // TODO: Replace with proper UI notification component
+          console.warn('Failed to load deck details');
+          return;
+        }
+
+        // Store deck data in localStorage for the deck builder to pick up
+        const deckData = {
+          name: `${deck.name} (Copy)`,
+          description: deck.description || '',
+          format: deck.format,
+          cards: fullDeck.cards || [],
+        };
+
+        localStorage.setItem('importDeck', JSON.stringify(deckData));
+
+        // Navigate to deck builder
+        router.push('/decks/builder?import=true');
+      } catch (error) {
+        console.error('Error copying deck:', error);
+        console.warn(
+          'TODO: Replace with proper UI notification - Failed to copy deck'
+        );
       }
-
-      // Store deck data in localStorage for the deck builder to pick up
-      const deckData = {
-        name: `${deck.name} (Copy)`,
-        description: deck.description || '',
-        format: deck.format,
-        cards: fullDeck.cards || []
-      };
-
-      localStorage.setItem('importDeck', JSON.stringify(deckData));
-
-      // Navigate to deck builder
-      router.push('/decks/builder?import=true');
-    } catch (error) {
-      console.error('Error copying deck:', error);
-      console.warn('TODO: Replace with proper UI notification - Failed to copy deck');
-    }
-  }, [router]);
+    },
+    [router]
+  );
 
   return (
     <div className={className}>
@@ -140,9 +160,9 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
           <CardTitle>Browse Community Decks</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Search
               </label>
               <Input
@@ -152,45 +172,51 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Format
               </label>
               <Select
                 value={filters.format}
-                onChange={(value: string) => handleFilterChange('format', value)}
+                onChange={(value: string) =>
+                  handleFilterChange('format', value)
+                }
                 options={[
                   { value: '', label: 'All Formats' },
                   { value: 'Standard', label: 'Standard' },
                   { value: 'Advanced', label: 'Advanced' },
                   { value: 'Casual', label: 'Casual' },
-                  { value: 'Custom', label: 'Custom' }
+                  { value: 'Custom', label: 'Custom' },
                 ]}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Sort By
               </label>
               <Select
                 value={filters.sortBy}
-                onChange={(value: string) => handleFilterChange('sortBy', value)}
+                onChange={(value: string) =>
+                  handleFilterChange('sortBy', value)
+                }
                 options={[
                   { value: 'updatedAt', label: 'Recently Updated' },
                   { value: 'createdAt', label: 'Recently Created' },
-                  { value: 'name', label: 'Name' }
+                  { value: 'name', label: 'Name' },
                 ]}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Order
               </label>
               <Select
                 value={filters.sortOrder}
-                onChange={(value: string) => handleFilterChange('sortOrder', value)}
+                onChange={(value: string) =>
+                  handleFilterChange('sortOrder', value)
+                }
                 options={[
                   { value: 'desc', label: 'Descending' },
-                  { value: 'asc', label: 'Ascending' }
+                  { value: 'asc', label: 'Ascending' },
                 ]}
               />
             </div>
@@ -200,15 +226,15 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
 
       {/* Error Display */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
+        <div className="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
           {error}
         </div>
       )}
 
       {/* Loading State */}
       {isLoading && (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <div className="py-12 text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
           <p className="text-gray-600">Loading community decks...</p>
         </div>
       )}
@@ -218,22 +244,27 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
         <>
           {decks.length === 0 ? (
             <Card>
-              <CardContent className="text-center py-12">
-                <p className="text-gray-600 mb-4">No public decks found.</p>
+              <CardContent className="py-12 text-center">
+                <p className="mb-4 text-gray-600">No public decks found.</p>
                 <p className="text-sm text-gray-500">
                   Try adjusting your search filters or check back later.
                 </p>
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {decks.map((deck) => (
-                <Card key={deck.id} className="hover:shadow-lg transition-shadow">
+                <Card
+                  key={deck.id}
+                  className="transition-shadow hover:shadow-lg"
+                >
                   <CardHeader>
-                    <div className="flex justify-between items-start">
+                    <div className="flex items-start justify-between">
                       <div>
                         <CardTitle className="text-lg">{deck.name}</CardTitle>
-                        <p className="text-sm text-gray-600">by {deck.author.name}</p>
+                        <p className="text-sm text-gray-600">
+                          by {deck.author.name}
+                        </p>
                       </div>
                       <Badge variant="secondary" className="text-xs">
                         {deck.format}
@@ -242,23 +273,29 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                   </CardHeader>
                   <CardContent>
                     {deck.description && (
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="mb-3 line-clamp-2 text-sm text-gray-600">
                         {deck.description}
                       </p>
                     )}
 
                     {/* Deck Statistics */}
-                    <div className="grid grid-cols-3 gap-2 text-center mb-4">
+                    <div className="mb-4 grid grid-cols-3 gap-2 text-center">
                       <div>
-                        <div className="font-semibold text-blue-600">{deck.statistics.totalCards}</div>
+                        <div className="font-semibold text-blue-600">
+                          {deck.statistics.totalCards}
+                        </div>
                         <div className="text-xs text-gray-600">Cards</div>
                       </div>
                       <div>
-                        <div className="font-semibold text-green-600">{deck.statistics.uniqueCards}</div>
+                        <div className="font-semibold text-green-600">
+                          {deck.statistics.uniqueCards}
+                        </div>
                         <div className="text-xs text-gray-600">Unique</div>
                       </div>
                       <div>
-                        <div className="font-semibold text-purple-600">{deck.statistics.averageCost}</div>
+                        <div className="font-semibold text-purple-600">
+                          {deck.statistics.averageCost}
+                        </div>
                         <div className="text-xs text-gray-600">Avg Cost</div>
                       </div>
                     </div>
@@ -266,10 +303,14 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                     {/* Color Identity */}
                     {deck.statistics.colors.length > 0 && (
                       <div className="mb-4">
-                        <p className="text-xs text-gray-600 mb-1">Factions:</p>
+                        <p className="mb-1 text-xs text-gray-600">Factions:</p>
                         <div className="flex flex-wrap gap-1">
                           {deck.statistics.colors.map((color) => (
-                            <Badge key={color} variant="outline" className="text-xs">
+                            <Badge
+                              key={color}
+                              variant="outline"
+                              className="text-xs"
+                            >
                               {color}
                             </Badge>
                           ))}
@@ -280,7 +321,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                     {/* Card Preview */}
                     {deck.cardPreview.length > 0 && (
                       <div className="mb-4">
-                        <p className="text-xs text-gray-600 mb-2">Preview:</p>
+                        <p className="mb-2 text-xs text-gray-600">Preview:</p>
                         <div className="flex space-x-1 overflow-x-auto">
                           {deck.cardPreview.map((cardEntry, index) => (
                             <div key={index} className="flex-shrink-0">
@@ -290,10 +331,10 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                                   alt={cardEntry.card.name}
                                   width={48}
                                   height={64}
-                                  className="w-12 h-16 object-cover rounded border"
+                                  className="h-16 w-12 rounded border object-cover"
                                 />
                               ) : (
-                                <div className="w-12 h-16 bg-gray-200 rounded border flex items-center justify-center">
+                                <div className="flex h-16 w-12 items-center justify-center rounded border bg-gray-200">
                                   <span className="text-xs text-gray-500">
                                     {cardEntry.quantity}x
                                   </span>
@@ -326,7 +367,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
                     </div>
 
                     {/* Metadata */}
-                    <div className="text-xs text-gray-500 mt-3 text-center">
+                    <div className="mt-3 text-center text-xs text-gray-500">
                       Updated {new Date(deck.updatedAt).toLocaleDateString()}
                     </div>
                   </CardContent>
@@ -337,7 +378,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({ className 
 
           {/* Pagination */}
           {pagination.pages > 1 && (
-            <div className="flex justify-center items-center space-x-4 mt-8">
+            <div className="mt-8 flex items-center justify-center space-x-4">
               <Button
                 variant="outline"
                 disabled={pagination.page <= 1}

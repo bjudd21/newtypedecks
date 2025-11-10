@@ -45,7 +45,11 @@ const deckSlice = createSlice({
     // Local deck editing actions (for optimistic updates)
     addCardToCurrentDeck: (
       state,
-      action: PayloadAction<{ card: CardWithRelations; quantity: number; category?: string }>
+      action: PayloadAction<{
+        card: CardWithRelations;
+        quantity: number;
+        category?: string;
+      }>
     ) => {
       if (state.currentDeck) {
         const existingCard = state.currentDeck.cards.find(

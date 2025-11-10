@@ -5,6 +5,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 ## Relevant Files
 
 ### Core Application Files (CREATED)
+
 - `src/app/layout.tsx` - Root layout component with AuthProvider and navigation
 - `src/app/page.tsx` - Home page component with feature overview
 - `src/app/globals.css` - Global styles and Tailwind CSS imports
@@ -21,12 +22,14 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/components/layout/BandaiNamcoAttribution.tsx` - Flexible attribution component for Bandai Namco content
 
 ### Database and Types
+
 - `prisma/schema.prisma` - Database schema for cards, users, decks, collections
 - `src/lib/types/index.ts` - TypeScript type definitions
 - `src/lib/database/index.ts` - Database connection utility
 - `src/lib/utils/index.ts` - Common utility functions
 
 ### Card System Files (CREATED)
+
 - `src/app/api/cards/route.ts` - Card CRUD API endpoints with comprehensive filtering
 - `src/app/api/cards/search/route.ts` - Card search API with advanced filtering and pagination
 - `src/app/api/submissions/route.ts` - Card submission API with admin review workflow
@@ -40,6 +43,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/app/submit/page.tsx` - Public card submission page
 
 ### Deck Building Files (CREATED)
+
 - `src/app/api/decks/route.ts` - Deck CRUD API endpoints
 - `src/components/deck/DeckBuilder.tsx` - Interactive deck building component for authenticated users
 - `src/components/deck/AnonymousDeckBuilder.tsx` - Anonymous deck building with localStorage persistence
@@ -67,6 +71,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/app/api/favorites/[deckId]/route.ts` - Individual favorite operations API
 
 ### User System Files (CREATED)
+
 - `src/lib/auth.ts` - NextAuth.js configuration with Prisma adapter
 - `src/lib/auth-utils.ts` - Authentication utilities and password hashing
 - `src/app/api/auth/[...nextauth]/route.ts` - NextAuth API route handler
@@ -108,6 +113,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `middleware.ts` - Next.js route protection middleware
 
 ### Collection Management Files (CREATED)
+
 - `src/app/api/collections/route.ts` - Collection CRUD API with filtering and statistics
 - `src/app/api/collections/import/route.ts` - Bulk import API with multi-format support and validation
 - `src/app/api/collections/export/route.ts` - Collection export API with multiple format support
@@ -119,6 +125,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/app/collection/page.tsx` - Personal collection management page
 
 ### Configuration Files (CREATED/MODIFIED)
+
 - `package.json` - Project dependencies and scripts with all required packages and deployment commands
 - `next.config.ts` - Next.js 15 configuration with CDN domains, image optimization, and production optimizations
 - `tsconfig.json` - TypeScript configuration with strict mode and path aliases
@@ -133,6 +140,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `.prettierrc` - Code formatting configuration
 
 ### Services and Libraries (CREATED)
+
 - `src/lib/services/cardService.ts` - Card service layer with caching and analytics
 - `src/lib/services/cdnService.ts` - Multi-provider CDN service with Vercel Edge Network
 - `src/lib/services/imageCacheService.ts` - Advanced image caching and preloading
@@ -150,6 +158,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/store/slices/` - Redux slices for auth, cards, decks, collections, UI
 
 ### Deployment and Infrastructure (CREATED)
+
 - `scripts/deployment/deploy.sh` - Automated production deployment script with safety checks
 - `nginx/nginx.conf` - Production Nginx reverse proxy with SSL, caching, and security
 - `k8s/namespace.yaml` - Kubernetes namespace configuration
@@ -159,6 +168,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `DEPLOYMENT.md` - Comprehensive production deployment guide
 
 ### Advanced Features (CREATED)
+
 - `src/lib/services/deckAnalyticsService.ts` - Advanced deck analysis engine with statistical calculations and meta-game analysis
 - `src/components/deck/DeckAnalytics.tsx` - Comprehensive analytics dashboard with cost curves and win rate predictions
 - `src/components/deck/DeckStatsDisplay.tsx` - Statistics visualization with interactive charts and performance indicators
@@ -191,6 +201,7 @@ Based on the PRD analysis, this is a comprehensive Gundam Card Game website comb
 - `src/app/settings/pwa/page.tsx` - Comprehensive PWA management dashboard with cache controls and offline data viewer
 
 ### Task Summaries (CREATED)
+
 - `tasks/summary/task-2.9-summary.md` - Card submission system implementation summary
 - `tasks/summary/task-2.10-summary.md` - Image optimization and CDN integration summary
 - `tasks/summary/task-2.11-summary.md` - Pagination system implementation summary

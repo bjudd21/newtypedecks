@@ -48,11 +48,11 @@ class URLDeckSharingService {
         description: deck.description,
         format: deck.format,
         timestamp: Date.now(),
-        cards: deck.cards.map(deckCard => ({
+        cards: deck.cards.map((deckCard) => ({
           id: deckCard.card.id,
           quantity: deckCard.quantity,
-          category: deckCard.category || 'main'
-        }))
+          category: deckCard.category || 'main',
+        })),
       };
 
       // Convert to JSON and encode
@@ -62,7 +62,9 @@ class URLDeckSharingService {
       // Check URL length
       const testURL = `${window.location.origin}${window.location.pathname}?${this.PARAM_NAME}=${encoded}`;
       if (testURL.length > this.MAX_URL_LENGTH) {
-        throw new Error('Deck data too large for URL sharing. Try removing some cards or export the deck instead.');
+        throw new Error(
+          'Deck data too large for URL sharing. Try removing some cards or export the deck instead.'
+        );
       }
 
       return encoded;
@@ -197,7 +199,10 @@ class URLDeckSharingService {
   /**
    * Check if deck is suitable for URL sharing
    */
-  canShareDeckViaURL(deck: ShareableDeck): { canShare: boolean; reason?: string } {
+  canShareDeckViaURL(deck: ShareableDeck): {
+    canShare: boolean;
+    reason?: string;
+  } {
     try {
       if (!deck.cards || deck.cards.length === 0) {
         return { canShare: false, reason: 'Deck is empty' };
@@ -207,7 +212,7 @@ class URLDeckSharingService {
       if (estimatedLength > this.MAX_URL_LENGTH) {
         return {
           canShare: false,
-          reason: `Deck too large for URL sharing (${estimatedLength} characters). Try reducing the number of cards or use export instead.`
+          reason: `Deck too large for URL sharing (${estimatedLength} characters). Try reducing the number of cards or use export instead.`,
         };
       }
 

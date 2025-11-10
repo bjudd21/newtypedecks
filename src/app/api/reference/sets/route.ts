@@ -19,11 +19,13 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({
-      sets,
-      total: sets.length,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        sets,
+        total: sets.length,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Sets API GET error:', error);
 

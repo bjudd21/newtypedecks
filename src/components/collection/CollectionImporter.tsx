@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Select } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Select,
+} from '@/components/ui';
 
 interface ImportResult {
   success: number;
@@ -22,7 +29,7 @@ interface CollectionImporterProps {
 
 export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   onImportComplete,
-  className
+  className,
 }) => {
   const [selectedFormat, setSelectedFormat] = useState<string>('csv');
   const [importData, setImportData] = useState<string>('');
@@ -33,30 +40,33 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   const [previewCards, setPreviewCards] = useState<any[]>([]);
 
   // Handle file upload
-  const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const handleFileUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const content = e.target?.result as string;
-      setImportData(content);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        setImportData(content);
 
-      // Auto-detect format based on file extension
-      const extension = file.name.split('.').pop()?.toLowerCase();
-      if (extension === 'csv' || extension === 'tsv') {
-        setSelectedFormat('csv');
-      } else if (extension === 'json') {
-        setSelectedFormat('json');
-      } else if (extension === 'txt') {
-        setSelectedFormat('decklist');
-      }
+        // Auto-detect format based on file extension
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        if (extension === 'csv' || extension === 'tsv') {
+          setSelectedFormat('csv');
+        } else if (extension === 'json') {
+          setSelectedFormat('json');
+        } else if (extension === 'txt') {
+          setSelectedFormat('decklist');
+        }
 
-      // Generate preview
-      generatePreview(content, selectedFormat);
-    };
-    reader.readAsText(file);
-  }, [selectedFormat]);
+        // Generate preview
+        generatePreview(content, selectedFormat);
+      };
+      reader.readAsText(file);
+    },
+    [selectedFormat]
+  );
 
   // Generate preview of import data
   const generatePreview = useCallback((data: string, format: string) => {
@@ -68,15 +78,18 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           const lines = data.trim().split('\n');
           const startIndex = lines[0]?.toLowerCase().includes('name') ? 1 : 0;
 
-          preview = lines.slice(startIndex, Math.min(startIndex + 5, lines.length))
-            .filter(line => line.trim())
-            .map(line => {
-              const parts = line.includes('\t') ? line.split('\t') : line.split(',');
+          preview = lines
+            .slice(startIndex, Math.min(startIndex + 5, lines.length))
+            .filter((line) => line.trim())
+            .map((line) => {
+              const parts = line.includes('\t')
+                ? line.split('\t')
+                : line.split(',');
               return {
                 cardName: parts[0]?.trim().replace(/^["']|["']$/g, ''),
                 quantity: parseInt(parts[1]?.trim()) || 0,
                 setName: parts[2]?.trim().replace(/^["']|["']$/g, ''),
-                setNumber: parts[3]?.trim().replace(/^["']|["']$/g, '')
+                setNumber: parts[3]?.trim().replace(/^["']|["']$/g, ''),
               };
             });
           break;
@@ -84,11 +97,11 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
         case 'json':
           const jsonData = JSON.parse(data);
           if (Array.isArray(jsonData)) {
-            preview = jsonData.slice(0, 5).map(item => ({
+            preview = jsonData.slice(0, 5).map((item) => ({
               cardName: item.cardName || item.name,
               quantity: parseInt(item.quantity) || parseInt(item.count) || 1,
               setName: item.setName || item.set,
-              cardId: item.cardId || item.id
+              cardId: item.cardId || item.id,
             }));
           }
           break;
@@ -96,14 +109,18 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
         case 'decklist':
         case 'mtga':
           const deckLines = data.trim().split('\n');
-          preview = deckLines.slice(0, 5)
-            .filter(line => line.trim() && !line.startsWith('//') && !line.startsWith('#'))
-            .map(line => {
+          preview = deckLines
+            .slice(0, 5)
+            .filter(
+              (line) =>
+                line.trim() && !line.startsWith('//') && !line.startsWith('#')
+            )
+            .map((line) => {
               const match = line.match(/^(\d+)x?\s+(.+)$/);
               if (match) {
                 return {
                   cardName: match[2].trim(),
-                  quantity: parseInt(match[1])
+                  quantity: parseInt(match[1]),
                 };
               }
               return null;
@@ -112,9 +129,19 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           break;
       }
 
-      setPreviewCards(preview.filter((card): card is { cardName: string; quantity: number } =>
-        Boolean(card && typeof card === 'object' && 'cardName' in card && 'quantity' in card && card.cardName && typeof card.quantity === 'number' && card.quantity > 0)
-      ));
+      setPreviewCards(
+        preview.filter((card): card is { cardName: string; quantity: number } =>
+          Boolean(
+            card &&
+              typeof card === 'object' &&
+              'cardName' in card &&
+              'quantity' in card &&
+              card.cardName &&
+              typeof card.quantity === 'number' &&
+              card.quantity > 0
+          )
+        )
+      );
     } catch (error) {
       console.error('Preview generation failed:', error);
       setPreviewCards([]);
@@ -122,18 +149,24 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   }, []);
 
   // Handle format change
-  const handleFormatChange = useCallback((format: string) => {
-    setSelectedFormat(format);
-    if (importData) {
-      generatePreview(importData, format);
-    }
-  }, [importData, generatePreview]);
+  const handleFormatChange = useCallback(
+    (format: string) => {
+      setSelectedFormat(format);
+      if (importData) {
+        generatePreview(importData, format);
+      }
+    },
+    [importData, generatePreview]
+  );
 
   // Handle text input change
-  const handleDataChange = useCallback((data: string) => {
-    setImportData(data);
-    generatePreview(data, selectedFormat);
-  }, [selectedFormat, generatePreview]);
+  const handleDataChange = useCallback(
+    (data: string) => {
+      setImportData(data);
+      generatePreview(data, selectedFormat);
+    },
+    [selectedFormat, generatePreview]
+  );
 
   // Handle import
   const handleImport = useCallback(async () => {
@@ -155,9 +188,9 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           format: selectedFormat,
           data: selectedFormat === 'json' ? JSON.parse(importData) : importData,
           options: {
-            updateBehavior
-          }
-        })
+            updateBehavior,
+          },
+        }),
       });
 
       if (!response.ok) {
@@ -201,13 +234,13 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   const getFormatExample = (format: string) => {
     switch (format) {
       case 'csv':
-        return 'RX-78-2 Gundam,2,Mobile Suit Gundam,MSG-001\nChar\'s Zaku II,1,Mobile Suit Gundam,MSG-002';
+        return "RX-78-2 Gundam,2,Mobile Suit Gundam,MSG-001\nChar's Zaku II,1,Mobile Suit Gundam,MSG-002";
       case 'json':
         return '[{"cardName":"RX-78-2 Gundam","quantity":2,"setName":"Mobile Suit Gundam"},{"cardName":"Char\'s Zaku II","quantity":1}]';
       case 'decklist':
-        return '2 RX-78-2 Gundam\n1 Char\'s Zaku II\n3x Nu Gundam';
+        return "2 RX-78-2 Gundam\n1 Char's Zaku II\n3x Nu Gundam";
       case 'mtga':
-        return '2 RX-78-2 Gundam (MSG) 001\n1 Char\'s Zaku II (MSG) 002';
+        return "2 RX-78-2 Gundam (MSG) 001\n1 Char's Zaku II (MSG) 002";
       default:
         return '';
     }
@@ -226,7 +259,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           <div className="space-y-6">
             {/* Format Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Import Format
               </label>
               <Select
@@ -236,17 +269,17 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                   { value: 'csv', label: 'CSV/TSV File' },
                   { value: 'json', label: 'JSON Format' },
                   { value: 'decklist', label: 'Deck List' },
-                  { value: 'mtga', label: 'MTG Arena Format' }
+                  { value: 'mtga', label: 'MTG Arena Format' },
                 ]}
               />
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="mt-1 text-xs text-gray-500">
                 {getFormatDescription(selectedFormat)}
               </div>
             </div>
 
             {/* Update Behavior */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Update Behavior
               </label>
               <Select
@@ -255,57 +288,64 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                 options={[
                   { value: 'add', label: 'Add to existing quantities' },
                   { value: 'replace', label: 'Replace existing quantities' },
-                  { value: 'skip', label: 'Skip cards already in collection' }
+                  { value: 'skip', label: 'Skip cards already in collection' },
                 ]}
               />
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="mt-1 text-xs text-gray-500">
                 How to handle cards that are already in your collection
               </div>
             </div>
 
             {/* File Upload */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Upload File
               </label>
               <input
                 type="file"
                 accept=".csv,.tsv,.txt,.json"
                 onChange={handleFileUpload}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                className="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
               />
             </div>
 
             {/* Manual Data Input */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Or Paste Data Manually
               </label>
               <textarea
                 value={importData}
                 onChange={(e) => handleDataChange(e.target.value)}
                 placeholder={`Example ${selectedFormat} format:\n${getFormatExample(selectedFormat)}`}
-                className="w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+                className="h-32 w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
             </div>
 
             {/* Preview */}
             {previewCards.length > 0 && (
               <div>
-                <div className="text-sm font-medium text-gray-700 mb-2">
+                <div className="mb-2 text-sm font-medium text-gray-700">
                   Preview (first 5 cards)
                 </div>
-                <div className="bg-gray-50 border border-gray-200 rounded p-3">
+                <div className="rounded border border-gray-200 bg-gray-50 p-3">
                   {previewCards.map((card, index) => (
-                    <div key={index} className="flex items-center gap-4 text-sm py-1">
-                      <span className="w-8 text-center font-mono">{card.quantity}x</span>
+                    <div
+                      key={index}
+                      className="flex items-center gap-4 py-1 text-sm"
+                    >
+                      <span className="w-8 text-center font-mono">
+                        {card.quantity}x
+                      </span>
                       <span className="flex-1">{card.cardName}</span>
                       {card.setName && (
-                        <span className="text-gray-500 text-xs">({card.setName})</span>
+                        <span className="text-xs text-gray-500">
+                          ({card.setName})
+                        </span>
                       )}
                     </div>
                   ))}
-                  <div className="text-xs text-gray-500 mt-2">
+                  <div className="mt-2 text-xs text-gray-500">
                     Ready to import {previewCards.length} card types
                   </div>
                 </div>
@@ -314,7 +354,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
             {/* Error Display */}
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm">
+              <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                 {error}
               </div>
             )}
@@ -346,29 +386,37 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
             {/* Import Result */}
             {importResult && (
-              <div className="p-4 bg-green-50 border border-green-200 rounded">
-                <div className="font-medium text-green-800 mb-2">Import Complete!</div>
-                <div className="grid grid-cols-3 gap-4 text-sm mb-3">
+              <div className="rounded border border-green-200 bg-green-50 p-4">
+                <div className="mb-2 font-medium text-green-800">
+                  Import Complete!
+                </div>
+                <div className="mb-3 grid grid-cols-3 gap-4 text-sm">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-green-600">{importResult.success}</div>
+                    <div className="text-lg font-bold text-green-600">
+                      {importResult.success}
+                    </div>
                     <div className="text-gray-600">Successful</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-yellow-600">{importResult.skipped}</div>
+                    <div className="text-lg font-bold text-yellow-600">
+                      {importResult.skipped}
+                    </div>
                     <div className="text-gray-600">Skipped</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-red-600">{importResult.failed}</div>
+                    <div className="text-lg font-bold text-red-600">
+                      {importResult.failed}
+                    </div>
                     <div className="text-gray-600">Failed</div>
                   </div>
                 </div>
 
                 {importResult.errors.length > 0 && (
                   <details className="mt-3">
-                    <summary className="text-sm font-medium text-red-700 cursor-pointer">
+                    <summary className="cursor-pointer text-sm font-medium text-red-700">
                       View Errors ({importResult.errors.length})
                     </summary>
-                    <div className="mt-2 text-xs text-red-600 bg-red-50 p-2 rounded max-h-32 overflow-y-auto">
+                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-red-50 p-2 text-xs text-red-600">
                       {importResult.errors.map((error, index) => (
                         <div key={index}>• {error}</div>
                       ))}
@@ -378,23 +426,27 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
                 {importResult.imported.length > 0 && (
                   <details className="mt-3">
-                    <summary className="text-sm font-medium text-green-700 cursor-pointer">
+                    <summary className="cursor-pointer text-sm font-medium text-green-700">
                       View Imported Cards ({importResult.imported.length})
                     </summary>
-                    <div className="mt-2 text-xs bg-green-50 p-2 rounded max-h-32 overflow-y-auto">
+                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-50 p-2 text-xs">
                       {importResult.imported.slice(0, 10).map((item, index) => (
                         <div key={index} className="flex items-center gap-2">
                           <span className="w-6">{item.quantity}x</span>
                           <span className="flex-1">{item.cardName}</span>
-                          <span className={`text-xs px-1 rounded ${
-                            item.action === 'added' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'
-                          }`}>
+                          <span
+                            className={`rounded px-1 text-xs ${
+                              item.action === 'added'
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-orange-100 text-orange-700'
+                            }`}
+                          >
                             {item.action}
                           </span>
                         </div>
                       ))}
                       {importResult.imported.length > 10 && (
-                        <div className="text-gray-500 mt-1">
+                        <div className="mt-1 text-gray-500">
                           ... and {importResult.imported.length - 10} more
                         </div>
                       )}
@@ -405,8 +457,8 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
             )}
 
             {/* Format Guidelines */}
-            <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-              <div className="font-medium mb-2">Import Guidelines:</div>
+            <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
+              <div className="mb-2 font-medium">Import Guidelines:</div>
               <ul className="space-y-1">
                 <li>• Maximum 1000 cards per import</li>
                 <li>• Cards are matched by name, set number, or card ID</li>

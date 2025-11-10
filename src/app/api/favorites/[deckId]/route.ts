@@ -31,17 +31,17 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
       where: {
         userId_deckId: {
           userId: session.user.id,
-          deckId: deckId
-        }
+          deckId: deckId,
+        },
       },
       include: {
         deck: {
           select: {
             id: true,
-            name: true
-          }
-        }
-      }
+            name: true,
+          },
+        },
+      },
     });
 
     if (!favorite) {
@@ -55,14 +55,14 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
       where: {
         userId_deckId: {
           userId: session.user.id,
-          deckId: deckId
-        }
-      }
+          deckId: deckId,
+        },
+      },
     });
 
     return NextResponse.json({
       message: 'Deck removed from favorites successfully',
-      deckName: favorite.deck.name
+      deckName: favorite.deck.name,
     });
   } catch (error) {
     console.error('Remove favorite error:', error);
@@ -91,14 +91,14 @@ export async function GET(request: NextRequest, context: RouteContext) {
       where: {
         userId_deckId: {
           userId: session.user.id,
-          deckId: deckId
-        }
-      }
+          deckId: deckId,
+        },
+      },
     });
 
     return NextResponse.json({
       isFavorited: !!favorite,
-      favoritedAt: favorite?.createdAt || null
+      favoritedAt: favorite?.createdAt || null,
     });
   } catch (error) {
     console.error('Check favorite error:', error);

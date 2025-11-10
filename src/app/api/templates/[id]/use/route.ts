@@ -32,15 +32,15 @@ export async function POST(request: NextRequest, context: RouteContext) {
       where: {
         id: templateId,
         isTemplate: true,
-        isPublic: true
+        isPublic: true,
       },
       include: {
         cards: {
           include: {
-            card: true
-          }
-        }
-      }
+            card: true,
+          },
+        },
+      },
     });
 
     if (!template) {
@@ -54,17 +54,18 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const newDeck = await prisma.deck.create({
       data: {
         name: name?.trim() || `${template.name} Copy`,
-        description: description?.trim() || `Based on ${template.name} template`,
+        description:
+          description?.trim() || `Based on ${template.name} template`,
         isPublic: false, // New decks are private by default
         isTemplate: false,
         userId: session.user.id,
         cards: {
-          create: template.cards.map(templateCard => ({
+          create: template.cards.map((templateCard) => ({
             cardId: templateCard.cardId,
             quantity: templateCard.quantity,
-            category: templateCard.category
-          }))
-        }
+            category: templateCard.category,
+          })),
+        },
       },
       include: {
         cards: {
@@ -73,12 +74,12 @@ export async function POST(request: NextRequest, context: RouteContext) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
-          }
-        }
-      }
+                set: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     // Track template usage
@@ -86,48 +87,56 @@ export async function POST(request: NextRequest, context: RouteContext) {
       data: {
         templateId,
         createdDeckId: newDeck.id,
-        userId: session.user.id
-      }
+        userId: session.user.id,
+      },
     });
 
     // Apply any modifications if provided
-    if (modifications && Array.isArray(modifications) && modifications.length > 0) {
+    if (
+      modifications &&
+      Array.isArray(modifications) &&
+      modifications.length > 0
+    ) {
       // Remove specified cards
-      const cardsToRemove = modifications.filter(mod => mod.action === 'remove');
+      const cardsToRemove = modifications.filter(
+        (mod) => mod.action === 'remove'
+      );
       if (cardsToRemove.length > 0) {
         await prisma.deckCard.deleteMany({
           where: {
             deckId: newDeck.id,
-            cardId: { in: cardsToRemove.map(mod => mod.cardId) }
-          }
+            cardId: { in: cardsToRemove.map((mod) => mod.cardId) },
+          },
         });
       }
 
       // Add new cards
-      const cardsToAdd = modifications.filter(mod => mod.action === 'add');
+      const cardsToAdd = modifications.filter((mod) => mod.action === 'add');
       if (cardsToAdd.length > 0) {
         await prisma.deckCard.createMany({
-          data: cardsToAdd.map(mod => ({
+          data: cardsToAdd.map((mod) => ({
             deckId: newDeck.id,
             cardId: mod.cardId,
             quantity: Math.max(1, Math.min(4, parseInt(mod.quantity) || 1)),
-            category: mod.category || 'main'
+            category: mod.category || 'main',
           })),
-          skipDuplicates: true
+          skipDuplicates: true,
         });
       }
 
       // Update card quantities
-      const cardsToUpdate = modifications.filter(mod => mod.action === 'update');
+      const cardsToUpdate = modifications.filter(
+        (mod) => mod.action === 'update'
+      );
       for (const mod of cardsToUpdate) {
         await prisma.deckCard.updateMany({
           where: {
             deckId: newDeck.id,
-            cardId: mod.cardId
+            cardId: mod.cardId,
           },
           data: {
-            quantity: Math.max(1, Math.min(4, parseInt(mod.quantity) || 1))
-          }
+            quantity: Math.max(1, Math.min(4, parseInt(mod.quantity) || 1)),
+          },
         });
       }
     }
@@ -142,12 +151,12 @@ export async function POST(request: NextRequest, context: RouteContext) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
-          }
-        }
-      }
+                set: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return NextResponse.json(
@@ -156,8 +165,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
         deck: finalDeck,
         templateUsed: {
           id: template.id,
-          name: template.name
-        }
+          name: template.name,
+        },
       },
       { status: 201 }
     );

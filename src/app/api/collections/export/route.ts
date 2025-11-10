@@ -77,16 +77,16 @@ export async function GET(request: NextRequest) {
                 type: true,
                 rarity: true,
                 set: true,
-              }
-            }
+              },
+            },
           },
           orderBy: [
             { card: { set: { name: 'asc' } } },
             { card: { setNumber: 'asc' } },
-            { card: { name: 'asc' } }
-          ]
-        }
-      }
+            { card: { name: 'asc' } },
+          ],
+        },
+      },
     });
 
     if (!userCollection) {
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
         includeMetadata,
         includeConditions,
         includeValues,
-        userId: session.user.id
+        userId: session.user.id,
       }
     );
 
@@ -115,8 +115,8 @@ export async function GET(request: NextRequest) {
       headers: {
         'Content-Type': exportData.contentType,
         'Content-Disposition': `attachment; filename="${filename}"`,
-        'Cache-Control': 'no-cache'
-      }
+        'Cache-Control': 'no-cache',
+      },
     });
   } catch (error) {
     console.error('Export collection error:', error);
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
       format = 'json',
       options = {},
       customFields = [],
-      exportName
+      exportName,
     } = await request.json();
 
     // Get user's collection
@@ -157,16 +157,16 @@ export async function POST(request: NextRequest) {
                 type: true,
                 rarity: true,
                 set: true,
-              }
-            }
+              },
+            },
           },
           orderBy: [
             { card: { set: { name: 'asc' } } },
             { card: { setNumber: 'asc' } },
-            { card: { name: 'asc' } }
-          ]
-        }
-      }
+            { card: { name: 'asc' } },
+          ],
+        },
+      },
     });
 
     if (!userCollection) {
@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
         ...options,
         customFields,
         exportName,
-        userId: session.user.id
+        userId: session.user.id,
       }
     );
 
@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
       format,
       recordCount: userCollection.cards.length,
       size: exportData.content.length,
-      downloadUrl: `/api/collections/export?format=${format}` // Direct download URL
+      downloadUrl: `/api/collections/export?format=${format}`, // Direct download URL
     });
   } catch (error) {
     console.error('Create export error:', error);
@@ -230,8 +230,18 @@ async function generateExportData(
 }
 
 // Generate CSV export
-function generateCSVExport(collectionCards: CollectionCardData[], options: any) {
-  const headers = ['Card Name', 'Quantity', 'Set Name', 'Set Number', 'Type', 'Rarity'];
+function generateCSVExport(
+  collectionCards: CollectionCardData[],
+  options: any
+) {
+  const headers = [
+    'Card Name',
+    'Quantity',
+    'Set Name',
+    'Set Number',
+    'Type',
+    'Rarity',
+  ];
 
   if (options.includeConditions) {
     headers.push('Condition');
@@ -245,7 +255,7 @@ function generateCSVExport(collectionCards: CollectionCardData[], options: any) 
 
   const rows = [headers.join(',')];
 
-  collectionCards.forEach(collectionCard => {
+  collectionCards.forEach((collectionCard) => {
     const card = collectionCard.card;
     const row = [
       `"${card.name}"`,
@@ -277,12 +287,16 @@ function generateCSVExport(collectionCards: CollectionCardData[], options: any) 
   return {
     content: rows.join('\n'),
     contentType: 'text/csv',
-    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.csv`
+    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.csv`,
   };
 }
 
 // Generate JSON export
-function generateJSONExport(collectionCards: CollectionCardData[], options: any, timestamp: string) {
+function generateJSONExport(
+  collectionCards: CollectionCardData[],
+  options: any,
+  timestamp: string
+) {
   const exportData: any = {
     exportInfo: {
       format: 'gundam-card-game-collection',
@@ -290,9 +304,9 @@ function generateJSONExport(collectionCards: CollectionCardData[], options: any,
       exportedAt: timestamp,
       exportedBy: options.userId,
       recordCount: collectionCards.length,
-      exportOptions: options
+      exportOptions: options,
     },
-    collection: collectionCards.map(collectionCard => {
+    collection: collectionCards.map((collectionCard) => {
       const card = collectionCard.card;
       const exportCard: any = {
         cardId: card.id,
@@ -301,14 +315,14 @@ function generateJSONExport(collectionCards: CollectionCardData[], options: any,
         set: {
           name: card.set?.name,
           code: card.set?.code,
-          number: card.setNumber
+          number: card.setNumber,
         },
         cardInfo: {
           type: card.type?.name,
           rarity: card.rarity?.name,
           cost: card.cost,
-          description: card.description
-        }
+          description: card.description,
+        },
       };
 
       if (options.includeConditions) {
@@ -317,13 +331,14 @@ function generateJSONExport(collectionCards: CollectionCardData[], options: any,
 
       if (options.includeValues) {
         exportCard.marketPrice = card.marketPrice || 0;
-        exportCard.totalValue = (card.marketPrice || 0) * collectionCard.quantity;
+        exportCard.totalValue =
+          (card.marketPrice || 0) * collectionCard.quantity;
       }
 
       if (options.includeMetadata) {
         exportCard.metadata = {
           addedDate: collectionCard.createdAt,
-          lastUpdated: collectionCard.updatedAt
+          lastUpdated: collectionCard.updatedAt,
         };
       }
 
@@ -338,29 +353,34 @@ function generateJSONExport(collectionCards: CollectionCardData[], options: any,
       }
 
       return exportCard;
-    })
+    }),
   };
 
   return {
     content: JSON.stringify(exportData, null, 2),
     contentType: 'application/json',
-    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.json`
+    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.json`,
   };
 }
 
 // Generate simple text list export
-function generateTextExport(collectionCards: CollectionCardData[], options: any) {
+function generateTextExport(
+  collectionCards: CollectionCardData[],
+  options: any
+) {
   const lines: string[] = [];
 
   if (options.includeMetadata) {
     lines.push('# Gundam Card Game Collection Export');
     lines.push(`# Exported on: ${new Date().toISOString()}`);
-    lines.push(`# Total Cards: ${collectionCards.reduce((sum, cc) => sum + cc.quantity, 0)}`);
+    lines.push(
+      `# Total Cards: ${collectionCards.reduce((sum, cc) => sum + cc.quantity, 0)}`
+    );
     lines.push(`# Unique Cards: ${collectionCards.length}`);
     lines.push('');
   }
 
-  collectionCards.forEach(collectionCard => {
+  collectionCards.forEach((collectionCard) => {
     const card = collectionCard.card;
     let line = `${collectionCard.quantity}x ${card.name}`;
 
@@ -378,12 +398,15 @@ function generateTextExport(collectionCards: CollectionCardData[], options: any)
   return {
     content: lines.join('\n'),
     contentType: 'text/plain',
-    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.txt`
+    filename: `gundam-collection-${new Date().toISOString().split('T')[0]}.txt`,
   };
 }
 
 // Generate deck list format export
-function generateDeckListExport(collectionCards: CollectionCardData[], _options: any) {
+function generateDeckListExport(
+  collectionCards: CollectionCardData[],
+  _options: any
+) {
   const lines: string[] = [];
 
   lines.push('// Gundam Card Game Collection');
@@ -391,7 +414,7 @@ function generateDeckListExport(collectionCards: CollectionCardData[], _options:
   lines.push('// Format: Quantity Card Name');
   lines.push('');
 
-  collectionCards.forEach(collectionCard => {
+  collectionCards.forEach((collectionCard) => {
     const card = collectionCard.card;
     lines.push(`${collectionCard.quantity} ${card.name}`);
   });
@@ -399,12 +422,15 @@ function generateDeckListExport(collectionCards: CollectionCardData[], _options:
   return {
     content: lines.join('\n'),
     contentType: 'text/plain',
-    filename: `gundam-collection-decklist-${new Date().toISOString().split('T')[0]}.txt`
+    filename: `gundam-collection-decklist-${new Date().toISOString().split('T')[0]}.txt`,
   };
 }
 
 // Generate Excel export (would require additional library)
-function generateExcelExport(collectionCards: CollectionCardData[], options: any) {
+function generateExcelExport(
+  collectionCards: CollectionCardData[],
+  options: any
+) {
   // For now, return CSV format with Excel-friendly headers
   // In a full implementation, you'd use a library like 'xlsx' or 'exceljs'
   return generateCSVExport(collectionCards, options);

@@ -3,6 +3,7 @@
 This document provides a comprehensive reference for all UI components and their proper terminology used throughout the Gundam Card Game website.
 
 ## Table of Contents
+
 1. [Global Components](#global-components)
 2. [Home Page](#home-page)
 3. [Cards Page](#cards-page)
@@ -16,10 +17,12 @@ This document provides a comprehensive reference for all UI components and their
 These components appear across multiple or all pages of the website.
 
 ### Header / Navigation Bar
+
 **Location**: Top of every page
 **File**: `src/app/layout.tsx`, `src/components/navigation/Navbar.tsx`
 
 Components within the header:
+
 - **Logo/Site Title**: "Gundam Card Game" text on the left
 - **Navigation Links**: Horizontal menu items (Home, Cards, Decks, Compare, etc.)
 - **PWA Status Indicator**: Green dot showing online/offline status
@@ -27,10 +30,12 @@ Components within the header:
 - **Mobile Menu**: Hamburger menu for mobile devices
 
 ### Footer
+
 **Location**: Bottom of every page
 **File**: `src/components/layout/LegalComplianceFooter.tsx`
 
 Components:
+
 - **Copyright Information**: Legal disclaimer about Bandai Namco
 - **Non-Affiliation Statement**: Clarifies unofficial status
 - **Legal Links**: Terms, Privacy Policy, etc.
@@ -43,10 +48,12 @@ Components:
 **File**: `src/app/page.tsx`
 
 ### Hero Section
+
 **Location**: Top center of home page, immediately below header
 **File**: `src/app/page.tsx` (lines with large heading)
 
 Components:
+
 - **Hero Heading**: Large text "Gundam Card Game is a powerful card search"
 - **Hero Search Bar**: Main search input with search icon
 - **Quick Action Buttons**: Row of action buttons below search
@@ -56,18 +63,22 @@ Components:
   - RANDOM CARD
 
 ### Announcements Section
+
 **Location**: Below hero section
 **File**: `src/app/page.tsx`
 
 Components:
+
 - **Announcement Items**: Individual news items with badges
 - **NEW Badge**: Colored badges (orange/blue) indicating new content
 - **Announcement Text**: Description of the update
 
 ### Content Sections
+
 **Location**: Main body of home page
 
 Common sections include:
+
 - **Recent Decks**: Horizontal carousel of deck previews
 - **Popular Cards**: Grid of trending cards
 - **Featured Sets**: Showcase of latest card sets
@@ -82,17 +93,21 @@ Common sections include:
 **File**: `src/app/cards/NewCardsPageClient.tsx`
 
 ### Search Header
+
 **Location**: Top of cards page
 **Components**:
+
 - **Search Input**: Text field with magnifying glass icon
 - **Search Button**: "Search" or "SEARCH" button
 - **Search Icon Bubble**: Circular purple gradient icon with search symbol
 
 ### Filter Bar
+
 **Location**: Below search header
 **File**: `src/app/cards/NewCardsPageClient.tsx` (lines 141-200)
 
 Components:
+
 - **Color Filters**: Row of colored circle buttons
   - Blue, Green, Red, Purple, White, Yellow, Colorless
 - **Divider**: Vertical separator line
@@ -104,10 +119,12 @@ Components:
 - **View Toggle**: Grid/List view icons
 
 ### Sort Bar
+
 **Location**: Below filter bar
 **File**: `src/app/cards/NewCardsPageClient.tsx` (lines 203-230)
 
 Components:
+
 - **Sort Label**: "Sort by:" text
 - **Sort Dropdown**: Select menu with options
   - Name (A-Z)
@@ -118,10 +135,12 @@ Components:
 - **Results Count**: "X cards found" display
 
 ### Card Grid
+
 **Location**: Main content area
 **File**: `src/components/card/CardGrid.tsx`
 
 Components:
+
 - **Card Items**: Individual card previews in grid layout
   - Card Image
   - Card Name overlay
@@ -131,10 +150,12 @@ Components:
 - **Grid Layout**: 5 cards per row on desktop, responsive down to 2 on mobile
 
 ### Pagination Controls
+
 **Location**: Top and bottom of card grid
 **File**: `src/app/cards/NewCardsPageClient.tsx` (lines 234-304)
 
 Components:
+
 - **Previous Button**: "← Previous" navigation
 - **Page Display**: "1 / 5" style current page indicator
 - **Next Button**: "Next →" navigation
@@ -148,56 +169,68 @@ Components:
 **File**: `src/app/decks/page.tsx`, `src/components/deck/AnonymousDeckBuilder.tsx`
 
 ### Tab Navigation
+
 **Location**: Top of page below header
 Components:
+
 - **Tab Buttons**: "My Decks", "Public Decks", "Favorites", "Templates"
 - **Active Tab Indicator**: Purple gradient background on selected tab
 - **Sign In Banner**: Purple gradient prompt for unauthenticated users
 
 ### Anonymous Deck Builder
+
 **Location**: Main content area when not signed in
 **File**: `src/components/deck/AnonymousDeckBuilder.tsx`
 
 Components:
 
 #### Information Banner
+
 - **Purple gradient header** with info icon
 - **Local save notification** text
 - **Sign in prompt** link
 
 #### Deck Statistics Cards
+
 Three animated cards showing:
+
 - **Total Cards count** with purple gradient number
 - **Unique Cards count** with purple gradient number
 - **Total Cost** with purple gradient number
 - **Hover animations** (scale and lift effects)
 
 #### Add Cards Panel (Left)
+
 - **Card Search component** with autocomplete
 - **Search results list** with card previews
 - **Usage instructions** in info box
 - **Deck Validator** widget showing errors only
 
 #### Deck Contents Panel (Right)
+
 - **Deck Drop Zone** with drag-and-drop support
 - **Card list** grouped by type
 - **Draggable Card components** with quantity controls
 - **Empty state** with animated icon
 
 #### Deck Actions Bar
+
 - **New Deck button**
 - **Export Deck dropdown** (JSON, Text, CSV)
 - **Share via URL button**
 - **Sign In button** with prominent styling
 
 #### Save Status Indicator
+
 - **Auto-save status** (Saved/Saving/Offline/Error)
 - **Online/Offline indicator** with animated dot
 - **Pending sync counter** badge
 - **Last saved timestamp**
 
 #### Offline Mode Banner
+
 **Conditional display when offline**:
+
 - **Orange gradient background**
 - **Offline icon** and message
 - **Pending sync information**
@@ -212,16 +245,21 @@ Three animated cards showing:
 ### Overlay Structure
 
 #### Header
+
 **Location**: Top of modal, sticky
 Components:
+
 - **Card Name**: Large title text
 - **Close Button**: X icon button
 
 #### Content Layout
+
 **Layout**: Two-column grid
 
 ##### Left Column - Card Image
+
 Components:
+
 - **Card Image Display**: Large card preview with 5:7 aspect ratio
 - **Image Placeholder**: Icon shown when no image available
 
@@ -266,16 +304,19 @@ Components:
 ### Buttons
 
 #### Primary Button
+
 - **Style**: Cyan/purple gradient background
 - **Usage**: Main call-to-action
 - **Example**: "SEARCH", "ADD TO DECK"
 
 #### Secondary Button
+
 - **Style**: Outline with border
 - **Usage**: Alternative actions
 - **Example**: "ADD TO COLLECTION"
 
 #### Filter Button
+
 - **Style**: Dark background with hover effect
 - **Usage**: Toggle filters on/off
 - **Example**: "Unit", "Command", "Base"
@@ -283,6 +324,7 @@ Components:
 ### Badges
 
 #### Rarity Badges
+
 - **Colors**:
   - Yellow: Rare
   - Red: Super Rare
@@ -290,10 +332,12 @@ Components:
   - Gray: Uncommon/Common
 
 #### Type Badges
+
 - **Color**: Blue
 - **Usage**: Card type identification
 
 #### NEW Badges
+
 - **Colors**:
   - Orange: Major announcements
   - Blue: Standard updates
@@ -302,7 +346,9 @@ Components:
 ### Cards
 
 #### Card Preview (Grid View)
+
 Components:
+
 - Card image background
 - Card name text overlay (bottom)
 - Level badge (top left)
@@ -310,6 +356,7 @@ Components:
 - Card number (below card)
 
 #### Card Stats Box
+
 Style: Dark gray background with border
 Layout: Label on top, value below
 Text: Small gray label, large white number
@@ -319,6 +366,7 @@ Text: Small gray label, large white number
 ## Color Palette
 
 ### Primary Purple Theme Colors
+
 The entire website uses a consistent purple theme inspired by Gundam aesthetics:
 
 - **Background Primary**: `#1a1625` (Deep purple-black)
@@ -334,6 +382,7 @@ The entire website uses a consistent purple theme inspired by Gundam aesthetics:
 - **Accent Gradient End**: `#6b5a8a` (Deeper purple)
 
 ### Status Colors
+
 - **Online**: Green (`#22c55e`)
 - **Offline**: Red (`#ef4444`)
 - **Warning**: Yellow (`#eab308`)
@@ -345,12 +394,14 @@ The entire website uses a consistent purple theme inspired by Gundam aesthetics:
 ## Responsive Breakpoints
 
 ### Grid Layouts
+
 - **Mobile** (< 640px): 2 cards per row
 - **Small** (640px+): 3 cards per row
 - **Medium** (768px+): 4 cards per row
 - **Large** (1024px+): 5 cards per row
 
 ### Navigation
+
 - **Desktop** (768px+): Horizontal navigation bar
 - **Mobile** (< 768px): Hamburger menu
 
@@ -359,6 +410,7 @@ The entire website uses a consistent purple theme inspired by Gundam aesthetics:
 ## File Reference
 
 ### Key Component Files
+
 ```
 src/
 ├── app/
@@ -392,6 +444,7 @@ src/
 ### Referring to Components
 
 **Good**:
+
 - "Update the Hero Section heading text"
 - "Change the color of the Search Header icon"
 - "Add a new badge to the Filter Bar"
@@ -399,6 +452,7 @@ src/
 - "Modify the Close Button in the Card Detail Overlay"
 
 **Avoid**:
+
 - "The big text at the top" → Use "Hero Heading"
 - "The search thing" → Use "Search Bar" or "Search Input"
 - "The card popup" → Use "Card Detail Overlay"
@@ -408,22 +462,22 @@ src/
 
 ## Quick Reference Chart
 
-| What You See | Proper Term | Location |
-|--------------|-------------|----------|
-| "Gundam Card Game" (top left) | Logo/Site Title | Header |
-| Home, Cards, Decks links | Navigation Links | Navigation Bar |
-| Large heading on home | Hero Heading | Hero Section |
-| Search box on home | Hero Search Bar | Hero Section |
-| ADVANCED SEARCH button | Quick Action Button | Hero Section |
-| NEW badge | Announcement Badge | Announcements Section |
-| Colored circles | Color Filter Buttons | Filter Bar |
-| Grid/List icons | View Toggle | Filter Bar |
-| "Sort by:" dropdown | Sort Dropdown | Sort Bar |
-| Individual card in grid | Card Preview | Card Grid |
-| Card popup window | Card Detail Overlay | Modal |
-| "Add to Deck" button | Primary Action Button | Card Detail Overlay |
-| X button (top right) | Close Button | Overlay Header |
+| What You See                  | Proper Term           | Location              |
+| ----------------------------- | --------------------- | --------------------- |
+| "Gundam Card Game" (top left) | Logo/Site Title       | Header                |
+| Home, Cards, Decks links      | Navigation Links      | Navigation Bar        |
+| Large heading on home         | Hero Heading          | Hero Section          |
+| Search box on home            | Hero Search Bar       | Hero Section          |
+| ADVANCED SEARCH button        | Quick Action Button   | Hero Section          |
+| NEW badge                     | Announcement Badge    | Announcements Section |
+| Colored circles               | Color Filter Buttons  | Filter Bar            |
+| Grid/List icons               | View Toggle           | Filter Bar            |
+| "Sort by:" dropdown           | Sort Dropdown         | Sort Bar              |
+| Individual card in grid       | Card Preview          | Card Grid             |
+| Card popup window             | Card Detail Overlay   | Modal                 |
+| "Add to Deck" button          | Primary Action Button | Card Detail Overlay   |
+| X button (top right)          | Close Button          | Overlay Header        |
 
 ---
 
-*Last Updated: November 2024*
+_Last Updated: November 2024_

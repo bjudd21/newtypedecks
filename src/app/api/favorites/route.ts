@@ -29,15 +29,15 @@ export async function GET(request: NextRequest) {
 
     // Build where clause
     const where: Record<string, unknown> = {
-      userId: session.user.id
+      userId: session.user.id,
     };
 
     if (search) {
       where.deck = {
         OR: [
           { name: { contains: search, mode: 'insensitive' } },
-          { description: { contains: search, mode: 'insensitive' } }
-        ]
+          { description: { contains: search, mode: 'insensitive' } },
+        ],
       };
     }
 
@@ -52,8 +52,8 @@ export async function GET(request: NextRequest) {
                 select: {
                   id: true,
                   name: true,
-                  image: true
-                }
+                  image: true,
+                },
               },
               cards: {
                 include: {
@@ -61,29 +61,29 @@ export async function GET(request: NextRequest) {
                     include: {
                       type: true,
                       rarity: true,
-                      set: true
-                    }
-                  }
-                }
+                      set: true,
+                    },
+                  },
+                },
               },
               _count: {
                 select: {
                   favoritedBy: true,
-                  templateUsage: true
-                }
-              }
-            }
-          }
+                  templateUsage: true,
+                },
+              },
+            },
+          },
         },
         orderBy: { createdAt: 'desc' },
         skip,
         take: limit,
       }),
-      prisma.userFavoriteDeck.count({ where })
+      prisma.userFavoriteDeck.count({ where }),
     ]);
 
     // Calculate deck statistics
-    const favoritesWithStats = favorites.map(favorite => ({
+    const favoritesWithStats = favorites.map((favorite) => ({
       id: favorite.id,
       favoritedAt: favorite.createdAt,
       deck: {
@@ -94,15 +94,25 @@ export async function GET(request: NextRequest) {
         isTemplate: favorite.deck.isTemplate,
         templateSource: favorite.deck.templateSource,
         creator: favorite.deck.user,
-        cardCount: favorite.deck.cards.reduce((sum, dc) => sum + dc.quantity, 0),
+        cardCount: favorite.deck.cards.reduce(
+          (sum, dc) => sum + dc.quantity,
+          0
+        ),
         uniqueCards: favorite.deck.cards.length,
-        totalCost: favorite.deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0),
-        colors: [...new Set(favorite.deck.cards.map(dc => dc.card.set?.name).filter(Boolean))],
+        totalCost: favorite.deck.cards.reduce(
+          (sum, dc) => sum + (dc.card.cost || 0) * dc.quantity,
+          0
+        ),
+        colors: [
+          ...new Set(
+            favorite.deck.cards.map((dc) => dc.card.set?.name).filter(Boolean)
+          ),
+        ],
         favoriteCount: favorite.deck._count.favoritedBy,
         usageCount: favorite.deck._count.templateUsage,
         createdAt: favorite.deck.createdAt,
         updatedAt: favorite.deck.updatedAt,
-      }
+      },
     }));
 
     return NextResponse.json({
@@ -111,8 +121,8 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
     console.error('Get favorites error:', error);
@@ -151,15 +161,12 @@ export async function POST(request: NextRequest) {
         id: true,
         name: true,
         isPublic: true,
-        userId: true
-      }
+        userId: true,
+      },
     });
 
     if (!deck) {
-      return NextResponse.json(
-        { error: 'Deck not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Deck not found' }, { status: 404 });
     }
 
     // Check if deck is accessible (public or owned by user)
@@ -175,9 +182,9 @@ export async function POST(request: NextRequest) {
       where: {
         userId_deckId: {
           userId: session.user.id,
-          deckId: deckId
-        }
-      }
+          deckId: deckId,
+        },
+      },
     });
 
     if (existingFavorite) {
@@ -191,7 +198,7 @@ export async function POST(request: NextRequest) {
     const favorite = await prisma.userFavoriteDeck.create({
       data: {
         userId: session.user.id,
-        deckId: deckId
+        deckId: deckId,
       },
       include: {
         deck: {
@@ -200,16 +207,16 @@ export async function POST(request: NextRequest) {
             name: true,
             description: true,
             isPublic: true,
-            isTemplate: true
-          }
-        }
-      }
+            isTemplate: true,
+          },
+        },
+      },
     });
 
     return NextResponse.json(
       {
         message: 'Deck added to favorites successfully',
-        favorite
+        favorite,
       },
       { status: 201 }
     );

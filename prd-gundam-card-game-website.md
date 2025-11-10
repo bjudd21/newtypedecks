@@ -17,6 +17,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 ## User Stories
 
 ### Core Players and Collectors
+
 - **As a competitive player**, I want to quickly find all cards with specific keywords so I can build optimized decks
 - **As a new player**, I want to see deck examples so I can learn the game
 - **As a player**, I want to be able to share my deck builds with my friends in our group chats
@@ -27,18 +28,21 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **As a deck builder**, I want drag-and-drop functionality with custom categories for organizing my cards
 
 ### Tournament Organizers and Community Leaders
+
 - **As a tournament organizer**, I want to track deck submissions and validate deck legality for my events
 - **As a tournament organizer**, I want to analyze meta-game trends to understand what decks are performing well
 - **As a community leader**, I want to create and share reference decks for new players to learn from
 - **As a store owner**, I want to see what cards are popular so I can stock appropriately
 
 ### Content Managers and Administrators
+
 - **As a content manager**, I want to upload new card images and data when sets are previewed or leaked
 - **As an admin**, I want to moderate user-generated content and manage community behavior
 - **As a data manager**, I want to validate and approve user-submitted card corrections and rulings
 - **As a system administrator**, I want to monitor system performance and user activity
 
 ### Accessibility and Mobile Users
+
 - **As a user with visual impairments**, I want screen reader support and high contrast options for card viewing
 - **As a user with motor disabilities**, I want keyboard navigation alternatives to drag-and-drop functionality
 - **As a mobile user**, I want to access all features seamlessly on my phone or tablet
@@ -46,6 +50,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **As a colorblind user**, I want card types and rarities to be distinguishable without relying only on colors
 
 ### Developers and API Users
+
 - **As a third-party developer**, I want API access to integrate card data into my own tools
 - **As a content creator**, I want to embed deck lists and card previews in my articles and videos
 - **As a data analyst**, I want to export meta-game statistics for community analysis
@@ -479,6 +484,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 ### System Reliability and Monitoring
 
 #### Error Handling and Resilience
+
 - **Error Boundaries**: The system must implement React error boundaries to gracefully handle component failures
 - **API Error Handling**: The system must provide consistent error responses with appropriate HTTP status codes
 - **Retry Logic**: The system must implement automatic retry mechanisms for transient failures
@@ -486,6 +492,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **Timeout Management**: The system must implement appropriate timeouts for all external service calls
 
 #### Logging and Monitoring
+
 - **Application Logging**: The system must implement structured logging for all application events
 - **Performance Monitoring**: The system must track page load times, API response times, and database query performance
 - **Error Tracking**: The system must implement real-time error tracking and alerting
@@ -493,6 +500,7 @@ The primary goal is to create a superior alternative to existing solutions (gund
 - **System Health Monitoring**: The system must provide health check endpoints and system status monitoring
 
 #### Analytics and Data Collection
+
 - **User Analytics**: The system must track user behavior patterns, feature usage, and conversion metrics
 - **Performance Analytics**: The system must monitor Core Web Vitals and user experience metrics
 - **Content Analytics**: The system must track card search patterns, popular decks, and collection trends
@@ -763,12 +771,14 @@ The primary goal is to create a superior alternative to existing solutions (gund
 ### Revenue Model Overview
 
 #### Phase 1-2: Community-Supported Model (Months 1-12)
+
 - **Primary Revenue**: Voluntary donations and tips from community members
 - **Revenue Target**: $50-150/month to cover hosting costs and modest expansion
 - **Implementation**: Integration with donation platforms (Ko-fi, Buy Me a Coffee, PayPal)
 - **Value Proposition**: Ad-free experience, faster feature development, community ownership
 
 #### Phase 3+: Freemium Model (Months 12+)
+
 - **Free Tier**: Full card database, basic deck building, limited deck storage (5 decks)
 - **Premium Tier**: Unlimited deck storage, advanced analytics, priority support, early feature access
 - **Premium Pricing**: $3-5/month or $30-50/year subscription

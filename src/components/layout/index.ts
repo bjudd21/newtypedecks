@@ -15,5 +15,5 @@ export {
   CardImageAttribution,
   GameContentAttribution,
   ContentAttributionBadge,
-  AttributionTooltip
+  AttributionTooltip,
 } from './BandaiNamcoAttribution';

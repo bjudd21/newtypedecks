@@ -17,14 +17,19 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     const { id } = await params;
 
     // Publish the submission
-    const result = await CardSubmissionService.publishSubmission(id, publishedBy);
+    const result = await CardSubmissionService.publishSubmission(
+      id,
+      publishedBy
+    );
 
-    return NextResponse.json({
-      message: 'Submission published successfully',
-      submission: result.submission,
-      card: result.card,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: 'Submission published successfully',
+        submission: result.submission,
+        card: result.card,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Submission publish API error:', error);
 
@@ -49,7 +54,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    if (error instanceof Error && error.message.includes('already been published')) {
+    if (
+      error instanceof Error &&
+      error.message.includes('already been published')
+    ) {
       return NextResponse.json(
         {
           error: 'Already published',

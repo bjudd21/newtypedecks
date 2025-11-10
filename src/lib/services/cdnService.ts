@@ -8,7 +8,13 @@ import { env } from '@/lib/config/environment';
 import type { ProcessedImage } from '@/lib/storage/imageProcessing';
 
 export interface CDNConfig {
-  provider: 'cloudinary' | 'imagekit' | 'cloudflare' | 'aws' | 'vercel' | 'local';
+  provider:
+    | 'cloudinary'
+    | 'imagekit'
+    | 'cloudflare'
+    | 'aws'
+    | 'vercel'
+    | 'local';
   baseUrl: string;
   apiKey?: string;
   apiSecret?: string;
@@ -66,9 +72,11 @@ export class CDNService {
 
     return {
       provider,
-      baseUrl: env.CDN_BASE_URL || (env.NODE_ENV === 'production'
-        ? 'https://cdn.yourdomain.com'
-        : `${env.NEXT_PUBLIC_APP_URL}/api/uploads`),
+      baseUrl:
+        env.CDN_BASE_URL ||
+        (env.NODE_ENV === 'production'
+          ? 'https://cdn.yourdomain.com'
+          : `${env.NEXT_PUBLIC_APP_URL}/api/uploads`),
       apiKey: env.CDN_API_KEY,
       apiSecret: env.CDN_API_SECRET,
       cloudName: env.CLOUDINARY_CLOUD_NAME,
@@ -157,7 +165,7 @@ export class CDNService {
   ): ResponsiveImageSet {
     // Generate srcSet for different sizes
     const srcSet = sizes
-      .map(size => {
+      .map((size) => {
         const url = this.generateImageUrl(imagePath, { width: size.width });
         return `${url} ${size.width}w`;
       })
@@ -176,7 +184,9 @@ export class CDNService {
       (max-width: 640px) 640px,
       (max-width: 1024px) 1024px,
       1920px
-    `.trim().replace(/\s+/g, ' ');
+    `
+      .trim()
+      .replace(/\s+/g, ' ');
 
     return {
       src: this.generateImageUrl(imagePath),
@@ -195,16 +205,25 @@ export class CDNService {
     large: ResponsiveImageSet;
   } {
     return {
-      original: this.generateResponsiveImageSet(this.relativizePath(processedImage.original.path)),
-      thumbnail: this.generateResponsiveImageSet(this.relativizePath(processedImage.thumbnail.path)),
-      large: this.generateResponsiveImageSet(this.relativizePath(processedImage.large.path)),
+      original: this.generateResponsiveImageSet(
+        this.relativizePath(processedImage.original.path)
+      ),
+      thumbnail: this.generateResponsiveImageSet(
+        this.relativizePath(processedImage.thumbnail.path)
+      ),
+      large: this.generateResponsiveImageSet(
+        this.relativizePath(processedImage.large.path)
+      ),
     };
   }
 
   /**
    * Generate Cloudinary URL
    */
-  private generateCloudinaryUrl(imagePath: string, options: ImageUrlOptions): string {
+  private generateCloudinaryUrl(
+    imagePath: string,
+    options: ImageUrlOptions
+  ): string {
     const { width, height, quality, format, fit, progressive } = options;
 
     const transformations: string[] = [];
@@ -217,7 +236,10 @@ export class CDNService {
     }
 
     if (quality) {
-      const qualityValue = typeof quality === 'string' && quality === 'auto' ? 'auto:good' : quality;
+      const qualityValue =
+        typeof quality === 'string' && quality === 'auto'
+          ? 'auto:good'
+          : quality;
       transformations.push(`q_${qualityValue}`);
     }
 
@@ -231,9 +253,8 @@ export class CDNService {
       transformations.push('fl_progressive');
     }
 
-    const transformationString = transformations.length > 0
-      ? `/${transformations.join(',')}`
-      : '';
+    const transformationString =
+      transformations.length > 0 ? `/${transformations.join(',')}` : '';
 
     return `${this.config.baseUrl}/image/upload${transformationString}/${imagePath}`;
   }
@@ -241,7 +262,10 @@ export class CDNService {
   /**
    * Generate ImageKit URL
    */
-  private generateImageKitUrl(imagePath: string, options: ImageUrlOptions): string {
+  private generateImageKitUrl(
+    imagePath: string,
+    options: ImageUrlOptions
+  ): string {
     const { width, height, quality, format, fit: _fit } = options;
 
     const params = new URLSearchParams();
@@ -249,7 +273,8 @@ export class CDNService {
     if (width) params.set('tr', `w-${width}`);
     if (height) params.set('tr', `${params.get('tr') || ''},h-${height}`);
     if (quality) params.set('tr', `${params.get('tr') || ''},q-${quality}`);
-    if (format && format !== 'auto') params.set('tr', `${params.get('tr') || ''},f-${format}`);
+    if (format && format !== 'auto')
+      params.set('tr', `${params.get('tr') || ''},f-${format}`);
 
     const queryString = params.toString() ? `?${params.toString()}` : '';
     return `${this.config.baseUrl}/${imagePath}${queryString}`;
@@ -258,7 +283,10 @@ export class CDNService {
   /**
    * Generate Cloudflare Images URL
    */
-  private generateCloudflareUrl(imagePath: string, options: ImageUrlOptions): string {
+  private generateCloudflareUrl(
+    imagePath: string,
+    options: ImageUrlOptions
+  ): string {
     const { width, height, quality, format, fit } = options;
 
     const params = new URLSearchParams();
@@ -276,7 +304,10 @@ export class CDNService {
   /**
    * Generate Vercel Image Optimization URL
    */
-  private generateVercelUrl(imagePath: string, options: ImageUrlOptions): string {
+  private generateVercelUrl(
+    imagePath: string,
+    options: ImageUrlOptions
+  ): string {
     const { width, quality } = options;
 
     const params = new URLSearchParams();
@@ -300,12 +331,18 @@ export class CDNService {
    */
   private mapFitToCloudinary(fit?: string): string {
     switch (fit) {
-      case 'cover': return 'fill';
-      case 'contain': return 'fit';
-      case 'fill': return 'scale';
-      case 'inside': return 'fit';
-      case 'outside': return 'fill';
-      default: return 'fill';
+      case 'cover':
+        return 'fill';
+      case 'contain':
+        return 'fit';
+      case 'fill':
+        return 'scale';
+      case 'inside':
+        return 'fit';
+      case 'outside':
+        return 'fill';
+      default:
+        return 'fill';
     }
   }
 
@@ -321,8 +358,11 @@ export class CDNService {
   /**
    * Preload critical images
    */
-  generatePreloadLinks(imagePaths: string[], options: ImageUrlOptions = {}): string[] {
-    return imagePaths.map(imagePath => {
+  generatePreloadLinks(
+    imagePaths: string[],
+    options: ImageUrlOptions = {}
+  ): string[] {
+    return imagePaths.map((imagePath) => {
       const url = this.generateImageUrl(imagePath, options);
       return `<link rel="preload" as="image" href="${url}">`;
     });

@@ -14,15 +14,18 @@ export function ResetPasswordClient() {
 
   if (!token) {
     return (
-      <div className="w-full max-w-md text-center space-y-4">
-        <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
-          <h1 className="text-2xl font-bold text-red-800 mb-2">Invalid Reset Link</h1>
-          <p className="text-red-600 mb-4">
-            The password reset link is invalid or missing. Please request a new password reset.
+      <div className="w-full max-w-md space-y-4 text-center">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+          <h1 className="mb-2 text-2xl font-bold text-red-800">
+            Invalid Reset Link
+          </h1>
+          <p className="mb-4 text-red-600">
+            The password reset link is invalid or missing. Please request a new
+            password reset.
           </p>
           <a
             href="/auth/forgot-password"
-            className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+            className="inline-block rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
           >
             Request New Reset Link
           </a>

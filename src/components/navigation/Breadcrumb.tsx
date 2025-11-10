@@ -12,27 +12,25 @@ interface BreadcrumbItem {
 
 export function Breadcrumb() {
   const pathname = usePathname();
-  
+
   // Generate breadcrumb items based on current path
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
     const segments = pathname.split('/').filter(Boolean);
-    const breadcrumbs: BreadcrumbItem[] = [
-      { name: 'Home', href: '/' }
-    ];
+    const breadcrumbs: BreadcrumbItem[] = [{ name: 'Home', href: '/' }];
 
     let currentPath = '';
     segments.forEach((segment) => {
       currentPath += `/${segment}`;
-      
+
       // Convert segment to readable name
       const name = segment
         .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
       breadcrumbs.push({
         name,
-        href: currentPath
+        href: currentPath,
       });
     });
 
@@ -47,12 +45,12 @@ export function Breadcrumb() {
   }
 
   return (
-    <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+    <nav className="mb-4 flex items-center space-x-2 text-sm text-gray-500">
       {breadcrumbs.map((item, index) => (
         <div key={item.href} className="flex items-center">
           {index > 0 && (
             <svg
-              className="h-4 w-4 mx-2 text-gray-400"
+              className="mx-2 h-4 w-4 text-gray-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -66,11 +64,11 @@ export function Breadcrumb() {
             </svg>
           )}
           {index === breadcrumbs.length - 1 ? (
-            <span className="text-gray-900 font-medium">{item.name}</span>
+            <span className="font-medium text-gray-900">{item.name}</span>
           ) : (
             <Link
               href={item.href}
-              className="hover:text-gray-700 transition-colors duration-200"
+              className="transition-colors duration-200 hover:text-gray-700"
             >
               {item.name}
             </Link>

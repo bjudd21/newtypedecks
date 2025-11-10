@@ -43,18 +43,20 @@ export async function GET() {
       }),
     ]);
 
-    return NextResponse.json({
-      types,
-      rarities,
-      sets,
-      metadata: {
-        totalTypes: types.length,
-        totalRarities: rarities.length,
-        totalSets: sets.length,
-        fetchedAt: new Date().toISOString(),
+    return NextResponse.json(
+      {
+        types,
+        rarities,
+        sets,
+        metadata: {
+          totalTypes: types.length,
+          totalRarities: rarities.length,
+          totalSets: sets.length,
+          fetchedAt: new Date().toISOString(),
+        },
       },
-    }, { status: 200 });
-
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Reference API GET error:', error);
 

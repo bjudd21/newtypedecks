@@ -1,8 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
-import { DeckAnalytics, DeckCard, deckAnalyticsService } from '@/lib/services/deckAnalyticsService';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@/components/ui';
+import {
+  DeckAnalytics,
+  DeckCard,
+  deckAnalyticsService,
+} from '@/lib/services/deckAnalyticsService';
 import { DistributionChart } from './DistributionChart';
 import { SuggestionsList } from './SuggestionsList';
 import { CompetitiveRating } from './CompetitiveRating';
@@ -18,11 +28,13 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
   deckCards,
   deckName = 'Deck',
   className,
-  onAnalysisUpdate
+  onAnalysisUpdate,
 }) => {
   const [analytics, setAnalytics] = useState<DeckAnalytics | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'distributions' | 'suggestions' | 'improvements'>('overview');
+  const [activeTab, setActiveTab] = useState<
+    'overview' | 'distributions' | 'suggestions' | 'improvements'
+  >('overview');
 
   // Analyze deck when cards change
   useEffect(() => {
@@ -49,7 +61,7 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
       <Card className={className}>
         <CardContent className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
             <p className="text-gray-600">Analyzing deck...</p>
           </div>
         </CardContent>
@@ -60,8 +72,10 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
   if (!analytics) {
     return (
       <Card className={className}>
-        <CardContent className="text-center py-12">
-          <p className="text-gray-600">Add cards to your deck to see analytics</p>
+        <CardContent className="py-12 text-center">
+          <p className="text-gray-600">
+            Add cards to your deck to see analytics
+          </p>
         </CardContent>
       </Card>
     );
@@ -84,21 +98,29 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{analytics.totalCards}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {analytics.totalCards}
+              </div>
               <div className="text-sm text-gray-600">Total Cards</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{analytics.uniqueCards}</div>
+              <div className="text-2xl font-bold text-green-600">
+                {analytics.uniqueCards}
+              </div>
               <div className="text-sm text-gray-600">Unique Cards</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{analytics.averageCost}</div>
+              <div className="text-2xl font-bold text-purple-600">
+                {analytics.averageCost}
+              </div>
               <div className="text-sm text-gray-600">Avg Cost</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{analytics.totalCost}</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {analytics.totalCost}
+              </div>
               <div className="text-sm text-gray-600">Total Cost</div>
             </div>
           </div>
@@ -111,27 +133,39 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
           <CardTitle>Performance Metrics</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div className="text-center">
               <div className="text-lg font-semibold">Card Efficiency</div>
-              <div className={`text-2xl font-bold px-3 py-1 rounded-full inline-block ${getRatingColor(analytics.cardEfficiency * 10)}`}>
+              <div
+                className={`inline-block rounded-full px-3 py-1 text-2xl font-bold ${getRatingColor(analytics.cardEfficiency * 10)}`}
+              >
                 {analytics.cardEfficiency}
               </div>
-              <div className="text-xs text-gray-600 mt-1">Power-to-cost ratio</div>
+              <div className="mt-1 text-xs text-gray-600">
+                Power-to-cost ratio
+              </div>
             </div>
             <div className="text-center">
               <div className="text-lg font-semibold">Deck Balance</div>
-              <div className={`text-2xl font-bold px-3 py-1 rounded-full inline-block ${getRatingColor(analytics.deckBalance)}`}>
+              <div
+                className={`inline-block rounded-full px-3 py-1 text-2xl font-bold ${getRatingColor(analytics.deckBalance)}`}
+              >
                 {analytics.deckBalance}%
               </div>
-              <div className="text-xs text-gray-600 mt-1">Distribution balance</div>
+              <div className="mt-1 text-xs text-gray-600">
+                Distribution balance
+              </div>
             </div>
             <div className="text-center">
               <div className="text-lg font-semibold">Synergy Score</div>
-              <div className={`text-2xl font-bold px-3 py-1 rounded-full inline-block ${getRatingColor(analytics.synergyScore)}`}>
+              <div
+                className={`inline-block rounded-full px-3 py-1 text-2xl font-bold ${getRatingColor(analytics.synergyScore)}`}
+              >
                 {analytics.synergyScore}%
               </div>
-              <div className="text-xs text-gray-600 mt-1">Card interactions</div>
+              <div className="mt-1 text-xs text-gray-600">
+                Card interactions
+              </div>
             </div>
           </div>
         </CardContent>
@@ -145,15 +179,23 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
               { id: 'overview', label: '📊 Overview' },
               { id: 'distributions', label: '📈 Distributions' },
               { id: 'suggestions', label: '💡 Suggestions' },
-              { id: 'improvements', label: '⚡ Improvements' }
-            ].map(tab => (
+              { id: 'improvements', label: '⚡ Improvements' },
+            ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as 'overview' | 'distributions' | 'suggestions' | 'improvements')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                onClick={() =>
+                  setActiveTab(
+                    tab.id as
+                      | 'overview'
+                      | 'distributions'
+                      | 'suggestions'
+                      | 'improvements'
+                  )
+                }
+                className={`border-b-2 px-1 py-2 text-sm font-medium ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                 }`}
               >
                 {tab.label}
@@ -165,7 +207,7 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
 
       {/* Tab Content */}
       {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <DistributionChart
             title="Card Types"
             data={analytics.typeDistribution}
@@ -199,36 +241,52 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
               <div className="space-y-6">
                 {/* Type Distribution Details */}
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Card Types</h4>
+                  <h4 className="mb-3 font-semibold text-gray-900">
+                    Card Types
+                  </h4>
                   <div className="space-y-2">
-                    {Object.entries(analytics.typeDistribution).map(([type, data]) => (
-                      <div key={type} className="flex items-center justify-between">
-                        <span className="text-sm font-medium">{type}</span>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
-                            {data.count} cards
-                          </Badge>
-                          <Badge variant="secondary" className="text-xs">
-                            {data.percentage}%
-                          </Badge>
+                    {Object.entries(analytics.typeDistribution).map(
+                      ([type, data]) => (
+                        <div
+                          key={type}
+                          className="flex items-center justify-between"
+                        >
+                          <span className="text-sm font-medium">{type}</span>
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className="text-xs">
+                              {data.count} cards
+                            </Badge>
+                            <Badge variant="secondary" className="text-xs">
+                              {data.percentage}%
+                            </Badge>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 </div>
 
                 {/* Cost Curve Details */}
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Cost Curve Analysis</h4>
-                  <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
+                  <h4 className="mb-3 font-semibold text-gray-900">
+                    Cost Curve Analysis
+                  </h4>
+                  <div className="grid grid-cols-4 gap-2 md:grid-cols-8">
                     {Array.from({ length: 8 }, (_, i) => {
                       const cost = i;
-                      const data = analytics.costDistribution[cost] || { count: 0, percentage: 0 };
+                      const data = analytics.costDistribution[cost] || {
+                        count: 0,
+                        percentage: 0,
+                      };
                       return (
                         <div key={cost} className="text-center">
-                          <div className="text-xs font-medium text-gray-600">Cost {cost}+</div>
+                          <div className="text-xs font-medium text-gray-600">
+                            Cost {cost}+
+                          </div>
                           <div className="text-sm font-bold">{data.count}</div>
-                          <div className="text-xs text-gray-500">{data.percentage}%</div>
+                          <div className="text-xs text-gray-500">
+                            {data.percentage}%
+                          </div>
                         </div>
                       );
                     })}
@@ -254,8 +312,8 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
           </CardHeader>
           <CardContent>
             {analytics.improvements.length === 0 ? (
-              <div className="text-center py-8 text-gray-600">
-                <div className="text-4xl mb-2">🎉</div>
+              <div className="py-8 text-center text-gray-600">
+                <div className="mb-2 text-4xl">🎉</div>
                 <p>Your deck looks well-optimized!</p>
                 <p className="text-sm">No major improvements detected.</p>
               </div>
@@ -265,35 +323,44 @@ export const DeckAnalyticsDisplay: React.FC<DeckAnalyticsDisplayProps> = ({
                   const severityColors = {
                     minor: 'border-yellow-200 bg-yellow-50',
                     moderate: 'border-orange-200 bg-orange-50',
-                    critical: 'border-red-200 bg-red-50'
+                    critical: 'border-red-200 bg-red-50',
                   };
 
                   const severityIcons = {
                     minor: '⚠️',
                     moderate: '⚡',
-                    critical: '🚨'
+                    critical: '🚨',
                   };
 
                   return (
                     <div
                       key={index}
-                      className={`p-4 border rounded-lg ${severityColors[improvement.severity]}`}
+                      className={`rounded-lg border p-4 ${severityColors[improvement.severity]}`}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="text-xl">{severityIcons[improvement.severity]}</div>
+                        <div className="text-xl">
+                          {severityIcons[improvement.severity]}
+                        </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge variant="secondary" className="text-xs capitalize">
+                          <div className="mb-2 flex items-center gap-2">
+                            <Badge
+                              variant="secondary"
+                              className="text-xs capitalize"
+                            >
                               {improvement.category.replace('-', ' ')}
                             </Badge>
                             <Badge
-                              variant={improvement.severity === 'critical' ? 'destructive' : 'secondary'}
+                              variant={
+                                improvement.severity === 'critical'
+                                  ? 'destructive'
+                                  : 'secondary'
+                              }
                               className="text-xs capitalize"
                             >
                               {improvement.severity}
                             </Badge>
                           </div>
-                          <h4 className="font-medium text-gray-900 mb-1">
+                          <h4 className="mb-1 font-medium text-gray-900">
                             {improvement.description}
                           </h4>
                           <p className="text-sm text-gray-600">

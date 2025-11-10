@@ -2,7 +2,11 @@
 import { NextRequest } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
-import { validateFile, generateSafeFilename, getFileExtension } from './validation';
+import {
+  validateFile,
+  generateSafeFilename,
+  getFileExtension,
+} from './validation';
 import { processCardImage, ProcessedImage } from './imageProcessing';
 
 export interface UploadResult {
@@ -38,7 +42,7 @@ export async function handleCardImageUpload(
       return {
         success: false,
         error: 'File validation failed',
-        message: validation.errors.map(e => e.message).join(', '),
+        message: validation.errors.map((e) => e.message).join(', '),
       };
     }
 
@@ -58,7 +62,11 @@ export async function handleCardImageUpload(
 
     // Process image and create multiple sizes
     const outputDir = path.join(process.cwd(), uploadDir);
-    const processedImage = await processCardImage(tempPath, outputDir, tempFilename);
+    const processedImage = await processCardImage(
+      tempPath,
+      outputDir,
+      tempFilename
+    );
 
     // Clean up temp file
     await fs.unlink(tempPath);
@@ -72,7 +80,8 @@ export async function handleCardImageUpload(
     return {
       success: false,
       error: 'Upload failed',
-      message: error instanceof Error ? error.message : 'Unknown error occurred',
+      message:
+        error instanceof Error ? error.message : 'Unknown error occurred',
     };
   }
 }
@@ -88,7 +97,7 @@ export async function saveFileToLocal(
   try {
     // Generate filename if not provided
     const finalFilename = filename || generateSafeFilename(file.name);
-    
+
     // Create directory if it doesn't exist
     const fullPath = path.join(process.cwd(), directory);
     await fs.mkdir(fullPath, { recursive: true });
@@ -113,7 +122,9 @@ export async function saveFileToLocal(
 /**
  * Delete file from local storage
  */
-export async function deleteFileFromLocal(filePath: string): Promise<{ success: boolean; error?: string }> {
+export async function deleteFileFromLocal(
+  filePath: string
+): Promise<{ success: boolean; error?: string }> {
   try {
     await fs.unlink(filePath);
     return { success: true };
@@ -147,11 +158,13 @@ export async function getFileInfo(filePath: string) {
 /**
  * List files in directory
  */
-export async function listFilesInDirectory(directory: string): Promise<string[]> {
+export async function listFilesInDirectory(
+  directory: string
+): Promise<string[]> {
   try {
     const fullPath = path.join(process.cwd(), directory);
     const files = await fs.readdir(fullPath);
-    return files.filter(file => !file.startsWith('.'));
+    return files.filter((file) => !file.startsWith('.'));
   } catch {
     return [];
   }
@@ -160,7 +173,9 @@ export async function listFilesInDirectory(directory: string): Promise<string[]>
 /**
  * Clean up old temporary files
  */
-export async function cleanupTempFiles(maxAge: number = 24 * 60 * 60 * 1000): Promise<void> {
+export async function cleanupTempFiles(
+  maxAge: number = 24 * 60 * 60 * 1000
+): Promise<void> {
   try {
     const tempDir = path.join(process.cwd(), 'uploads', 'temp');
     const files = await fs.readdir(tempDir);
@@ -168,10 +183,10 @@ export async function cleanupTempFiles(maxAge: number = 24 * 60 * 60 * 1000): Pr
 
     for (const file of files) {
       if (file === '.gitkeep') continue;
-      
+
       const filePath = path.join(tempDir, file);
       const stats = await fs.stat(filePath);
-      
+
       if (now - stats.mtime.getTime() > maxAge) {
         await fs.unlink(filePath);
       }

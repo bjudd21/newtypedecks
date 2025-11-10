@@ -1,7 +1,15 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+  Badge,
+} from '@/components/ui';
 
 interface ExportFormat {
   id: string;
@@ -29,7 +37,7 @@ const EXPORT_FORMATS: ExportFormat[] = [
     description: 'Complete collection data with all metadata',
     icon: '💾',
     fileExtension: 'json',
-    supportsOptions: true
+    supportsOptions: true,
   },
   {
     id: 'csv',
@@ -37,7 +45,7 @@ const EXPORT_FORMATS: ExportFormat[] = [
     description: 'Excel-compatible format for analysis',
     icon: '📊',
     fileExtension: 'csv',
-    supportsOptions: true
+    supportsOptions: true,
   },
   {
     id: 'txt',
@@ -45,7 +53,7 @@ const EXPORT_FORMATS: ExportFormat[] = [
     description: 'Simple human-readable list',
     icon: '📝',
     fileExtension: 'txt',
-    supportsOptions: false
+    supportsOptions: false,
   },
   {
     id: 'decklist',
@@ -53,22 +61,24 @@ const EXPORT_FORMATS: ExportFormat[] = [
     description: 'Import into other deck builders',
     icon: '🎯',
     fileExtension: 'txt',
-    supportsOptions: false
-  }
+    supportsOptions: false,
+  },
 ];
 
 export const CollectionExporter: React.FC<CollectionExporterProps> = ({
   collectionStats,
   onExportComplete,
-  className
+  className,
 }) => {
-  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>(EXPORT_FORMATS[0]);
+  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>(
+    EXPORT_FORMATS[0]
+  );
   const [exportOptions, setExportOptions] = useState({
     includeMetadata: true,
     includeConditions: true,
     includeValues: false,
     onlyOwned: true,
-    customName: ''
+    customName: '',
   });
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,9 +92,9 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
   // Handle option change
   const handleOptionChange = useCallback((option: string, value: unknown) => {
-    setExportOptions(prev => ({
+    setExportOptions((prev) => ({
       ...prev,
-      [option]: value
+      [option]: value,
     }));
   }, []);
 
@@ -98,7 +108,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
         format: selectedFormat.id,
         includeMetadata: exportOptions.includeMetadata.toString(),
         includeConditions: exportOptions.includeConditions.toString(),
-        includeValues: exportOptions.includeValues.toString()
+        includeValues: exportOptions.includeValues.toString(),
       });
 
       if (exportOptions.onlyOwned) {
@@ -122,16 +132,16 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
         format: selectedFormat.name,
         date: new Date().toISOString(),
         options: { ...exportOptions },
-        filename: `gundam-collection-${selectedFormat.id}-${new Date().toISOString().split('T')[0]}.${selectedFormat.fileExtension}`
+        filename: `gundam-collection-${selectedFormat.id}-${new Date().toISOString().split('T')[0]}.${selectedFormat.fileExtension}`,
       };
 
-      setExportHistory(prev => [exportRecord, ...prev.slice(0, 4)]); // Keep last 5
+      setExportHistory((prev) => [exportRecord, ...prev.slice(0, 4)]); // Keep last 5
 
       if (onExportComplete) {
         onExportComplete({
           success: true,
           format: selectedFormat.id,
-          filename: exportRecord.filename
+          filename: exportRecord.filename,
         });
       }
     } catch (err) {
@@ -156,8 +166,8 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
         body: JSON.stringify({
           format: selectedFormat.id,
           options: exportOptions,
-          exportName: exportOptions.customName || undefined
-        })
+          exportName: exportOptions.customName || undefined,
+        }),
       });
 
       if (!response.ok) {
@@ -175,10 +185,10 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
         options: { ...exportOptions },
         filename: result.filename,
         size: result.size,
-        recordCount: result.recordCount
+        recordCount: result.recordCount,
       };
 
-      setExportHistory(prev => [exportRecord, ...prev.slice(0, 4)]);
+      setExportHistory((prev) => [exportRecord, ...prev.slice(0, 4)]);
 
       if (onExportComplete) {
         onExportComplete(result);
@@ -206,20 +216,28 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
           <div className="space-y-6">
             {/* Collection Stats */}
             {collectionStats && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="text-sm font-medium text-blue-800 mb-2">Collection Summary</div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <div className="mb-2 text-sm font-medium text-blue-800">
+                  Collection Summary
+                </div>
+                <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-3">
                   <div>
-                    <div className="font-semibold text-blue-900">{collectionStats.totalCards}</div>
+                    <div className="font-semibold text-blue-900">
+                      {collectionStats.totalCards}
+                    </div>
                     <div className="text-blue-700">Total Cards</div>
                   </div>
                   <div>
-                    <div className="font-semibold text-blue-900">{collectionStats.uniqueCards}</div>
+                    <div className="font-semibold text-blue-900">
+                      {collectionStats.uniqueCards}
+                    </div>
                     <div className="text-blue-700">Unique Cards</div>
                   </div>
                   {collectionStats.totalValue && (
                     <div>
-                      <div className="font-semibold text-blue-900">${collectionStats.totalValue.toFixed(2)}</div>
+                      <div className="font-semibold text-blue-900">
+                        ${collectionStats.totalValue.toFixed(2)}
+                      </div>
                       <div className="text-blue-700">Total Value</div>
                     </div>
                   )}
@@ -229,25 +247,29 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
             {/* Format Selection */}
             <div>
-              <div className="text-sm font-medium text-gray-700 mb-3">
+              <div className="mb-3 text-sm font-medium text-gray-700">
                 Choose Export Format:
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {EXPORT_FORMATS.map((format) => (
                   <div
                     key={format.id}
                     onClick={() => handleFormatSelect(format)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                    className={`cursor-pointer rounded-lg border p-4 transition-colors ${
                       selectedFormat.id === format.id
                         ? 'border-blue-500 bg-blue-50'
                         : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                     }`}
                   >
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="mb-2 flex items-center gap-3">
                       <span className="text-2xl">{format.icon}</span>
                       <div>
-                        <div className="font-medium text-gray-900">{format.name}</div>
-                        <div className="text-sm text-gray-600">{format.description}</div>
+                        <div className="font-medium text-gray-900">
+                          {format.name}
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          {format.description}
+                        </div>
                       </div>
                     </div>
                     <Badge variant="secondary" className="text-xs">
@@ -261,20 +283,25 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             {/* Export Options */}
             {selectedFormat.supportsOptions && (
               <div>
-                <div className="text-sm font-medium text-gray-700 mb-3">
+                <div className="mb-3 text-sm font-medium text-gray-700">
                   Export Options:
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="space-y-3">
                     <div className="flex items-center space-x-2">
                       <input
                         type="checkbox"
                         id="onlyOwned"
                         checked={exportOptions.onlyOwned}
-                        onChange={(e) => handleOptionChange('onlyOwned', e.target.checked)}
+                        onChange={(e) =>
+                          handleOptionChange('onlyOwned', e.target.checked)
+                        }
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <label htmlFor="onlyOwned" className="text-sm text-gray-700">
+                      <label
+                        htmlFor="onlyOwned"
+                        className="text-sm text-gray-700"
+                      >
                         Only export owned cards (quantity &gt; 0)
                       </label>
                     </div>
@@ -284,10 +311,18 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                         type="checkbox"
                         id="includeMetadata"
                         checked={exportOptions.includeMetadata}
-                        onChange={(e) => handleOptionChange('includeMetadata', e.target.checked)}
+                        onChange={(e) =>
+                          handleOptionChange(
+                            'includeMetadata',
+                            e.target.checked
+                          )
+                        }
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <label htmlFor="includeMetadata" className="text-sm text-gray-700">
+                      <label
+                        htmlFor="includeMetadata"
+                        className="text-sm text-gray-700"
+                      >
                         Include metadata (dates, IDs)
                       </label>
                     </div>
@@ -297,10 +332,18 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                         type="checkbox"
                         id="includeConditions"
                         checked={exportOptions.includeConditions}
-                        onChange={(e) => handleOptionChange('includeConditions', e.target.checked)}
+                        onChange={(e) =>
+                          handleOptionChange(
+                            'includeConditions',
+                            e.target.checked
+                          )
+                        }
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <label htmlFor="includeConditions" className="text-sm text-gray-700">
+                      <label
+                        htmlFor="includeConditions"
+                        className="text-sm text-gray-700"
+                      >
                         Include card conditions
                       </label>
                     </div>
@@ -312,21 +355,28 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                         type="checkbox"
                         id="includeValues"
                         checked={exportOptions.includeValues}
-                        onChange={(e) => handleOptionChange('includeValues', e.target.checked)}
+                        onChange={(e) =>
+                          handleOptionChange('includeValues', e.target.checked)
+                        }
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <label htmlFor="includeValues" className="text-sm text-gray-700">
+                      <label
+                        htmlFor="includeValues"
+                        className="text-sm text-gray-700"
+                      >
                         Include market values
                       </label>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="mb-1 block text-sm font-medium text-gray-700">
                         Custom Export Name (optional)
                       </label>
                       <Input
                         value={exportOptions.customName}
-                        onChange={(e) => handleOptionChange('customName', e.target.value)}
+                        onChange={(e) =>
+                          handleOptionChange('customName', e.target.value)
+                        }
                         placeholder="e.g., tournament-collection"
                         className="text-sm"
                       />
@@ -338,7 +388,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
             {/* Error Display */}
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm">
+              <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                 {error}
               </div>
             )}
@@ -351,7 +401,9 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                 variant="default"
                 className="flex-1"
               >
-                {isExporting ? 'Exporting...' : `Export as ${selectedFormat.name}`}
+                {isExporting
+                  ? 'Exporting...'
+                  : `Export as ${selectedFormat.name}`}
               </Button>
 
               {selectedFormat.supportsOptions && (
@@ -368,17 +420,22 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             {/* Export History */}
             {exportHistory.length > 0 && (
               <div>
-                <div className="text-sm font-medium text-gray-700 mb-2">
+                <div className="mb-2 text-sm font-medium text-gray-700">
                   Recent Exports
                 </div>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
+                <div className="max-h-32 space-y-2 overflow-y-auto">
                   {exportHistory.map((record) => (
-                    <div key={record.id} className="flex items-center justify-between p-2 bg-gray-50 rounded text-sm">
+                    <div
+                      key={record.id}
+                      className="flex items-center justify-between rounded bg-gray-50 p-2 text-sm"
+                    >
                       <div className="flex-1">
                         <div className="font-medium">{record.format}</div>
-                        <div className="text-gray-600 text-xs">
-                          {new Date(record.date).toLocaleDateString()} • {record.filename}
-                          {record.recordCount && ` • ${record.recordCount} cards`}
+                        <div className="text-xs text-gray-600">
+                          {new Date(record.date).toLocaleDateString()} •{' '}
+                          {record.filename}
+                          {record.recordCount &&
+                            ` • ${record.recordCount} cards`}
                         </div>
                       </div>
                       <Badge variant="secondary" className="text-xs">
@@ -391,15 +448,32 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             )}
 
             {/* Format Information */}
-            <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-              <div className="font-medium mb-2">Export Guidelines:</div>
+            <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
+              <div className="mb-2 font-medium">Export Guidelines:</div>
               <ul className="space-y-1">
-                <li>• <strong>JSON:</strong> Complete backup with all data - best for re-importing</li>
-                <li>• <strong>CSV:</strong> Spreadsheet format - good for analysis and editing</li>
-                <li>• <strong>Text:</strong> Human-readable list - easy to view and print</li>
-                <li>• <strong>Deck List:</strong> Simple format - compatible with other tools</li>
-                <li>• All exports include proper file names with date stamps</li>
-                <li>• Exports are generated in real-time from your current collection</li>
+                <li>
+                  • <strong>JSON:</strong> Complete backup with all data - best
+                  for re-importing
+                </li>
+                <li>
+                  • <strong>CSV:</strong> Spreadsheet format - good for analysis
+                  and editing
+                </li>
+                <li>
+                  • <strong>Text:</strong> Human-readable list - easy to view
+                  and print
+                </li>
+                <li>
+                  • <strong>Deck List:</strong> Simple format - compatible with
+                  other tools
+                </li>
+                <li>
+                  • All exports include proper file names with date stamps
+                </li>
+                <li>
+                  • Exports are generated in real-time from your current
+                  collection
+                </li>
               </ul>
             </div>
           </div>

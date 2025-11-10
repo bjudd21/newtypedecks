@@ -6,23 +6,25 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - Docker and Docker Compose
 - Git
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd gundam-card-game
    ```
 
 2. **Run the setup script**
+
    ```bash
    npm run setup
    ```
-   
+
    This will:
    - Install dependencies
    - Create environment configuration
@@ -30,12 +32,14 @@ A comprehensive website for the Gundam Card Game, combining card database functi
    - Start Docker services (PostgreSQL & Redis)
 
 3. **Set up the database**
+
    ```bash
    npm run db:migrate
    npm run db:seed
    ```
 
 4. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -46,12 +50,14 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 ## 📋 Available Scripts
 
 ### Development
+
 - `npm run dev` - Start development server with Turbopack
 - `npm run dev:full` - Start Docker services and development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 
 ### Database
+
 - `npm run db:generate` - Generate Prisma client
 - `npm run db:push` - Push schema changes to database
 - `npm run db:migrate` - Run database migrations
@@ -61,15 +67,18 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - `npm run db:studio` - Open Prisma Studio
 
 ### Docker
+
 - `npm run docker:dev` - Start Docker services (PostgreSQL & Redis)
 - `npm run docker:down` - Stop Docker services
 
 ### Environment
+
 - `npm run env:create` - Create .env file from template
 - `npm run env:validate` - Validate environment configuration
 - `npm run env:secrets` - Generate secure secrets
 
 ### Code Quality
+
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
 - `npm run type-check` - Run TypeScript type checking
@@ -77,18 +86,21 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - `npm run format:check` - Check code formatting
 
 ### Testing
+
 - `npm run test` - Run tests
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:coverage` - Run tests with coverage
 - `npm run test:ci` - Run tests for CI/CD
 
 ### Utilities
+
 - `npm run clean` - Clean build cache
 - `npm run clean:all` - Clean build cache and uploads
 - `npm run check` - Run all checks (type, lint, test)
 - `npm run precommit` - Run pre-commit checks
 
 ### Setup Scripts
+
 - `npm run setup` - Basic setup (install, env, db, docker)
 - `npm run setup:full` - Full setup with database seeding
 
@@ -126,18 +138,21 @@ gundam-card-game/
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - **Next.js 15** - React framework with App Router
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Utility-first CSS framework
 - **Redux Toolkit** - State management
 
 ### Backend
+
 - **Next.js API Routes** - Serverless API endpoints
 - **Prisma** - Database ORM
 - **PostgreSQL** - Primary database
 - **Redis** - Caching and sessions
 
 ### Development
+
 - **Docker** - Containerized development environment
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
@@ -145,6 +160,7 @@ gundam-card-game/
 - **React Testing Library** - Component testing
 
 ### File Storage
+
 - **Sharp** - Image processing
 - **Local storage** - Development file storage
 - **Cloud storage ready** - Vercel Blob, Cloudinary, AWS S3
@@ -168,6 +184,7 @@ The application uses PostgreSQL with the following main entities:
 See [Environment Setup Guide](docs/ENVIRONMENT_SETUP.md) for detailed configuration.
 
 Key variables:
+
 - `DATABASE_URL` - PostgreSQL connection string
 - `REDIS_URL` - Redis connection string
 - `NEXTAUTH_URL` - Authentication base URL
@@ -176,6 +193,7 @@ Key variables:
 ### Docker Services
 
 The project includes Docker Compose configuration for:
+
 - **PostgreSQL** - Database server
 - **Redis** - Cache and session store
 - **Next.js App** - Application server (production profile)
@@ -183,6 +201,7 @@ The project includes Docker Compose configuration for:
 ## 🧪 Testing
 
 ### Running Tests
+
 ```bash
 # Run all tests
 npm test
@@ -198,6 +217,7 @@ npm run test:ci
 ```
 
 ### Test Structure
+
 - **Unit tests** - Individual component and utility testing
 - **Integration tests** - API endpoint testing
 - **Component tests** - React component testing with React Testing Library
@@ -205,15 +225,18 @@ npm run test:ci
 ## 🚀 Deployment
 
 ### Development
+
 1. Run `npm run setup:full`
 2. Access at `http://localhost:3000`
 
 ### Production
+
 1. Set production environment variables
 2. Run `npm run build`
 3. Run `npm run start`
 
 ### Docker Production
+
 ```bash
 docker-compose --profile production up -d
 ```
@@ -257,6 +280,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check the documentation
 - Review existing issues and discussions

@@ -5,7 +5,11 @@
  */
 
 import { env, isDevelopment } from '@/lib/config/environment';
-import { DataImportService, type ImportResult, type ImportOptions } from './dataImportService';
+import {
+  DataImportService,
+  type ImportResult,
+  type ImportOptions,
+} from './dataImportService';
 
 export interface ScheduledImport {
   id: string;
@@ -84,7 +88,9 @@ export class ImportSchedulerService {
       this.scheduleNextRun(schedule.id);
     }
 
-    console.warn(`📅 Scheduled import added: ${schedule.name} (${schedule.cron})`);
+    console.warn(
+      `📅 Scheduled import added: ${schedule.name} (${schedule.cron})`
+    );
   }
 
   /**
@@ -151,7 +157,9 @@ export class ImportSchedulerService {
   /**
    * Run import with custom options
    */
-  public async runManualImport(options: ImportOptions = {}): Promise<ImportResult> {
+  public async runManualImport(
+    options: ImportOptions = {}
+  ): Promise<ImportResult> {
     const schedule: ScheduledImport = {
       id: 'manual-import',
       name: 'Manual Import',
@@ -175,9 +183,12 @@ export class ImportSchedulerService {
   /**
    * Get import history for a specific scheduled import
    */
-  public getScheduledImportHistory(scheduledImportId: string, limit = 20): ImportHistory[] {
+  public getScheduledImportHistory(
+    scheduledImportId: string,
+    limit = 20
+  ): ImportHistory[] {
     return this.importHistory
-      .filter(history => history.scheduledImportId === scheduledImportId)
+      .filter((history) => history.scheduledImportId === scheduledImportId)
       .sort((a, b) => b.startTime.getTime() - a.startTime.getTime())
       .slice(0, limit);
   }
@@ -191,7 +202,7 @@ export class ImportSchedulerService {
 
     const initialLength = this.importHistory.length;
     this.importHistory = this.importHistory.filter(
-      history => history.startTime >= cutoffDate
+      (history) => history.startTime >= cutoffDate
     );
 
     return initialLength - this.importHistory.length;
@@ -207,7 +218,8 @@ export class ImportSchedulerService {
     const historyId = this.generateHistoryId();
     const history: ImportHistory = {
       id: historyId,
-      scheduledImportId: schedule.id !== 'manual-import' ? schedule.id : undefined,
+      scheduledImportId:
+        schedule.id !== 'manual-import' ? schedule.id : undefined,
       startTime: new Date(),
       status: 'running',
       triggeredBy,
@@ -222,7 +234,9 @@ export class ImportSchedulerService {
         throw new Error('Data import is disabled');
       }
 
-      const result = await this.dataImportService.importAllCards(schedule.options);
+      const result = await this.dataImportService.importAllCards(
+        schedule.options
+      );
 
       // Update history
       history.endTime = new Date();
@@ -235,7 +249,8 @@ export class ImportSchedulerService {
         if (storedSchedule) {
           storedSchedule.lastRun = new Date();
           storedSchedule.lastResult = result;
-          storedSchedule.nextRun = this.getNextRunTime(storedSchedule.cron) || undefined;
+          storedSchedule.nextRun =
+            this.getNextRunTime(storedSchedule.cron) || undefined;
 
           // Schedule next run if still enabled
           if (storedSchedule.enabled) {
@@ -246,9 +261,9 @@ export class ImportSchedulerService {
 
       console.warn(`✅ Import completed: ${schedule.name}`);
       return result;
-
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
 
       // Update history with error
       history.endTime = new Date();
@@ -295,14 +310,14 @@ export class ImportSchedulerService {
 
     if (delay <= 0) {
       // Should run immediately
-      this.executeImport(schedule, 'schedule').catch(error => {
+      this.executeImport(schedule, 'schedule').catch((error) => {
         console.error(`Scheduled import ${id} failed:`, error);
       });
       return;
     }
 
     const timer = setTimeout(() => {
-      this.executeImport(schedule, 'schedule').catch(error => {
+      this.executeImport(schedule, 'schedule').catch((error) => {
         console.error(`Scheduled import ${id} failed:`, error);
       });
     }, delay);
@@ -310,7 +325,9 @@ export class ImportSchedulerService {
     this.timers.set(id, timer);
 
     if (isDevelopment) {
-      console.warn(`⏰ Next run for ${schedule.name}: ${nextRun.toLocaleString()}`);
+      console.warn(
+        `⏰ Next run for ${schedule.name}: ${nextRun.toLocaleString()}`
+      );
     }
   }
 
@@ -349,7 +366,6 @@ export class ImportSchedulerService {
       }
 
       return next;
-
     } catch (error) {
       console.error(`Error parsing cron expression ${cron}:`, error);
       return null;
@@ -382,20 +398,22 @@ export class ImportSchedulerService {
     nextScheduledRun?: Date;
   } {
     const schedules = Array.from(this.scheduledImports.values());
-    const enabledSchedules = schedules.filter(s => s.enabled);
+    const enabledSchedules = schedules.filter((s) => s.enabled);
     const nextRuns = enabledSchedules
-      .map(s => s.nextRun)
+      .map((s) => s.nextRun)
       .filter((date): date is Date => !!date)
       .sort((a, b) => a.getTime() - b.getTime());
 
     const history = this.importHistory;
-    const successful = history.filter(h => h.status === 'completed').length;
-    const failed = history.filter(h => h.status === 'failed').length;
-    const running = history.filter(h => h.status === 'running').length;
+    const successful = history.filter((h) => h.status === 'completed').length;
+    const failed = history.filter((h) => h.status === 'failed').length;
+    const running = history.filter((h) => h.status === 'running').length;
 
     const lastRun = history
-      .filter(h => h.status === 'completed')
-      .sort((a, b) => b.startTime.getTime() - a.startTime.getTime())[0]?.startTime;
+      .filter((h) => h.status === 'completed')
+      .sort(
+        (a, b) => b.startTime.getTime() - a.startTime.getTime()
+      )[0]?.startTime;
 
     return {
       scheduledImports: {

@@ -56,6 +56,7 @@ Most endpoints require authentication. Include the session cookie or JWT token i
 All API responses follow a consistent format:
 
 #### Success Response
+
 ```json
 {
   "success": true,
@@ -65,6 +66,7 @@ All API responses follow a consistent format:
 ```
 
 #### Error Response
+
 ```json
 {
   "success": false,
@@ -74,6 +76,7 @@ All API responses follow a consistent format:
 ```
 
 #### Paginated Response
+
 ```json
 {
   "success": true,
@@ -92,9 +95,11 @@ All API responses follow a consistent format:
 ### Health Check
 
 #### GET /api/health
+
 Check the health status of the application.
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -110,9 +115,11 @@ Check the health status of the application.
 ### Cards API
 
 #### GET /api/cards
+
 Get a list of cards with pagination and filtering.
 
 **Query Parameters:**
+
 - `page` (number, optional): Page number (default: 1)
 - `limit` (number, optional): Items per page (default: 20)
 - `search` (string, optional): Search query
@@ -123,6 +130,7 @@ Get a list of cards with pagination and filtering.
 - `order` (string, optional): Sort order (asc, desc)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -145,9 +153,11 @@ Get a list of cards with pagination and filtering.
 ```
 
 #### GET /api/cards/[id]
+
 Get a specific card by ID.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -173,9 +183,11 @@ Get a specific card by ID.
 ```
 
 #### POST /api/cards
+
 Create a new card (Admin only).
 
 **Request Body:**
+
 ```json
 {
   "name": "New Card",
@@ -191,19 +203,23 @@ Create a new card (Admin only).
 ```
 
 #### PUT /api/cards/[id]
+
 Update a card (Admin only).
 
 **Request Body:** Same as POST
 
 #### DELETE /api/cards/[id]
+
 Delete a card (Admin only).
 
 ### Decks API
 
 #### GET /api/decks
+
 Get a list of decks with pagination and filtering.
 
 **Query Parameters:**
+
 - `page` (number, optional): Page number
 - `limit` (number, optional): Items per page
 - `search` (string, optional): Search query
@@ -213,6 +229,7 @@ Get a list of decks with pagination and filtering.
 - `order` (string, optional): Sort order (asc, desc)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -243,9 +260,11 @@ Get a list of decks with pagination and filtering.
 ```
 
 #### GET /api/decks/[id]
+
 Get a specific deck by ID.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -273,9 +292,11 @@ Get a specific deck by ID.
 ```
 
 #### POST /api/decks
+
 Create a new deck.
 
 **Request Body:**
+
 ```json
 {
   "name": "My New Deck",
@@ -291,22 +312,27 @@ Create a new deck.
 ```
 
 #### PUT /api/decks/[id]
+
 Update a deck.
 
 **Request Body:** Same as POST
 
 #### DELETE /api/decks/[id]
+
 Delete a deck.
 
 ### Collections API
 
 #### GET /api/collections
+
 Get user's collection.
 
 **Query Parameters:**
+
 - `userId` (string, required): User ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -335,9 +361,11 @@ Get user's collection.
 ```
 
 #### POST /api/collections
+
 Add cards to collection.
 
 **Request Body:**
+
 ```json
 {
   "cards": [
@@ -350,12 +378,15 @@ Add cards to collection.
 ```
 
 #### GET /api/collections/[cardId]
+
 Get collection entry for a specific card.
 
 **Query Parameters:**
+
 - `userId` (string, required): User ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -374,9 +405,11 @@ Get collection entry for a specific card.
 ```
 
 #### PUT /api/collections/[cardId]
+
 Update quantity of a card in collection.
 
 **Request Body:**
+
 ```json
 {
   "quantity": 5
@@ -384,14 +417,17 @@ Update quantity of a card in collection.
 ```
 
 #### DELETE /api/collections/[cardId]
+
 Remove card from collection.
 
 ### Authentication API
 
 #### POST /api/auth/login
+
 User login.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -400,6 +436,7 @@ User login.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -415,9 +452,11 @@ User login.
 ```
 
 #### POST /api/auth/register
+
 User registration.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -429,9 +468,11 @@ User registration.
 **Response:** Same as login
 
 #### POST /api/auth/logout
+
 User logout.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -440,9 +481,11 @@ User logout.
 ```
 
 #### GET /api/auth/me
+
 Get current user profile.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -457,9 +500,11 @@ Get current user profile.
 ```
 
 #### PUT /api/auth/me
+
 Update current user profile.
 
 **Request Body:**
+
 ```json
 {
   "name": "Updated Name",
@@ -470,11 +515,13 @@ Update current user profile.
 ### File Upload API
 
 #### POST /api/upload/card-image
+
 Upload card image.
 
 **Request:** Multipart form data with `image` field
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -495,6 +542,7 @@ Upload card image.
 ### Error Codes
 
 #### HTTP Status Codes
+
 - `200` - Success
 - `201` - Created
 - `400` - Bad Request
@@ -506,6 +554,7 @@ Upload card image.
 - `500` - Internal Server Error
 
 #### Common Error Types
+
 - `VALIDATION_ERROR` - Input validation failed
 - `AUTHENTICATION_ERROR` - Authentication required
 - `AUTHORIZATION_ERROR` - Insufficient permissions
@@ -517,11 +566,13 @@ Upload card image.
 ### Rate Limiting
 
 API endpoints are rate limited to prevent abuse:
+
 - **Default**: 100 requests per 15 minutes
 - **Authentication**: 10 requests per minute
 - **File Upload**: 5 requests per minute
 
 Rate limit headers are included in responses:
+
 ```
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
@@ -531,10 +582,12 @@ X-RateLimit-Reset: 1640995200
 ### Pagination
 
 List endpoints support pagination with the following parameters:
+
 - `page` - Page number (1-based)
 - `limit` - Items per page (max 100)
 
 Pagination information is included in the response:
+
 ```json
 {
   "pagination": {
@@ -551,6 +604,7 @@ Pagination information is included in the response:
 ### Filtering and Sorting
 
 #### Cards
+
 - `search` - Search in name and description
 - `type` - Filter by card type
 - `rarity` - Filter by rarity
@@ -559,6 +613,7 @@ Pagination information is included in the response:
 - `order` - Sort order (asc, desc)
 
 #### Decks
+
 - `search` - Search in name and description
 - `public` - Filter public/private decks
 - `userId` - Filter by user
@@ -572,6 +627,7 @@ Pagination information is included in the response:
 ### Schema Overview
 
 The database schema is designed with the following principles:
+
 - **Normalization**: Proper relational structure to avoid data duplication
 - **Flexibility**: Support for various card types and game mechanics
 - **Performance**: Optimized indexes for common queries
@@ -583,6 +639,7 @@ The application uses **PostgreSQL** as the primary database with **Prisma ORM** 
 ### Core Models
 
 #### User
+
 User accounts and authentication information.
 
 ```prisma
@@ -604,6 +661,7 @@ model User {
 ```
 
 **Fields:**
+
 - `id` - Unique identifier (CUID)
 - `email` - User email address (unique)
 - `name` - Display name
@@ -613,6 +671,7 @@ model User {
 - `updatedAt` - Last update timestamp
 
 **UserRole Enum:**
+
 ```prisma
 enum UserRole {
   USER
@@ -622,6 +681,7 @@ enum UserRole {
 ```
 
 #### Card
+
 Individual card records with comprehensive game attributes.
 
 ```prisma
@@ -683,6 +743,7 @@ model Card {
 ```
 
 **Key Features:**
+
 - Flexible game mechanics support
 - Multiple image sizes for different use cases
 - Searchable keywords and tags
@@ -691,6 +752,7 @@ model Card {
 - Performance indexes on commonly queried fields
 
 #### CardType
+
 Categories for different types of cards.
 
 ```prisma
@@ -708,6 +770,7 @@ model CardType {
 ```
 
 **Official Categories:**
+
 - **Unit**: Mobile Suits, Mobile Armors, Cruisers, Colonies - primary combat units
 - **Character**: Pilots and crew members that enhance unit capabilities
 - **Command**: Specific effects, often representing scenes from the anime (discarded after use)
@@ -715,6 +778,7 @@ model CardType {
 - **Generation**: Resource cards that produce "Nation Power" to play other cards
 
 #### Rarity
+
 Card rarity levels with visual indicators.
 
 ```prisma
@@ -732,6 +796,7 @@ model Rarity {
 ```
 
 **Common Rarities:**
+
 - Common (Gray)
 - Uncommon (Green)
 - Rare (Blue)
@@ -740,6 +805,7 @@ model Rarity {
 - Mythic (Red)
 
 #### Set
+
 Card sets and expansions.
 
 ```prisma
@@ -759,6 +825,7 @@ model Set {
 ```
 
 **Fields:**
+
 - `id` - Unique identifier
 - `name` - Set name
 - `code` - Set code (ST01, ST02, etc.)
@@ -769,6 +836,7 @@ model Set {
 ### Game Organization Models
 
 #### Faction
+
 Faction-based card organization.
 
 ```prisma
@@ -785,6 +853,7 @@ model Faction {
 ```
 
 **Common Factions:**
+
 - Earth Federation
 - Principality of Zeon
 - AEUG (Anti-Earth Union Group)
@@ -794,6 +863,7 @@ model Faction {
 - Orb Union
 
 #### Series
+
 Gundam series organization.
 
 ```prisma
@@ -810,6 +880,7 @@ model Series {
 ```
 
 **Common Series:**
+
 - **UC** (Universal Century): Original timeline
 - **CE** (Cosmic Era): Gundam SEED
 - **AD** (Anno Domini): Gundam 00
@@ -819,6 +890,7 @@ model Series {
 ### Deck Building Models
 
 #### Deck
+
 User-created deck collections.
 
 ```prisma
@@ -840,11 +912,13 @@ model Deck {
 ```
 
 **Features:**
+
 - Public/private deck visibility
 - User ownership and permissions
 - Timestamps for version tracking
 
 #### DeckCard
+
 Junction table for cards in decks.
 
 ```prisma
@@ -865,6 +939,7 @@ model DeckCard {
 ```
 
 **Features:**
+
 - Quantity tracking for multiple copies
 - Optional categorization (e.g., "Main", "Side", "Extra")
 - Cascade deletion when deck is removed
@@ -872,6 +947,7 @@ model DeckCard {
 ### Collection Management Models
 
 #### Collection
+
 User's personal card collection.
 
 ```prisma
@@ -890,11 +966,13 @@ model Collection {
 ```
 
 **Features:**
+
 - One collection per user
 - Quantity tracking for owned cards
 - Integration with deck building
 
 #### CollectionCard
+
 Junction table for cards in collections.
 
 ```prisma
@@ -914,12 +992,14 @@ model CollectionCard {
 ```
 
 **Features:**
+
 - Quantity tracking for owned cards
 - Cascade deletion when collection is removed
 
 ### Rules and Clarifications
 
 #### CardRuling
+
 Official rulings and clarifications for card interactions.
 
 ```prisma
@@ -939,6 +1019,7 @@ model CardRuling {
 ```
 
 **Features:**
+
 - Question/answer format
 - Source attribution
 - Official vs. community rulings
@@ -1268,16 +1349,19 @@ ALTER TABLE decks ADD COLUMN total_cost INTEGER DEFAULT 0;
 #### Data Type Constraints
 
 **String Lengths:**
+
 - Card names: 1-100 characters
 - Descriptions: 0-1000 characters
 - Set codes: 2-10 characters
 
 **Numeric Ranges:**
+
 - Level: 0-99
 - Cost: 0-99
 - Power/Defense/Speed: 0-999
 
 **Array Limits:**
+
 - Keywords: Maximum 20 items
 - Tags: Maximum 10 items
 
@@ -1302,20 +1386,24 @@ ALTER TABLE decks ADD COLUMN total_cost INTEGER DEFAULT 0;
 #### Permission Levels
 
 **Public Access:**
+
 - Card browsing
 - Public deck viewing
 
 **User Access:**
+
 - Personal collection management
 - Deck creation and management
 - Profile management
 
 **Admin Access:**
+
 - Card data management
 - User administration
 - System configuration
 
 **Moderator Access:**
+
 - Content moderation
 - Ruling management
 - Community oversight
@@ -1396,6 +1484,7 @@ const sets = [
 ```
 
 **Running Seeds:**
+
 ```bash
 # Seed the database
 npm run db:seed
@@ -1433,23 +1522,21 @@ import { GundamCardGameAPI } from '@gundam-card-game/api-client';
 
 const api = new GundamCardGameAPI({
   baseURL: 'https://api.gundam-card-game.com',
-  apiKey: 'your-api-key'
+  apiKey: 'your-api-key',
 });
 
 // Get cards
 const cards = await api.cards.list({
   page: 1,
   limit: 20,
-  search: 'gundam'
+  search: 'gundam',
 });
 
 // Create deck
 const deck = await api.decks.create({
   name: 'My Deck',
   description: 'A powerful deck',
-  cards: [
-    { cardId: 'card-001', quantity: 2 }
-  ]
+  cards: [{ cardId: 'card-001', quantity: 2 }],
 });
 ```
 
@@ -1472,6 +1559,7 @@ describe('Cards API', () => {
 #### Postman Collection
 
 A Postman collection is available for API testing:
+
 - Import `docs/postman/Gundam-Card-Game-API.postman_collection.json`
 - Set environment variables for different environments
 - Use the collection for manual testing and documentation

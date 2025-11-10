@@ -26,7 +26,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    if (!user || !user.emailVerificationToken || !user.emailVerificationExpires) {
+    if (
+      !user ||
+      !user.emailVerificationToken ||
+      !user.emailVerificationExpires
+    ) {
       return NextResponse.json(
         { error: 'Invalid or expired verification token' },
         { status: 400 }
@@ -45,7 +49,10 @@ export async function POST(request: NextRequest) {
       });
 
       return NextResponse.json(
-        { error: 'Verification token has expired. Please request a new verification email.' },
+        {
+          error:
+            'Verification token has expired. Please request a new verification email.',
+        },
         { status: 400 }
       );
     }
@@ -69,7 +76,10 @@ export async function POST(request: NextRequest) {
     });
 
     // Send welcome email
-    const welcomeEmailSent = await sendWelcomeEmail(user.email, user.name || user.email);
+    const welcomeEmailSent = await sendWelcomeEmail(
+      user.email,
+      user.name || user.email
+    );
     if (!welcomeEmailSent) {
       console.warn('Failed to send welcome email to:', user.email);
     }

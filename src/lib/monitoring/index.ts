@@ -4,10 +4,31 @@
  */
 
 // Core monitoring services
-export { initSentry, errorTracker, performanceMonitor as sentryPerformance } from './sentry';
-export { analytics, businessMetrics, metricsCollector, initAnalytics, trackWebVitals } from './analytics';
-export { logger, createRequestLogger, createComponentLogger, domainLoggers } from './logger';
-export { performanceMonitor, measureAPI, measureDB, measureComponent, measureUserAction } from './performance';
+export {
+  initSentry,
+  errorTracker,
+  performanceMonitor as sentryPerformance,
+} from './sentry';
+export {
+  analytics,
+  businessMetrics,
+  metricsCollector,
+  initAnalytics,
+  trackWebVitals,
+} from './analytics';
+export {
+  logger,
+  createRequestLogger,
+  createComponentLogger,
+  domainLoggers,
+} from './logger';
+export {
+  performanceMonitor,
+  measureAPI,
+  measureDB,
+  measureComponent,
+  measureUserAction,
+} from './performance';
 
 // Middleware and utilities
 export {
@@ -27,12 +48,19 @@ export {
 } from '../../hooks/useMonitoring';
 
 // React components
-export { MonitoringProvider, MonitoringErrorBoundary } from '../../components/monitoring/MonitoringProvider';
+export {
+  MonitoringProvider,
+  MonitoringErrorBoundary,
+} from '../../components/monitoring/MonitoringProvider';
 
 // Types
 export type { LogLevel, LogEntry } from './logger';
 export type { PerformanceEntry, ResourceUsage } from './performance';
-export type { AnalyticsEvent, PerformanceMetric, UserMetric } from './analytics';
+export type {
+  AnalyticsEvent,
+  PerformanceMetric,
+  UserMetric,
+} from './analytics';
 export type { MonitoringContext } from './middleware';
 
 // Import LogLevel for type checking
@@ -41,7 +69,10 @@ import type { LogLevel } from './logger';
 // Default monitoring configuration
 export const defaultMonitoringConfig = {
   enableSentry: !!process.env.NEXT_PUBLIC_SENTRY_DSN,
-  enableAnalytics: !!(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || process.env.NEXT_PUBLIC_MIXPANEL_TOKEN),
+  enableAnalytics: !!(
+    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ||
+    process.env.NEXT_PUBLIC_MIXPANEL_TOKEN
+  ),
   enablePerformanceMonitoring: true,
   enableLogging: true,
   logLevel: (process.env.LOG_LEVEL as LogLevel) || ('info' as LogLevel),

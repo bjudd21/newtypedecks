@@ -124,7 +124,13 @@ export interface Follow {
 export interface Notification {
   id: string;
   userId: string;
-  type: 'comment' | 'rating' | 'like' | 'follow' | 'deck_featured' | 'badge_earned';
+  type:
+    | 'comment'
+    | 'rating'
+    | 'like'
+    | 'follow'
+    | 'deck_featured'
+    | 'badge_earned';
   title: string;
   message: string;
   data?: Record<string, unknown>; // Additional data like deck ID, comment ID, etc.
@@ -135,7 +141,13 @@ export interface Notification {
 
 export interface ActivityFeed {
   id: string;
-  type: 'deck_created' | 'deck_liked' | 'comment_posted' | 'rating_given' | 'user_followed' | 'badge_earned';
+  type:
+    | 'deck_created'
+    | 'deck_liked'
+    | 'comment_posted'
+    | 'rating_given'
+    | 'user_followed'
+    | 'badge_earned';
   userId: string;
   userName: string;
   userAvatar?: string;
@@ -182,8 +194,8 @@ class SocialService {
           comments: true,
           ratings: true,
           follows: true,
-          deckLikes: false
-        }
+          deckLikes: false,
+        },
       },
       statistics: {
         totalDecks: 12,
@@ -195,16 +207,19 @@ class SocialService {
         totalRatings: 23,
         followers: 34,
         following: 56,
-        favoriteArchetype: 'Midrange Value'
+        favoriteArchetype: 'Midrange Value',
       },
-      badges: []
+      badges: [],
     };
   }
 
   /**
    * Update user profile
    */
-  async updateUserProfile(userId: string, updates: Partial<UserProfile>): Promise<UserProfile> {
+  async updateUserProfile(
+    userId: string,
+    updates: Partial<UserProfile>
+  ): Promise<UserProfile> {
     // This would update in database
     const currentProfile = await this.getUserProfile(userId);
     if (!currentProfile) {
@@ -217,7 +232,11 @@ class SocialService {
   /**
    * Get deck ratings
    */
-  async getDeckRatings(deckId: string, _page = 1, _limit = 10): Promise<{
+  async getDeckRatings(
+    deckId: string,
+    _page = 1,
+    _limit = 10
+  ): Promise<{
     ratings: DeckRating[];
     totalCount: number;
     averageRating: number;
@@ -231,10 +250,11 @@ class SocialService {
         userId: 'user1',
         userName: 'CompetitivePlayer',
         rating: 5,
-        review: 'Excellent deck! Very consistent and competitive. The synergy between cards is outstanding.',
+        review:
+          'Excellent deck! Very consistent and competitive. The synergy between cards is outstanding.',
         createdAt: new Date('2024-03-15'),
         updatedAt: new Date('2024-03-15'),
-        helpfulVotes: 8
+        helpfulVotes: 8,
       },
       {
         id: '2',
@@ -242,11 +262,12 @@ class SocialService {
         userId: 'user2',
         userName: 'CasualGamer',
         rating: 4,
-        review: 'Fun to play but requires some expensive cards. Great for local tournaments.',
+        review:
+          'Fun to play but requires some expensive cards. Great for local tournaments.',
         createdAt: new Date('2024-03-14'),
         updatedAt: new Date('2024-03-14'),
-        helpfulVotes: 3
-      }
+        helpfulVotes: 3,
+      },
     ];
 
     return {
@@ -258,8 +279,8 @@ class SocialService {
         4: 7,
         3: 3,
         2: 1,
-        1: 0
-      }
+        1: 0,
+      },
     };
   }
 
@@ -286,14 +307,18 @@ class SocialService {
       review,
       createdAt: new Date(),
       updatedAt: new Date(),
-      helpfulVotes: 0
+      helpfulVotes: 0,
     };
   }
 
   /**
    * Get deck comments
    */
-  async getDeckComments(deckId: string, _page = 1, _limit = 20): Promise<{
+  async getDeckComments(
+    deckId: string,
+    _page = 1,
+    _limit = 20
+  ): Promise<{
     comments: DeckComment[];
     totalCount: number;
   }> {
@@ -304,7 +329,8 @@ class SocialService {
         deckId,
         userId: 'user1',
         userName: 'StrategyExpert',
-        content: 'Love the inclusion of Mobile Suit Gundam in the main deck. Have you considered adding more Command cards for better control?',
+        content:
+          'Love the inclusion of Mobile Suit Gundam in the main deck. Have you considered adding more Command cards for better control?',
         createdAt: new Date('2024-03-16T10:30:00'),
         updatedAt: new Date('2024-03-16T10:30:00'),
         likes: 5,
@@ -314,13 +340,14 @@ class SocialService {
             deckId,
             userId: 'author',
             userName: 'DeckAuthor',
-            content: 'Thanks for the suggestion! I tried that in earlier versions but found it made the deck too slow.',
+            content:
+              'Thanks for the suggestion! I tried that in earlier versions but found it made the deck too slow.',
             createdAt: new Date('2024-03-16T14:15:00'),
             updatedAt: new Date('2024-03-16T14:15:00'),
             parentId: '1',
-            likes: 2
-          }
-        ]
+            likes: 2,
+          },
+        ],
       },
       {
         id: '2',
@@ -330,13 +357,13 @@ class SocialService {
         content: 'Great beginner-friendly deck! Easy to pilot and understand.',
         createdAt: new Date('2024-03-15T16:45:00'),
         updatedAt: new Date('2024-03-15T16:45:00'),
-        likes: 3
-      }
+        likes: 3,
+      },
     ];
 
     return {
       comments: mockComments,
-      totalCount: 12
+      totalCount: 12,
     };
   }
 
@@ -364,36 +391,46 @@ class SocialService {
       updatedAt: new Date(),
       parentId,
       likes: 0,
-      isOwner: true
+      isOwner: true,
     };
   }
 
   /**
    * Like/unlike deck
    */
-  async toggleDeckLike(_deckId: string, _userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
+  async toggleDeckLike(
+    _deckId: string,
+    _userId: string
+  ): Promise<{ isLiked: boolean; likeCount: number }> {
     // This would update in database
     return {
       isLiked: true, // Toggled state
-      likeCount: 42 // Updated count
+      likeCount: 42, // Updated count
     };
   }
 
   /**
    * Follow/unfollow user
    */
-  async toggleUserFollow(_followingId: string, _followerId: string): Promise<{ isFollowing: boolean; followerCount: number }> {
+  async toggleUserFollow(
+    _followingId: string,
+    _followerId: string
+  ): Promise<{ isFollowing: boolean; followerCount: number }> {
     // This would update in database
     return {
       isFollowing: true, // Toggled state
-      followerCount: 35 // Updated count
+      followerCount: 35, // Updated count
     };
   }
 
   /**
    * Get user's activity feed
    */
-  async getUserActivityFeed(userId: string, _page = 1, _limit = 20): Promise<ActivityFeed[]> {
+  async getUserActivityFeed(
+    userId: string,
+    _page = 1,
+    _limit = 20
+  ): Promise<ActivityFeed[]> {
     // Mock implementation
     return [
       {
@@ -403,7 +440,7 @@ class SocialService {
         userName: 'CompetitivePlayer',
         title: 'Created a new deck',
         description: 'Aggro Rush Tournament Build',
-        createdAt: new Date('2024-03-16T09:00:00')
+        createdAt: new Date('2024-03-16T09:00:00'),
       },
       {
         id: '2',
@@ -412,15 +449,19 @@ class SocialService {
         userName: 'StrategyExpert',
         title: 'Commented on',
         description: 'Control Lock Meta Analysis deck',
-        createdAt: new Date('2024-03-15T14:30:00')
-      }
+        createdAt: new Date('2024-03-15T14:30:00'),
+      },
     ];
   }
 
   /**
    * Get following feed (activity from users you follow)
    */
-  async getFollowingFeed(userId: string, page = 1, limit = 20): Promise<ActivityFeed[]> {
+  async getFollowingFeed(
+    userId: string,
+    page = 1,
+    limit = 20
+  ): Promise<ActivityFeed[]> {
     // This would get activity from followed users
     return this.getUserActivityFeed(userId, page, limit);
   }
@@ -428,7 +469,10 @@ class SocialService {
   /**
    * Get user notifications
    */
-  async getUserNotifications(userId: string, unreadOnly = false): Promise<Notification[]> {
+  async getUserNotifications(
+    userId: string,
+    unreadOnly = false
+  ): Promise<Notification[]> {
     // Mock implementation
     const mockNotifications: Notification[] = [
       {
@@ -439,7 +483,7 @@ class SocialService {
         message: 'StrategyExpert commented on "Aggro Rush Build"',
         data: { deckId: 'deck123', commentId: 'comment456' },
         isRead: false,
-        createdAt: new Date('2024-03-16T11:00:00')
+        createdAt: new Date('2024-03-16T11:00:00'),
       },
       {
         id: '2',
@@ -449,11 +493,13 @@ class SocialService {
         message: 'CompetitivePlayer liked "Control Lock Meta"',
         data: { deckId: 'deck789' },
         isRead: false,
-        createdAt: new Date('2024-03-15T16:30:00')
-      }
+        createdAt: new Date('2024-03-15T16:30:00'),
+      },
     ];
 
-    return unreadOnly ? mockNotifications.filter(n => !n.isRead) : mockNotifications;
+    return unreadOnly
+      ? mockNotifications.filter((n) => !n.isRead)
+      : mockNotifications;
   }
 
   /**
@@ -486,9 +532,9 @@ class SocialService {
         { name: 'Aggro Rush', count: 1230, percentage: 25 },
         { name: 'Control Lock', count: 984, percentage: 20 },
         { name: 'Midrange Value', count: 738, percentage: 15 },
-        { name: 'Combo Engine', count: 615, percentage: 13 }
+        { name: 'Combo Engine', count: 615, percentage: 13 },
       ],
-      recentActivity: await this.getUserActivityFeed('community', 1, 10)
+      recentActivity: await this.getUserActivityFeed('community', 1, 10),
     };
   }
 
@@ -504,7 +550,10 @@ class SocialService {
   /**
    * Get popular decks (social metrics based)
    */
-  async getPopularDecks(_timeframe: 'day' | 'week' | 'month' | 'all' = 'week', _limit = 20): Promise<SocialDeckData[]> {
+  async getPopularDecks(
+    _timeframe: 'day' | 'week' | 'month' | 'all' = 'week',
+    _limit = 20
+  ): Promise<SocialDeckData[]> {
     // Mock implementation
     return [
       {
@@ -523,8 +572,8 @@ class SocialService {
         views: 1247,
         comments: 23,
         averageRating: 4.6,
-        totalRatings: 31
-      }
+        totalRatings: 31,
+      },
     ];
   }
 
@@ -554,7 +603,7 @@ class SocialService {
         icon: '🏗️',
         color: 'blue',
         earnedAt: new Date('2024-02-01'),
-        rarity: 'common'
+        rarity: 'common',
       },
       {
         id: 'badge2',
@@ -563,15 +612,19 @@ class SocialService {
         icon: '🤝',
         color: 'green',
         earnedAt: new Date('2024-03-01'),
-        rarity: 'uncommon'
-      }
+        rarity: 'uncommon',
+      },
     ];
   }
 
   /**
    * Vote comment as helpful/unhelpful
    */
-  async voteCommentHelpful(_commentId: string, _userId: string, _isHelpful: boolean): Promise<{ helpfulVotes: number }> {
+  async voteCommentHelpful(
+    _commentId: string,
+    _userId: string,
+    _isHelpful: boolean
+  ): Promise<{ helpfulVotes: number }> {
     // This would update in database
     return { helpfulVotes: 12 };
   }
@@ -579,11 +632,14 @@ class SocialService {
   /**
    * Like/unlike comment
    */
-  async toggleCommentLike(_commentId: string, _userId: string): Promise<{ isLiked: boolean; likeCount: number }> {
+  async toggleCommentLike(
+    _commentId: string,
+    _userId: string
+  ): Promise<{ isLiked: boolean; likeCount: number }> {
     // This would update in database
     return {
       isLiked: true,
-      likeCount: 8
+      likeCount: 8,
     };
   }
 }

@@ -1,25 +1,38 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+} from '@/components/ui';
 import { SubmissionReviewCard } from './SubmissionReviewCard';
 import type {
   CardSubmissionWithDetails,
   SubmissionSearchFilters,
-  SubmissionStatistics
+  SubmissionStatistics,
 } from '@/lib/types/submission';
 
 export interface AdminSubmissionsDashboardProps {
   className?: string;
 }
 
-export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps> = ({
-  className,
-}) => {
-  const [submissions, setSubmissions] = useState<CardSubmissionWithDetails[]>([]);
-  const [statistics, setStatistics] = useState<SubmissionStatistics | null>(null);
+export const AdminSubmissionsDashboard: React.FC<
+  AdminSubmissionsDashboardProps
+> = ({ className }) => {
+  const [submissions, setSubmissions] = useState<CardSubmissionWithDetails[]>(
+    []
+  );
+  const [statistics, setStatistics] = useState<SubmissionStatistics | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSubmissions, setSelectedSubmissions] = useState<Set<string>>(new Set());
+  const [selectedSubmissions, setSelectedSubmissions] = useState<Set<string>>(
+    new Set()
+  );
   const [filters, setFilters] = useState<SubmissionSearchFilters>({
     status: ['PENDING'],
   });
@@ -30,7 +43,9 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
     setIsLoading(true);
     try {
       // Load statistics
-      const statsResponse = await fetch('/api/admin/submissions?action=statistics');
+      const statsResponse = await fetch(
+        '/api/admin/submissions?action=statistics'
+      );
       if (statsResponse.ok) {
         const statsData = await statsResponse.json();
         setStatistics(statsData);
@@ -39,16 +54,22 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
       // Load submissions based on current filters
       const searchParams = new URLSearchParams();
       if (filters.status?.length) {
-        filters.status.forEach(status => searchParams.append('status', status));
+        filters.status.forEach((status) =>
+          searchParams.append('status', status)
+        );
       }
       if (filters.priority?.length) {
-        filters.priority.forEach(priority => searchParams.append('priority', priority));
+        filters.priority.forEach((priority) =>
+          searchParams.append('priority', priority)
+        );
       }
       if (searchQuery) {
         searchParams.set('search', searchQuery);
       }
 
-      const submissionsResponse = await fetch(`/api/submissions/search?${searchParams.toString()}`);
+      const submissionsResponse = await fetch(
+        `/api/submissions/search?${searchParams.toString()}`
+      );
       if (submissionsResponse.ok) {
         const submissionsData = await submissionsResponse.json();
         setSubmissions(submissionsData.submissions || []);
@@ -153,7 +174,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
 
   // Select all visible submissions
   const selectAllVisible = () => {
-    const visibleIds = submissions.map(s => s.id);
+    const visibleIds = submissions.map((s) => s.id);
     setSelectedSubmissions(new Set(visibleIds));
   };
 
@@ -166,28 +187,36 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
     <div className={className}>
       {/* Statistics Overview */}
       {statistics && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
           <Card>
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-yellow-600">{statistics.byStatus.PENDING}</div>
+              <div className="text-2xl font-bold text-yellow-600">
+                {statistics.byStatus.PENDING}
+              </div>
               <div className="text-sm text-gray-600">Pending Review</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-green-600">{statistics.byStatus.APPROVED}</div>
+              <div className="text-2xl font-bold text-green-600">
+                {statistics.byStatus.APPROVED}
+              </div>
               <div className="text-sm text-gray-600">Approved</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-red-600">{statistics.byStatus.REJECTED}</div>
+              <div className="text-2xl font-bold text-red-600">
+                {statistics.byStatus.REJECTED}
+              </div>
               <div className="text-sm text-gray-600">Rejected</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-blue-600">{statistics.byStatus.PUBLISHED}</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {statistics.byStatus.PUBLISHED}
+              </div>
               <div className="text-sm text-gray-600">Published</div>
             </CardContent>
           </Card>
@@ -200,7 +229,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
           <CardTitle>Submission Management</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row gap-4 mb-4">
+          <div className="mb-4 flex flex-col gap-4 md:flex-row">
             <div className="flex-1">
               <Input
                 type="text"
@@ -213,10 +242,17 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
             <div className="flex gap-2">
               <select
                 value={filters.status?.[0] || ''}
-                onChange={(e) => setFilters(prev => ({
-                  ...prev,
-                  status: e.target.value ? [e.target.value as import('@prisma/client').SubmissionStatus] : undefined
-                }))}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    status: e.target.value
+                      ? [
+                          e.target
+                            .value as import('@prisma/client').SubmissionStatus,
+                        ]
+                      : undefined,
+                  }))
+                }
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">All Status</option>
@@ -228,10 +264,17 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
 
               <select
                 value={filters.priority?.[0] || ''}
-                onChange={(e) => setFilters(prev => ({
-                  ...prev,
-                  priority: e.target.value ? [e.target.value as import('@prisma/client').SubmissionPriority] : undefined
-                }))}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    priority: e.target.value
+                      ? [
+                          e.target
+                            .value as import('@prisma/client').SubmissionPriority,
+                        ]
+                      : undefined,
+                  }))
+                }
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">All Priority</option>
@@ -248,7 +291,7 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
           </div>
 
           {/* Batch Operations */}
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm text-gray-600">
               {selectedSubmissions.size} selected
             </span>
@@ -306,33 +349,36 @@ export const AdminSubmissionsDashboard: React.FC<AdminSubmissionsDashboardProps>
         {!isLoading && submissions.length === 0 && (
           <Card>
             <CardContent className="p-8 text-center">
-              <div className="text-gray-600">No submissions found matching your criteria.</div>
+              <div className="text-gray-600">
+                No submissions found matching your criteria.
+              </div>
             </CardContent>
           </Card>
         )}
 
-        {!isLoading && submissions.map((submission) => (
-          <div key={submission.id} className="relative">
-            <div
-              className="absolute top-4 left-4 z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <input
-                type="checkbox"
-                checked={selectedSubmissions.has(submission.id)}
-                onChange={() => toggleSubmissionSelection(submission.id)}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+        {!isLoading &&
+          submissions.map((submission) => (
+            <div key={submission.id} className="relative">
+              <div
+                className="absolute left-4 top-4 z-10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedSubmissions.has(submission.id)}
+                  onChange={() => toggleSubmissionSelection(submission.id)}
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+              </div>
+
+              <SubmissionReviewCard
+                submission={submission}
+                onReview={handleReview}
+                onPublish={handlePublish}
+                className="ml-8"
               />
             </div>
-
-            <SubmissionReviewCard
-              submission={submission}
-              onReview={handleReview}
-              onPublish={handlePublish}
-              className="ml-8"
-            />
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -7,12 +7,7 @@ const nextConfig: NextConfig = {
   // Image optimization configuration
   images: {
     // Local and production domains
-    domains: [
-      'localhost',
-      '127.0.0.1',
-      'gundam-gcg.com',
-      'cdn.gundam-gcg.com',
-    ],
+    domains: ['localhost', '127.0.0.1', 'gundam-gcg.com', 'cdn.gundam-gcg.com'],
     // CDN domains for external providers
     remotePatterns: [
       {

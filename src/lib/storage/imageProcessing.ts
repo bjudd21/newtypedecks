@@ -86,16 +86,42 @@ export async function processCardImage(
 
     const result: ProcessedImage = {
       original: await processImageVariant(
-        inputPath, outputDir, baseName, 'original',
-        { preserveOriginal, format: outputFormat, enableProgressive, enableOptimization }
+        inputPath,
+        outputDir,
+        baseName,
+        'original',
+        {
+          preserveOriginal,
+          format: outputFormat,
+          enableProgressive,
+          enableOptimization,
+        }
       ),
       thumbnail: await processImageVariant(
-        inputPath, outputDir, baseName, 'thumbnail',
-        { width: 300, height: 300, format: outputFormat, enableProgressive, enableOptimization }
+        inputPath,
+        outputDir,
+        baseName,
+        'thumbnail',
+        {
+          width: 300,
+          height: 300,
+          format: outputFormat,
+          enableProgressive,
+          enableOptimization,
+        }
       ),
       large: await processImageVariant(
-        inputPath, outputDir, baseName, 'large',
-        { width: 800, height: 800, format: outputFormat, enableProgressive, enableOptimization }
+        inputPath,
+        outputDir,
+        baseName,
+        'large',
+        {
+          width: 800,
+          height: 800,
+          format: outputFormat,
+          enableProgressive,
+          enableOptimization,
+        }
       ),
       metadata: {
         originalWidth: metadata.width,
@@ -111,15 +137,24 @@ export async function processCardImage(
     if (generateWebP) {
       result.webp = {
         original: await processImageVariant(
-          inputPath, outputDir, baseName, 'original',
+          inputPath,
+          outputDir,
+          baseName,
+          'original',
           { preserveOriginal, format: 'webp', enableOptimization }
         ),
         thumbnail: await processImageVariant(
-          inputPath, outputDir, baseName, 'thumbnail',
+          inputPath,
+          outputDir,
+          baseName,
+          'thumbnail',
           { width: 300, height: 300, format: 'webp', enableOptimization }
         ),
         large: await processImageVariant(
-          inputPath, outputDir, baseName, 'large',
+          inputPath,
+          outputDir,
+          baseName,
+          'large',
           { width: 800, height: 800, format: 'webp', enableOptimization }
         ),
       };
@@ -130,15 +165,24 @@ export async function processCardImage(
     if (generateAVIF) {
       result.avif = {
         original: await processImageVariant(
-          inputPath, outputDir, baseName, 'original',
+          inputPath,
+          outputDir,
+          baseName,
+          'original',
           { preserveOriginal, format: 'avif', enableOptimization }
         ),
         thumbnail: await processImageVariant(
-          inputPath, outputDir, baseName, 'thumbnail',
+          inputPath,
+          outputDir,
+          baseName,
+          'thumbnail',
           { width: 300, height: 300, format: 'avif', enableOptimization }
         ),
         large: await processImageVariant(
-          inputPath, outputDir, baseName, 'large',
+          inputPath,
+          outputDir,
+          baseName,
+          'large',
           { width: 800, height: 800, format: 'avif', enableOptimization }
         ),
       };
@@ -147,11 +191,14 @@ export async function processCardImage(
 
     // Calculate overall compression ratio
     const totalProcessedSize = calculateTotalSize(result);
-    result.metadata.compressionRatio = (originalSize - totalProcessedSize) / originalSize;
+    result.metadata.compressionRatio =
+      (originalSize - totalProcessedSize) / originalSize;
 
     return result;
   } catch (error) {
-    throw new Error(`Image processing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Image processing failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
   }
 }
 
@@ -206,7 +253,9 @@ export async function getImageMetadata(imagePath: string) {
       modified: stats.mtime,
     };
   } catch (error) {
-    throw new Error(`Failed to read image metadata: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to read image metadata: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
   }
 }
 
@@ -295,11 +344,20 @@ async function processImageVariant(
 
   // Determine output path
   const formatDir = format === 'jpeg' || format === 'png' ? '' : format;
-  const variantDir = variant === 'original' ? 'original' :
-                     variant === 'thumbnail' ? 'thumbnails' : 'large';
+  const variantDir =
+    variant === 'original'
+      ? 'original'
+      : variant === 'thumbnail'
+        ? 'thumbnails'
+        : 'large';
 
   const outputPath = formatDir
-    ? path.join(outputDir, formatDir, variantDir, `${baseName}-${variant}.${format}`)
+    ? path.join(
+        outputDir,
+        formatDir,
+        variantDir,
+        `${baseName}-${variant}.${format}`
+      )
     : path.join(outputDir, variantDir, `${baseName}-${variant}.${format}`);
 
   let sharpInstance = sharp(inputPath);
@@ -315,7 +373,9 @@ async function processImageVariant(
   // Apply format-specific optimizations
   const validFormats = ['jpeg', 'png', 'webp', 'avif'] as const;
   const outputQuality = getOptimalQuality(
-    validFormats.includes(format as typeof validFormats[number]) ? format as typeof validFormats[number] : 'jpeg',
+    validFormats.includes(format as (typeof validFormats)[number])
+      ? (format as (typeof validFormats)[number])
+      : 'jpeg',
     variant
   );
 
@@ -379,7 +439,10 @@ async function processImageVariant(
 /**
  * Get optimal quality setting based on format and variant
  */
-function getOptimalQuality(format: 'jpeg' | 'png' | 'webp' | 'avif', variant: string): number {
+function getOptimalQuality(
+  format: 'jpeg' | 'png' | 'webp' | 'avif',
+  variant: string
+): number {
   const qualityMap = {
     jpeg: {
       original: 92,
@@ -403,25 +466,31 @@ function getOptimalQuality(format: 'jpeg' | 'png' | 'webp' | 'avif', variant: st
     },
   };
 
-  return qualityMap[format]?.[variant as keyof typeof qualityMap[typeof format]] || 85;
+  return (
+    qualityMap[format]?.[variant as keyof (typeof qualityMap)[typeof format]] ||
+    85
+  );
 }
 
 /**
  * Calculate total size of all processed variants
  */
 function calculateTotalSize(processed: ProcessedImage): number {
-  let total = processed.original.size + processed.thumbnail.size + processed.large.size;
+  let total =
+    processed.original.size + processed.thumbnail.size + processed.large.size;
 
   if (processed.webp) {
-    total += (processed.webp.original?.size || 0) +
-             (processed.webp.thumbnail?.size || 0) +
-             (processed.webp.large?.size || 0);
+    total +=
+      (processed.webp.original?.size || 0) +
+      (processed.webp.thumbnail?.size || 0) +
+      (processed.webp.large?.size || 0);
   }
 
   if (processed.avif) {
-    total += (processed.avif.original?.size || 0) +
-             (processed.avif.thumbnail?.size || 0) +
-             (processed.avif.large?.size || 0);
+    total +=
+      (processed.avif.original?.size || 0) +
+      (processed.avif.thumbnail?.size || 0) +
+      (processed.avif.large?.size || 0);
   }
 
   return total;
@@ -449,7 +518,10 @@ export async function generateResponsiveImages(
 
     // Generate JPEG variant
     const jpegVariant = await processImageVariant(
-      inputPath, outputDir, baseName, 'large',
+      inputPath,
+      outputDir,
+      baseName,
+      'large',
       {
         width: size.width,
         height: size.height,
@@ -462,7 +534,10 @@ export async function generateResponsiveImages(
 
     // Generate WebP variant
     const webpVariant = await processImageVariant(
-      inputPath, outputDir, baseName, 'large',
+      inputPath,
+      outputDir,
+      baseName,
+      'large',
       {
         width: size.width,
         height: size.height,

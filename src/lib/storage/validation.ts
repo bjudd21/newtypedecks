@@ -9,7 +9,7 @@ export interface FileValidationResult {
 // Supported image file types
 export const SUPPORTED_IMAGE_TYPES = [
   'image/jpeg',
-  'image/jpg', 
+  'image/jpg',
   'image/png',
   'image/webp',
 ] as const;
@@ -30,7 +30,11 @@ export function validateFile(file: File): FileValidationResult {
   const errors: ValidationError[] = [];
 
   // Check file type
-  if (!SUPPORTED_IMAGE_TYPES.includes(file.type as (typeof SUPPORTED_IMAGE_TYPES)[number])) {
+  if (
+    !SUPPORTED_IMAGE_TYPES.includes(
+      file.type as (typeof SUPPORTED_IMAGE_TYPES)[number]
+    )
+  ) {
     errors.push({
       field: 'file',
       message: `Unsupported file type. Supported types: ${SUPPORTED_IMAGE_TYPES.join(', ')}`,
@@ -91,23 +95,26 @@ export function validateImageDimensions(
 /**
  * Generate safe filename
  */
-export function generateSafeFilename(originalName: string, prefix?: string): string {
+export function generateSafeFilename(
+  originalName: string,
+  prefix?: string
+): string {
   // Remove file extension
   const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '');
-  
+
   // Sanitize filename (remove special characters, spaces, etc.)
   const sanitized = nameWithoutExt
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
-  
+
   // Add prefix if provided
   const finalName = prefix ? `${prefix}-${sanitized}` : sanitized;
-  
+
   // Add timestamp to ensure uniqueness
   const timestamp = Date.now();
-  
+
   return `${finalName}-${timestamp}`;
 }
 
@@ -124,10 +131,10 @@ export function getFileExtension(filename: string): string {
  */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
-  
+
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }

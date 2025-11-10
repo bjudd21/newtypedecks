@@ -5,6 +5,7 @@
 ---
 
 ## Table of Contents
+
 1. [The Big Picture](#the-big-picture)
 2. [What Happens When You Visit localhost:3000](#what-happens-when-you-visit-localhost3000)
 3. [The Next.js Server](#the-nextjs-server)
@@ -44,6 +45,7 @@ This website is made up of **four main pieces** that work together:
 ```
 
 **Think of it like a restaurant:**
+
 - **Browser**: You (the customer) ordering food
 - **Next.js Server**: The waiter taking your order and bringing food
 - **PostgreSQL**: The kitchen where ingredients (data) are stored long-term
@@ -56,16 +58,19 @@ This website is made up of **four main pieces** that work together:
 Let's walk through what happens when you type `localhost:3000` in your browser:
 
 ### Step 1: Your Browser Connects to the Next.js Server
+
 ```
 Browser → http://localhost:3000 → Next.js Server (listening on port 3000)
 ```
 
 When you run `npm run dev`, you start the Next.js development server. This server:
+
 - Listens for connections on port 3000
 - Waits for browsers to request pages
 - Processes requests and sends back HTML, CSS, and JavaScript
 
 ### Step 2: Next.js Decides What to Send
+
 Next.js looks at the URL you requested and decides what to do:
 
 ```javascript
@@ -77,6 +82,7 @@ http://localhost:3000/decks/abc123  → src/app/decks/[id]/page.tsx (Dynamic dec
 ```
 
 ### Step 3: The Page Might Need Data from the Database
+
 If the page needs data (like showing cards or decks), Next.js:
 
 ```javascript
@@ -90,16 +96,19 @@ const cards = await prisma.card.findMany(); // ← Asks PostgreSQL for data
 4. Next.js receives the data and uses it to build the page
 
 ### Step 4: Next.js Sends the Page to Your Browser
+
 ```
 Next.js → HTML + CSS + JavaScript → Browser
 ```
 
 Your browser receives:
+
 - **HTML**: The structure of the page
 - **CSS**: The styling (colors, layout, fonts)
 - **JavaScript**: Interactive features (buttons, forms, animations)
 
 ### Step 5: Your Browser Renders the Page
+
 Your browser reads the HTML/CSS/JavaScript and displays the page you see!
 
 ---
@@ -109,6 +118,7 @@ Your browser reads the HTML/CSS/JavaScript and displays the page you see!
 ### What is Next.js?
 
 Next.js is a **web framework** built on top of React. Think of it as a full web server that can:
+
 1. Serve web pages (like Apache or Nginx)
 2. Run server-side code (like a Node.js Express server)
 3. Handle both frontend (React) and backend (API routes) in one place
@@ -116,6 +126,7 @@ Next.js is a **web framework** built on top of React. Think of it as a full web 
 ### Two Types of Routes
 
 #### 1. **Page Routes** (Frontend)
+
 These render HTML pages for users to see:
 
 ```
@@ -128,6 +139,7 @@ src/app/
 ```
 
 #### 2. **API Routes** (Backend)
+
 These handle data operations and return JSON:
 
 ```
@@ -161,6 +173,7 @@ src/app/api/
 ### Server-Side vs Client-Side
 
 **Server-Side Code** (runs on your computer's Node.js):
+
 ```javascript
 // This runs on the server
 export default async function CardsPage() {
@@ -170,6 +183,7 @@ export default async function CardsPage() {
 ```
 
 **Client-Side Code** (runs in the browser):
+
 ```javascript
 'use client'; // ← This tells Next.js "run this in the browser"
 
@@ -186,6 +200,7 @@ export default function InteractiveButton() {
 ### What is PostgreSQL?
 
 PostgreSQL is a **database server** that stores all persistent data:
+
 - User accounts and passwords
 - Card information (names, images, stats)
 - Decks created by users
@@ -213,11 +228,13 @@ Next.js Code → Prisma Client → PostgreSQL Server
 ```
 
 **Prisma** is an ORM (Object-Relational Mapper) that:
+
 1. Translates JavaScript/TypeScript code into SQL queries
 2. Provides type-safe database access
 3. Handles connection pooling
 
 Example:
+
 ```javascript
 // Your TypeScript code
 const cards = await prisma.card.findMany({
@@ -243,6 +260,7 @@ DATABASE_URL="postgresql://user:password@localhost:5432/gundam_cards"
 ```
 
 Breakdown:
+
 - `postgresql://` - Protocol (PostgreSQL)
 - `user:password` - Credentials
 - `localhost:5432` - Server location and port
@@ -268,6 +286,7 @@ model Card {
 ```
 
 When you run `npm run db:push`, Prisma:
+
 1. Reads the schema file
 2. Creates/updates tables in PostgreSQL
 3. Generates the Prisma Client code
@@ -279,12 +298,14 @@ When you run `npm run db:push`, Prisma:
 ### What is Redis?
 
 Redis is an **in-memory data store** that's extremely fast. Think of it as:
+
 - PostgreSQL = Long-term storage (hard drive)
 - Redis = Short-term storage (RAM)
 
 ### Why Do We Need Redis?
 
 **User Sessions**: When you log in, your session data is stored in Redis:
+
 ```javascript
 // User logs in
 Session created → Redis stores: {
@@ -298,6 +319,7 @@ Browser sends cookie → Next.js checks Redis → Finds session → User is logg
 ```
 
 **Caching**: Frequently accessed data is cached for speed:
+
 ```javascript
 // Without Redis (slow)
 Browser → Next.js → Query PostgreSQL → Wait 50ms → Return data
@@ -322,18 +344,20 @@ $ docker-compose up -d
 ### How Next.js Connects to Redis
 
 Via connection string:
+
 ```bash
 # .env
 REDIS_URL="redis://localhost:6379"
 ```
 
 NextAuth (authentication library) uses Redis for sessions:
+
 ```javascript
 // lib/auth.ts
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
-    strategy: "database", // Sessions stored in database (via Redis)
+    strategy: 'database', // Sessions stored in database (via Redis)
   },
   // ...
 };
@@ -464,6 +488,7 @@ export const authOptions = {
 ### Development (localhost:3000)
 
 **What runs where:**
+
 ```
 Your Computer:
 ├── Next.js Dev Server (npm run dev)
@@ -473,6 +498,7 @@ Your Computer:
 ```
 
 **Characteristics:**
+
 - Hot reload (changes apply instantly)
 - Detailed error messages
 - Source maps (easier debugging)
@@ -481,6 +507,7 @@ Your Computer:
 - Redis on localhost:6379
 
 **Starting Development:**
+
 ```bash
 # 1. Start databases
 npm run docker:dev
@@ -495,6 +522,7 @@ npm run dev
 ### Production (e.g., Vercel)
 
 **What runs where:**
+
 ```
 Vercel's Servers:
 ├── Next.js Server (optimized build)
@@ -506,6 +534,7 @@ External Services:
 ```
 
 **Characteristics:**
+
 - Optimized build (faster, smaller)
 - Minified code (harder to read but faster)
 - Environment variables from hosting platform
@@ -514,6 +543,7 @@ External Services:
 - HTTPS (secure connections)
 
 **Building for Production:**
+
 ```bash
 npm run build
 npm run start
@@ -521,15 +551,15 @@ npm run start
 
 ### Key Differences
 
-| Feature | Development | Production |
-|---------|-------------|------------|
-| **Server** | localhost:3000 | yourdomain.com |
-| **Database** | Local Docker | Cloud provider |
-| **Redis** | Local Docker | Cloud provider |
-| **Code** | Unoptimized, hot reload | Optimized, minified |
-| **Errors** | Detailed stack traces | Generic messages |
-| **Speed** | Slower (dev mode) | Faster (optimized) |
-| **HTTPS** | No (http) | Yes (https) |
+| Feature      | Development             | Production          |
+| ------------ | ----------------------- | ------------------- |
+| **Server**   | localhost:3000          | yourdomain.com      |
+| **Database** | Local Docker            | Cloud provider      |
+| **Redis**    | Local Docker            | Cloud provider      |
+| **Code**     | Unoptimized, hot reload | Optimized, minified |
+| **Errors**   | Detailed stack traces   | Generic messages    |
+| **Speed**    | Slower (dev mode)       | Faster (optimized)  |
+| **HTTPS**    | No (http)               | Yes (https)         |
 
 ---
 
@@ -538,26 +568,28 @@ npm run start
 ### How Services Find Each Other
 
 **Development:**
+
 ```javascript
 // Next.js knows where to find PostgreSQL
-DATABASE_URL="postgresql://localhost:5432/gundam_cards"
+DATABASE_URL = 'postgresql://localhost:5432/gundam_cards';
 //                        ↑ localhost = your computer
 //                              ↑ port 5432
 
 // Next.js knows where to find Redis
-REDIS_URL="redis://localhost:6379"
+REDIS_URL = 'redis://localhost:6379';
 //                  ↑ localhost = your computer
 //                        ↑ port 6379
 ```
 
 **Production:**
+
 ```javascript
 // Cloud database (example: Neon)
-DATABASE_URL="postgresql://user@ep-cool-name.us-east-1.aws.neon.tech/neondb"
+DATABASE_URL = 'postgresql://user@ep-cool-name.us-east-1.aws.neon.tech/neondb';
 //                        ↑ cloud server address
 
 // Cloud Redis (example: Upstash)
-REDIS_URL="redis://user:pass@usw1-charming-camel-12345.upstash.io:6379"
+REDIS_URL = 'redis://user:pass@usw1-charming-camel-12345.upstash.io:6379';
 //                              ↑ cloud server address
 ```
 
@@ -594,6 +626,7 @@ NEXTAUTH_SECRET="dev-secret-key-123"
 ```
 
 These are loaded at startup:
+
 ```javascript
 // lib/config/database.ts
 const databaseUrl = process.env.DATABASE_URL;
@@ -611,6 +644,7 @@ if (!databaseUrl) {
 ### Q: Why do I need to run `npm run docker:dev`?
 
 **A**: This starts PostgreSQL and Redis in Docker containers. Without them:
+
 - Database queries fail (no PostgreSQL)
 - User sessions don't work (no Redis)
 - Website won't function properly
@@ -633,6 +667,7 @@ Then update `.env` to point to local services (same as Docker setup).
 ### Q: Why is the first request slow?
 
 **A**:
+
 1. **Cold start**: Next.js server needs to compile pages on first visit
 2. **Database connection**: Prisma establishes connection pool
 3. **Redis connection**: NextAuth connects to Redis
@@ -649,6 +684,7 @@ npm run db:studio
 ```
 
 Or connect directly with a database client:
+
 ```bash
 psql postgresql://postgres:password@localhost:5432/gundam_cards
 ```
@@ -662,6 +698,7 @@ psql postgresql://postgres:password@localhost:5432/gundam_cards
 ### Q: What happens if PostgreSQL crashes?
 
 **A**:
+
 - Website still loads (static pages)
 - Data-dependent pages show errors
 - API endpoints fail
@@ -674,6 +711,7 @@ npm run docker:dev
 ### Q: What happens if Redis crashes?
 
 **A**:
+
 - Users get logged out
 - Sessions are lost
 - Caching disabled (slower but still works)
@@ -741,6 +779,7 @@ npm run dev
 ## Quick Reference
 
 ### Start Everything
+
 ```bash
 npm run docker:dev  # Start PostgreSQL + Redis
 npm run dev         # Start Next.js server
@@ -748,17 +787,20 @@ npm run dev         # Start Next.js server
 ```
 
 ### Ports
+
 - **3000**: Next.js web server
 - **5432**: PostgreSQL database
 - **6379**: Redis cache
 - **5555**: Prisma Studio (when running)
 
 ### Environment Files
+
 - `.env`: Local development config
 - `.env.example`: Template (safe to commit)
 - `.env.production`: Production config (never commit)
 
 ### Key Directories
+
 - `src/app/`: Pages and API routes
 - `src/components/`: React components
 - `src/lib/`: Utilities and database client

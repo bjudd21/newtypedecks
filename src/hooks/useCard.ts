@@ -28,7 +28,7 @@ export function useCardSearch(initialFilters: CardSearchFilters = {}) {
     limit: 20,
     sortBy: 'name',
     sortOrder: 'asc',
-    includeRelations: true
+    includeRelations: true,
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,59 +37,65 @@ export function useCardSearch(initialFilters: CardSearchFilters = {}) {
     total: 0,
     page: 1,
     limit: 20,
-    totalPages: 0
+    totalPages: 0,
   });
 
-  const searchCards = useCallback(async (
-    newFilters?: CardSearchFilters,
-    newOptions?: CardSearchOptions
-  ) => {
-    const searchFilters = newFilters || filters;
-    const searchOptions = { ...options, ...newOptions };
+  const searchCards = useCallback(
+    async (newFilters?: CardSearchFilters, newOptions?: CardSearchOptions) => {
+      const searchFilters = newFilters || filters;
+      const searchOptions = { ...options, ...newOptions };
 
-    setIsLoading(true);
-    setError(null);
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: searchFilters,
-          options: searchOptions
-        })
-      });
+      try {
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            filters: searchFilters,
+            options: searchOptions,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Search failed: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`Search failed: ${response.statusText}`);
+        }
+
+        const result: CardSearchResult = await response.json();
+        setSearchResult(result);
+
+        if (newFilters) setFilters(newFilters);
+        if (newOptions) setOptions((prev) => ({ ...prev, ...newOptions }));
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Search failed');
+        console.error('Card search error:', err);
+      } finally {
+        setIsLoading(false);
       }
+    },
+    [filters, options]
+  );
 
-      const result: CardSearchResult = await response.json();
-      setSearchResult(result);
+  const updateFilters = useCallback(
+    (newFilters: Partial<CardSearchFilters>) => {
+      const updatedFilters = { ...filters, ...newFilters };
+      setFilters(updatedFilters);
+      searchCards(updatedFilters, { ...options, page: 1 }); // Reset to first page
+    },
+    [filters, options, searchCards]
+  );
 
-      if (newFilters) setFilters(newFilters);
-      if (newOptions) setOptions(prev => ({ ...prev, ...newOptions }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Search failed');
-      console.error('Card search error:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [filters, options]);
-
-  const updateFilters = useCallback((newFilters: Partial<CardSearchFilters>) => {
-    const updatedFilters = { ...filters, ...newFilters };
-    setFilters(updatedFilters);
-    searchCards(updatedFilters, { ...options, page: 1 }); // Reset to first page
-  }, [filters, options, searchCards]);
-
-  const updateOptions = useCallback((newOptions: Partial<CardSearchOptions>) => {
-    const updatedOptions = { ...options, ...newOptions };
-    setOptions(updatedOptions);
-    searchCards(filters, updatedOptions);
-  }, [filters, options, searchCards]);
+  const updateOptions = useCallback(
+    (newOptions: Partial<CardSearchOptions>) => {
+      const updatedOptions = { ...options, ...newOptions };
+      setOptions(updatedOptions);
+      searchCards(filters, updatedOptions);
+    },
+    [filters, options, searchCards]
+  );
 
   const clearFilters = useCallback(() => {
     const clearedFilters: CardSearchFilters = {};
@@ -109,16 +115,26 @@ export function useCardSearch(initialFilters: CardSearchFilters = {}) {
     }
   }, [searchResult.page, updateOptions]);
 
-  const goToPage = useCallback((page: number) => {
-    if (page >= 1 && page <= searchResult.totalPages) {
-      updateOptions({ page });
-    }
-  }, [searchResult.totalPages, updateOptions]);
+  const goToPage = useCallback(
+    (page: number) => {
+      if (page >= 1 && page <= searchResult.totalPages) {
+        updateOptions({ page });
+      }
+    },
+    [searchResult.totalPages, updateOptions]
+  );
 
-  const sortBy = useCallback((field: CardSortField, order?: CardSortOrder) => {
-    const sortOrder = order || (options.sortBy === field && options.sortOrder === 'asc' ? 'desc' : 'asc');
-    updateOptions({ sortBy: field, sortOrder });
-  }, [options.sortBy, options.sortOrder, updateOptions]);
+  const sortBy = useCallback(
+    (field: CardSortField, order?: CardSortOrder) => {
+      const sortOrder =
+        order ||
+        (options.sortBy === field && options.sortOrder === 'asc'
+          ? 'desc'
+          : 'asc');
+      updateOptions({ sortBy: field, sortOrder });
+    },
+    [options.sortBy, options.sortOrder, updateOptions]
+  );
 
   // Initial search effect
   useEffect(() => {
@@ -147,7 +163,7 @@ export function useCardSearch(initialFilters: CardSearchFilters = {}) {
     hasNextPage: searchResult.page < searchResult.totalPages,
     hasPreviousPage: searchResult.page > 1,
     isEmpty: searchResult.cards.length === 0 && !isLoading,
-    totalCards: searchResult.total
+    totalCards: searchResult.total,
   };
 }
 
@@ -196,7 +212,7 @@ export function useCard(cardId: string | null) {
     card,
     isLoading,
     error,
-    refetch: () => cardId ? fetchCard(cardId) : null
+    refetch: () => (cardId ? fetchCard(cardId) : null),
   };
 }
 
@@ -217,80 +233,100 @@ export function useCardCollection() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cardId, quantity })
+        body: JSON.stringify({ cardId, quantity }),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to add card to collection: ${response.statusText}`);
+        throw new Error(
+          `Failed to add card to collection: ${response.statusText}`
+        );
       }
 
       return await response.json();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to add card to collection');
+      setError(
+        err instanceof Error ? err.message : 'Failed to add card to collection'
+      );
       throw err;
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  const removeFromCollection = useCallback(async (cardId: string, quantity = 1) => {
-    setIsLoading(true);
-    setError(null);
+  const removeFromCollection = useCallback(
+    async (cardId: string, quantity = 1) => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetch('/api/collection/cards', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cardId, quantity })
-      });
+      try {
+        const response = await fetch('/api/collection/cards', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ cardId, quantity }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to remove card from collection: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(
+            `Failed to remove card from collection: ${response.statusText}`
+          );
+        }
+
+        return await response.json();
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Failed to remove card from collection'
+        );
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
+    },
+    []
+  );
 
-      return await response.json();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to remove card from collection');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  const updateQuantity = useCallback(
+    async (cardId: string, quantity: number) => {
+      setIsLoading(true);
+      setError(null);
 
-  const updateQuantity = useCallback(async (cardId: string, quantity: number) => {
-    setIsLoading(true);
-    setError(null);
+      try {
+        const response = await fetch('/api/collection/cards', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ cardId, quantity }),
+        });
 
-    try {
-      const response = await fetch('/api/collection/cards', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cardId, quantity })
-      });
+        if (!response.ok) {
+          throw new Error(
+            `Failed to update card quantity: ${response.statusText}`
+          );
+        }
 
-      if (!response.ok) {
-        throw new Error(`Failed to update card quantity: ${response.statusText}`);
+        return await response.json();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Failed to update card quantity'
+        );
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
-
-      return await response.json();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update card quantity');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+    },
+    []
+  );
 
   return {
     isLoading,
     error,
     addToCollection,
     removeFromCollection,
-    updateQuantity
+    updateQuantity,
   };
 }
 
@@ -301,68 +337,80 @@ export function useDeckBuilder(deckId?: string) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const addToDeck = useCallback(async (cardId: string, quantity = 1, category = 'main') => {
-    if (!deckId) throw new Error('No deck selected');
+  const addToDeck = useCallback(
+    async (cardId: string, quantity = 1, category = 'main') => {
+      if (!deckId) throw new Error('No deck selected');
 
-    setIsLoading(true);
-    setError(null);
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const response = await fetch(`/api/decks/${deckId}/cards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cardId, quantity, category })
-      });
+      try {
+        const response = await fetch(`/api/decks/${deckId}/cards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ cardId, quantity, category }),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to add card to deck: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`Failed to add card to deck: ${response.statusText}`);
+        }
+
+        return await response.json();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Failed to add card to deck'
+        );
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
+    },
+    [deckId]
+  );
 
-      return await response.json();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to add card to deck');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [deckId]);
+  const removeFromDeck = useCallback(
+    async (cardId: string, quantity = 1) => {
+      if (!deckId) throw new Error('No deck selected');
 
-  const removeFromDeck = useCallback(async (cardId: string, quantity = 1) => {
-    if (!deckId) throw new Error('No deck selected');
+      setIsLoading(true);
+      setError(null);
 
-    setIsLoading(true);
-    setError(null);
+      try {
+        const response = await fetch(`/api/decks/${deckId}/cards`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ cardId, quantity }),
+        });
 
-    try {
-      const response = await fetch(`/api/decks/${deckId}/cards`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cardId, quantity })
-      });
+        if (!response.ok) {
+          throw new Error(
+            `Failed to remove card from deck: ${response.statusText}`
+          );
+        }
 
-      if (!response.ok) {
-        throw new Error(`Failed to remove card from deck: ${response.statusText}`);
+        return await response.json();
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Failed to remove card from deck'
+        );
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
-
-      return await response.json();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to remove card from deck');
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [deckId]);
+    },
+    [deckId]
+  );
 
   return {
     isLoading,
     error,
     addToDeck,
     removeFromDeck,
-    canAddToDeck: !!deckId
+    canAddToDeck: !!deckId,
   };
 }
 
@@ -370,24 +418,31 @@ export function useDeckBuilder(deckId?: string) {
  * Hook for client-side card filtering and sorting
  */
 export function useCardFiltering(cards: CardWithRelations[]) {
-  const [filteredCards, setFilteredCards] = useState<CardWithRelations[]>(cards);
+  const [filteredCards, setFilteredCards] =
+    useState<CardWithRelations[]>(cards);
   const [currentFilters, setCurrentFilters] = useState<CardSearchFilters>({});
   const [sortField, setSortField] = useState<CardSortField>('name');
   const [sortOrder, setSortOrder] = useState<CardSortOrder>('asc');
 
-  const applyFilters = useCallback((filters: CardSearchFilters) => {
-    let filtered = CardUtils.filterCards(cards, filters);
-    filtered = CardUtils.sortCards(filtered, sortField, sortOrder);
-    setFilteredCards(filtered);
-    setCurrentFilters(filters);
-  }, [cards, sortField, sortOrder]);
+  const applyFilters = useCallback(
+    (filters: CardSearchFilters) => {
+      let filtered = CardUtils.filterCards(cards, filters);
+      filtered = CardUtils.sortCards(filtered, sortField, sortOrder);
+      setFilteredCards(filtered);
+      setCurrentFilters(filters);
+    },
+    [cards, sortField, sortOrder]
+  );
 
-  const applySorting = useCallback((field: CardSortField, order: CardSortOrder) => {
-    const sorted = CardUtils.sortCards(filteredCards, field, order);
-    setFilteredCards(sorted);
-    setSortField(field);
-    setSortOrder(order);
-  }, [filteredCards]);
+  const applySorting = useCallback(
+    (field: CardSortField, order: CardSortOrder) => {
+      const sorted = CardUtils.sortCards(filteredCards, field, order);
+      setFilteredCards(sorted);
+      setSortField(field);
+      setSortOrder(order);
+    },
+    [filteredCards]
+  );
 
   const clearFilters = useCallback(() => {
     const sorted = CardUtils.sortCards(cards, sortField, sortOrder);
@@ -420,7 +475,7 @@ export function useCardFiltering(cards: CardWithRelations[]) {
     clearFilters,
     hasFilters: Object.keys(currentFilters).length > 0,
     totalFiltered: filteredCards.length,
-    totalOriginal: cards.length
+    totalOriginal: cards.length,
   };
 }
 
@@ -431,24 +486,27 @@ export function useCardComparison() {
   const [comparisonList, setComparisonList] = useState<CardWithRelations[]>([]);
 
   const addToComparison = useCallback((card: CardWithRelations) => {
-    setComparisonList(prev => {
-      if (prev.find(c => c.id === card.id)) return prev; // Already in comparison
+    setComparisonList((prev) => {
+      if (prev.find((c) => c.id === card.id)) return prev; // Already in comparison
       if (prev.length >= 4) return prev; // Max 4 cards for comparison
       return [...prev, card];
     });
   }, []);
 
   const removeFromComparison = useCallback((cardId: string) => {
-    setComparisonList(prev => prev.filter(card => card.id !== cardId));
+    setComparisonList((prev) => prev.filter((card) => card.id !== cardId));
   }, []);
 
   const clearComparison = useCallback(() => {
     setComparisonList([]);
   }, []);
 
-  const isInComparison = useCallback((cardId: string) => {
-    return comparisonList.some(card => card.id === cardId);
-  }, [comparisonList]);
+  const isInComparison = useCallback(
+    (cardId: string) => {
+      return comparisonList.some((card) => card.id === cardId);
+    },
+    [comparisonList]
+  );
 
   const canAddMore = comparisonList.length < 4;
 
@@ -459,6 +517,6 @@ export function useCardComparison() {
     clearComparison,
     isInComparison,
     canAddMore,
-    count: comparisonList.length
+    count: comparisonList.length,
   };
 }

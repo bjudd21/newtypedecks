@@ -1,7 +1,11 @@
 // Card Submissions API - Handle manual card uploads and submissions
 import { NextRequest, NextResponse } from 'next/server';
 import { CardSubmissionService } from '@/lib/services/cardSubmissionService';
-import type { CreateSubmissionData, SubmissionSearchFilters, SubmissionSearchOptions } from '@/lib/types/submission';
+import type {
+  CreateSubmissionData,
+  SubmissionSearchFilters,
+  SubmissionSearchOptions,
+} from '@/lib/types/submission';
 
 // GET /api/submissions - Search submissions with filters
 export async function GET(request: NextRequest) {
@@ -14,13 +18,17 @@ export async function GET(request: NextRequest) {
     // Status filter
     const statusParam = searchParams.get('status');
     if (statusParam) {
-      filters.status = statusParam.split(',') as import('@prisma/client').SubmissionStatus[];
+      filters.status = statusParam.split(
+        ','
+      ) as import('@prisma/client').SubmissionStatus[];
     }
 
     // Priority filter
     const priorityParam = searchParams.get('priority');
     if (priorityParam) {
-      filters.priority = priorityParam.split(',') as import('@prisma/client').SubmissionPriority[];
+      filters.priority = priorityParam.split(
+        ','
+      ) as import('@prisma/client').SubmissionPriority[];
     }
 
     // Other filters
@@ -62,7 +70,13 @@ export async function GET(request: NextRequest) {
     }
 
     // Parse options
-    const validSortFields = ['name', 'createdAt', 'updatedAt', 'status', 'priority'] as const;
+    const validSortFields = [
+      'name',
+      'createdAt',
+      'updatedAt',
+      'status',
+      'priority',
+    ] as const;
     const validSortOrders = ['asc', 'desc'] as const;
     const sortBy = searchParams.get('sortBy') || 'createdAt';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
@@ -70,16 +84,22 @@ export async function GET(request: NextRequest) {
     const options: SubmissionSearchOptions = {
       page: parseInt(searchParams.get('page') || '1', 10),
       limit: parseInt(searchParams.get('limit') || '20', 10),
-      sortBy: validSortFields.includes(sortBy as any) ? sortBy as typeof validSortFields[number] : 'createdAt',
-      sortOrder: validSortOrders.includes(sortOrder as any) ? sortOrder as typeof validSortOrders[number] : 'desc',
+      sortBy: validSortFields.includes(sortBy as any)
+        ? (sortBy as (typeof validSortFields)[number])
+        : 'createdAt',
+      sortOrder: validSortOrders.includes(sortOrder as any)
+        ? (sortOrder as (typeof validSortOrders)[number])
+        : 'desc',
       includeRelations: searchParams.get('includeRelations') !== 'false',
     };
 
     // Execute search
-    const result = await CardSubmissionService.searchSubmissions(filters, options);
+    const result = await CardSubmissionService.searchSubmissions(
+      filters,
+      options
+    );
 
     return NextResponse.json(result, { status: 200 });
-
   } catch (error) {
     console.error('Submissions search API error:', error);
 
@@ -104,13 +124,18 @@ export async function POST(request: NextRequest) {
     const submittedBy = undefined; // This would come from auth session
 
     // Create the submission
-    const submission = await CardSubmissionService.createSubmission(submissionData, submittedBy);
+    const submission = await CardSubmissionService.createSubmission(
+      submissionData,
+      submittedBy
+    );
 
-    return NextResponse.json({
-      message: 'Submission created successfully',
-      submission,
-    }, { status: 201 });
-
+    return NextResponse.json(
+      {
+        message: 'Submission created successfully',
+        submission,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error('Submission creation API error:', error);
 

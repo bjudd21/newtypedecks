@@ -12,9 +12,11 @@ export interface ValidationResult {
 }
 
 // Validate pagination parameters
-export function validatePagination(searchParams: URLSearchParams): ValidationResult {
+export function validatePagination(
+  searchParams: URLSearchParams
+): ValidationResult {
   const errors: ValidationError[] = [];
-  
+
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
 
@@ -96,7 +98,10 @@ export function validateRequiredFields(
   const errors: ValidationError[] = [];
 
   requiredFields.forEach((field) => {
-    if (!body[field] || (typeof body[field] === 'string' && body[field].trim() === '')) {
+    if (
+      !body[field] ||
+      (typeof body[field] === 'string' && body[field].trim() === '')
+    ) {
       errors.push({
         field,
         message: `${field} is required`,
@@ -113,7 +118,7 @@ export function validateRequiredFields(
 // Extract and validate query parameters
 export function extractQueryParams(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  
+
   return {
     page: parseInt(searchParams.get('page') || '1'),
     limit: parseInt(searchParams.get('limit') || '20'),

@@ -30,25 +30,27 @@ export async function GET() {
     // Test connection to data source
     const connectionTest = await importService.testConnection();
 
-    return NextResponse.json({
-      status: {
-        isEnabled: importStats.isEnabled,
-        isRunning: importStats.isRunning,
-        lastImportTime: importStats.lastImportTime,
-        connection: connectionTest,
+    return NextResponse.json(
+      {
+        status: {
+          isEnabled: importStats.isEnabled,
+          isRunning: importStats.isRunning,
+          lastImportTime: importStats.lastImportTime,
+          connection: connectionTest,
+        },
+        configuration: importStats.configuration,
+        scheduler: {
+          statistics: schedulerStats,
+          scheduledImports,
+          recentHistory,
+        },
+        metadata: {
+          fetchedAt: new Date().toISOString(),
+          environment: env.NODE_ENV,
+        },
       },
-      configuration: importStats.configuration,
-      scheduler: {
-        statistics: schedulerStats,
-        scheduledImports,
-        recentHistory,
-      },
-      metadata: {
-        fetchedAt: new Date().toISOString(),
-        environment: env.NODE_ENV,
-      },
-    }, { status: 200 });
-
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Import status API error:', error);
 
@@ -108,12 +110,14 @@ export async function POST(request: NextRequest) {
       result = await schedulerService.runManualImport(importOptions);
     }
 
-    return NextResponse.json({
-      message: 'Import completed successfully',
-      result,
-      importedAt: new Date().toISOString(),
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: 'Import completed successfully',
+        result,
+        importedAt: new Date().toISOString(),
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Import API error:', error);
 
@@ -123,7 +127,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
           {
             error: 'Import already running',
-            message: 'An import is already in progress. Please wait for it to complete.',
+            message:
+              'An import is already in progress. Please wait for it to complete.',
           },
           { status: 409 }
         );
@@ -177,7 +182,10 @@ export async function PUT(request: NextRequest) {
           );
         }
 
-        const enableResult = schedulerService.setScheduledImportEnabled(data.id, true);
+        const enableResult = schedulerService.setScheduledImportEnabled(
+          data.id,
+          true
+        );
         if (!enableResult) {
           return NextResponse.json(
             { error: 'Scheduled import not found' },
@@ -198,7 +206,10 @@ export async function PUT(request: NextRequest) {
           );
         }
 
-        const disableResult = schedulerService.setScheduledImportEnabled(data.id, false);
+        const disableResult = schedulerService.setScheduledImportEnabled(
+          data.id,
+          false
+        );
         if (!disableResult) {
           return NextResponse.json(
             { error: 'Scheduled import not found' },
@@ -248,12 +259,8 @@ export async function PUT(request: NextRequest) {
         });
 
       default:
-        return NextResponse.json(
-          { error: 'Invalid action' },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
-
   } catch (error) {
     console.error('Import configuration API error:', error);
 
@@ -282,7 +289,9 @@ export async function DELETE(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
-    const daysToKeep = searchParams.get('days') ? parseInt(searchParams.get('days')!, 10) : 30;
+    const daysToKeep = searchParams.get('days')
+      ? parseInt(searchParams.get('days')!, 10)
+      : 30;
 
     const schedulerService = ImportSchedulerService.getInstance();
 
@@ -307,12 +316,8 @@ export async function DELETE(request: NextRequest) {
         );
 
       default:
-        return NextResponse.json(
-          { error: 'Invalid action' },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
-
   } catch (error) {
     console.error('Import deletion API error:', error);
 

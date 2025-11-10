@@ -5,7 +5,8 @@ import Image, { ImageProps } from 'next/image';
 import { CDNService, type ResponsiveImageSet } from '@/lib/services/cdnService';
 import { ImageCacheService } from '@/lib/services/imageCacheService';
 
-export interface OptimizedImageProps extends Omit<ImageProps, 'src' | 'srcSet' | 'onLoad' | 'onError'> {
+export interface OptimizedImageProps
+  extends Omit<ImageProps, 'src' | 'srcSet' | 'onLoad' | 'onError'> {
   src: string;
   alt: string;
   width?: number;
@@ -89,7 +90,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         // Handle caching
         if (enableCache) {
           const cachePriority = priority ? 'high' : 'normal';
-          const cachedUrl = await cacheService.getImage(optimizedSrc, cachePriority);
+          const cachedUrl = await cacheService.getImage(
+            optimizedSrc,
+            cachePriority
+          );
           setCachedSrc(cachedUrl);
         } else {
           setCachedSrc(optimizedSrc);
@@ -99,23 +103,38 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         if (preload && !priority) {
           cacheService.preloadImages([optimizedSrc]);
         }
-
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to setup image');
+        const error =
+          err instanceof Error ? err : new Error('Failed to setup image');
         setError(error);
         onError?.(error);
       }
     };
 
     setupImage();
-  }, [src, width, height, quality, format, fit, enableResponsive, enableCache, priority, deviceOptimized, preload, onError]);
+  }, [
+    src,
+    width,
+    height,
+    quality,
+    format,
+    fit,
+    enableResponsive,
+    enableCache,
+    priority,
+    deviceOptimized,
+    preload,
+    onError,
+  ]);
 
   const handleLoad = () => {
     setLoading(false);
     onLoad?.();
   };
 
-  const handleError = (_event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleError = (
+    _event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
     const error = new Error('Failed to load image');
     setError(error);
     setLoading(false);
@@ -134,7 +153,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       (max-width: 640px) 640px,
       (max-width: 1024px) 1024px,
       ${width}px
-    `.trim().replace(/\s+/g, ' ');
+    `
+      .trim()
+      .replace(/\s+/g, ' ');
   };
 
   // Handle modern format support with fallbacks
@@ -232,7 +253,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 };
 
 // Hook for preloading images
-export const useImagePreloader = (urls: string[], priority: 'high' | 'normal' | 'low' = 'normal') => {
+export const useImagePreloader = (
+  urls: string[],
+  priority: 'high' | 'normal' | 'low' = 'normal'
+) => {
   useEffect(() => {
     const cacheService = ImageCacheService.getInstance();
     cacheService.preloadImages(urls, priority);
@@ -248,7 +272,8 @@ export const useImagePrefetcher = (urls: string[]) => {
 };
 
 // Card-specific optimized image component
-export interface CardImageProps extends Omit<OptimizedImageProps, 'width' | 'height'> {
+export interface CardImageProps
+  extends Omit<OptimizedImageProps, 'width' | 'height'> {
   variant?: 'thumbnail' | 'card' | 'large' | 'hero';
   aspectRatio?: 'card' | 'square' | 'wide';
 }
@@ -298,7 +323,8 @@ export const CardImage: React.FC<CardImageProps> = ({
 };
 
 // Avatar-specific optimized image component
-export interface AvatarImageProps extends Omit<OptimizedImageProps, 'width' | 'height'> {
+export interface AvatarImageProps
+  extends Omit<OptimizedImageProps, 'width' | 'height'> {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 

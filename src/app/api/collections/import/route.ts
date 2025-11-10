@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       failed: 0,
       skipped: 0,
       errors: [],
-      imported: []
+      imported: [],
     };
 
     // Parse data based on format
@@ -79,7 +79,9 @@ export async function POST(request: NextRequest) {
       }
     } catch (error) {
       return NextResponse.json(
-        { error: `Failed to parse ${format} data: ${error instanceof Error ? error.message : 'Unknown error'}` },
+        {
+          error: `Failed to parse ${format} data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        },
         { status: 400 }
       );
     }
@@ -100,12 +102,12 @@ export async function POST(request: NextRequest) {
 
     // Get or create user collection
     let userCollection = await prisma.collection.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     });
 
     if (!userCollection) {
       userCollection = await prisma.collection.create({
-        data: { userId: session.user.id }
+        data: { userId: session.user.id },
       });
     }
 
@@ -116,7 +118,9 @@ export async function POST(request: NextRequest) {
 
         if (!card) {
           result.failed++;
-          result.errors.push(`Card not found: ${importCard.cardName || importCard.cardId || 'unknown'}`);
+          result.errors.push(
+            `Card not found: ${importCard.cardName || importCard.cardId || 'unknown'}`
+          );
           continue;
         }
 
@@ -130,9 +134,9 @@ export async function POST(request: NextRequest) {
           where: {
             collectionId_cardId: {
               collectionId: userCollection.id,
-              cardId: card.id
-            }
-          }
+              cardId: card.id,
+            },
+          },
         });
 
         const updateBehavior = options.updateBehavior || 'add'; // 'add', 'replace', 'skip'
@@ -143,20 +147,21 @@ export async function POST(request: NextRequest) {
             continue;
           }
 
-          const newQuantity = updateBehavior === 'replace'
-            ? importCard.quantity
-            : existingCollectionCard.quantity + importCard.quantity;
+          const newQuantity =
+            updateBehavior === 'replace'
+              ? importCard.quantity
+              : existingCollectionCard.quantity + importCard.quantity;
 
           await prisma.collectionCard.update({
             where: { id: existingCollectionCard.id },
-            data: { quantity: Math.max(0, newQuantity) }
+            data: { quantity: Math.max(0, newQuantity) },
           });
 
           result.success++;
           result.imported.push({
             cardName: card.name,
             quantity: newQuantity,
-            action: 'updated'
+            action: 'updated',
           });
         } else {
           // Create new collection card
@@ -164,20 +169,22 @@ export async function POST(request: NextRequest) {
             data: {
               collectionId: userCollection.id,
               cardId: card.id,
-              quantity: importCard.quantity
-            }
+              quantity: importCard.quantity,
+            },
           });
 
           result.success++;
           result.imported.push({
             cardName: card.name,
             quantity: importCard.quantity,
-            action: 'added'
+            action: 'added',
           });
         }
       } catch (error) {
         result.failed++;
-        result.errors.push(`Failed to process card: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        result.errors.push(
+          `Failed to process card: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
       }
     }
 
@@ -188,8 +195,8 @@ export async function POST(request: NextRequest) {
         totalProcessed: importCards.length,
         successful: result.success,
         failed: result.failed,
-        skipped: result.skipped
-      }
+        skipped: result.skipped,
+      },
     });
   } catch (error) {
     console.error('Collection import error:', error);
@@ -206,7 +213,7 @@ async function findCard(importCard: ImportCard) {
   if (importCard.cardId) {
     return await prisma.card.findUnique({
       where: { id: importCard.cardId },
-      select: { id: true, name: true }
+      select: { id: true, name: true },
     });
   }
 
@@ -216,9 +223,9 @@ async function findCard(importCard: ImportCard) {
       where: {
         OR: [
           { name: { equals: importCard.setName, mode: 'insensitive' } },
-          { code: { equals: importCard.setName, mode: 'insensitive' } }
-        ]
-      }
+          { code: { equals: importCard.setName, mode: 'insensitive' } },
+        ],
+      },
     });
 
     if (set) {
@@ -226,10 +233,10 @@ async function findCard(importCard: ImportCard) {
         where: {
           setId_setNumber: {
             setId: set.id,
-            setNumber: importCard.setNumber
-          }
+            setNumber: importCard.setNumber,
+          },
         },
-        select: { id: true, name: true }
+        select: { id: true, name: true },
       });
     }
   }
@@ -238,7 +245,7 @@ async function findCard(importCard: ImportCard) {
   if (importCard.cardName) {
     return await prisma.card.findFirst({
       where: { name: { equals: importCard.cardName, mode: 'insensitive' } },
-      select: { id: true, name: true }
+      select: { id: true, name: true },
     });
   }
 
@@ -252,7 +259,11 @@ async function parseCSVData(csvData: string): Promise<ImportCard[]> {
 
   // Skip header if it exists
   let startIndex = 0;
-  if (lines[0] && (lines[0].toLowerCase().includes('name') || lines[0].toLowerCase().includes('card'))) {
+  if (
+    lines[0] &&
+    (lines[0].toLowerCase().includes('name') ||
+      lines[0].toLowerCase().includes('card'))
+  ) {
     startIndex = 1;
   }
 
@@ -275,7 +286,7 @@ async function parseCSVData(csvData: string): Promise<ImportCard[]> {
         cardName,
         quantity,
         setName: setName || undefined,
-        setNumber: setNumber || undefined
+        setNumber: setNumber || undefined,
       });
     }
   }
@@ -289,16 +300,22 @@ function parseJSONData(jsonData: unknown): ImportCard[] {
     throw new Error('JSON data must be an array of card objects');
   }
 
-  return jsonData.map((item: unknown) => {
-    const itemObj = item as Record<string, unknown>;
-    return {
-      cardId: (itemObj.cardId || itemObj.id) as string | undefined,
-      cardName: (itemObj.cardName || itemObj.name) as string | undefined,
-      quantity: parseInt(String(itemObj.quantity || itemObj.count || 1)),
-      setName: itemObj.setName as string | undefined || itemObj.set as string | undefined,
-      setNumber: itemObj.setNumber as string | undefined || itemObj.number as string | undefined
-    };
-  }).filter(card => card.quantity > 0);
+  return jsonData
+    .map((item: unknown) => {
+      const itemObj = item as Record<string, unknown>;
+      return {
+        cardId: (itemObj.cardId || itemObj.id) as string | undefined,
+        cardName: (itemObj.cardName || itemObj.name) as string | undefined,
+        quantity: parseInt(String(itemObj.quantity || itemObj.count || 1)),
+        setName:
+          (itemObj.setName as string | undefined) ||
+          (itemObj.set as string | undefined),
+        setNumber:
+          (itemObj.setNumber as string | undefined) ||
+          (itemObj.number as string | undefined),
+      };
+    })
+    .filter((card) => card.quantity > 0);
 }
 
 // Parse deck list format (quantity cardname)
@@ -308,7 +325,12 @@ function parseDeckListData(deckListData: string): ImportCard[] {
 
   for (const line of lines) {
     const trimmedLine = line.trim();
-    if (!trimmedLine || trimmedLine.startsWith('//') || trimmedLine.startsWith('#')) continue;
+    if (
+      !trimmedLine ||
+      trimmedLine.startsWith('//') ||
+      trimmedLine.startsWith('#')
+    )
+      continue;
 
     // Match patterns like "3 Lightning Bolt" or "1x Storm Crow"
     const match = trimmedLine.match(/^(\d+)x?\s+(.+)$/);
@@ -335,7 +357,9 @@ function parseMTGAData(mtgaData: string): ImportCard[] {
     if (!trimmedLine) continue;
 
     // MTG Arena format: "3 Lightning Bolt (M21) 168"
-    const match = trimmedLine.match(/^(\d+)\s+([^(]+)(?:\(([^)]+)\)\s*(\w+)?)?/);
+    const match = trimmedLine.match(
+      /^(\d+)\s+([^(]+)(?:\(([^)]+)\)\s*(\w+)?)?/
+    );
     if (match) {
       const quantity = parseInt(match[1]);
       const cardName = match[2].trim();
@@ -347,7 +371,7 @@ function parseMTGAData(mtgaData: string): ImportCard[] {
           cardName,
           quantity,
           setName: setCode,
-          setNumber: setNumber
+          setNumber: setNumber,
         });
       }
     }

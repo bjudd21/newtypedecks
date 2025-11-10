@@ -84,7 +84,10 @@ export const authOptions: NextAuthOptions = {
           }
 
           // Verify password with bcrypt
-          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
 
           if (!isPasswordValid) {
             return null;
@@ -234,13 +237,17 @@ export const authOptions: NextAuthOptions = {
 };
 
 // Helper function to get server-side session
-export const getServerSession = (options = authOptions) => nextAuthGetServerSession(options);
+export const getServerSession = (options = authOptions) =>
+  nextAuthGetServerSession(options);
 
 // Helper type for server-side session
 export type ServerSession = Session | null;
 
 // Helper function to check if user has required role
-export function hasRole(session: ServerSession, requiredRole: UserRole): boolean {
+export function hasRole(
+  session: ServerSession,
+  requiredRole: UserRole
+): boolean {
   if (!session?.user) return false;
 
   const userRole = session.user.role;
@@ -248,7 +255,11 @@ export function hasRole(session: ServerSession, requiredRole: UserRole): boolean
   // Role hierarchy: ADMIN > MODERATOR > USER
   switch (requiredRole) {
     case UserRole.USER:
-      return userRole === UserRole.USER || userRole === UserRole.MODERATOR || userRole === UserRole.ADMIN;
+      return (
+        userRole === UserRole.USER ||
+        userRole === UserRole.MODERATOR ||
+        userRole === UserRole.ADMIN
+      );
     case UserRole.MODERATOR:
       return userRole === UserRole.MODERATOR || userRole === UserRole.ADMIN;
     case UserRole.ADMIN:
@@ -259,14 +270,19 @@ export function hasRole(session: ServerSession, requiredRole: UserRole): boolean
 }
 
 // Helper function to require authentication
-export function requireAuth(session: ServerSession): asserts session is NonNullable<ServerSession> {
+export function requireAuth(
+  session: ServerSession
+): asserts session is NonNullable<ServerSession> {
   if (!session || !session.user) {
     throw new Error('Authentication required');
   }
 }
 
 // Helper function to require specific role
-export function requireRole(session: ServerSession, role: UserRole): asserts session is NonNullable<ServerSession> {
+export function requireRole(
+  session: ServerSession,
+  role: UserRole
+): asserts session is NonNullable<ServerSession> {
   requireAuth(session);
   if (!hasRole(session, role)) {
     throw new Error(`Role ${role} required`);

@@ -88,7 +88,9 @@ export class DataImportService {
   /**
    * Import all card data from official source
    */
-  public async importAllCards(options: ImportOptions = {}): Promise<ImportResult> {
+  public async importAllCards(
+    options: ImportOptions = {}
+  ): Promise<ImportResult> {
     if (!this.isEnabled()) {
       throw new Error('Data import is disabled in this environment');
     }
@@ -112,14 +114,20 @@ export class DataImportService {
   /**
    * Import specific card sets
    */
-  public async importCardSets(setIds: string[], options: ImportOptions = {}): Promise<ImportResult> {
+  public async importCardSets(
+    setIds: string[],
+    options: ImportOptions = {}
+  ): Promise<ImportResult> {
     return this.importAllCards({ ...options, setIds });
   }
 
   /**
    * Import cards by type
    */
-  public async importCardsByType(cardTypes: string[], options: ImportOptions = {}): Promise<ImportResult> {
+  public async importCardsByType(
+    cardTypes: string[],
+    options: ImportOptions = {}
+  ): Promise<ImportResult> {
     return this.importAllCards({ ...options, cardTypes });
   }
 
@@ -153,7 +161,9 @@ export class DataImportService {
       for (let i = 0; i < dataSources.length; i += batchSize) {
         const batch = dataSources.slice(i, i + batchSize);
 
-        console.warn(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(dataSources.length / batchSize)} (${batch.length} items)`);
+        console.warn(
+          `📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(dataSources.length / batchSize)} (${batch.length} items)`
+        );
 
         const batchResult = await this.processBatch(batch, options, maxRetries);
 
@@ -168,9 +178,9 @@ export class DataImportService {
           await this.sleep(env.IMPORT_RATE_LIMIT_MS);
         }
       }
-
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       errors.push(`Import failed: ${errorMessage}`);
       console.error('❌ Import failed:', error);
     }
@@ -206,7 +216,13 @@ export class DataImportService {
     dataSources: unknown[],
     options: ImportOptions,
     _maxRetries: number // Reserved for future retry logic
-  ): Promise<{ processed: number; successful: number; failed: number; errors: string[]; warnings: string[] }> {
+  ): Promise<{
+    processed: number;
+    successful: number;
+    failed: number;
+    errors: string[];
+    warnings: string[];
+  }> {
     let processed = 0;
     let successful = 0;
     let failed = 0;
@@ -219,7 +235,9 @@ export class DataImportService {
       try {
         const sourceObj = source as { url: string };
         // Scrape card data
-        const rawCardData = await this.scraperService.scrapeCardData(sourceObj.url);
+        const rawCardData = await this.scraperService.scrapeCardData(
+          sourceObj.url
+        );
 
         if (!rawCardData) {
           warnings.push(`No data found for ${sourceObj.url}`);
@@ -227,23 +245,31 @@ export class DataImportService {
         }
 
         // Validate and transform data
-        const validationResult = await this.validationService.validateCardData(rawCardData);
+        const validationResult =
+          await this.validationService.validateCardData(rawCardData);
 
         if (!validationResult.isValid) {
-          errors.push(`Validation failed for ${sourceObj.url}: ${validationResult.errors.join(', ')}`);
+          errors.push(
+            `Validation failed for ${sourceObj.url}: ${validationResult.errors.join(', ')}`
+          );
           failed++;
           continue;
         }
 
         if (validationResult.warnings.length > 0) {
-          warnings.push(...validationResult.warnings.map(w => `${sourceObj.url}: ${w}`));
+          warnings.push(
+            ...validationResult.warnings.map((w) => `${sourceObj.url}: ${w}`)
+          );
         }
 
-        const transformedData = await this.validationService.transformCardData(rawCardData);
+        const transformedData =
+          await this.validationService.transformCardData(rawCardData);
 
         // Check if card already exists
-        if (options.skipExisting && await this.cardExists(transformedData)) {
-          warnings.push(`Card already exists: ${transformedData.name} (${transformedData.setNumber})`);
+        if (options.skipExisting && (await this.cardExists(transformedData))) {
+          warnings.push(
+            `Card already exists: ${transformedData.name} (${transformedData.setNumber})`
+          );
           continue;
         }
 
@@ -261,10 +287,10 @@ export class DataImportService {
         if (isDevelopment) {
           console.warn(`✅ Imported: ${transformedData.name}`);
         }
-
       } catch (error) {
         const sourceObj = source as { url: string };
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorMessage =
+          error instanceof Error ? error.message : 'Unknown error';
         errors.push(`Failed to process ${sourceObj.url}: ${errorMessage}`);
         failed++;
 
@@ -279,7 +305,10 @@ export class DataImportService {
   /**
    * Import a single card
    */
-  private async importSingleCard(cardData: CreateCardData, forceUpdate = false): Promise<void> {
+  private async importSingleCard(
+    cardData: CreateCardData,
+    forceUpdate = false
+  ): Promise<void> {
     try {
       // Check if card exists by set and number
       const existingCard = await CardService.getCardBySetAndNumber(
@@ -299,7 +328,9 @@ export class DataImportService {
         await CardService.createCard(cardData);
       }
     } catch (error) {
-      throw new Error(`Failed to import card ${cardData.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to import card ${cardData.name}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -330,16 +361,18 @@ export class DataImportService {
     console.warn(`   ✅ Successful: ${successfulImports}`);
     console.warn(`   ❌ Failed: ${failures}`);
     console.warn(`   ⏱️  Duration: ${durationSeconds}s`);
-    console.warn(`   📈 Success Rate: ${totalProcessed > 0 ? ((successfulImports / totalProcessed) * 100).toFixed(1) : 0}%`);
+    console.warn(
+      `   📈 Success Rate: ${totalProcessed > 0 ? ((successfulImports / totalProcessed) * 100).toFixed(1) : 0}%`
+    );
 
     if (result.errors.length > 0) {
       console.warn('\n❌ Errors:');
-      result.errors.forEach(error => console.warn(`   - ${error}`));
+      result.errors.forEach((error) => console.warn(`   - ${error}`));
     }
 
     if (result.warnings.length > 0) {
       console.warn('\n⚠️  Warnings:');
-      result.warnings.forEach(warning => console.warn(`   - ${warning}`));
+      result.warnings.forEach((warning) => console.warn(`   - ${warning}`));
     }
   }
 
@@ -347,13 +380,17 @@ export class DataImportService {
    * Sleep utility for rate limiting
    */
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
    * Test connection to import source
    */
-  public async testConnection(): Promise<{ success: boolean; message: string; responseTime?: number }> {
+  public async testConnection(): Promise<{
+    success: boolean;
+    message: string;
+    responseTime?: number;
+  }> {
     try {
       const startTime = Date.now();
       const isReachable = await this.scraperService.testConnection();
@@ -367,7 +404,8 @@ export class DataImportService {
     } catch (error) {
       return {
         success: false,
-        message: error instanceof Error ? error.message : 'Unknown connection error',
+        message:
+          error instanceof Error ? error.message : 'Unknown connection error',
       };
     }
   }

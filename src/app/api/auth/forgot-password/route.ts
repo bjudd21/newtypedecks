@@ -13,10 +13,7 @@ export async function POST(request: NextRequest) {
     const { email } = await request.json();
 
     if (!email || typeof email !== 'string') {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     // Find user by email
@@ -27,7 +24,10 @@ export async function POST(request: NextRequest) {
     // Always return success to prevent email enumeration
     if (!user) {
       return NextResponse.json(
-        { message: 'If an account with that email exists, a password reset link has been sent.' },
+        {
+          message:
+            'If an account with that email exists, a password reset link has been sent.',
+        },
         { status: 200 }
       );
     }
@@ -63,7 +63,10 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: 'If an account with that email exists, a password reset link has been sent.' },
+      {
+        message:
+          'If an account with that email exists, a password reset link has been sent.',
+      },
       { status: 200 }
     );
   } catch (error) {

@@ -19,16 +19,16 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
         {searchParams.error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm text-center">
+          <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-700">
             {getErrorMessage(searchParams.error)}
           </div>
         )}
         <SignInForm
           callbackUrl={searchParams.callbackUrl}
-          className="max-w-md mx-auto"
+          className="mx-auto max-w-md"
         />
       </div>
     </div>

@@ -7,7 +7,10 @@ import { useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { analytics, businessMetrics } from '@/lib/monitoring/analytics';
-import { performanceMonitor, measureComponent } from '@/lib/monitoring/performance';
+import {
+  performanceMonitor,
+  measureComponent,
+} from '@/lib/monitoring/performance';
 import { errorTracker } from '@/lib/monitoring/sentry';
 
 export interface UseMonitoringOptions {
@@ -20,14 +23,23 @@ export interface UseMonitoringOptions {
 
 export interface MonitoringHookResult {
   trackEvent: (eventName: string, properties?: Record<string, unknown>) => void;
-  trackUserAction: (action: string, resource: string, metadata?: Record<string, unknown>) => void;
+  trackUserAction: (
+    action: string,
+    resource: string,
+    metadata?: Record<string, unknown>
+  ) => void;
   trackError: (error: Error, context?: Record<string, unknown>) => void;
-  trackPerformance: <T>(name: string, fn: () => T | Promise<T>) => T | Promise<T>;
+  trackPerformance: <T>(
+    name: string,
+    fn: () => T | Promise<T>
+  ) => T | Promise<T>;
   startTiming: (name: string) => () => void;
   setUserContext: (context: Record<string, unknown>) => void;
 }
 
-export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHookResult {
+export function useMonitoring(
+  options: UseMonitoringOptions = {}
+): MonitoringHookResult {
   const {
     componentName = 'UnknownComponent',
     trackPageViews = true,
@@ -47,7 +59,11 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
 
     const handleRouteChange = (url: string) => {
       analytics.trackPageView(url, session?.user?.id);
-      businessMetrics.trackPageLoad(url, Date.now() - mountTimeRef.current, session?.user?.id);
+      businessMetrics.trackPageLoad(
+        url,
+        Date.now() - mountTimeRef.current,
+        session?.user?.id
+      );
     };
 
     // Track initial page load
@@ -140,95 +156,108 @@ export function useMonitoring(options: UseMonitoringOptions = {}): MonitoringHoo
 
     return () => {
       window.removeEventListener('error', handleError);
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener(
+        'unhandledrejection',
+        handleUnhandledRejection
+      );
     };
   }, [componentName, trackErrors]);
 
   // Track custom events
-  const trackEvent = useCallback((eventName: string, properties?: Record<string, unknown>) => {
-    analytics.trackEvent({
-      name: eventName,
-      properties: {
-        component: componentName,
-        ...properties,
-      },
-      userId: session?.user?.id,
-    });
-  }, [componentName, session?.user?.id]);
+  const trackEvent = useCallback(
+    (eventName: string, properties?: Record<string, unknown>) => {
+      analytics.trackEvent({
+        name: eventName,
+        properties: {
+          component: componentName,
+          ...properties,
+        },
+        userId: session?.user?.id,
+      });
+    },
+    [componentName, session?.user?.id]
+  );
 
   // Track user actions
-  const trackUserAction = useCallback((
-    action: string,
-    resource: string,
-    metadata?: Record<string, unknown>
-  ) => {
-    if (!trackUserActions) return;
+  const trackUserAction = useCallback(
+    (action: string, resource: string, metadata?: Record<string, unknown>) => {
+      if (!trackUserActions) return;
 
-    analytics.trackUserAction(action, resource, session?.user?.id, {
-      component: componentName,
-      ...metadata,
-    });
+      analytics.trackUserAction(action, resource, session?.user?.id, {
+        component: componentName,
+        ...metadata,
+      });
 
-    errorTracker.addBreadcrumb(
-      `User ${action} on ${resource}`,
-      'user',
-      { component: componentName, ...metadata }
-    );
-  }, [componentName, session?.user?.id, trackUserActions]);
+      errorTracker.addBreadcrumb(`User ${action} on ${resource}`, 'user', {
+        component: componentName,
+        ...metadata,
+      });
+    },
+    [componentName, session?.user?.id, trackUserActions]
+  );
 
   // Track errors
-  const trackError = useCallback((error: Error, context?: Record<string, unknown>) => {
-    if (!trackErrors) return;
+  const trackError = useCallback(
+    (error: Error, context?: Record<string, unknown>) => {
+      if (!trackErrors) return;
 
-    errorTracker.captureException(error, {
-      component: componentName,
-      userId: session?.user?.id,
-      url: window.location.href,
-      ...context,
-    });
-  }, [componentName, session?.user?.id, trackErrors]);
+      errorTracker.captureException(error, {
+        component: componentName,
+        userId: session?.user?.id,
+        url: window.location.href,
+        ...context,
+      });
+    },
+    [componentName, session?.user?.id, trackErrors]
+  );
 
   // Track performance
-  const trackPerformanceCallback = useCallback(<T>(
-    name: string,
-    fn: () => T | Promise<T>
-  ): T | Promise<T> => {
-    if (!trackPerformance) return fn();
+  const trackPerformanceCallback = useCallback(
+    <T>(name: string, fn: () => T | Promise<T>): T | Promise<T> => {
+      if (!trackPerformance) return fn();
 
-    return measureComponent(`${componentName}: ${name}`, fn, {
-      component: componentName,
-      userId: session?.user?.id,
-    });
-  }, [componentName, session?.user?.id, trackPerformance]);
+      return measureComponent(`${componentName}: ${name}`, fn, {
+        component: componentName,
+        userId: session?.user?.id,
+      });
+    },
+    [componentName, session?.user?.id, trackPerformance]
+  );
 
   // Start/stop timing
-  const startTiming = useCallback((name: string) => {
-    const timerId = `${componentName}:${name}:${Date.now()}`;
-    const startTime = performance.now();
-    activeTimersRef.current.set(timerId, startTime);
+  const startTiming = useCallback(
+    (name: string) => {
+      const timerId = `${componentName}:${name}:${Date.now()}`;
+      const startTime = performance.now();
+      activeTimersRef.current.set(timerId, startTime);
 
-    return () => {
-      const endTime = performance.now();
-      const duration = endTime - startTime;
+      return () => {
+        const endTime = performance.now();
+        const duration = endTime - startTime;
 
-      performanceMonitor.measure(
-        `${componentName}: ${name}`,
-        'component',
-        () => Promise.resolve(),
-        { component: componentName, duration }
-      );
+        performanceMonitor.measure(
+          `${componentName}: ${name}`,
+          'component',
+          () => Promise.resolve(),
+          { component: componentName, duration }
+        );
 
-      activeTimersRef.current.delete(timerId);
-    };
-  }, [componentName]);
+        activeTimersRef.current.delete(timerId);
+      };
+    },
+    [componentName]
+  );
 
   // Set user context
-  const setUserContext = useCallback((context: Record<string, unknown>) => {
-    errorTracker.setContext('user', {
-      component: componentName,
-      ...context,
-    });
-  }, [componentName]);
+  const setUserContext = useCallback(
+    (context: Record<string, unknown>) => {
+      errorTracker.setContext('user', {
+        component: componentName,
+        ...context,
+      });
+    },
+    [componentName]
+  );
 
   return {
     trackEvent,
@@ -249,12 +278,15 @@ export function usePageMonitoring(pageName: string) {
     trackPerformance: true,
   });
 
-  const trackPageAction = useCallback((action: string, metadata?: Record<string, unknown>) => {
-    monitoring.trackUserAction(action, 'page', {
-      page: pageName,
-      ...metadata,
-    });
-  }, [monitoring, pageName]);
+  const trackPageAction = useCallback(
+    (action: string, metadata?: Record<string, unknown>) => {
+      monitoring.trackUserAction(action, 'page', {
+        page: pageName,
+        ...metadata,
+      });
+    },
+    [monitoring, pageName]
+  );
 
   return {
     ...monitoring,
@@ -265,59 +297,62 @@ export function usePageMonitoring(pageName: string) {
 export function useAPIMonitoring() {
   const { data: session } = useSession();
 
-  const trackAPICall = useCallback(async <T>(
-    endpoint: string,
-    method: string,
-    apiCall: () => Promise<T>
-  ): Promise<T> => {
-    const startTime = performance.now();
+  const trackAPICall = useCallback(
+    async <T>(
+      endpoint: string,
+      method: string,
+      apiCall: () => Promise<T>
+    ): Promise<T> => {
+      const startTime = performance.now();
 
-    try {
-      const result = await apiCall();
-      const duration = performance.now() - startTime;
+      try {
+        const result = await apiCall();
+        const duration = performance.now() - startTime;
 
-      businessMetrics.trackAPIResponse(endpoint, method, duration, true);
+        businessMetrics.trackAPIResponse(endpoint, method, duration, true);
 
-      analytics.trackEvent({
-        name: 'api_call',
-        properties: {
-          endpoint,
-          method,
-          duration,
-          success: true,
-        },
-        userId: session?.user?.id,
-      });
+        analytics.trackEvent({
+          name: 'api_call',
+          properties: {
+            endpoint,
+            method,
+            duration,
+            success: true,
+          },
+          userId: session?.user?.id,
+        });
 
-      return result;
-    } catch (error) {
-      const duration = performance.now() - startTime;
+        return result;
+      } catch (error) {
+        const duration = performance.now() - startTime;
 
-      businessMetrics.trackAPIResponse(endpoint, method, duration, false);
+        businessMetrics.trackAPIResponse(endpoint, method, duration, false);
 
-      errorTracker.captureException(error as Error, {
-        api: {
-          endpoint,
-          method,
-          duration,
-          success: false,
-        },
-      });
+        errorTracker.captureException(error as Error, {
+          api: {
+            endpoint,
+            method,
+            duration,
+            success: false,
+          },
+        });
 
-      analytics.trackEvent({
-        name: 'api_error',
-        properties: {
-          endpoint,
-          method,
-          duration,
-          error: (error as Error).message,
-        },
-        userId: session?.user?.id,
-      });
+        analytics.trackEvent({
+          name: 'api_error',
+          properties: {
+            endpoint,
+            method,
+            duration,
+            error: (error as Error).message,
+          },
+          userId: session?.user?.id,
+        });
 
-      throw error;
-    }
-  }, [session?.user?.id]);
+        throw error;
+      }
+    },
+    [session?.user?.id]
+  );
 
   return { trackAPICall };
 }
@@ -332,20 +367,26 @@ export function useFormMonitoring(formName: string) {
     monitoring.trackUserAction('form_start', 'form', { formName });
   }, [monitoring, formName]);
 
-  const trackFormSubmit = useCallback((success: boolean, errors?: Record<string, unknown>) => {
-    monitoring.trackUserAction('form_submit', 'form', {
-      formName,
-      success,
-      errors,
-    });
-  }, [monitoring, formName]);
+  const trackFormSubmit = useCallback(
+    (success: boolean, errors?: Record<string, unknown>) => {
+      monitoring.trackUserAction('form_submit', 'form', {
+        formName,
+        success,
+        errors,
+      });
+    },
+    [monitoring, formName]
+  );
 
-  const trackFieldInteraction = useCallback((fieldName: string, action: 'focus' | 'blur' | 'change') => {
-    monitoring.trackUserAction(`field_${action}`, 'form_field', {
-      formName,
-      fieldName,
-    });
-  }, [monitoring, formName]);
+  const trackFieldInteraction = useCallback(
+    (fieldName: string, action: 'focus' | 'blur' | 'change') => {
+      monitoring.trackUserAction(`field_${action}`, 'form_field', {
+        formName,
+        fieldName,
+      });
+    },
+    [monitoring, formName]
+  );
 
   return {
     ...monitoring,
@@ -356,22 +397,25 @@ export function useFormMonitoring(formName: string) {
 }
 
 export function useErrorBoundaryMonitoring(boundaryName: string) {
-  const trackBoundaryError = useCallback((error: Error, errorInfo: any) => {
-    errorTracker.captureException(error, {
-      errorBoundary: {
-        name: boundaryName,
-        componentStack: errorInfo.componentStack,
-      },
-    });
+  const trackBoundaryError = useCallback(
+    (error: Error, errorInfo: any) => {
+      errorTracker.captureException(error, {
+        errorBoundary: {
+          name: boundaryName,
+          componentStack: errorInfo.componentStack,
+        },
+      });
 
-    analytics.trackEvent({
-      name: 'error_boundary_triggered',
-      properties: {
-        boundaryName,
-        errorMessage: error.message,
-      },
-    });
-  }, [boundaryName]);
+      analytics.trackEvent({
+        name: 'error_boundary_triggered',
+        properties: {
+          boundaryName,
+          errorMessage: error.message,
+        },
+      });
+    },
+    [boundaryName]
+  );
 
   return { trackBoundaryError };
 }

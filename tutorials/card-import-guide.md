@@ -3,6 +3,7 @@
 This guide explains how to import card images and provide card information for display in the Gundam Card Game website.
 
 ## Table of Contents
+
 1. [Card Images](#card-images)
 2. [Card Data Format](#card-data-format)
 3. [Providing Card Information](#providing-card-information)
@@ -16,6 +17,7 @@ This guide explains how to import card images and provide card information for d
 ### Image Specifications
 
 **Recommended Format**:
+
 - **File Type**: PNG or JPG
 - **Aspect Ratio**: 5:7 (card standard)
 - **Recommended Dimensions**:
@@ -41,6 +43,7 @@ PR-001.png
 ```
 
 **Format Breakdown**:
+
 - `SET_CODE`: Set identifier (ST01, BT-01, PR, etc.)
 - `CARD_NUMBER`: Card number within the set (001, 002, etc.)
 - Use leading zeros for numbers (001, not 1)
@@ -50,6 +53,7 @@ PR-001.png
 Place card images in one of these locations:
 
 **Option 1 - Public Directory** (Development/Testing):
+
 ```
 public/images/cards/
   ├── ST01-001.png
@@ -58,6 +62,7 @@ public/images/cards/
 ```
 
 **Option 2 - Organized by Set**:
+
 ```
 public/images/cards/
   ├── ST01/
@@ -72,12 +77,14 @@ public/images/cards/
 ```
 
 **Option 3 - External URL**:
+
 - You can also provide external URLs (e.g., from Cloudinary, AWS S3, or any CDN)
 - Just provide the full URL when submitting card data
 
 ### Image Sizes
 
 The system can handle multiple image sizes automatically:
+
 - **imageUrl**: Main/original image (required)
 - **imageUrlSmall**: Small thumbnail (optional)
 - **imageUrlLarge**: Large display (optional)
@@ -92,54 +99,58 @@ If you only provide the main image, the system will use it for all sizes.
 
 These fields are **required** for every card:
 
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `name` | String | Card name | "Char Aznable" |
-| `setNumber` | String | Card number in set | "ST01-002" |
-| `imageUrl` | String | Path or URL to image | "/images/cards/ST01-002.png" |
-| `typeId` | String | Card type ID | "character" |
-| `rarityId` | String | Rarity ID | "uncommon" |
-| `setId` | String | Set ID | "st01" |
+| Field       | Type   | Description          | Example                      |
+| ----------- | ------ | -------------------- | ---------------------------- |
+| `name`      | String | Card name            | "Char Aznable"               |
+| `setNumber` | String | Card number in set   | "ST01-002"                   |
+| `imageUrl`  | String | Path or URL to image | "/images/cards/ST01-002.png" |
+| `typeId`    | String | Card type ID         | "character"                  |
+| `rarityId`  | String | Rarity ID            | "uncommon"                   |
+| `setId`     | String | Set ID               | "st01"                       |
 
 ### Optional Fields
 
 These fields are **optional** but recommended:
 
 #### Game Stats
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `level` | Number | Card level | 2 |
-| `cost` | Number | Play cost | 1 |
-| `clashPoints` | Number | Clash Points (CP) | 5 |
-| `price` | Number | Price to play | 2 |
-| `hitPoints` | Number | Hit Points (HP) | 4 |
-| `attackPoints` | Number | Attack Points (AP) | 3 |
+
+| Field          | Type   | Description        | Example |
+| -------------- | ------ | ------------------ | ------- |
+| `level`        | Number | Card level         | 2       |
+| `cost`         | Number | Play cost          | 1       |
+| `clashPoints`  | Number | Clash Points (CP)  | 5       |
+| `price`        | Number | Price to play      | 2       |
+| `hitPoints`    | Number | Hit Points (HP)    | 4       |
+| `attackPoints` | Number | Attack Points (AP) | 3       |
 
 #### Character/Lore Information
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `faction` | String | Faction/Group | "Principality of Zeon" |
-| `pilot` | String | Pilot name | "Char Aznable" |
-| `model` | String | Mobile suit model | "MS-06S" |
-| `series` | String | Anime series | "UC" |
-| `nation` | String | Nation affiliation | "Principality of Zeon" |
+
+| Field     | Type   | Description        | Example                |
+| --------- | ------ | ------------------ | ---------------------- |
+| `faction` | String | Faction/Group      | "Principality of Zeon" |
+| `pilot`   | String | Pilot name         | "Char Aznable"         |
+| `model`   | String | Mobile suit model  | "MS-06S"               |
+| `series`  | String | Anime series       | "UC"                   |
+| `nation`  | String | Nation affiliation | "Principality of Zeon" |
 
 #### Card Text
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `description` | String | Card effect/flavor text | "The Red Comet, Char Aznable." |
-| `officialText` | String | Official card text | "When this card attacks..." |
-| `abilities` | String (JSON) | Special abilities | '["Quick", "Pierce"]' |
-| `keywords` | Array | Searchable keywords | ["ace", "zeon", "commander"] |
-| `tags` | Array | Categorization tags | ["red-comet", "antagonist"] |
+
+| Field          | Type          | Description             | Example                        |
+| -------------- | ------------- | ----------------------- | ------------------------------ |
+| `description`  | String        | Card effect/flavor text | "The Red Comet, Char Aznable." |
+| `officialText` | String        | Official card text      | "When this card attacks..."    |
+| `abilities`    | String (JSON) | Special abilities       | '["Quick", "Pierce"]'          |
+| `keywords`     | Array         | Searchable keywords     | ["ace", "zeon", "commander"]   |
+| `tags`         | Array         | Categorization tags     | ["red-comet", "antagonist"]    |
 
 #### Metadata
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `isFoil` | Boolean | Is foil version? | false |
-| `isPromo` | Boolean | Is promo card? | false |
-| `isAlternate` | Boolean | Is alternate art? | false |
-| `language` | String | Card language | "en" |
+
+| Field         | Type    | Description       | Example |
+| ------------- | ------- | ----------------- | ------- |
+| `isFoil`      | Boolean | Is foil version?  | false   |
+| `isPromo`     | Boolean | Is promo card?    | false   |
+| `isAlternate` | Boolean | Is alternate art? | false   |
+| `language`    | String  | Card language     | "en"    |
 
 ---
 
@@ -192,11 +203,11 @@ Keywords: ace, zeon, commander
 For multiple cards, you can use a markdown table:
 
 ```markdown
-| Name | Set/Number | Type | Rarity | Level | Cost | Image |
-|------|------------|------|--------|-------|------|-------|
-| Char Aznable | ST01-002 | Character | Uncommon | 2 | 1 | ST01-002.png |
-| Amuro Ray | ST01-001 | Character | Uncommon | 2 | 1 | ST01-001.png |
-| RX-78-2 Gundam | ST01-003 | Unit | Rare | 3 | 2 | ST01-003.png |
+| Name           | Set/Number | Type      | Rarity   | Level | Cost | Image        |
+| -------------- | ---------- | --------- | -------- | ----- | ---- | ------------ |
+| Char Aznable   | ST01-002   | Character | Uncommon | 2     | 1    | ST01-002.png |
+| Amuro Ray      | ST01-001   | Character | Uncommon | 2     | 1    | ST01-001.png |
+| RX-78-2 Gundam | ST01-003   | Unit      | Rare     | 3     | 2    | ST01-003.png |
 ```
 
 Then provide additional details separately for each card.
@@ -230,6 +241,7 @@ name,setNumber,imageUrl,type,rarity,set,level,cost,description,faction,pilot,mod
 ```
 
 **Instructions**:
+
 1. Save as `.csv` file
 2. Send the file with message: "Import these cards from CSV"
 3. I'll process and create the import
@@ -284,6 +296,7 @@ For **bulk imports** with complex data:
 ```
 
 **Instructions**:
+
 1. Save as `.json` file
 2. Send the file with message: "Import cards from this JSON file"
 3. I'll validate and process the import
@@ -295,6 +308,7 @@ For **bulk imports** with complex data:
 ### Example 1: Single Card with Image
 
 **Message to send**:
+
 ```
 I want to add a new card to the database:
 
@@ -317,6 +331,7 @@ Tags: red-comet, antagonist
 ### Example 2: Multiple Cards with JSON
 
 **Message to send**:
+
 ```
 I need to import 3 cards from the ST01 set. Here's the JSON:
 
@@ -328,6 +343,7 @@ All images are in public/images/cards/ with filenames matching the card numbers.
 ### Example 3: Update Existing Card
 
 **Message to send**:
+
 ```
 Update card ST01-002 (Char Aznable):
 - Change level from 2 to 3
@@ -338,6 +354,7 @@ Update card ST01-002 (Char Aznable):
 ### Example 4: Card with Full Stats
 
 **Message to send**:
+
 ```json
 {
   "name": "MS-06S Zaku II Commander Type",
@@ -372,6 +389,7 @@ Update card ST01-002 (Char Aznable):
 ## Common Card Types
 
 ### Card Types (typeId)
+
 - `unit` - Unit cards (Mobile Suits, Vehicles)
 - `character` - Character cards (Pilots, Officers)
 - `command` - Command cards (Tactics, Strategies)
@@ -380,6 +398,7 @@ Update card ST01-002 (Char Aznable):
 - `pilot` - Pilot cards (Character subset)
 
 ### Rarities (rarityId)
+
 - `common` - Common (Gray)
 - `uncommon` - Uncommon (Gray)
 - `rare` - Rare (Yellow)
@@ -388,6 +407,7 @@ Update card ST01-002 (Char Aznable):
 - `secret-rare` - Secret Rare (Rainbow/Gold)
 
 ### Factions
+
 - Earth Federation
 - Principality of Zeon
 - AEUG
@@ -399,6 +419,7 @@ Update card ST01-002 (Char Aznable):
 - A-LAWS
 
 ### Series Codes
+
 - `UC` - Universal Century
 - `CE` - Cosmic Era
 - `AD` - Anno Domini
@@ -414,6 +435,7 @@ Update card ST01-002 (Char Aznable):
 ### Minimum Required Information
 
 To add a card, you **must** provide:
+
 1. ✅ Card name
 2. ✅ Set number (e.g., ST01-002)
 3. ✅ Image location or URL
@@ -424,6 +446,7 @@ To add a card, you **must** provide:
 ### Highly Recommended Information
 
 For the best display, also include:
+
 - Level and Cost
 - Description/Card text
 - Faction (for filtering)
@@ -436,6 +459,7 @@ For the best display, also include:
 ## Tips
 
 ### Image Tips
+
 1. **Use high resolution** - Card text should be readable
 2. **Consistent naming** - Follow the set number format
 3. **Organize by set** - Group images by set for easier management
@@ -443,6 +467,7 @@ For the best display, also include:
 5. **Test locally** - Verify images load in browser before importing
 
 ### Data Tips
+
 1. **Be consistent** - Use same faction/series names across cards
 2. **Use keywords** - Add searchable keywords for better discovery
 3. **Check spellings** - Card names and pilots should match official names
@@ -450,6 +475,7 @@ For the best display, also include:
 5. **Review before bulk import** - Check a few cards first to verify format
 
 ### Communication Tips
+
 1. **Attach images** - Provide images via file attachment or specify location
 2. **Use JSON for bulk** - JSON is easier for multiple cards
 3. **Be specific** - Include all available information
@@ -461,18 +487,21 @@ For the best display, also include:
 ## Troubleshooting
 
 ### Image Not Displaying
+
 - ✓ Check file path is correct
 - ✓ Verify image exists at specified location
 - ✓ Check file extension matches (png vs jpg)
 - ✓ Ensure image is in `public/` folder or accessible URL
 
 ### Card Not Saving
+
 - ✓ Verify all required fields are provided
 - ✓ Check that typeId, rarityId, and setId exist in database
 - ✓ Ensure setNumber is unique within the set
 - ✓ Verify JSON format is valid (no syntax errors)
 
 ### Search Not Finding Card
+
 - ✓ Add relevant keywords to the card
 - ✓ Ensure name, pilot, and model fields are filled
 - ✓ Check faction and series are spelled correctly
@@ -483,6 +512,7 @@ For the best display, also include:
 ## Need Help?
 
 When requesting card imports, you can:
+
 - Send me a JSON file
 - Send me a CSV file
 - Describe the card in natural language
@@ -490,8 +520,9 @@ When requesting card imports, you can:
 - Ask me to create a template for your specific needs
 
 **Example request**:
+
 > "I need to import 20 cards from the BT-01 set. Can you create a CSV template I can fill out?"
 
 ---
 
-*Last Updated: November 2024*
+_Last Updated: November 2024_

@@ -37,23 +37,28 @@ export async function GET() {
     };
 
     if (connectionResult.success) {
-      return NextResponse.json({
-        status: 'success',
-        message: 'Connection to import source successful',
-        connection: connectionResult,
-        diagnostics,
-        testedAt: new Date().toISOString(),
-      }, { status: 200 });
+      return NextResponse.json(
+        {
+          status: 'success',
+          message: 'Connection to import source successful',
+          connection: connectionResult,
+          diagnostics,
+          testedAt: new Date().toISOString(),
+        },
+        { status: 200 }
+      );
     } else {
-      return NextResponse.json({
-        status: 'error',
-        message: 'Failed to connect to import source',
-        connection: connectionResult,
-        diagnostics,
-        testedAt: new Date().toISOString(),
-      }, { status: 503 }); // Service Unavailable
+      return NextResponse.json(
+        {
+          status: 'error',
+          message: 'Failed to connect to import source',
+          connection: connectionResult,
+          diagnostics,
+          testedAt: new Date().toISOString(),
+        },
+        { status: 503 }
+      ); // Service Unavailable
     }
-
   } catch (error) {
     console.error('Import test API error:', error);
 

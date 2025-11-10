@@ -27,7 +27,9 @@ export class DataValidationService {
   /**
    * Validate raw card data from scraper
    */
-  public async validateCardData(rawData: RawCardData): Promise<CardValidationResult> {
+  public async validateCardData(
+    rawData: RawCardData
+  ): Promise<CardValidationResult> {
     const errors: string[] = [];
     const warnings: string[] = [];
 
@@ -83,7 +85,10 @@ export class DataValidationService {
         warnings.push('Description is very long (over 2000 characters)');
       }
 
-      if (rawData.text?.officialText && rawData.text.officialText.length > 2000) {
+      if (
+        rawData.text?.officialText &&
+        rawData.text.officialText.length > 2000
+      ) {
         warnings.push('Official text is very long (over 2000 characters)');
       }
 
@@ -111,7 +116,7 @@ export class DataValidationService {
           'A-Laws',
           'Gjallarhorn',
           'Tekkadan',
-          'Other'
+          'Other',
         ];
 
         if (!validFactions.includes(rawData.categories.faction)) {
@@ -132,11 +137,12 @@ export class DataValidationService {
         errors,
         warnings,
       };
-
     } catch (error) {
       return {
         isValid: false,
-        errors: [`Validation error: ${error instanceof Error ? error.message : 'Unknown error'}`],
+        errors: [
+          `Validation error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        ],
         warnings,
       };
     }
@@ -145,7 +151,9 @@ export class DataValidationService {
   /**
    * Transform raw scraped data into database-ready format
    */
-  public async transformCardData(rawData: RawCardData): Promise<CreateCardData> {
+  public async transformCardData(
+    rawData: RawCardData
+  ): Promise<CreateCardData> {
     try {
       // Find or create card type
       const typeId = await this.findOrCreateCardType('Unit'); // Default type
@@ -194,7 +202,9 @@ export class DataValidationService {
         tags: this.generateCardTags(rawData),
 
         // Abilities (store as JSON string)
-        abilities: rawData.text?.abilities ? JSON.stringify([rawData.text.abilities]) : undefined,
+        abilities: rawData.text?.abilities
+          ? JSON.stringify([rawData.text.abilities])
+          : undefined,
 
         // Flags
         isFoil: rawData.flags?.isFoil || false,
@@ -206,9 +216,10 @@ export class DataValidationService {
       };
 
       return cardData;
-
     } catch (error) {
-      throw new Error(`Failed to transform card data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to transform card data: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -218,7 +229,7 @@ export class DataValidationService {
   private async findOrCreateCardType(typeName: string): Promise<string> {
     try {
       let cardType = await prisma.cardType.findUnique({
-        where: { name: typeName }
+        where: { name: typeName },
       });
 
       if (!cardType) {
@@ -226,14 +237,15 @@ export class DataValidationService {
           data: {
             name: typeName,
             description: `Auto-created type: ${typeName}`,
-          }
+          },
         });
       }
 
       return cardType.id;
-
     } catch (error) {
-      throw new Error(`Failed to find/create card type: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to find/create card type: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -243,15 +255,15 @@ export class DataValidationService {
   private async findOrCreateRarity(rarityName: string): Promise<string> {
     try {
       let rarity = await prisma.rarity.findUnique({
-        where: { name: rarityName }
+        where: { name: rarityName },
       });
 
       if (!rarity) {
         // Assign colors based on rarity name
         const rarityColors: Record<string, string> = {
-          'Common': '#6B7280',
-          'Uncommon': '#10B981',
-          'Rare': '#3B82F6',
+          Common: '#6B7280',
+          Uncommon: '#10B981',
+          Rare: '#3B82F6',
           'Super Rare': '#8B5CF6',
           'Ultra Rare': '#F59E0B',
           'Secret Rare': '#EF4444',
@@ -262,24 +274,28 @@ export class DataValidationService {
             name: rarityName,
             color: rarityColors[rarityName] || '#6B7280',
             description: `Auto-created rarity: ${rarityName}`,
-          }
+          },
         });
       }
 
       return rarity.id;
-
     } catch (error) {
-      throw new Error(`Failed to find/create rarity: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to find/create rarity: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
   /**
    * Find or create card set
    */
-  private async findOrCreateSet(setName: string, setCode: string): Promise<string> {
+  private async findOrCreateSet(
+    setName: string,
+    setCode: string
+  ): Promise<string> {
     try {
       let cardSet = await prisma.set.findUnique({
-        where: { code: setCode }
+        where: { code: setCode },
       });
 
       if (!cardSet) {
@@ -289,14 +305,15 @@ export class DataValidationService {
             code: setCode,
             releaseDate: new Date(), // Use current date as fallback
             description: `Auto-created set: ${setName}`,
-          }
+          },
         });
       }
 
       return cardSet.id;
-
     } catch (error) {
-      throw new Error(`Failed to find/create set: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to find/create set: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -334,7 +351,9 @@ export class DataValidationService {
 
     // Add pilot-based tags
     if (rawData.categories?.pilot) {
-      tags.push(`pilot-${rawData.categories.pilot.toLowerCase().replace(/\s+/g, '-')}`);
+      tags.push(
+        `pilot-${rawData.categories.pilot.toLowerCase().replace(/\s+/g, '-')}`
+      );
     }
 
     return [...new Set(tags)]; // Remove duplicates
@@ -367,27 +386,29 @@ export class DataValidationService {
    */
   private validateKeywords(keywords: string[]): string[] {
     return keywords
-      .map(keyword => keyword.trim())
-      .filter(keyword => keyword.length > 0 && keyword.length <= 50)
+      .map((keyword) => keyword.trim())
+      .filter((keyword) => keyword.length > 0 && keyword.length <= 50)
       .slice(0, 20); // Limit to 20 keywords
   }
 
   /**
    * Check if card data already exists in database
    */
-  public async checkDuplicateCard(setId: string, setNumber: string): Promise<boolean> {
+  public async checkDuplicateCard(
+    setId: string,
+    setNumber: string
+  ): Promise<boolean> {
     try {
       const existingCard = await prisma.card.findUnique({
         where: {
           setId_setNumber: {
             setId,
             setNumber,
-          }
-        }
+          },
+        },
       });
 
       return !!existingCard;
-
     } catch (error) {
       console.error('Error checking for duplicate card:', error);
       return false;
@@ -411,7 +432,10 @@ export class DataValidationService {
       cost: { present: cardData.cost !== undefined, weight: 5 },
       faction: { present: !!cardData.faction, weight: 4 },
       pilot: { present: !!cardData.pilot, weight: 3 },
-      keywords: { present: !!(cardData.keywords && cardData.keywords.length > 0), weight: 4 },
+      keywords: {
+        present: !!(cardData.keywords && cardData.keywords.length > 0),
+        weight: 4,
+      },
       clashPoints: { present: cardData.clashPoints !== undefined, weight: 3 },
     };
 

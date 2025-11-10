@@ -41,7 +41,9 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
     }
 
     const result = await transporter.sendMail({
-      from: process.env.EMAIL_FROM || '"Gundam Card Game" <noreply@gundam-card-game.com>',
+      from:
+        process.env.EMAIL_FROM ||
+        '"Gundam Card Game" <noreply@gundam-card-game.com>',
       ...options,
     });
 
@@ -56,7 +58,10 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 /**
  * Send email verification email
  */
-export async function sendEmailVerification(email: string, data: EmailVerificationData): Promise<boolean> {
+export async function sendEmailVerification(
+  email: string,
+  data: EmailVerificationData
+): Promise<boolean> {
   const subject = 'Verify your email address';
   const text = `
 Hello ${data.username},
@@ -106,7 +111,10 @@ Gundam Card Game Team
 /**
  * Send password reset email
  */
-export async function sendPasswordReset(email: string, data: PasswordResetData): Promise<boolean> {
+export async function sendPasswordReset(
+  email: string,
+  data: PasswordResetData
+): Promise<boolean> {
   const subject = 'Reset your password';
   const text = `
 Hello ${data.username},
@@ -159,7 +167,10 @@ Gundam Card Game Team
 /**
  * Send welcome email after successful email verification
  */
-export async function sendWelcomeEmail(email: string, username: string): Promise<boolean> {
+export async function sendWelcomeEmail(
+  email: string,
+  username: string
+): Promise<boolean> {
   const subject = 'Welcome to Gundam Card Game!';
   const text = `
 Welcome ${username}!

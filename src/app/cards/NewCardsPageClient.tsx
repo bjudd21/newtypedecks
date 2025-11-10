@@ -6,7 +6,12 @@ import { CardGrid } from '@/components/card/CardGrid';
 import { CardDetailOverlay } from '@/components/card/CardDetailOverlay';
 import { Input, Button, Badge } from '@/components/ui';
 import { cn } from '@/lib/utils';
-import type { CardWithRelations, CardSearchFilters, CardSearchOptions, CardSortField } from '@/lib/types/card';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+  CardSearchOptions,
+  CardSortField,
+} from '@/lib/types/card';
 
 export function NewCardsPageClient() {
   const router = useRouter();
@@ -14,7 +19,9 @@ export function NewCardsPageClient() {
 
   const [cards, setCards] = useState<CardWithRelations[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(null);
+  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(
+    null
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,44 +53,47 @@ export function NewCardsPageClient() {
     }
   }, [searchParams]);
 
-  const handleSearch = useCallback(async (query?: string) => {
-    setLoading(true);
-    try {
-      const filters: CardSearchFilters = {};
-      if (query || searchQuery) {
-        filters.name = query || searchQuery;
+  const handleSearch = useCallback(
+    async (query?: string) => {
+      setLoading(true);
+      try {
+        const filters: CardSearchFilters = {};
+        if (query || searchQuery) {
+          filters.name = query || searchQuery;
+        }
+
+        const options: CardSearchOptions = {
+          page: currentPage,
+          limit: 20,
+          sortBy,
+          sortOrder,
+          includeRelations: true,
+        };
+
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ filters, options }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch cards');
+        }
+
+        const result = await response.json();
+        setCards(result.cards);
+        setTotalResults(result.total);
+        setTotalPages(result.totalPages);
+      } catch (error) {
+        console.error('Error searching cards:', error);
+      } finally {
+        setLoading(false);
       }
-
-      const options: CardSearchOptions = {
-        page: currentPage,
-        limit: 20,
-        sortBy,
-        sortOrder,
-        includeRelations: true,
-      };
-
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ filters, options }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch cards');
-      }
-
-      const result = await response.json();
-      setCards(result.cards);
-      setTotalResults(result.total);
-      setTotalPages(result.totalPages);
-    } catch (error) {
-      console.error('Error searching cards:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [searchQuery, currentPage, sortBy, sortOrder]);
+    },
+    [searchQuery, currentPage, sortBy, sortOrder]
+  );
 
   const handleRandomCard = useCallback(async () => {
     setLoading(true);
@@ -112,15 +122,15 @@ export function NewCardsPageClient() {
 
   // Toggle color filter
   const toggleColorFilter = (color: string) => {
-    setSelectedColors(prev =>
-      prev.includes(color) ? prev.filter(c => c !== color) : [...prev, color]
+    setSelectedColors((prev) =>
+      prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
     );
   };
 
   // Toggle type filter
   const toggleTypeFilter = (type: string) => {
-    setSelectedTypes(prev =>
-      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     );
   };
 
@@ -139,26 +149,36 @@ export function NewCardsPageClient() {
   }, [selectedColors, selectedTypes]);
 
   return (
-    <div className="space-y-6 min-h-screen">
+    <div className="min-h-screen space-y-6">
       {/* Header with search */}
-      <div className="flex items-center gap-4 p-4 bg-[#2d2640] rounded-lg border border-[#443a5c]">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#6b5a8a] to-[#8b7aaa] flex items-center justify-center flex-shrink-0 shadow-lg">
-          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      <div className="flex items-center gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#6b5a8a] to-[#8b7aaa] shadow-lg">
+          <svg
+            className="h-5 w-5 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
           </svg>
         </div>
 
-        <form onSubmit={handleSearchSubmit} className="flex-1 flex gap-4">
+        <form onSubmit={handleSearchSubmit} className="flex flex-1 gap-4">
           <Input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search cards by name, type, or ability..."
-            className="flex-1 bg-[#1a1625] border-[#443a5c] text-white placeholder-gray-500 focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30"
+            className="flex-1 border-[#443a5c] bg-[#1a1625] text-white placeholder-gray-500 focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30"
           />
           <Button
             type="submit"
-            className="bg-[#6b5a8a] hover:bg-[#8b7aaa] text-white px-6"
+            className="bg-[#6b5a8a] px-6 text-white hover:bg-[#8b7aaa]"
             disabled={loading}
           >
             {loading ? 'Searching...' : 'Search'}
@@ -169,18 +189,20 @@ export function NewCardsPageClient() {
       {/* Filters and controls */}
       <div className="space-y-3">
         {/* Main filter bar */}
-        <div className="flex flex-wrap items-center gap-3 p-4 bg-[#2d2640] rounded-lg border border-[#443a5c]">
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
           {/* Color filters */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-400 font-medium mr-1">COLOR:</span>
+            <span className="mr-1 text-xs font-medium text-gray-400">
+              COLOR:
+            </span>
             <button
               onClick={() => toggleColorFilter('blue')}
               className={cn(
-                'w-7 h-7 rounded-md bg-blue-600 transition-all duration-300 shadow-md cursor-pointer',
+                'h-7 w-7 cursor-pointer rounded-md bg-blue-600 shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('blue')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by Blue"
               aria-pressed={selectedColors.includes('blue')}
@@ -188,11 +210,11 @@ export function NewCardsPageClient() {
             <button
               onClick={() => toggleColorFilter('green')}
               className={cn(
-                'w-7 h-7 rounded-md bg-green-600 transition-all duration-300 shadow-md cursor-pointer',
+                'h-7 w-7 cursor-pointer rounded-md bg-green-600 shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('green')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by Green"
               aria-pressed={selectedColors.includes('green')}
@@ -200,11 +222,11 @@ export function NewCardsPageClient() {
             <button
               onClick={() => toggleColorFilter('red')}
               className={cn(
-                'w-7 h-7 rounded-md bg-red-600 transition-all duration-300 shadow-md cursor-pointer',
+                'h-7 w-7 cursor-pointer rounded-md bg-red-600 shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('red')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by Red"
               aria-pressed={selectedColors.includes('red')}
@@ -212,11 +234,11 @@ export function NewCardsPageClient() {
             <button
               onClick={() => toggleColorFilter('purple')}
               className={cn(
-                'w-7 h-7 rounded-md bg-purple-600 transition-all duration-300 shadow-md cursor-pointer',
+                'h-7 w-7 cursor-pointer rounded-md bg-purple-600 shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('purple')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by Purple"
               aria-pressed={selectedColors.includes('purple')}
@@ -224,11 +246,11 @@ export function NewCardsPageClient() {
             <button
               onClick={() => toggleColorFilter('white')}
               className={cn(
-                'w-7 h-7 rounded-md bg-white transition-all duration-300 shadow-md cursor-pointer border border-gray-300',
+                'h-7 w-7 cursor-pointer rounded-md border border-gray-300 bg-white shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('white')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by White"
               aria-pressed={selectedColors.includes('white')}
@@ -236,11 +258,11 @@ export function NewCardsPageClient() {
             <button
               onClick={() => toggleColorFilter('colorless')}
               className={cn(
-                'w-7 h-7 rounded-md bg-gray-400 transition-all duration-300 shadow-md cursor-pointer',
+                'h-7 w-7 cursor-pointer rounded-md bg-gray-400 shadow-md transition-all duration-300',
                 'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
                 selectedColors.includes('colorless')
-                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
-                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+                  ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
+                  : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50'
               )}
               title="Filter by Colorless"
               aria-pressed={selectedColors.includes('colorless')}
@@ -250,17 +272,19 @@ export function NewCardsPageClient() {
           <div className="h-7 w-px bg-[#443a5c]" />
 
           {/* Type filters */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-gray-400 font-medium mr-1">TYPE:</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-medium text-gray-400">
+              TYPE:
+            </span>
             <Button
               variant="outline"
               size="sm"
               onClick={() => toggleTypeFilter('Unit')}
               className={cn(
-                'text-xs h-7 px-3 transition-all duration-300',
+                'h-7 px-3 text-xs transition-all duration-300',
                 selectedTypes.includes('Unit')
-                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
-                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+                  ? 'border-[#8b7aaa] bg-[#6b5a8a] text-white shadow-md'
+                  : 'border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#2d2640]'
               )}
             >
               Unit
@@ -270,10 +294,10 @@ export function NewCardsPageClient() {
               size="sm"
               onClick={() => toggleTypeFilter('Command')}
               className={cn(
-                'text-xs h-7 px-3 transition-all duration-300',
+                'h-7 px-3 text-xs transition-all duration-300',
                 selectedTypes.includes('Command')
-                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
-                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+                  ? 'border-[#8b7aaa] bg-[#6b5a8a] text-white shadow-md'
+                  : 'border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#2d2640]'
               )}
             >
               Command
@@ -283,10 +307,10 @@ export function NewCardsPageClient() {
               size="sm"
               onClick={() => toggleTypeFilter('Base')}
               className={cn(
-                'text-xs h-7 px-3 transition-all duration-300',
+                'h-7 px-3 text-xs transition-all duration-300',
                 selectedTypes.includes('Base')
-                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
-                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+                  ? 'border-[#8b7aaa] bg-[#6b5a8a] text-white shadow-md'
+                  : 'border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#2d2640]'
               )}
             >
               Base
@@ -296,10 +320,10 @@ export function NewCardsPageClient() {
               size="sm"
               onClick={() => toggleTypeFilter('Pilot')}
               className={cn(
-                'text-xs h-7 px-3 transition-all duration-300',
+                'h-7 px-3 text-xs transition-all duration-300',
                 selectedTypes.includes('Pilot')
-                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
-                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+                  ? 'border-[#8b7aaa] bg-[#6b5a8a] text-white shadow-md'
+                  : 'border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#2d2640]'
               )}
             >
               Pilot
@@ -313,7 +337,7 @@ export function NewCardsPageClient() {
             <Button
               variant="outline"
               size="sm"
-              className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white"
+              className="h-7 border-[#443a5c] bg-[#1a1625] px-3 text-xs text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a]"
               onClick={() => router.push('/cards?view=sets')}
             >
               📚 Sets
@@ -321,7 +345,7 @@ export function NewCardsPageClient() {
             <Button
               variant="outline"
               size="sm"
-              className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white"
+              className="h-7 border-[#443a5c] bg-[#1a1625] px-3 text-xs text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a]"
               onClick={handleRandomCard}
             >
               🎲 Random
@@ -329,15 +353,33 @@ export function NewCardsPageClient() {
           </div>
 
           {/* View toggles */}
-          <div className="ml-auto flex items-center gap-1 border border-[#443a5c] rounded-md overflow-hidden">
-            <button className="p-2 bg-[#6b5a8a] hover:bg-[#8b7aaa] transition-colors" title="Grid view">
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <div className="ml-auto flex items-center gap-1 overflow-hidden rounded-md border border-[#443a5c]">
+            <button
+              className="bg-[#6b5a8a] p-2 transition-colors hover:bg-[#8b7aaa]"
+              title="Grid view"
+            >
+              <svg
+                className="h-4 w-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
             </button>
-            <button className="p-2 bg-[#1a1625] hover:bg-[#2d2640] transition-colors" title="List view">
-              <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+            <button
+              className="bg-[#1a1625] p-2 transition-colors hover:bg-[#2d2640]"
+              title="List view"
+            >
+              <svg
+                className="h-4 w-4 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
           </div>
@@ -345,14 +387,16 @@ export function NewCardsPageClient() {
 
         {/* Active filters display */}
         {(selectedColors.length > 0 || selectedTypes.length > 0) && (
-          <div className="flex items-center gap-3 flex-wrap p-3 bg-[#1a1625] rounded-lg border border-[#443a5c]">
-            <span className="text-xs text-gray-400 font-medium">Active filters:</span>
+          <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[#443a5c] bg-[#1a1625] p-3">
+            <span className="text-xs font-medium text-gray-400">
+              Active filters:
+            </span>
 
             {/* Color filter badges */}
-            {selectedColors.map(color => (
+            {selectedColors.map((color) => (
               <Badge
                 key={color}
-                className="bg-[#6b5a8a] hover:bg-[#8b7aaa] text-white cursor-pointer transition-colors duration-200 flex items-center gap-1.5 px-2.5 py-1"
+                className="flex cursor-pointer items-center gap-1.5 bg-[#6b5a8a] px-2.5 py-1 text-white transition-colors duration-200 hover:bg-[#8b7aaa]"
                 onClick={() => toggleColorFilter(color)}
               >
                 <span className="capitalize">{color}</span>
@@ -361,10 +405,10 @@ export function NewCardsPageClient() {
             ))}
 
             {/* Type filter badges */}
-            {selectedTypes.map(type => (
+            {selectedTypes.map((type) => (
               <Badge
                 key={type}
-                className="bg-[#6b5a8a] hover:bg-[#8b7aaa] text-white cursor-pointer transition-colors duration-200 flex items-center gap-1.5 px-2.5 py-1"
+                className="flex cursor-pointer items-center gap-1.5 bg-[#6b5a8a] px-2.5 py-1 text-white transition-colors duration-200 hover:bg-[#8b7aaa]"
                 onClick={() => toggleTypeFilter(type)}
               >
                 {type}
@@ -375,7 +419,7 @@ export function NewCardsPageClient() {
             {/* Clear all button */}
             <button
               onClick={clearAllFilters}
-              className="text-xs text-[#8b7aaa] hover:text-[#a89ec7] transition-colors duration-200 font-medium ml-auto"
+              className="ml-auto text-xs font-medium text-[#8b7aaa] transition-colors duration-200 hover:text-[#a89ec7]"
             >
               Clear all
             </button>
@@ -385,7 +429,7 @@ export function NewCardsPageClient() {
         {/* Sort bar and results */}
         <div className="flex items-center justify-between px-1">
           <div className="flex items-center gap-3 text-sm">
-            <span className="text-gray-400 font-medium">Sort by:</span>
+            <span className="font-medium text-gray-400">Sort by:</span>
             <select
               value={`${sortBy}:${sortOrder}`}
               onChange={(e) => {
@@ -393,7 +437,7 @@ export function NewCardsPageClient() {
                 setSortBy(field as CardSortField);
                 setSortOrder(order as 'asc' | 'desc');
               }}
-              className="bg-[#2d2640] border-[#443a5c] text-white text-sm h-8 px-3 rounded-md focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30 focus:outline-none"
+              className="h-8 rounded-md border-[#443a5c] bg-[#2d2640] px-3 text-sm text-white focus:border-[#6b5a8a] focus:outline-none focus:ring-[#6b5a8a]/30"
             >
               <option value="name:asc">Name (A-Z)</option>
               <option value="cost:asc">Cost (Low to High)</option>
@@ -407,7 +451,7 @@ export function NewCardsPageClient() {
           {totalResults > 0 && (
             <div className="text-sm font-medium">
               <span className="text-white">{totalResults}</span>
-              <span className="text-gray-400 ml-1">cards found</span>
+              <span className="ml-1 text-gray-400">cards found</span>
             </div>
           )}
         </div>
@@ -415,28 +459,30 @@ export function NewCardsPageClient() {
 
       {/* Navigation */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between bg-[#2d2640] p-3 rounded-lg border border-[#443a5c]">
-          <div className="flex gap-2 items-center">
+        <div className="flex items-center justify-between rounded-lg border border-[#443a5c] bg-[#2d2640] p-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1 || loading}
-              className="bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a] disabled:cursor-not-allowed disabled:opacity-50"
             >
               ← Previous
             </Button>
-            <div className="px-4 py-1.5 text-sm bg-[#1a1625] border border-[#443a5c] rounded-md">
-              <span className="text-white font-medium">{currentPage}</span>
-              <span className="text-gray-400 mx-1">/</span>
+            <div className="rounded-md border border-[#443a5c] bg-[#1a1625] px-4 py-1.5 text-sm">
+              <span className="font-medium text-white">{currentPage}</span>
+              <span className="mx-1 text-gray-400">/</span>
               <span className="text-gray-400">{totalPages}</span>
             </div>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+              onClick={() =>
+                setCurrentPage(Math.min(totalPages, currentPage + 1))
+              }
               disabled={currentPage === totalPages || loading}
-              className="bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              className="border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Next →
             </Button>
@@ -459,27 +505,29 @@ export function NewCardsPageClient() {
 
       {/* Bottom navigation */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 bg-[#2d2640] p-3 rounded-lg border border-[#443a5c]">
+        <div className="flex items-center justify-center gap-2 rounded-lg border border-[#443a5c] bg-[#2d2640] p-3">
           <Button
             variant="outline"
             size="sm"
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1 || loading}
-            className="bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a] disabled:cursor-not-allowed disabled:opacity-50"
           >
             ← Previous
           </Button>
-          <div className="px-4 py-1.5 text-sm bg-[#1a1625] border border-[#443a5c] rounded-md">
-            <span className="text-white font-medium">{currentPage}</span>
-            <span className="text-gray-400 mx-1">/</span>
+          <div className="rounded-md border border-[#443a5c] bg-[#1a1625] px-4 py-1.5 text-sm">
+            <span className="font-medium text-white">{currentPage}</span>
+            <span className="mx-1 text-gray-400">/</span>
             <span className="text-gray-400">{totalPages}</span>
           </div>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            onClick={() =>
+              setCurrentPage(Math.min(totalPages, currentPage + 1))
+            }
             disabled={currentPage === totalPages || loading}
-            className="bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next →
           </Button>

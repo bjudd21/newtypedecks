@@ -195,7 +195,9 @@ const Search: React.FC<SearchProps> = ({
             aria-expanded={isOpen && filteredSuggestions.length > 0}
             aria-controls={isOpen ? listboxId : undefined}
             aria-activedescendant={
-              highlightedIndex >= 0 ? `${listboxId}-option-${highlightedIndex}` : undefined
+              highlightedIndex >= 0
+                ? `${listboxId}-option-${highlightedIndex}`
+                : undefined
             }
             aria-labelledby={label ? labelId : undefined}
             aria-describedby={error ? errorId : undefined}
@@ -217,11 +219,16 @@ const Search: React.FC<SearchProps> = ({
                 setHighlightedIndex(-1);
                 inputRef.current?.focus();
               }}
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md"
+              className="absolute inset-y-0 right-0 flex items-center rounded-md pr-3 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               aria-label="Clear search"
               tabIndex={-1}
             >
-              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <svg
+                className="h-4 w-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -248,7 +255,7 @@ const Search: React.FC<SearchProps> = ({
                 aria-selected={index === highlightedIndex}
                 onClick={() => handleSuggestionSelect(suggestion)}
                 className={cn(
-                  'relative cursor-pointer select-none px-4 py-2 hover:bg-blue-50 focus:outline-none focus:bg-blue-50',
+                  'relative cursor-pointer select-none px-4 py-2 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none',
                   index === highlightedIndex && 'bg-blue-100 text-blue-900'
                 )}
               >

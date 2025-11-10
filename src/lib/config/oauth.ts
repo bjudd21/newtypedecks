@@ -22,24 +22,22 @@ export interface OAuthConfig {
 export function getOAuthConfig(): OAuthConfig {
   return {
     google: {
-      enabled: !!(
+      enabled: !!(typeof window !== 'undefined'
+        ? process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+        : process.env.GOOGLE_CLIENT_ID),
+      clientId:
         typeof window !== 'undefined'
           ? process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-          : process.env.GOOGLE_CLIENT_ID
-      ),
-      clientId: typeof window !== 'undefined'
-        ? process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-        : undefined,
+          : undefined,
     },
     discord: {
-      enabled: !!(
+      enabled: !!(typeof window !== 'undefined'
+        ? process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID
+        : process.env.DISCORD_CLIENT_ID),
+      clientId:
         typeof window !== 'undefined'
           ? process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID
-          : process.env.DISCORD_CLIENT_ID
-      ),
-      clientId: typeof window !== 'undefined'
-        ? process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID
-        : undefined,
+          : undefined,
     },
   };
 }

@@ -2,8 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
-import { socialService, type UserProfile as UserProfileType } from '@/lib/services/socialService';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
+import {
+  socialService,
+  type UserProfile as UserProfileType,
+} from '@/lib/services/socialService';
 import { useAuth } from '@/hooks';
 
 interface UserProfileProps {
@@ -15,7 +25,7 @@ interface UserProfileProps {
 export const UserProfile: React.FC<UserProfileProps> = ({
   userId,
   isOwnProfile = false,
-  className
+  className,
 }) => {
   const { user: currentUser } = useAuth();
   const [profile, setProfile] = useState<UserProfileType | null>(null);
@@ -23,7 +33,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
   const [_followerCount, setFollowerCount] = useState(0);
-  const [activeTab, setActiveTab] = useState<'overview' | 'decks' | 'activity' | 'badges'>('overview');
+  const [activeTab, setActiveTab] = useState<
+    'overview' | 'decks' | 'activity' | 'badges'
+  >('overview');
 
   useEffect(() => {
     loadUserProfile();
@@ -52,7 +64,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     if (!currentUser || !profile) return;
 
     try {
-      const result = await socialService.toggleUserFollow(profile.id, currentUser.id);
+      const result = await socialService.toggleUserFollow(
+        profile.id,
+        currentUser.id
+      );
       setIsFollowing(result.isFollowing);
       setFollowerCount(result.followerCount);
     } catch (error) {
@@ -63,7 +78,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   const formatJoinDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
-      month: 'long'
+      month: 'long',
     }).format(date);
   };
 
@@ -81,10 +96,14 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
   const getBadgeRarityColor = (rarity: string) => {
     switch (rarity) {
-      case 'legendary': return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white';
-      case 'rare': return 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white';
-      case 'uncommon': return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white';
-      default: return 'bg-gray-400 text-white';
+      case 'legendary':
+        return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white';
+      case 'rare':
+        return 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white';
+      case 'uncommon':
+        return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white';
+      default:
+        return 'bg-gray-400 text-white';
     }
   };
 
@@ -93,7 +112,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       <Card className={className}>
         <CardContent className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
             <p className="text-gray-600">Loading profile...</p>
           </div>
         </CardContent>
@@ -104,8 +123,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   if (error || !profile) {
     return (
       <Card className={className}>
-        <CardContent className="text-center py-12">
-          <div className="text-red-600 mb-4">⚠️</div>
+        <CardContent className="py-12 text-center">
+          <div className="mb-4 text-red-600">⚠️</div>
           <p className="text-gray-600">{error || 'Profile not found'}</p>
         </CardContent>
       </Card>
@@ -129,7 +148,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                   className="rounded-full object-cover"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-2xl font-bold text-white">
                   {profile.displayName.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -137,8 +156,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
             {/* Profile Info */}
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-2xl font-bold text-gray-900">{profile.displayName}</h1>
+              <div className="mb-2 flex items-center gap-3">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {profile.displayName}
+                </h1>
                 {profile.isVerified && (
                   <Badge variant="primary" className="bg-blue-600 text-white">
                     ✓ Verified
@@ -146,12 +167,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 )}
               </div>
 
-              <p className="text-gray-600 mb-1">@{profile.username}</p>
+              <p className="mb-1 text-gray-600">@{profile.username}</p>
               {profile.bio && (
-                <p className="text-gray-700 mb-3">{profile.bio}</p>
+                <p className="mb-3 text-gray-700">{profile.bio}</p>
               )}
 
-              <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+              <div className="mb-4 flex items-center gap-4 text-sm text-gray-600">
                 <span>📅 Joined {formatJoinDate(profile.joinDate)}</span>
                 <span>⏰ {getLastActiveText(profile.lastActive)}</span>
                 {profile.location && profile.preferences.showLocation && (
@@ -170,21 +191,29 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               </div>
 
               {/* Stats */}
-              <div className="flex items-center gap-6 mb-4">
+              <div className="mb-4 flex items-center gap-6">
                 <div className="text-center">
-                  <div className="font-bold text-gray-900">{profile.statistics.followers}</div>
+                  <div className="font-bold text-gray-900">
+                    {profile.statistics.followers}
+                  </div>
                   <div className="text-sm text-gray-600">Followers</div>
                 </div>
                 <div className="text-center">
-                  <div className="font-bold text-gray-900">{profile.statistics.following}</div>
+                  <div className="font-bold text-gray-900">
+                    {profile.statistics.following}
+                  </div>
                   <div className="text-sm text-gray-600">Following</div>
                 </div>
                 <div className="text-center">
-                  <div className="font-bold text-gray-900">{profile.statistics.publicDecks}</div>
+                  <div className="font-bold text-gray-900">
+                    {profile.statistics.publicDecks}
+                  </div>
                   <div className="text-sm text-gray-600">Public Decks</div>
                 </div>
                 <div className="text-center">
-                  <div className="font-bold text-gray-900">{profile.statistics.deckLikes}</div>
+                  <div className="font-bold text-gray-900">
+                    {profile.statistics.deckLikes}
+                  </div>
                   <div className="text-sm text-gray-600">Total Likes</div>
                 </div>
               </div>
@@ -228,15 +257,19 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               { id: 'overview', label: '📊 Overview' },
               { id: 'decks', label: '🃏 Decks' },
               { id: 'activity', label: '📈 Activity' },
-              { id: 'badges', label: '🏆 Badges' }
-            ].map(tab => (
+              { id: 'badges', label: '🏆 Badges' },
+            ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as 'overview' | 'decks' | 'activity' | 'badges')}
-                className={`py-3 px-1 border-b-2 font-medium text-sm ${
+                onClick={() =>
+                  setActiveTab(
+                    tab.id as 'overview' | 'decks' | 'activity' | 'badges'
+                  )
+                }
+                className={`border-b-2 px-1 py-3 text-sm font-medium ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
                 }`}
               >
                 {tab.label}
@@ -248,7 +281,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
       {/* Tab Content */}
       {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <Card>
             <CardHeader>
               <CardTitle>Statistics</CardTitle>
@@ -257,16 +290,22 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Total Decks</span>
-                  <span className="font-medium">{profile.statistics.totalDecks}</span>
+                  <span className="font-medium">
+                    {profile.statistics.totalDecks}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Public Decks</span>
-                  <span className="font-medium">{profile.statistics.publicDecks}</span>
+                  <span className="font-medium">
+                    {profile.statistics.publicDecks}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Average Rating</span>
                   <div className="flex items-center gap-1">
-                    <span className="font-medium">{profile.statistics.averageRating.toFixed(1)}</span>
+                    <span className="font-medium">
+                      {profile.statistics.averageRating.toFixed(1)}
+                    </span>
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <span
@@ -285,16 +324,22 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Comments Given</span>
-                  <span className="font-medium">{profile.statistics.commentsGiven}</span>
+                  <span className="font-medium">
+                    {profile.statistics.commentsGiven}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Comments Received</span>
-                  <span className="font-medium">{profile.statistics.commentsReceived}</span>
+                  <span className="font-medium">
+                    {profile.statistics.commentsReceived}
+                  </span>
                 </div>
                 {profile.statistics.favoriteArchetype && (
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">Favorite Archetype</span>
-                    <Badge variant="secondary">{profile.statistics.favoriteArchetype}</Badge>
+                    <Badge variant="secondary">
+                      {profile.statistics.favoriteArchetype}
+                    </Badge>
                   </div>
                 )}
               </div>
@@ -308,30 +353,36 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             <CardContent>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
                     🃏
                   </div>
                   <div className="flex-1">
                     <div className="font-medium">Created new deck</div>
-                    <div className="text-gray-600">Tournament Aggro Build • 2 hours ago</div>
+                    <div className="text-gray-600">
+                      Tournament Aggro Build • 2 hours ago
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
                     💬
                   </div>
                   <div className="flex-1">
                     <div className="font-medium">Commented on deck</div>
-                    <div className="text-gray-600">Control Lock Meta Analysis • 1 day ago</div>
+                    <div className="text-gray-600">
+                      Control Lock Meta Analysis • 1 day ago
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
                     ⭐
                   </div>
                   <div className="flex-1">
                     <div className="font-medium">Rated deck</div>
-                    <div className="text-gray-600">Midrange Value Engine • 3 days ago</div>
+                    <div className="text-gray-600">
+                      Midrange Value Engine • 3 days ago
+                    </div>
                   </div>
                 </div>
               </div>
@@ -346,8 +397,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             <CardTitle>Public Decks</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-600">
-              <div className="text-4xl mb-2">🃏</div>
+            <div className="py-8 text-center text-gray-600">
+              <div className="mb-2 text-4xl">🃏</div>
               <p>Deck list will be loaded here</p>
             </div>
           </CardContent>
@@ -360,8 +411,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             <CardTitle>Activity Feed</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-600">
-              <div className="text-4xl mb-2">📈</div>
+            <div className="py-8 text-center text-gray-600">
+              <div className="mb-2 text-4xl">📈</div>
               <p>Activity feed will be loaded here</p>
             </div>
           </CardContent>
@@ -375,23 +426,25 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           </CardHeader>
           <CardContent>
             {profile.badges.length === 0 ? (
-              <div className="text-center py-8 text-gray-600">
-                <div className="text-4xl mb-2">🏆</div>
+              <div className="py-8 text-center text-gray-600">
+                <div className="mb-2 text-4xl">🏆</div>
                 <p>No badges earned yet</p>
                 <p className="text-sm">Complete activities to earn badges!</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {profile.badges.map((badge) => (
                   <div
                     key={badge.id}
-                    className={`p-4 rounded-lg ${getBadgeRarityColor(badge.rarity)}`}
+                    className={`rounded-lg p-4 ${getBadgeRarityColor(badge.rarity)}`}
                   >
                     <div className="text-center">
-                      <div className="text-3xl mb-2">{badge.icon}</div>
+                      <div className="mb-2 text-3xl">{badge.icon}</div>
                       <div className="font-semibold">{badge.name}</div>
-                      <div className="text-sm opacity-90">{badge.description}</div>
-                      <div className="text-xs opacity-75 mt-2">
+                      <div className="text-sm opacity-90">
+                        {badge.description}
+                      </div>
+                      <div className="mt-2 text-xs opacity-75">
                         Earned {new Date(badge.earnedAt).toLocaleDateString()}
                       </div>
                     </div>

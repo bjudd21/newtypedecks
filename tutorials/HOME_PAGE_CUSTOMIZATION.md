@@ -5,6 +5,7 @@ This guide shows you how to easily customize the purple-themed home page (`src/a
 > **Note**: The entire website uses a consistent purple theme. When making changes, maintain the purple color palette for visual consistency.
 
 ## File Location
+
 `/Users/mkv/Documents/Projects/GCG/src/app/page.tsx`
 
 ---
@@ -16,13 +17,16 @@ This guide shows you how to easily customize the purple-themed home page (`src/a
 **Component:** Hero Heading (in Hero Section)
 
 **Current:**
+
 ```tsx
-<motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-8 text-white">
-  Gundam Card Game is a powerful <span className="font-semibold">card search</span>
+<motion.h1 className="mb-8 text-4xl font-light text-white md:text-5xl lg:text-6xl">
+  Gundam Card Game is a powerful{' '}
+  <span className="font-semibold">card search</span>
 </motion.h1>
 ```
 
 **Examples:**
+
 ```tsx
 // Option 1: More casual
 Gundam Card Game is a powerful <span className="font-semibold">card database</span>
@@ -41,15 +45,17 @@ The ultimate <span className="font-semibold">Gundam card community</span>
 **Component:** Hero Search Bar (in Hero Section)
 
 **Current:**
+
 ```tsx
-placeholder="Search for cards..."
+placeholder = 'Search for cards...';
 ```
 
 **Examples:**
+
 ```tsx
-placeholder="Find your perfect card..."
-placeholder="Search cards by name, type, or set..."
-placeholder="What card are you looking for?"
+placeholder = 'Find your perfect card...';
+placeholder = 'Search cards by name, type, or set...';
+placeholder = 'What card are you looking for?';
 ```
 
 ---
@@ -59,21 +65,28 @@ placeholder="What card are you looking for?"
 **Component:** Quick Action Buttons (below Hero Search Bar)
 
 **Current buttons:**
+
 - Advanced Search → `/cards`
 - Deck Builder → `/decks`
 - All Sets → `/cards?view=sets`
 - Random Card → `/cards/random`
 
 **Add a new button:**
+
 ```tsx
 <Link href="/collection">
-  <Button variant="secondary" size="sm" className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white">
+  <Button
+    variant="secondary"
+    size="sm"
+    className="border-[#443a5c] bg-[#2d2640] text-white hover:bg-[#3a3050]"
+  >
     My Collection
   </Button>
 </Link>
 ```
 
 **Change button text:**
+
 ```tsx
 // Before
 Advanced Search
@@ -89,14 +102,16 @@ Browse All Cards
 **Component:** Announcement Items (in Announcements Section)
 
 **Current:**
+
 ```tsx
 <div className="flex items-center gap-2">
-  <Badge className="bg-orange-600 text-white font-semibold text-xs">NEW</Badge>
+  <Badge className="bg-orange-600 text-xs font-semibold text-white">NEW</Badge>
   <span className="text-gray-300">Latest Booster Set Available</span>
 </div>
 ```
 
 **Change colors:**
+
 ```tsx
 // Green badge
 <Badge className="bg-green-600 text-white font-semibold text-xs">NEW</Badge>
@@ -109,6 +124,7 @@ Browse All Cards
 ```
 
 **Change text:**
+
 ```tsx
 <span className="text-gray-300">New cards added daily</span>
 <span className="text-gray-300">Join our Discord community</span>
@@ -116,9 +132,12 @@ Browse All Cards
 ```
 
 **Add a new news item:**
+
 ```tsx
 <div className="flex items-center gap-2">
-  <Badge className="bg-green-600 text-white font-semibold text-xs">UPDATE</Badge>
+  <Badge className="bg-green-600 text-xs font-semibold text-white">
+    UPDATE
+  </Badge>
   <span className="text-gray-300">Deck sharing now available</span>
 </div>
 ```
@@ -130,11 +149,13 @@ Browse All Cards
 **Component:** Section Heading (in Content Sections)
 
 **Current:**
+
 ```tsx
 <h2 className="text-2xl font-semibold text-white">Recent Decks</h2>
 ```
 
 **Examples:**
+
 ```tsx
 <h2 className="text-2xl font-semibold text-white">Popular Decks</h2>
 <h2 className="text-2xl font-semibold text-white">Featured Decks</h2>
@@ -148,17 +169,33 @@ Browse All Cards
 **Component:** Footer (in Legal Compliance Footer)
 
 **Add a new footer column:**
+
 ```tsx
 <div>
-  <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">SOCIAL</h3>
+  <h3 className="mb-3 text-xs font-bold uppercase text-gray-400">SOCIAL</h3>
   <ul className="space-y-2">
-    <li><Link href="/discord" className="text-sm text-gray-500 hover:text-white transition-colors">Discord</Link></li>
-    <li><Link href="/twitter" className="text-sm text-gray-500 hover:text-white transition-colors">Twitter</Link></li>
+    <li>
+      <Link
+        href="/discord"
+        className="text-sm text-gray-500 transition-colors hover:text-white"
+      >
+        Discord
+      </Link>
+    </li>
+    <li>
+      <Link
+        href="/twitter"
+        className="text-sm text-gray-500 transition-colors hover:text-white"
+      >
+        Twitter
+      </Link>
+    </li>
   </ul>
 </div>
 ```
 
 **Change existing footer links:**
+
 ```tsx
 // Before
 <li><Link href="/about" className="text-sm text-gray-500 hover:text-white transition-colors">About</Link></li>
@@ -174,6 +211,7 @@ Browse All Cards
 > **Important**: The entire website uses a consistent purple theme. When customizing colors, stay within the purple palette to maintain visual consistency across all pages.
 
 ### Purple Theme Color Reference
+
 - `#1a1625` - Deep purple-black (primary background)
 - `#2a1f3d` - Medium purple-gray (secondary background)
 - `#2d2640` - Card backgrounds
@@ -188,20 +226,26 @@ Browse All Cards
 **Component:** Page Background (root container)
 
 **Current:**
+
 ```tsx
-className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]"
+className =
+  'min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]';
 ```
 
 **Purple Theme Examples:**
+
 ```tsx
 // Darker purple gradient
-className="min-h-screen bg-gradient-to-b from-[#0f0d15] via-[#1a1625] to-[#0f0d15]"
+className =
+  'min-h-screen bg-gradient-to-b from-[#0f0d15] via-[#1a1625] to-[#0f0d15]';
 
 // Lighter purple (more visible)
-className="min-h-screen bg-gradient-to-b from-[#2a1f3d] via-[#3a2f4d] to-[#2a1f3d]"
+className =
+  'min-h-screen bg-gradient-to-b from-[#2a1f3d] via-[#3a2f4d] to-[#2a1f3d]';
 
 // Three-tone gradient
-className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2d2640] to-[#1a1625]"
+className =
+  'min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2d2640] to-[#1a1625]';
 ```
 
 ### Search Bar Colors
@@ -209,17 +253,21 @@ className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2d2640] to-[#1a162
 **Component:** Hero Search Bar input field
 
 **Current Purple Theme:**
+
 ```tsx
-className="w-full py-4 pl-12 pr-4 bg-[#2d2640] border border-[#443a5c] rounded-md text-base text-white placeholder-gray-500 focus:outline-none focus:border-[#6b5a8a] focus:ring-2 focus:ring-[#6b5a8a]/30 transition-all"
+className =
+  'w-full py-4 pl-12 pr-4 bg-[#2d2640] border border-[#443a5c] rounded-md text-base text-white placeholder-gray-500 focus:outline-none focus:border-[#6b5a8a] focus:ring-2 focus:ring-[#6b5a8a]/30 transition-all';
 ```
 
 **Purple Theme Color Breakdown:**
+
 - `bg-[#2d2640]` - Card background purple
 - `border-[#443a5c]` - Default border purple
 - `focus:border-[#6b5a8a]` - Interactive border purple when focused
 - `focus:ring-[#6b5a8a]/30` - Purple glow effect (30% opacity)
 
 **Purple Theme Variations:**
+
 ```tsx
 // Lighter background (more prominent)
 bg-[#3a3050]
@@ -243,6 +291,7 @@ focus:border-[#8b7aaa] focus:ring-[#8b7aaa]/40
 **Component:** Hero Heading animation
 
 **Current:**
+
 ```tsx
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
@@ -250,6 +299,7 @@ transition={{ duration: 0.6 }}
 ```
 
 **Examples:**
+
 ```tsx
 // Faster animation
 transition={{ duration: 0.3 }}
@@ -266,11 +316,13 @@ transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
 **Component:** Quick Action Buttons
 
 **Current Purple Theme:**
+
 ```tsx
-className="bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white"
+className = 'bg-[#2d2640] hover:bg-[#3a3050] border-[#443a5c] text-white';
 ```
 
 **Purple Theme Examples:**
+
 ```tsx
 // Brighter purple hover
 hover:bg-[#4a4060]
@@ -295,11 +347,13 @@ hover:bg-gradient-to-r hover:from-[#8b7aaa] hover:to-[#6b5a8a]
 **Component:** Hero Section container
 
 **Current:**
+
 ```tsx
-className="relative min-h-[70vh] flex items-center justify-center px-4 py-20"
+className = 'relative min-h-[70vh] flex items-center justify-center px-4 py-20';
 ```
 
 **Examples:**
+
 ```tsx
 // Taller hero
 min-h-[85vh]
@@ -316,11 +370,13 @@ min-h-screen
 **Component:** Hero Section content wrapper
 
 **Current:**
+
 ```tsx
-className="w-full max-w-3xl mx-auto text-center"
+className = 'w-full max-w-3xl mx-auto text-center';
 ```
 
 **Examples:**
+
 ```tsx
 // Wider content
 max-w-4xl
@@ -339,11 +395,13 @@ max-w-6xl
 **Component:** Recent Decks Section grid layout
 
 **Current:** 5 columns on large screens
+
 ```tsx
-className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+className = 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4';
 ```
 
 **Examples:**
+
 ```tsx
 // 4 columns on large screens
 grid-cols-2 md:grid-cols-3 lg:grid-cols-4
@@ -360,11 +418,13 @@ gap-6
 **Component:** Recent Decks cards array
 
 **Current:** Shows 5 placeholder decks
+
 ```tsx
 {[1, 2, 3, 4, 5].map((deck) => (
 ```
 
 **Examples:**
+
 ```tsx
 // Show 8 decks
 {[1, 2, 3, 4, 5, 6, 7, 8].map((deck) => (
@@ -390,16 +450,19 @@ gap-6
 ## Common Issues
 
 ### Changes Not Appearing?
+
 1. Hard refresh browser: ⌘⇧R (Mac) or Ctrl⇧R (Windows)
 2. Clear browser cache: Safari → Clear History
 3. Restart dev server: `killall node && npm run dev`
 
 ### Page Looks Broken?
+
 1. Check browser console for errors (F12)
 2. Look for mismatched quotes or missing closing tags
 3. Restore from backup and try again
 
 ### Colors Look Wrong?
+
 - Hex colors must start with `#` and be in brackets: `[#1a1625]`
 - Use Tailwind color names for standard colors: `text-white`, `bg-purple-600`
 - **Stay within the purple theme** - Use the purple palette colors for consistency
@@ -419,6 +482,7 @@ gap-6
 ## Quick Reference: Common Tailwind Classes
 
 ### Text Sizes
+
 - `text-xs` - Extra small
 - `text-sm` - Small
 - `text-base` - Normal (16px)
@@ -428,11 +492,13 @@ gap-6
 - `text-4xl` - 4x large
 
 ### Colors
+
 - `text-white`, `text-gray-300`, `text-gray-500`
 - `bg-purple-600`, `bg-blue-600`, `bg-green-600`
 - `border-gray-300`, `border-purple-500`
 
 ### Spacing
+
 - `mb-4` - Margin bottom (4 units)
 - `mt-8` - Margin top (8 units)
 - `px-4` - Padding left/right (4 units)
@@ -440,6 +506,7 @@ gap-6
 - `gap-4` - Gap between grid/flex items
 
 ### Layout
+
 - `flex` - Flexbox container
 - `grid` - Grid container
 - `grid-cols-3` - 3 column grid

@@ -17,7 +17,11 @@ export function EmailVerificationBanner() {
   const [isDismissed, setIsDismissed] = useState(false);
 
   // Don't show if not authenticated or email is verified
-  if (status !== 'authenticated' || session?.user?.emailVerified || isDismissed) {
+  if (
+    status !== 'authenticated' ||
+    session?.user?.emailVerified ||
+    isDismissed
+  ) {
     return null;
   }
 
@@ -50,7 +54,7 @@ export function EmailVerificationBanner() {
   };
 
   return (
-    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+    <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
           <svg
@@ -73,7 +77,8 @@ export function EmailVerificationBanner() {
           </h3>
           <div className="mt-2 text-sm text-yellow-700">
             <p>
-              Please verify your email address to access all features. Check your inbox for a verification email.
+              Please verify your email address to access all features. Check
+              your inbox for a verification email.
             </p>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -89,7 +94,7 @@ export function EmailVerificationBanner() {
             <button
               type="button"
               onClick={() => setIsDismissed(true)}
-              className="text-sm text-yellow-800 hover:text-yellow-900 underline"
+              className="text-sm text-yellow-800 underline hover:text-yellow-900"
             >
               Dismiss
             </button>
@@ -97,9 +102,7 @@ export function EmailVerificationBanner() {
           {message && (
             <div className="mt-2 text-sm text-green-600">{message}</div>
           )}
-          {error && (
-            <div className="mt-2 text-sm text-red-600">{error}</div>
-          )}
+          {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
         </div>
       </div>
     </div>

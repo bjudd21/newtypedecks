@@ -21,7 +21,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     // Construct file path
-    const fullPath = path.join(process.cwd(), 'uploads', 'submissions', ...imagePath);
+    const fullPath = path.join(
+      process.cwd(),
+      'uploads',
+      'submissions',
+      ...imagePath
+    );
 
     // Security check - ensure path is within uploads directory
     const uploadsDir = path.join(process.cwd(), 'uploads', 'submissions');
@@ -29,26 +34,17 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const resolvedUploadsDir = path.resolve(uploadsDir);
 
     if (!resolvedPath.startsWith(resolvedUploadsDir)) {
-      return NextResponse.json(
-        { error: 'Access denied' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
     // Check if file exists
     try {
       const stats = await fs.stat(resolvedPath);
       if (!stats.isFile()) {
-        return NextResponse.json(
-          { error: 'File not found' },
-          { status: 404 }
-        );
+        return NextResponse.json({ error: 'File not found' }, { status: 404 });
       }
     } catch {
-      return NextResponse.json(
-        { error: 'File not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
 
     // Read and serve the file
@@ -81,13 +77,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         'Content-Length': fileBuffer.length.toString(),
       },
     });
-
   } catch (error) {
     console.error('Error serving submission image:', error);
     return NextResponse.json(
       {
         error: 'Failed to serve image',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );

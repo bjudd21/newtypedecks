@@ -73,17 +73,17 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   if (success) {
     return (
-      <div className="w-full max-w-md text-center space-y-4">
-        <div className="p-6 bg-green-50 border border-green-200 rounded-lg">
-          <h1 className="text-2xl font-bold text-green-800 mb-2">Password Reset Successful!</h1>
+      <div className="w-full max-w-md space-y-4 text-center">
+        <div className="rounded-lg border border-green-200 bg-green-50 p-6">
+          <h1 className="mb-2 text-2xl font-bold text-green-800">
+            Password Reset Successful!
+          </h1>
           <p className="text-green-600">
-            Your password has been updated successfully. You will be redirected to the sign-in page in a few seconds.
+            Your password has been updated successfully. You will be redirected
+            to the sign-in page in a few seconds.
           </p>
         </div>
-        <Button
-          onClick={() => router.push('/auth/signin')}
-          className="w-full"
-        >
+        <Button onClick={() => router.push('/auth/signin')} className="w-full">
           Go to Sign In
         </Button>
       </div>
@@ -101,7 +101,10 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="password"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
             New Password
           </label>
           <Input
@@ -120,7 +123,10 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="confirmPassword"
+            className="mb-1 block text-sm font-medium text-gray-700"
+          >
             Confirm Password
           </label>
           <Input
@@ -136,7 +142,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         </div>
 
         {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+          <div className="rounded-md border border-red-200 bg-red-50 p-3">
             <p className="text-sm text-red-600">{error}</p>
           </div>
         )}

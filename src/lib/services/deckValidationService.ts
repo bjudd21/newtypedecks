@@ -47,57 +47,57 @@ export class DeckValidationService {
       name: 'Minimum Deck Size',
       description: 'Deck must contain at least 50 cards',
       category: 'structure',
-      severity: 'error'
+      severity: 'error',
     },
     {
       id: 'deck-size-max',
       name: 'Maximum Deck Size',
       description: 'Deck should not exceed 60 cards for optimal play',
       category: 'structure',
-      severity: 'warning'
+      severity: 'warning',
     },
     {
       id: 'card-limit',
       name: 'Card Copy Limit',
       description: 'Maximum 4 copies of any single card',
       category: 'content',
-      severity: 'error'
+      severity: 'error',
     },
     {
       id: 'legendary-limit',
       name: 'Legendary Card Limit',
       description: 'Maximum 1 copy of legendary cards',
       category: 'content',
-      severity: 'error'
+      severity: 'error',
     },
     {
       id: 'cost-distribution',
       name: 'Cost Curve Distribution',
       description: 'Deck should have a balanced cost curve',
       category: 'balance',
-      severity: 'info'
+      severity: 'info',
     },
     {
       id: 'faction-consistency',
       name: 'Faction Consistency',
       description: 'Consider focusing on 1-2 main factions for synergy',
       category: 'balance',
-      severity: 'info'
+      severity: 'info',
     },
     {
       id: 'unit-ratio',
       name: 'Unit to Non-Unit Ratio',
       description: 'Recommended 60-70% units, 30-40% support cards',
       category: 'balance',
-      severity: 'info'
+      severity: 'info',
     },
     {
       id: 'level-distribution',
       name: 'Level Distribution',
       description: 'Deck should have cards across multiple levels',
       category: 'balance',
-      severity: 'warning'
-    }
+      severity: 'warning',
+    },
   ];
 
   private constructor() {}
@@ -122,9 +122,15 @@ export class DeckValidationService {
     }
 
     // Categorize results
-    const errors = results.filter(r => !r.isValid && r.rule.severity === 'error');
-    const warnings = results.filter(r => !r.isValid && r.rule.severity === 'warning');
-    const info = results.filter(r => !r.isValid && r.rule.severity === 'info');
+    const errors = results.filter(
+      (r) => !r.isValid && r.rule.severity === 'error'
+    );
+    const warnings = results.filter(
+      (r) => !r.isValid && r.rule.severity === 'warning'
+    );
+    const info = results.filter(
+      (r) => !r.isValid && r.rule.severity === 'info'
+    );
 
     // Calculate validation score
     const score = this.calculateValidationScore(results);
@@ -135,14 +141,17 @@ export class DeckValidationService {
       errors,
       warnings,
       info,
-      score
+      score,
     };
   }
 
   /**
    * Validate a single rule
    */
-  private validateRule(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateRule(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     switch (rule.id) {
       case 'deck-size-min':
         return this.validateMinDeckSize(rule, cards);
@@ -164,7 +173,7 @@ export class DeckValidationService {
         return {
           rule,
           isValid: true,
-          message: 'Unknown rule'
+          message: 'Unknown rule',
         };
     }
   }
@@ -172,8 +181,14 @@ export class DeckValidationService {
   /**
    * Minimum deck size validation
    */
-  private validateMinDeckSize(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
-    const totalCards = cards.reduce((sum, deckCard) => sum + deckCard.quantity, 0);
+  private validateMinDeckSize(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
+    const totalCards = cards.reduce(
+      (sum, deckCard) => sum + deckCard.quantity,
+      0
+    );
     const isValid = totalCards >= 50;
 
     return {
@@ -182,15 +197,23 @@ export class DeckValidationService {
       message: isValid
         ? `Deck size: ${totalCards} cards (valid)`
         : `Deck size: ${totalCards} cards (minimum 50 required)`,
-      details: isValid ? undefined : `Add ${50 - totalCards} more cards to reach minimum deck size`
+      details: isValid
+        ? undefined
+        : `Add ${50 - totalCards} more cards to reach minimum deck size`,
     };
   }
 
   /**
    * Maximum deck size validation (warning)
    */
-  private validateMaxDeckSize(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
-    const totalCards = cards.reduce((sum, deckCard) => sum + deckCard.quantity, 0);
+  private validateMaxDeckSize(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
+    const totalCards = cards.reduce(
+      (sum, deckCard) => sum + deckCard.quantity,
+      0
+    );
     const isValid = totalCards <= 60;
 
     return {
@@ -199,14 +222,19 @@ export class DeckValidationService {
       message: isValid
         ? `Deck size: ${totalCards} cards (recommended)`
         : `Deck size: ${totalCards} cards (consider reducing to 60 or fewer)`,
-      details: isValid ? undefined : `Large decks can reduce consistency. Consider removing ${totalCards - 60} cards.`
+      details: isValid
+        ? undefined
+        : `Large decks can reduce consistency. Consider removing ${totalCards - 60} cards.`,
     };
   }
 
   /**
    * Card copy limit validation
    */
-  private validateCardLimit(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateCardLimit(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     const violations: string[] = [];
 
     for (const deckCard of cards) {
@@ -223,22 +251,29 @@ export class DeckValidationService {
       message: isValid
         ? 'All cards within copy limits'
         : `${violations.length} card(s) exceed copy limit`,
-      details: isValid ? undefined : `Cards with too many copies: ${violations.join(', ')}`,
-      affectedCards: isValid ? undefined : cards
-        .filter(c => c.quantity > 4)
-        .map(c => c.card.id)
+      details: isValid
+        ? undefined
+        : `Cards with too many copies: ${violations.join(', ')}`,
+      affectedCards: isValid
+        ? undefined
+        : cards.filter((c) => c.quantity > 4).map((c) => c.card.id),
     };
   }
 
   /**
    * Legendary card limit validation
    */
-  private validateLegendaryLimit(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateLegendaryLimit(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     const violations: string[] = [];
 
     for (const deckCard of cards) {
       // Check if card is legendary (assuming rarity name contains 'legendary')
-      const isLegendary = deckCard.card.rarity?.name?.toLowerCase().includes('legendary');
+      const isLegendary = deckCard.card.rarity?.name
+        ?.toLowerCase()
+        .includes('legendary');
       if (isLegendary && deckCard.quantity > 1) {
         violations.push(`${deckCard.card.name} (${deckCard.quantity} copies)`);
       }
@@ -252,17 +287,28 @@ export class DeckValidationService {
       message: isValid
         ? 'All legendary cards within limits'
         : `${violations.length} legendary card(s) exceed limit`,
-      details: isValid ? undefined : `Legendary cards with multiple copies: ${violations.join(', ')}`,
-      affectedCards: isValid ? undefined : cards
-        .filter(c => c.card.rarity?.name?.toLowerCase().includes('legendary') && c.quantity > 1)
-        .map(c => c.card.id)
+      details: isValid
+        ? undefined
+        : `Legendary cards with multiple copies: ${violations.join(', ')}`,
+      affectedCards: isValid
+        ? undefined
+        : cards
+            .filter(
+              (c) =>
+                c.card.rarity?.name?.toLowerCase().includes('legendary') &&
+                c.quantity > 1
+            )
+            .map((c) => c.card.id),
     };
   }
 
   /**
    * Cost curve distribution validation
    */
-  private validateCostDistribution(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateCostDistribution(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     const costCounts: Record<number, number> = {};
     let totalCards = 0;
 
@@ -273,8 +319,10 @@ export class DeckValidationService {
     }
 
     // Analyze cost curve
-    const lowCost = (costCounts[0] || 0) + (costCounts[1] || 0) + (costCounts[2] || 0);
-    const midCost = (costCounts[3] || 0) + (costCounts[4] || 0) + (costCounts[5] || 0);
+    const lowCost =
+      (costCounts[0] || 0) + (costCounts[1] || 0) + (costCounts[2] || 0);
+    const midCost =
+      (costCounts[3] || 0) + (costCounts[4] || 0) + (costCounts[5] || 0);
     const highCost = Object.entries(costCounts)
       .filter(([cost]) => parseInt(cost) >= 6)
       .reduce((sum, [, count]) => sum + count, 0);
@@ -285,9 +333,12 @@ export class DeckValidationService {
 
     // Good distribution: 30-50% low, 30-50% mid, 10-30% high
     const isBalanced =
-      lowPercent >= 30 && lowPercent <= 50 &&
-      midPercent >= 20 && midPercent <= 50 &&
-      highPercent >= 5 && highPercent <= 30;
+      lowPercent >= 30 &&
+      lowPercent <= 50 &&
+      midPercent >= 20 &&
+      midPercent <= 50 &&
+      highPercent >= 5 &&
+      highPercent <= 30;
 
     return {
       rule,
@@ -295,49 +346,63 @@ export class DeckValidationService {
       message: isBalanced
         ? `Balanced cost curve (Low: ${lowPercent.toFixed(1)}%, Mid: ${midPercent.toFixed(1)}%, High: ${highPercent.toFixed(1)}%)`
         : `Cost curve needs balancing (Low: ${lowPercent.toFixed(1)}%, Mid: ${midPercent.toFixed(1)}%, High: ${highPercent.toFixed(1)}%)`,
-      details: isBalanced ? undefined : 'Recommended: 30-50% low cost (0-2), 20-50% mid cost (3-5), 5-30% high cost (6+)'
+      details: isBalanced
+        ? undefined
+        : 'Recommended: 30-50% low cost (0-2), 20-50% mid cost (3-5), 5-30% high cost (6+)',
     };
   }
 
   /**
    * Faction consistency validation
    */
-  private validateFactionConsistency(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateFactionConsistency(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     const factionCounts: Record<string, number> = {};
     let totalCards = 0;
 
     for (const deckCard of cards) {
       const faction = deckCard.card.faction || 'Neutral';
-      factionCounts[faction] = (factionCounts[faction] || 0) + deckCard.quantity;
+      factionCounts[faction] =
+        (factionCounts[faction] || 0) + deckCard.quantity;
       totalCards += deckCard.quantity;
     }
 
     const factions = Object.keys(factionCounts);
     const primaryFactions = factions
-      .map(faction => ({
+      .map((faction) => ({
         faction,
         count: factionCounts[faction],
-        percent: (factionCounts[faction] / totalCards) * 100
+        percent: (factionCounts[faction] / totalCards) * 100,
       }))
-      .filter(f => f.percent >= 20)
+      .filter((f) => f.percent >= 20)
       .sort((a, b) => b.count - a.count);
 
-    const isFocused = primaryFactions.length <= 2 || primaryFactions[0].percent >= 60;
+    const isFocused =
+      primaryFactions.length <= 2 || primaryFactions[0].percent >= 60;
 
     return {
       rule,
       isValid: isFocused,
       message: isFocused
-        ? `Good faction focus (${primaryFactions.map(f => `${f.faction}: ${f.percent.toFixed(1)}%`).join(', ')})`
+        ? `Good faction focus (${primaryFactions.map((f) => `${f.faction}: ${f.percent.toFixed(1)}%`).join(', ')})`
         : 'Consider focusing on fewer factions for better synergy',
-      details: isFocused ? undefined : `Current factions: ${Object.entries(factionCounts).map(([f, c]) => `${f} (${c})`).join(', ')}`
+      details: isFocused
+        ? undefined
+        : `Current factions: ${Object.entries(factionCounts)
+            .map(([f, c]) => `${f} (${c})`)
+            .join(', ')}`,
     };
   }
 
   /**
    * Unit to non-unit ratio validation
    */
-  private validateUnitRatio(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateUnitRatio(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     let unitCount = 0;
     let totalCount = 0;
 
@@ -357,14 +422,19 @@ export class DeckValidationService {
       message: isBalanced
         ? `Good unit ratio (${unitPercent.toFixed(1)}% units)`
         : `Unit ratio: ${unitPercent.toFixed(1)}% (recommended: 60-80%)`,
-      details: isBalanced ? undefined : 'Units provide board presence, support cards provide utility'
+      details: isBalanced
+        ? undefined
+        : 'Units provide board presence, support cards provide utility',
     };
   }
 
   /**
    * Level distribution validation
    */
-  private validateLevelDistribution(rule: ValidationRule, cards: DeckCard[]): ValidationResult {
+  private validateLevelDistribution(
+    rule: ValidationRule,
+    cards: DeckCard[]
+  ): ValidationResult {
     const levelCounts: Record<number, number> = {};
     let totalCards = 0;
 
@@ -377,11 +447,15 @@ export class DeckValidationService {
     const levels = Object.keys(levelCounts).map(Number).sort();
     const hasMultipleLevels = levels.length >= 3;
     const hasLowLevelCards = levelCounts[0] || levelCounts[1] || 0;
-    const isBalanced = hasMultipleLevels && hasLowLevelCards >= totalCards * 0.3;
+    const isBalanced =
+      hasMultipleLevels && hasLowLevelCards >= totalCards * 0.3;
 
-    const distribution = levels.map(level =>
-      `Level ${level}: ${((levelCounts[level] / totalCards) * 100).toFixed(1)}%`
-    ).join(', ');
+    const distribution = levels
+      .map(
+        (level) =>
+          `Level ${level}: ${((levelCounts[level] / totalCards) * 100).toFixed(1)}%`
+      )
+      .join(', ');
 
     return {
       rule,
@@ -389,7 +463,9 @@ export class DeckValidationService {
       message: isBalanced
         ? `Good level distribution (${distribution})`
         : `Level distribution needs balancing (${distribution})`,
-      details: isBalanced ? undefined : 'Include cards from multiple levels, with enough low-level cards for early game'
+      details: isBalanced
+        ? undefined
+        : 'Include cards from multiple levels, with enough low-level cards for early game',
     };
   }
 
@@ -439,13 +515,21 @@ export class DeckValidationService {
 
     // Add general suggestions based on score
     if (validationSummary.score >= 90) {
-      suggestions.push('✅ Excellent deck structure! Your deck follows all major rules.');
+      suggestions.push(
+        '✅ Excellent deck structure! Your deck follows all major rules.'
+      );
     } else if (validationSummary.score >= 70) {
-      suggestions.push('👍 Good deck structure with room for minor improvements.');
+      suggestions.push(
+        '👍 Good deck structure with room for minor improvements.'
+      );
     } else if (validationSummary.score >= 50) {
-      suggestions.push('📝 Deck needs some adjustments to improve consistency.');
+      suggestions.push(
+        '📝 Deck needs some adjustments to improve consistency.'
+      );
     } else {
-      suggestions.push('🔧 Deck needs significant improvements to meet tournament standards.');
+      suggestions.push(
+        '🔧 Deck needs significant improvements to meet tournament standards.'
+      );
     }
 
     return suggestions;

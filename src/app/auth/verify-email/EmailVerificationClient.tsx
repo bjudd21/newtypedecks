@@ -55,21 +55,23 @@ export function EmailVerificationClient() {
 
   if (isLoading) {
     return (
-      <div className="w-full max-w-md text-center space-y-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+      <div className="w-full max-w-md space-y-4 text-center">
+        <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
         <h1 className="text-2xl font-bold text-gray-900">Verifying Email...</h1>
-        <p className="text-gray-600">Please wait while we verify your email address.</p>
+        <p className="text-gray-600">
+          Please wait while we verify your email address.
+        </p>
       </div>
     );
   }
 
   if (isSuccess) {
     return (
-      <div className="w-full max-w-md text-center space-y-4">
-        <div className="p-6 bg-green-50 border border-green-200 rounded-lg">
-          <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+      <div className="w-full max-w-md space-y-4 text-center">
+        <div className="rounded-lg border border-green-200 bg-green-50 p-6">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
             <svg
-              className="w-6 h-6 text-green-600"
+              className="h-6 w-6 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -83,16 +85,16 @@ export function EmailVerificationClient() {
               />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-green-800 mb-2">Email Verified!</h1>
-          <p className="text-green-600 mb-4">
-            Your email address has been successfully verified. You now have access to all features.
+          <h1 className="mb-2 text-2xl font-bold text-green-800">
+            Email Verified!
+          </h1>
+          <p className="mb-4 text-green-600">
+            Your email address has been successfully verified. You now have
+            access to all features.
           </p>
         </div>
         <div className="space-y-2">
-          <Button
-            onClick={() => router.push('/dashboard')}
-            className="w-full"
-          >
+          <Button onClick={() => router.push('/dashboard')} className="w-full">
             Go to Dashboard
           </Button>
           <Button
@@ -109,11 +111,11 @@ export function EmailVerificationClient() {
 
   if (error) {
     return (
-      <div className="w-full max-w-md text-center space-y-4">
-        <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
-          <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+      <div className="w-full max-w-md space-y-4 text-center">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
             <svg
-              className="w-6 h-6 text-red-600"
+              className="h-6 w-6 text-red-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -127,8 +129,10 @@ export function EmailVerificationClient() {
               />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-red-800 mb-2">Verification Failed</h1>
-          <p className="text-red-600 mb-4">{error}</p>
+          <h1 className="mb-2 text-2xl font-bold text-red-800">
+            Verification Failed
+          </h1>
+          <p className="mb-4 text-red-600">{error}</p>
         </div>
         <div className="space-y-2">
           <Button

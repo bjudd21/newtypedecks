@@ -11,17 +11,25 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
-        primary: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
-        destructive: 'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg hover:shadow-red-400/50 hover:shadow-xl',
-        outline: 'border border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40',
-        secondary: 'bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-lg hover:shadow-gray-400/30',
+        default:
+          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
+        primary:
+          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
+        destructive:
+          'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg hover:shadow-red-400/50 hover:shadow-xl',
+        outline:
+          'border border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40',
+        secondary:
+          'bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-lg hover:shadow-gray-400/30',
         ghost: 'text-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300',
         link: 'text-cyan-400 underline-offset-4 hover:underline hover:text-cyan-300',
-        cyber: 'relative overflow-hidden bg-gradient-to-r from-cyan-400 to-purple-600 text-black border-2 border-cyan-400 shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 hover:border-green-400',
+        cyber:
+          'relative overflow-hidden bg-gradient-to-r from-cyan-400 to-purple-600 text-black border-2 border-cyan-400 shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 hover:border-green-400',
         neon: 'relative overflow-hidden bg-transparent text-green-400 border-2 border-green-400 hover:bg-green-400 hover:text-black shadow-lg shadow-green-400/50 hover:shadow-green-400/80',
-        plasma: 'relative overflow-hidden bg-gradient-to-r from-purple-600 to-orange-500 text-white border-2 border-purple-600 shadow-lg shadow-purple-400/50 hover:shadow-purple-400/80 hover:border-orange-400',
-        hologram: 'relative overflow-hidden bg-transparent text-cyan-400 border border-cyan-400/50 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/20'
+        plasma:
+          'relative overflow-hidden bg-gradient-to-r from-purple-600 to-orange-500 text-white border-2 border-purple-600 shadow-lg shadow-purple-400/50 hover:shadow-purple-400/80 hover:border-orange-400',
+        hologram:
+          'relative overflow-hidden bg-transparent text-cyan-400 border border-cyan-400/50 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/20',
       },
       size: {
         default: 'h-11 px-6 py-3',
@@ -42,22 +50,34 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  isLoading?: boolean
+  asChild?: boolean;
+  isLoading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, children, isLoading = false, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      children,
+      isLoading = false,
+      disabled,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button';
 
     const LoadingSpinner = () => (
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-        className="w-4 h-4 mr-2"
+        className="mr-2 h-4 w-4"
       >
         <svg
-          className="w-full h-full"
+          className="h-full w-full"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -86,18 +106,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         {...props}
       >
-        {(variant === 'cyber' || variant === 'neon' || variant === 'plasma') && (
+        {(variant === 'cyber' ||
+          variant === 'neon' ||
+          variant === 'plasma') && (
           <motion.div
             className="absolute inset-0 -z-10"
             initial={{ x: '-100%' }}
             whileHover={{ x: '100%' }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
             style={{
-              background: variant === 'cyber'
-                ? 'linear-gradient(90deg, transparent 0%, rgba(0,255,255,0.4) 50%, transparent 100%)'
-                : variant === 'neon'
-                ? 'linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.4) 50%, transparent 100%)'
-                : 'linear-gradient(90deg, transparent 0%, rgba(147,51,234,0.4) 50%, transparent 100%)'
+              background:
+                variant === 'cyber'
+                  ? 'linear-gradient(90deg, transparent 0%, rgba(0,255,255,0.4) 50%, transparent 100%)'
+                  : variant === 'neon'
+                    ? 'linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.4) 50%, transparent 100%)'
+                    : 'linear-gradient(90deg, transparent 0%, rgba(147,51,234,0.4) 50%, transparent 100%)',
             }}
           />
         )}
@@ -108,13 +131,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
               animate={{
                 x: ['-100%', '100%'],
-                opacity: [0, 1, 0]
+                opacity: [0, 1, 0],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 repeatDelay: 3,
-                ease: 'linear'
+                ease: 'linear',
               }}
             />
             <motion.div
@@ -124,13 +147,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                   'radial-gradient(circle at 50% 50%, rgba(34,211,238,0.1) 0%, transparent 50%)',
                   'radial-gradient(circle at 30% 70%, rgba(147,51,234,0.1) 0%, transparent 50%)',
                   'radial-gradient(circle at 70% 30%, rgba(34,197,94,0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 50% 50%, rgba(34,211,238,0.1) 0%, transparent 50%)'
-                ]
+                  'radial-gradient(circle at 50% 50%, rgba(34,211,238,0.1) 0%, transparent 50%)',
+                ],
               }}
               transition={{
                 duration: 4,
                 repeat: Infinity,
-                ease: 'easeInOut'
+                ease: 'easeInOut',
               }}
             />
           </>

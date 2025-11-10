@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     if (search) {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } }
+        { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
               id: true,
               name: true,
               email: true,
-            }
+            },
           },
           cards: {
             include: {
@@ -48,27 +48,32 @@ export async function GET(request: NextRequest) {
                 include: {
                   type: true,
                   rarity: true,
-                }
-              }
-            }
+                },
+              },
+            },
           },
           _count: {
-            select: { cards: true }
-          }
+            select: { cards: true },
+          },
         },
         orderBy: { [sortBy]: sortOrder },
         skip,
         take: limit,
       }),
-      prisma.deck.count({ where })
+      prisma.deck.count({ where }),
     ]);
 
     // Calculate deck statistics and remove sensitive data
-    const publicDecks = decks.map(deck => {
+    const publicDecks = decks.map((deck) => {
       const totalCards = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
       const uniqueCards = deck.cards.length;
-      const totalCost = deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
-      const colors = [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))];
+      const totalCost = deck.cards.reduce(
+        (sum, dc) => sum + (dc.card.cost || 0) * dc.quantity,
+        0
+      );
+      const colors = [
+        ...new Set(deck.cards.map((dc) => dc.card.faction).filter(Boolean)),
+      ];
 
       return {
         id: deck.id,
@@ -84,11 +89,14 @@ export async function GET(request: NextRequest) {
           totalCards,
           uniqueCards,
           totalCost,
-          averageCost: totalCards > 0 ? Math.round((totalCost / totalCards) * 100) / 100 : 0,
+          averageCost:
+            totalCards > 0
+              ? Math.round((totalCost / totalCards) * 100) / 100
+              : 0,
           colors,
         },
         // Don't expose full card list in browse view for performance
-        cardPreview: deck.cards.slice(0, 3).map(dc => ({
+        cardPreview: deck.cards.slice(0, 3).map((dc) => ({
           card: {
             id: dc.card.id,
             name: dc.card.name,
@@ -96,7 +104,7 @@ export async function GET(request: NextRequest) {
             rarity: dc.card.rarity,
           },
           quantity: dc.quantity,
-        }))
+        })),
       };
     });
 
@@ -106,8 +114,8 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
     console.error('Get public decks error:', error);

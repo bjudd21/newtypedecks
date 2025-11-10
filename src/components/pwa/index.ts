@@ -7,7 +7,7 @@ export type {
   PWAState,
   OfflineDeck,
   OfflineCollectionUpdate,
-  PWAInstallPrompt as PWAInstallPromptType
+  PWAInstallPrompt as PWAInstallPromptType,
 } from '@/lib/services/pwaService';
 
 export { pwaService } from '@/lib/services/pwaService';

@@ -15,8 +15,19 @@ import { cn } from '@/lib/utils';
 // Reference data interfaces
 interface ReferenceData {
   types: Array<{ id: string; name: string; description?: string }>;
-  rarities: Array<{ id: string; name: string; color: string; description?: string }>;
-  sets: Array<{ id: string; name: string; code: string; releaseDate: string; description?: string }>;
+  rarities: Array<{
+    id: string;
+    name: string;
+    color: string;
+    description?: string;
+  }>;
+  sets: Array<{
+    id: string;
+    name: string;
+    code: string;
+    releaseDate: string;
+    description?: string;
+  }>;
 }
 
 export interface CardSearchProps {
@@ -45,7 +56,11 @@ export const CardSearch: React.FC<CardSearchProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState<CardSearchFilters>({});
   const [showFilters, setShowFilters] = useState(false);
-  const [referenceData, setReferenceData] = useState<ReferenceData>({ types: [], rarities: [], sets: [] });
+  const [referenceData, setReferenceData] = useState<ReferenceData>({
+    types: [],
+    rarities: [],
+    sets: [],
+  });
   const [isLoadingReference, setIsLoadingReference] = useState(false);
 
   // Fetch reference data for filter dropdowns
@@ -70,96 +85,104 @@ export const CardSearch: React.FC<CardSearchProps> = ({
   }, []);
 
   // Fetch card suggestions based on search input
-  const fetchSuggestions = useCallback(async (query: string) => {
-    if (!query.trim() || query.length < 2) {
-      setSuggestions([]);
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: {
-            name: query,
-          },
-          options: {
-            page: 1,
-            limit: maxSuggestions,
-            sortBy: 'name',
-            sortOrder: 'asc',
-            includeRelations: true,
-          },
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const cardSuggestions: SearchSuggestion[] = data.cards.map((card: CardWithRelations) => ({
-          id: card.id,
-          label: card.name,
-          value: card.name,
-          category: card.type?.name || 'Card',
-        }));
-
-        setSuggestions(cardSuggestions);
+  const fetchSuggestions = useCallback(
+    async (query: string) => {
+      if (!query.trim() || query.length < 2) {
+        setSuggestions([]);
+        return;
       }
-    } catch (error) {
-      console.error('Failed to fetch card suggestions:', error);
-      setSuggestions([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [maxSuggestions]);
+
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            filters: {
+              name: query,
+            },
+            options: {
+              page: 1,
+              limit: maxSuggestions,
+              sortBy: 'name',
+              sortOrder: 'asc',
+              includeRelations: true,
+            },
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const cardSuggestions: SearchSuggestion[] = data.cards.map(
+            (card: CardWithRelations) => ({
+              id: card.id,
+              label: card.name,
+              value: card.name,
+              category: card.type?.name || 'Card',
+            })
+          );
+
+          setSuggestions(cardSuggestions);
+        }
+      } catch (error) {
+        console.error('Failed to fetch card suggestions:', error);
+        setSuggestions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [maxSuggestions]
+  );
 
   // Perform full search
-  const performSearch = useCallback(async (query: string, searchFilters: CardSearchFilters = {}) => {
-    if (!onResults) return;
+  const performSearch = useCallback(
+    async (query: string, searchFilters: CardSearchFilters = {}) => {
+      if (!onResults) return;
 
-    try {
-      setIsLoading(true);
+      try {
+        setIsLoading(true);
 
-      const searchQuery: CardSearchFilters = {
-        ...searchFilters,
-      };
+        const searchQuery: CardSearchFilters = {
+          ...searchFilters,
+        };
 
-      // If there's a text query, search across name, pilot, and model
-      if (query.trim()) {
-        searchQuery.name = query.trim();
-      }
+        // If there's a text query, search across name, pilot, and model
+        if (query.trim()) {
+          searchQuery.name = query.trim();
+        }
 
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: searchQuery,
-          options: {
-            page: 1,
-            limit: 50,
-            sortBy: 'name',
-            sortOrder: 'asc',
-            includeRelations: true,
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        }),
-      });
+          body: JSON.stringify({
+            filters: searchQuery,
+            options: {
+              page: 1,
+              limit: 50,
+              sortBy: 'name',
+              sortOrder: 'asc',
+              includeRelations: true,
+            },
+          }),
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        onResults(data.cards);
+        if (response.ok) {
+          const data = await response.json();
+          onResults(data.cards);
+        }
+      } catch (error) {
+        console.error('Failed to perform card search:', error);
+        onResults([]);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Failed to perform card search:', error);
-      onResults([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [onResults]);
+    },
+    [onResults]
+  );
 
   // Handle search input changes
   const handleSearchChange = (value: string) => {
@@ -245,8 +268,18 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                 : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
             )}
           >
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" />
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"
+              />
             </svg>
             Filters
             {Object.keys(filters).length > 0 && (
@@ -262,9 +295,19 @@ export const CardSearch: React.FC<CardSearchProps> = ({
       {showAdvancedFilters && showFilters && (
         <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
           {isLoadingReference && (
-            <div className="flex items-center gap-2 text-gray-600 mb-4">
-              <svg className="animate-spin h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <div className="mb-4 flex items-center gap-2 text-gray-600">
+              <svg
+                className="h-4 w-4 animate-spin"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
               </svg>
               Loading filter options...
             </div>
@@ -272,12 +315,14 @@ export const CardSearch: React.FC<CardSearchProps> = ({
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {/* Card Type filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Card Type
               </label>
               <select
                 value={filters.typeId || ''}
-                onChange={(e) => handleFilterChange('typeId', e.target.value || undefined)}
+                onChange={(e) =>
+                  handleFilterChange('typeId', e.target.value || undefined)
+                }
                 className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 disabled={isLoadingReference}
               >
@@ -292,12 +337,14 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Card Rarity filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Rarity
               </label>
               <select
                 value={filters.rarityId || ''}
-                onChange={(e) => handleFilterChange('rarityId', e.target.value || undefined)}
+                onChange={(e) =>
+                  handleFilterChange('rarityId', e.target.value || undefined)
+                }
                 className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 disabled={isLoadingReference}
               >
@@ -312,12 +359,14 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Card Set filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Set
               </label>
               <select
                 value={filters.setId || ''}
-                onChange={(e) => handleFilterChange('setId', e.target.value || undefined)}
+                onChange={(e) =>
+                  handleFilterChange('setId', e.target.value || undefined)
+                }
                 className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 disabled={isLoadingReference}
               >
@@ -332,12 +381,14 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Faction filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Faction
               </label>
               <select
                 value={filters.faction || ''}
-                onChange={(e) => handleFilterChange('faction', e.target.value || undefined)}
+                onChange={(e) =>
+                  handleFilterChange('faction', e.target.value || undefined)
+                }
                 className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">All Factions</option>
@@ -352,12 +403,14 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Series filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Series
               </label>
               <select
                 value={filters.series || ''}
-                onChange={(e) => handleFilterChange('series', e.target.value || undefined)}
+                onChange={(e) =>
+                  handleFilterChange('series', e.target.value || undefined)
+                }
                 className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">All Series</option>
@@ -371,7 +424,7 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Level range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Level Range
               </label>
               <div className="flex gap-2">
@@ -381,7 +434,12 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   max="10"
                   placeholder="Min"
                   value={filters.levelMin || ''}
-                  onChange={(e) => handleFilterChange('levelMin', e.target.value ? parseInt(e.target.value) : undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      'levelMin',
+                      e.target.value ? parseInt(e.target.value) : undefined
+                    )
+                  }
                   className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 />
                 <input
@@ -390,7 +448,12 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   max="10"
                   placeholder="Max"
                   value={filters.levelMax || ''}
-                  onChange={(e) => handleFilterChange('levelMax', e.target.value ? parseInt(e.target.value) : undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      'levelMax',
+                      e.target.value ? parseInt(e.target.value) : undefined
+                    )
+                  }
                   className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
@@ -398,7 +461,7 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Cost range */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Cost Range
               </label>
               <div className="flex gap-2">
@@ -408,7 +471,12 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   max="20"
                   placeholder="Min"
                   value={filters.costMin || ''}
-                  onChange={(e) => handleFilterChange('costMin', e.target.value ? parseInt(e.target.value) : undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      'costMin',
+                      e.target.value ? parseInt(e.target.value) : undefined
+                    )
+                  }
                   className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 />
                 <input
@@ -417,7 +485,12 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   max="20"
                   placeholder="Max"
                   value={filters.costMax || ''}
-                  onChange={(e) => handleFilterChange('costMax', e.target.value ? parseInt(e.target.value) : undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      'costMax',
+                      e.target.value ? parseInt(e.target.value) : undefined
+                    )
+                  }
                   className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
                 />
               </div>
@@ -425,7 +498,7 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
             {/* Special card types */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mb-2 block text-sm font-medium text-gray-700">
                 Special Types
               </label>
               <div className="space-y-2">
@@ -433,7 +506,12 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   <input
                     type="checkbox"
                     checked={filters.isFoil || false}
-                    onChange={(e) => handleFilterChange('isFoil', e.target.checked || undefined)}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        'isFoil',
+                        e.target.checked || undefined
+                      )
+                    }
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                   <span className="ml-2 text-sm text-gray-700">Foil Cards</span>
@@ -442,10 +520,17 @@ export const CardSearch: React.FC<CardSearchProps> = ({
                   <input
                     type="checkbox"
                     checked={filters.isPromo || false}
-                    onChange={(e) => handleFilterChange('isPromo', e.target.checked || undefined)}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        'isPromo',
+                        e.target.checked || undefined
+                      )
+                    }
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Promo Cards</span>
+                  <span className="ml-2 text-sm text-gray-700">
+                    Promo Cards
+                  </span>
                 </label>
               </div>
             </div>
@@ -467,9 +552,7 @@ export const CardSearch: React.FC<CardSearchProps> = ({
 
       {/* Loading indicator */}
       {isLoading && (
-        <div className="mt-2 text-sm text-gray-500">
-          Searching...
-        </div>
+        <div className="mt-2 text-sm text-gray-500">Searching...</div>
       )}
     </div>
   );

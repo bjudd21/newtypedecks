@@ -23,7 +23,9 @@ function generateRequestId(): string {
 }
 
 // Extract user ID from request (from session, JWT, etc.)
-async function extractUserId(request: NextRequest): Promise<string | undefined> {
+async function extractUserId(
+  request: NextRequest
+): Promise<string | undefined> {
   try {
     // Try to get user ID from session or JWT token
     // This is a placeholder - implement based on your auth system
@@ -43,15 +45,19 @@ async function extractUserId(request: NextRequest): Promise<string | undefined> 
 export function createMonitoringMiddleware() {
   return async function monitoringMiddleware(
     request: NextRequest,
-    handler: (req: NextRequest, context: MonitoringContext) => Promise<NextResponse>
+    handler: (
+      req: NextRequest,
+      context: MonitoringContext
+    ) => Promise<NextResponse>
   ): Promise<NextResponse> {
     const startTime = Date.now();
     const requestId = generateRequestId();
     const userId = await extractUserId(request);
     const userAgent = request.headers.get('user-agent') || 'unknown';
-    const ip = request.headers.get('x-forwarded-for') ||
-              request.headers.get('x-real-ip') ||
-              'unknown';
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     const context: MonitoringContext = {
       requestId,
@@ -76,11 +82,11 @@ export function createMonitoringMiddleware() {
     });
 
     // Add breadcrumb for debugging
-    errorTracker.addBreadcrumb(
-      `API Request: ${method} ${endpoint}`,
-      'http',
-      { requestId, userId, ip }
-    );
+    errorTracker.addBreadcrumb(`API Request: ${method} ${endpoint}`, 'http', {
+      requestId,
+      userId,
+      ip,
+    });
 
     let response: NextResponse | undefined;
     let statusCode = 500;
@@ -98,7 +104,6 @@ export function createMonitoringMiddleware() {
       success = statusCode < 400;
 
       return response;
-
     } catch (error) {
       // Handle errors
       statusCode = 500;
@@ -130,7 +135,6 @@ export function createMonitoringMiddleware() {
       );
 
       return response;
-
     } finally {
       const duration = Date.now() - startTime;
 
@@ -158,9 +162,9 @@ export function createMonitoringMiddleware() {
     }
 
     // Return response or a fallback error response
-    return response || NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
+    return (
+      response ||
+      NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     );
   };
 }
@@ -186,7 +190,7 @@ export async function monitorDatabaseQuery<T>(
   query: () => Promise<T>,
   tableName?: string
 ): Promise<T> {
-  return await measureAPI(
+  return (await measureAPI(
     `DB ${operation}${tableName ? ` on ${tableName}` : ''}`,
     async () => {
       const result = await query();
@@ -199,7 +203,7 @@ export async function monitorDatabaseQuery<T>(
       return result;
     },
     { operation, table: tableName }
-  ) as Promise<T>;
+  )) as Promise<T>;
 }
 
 // Authentication monitoring wrapper
@@ -208,7 +212,7 @@ export async function monitorAuth<T>(
   authFunction: () => Promise<T>,
   userId?: string
 ): Promise<T> {
-  return await measureAPI(
+  return (await measureAPI(
     `Auth ${action}`,
     async () => {
       try {
@@ -229,7 +233,7 @@ export async function monitorAuth<T>(
       }
     },
     { action, userId }
-  ) as Promise<T>;
+  )) as Promise<T>;
 }
 
 // File upload monitoring wrapper
@@ -238,7 +242,7 @@ export async function monitorFileUpload<T>(
   fileSize: number,
   uploadFunction: () => Promise<T>
 ): Promise<T> {
-  return await measureAPI(
+  return (await measureAPI(
     `Upload ${fileName}`,
     async () => {
       try {
@@ -266,7 +270,7 @@ export async function monitorFileUpload<T>(
       }
     },
     { fileName, fileSize }
-  ) as Promise<T>;
+  )) as Promise<T>;
 }
 
 // Rate limiting monitoring
@@ -280,8 +284,9 @@ export function createRateLimitMonitor(config: RateLimitConfig) {
   const requests = new Map<string, { count: number; resetTime: number }>();
 
   return function rateLimitMiddleware(req: NextRequest): boolean {
-    const key = config.keyGenerator ? config.keyGenerator(req) :
-                req.headers.get('x-forwarded-for') || 'anonymous';
+    const key = config.keyGenerator
+      ? config.keyGenerator(req)
+      : req.headers.get('x-forwarded-for') || 'anonymous';
 
     const now = Date.now();
     const windowStart = now - config.windowMs;
@@ -293,7 +298,10 @@ export function createRateLimitMonitor(config: RateLimitConfig) {
       }
     }
 
-    const current = requests.get(key) || { count: 0, resetTime: now + config.windowMs };
+    const current = requests.get(key) || {
+      count: 0,
+      resetTime: now + config.windowMs,
+    };
 
     if (current.count >= config.maxRequests) {
       // Rate limit exceeded
@@ -348,7 +356,6 @@ export async function monitorHealthCheck() {
       services: serviceChecks,
       timestamp: new Date().toISOString(),
     };
-
   } catch (error) {
     const duration = Date.now() - startTime;
 

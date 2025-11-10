@@ -2,7 +2,7 @@
 
 /**
  * File Size Monitoring Script
- * 
+ *
  * This script checks file sizes and enforces size limits to maintain code quality.
  * It helps prevent files from becoming too large and difficult to maintain.
  */
@@ -24,7 +24,7 @@ const CONFIG = {
     'src/**/*.spec.ts': 500,
     'src/**/*.spec.tsx': 500,
   },
-  
+
   // Files to ignore
   ignore: [
     'node_modules/**',
@@ -40,10 +40,10 @@ const CONFIG = {
     'docs/**',
     'prisma/migrations/**',
   ],
-  
+
   // Warning threshold (percentage of limit)
   warningThreshold: 0.8,
-  
+
   // Error threshold (percentage of limit)
   errorThreshold: 1.0,
 };
@@ -85,28 +85,28 @@ function formatFileSize(bytes) {
   const sizes = ['B', 'KB', 'MB', 'GB'];
   if (bytes === 0) return '0 B';
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+  return Math.round((bytes / Math.pow(1024, i)) * 100) / 100 + ' ' + sizes[i];
 }
 
 function checkFileSizes() {
   log('\n🔍 Checking file sizes...', 'cyan');
-  
+
   const results = {
     passed: 0,
     warnings: 0,
     errors: 0,
     files: [],
   };
-  
+
   // Check each pattern
   Object.entries(CONFIG.limits).forEach(([pattern, limit]) => {
     const files = glob.sync(pattern, { ignore: CONFIG.ignore });
-    
-    files.forEach(filePath => {
+
+    files.forEach((filePath) => {
       const lineCount = getFileLineCount(filePath);
       const fileSize = getFileSize(filePath);
       const percentage = (lineCount / limit) * 100;
-      
+
       const result = {
         file: filePath,
         lines: lineCount,
@@ -115,7 +115,7 @@ function checkFileSizes() {
         size: fileSize,
         status: 'passed',
       };
-      
+
       if (percentage >= CONFIG.errorThreshold * 100) {
         result.status = 'error';
         results.errors++;
@@ -125,80 +125,118 @@ function checkFileSizes() {
       } else {
         results.passed++;
       }
-      
+
       results.files.push(result);
     });
   });
-  
+
   return results;
 }
 
 function displayResults(results) {
   log('\n📊 File Size Analysis Results:', 'blue');
-  log('=' .repeat(50), 'blue');
-  
+  log('='.repeat(50), 'blue');
+
   // Summary
   log(`\n📈 Summary:`, 'cyan');
   log(`  ✅ Passed: ${results.passed}`, 'green');
   log(`  ⚠️  Warnings: ${results.warnings}`, 'yellow');
   log(`  ❌ Errors: ${results.errors}`, 'red');
-  
+
   // Detailed results
   if (results.files.length > 0) {
     log(`\n📋 Detailed Results:`, 'cyan');
-    
+
     // Sort by status (errors first, then warnings, then passed)
     const sortedFiles = results.files.sort((a, b) => {
       const statusOrder = { error: 0, warning: 1, passed: 2 };
       return statusOrder[a.status] - statusOrder[b.status];
     });
-    
-    sortedFiles.forEach(file => {
-      const statusIcon = file.status === 'error' ? '❌' : 
-                        file.status === 'warning' ? '⚠️ ' : '✅';
-      const statusColor = file.status === 'error' ? 'red' : 
-                         file.status === 'warning' ? 'yellow' : 'green';
-      
+
+    sortedFiles.forEach((file) => {
+      const statusIcon =
+        file.status === 'error'
+          ? '❌'
+          : file.status === 'warning'
+            ? '⚠️ '
+            : '✅';
+      const statusColor =
+        file.status === 'error'
+          ? 'red'
+          : file.status === 'warning'
+            ? 'yellow'
+            : 'green';
+
       log(`  ${statusIcon} ${file.file}`, statusColor);
-      log(`     Lines: ${file.lines}/${file.limit} (${file.percentage.toFixed(1)}%)`, 'reset');
+      log(
+        `     Lines: ${file.lines}/${file.limit} (${file.percentage.toFixed(1)}%)`,
+        'reset'
+      );
       log(`     Size: ${formatFileSize(file.size)}`, 'reset');
-      
+
       if (file.status === 'error') {
-        log(`     💡 Consider refactoring this file - it exceeds the ${file.limit} line limit`, 'yellow');
+        log(
+          `     💡 Consider refactoring this file - it exceeds the ${file.limit} line limit`,
+          'yellow'
+        );
       } else if (file.status === 'warning') {
-        log(`     💡 This file is approaching the ${file.limit} line limit`, 'yellow');
+        log(
+          `     💡 This file is approaching the ${file.limit} line limit`,
+          'yellow'
+        );
       }
     });
   }
-  
+
   // Recommendations
   if (results.errors > 0 || results.warnings > 0) {
     log(`\n💡 Recommendations:`, 'cyan');
-    
+
     if (results.errors > 0) {
-      log(`  • Refactor large files by extracting components, utilities, or services`, 'yellow');
-      log(`  • Split complex functions into smaller, focused functions`, 'yellow');
-      log(`  • Consider using composition over large monolithic components`, 'yellow');
+      log(
+        `  • Refactor large files by extracting components, utilities, or services`,
+        'yellow'
+      );
+      log(
+        `  • Split complex functions into smaller, focused functions`,
+        'yellow'
+      );
+      log(
+        `  • Consider using composition over large monolithic components`,
+        'yellow'
+      );
     }
-    
+
     if (results.warnings > 0) {
-      log(`  • Monitor files approaching the limit for future refactoring`, 'yellow');
-      log(`  • Consider extracting reusable logic into separate modules`, 'yellow');
+      log(
+        `  • Monitor files approaching the limit for future refactoring`,
+        'yellow'
+      );
+      log(
+        `  • Consider extracting reusable logic into separate modules`,
+        'yellow'
+      );
     }
-    
+
     log(`  • Use the following patterns to reduce file size:`, 'yellow');
     log(`    - Extract custom hooks for complex logic`, 'yellow');
     log(`    - Create utility functions for common operations`, 'yellow');
-    log(`    - Split large components into smaller, focused components`, 'yellow');
-    log(`    - Use TypeScript interfaces to separate type definitions`, 'yellow');
+    log(
+      `    - Split large components into smaller, focused components`,
+      'yellow'
+    );
+    log(
+      `    - Use TypeScript interfaces to separate type definitions`,
+      'yellow'
+    );
   }
-  
+
   return results;
 }
 
 function generateReport(results) {
   const reportPath = path.join(process.cwd(), 'file-size-report.json');
-  
+
   const report = {
     timestamp: new Date().toISOString(),
     summary: {
@@ -210,7 +248,7 @@ function generateReport(results) {
     files: results.files,
     config: CONFIG,
   };
-  
+
   try {
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     log(`\n📄 Report saved to: ${reportPath}`, 'blue');
@@ -221,34 +259,37 @@ function generateReport(results) {
 
 function checkComplexity() {
   log('\n🧮 Checking code complexity...', 'cyan');
-  
+
   const complexityResults = {
     highComplexity: [],
     mediumComplexity: [],
     lowComplexity: [],
   };
-  
+
   // This is a simplified complexity check
   // In a real implementation, you might use tools like ESLint complexity rules
   // or dedicated complexity analysis tools
-  
+
   log('  💡 Use ESLint complexity rules to monitor code complexity', 'yellow');
-  log('  💡 Consider using tools like SonarQube for advanced complexity analysis', 'yellow');
-  
+  log(
+    '  💡 Consider using tools like SonarQube for advanced complexity analysis',
+    'yellow'
+  );
+
   return complexityResults;
 }
 
 function main() {
   const args = process.argv.slice(2);
   const command = args[0];
-  
+
   switch (command) {
     case '--check':
     case '-c':
       const results = checkFileSizes();
       displayResults(results);
       generateReport(results);
-      
+
       if (results.errors > 0) {
         log('\n❌ File size check failed!', 'red');
         process.exit(1);
@@ -260,11 +301,11 @@ function main() {
         process.exit(0);
       }
       break;
-      
+
     case '--complexity':
       checkComplexity();
       break;
-      
+
     case '--help':
     case '-h':
     default:

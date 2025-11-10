@@ -19,15 +19,19 @@ export const sentryConfig = {
       const error = event.exception.values?.[0];
 
       // Skip client-side network errors
-      if (error?.type === 'ChunkLoadError' ||
-          error?.value?.includes('Loading chunk') ||
-          error?.value?.includes('Network Error')) {
+      if (
+        error?.type === 'ChunkLoadError' ||
+        error?.value?.includes('Loading chunk') ||
+        error?.value?.includes('Network Error')
+      ) {
         return null;
       }
 
       // Skip common browser extension errors
-      if (error?.value?.includes('Non-Error promise rejection captured') ||
-          error?.value?.includes('ResizeObserver loop limit exceeded')) {
+      if (
+        error?.value?.includes('Non-Error promise rejection captured') ||
+        error?.value?.includes('ResizeObserver loop limit exceeded')
+      ) {
         return null;
       }
     }
@@ -62,7 +66,11 @@ export const errorTracker = {
   },
 
   // Capture messages with different levels
-  captureMessage(message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, unknown>) {
+  captureMessage(
+    message: string,
+    level: Sentry.SeverityLevel = 'info',
+    context?: Record<string, unknown>
+  ) {
     if (process.env.SENTRY_DSN) {
       Sentry.withScope((scope) => {
         scope.setLevel(level);
@@ -86,7 +94,11 @@ export const errorTracker = {
   },
 
   // Add breadcrumb for debugging
-  addBreadcrumb(message: string, category: string, data?: Record<string, unknown>) {
+  addBreadcrumb(
+    message: string,
+    category: string,
+    data?: Record<string, unknown>
+  ) {
     if (process.env.SENTRY_DSN) {
       Sentry.addBreadcrumb({
         message,
@@ -121,7 +133,11 @@ export const errorTracker = {
 };
 
 // Database error tracking
-export function trackDatabaseError(operation: string, error: Error, query?: string) {
+export function trackDatabaseError(
+  operation: string,
+  error: Error,
+  query?: string
+) {
   errorTracker.captureException(error, {
     database: {
       operation,
@@ -132,7 +148,12 @@ export function trackDatabaseError(operation: string, error: Error, query?: stri
 }
 
 // API error tracking
-export function trackAPIError(endpoint: string, method: string, error: Error, statusCode?: number) {
+export function trackAPIError(
+  endpoint: string,
+  method: string,
+  error: Error,
+  statusCode?: number
+) {
   errorTracker.captureException(error, {
     api: {
       endpoint,
@@ -155,7 +176,11 @@ export function trackAuthError(action: string, error: Error, userId?: string) {
 }
 
 // File upload error tracking
-export function trackUploadError(fileName: string, fileSize: number, error: Error) {
+export function trackUploadError(
+  fileName: string,
+  fileSize: number,
+  error: Error
+) {
   errorTracker.captureException(error, {
     upload: {
       fileName,
@@ -169,7 +194,9 @@ export function trackUploadError(fileName: string, fileSize: number, error: Erro
 export const performanceMonitor = {
   // Track page load times
   trackPageLoad(page: string, loadTime: number) {
-    errorTracker.addBreadcrumb(`Page loaded: ${page}`, 'navigation', { loadTime });
+    errorTracker.addBreadcrumb(`Page loaded: ${page}`, 'navigation', {
+      loadTime,
+    });
 
     if (process.env.SENTRY_DSN) {
       Sentry.addBreadcrumb({
@@ -182,35 +209,53 @@ export const performanceMonitor = {
   },
 
   // Track API response times
-  trackAPICall(endpoint: string, method: string, duration: number, success: boolean) {
-    errorTracker.addBreadcrumb(
-      `API ${method} ${endpoint}`,
-      'http',
-      { duration, success, endpoint, method }
-    );
+  trackAPICall(
+    endpoint: string,
+    method: string,
+    duration: number,
+    success: boolean
+  ) {
+    errorTracker.addBreadcrumb(`API ${method} ${endpoint}`, 'http', {
+      duration,
+      success,
+      endpoint,
+      method,
+    });
   },
 
   // Track database query performance
-  trackDatabaseQuery(operation: string, duration: number, recordCount?: number) {
-    errorTracker.addBreadcrumb(
-      `DB ${operation}`,
-      'db',
-      { duration, recordCount, operation }
-    );
+  trackDatabaseQuery(
+    operation: string,
+    duration: number,
+    recordCount?: number
+  ) {
+    errorTracker.addBreadcrumb(`DB ${operation}`, 'db', {
+      duration,
+      recordCount,
+      operation,
+    });
   },
 
   // Track user interactions
-  trackUserAction(action: string, component: string, metadata?: Record<string, unknown>) {
-    errorTracker.addBreadcrumb(
-      `User ${action}`,
-      'user',
-      { action, component, ...metadata }
-    );
+  trackUserAction(
+    action: string,
+    component: string,
+    metadata?: Record<string, unknown>
+  ) {
+    errorTracker.addBreadcrumb(`User ${action}`, 'user', {
+      action,
+      component,
+      ...metadata,
+    });
   },
 };
 
 // Feature flag tracking
-export function trackFeatureUsage(feature: string, enabled: boolean, userId?: string) {
+export function trackFeatureUsage(
+  feature: string,
+  enabled: boolean,
+  userId?: string
+) {
   errorTracker.addBreadcrumb(
     `Feature ${feature} ${enabled ? 'enabled' : 'disabled'}`,
     'feature',
@@ -234,11 +279,21 @@ export function instrumentFunction<T extends (...args: unknown[]) => unknown>(
       if (result && typeof (result as { then?: unknown }).then === 'function') {
         return (result as Promise<unknown>)
           .then((value: unknown) => {
-            performanceMonitor.trackAPICall(name, category, Date.now() - start, true);
+            performanceMonitor.trackAPICall(
+              name,
+              category,
+              Date.now() - start,
+              true
+            );
             return value;
           })
           .catch((error: Error) => {
-            performanceMonitor.trackAPICall(name, category, Date.now() - start, false);
+            performanceMonitor.trackAPICall(
+              name,
+              category,
+              Date.now() - start,
+              false
+            );
             errorTracker.captureException(error, { function: name, category });
             throw error;
           });
@@ -247,8 +302,16 @@ export function instrumentFunction<T extends (...args: unknown[]) => unknown>(
       performanceMonitor.trackAPICall(name, category, Date.now() - start, true);
       return result;
     } catch (error) {
-      performanceMonitor.trackAPICall(name, category, Date.now() - start, false);
-      errorTracker.captureException(error as Error, { function: name, category });
+      performanceMonitor.trackAPICall(
+        name,
+        category,
+        Date.now() - start,
+        false
+      );
+      errorTracker.captureException(error as Error, {
+        function: name,
+        category,
+      });
       throw error;
     }
   }) as T;

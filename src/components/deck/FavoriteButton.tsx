@@ -19,7 +19,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   onFavoriteChange,
   size = 'md',
   variant = 'button',
-  className
+  className,
 }) => {
   const { isAuthenticated } = useAuth();
   const [isFavorited, setIsFavorited] = useState(false);
@@ -53,7 +53,9 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   // Toggle favorite status
   const handleToggleFavorite = async () => {
     if (!isAuthenticated) {
-      console.warn('TODO: Replace with proper UI notification - Please sign in to favorite decks!');
+      console.warn(
+        'TODO: Replace with proper UI notification - Please sign in to favorite decks!'
+      );
       return;
     }
 
@@ -63,7 +65,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       if (isFavorited) {
         // Remove from favorites
         const response = await fetch(`/api/favorites/${deckId}`, {
-          method: 'DELETE'
+          method: 'DELETE',
         });
 
         if (!response.ok) {
@@ -82,7 +84,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ deckId })
+          body: JSON.stringify({ deckId }),
         });
 
         if (!response.ok) {
@@ -97,7 +99,9 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       }
     } catch (err) {
       console.error('Error toggling favorite:', err);
-      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to update favorite'}`);
+      console.warn(
+        `TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to update favorite'}`
+      );
     } finally {
       setIsLoading(false);
     }
@@ -111,12 +115,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   // Show loading state while checking
   if (isChecking) {
     return (
-      <Button
-        variant="outline"
-        size={size}
-        disabled
-        className={className}
-      >
+      <Button variant="outline" size={size} disabled className={className}>
         {variant === 'icon' ? '♥' : 'Loading...'}
       </Button>
     );
@@ -131,12 +130,16 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
         onClick={handleToggleFavorite}
         disabled={isLoading}
         className={`
-          text-2xl transition-colors duration-200 hover:scale-110 transform
+          transform text-2xl transition-colors duration-200 hover:scale-110
           ${isFavorited ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'}
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+          ${isLoading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
           ${className}
         `}
-        title={isFavorited ? `Remove ${deckName || 'deck'} from favorites` : `Add ${deckName || 'deck'} to favorites`}
+        title={
+          isFavorited
+            ? `Remove ${deckName || 'deck'} from favorites`
+            : `Add ${deckName || 'deck'} to favorites`
+        }
       >
         {heartIcon}
       </button>
@@ -151,7 +154,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       size={size}
       className={`
         flex items-center gap-2
-        ${isFavorited ? 'bg-red-500 hover:bg-red-600 border-red-500' : 'hover:border-red-300 hover:text-red-600'}
+        ${isFavorited ? 'border-red-500 bg-red-500 hover:bg-red-600' : 'hover:border-red-300 hover:text-red-600'}
         ${className}
       `}
     >

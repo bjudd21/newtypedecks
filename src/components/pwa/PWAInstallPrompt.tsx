@@ -9,7 +9,7 @@ interface PWAInstallPromptProps {
 }
 
 export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
-  className
+  className,
 }) => {
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -18,13 +18,16 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
 
   useEffect(() => {
     // Check initial PWA state
-    pwaService.getPWAState().then(state => {
+    pwaService.getPWAState().then((state) => {
       setIsInstallable(state.isInstallable);
       setIsInstalled(state.isInstalled);
     });
 
     // Listen for PWA events
-    const unsubscribeInstallable = pwaService.on('installable', setIsInstallable);
+    const unsubscribeInstallable = pwaService.on(
+      'installable',
+      setIsInstallable
+    );
     const unsubscribeInstalled = pwaService.on('installed', setIsInstalled);
 
     // Check if already dismissed
@@ -65,20 +68,22 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
   }
 
   return (
-    <Card className={`bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 ${className}`}>
+    <Card
+      className={`border-blue-200 bg-gradient-to-r from-blue-50 to-purple-50 ${className}`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
               📱
             </div>
           </div>
 
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-blue-900 mb-1">
+          <div className="min-w-0 flex-1">
+            <h3 className="mb-1 font-semibold text-blue-900">
               Install Gundam Card Game App
             </h3>
-            <p className="text-blue-700 text-sm mb-3">
+            <p className="mb-3 text-sm text-blue-700">
               Get faster access, offline support, and a native app experience.
               Perfect for tournaments and on-the-go deck building!
             </p>
@@ -102,7 +107,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
           <div className="flex-shrink-0">
             <button
               onClick={handleDismiss}
-              className="text-gray-400 hover:text-gray-600 p-1"
+              className="p-1 text-gray-400 hover:text-gray-600"
               aria-label="Dismiss"
             >
               ✕
@@ -110,7 +115,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 mt-4">
+        <div className="mt-4 flex items-center gap-3">
           <Button
             onClick={handleInstall}
             variant="default"
@@ -120,13 +125,11 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
           >
             {isInstalling ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white"></div>
                 Installing...
               </>
             ) : (
-              <>
-                📱 Install App
-              </>
+              <>📱 Install App</>
             )}
           </Button>
 

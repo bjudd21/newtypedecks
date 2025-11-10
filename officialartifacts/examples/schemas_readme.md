@@ -9,6 +9,7 @@ These schemas provide validation and documentation for digital card data, ensuri
 ## Schema Files
 
 ### Individual Card Type Schemas
+
 - `unit-card.schema.json` - Unit cards that can attack and be deployed to the battle area
 - `pilot-card.schema.json` - Pilot cards that pair with Units and provide dual effects
 - `command-card.schema.json` - Command cards with instant effects, some with optional Pilot modes
@@ -17,17 +18,21 @@ These schemas provide validation and documentation for digital card data, ensuri
 - `token.schema.json` - Token definitions including EX Base and EX Resource tokens
 
 ### Unified Schema
+
 - `unified-card.schema.json` - A single schema that can validate any card type using conditional logic
 
 ## Key Features
 
 ### Validation Rules
+
 - Enforces game rules (e.g., Units must have AP/HP, Resources cannot have colors)
 - Validates required vs optional fields based on card type
 - Ensures proper data types and value ranges
 
 ### Effect System
+
 All schemas properly categorize the five effect types from the rules:
+
 - **Keyword Effects**: `<Repair>`, `<Blocker>`, `<First Strike>`, etc.
 - **Triggered Effects**: `【Deploy】`, `【Attack】`, `【Destroyed】`, etc.
 - **Activated Effects**: `【Activate･Main】`, `【Activate･Action】`
@@ -35,6 +40,7 @@ All schemas properly categorize the five effect types from the rules:
 - **Command Effects**: Effects on Command cards with `【Main】`/`【Action】` timing
 
 ### Complex Card Handling
+
 - **Pilot Cards**: Dual effect structure (Pilot card effects vs Unit effects)
 - **Command Cards**: Optional Pilot mode with separate effect sets
 - **Link Units**: Proper link condition validation for Units
@@ -43,6 +49,7 @@ All schemas properly categorize the five effect types from the rules:
 ## Usage
 
 ### Validation
+
 Use any JSON Schema validator. Examples with `ajv-cli`:
 
 ```bash
@@ -59,18 +66,22 @@ ajv validate -s unified-card.schema.json -d "examples/*.json"
 ### Programming Languages
 
 **JavaScript/Node.js:**
+
 ```javascript
 const Ajv = require('ajv');
 const ajv = new Ajv();
 const schema = require('./unit-card.schema.json');
 const validate = ajv.compile(schema);
 
-const cardData = { /* your card data */ };
+const cardData = {
+  /* your card data */
+};
 const valid = validate(cardData);
 if (!valid) console.log(validate.errors);
 ```
 
 **Python:**
+
 ```python
 import json
 import jsonschema
@@ -87,7 +98,9 @@ jsonschema.validate(card_data, schema)
 ## Data Structure
 
 ### Basic Card Properties
+
 All cards (except tokens) include:
+
 - `cardNumber` - Unique identifier (max 4 copies per deck)
 - `cardName` - Display name
 - `cardType` - One of: Unit, Pilot, Command, Base, Resource
@@ -96,6 +109,7 @@ All cards (except tokens) include:
 - `cost` - Resources to rest when playing
 
 ### Game Mechanics
+
 - **AP/HP**: Combat stats for Units and Bases
 - **Modifiers**: AP/HP bonuses from Pilots
 - **Link Conditions**: Requirements for Link Units
@@ -132,7 +146,7 @@ examples/
 These schemas enforce the deck construction rules from the comprehensive rules:
 
 - **Deck Size**: 50 cards exactly
-- **Resource Deck Size**: 10 cards exactly  
+- **Resource Deck Size**: 10 cards exactly
 - **Card Limits**: Maximum 4 copies of any card number in deck
 - **Color Restrictions**: Deck must use 1-2 colors only
 - **Resource Limits**: No limits on Resource card copies in resource deck

@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+} from '@/components/ui';
 
 interface DeckShareProps {
   deckId: string;
@@ -16,7 +23,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
   deckName,
   isPublic,
   onVisibilityChange,
-  className
+  className,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -66,7 +73,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Visibility Controls */}
-        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center justify-between rounded-lg bg-gray-50 p-3">
           <div>
             <h3 className="font-medium text-gray-900">
               {isPublic ? 'Public Deck' : 'Private Deck'}
@@ -74,8 +81,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
             <p className="text-sm text-gray-600">
               {isPublic
                 ? 'Anyone can view and copy this deck'
-                : 'Only you can view this deck'
-              }
+                : 'Only you can view this deck'}
             </p>
           </div>
           <Button
@@ -90,7 +96,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
         {/* Share URL (only if public) */}
         {isPublic && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-gray-700">
               Share URL
             </label>
             <div className="flex space-x-2">
@@ -114,11 +120,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
         {/* Share Actions */}
         {isPublic && (
           <div className="grid grid-cols-2 gap-2">
-            <Button
-              variant="outline"
-              onClick={handleShare}
-              className="w-full"
-            >
+            <Button variant="outline" onClick={handleShare} className="w-full">
               📤 Share
             </Button>
             <Button
@@ -136,14 +138,16 @@ export const DeckShare: React.FC<DeckShareProps> = ({
         )}
 
         {/* Privacy Notice */}
-        <div className="text-xs text-gray-500 bg-blue-50 p-2 rounded">
+        <div className="rounded bg-blue-50 p-2 text-xs text-gray-500">
           {isPublic ? (
             <>
-              <strong>🌍 Public:</strong> This deck will appear in community deck lists and be accessible to anyone with the link.
+              <strong>🌍 Public:</strong> This deck will appear in community
+              deck lists and be accessible to anyone with the link.
             </>
           ) : (
             <>
-              <strong>🔒 Private:</strong> This deck is only visible to you. Make it public to share with others.
+              <strong>🔒 Private:</strong> This deck is only visible to you.
+              Make it public to share with others.
             </>
           )}
         </div>

@@ -16,11 +16,13 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json({
-      types,
-      total: types.length,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        types,
+        total: types.length,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Types API GET error:', error);
 

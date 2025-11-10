@@ -8,19 +8,25 @@
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 
-const ERROR_MESSAGES: Record<string, { title: string; description: string; action?: string }> = {
+const ERROR_MESSAGES: Record<
+  string,
+  { title: string; description: string; action?: string }
+> = {
   Configuration: {
     title: 'OAuth Configuration Error',
-    description: 'There\'s an issue with the OAuth configuration. Please contact support.',
+    description:
+      "There's an issue with the OAuth configuration. Please contact support.",
   },
   AccessDenied: {
     title: 'Access Denied',
-    description: 'You cancelled the authentication process or access was denied.',
+    description:
+      'You cancelled the authentication process or access was denied.',
     action: 'Please try signing in again if this was unintentional.',
   },
   Verification: {
     title: 'Email Verification Required',
-    description: 'Your email address needs to be verified before you can sign in.',
+    description:
+      'Your email address needs to be verified before you can sign in.',
     action: 'Please check your email and verify your account.',
   },
   Default: {
@@ -40,18 +46,21 @@ const ERROR_MESSAGES: Record<string, { title: string; description: string; actio
   },
   OAuthCallback: {
     title: 'OAuth Callback Error',
-    description: 'An error occurred while processing the authentication response.',
+    description:
+      'An error occurred while processing the authentication response.',
     action: 'Please try signing in again.',
   },
   OAuthCreateAccount: {
     title: 'Account Creation Error',
     description: 'Unable to create an account with the selected provider.',
-    action: 'The email address might already be registered. Try signing in instead.',
+    action:
+      'The email address might already be registered. Try signing in instead.',
   },
   EmailCreateAccount: {
     title: 'Email Registration Error',
     description: 'Unable to create an account with the provided email.',
-    action: 'The email address might already be registered. Try signing in instead.',
+    action:
+      'The email address might already be registered. Try signing in instead.',
   },
   Callback: {
     title: 'Callback Error',
@@ -60,7 +69,8 @@ const ERROR_MESSAGES: Record<string, { title: string; description: string; actio
   },
   OAuthAccountNotLinked: {
     title: 'Account Linking Error',
-    description: 'This account is already linked to a different authentication method.',
+    description:
+      'This account is already linked to a different authentication method.',
     action: 'Please sign in using your original method or contact support.',
   },
   SessionRequired: {
@@ -78,11 +88,11 @@ export function AuthErrorClient() {
   const errorInfo = ERROR_MESSAGES[error] || ERROR_MESSAGES.Default;
 
   return (
-    <div className="w-full max-w-md text-center space-y-6">
-      <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
-        <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+    <div className="w-full max-w-md space-y-6 text-center">
+      <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
           <svg
-            className="w-6 h-6 text-red-600"
+            className="h-6 w-6 text-red-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -97,21 +107,20 @@ export function AuthErrorClient() {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-red-800 mb-2">{errorInfo.title}</h1>
-        <p className="text-red-600 mb-4">{errorInfo.description}</p>
+        <h1 className="mb-2 text-2xl font-bold text-red-800">
+          {errorInfo.title}
+        </h1>
+        <p className="mb-4 text-red-600">{errorInfo.description}</p>
 
         {errorInfo.action && (
-          <p className="text-sm text-red-700 bg-red-100 p-3 rounded">
+          <p className="rounded bg-red-100 p-3 text-sm text-red-700">
             {errorInfo.action}
           </p>
         )}
       </div>
 
       <div className="space-y-3">
-        <Button
-          onClick={() => router.push('/auth/signin')}
-          className="w-full"
-        >
+        <Button onClick={() => router.push('/auth/signin')} className="w-full">
           Try Signing In Again
         </Button>
 
@@ -134,8 +143,8 @@ export function AuthErrorClient() {
 
       {/* Debug info in development */}
       {process.env.NODE_ENV === 'development' && (
-        <div className="mt-6 p-3 bg-gray-100 rounded text-left">
-          <p className="text-xs font-mono text-gray-600">
+        <div className="mt-6 rounded bg-gray-100 p-3 text-left">
+          <p className="font-mono text-xs text-gray-600">
             Debug: Error code &quot;{error}&quot;
           </p>
         </div>

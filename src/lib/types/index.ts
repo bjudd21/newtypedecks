@@ -5,18 +5,18 @@
 export * from './card';
 
 // Re-export Prisma types for convenience
-export type { 
-  User, 
-  UserRole, 
-  Card, 
-  CardType, 
-  Rarity, 
-  Set, 
-  Deck, 
-  DeckCard, 
-  Collection, 
+export type {
+  User,
+  UserRole,
+  Card,
+  CardType,
+  Rarity,
+  Set,
+  Deck,
+  DeckCard,
+  Collection,
   CollectionCard,
-  CardRuling 
+  CardRuling,
 } from '@prisma/client';
 
 // Common utility types
@@ -46,7 +46,15 @@ export interface PaginatedResponse<T = unknown> extends ApiResponse<T[]> {
 export interface FormField {
   name: string;
   label: string;
-  type: 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea' | 'checkbox' | 'radio';
+  type:
+    | 'text'
+    | 'email'
+    | 'password'
+    | 'number'
+    | 'select'
+    | 'textarea'
+    | 'checkbox'
+    | 'radio';
   required?: boolean;
   placeholder?: string;
   options?: Array<{ value: string; label: string }>;

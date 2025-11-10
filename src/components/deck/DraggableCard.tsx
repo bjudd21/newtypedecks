@@ -29,7 +29,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   onRemove,
   isEditing,
   className = '',
-  ownedQuantity = 0
+  ownedQuantity = 0,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -40,7 +40,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
     const dragData: DragData = {
       cardId: card.id,
       cardName: card.name,
-      action: 'move'
+      action: 'move',
     };
 
     e.dataTransfer.setData('application/json', JSON.stringify(dragData));
@@ -77,9 +77,9 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
       className={`
         ${className}
         ${isEditing ? 'cursor-move' : 'cursor-default'}
-        ${isDragging ? 'opacity-50 transform scale-95' : ''}
-        relative flex items-center gap-3 p-3 border border-[#443a5c] rounded-lg bg-[#1a1625]/30
-        hover:bg-[#2d2640]/50 transition-all duration-200
+        ${isDragging ? 'scale-95 transform opacity-50' : ''}
+        relative flex items-center gap-3 rounded-lg border border-[#443a5c] bg-[#1a1625]/30 p-3
+        transition-all duration-200 hover:bg-[#2d2640]/50
         ${isEditing ? 'hover:border-[#8b7aaa] hover:shadow-lg hover:shadow-[#8b7aaa]/10' : ''}
       `}
       whileHover={isEditing ? { scale: 1.02, y: -2 } : {}}
@@ -91,59 +91,65 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           className="flex-shrink-0 text-[#8b7aaa]/50 hover:text-[#8b7aaa]"
           whileHover={{ scale: 1.1 }}
         >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
           </svg>
         </motion.div>
       )}
 
       {/* Card Image Placeholder */}
-      <div className="w-12 h-16 bg-gradient-to-br from-[#2d2640] to-[#3a3050] rounded flex-shrink-0 flex items-center justify-center border border-[#443a5c] overflow-hidden">
+      <div className="flex h-16 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050]">
         {card.imageUrl ? (
           <Image
             src={card.imageUrl}
             alt={card.name}
             width={48}
             height={64}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         ) : (
-          <span className="text-xs text-[#8b7aaa]/50 font-semibold">IMG</span>
+          <span className="text-xs font-semibold text-[#8b7aaa]/50">IMG</span>
         )}
       </div>
 
       {/* Card Details */}
-      <div className="flex-1 min-w-0">
-        <div className="font-semibold text-sm text-[#a89ec7] truncate">
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-semibold text-[#a89ec7]">
           {card.name}
         </div>
 
-        <div className="flex items-center gap-2 text-xs mt-1">
+        <div className="mt-1 flex items-center gap-2 text-xs">
           {card.type && (
-            <Badge variant="secondary" className="text-xs bg-[#8b7aaa]/20 text-[#a89ec7] border-[#8b7aaa]/30">
+            <Badge
+              variant="secondary"
+              className="border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-xs text-[#a89ec7]"
+            >
               {card.type.name}
             </Badge>
           )}
 
           {card.rarity && (
-            <Badge variant="secondary" className="text-xs bg-[#8b7aaa]/20 text-[#a89ec7] border-[#8b7aaa]/30">
+            <Badge
+              variant="secondary"
+              className="border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-xs text-[#a89ec7]"
+            >
               {card.rarity.name}
             </Badge>
           )}
 
           {card.cost !== null && card.cost !== undefined && (
-            <span className="text-[#8b7aaa] font-semibold">
+            <span className="font-semibold text-[#8b7aaa]">
               Cost: {card.cost}
             </span>
           )}
         </div>
 
-        <div className="text-xs text-gray-500 mt-1">
+        <div className="mt-1 text-xs text-gray-500">
           {card.set?.name} #{card.setNumber}
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
           {ownedQuantity > 0 && (
-            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">
+            <span className="ml-2 inline-flex items-center rounded border border-green-500/30 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-300">
               Owned: {ownedQuantity}
             </span>
           )}
@@ -156,10 +162,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           onClick={() => onQuantityChange(quantity - 1)}
           disabled={!isEditing || quantity <= 1}
           className={`
-            w-8 h-8 rounded border flex items-center justify-center text-sm font-bold
-            ${isEditing && quantity > 1
-              ? 'border-[#8b7aaa]/50 hover:bg-[#8b7aaa]/20 text-[#a89ec7] hover:border-[#8b7aaa]'
-              : 'border-[#443a5c]/30 text-gray-600 cursor-not-allowed'
+            flex h-8 w-8 items-center justify-center rounded border text-sm font-bold
+            ${
+              isEditing && quantity > 1
+                ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
+                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
             }
           `}
           whileHover={isEditing && quantity > 1 ? { scale: 1.1 } : {}}
@@ -168,7 +175,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           -
         </motion.button>
 
-        <span className="w-8 text-center text-sm font-bold bg-[#2d2640] text-[#a89ec7] border border-[#443a5c] rounded py-1">
+        <span className="w-8 rounded border border-[#443a5c] bg-[#2d2640] py-1 text-center text-sm font-bold text-[#a89ec7]">
           {quantity}
         </span>
 
@@ -176,10 +183,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           onClick={() => onQuantityChange(quantity + 1)}
           disabled={!isEditing}
           className={`
-            w-8 h-8 rounded border flex items-center justify-center text-sm font-bold
-            ${isEditing
-              ? 'border-[#8b7aaa]/50 hover:bg-[#8b7aaa]/20 text-[#a89ec7] hover:border-[#8b7aaa]'
-              : 'border-[#443a5c]/30 text-gray-600 cursor-not-allowed'
+            flex h-8 w-8 items-center justify-center rounded border text-sm font-bold
+            ${
+              isEditing
+                ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
+                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
             }
           `}
           whileHover={isEditing ? { scale: 1.1 } : {}}
@@ -192,10 +200,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           onClick={onRemove}
           disabled={!isEditing}
           className={`
-            w-8 h-8 rounded border flex items-center justify-center text-lg font-bold
-            ${isEditing
-              ? 'border-red-500/50 hover:bg-red-500/20 text-red-400 hover:text-red-300 hover:border-red-500'
-              : 'border-[#443a5c]/30 text-gray-600 cursor-not-allowed'
+            flex h-8 w-8 items-center justify-center rounded border text-lg font-bold
+            ${
+              isEditing
+                ? 'border-red-500/50 text-red-400 hover:border-red-500 hover:bg-red-500/20 hover:text-red-300'
+                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
             }
           `}
           whileHover={isEditing ? { scale: 1.1 } : {}}
@@ -207,7 +216,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
 
       {/* Visual feedback when dragging */}
       {isDragging && isEditing && (
-        <div className="absolute inset-0 bg-[#8b7aaa]/10 border-2 border-[#8b7aaa] border-dashed rounded-lg pointer-events-none" />
+        <div className="pointer-events-none absolute inset-0 rounded-lg border-2 border-dashed border-[#8b7aaa] bg-[#8b7aaa]/10" />
       )}
     </motion.div>
   );

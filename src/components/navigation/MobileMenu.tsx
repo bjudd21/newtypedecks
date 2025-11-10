@@ -5,12 +5,21 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { getNavItemProps, handleKeyboardActivation, KEYBOARD_CODES, trapFocus } from '@/lib/utils/accessibility';
+import {
+  getNavItemProps,
+  handleKeyboardActivation,
+  KEYBOARD_CODES,
+  trapFocus,
+} from '@/lib/utils/accessibility';
 
 const navigation = [
   { name: 'Cards', href: '/cards', description: 'Browse card database' },
   { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
-  { name: 'Collection', href: '/collection', description: 'Manage your card collection' },
+  {
+    name: 'Collection',
+    href: '/collection',
+    description: 'Manage your card collection',
+  },
 ];
 
 export function MobileMenu() {
@@ -77,7 +86,7 @@ export function MobileMenu() {
         ref={buttonRef}
         onClick={toggleMenu}
         onKeyDown={(e) => handleKeyboardActivation(e, toggleMenu)}
-        className="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md p-2"
+        className="rounded-md p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
@@ -111,18 +120,22 @@ export function MobileMenu() {
         <div
           ref={menuRef}
           id="mobile-menu"
-          className="absolute top-16 left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50"
+          className="absolute left-0 right-0 top-16 z-50 border-b border-gray-200 bg-white shadow-lg"
           role="region"
           aria-label="Mobile navigation menu"
         >
           <nav
-            className="px-4 py-2 space-y-1"
+            className="space-y-1 px-4 py-2"
             role="navigation"
             aria-label="Mobile navigation"
           >
             {navigation.map((item) => {
               const isActive = pathname === item.href;
-              const navProps = getNavItemProps(item.href, isActive, item.description);
+              const navProps = getNavItemProps(
+                item.href,
+                isActive,
+                item.description
+              );
 
               return (
                 <Link
@@ -130,26 +143,27 @@ export function MobileMenu() {
                   href={item.href}
                   onClick={closeMenu}
                   onKeyDown={(e) => {
-                    if (e.key === KEYBOARD_CODES.ENTER || e.key === KEYBOARD_CODES.SPACE) {
+                    if (
+                      e.key === KEYBOARD_CODES.ENTER ||
+                      e.key === KEYBOARD_CODES.SPACE
+                    ) {
                       e.preventDefault();
                       closeMenu();
                       // Navigate programmatically if needed
                     }
                   }}
                   className={cn(
-                    'block px-4 py-2.5 rounded-lg transition-all duration-300',
+                    'block rounded-lg px-4 py-2.5 transition-all duration-300',
                     'border',
                     'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625]',
                     isActive
-                      ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md font-medium'
-                      : 'bg-[#2d2640] border-[#443a5c] text-gray-300 hover:text-white hover:bg-[#3a3050] hover:border-[#6b5a8a] hover:shadow-md'
+                      ? 'border-[#8b7aaa] bg-[#6b5a8a] font-medium text-white shadow-md'
+                      : 'border-[#443a5c] bg-[#2d2640] text-gray-300 hover:border-[#6b5a8a] hover:bg-[#3a3050] hover:text-white hover:shadow-md'
                   )}
                   {...navProps}
                 >
                   {item.name}
-                  {isActive && (
-                    <span className="sr-only"> (current page)</span>
-                  )}
+                  {isActive && <span className="sr-only"> (current page)</span>}
                 </Link>
               );
             })}

@@ -23,13 +23,13 @@ export async function GET(request: NextRequest) {
     // Build where clause
     const where: Record<string, unknown> = {
       isTemplate: true,
-      isPublic: true // Only show public templates
+      isPublic: true, // Only show public templates
     };
 
     if (search) {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } }
+        { description: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -46,8 +46,8 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true,
-              image: true
-            }
+              image: true,
+            },
           },
           cards: {
             include: {
@@ -55,36 +55,36 @@ export async function GET(request: NextRequest) {
                 include: {
                   type: true,
                   rarity: true,
-                  set: true
-                }
-              }
-            }
+                  set: true,
+                },
+              },
+            },
           },
           templateUsage: {
             select: {
               id: true,
-              createdAt: true
-            }
+              createdAt: true,
+            },
           },
           _count: {
             select: {
               templateUsage: true,
-              favoritedBy: true
-            }
-          }
+              favoritedBy: true,
+            },
+          },
         },
         orderBy: [
           { templateUsage: { _count: 'desc' } }, // Most used first
-          { createdAt: 'desc' }
+          { createdAt: 'desc' },
         ],
         skip,
         take: limit,
       }),
-      prisma.deck.count({ where })
+      prisma.deck.count({ where }),
     ]);
 
     // Calculate template statistics
-    const templatesWithStats = templates.map(template => ({
+    const templatesWithStats = templates.map((template) => ({
       id: template.id,
       name: template.name,
       description: template.description,
@@ -92,15 +92,22 @@ export async function GET(request: NextRequest) {
       creator: template.user,
       cardCount: template.cards.reduce((sum, dc) => sum + dc.quantity, 0),
       uniqueCards: template.cards.length,
-      totalCost: template.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0),
-      colors: [...new Set(template.cards.map(dc => dc.card.set?.name).filter(Boolean))],
+      totalCost: template.cards.reduce(
+        (sum, dc) => sum + (dc.card.cost || 0) * dc.quantity,
+        0
+      ),
+      colors: [
+        ...new Set(
+          template.cards.map((dc) => dc.card.set?.name).filter(Boolean)
+        ),
+      ],
       usageCount: template._count.templateUsage,
       favoriteCount: template._count.favoritedBy,
       lastUsed: template.templateUsage[0]?.createdAt || null,
       createdAt: template.createdAt,
       updatedAt: template.updatedAt,
       // Don't include full card list in browse view for performance
-      cards: undefined
+      cards: undefined,
     }));
 
     return NextResponse.json({
@@ -109,8 +116,8 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit)
-      }
+        pages: Math.ceil(total / limit),
+      },
     });
   } catch (error) {
     console.error('Get templates error:', error);
@@ -132,7 +139,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { deckId, templateName, templateDescription, templateSource } = await request.json();
+    const { deckId, templateName, templateDescription, templateSource } =
+      await request.json();
 
     // Validate input
     if (!deckId) {
@@ -146,15 +154,15 @@ export async function POST(request: NextRequest) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
+        userId: session.user.id,
       },
       include: {
         cards: {
           include: {
-            card: true
-          }
-        }
-      }
+            card: true,
+          },
+        },
+      },
     });
 
     if (!deck) {
@@ -175,26 +183,27 @@ export async function POST(request: NextRequest) {
     const template = await prisma.deck.create({
       data: {
         name: templateName?.trim() || `${deck.name} (Template)`,
-        description: templateDescription?.trim() || `Template based on ${deck.name}`,
+        description:
+          templateDescription?.trim() || `Template based on ${deck.name}`,
         isPublic: true,
         isTemplate: true,
         templateSource: templateSource?.trim() || 'Community',
         userId: session.user.id,
         cards: {
-          create: deck.cards.map(deckCard => ({
+          create: deck.cards.map((deckCard) => ({
             cardId: deckCard.cardId,
             quantity: deckCard.quantity,
-            category: deckCard.category
-          }))
-        }
+            category: deckCard.category,
+          })),
+        },
       },
       include: {
         user: {
           select: {
             id: true,
             name: true,
-            image: true
-          }
+            image: true,
+          },
         },
         cards: {
           include: {
@@ -202,18 +211,18 @@ export async function POST(request: NextRequest) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
-          }
-        }
-      }
+                set: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return NextResponse.json(
       {
         message: 'Template created successfully',
-        template
+        template,
       },
       { status: 201 }
     );

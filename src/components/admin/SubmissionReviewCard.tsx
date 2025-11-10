@@ -2,12 +2,24 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import type { CardSubmissionWithDetails } from '@/lib/types/submission';
 
 export interface SubmissionReviewCardProps {
   submission: CardSubmissionWithDetails;
-  onReview?: (id: string, status: 'APPROVED' | 'REJECTED', reviewNotes?: string, rejectionReason?: string) => void;
+  onReview?: (
+    id: string,
+    status: 'APPROVED' | 'REJECTED',
+    reviewNotes?: string,
+    rejectionReason?: string
+  ) => void;
   onPublish?: (id: string) => void;
   isLoading?: boolean;
   className?: string;
@@ -34,7 +46,12 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
   const handleReject = () => {
     if (onReview && rejectionReason.trim()) {
-      onReview(submission.id, 'REJECTED', reviewNotes || undefined, rejectionReason);
+      onReview(
+        submission.id,
+        'REJECTED',
+        reviewNotes || undefined,
+        rejectionReason
+      );
       setShowReviewForm(false);
       setReviewNotes('');
       setRejectionReason('');
@@ -49,28 +66,38 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'PENDING': return 'bg-yellow-100 text-yellow-800';
-      case 'APPROVED': return 'bg-green-100 text-green-800';
-      case 'REJECTED': return 'bg-red-100 text-red-800';
-      case 'PUBLISHED': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'PENDING':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'APPROVED':
+        return 'bg-green-100 text-green-800';
+      case 'REJECTED':
+        return 'bg-red-100 text-red-800';
+      case 'PUBLISHED':
+        return 'bg-blue-100 text-blue-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'URGENT': return 'bg-red-100 text-red-800';
-      case 'HIGH': return 'bg-orange-100 text-orange-800';
-      case 'NORMAL': return 'bg-gray-100 text-gray-800';
-      case 'LOW': return 'bg-gray-50 text-gray-600';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'URGENT':
+        return 'bg-red-100 text-red-800';
+      case 'HIGH':
+        return 'bg-orange-100 text-orange-800';
+      case 'NORMAL':
+        return 'bg-gray-100 text-gray-800';
+      case 'LOW':
+        return 'bg-gray-50 text-gray-600';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex justify-between items-start">
+        <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-lg">{submission.name}</CardTitle>
             <p className="text-sm text-gray-600">Set: {submission.setNumber}</p>
@@ -100,13 +127,13 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
                 alt={`Card preview for ${submission.name}`}
                 width={192}
                 height={256}
-                className="max-w-48 max-h-64 object-contain rounded-lg border"
+                className="max-h-64 max-w-48 rounded-lg border object-contain"
               />
             </div>
           )}
 
           {/* Card Details Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
             {submission.level !== undefined && (
               <div>
                 <span className="font-medium">Level:</span> {submission.level}
@@ -119,7 +146,8 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
             )}
             {submission.clashPoints !== undefined && (
               <div>
-                <span className="font-medium">CP:</span> {submission.clashPoints}
+                <span className="font-medium">CP:</span>{' '}
+                {submission.clashPoints}
               </div>
             )}
             {submission.hitPoints !== undefined && (
@@ -129,12 +157,14 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
             )}
             {submission.attackPoints !== undefined && (
               <div>
-                <span className="font-medium">AP:</span> {submission.attackPoints}
+                <span className="font-medium">AP:</span>{' '}
+                {submission.attackPoints}
               </div>
             )}
             {submission.faction && (
               <div>
-                <span className="font-medium">Faction:</span> {submission.faction}
+                <span className="font-medium">Faction:</span>{' '}
+                {submission.faction}
               </div>
             )}
             {submission.series && (
@@ -152,8 +182,8 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           {/* Card Text */}
           {submission.description && (
             <div>
-              <h4 className="font-medium text-sm mb-1">Description:</h4>
-              <p className="text-sm text-gray-700 bg-gray-50 p-2 rounded">
+              <h4 className="mb-1 text-sm font-medium">Description:</h4>
+              <p className="rounded bg-gray-50 p-2 text-sm text-gray-700">
                 {submission.description}
               </p>
             </div>
@@ -161,8 +191,8 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
           {submission.officialText && (
             <div>
-              <h4 className="font-medium text-sm mb-1">Official Text:</h4>
-              <p className="text-sm text-gray-700 bg-gray-50 p-2 rounded">
+              <h4 className="mb-1 text-sm font-medium">Official Text:</h4>
+              <p className="rounded bg-gray-50 p-2 text-sm text-gray-700">
                 {submission.officialText}
               </p>
             </div>
@@ -171,7 +201,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           {/* Keywords and Tags */}
           {submission.keywords && submission.keywords.length > 0 && (
             <div>
-              <h4 className="font-medium text-sm mb-1">Keywords:</h4>
+              <h4 className="mb-1 text-sm font-medium">Keywords:</h4>
               <div className="flex flex-wrap gap-1">
                 {submission.keywords.map((keyword, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -184,7 +214,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
           {submission.tags && submission.tags.length > 0 && (
             <div>
-              <h4 className="font-medium text-sm mb-1">Tags:</h4>
+              <h4 className="mb-1 text-sm font-medium">Tags:</h4>
               <div className="flex flex-wrap gap-1">
                 {submission.tags.map((tag, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -199,7 +229,9 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           <div className="flex flex-wrap gap-2">
             {submission.isFoil && <Badge variant="secondary">Foil</Badge>}
             {submission.isPromo && <Badge variant="secondary">Promo</Badge>}
-            {submission.isAlternate && <Badge variant="secondary">Alt Art</Badge>}
+            {submission.isAlternate && (
+              <Badge variant="secondary">Alt Art</Badge>
+            )}
             {submission.isLeak && <Badge variant="secondary">Leak</Badge>}
             {submission.isPreview && <Badge variant="secondary">Preview</Badge>}
           </div>
@@ -207,22 +239,29 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           {/* Review History */}
           {(submission.reviewNotes || submission.rejectionReason) && (
             <div className="border-t pt-4">
-              <h4 className="font-medium text-sm mb-2">Review History:</h4>
+              <h4 className="mb-2 text-sm font-medium">Review History:</h4>
               {submission.reviewNotes && (
                 <div className="mb-2">
                   <span className="text-xs text-gray-500">Review Notes:</span>
-                  <p className="text-sm text-gray-700">{submission.reviewNotes}</p>
+                  <p className="text-sm text-gray-700">
+                    {submission.reviewNotes}
+                  </p>
                 </div>
               )}
               {submission.rejectionReason && (
                 <div>
-                  <span className="text-xs text-gray-500">Rejection Reason:</span>
-                  <p className="text-sm text-red-600">{submission.rejectionReason}</p>
+                  <span className="text-xs text-gray-500">
+                    Rejection Reason:
+                  </span>
+                  <p className="text-sm text-red-600">
+                    {submission.rejectionReason}
+                  </p>
                 </div>
               )}
               {submission.reviewedBy && (
-                <p className="text-xs text-gray-500 mt-1">
-                  Reviewed by {submission.reviewedBy} on {new Date(submission.reviewedAt!).toLocaleDateString()}
+                <p className="mt-1 text-xs text-gray-500">
+                  Reviewed by {submission.reviewedBy} on{' '}
+                  {new Date(submission.reviewedAt!).toLocaleDateString()}
                 </p>
               )}
             </div>
@@ -230,9 +269,9 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
           {/* Review Form */}
           {showReviewForm && submission.status === 'PENDING' && (
-            <div className="border-t pt-4 space-y-3">
+            <div className="space-y-3 border-t pt-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Review Notes (Optional)
                 </label>
                 <textarea
@@ -245,7 +284,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Rejection Reason (Required for rejection)
                 </label>
                 <textarea
@@ -287,7 +326,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
           )}
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-center pt-4 border-t">
+          <div className="flex items-center justify-between border-t pt-4">
             <div className="text-xs text-gray-500">
               ID: {submission.id.slice(0, 8)}...
             </div>
@@ -316,7 +355,7 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
               )}
 
               {submission.status === 'PUBLISHED' && (
-                <span className="text-sm text-green-600 font-medium">
+                <span className="text-sm font-medium text-green-600">
                   Published ✓
                 </span>
               )}

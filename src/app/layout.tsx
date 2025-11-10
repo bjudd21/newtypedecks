@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
     userScalable: false,
-    viewportFit: 'cover'
+    viewportFit: 'cover',
   },
   themeColor: '#6b5a8a',
   appleWebApp: {
@@ -37,45 +37,55 @@ export const metadata: Metadata = {
     startupImage: [
       {
         url: '/icons/apple-splash-2048-2732.png',
-        media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)'
+        media:
+          '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         url: '/icons/apple-splash-1668-2388.png',
-        media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)'
+        media:
+          '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         url: '/icons/apple-splash-1536-2048.png',
-        media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)'
+        media:
+          '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         url: '/icons/apple-splash-1125-2436.png',
-        media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)'
+        media:
+          '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         url: '/icons/apple-splash-1242-2688.png',
-        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)'
+        media:
+          '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         url: '/icons/apple-splash-828-1792.png',
-        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)'
+        media:
+          '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         url: '/icons/apple-splash-1170-2532.png',
-        media: '(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)'
+        media:
+          '(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         url: '/icons/apple-splash-1284-2778.png',
-        media: '(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)'
+        media:
+          '(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         url: '/icons/apple-splash-750-1334.png',
-        media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)'
+        media:
+          '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         url: '/icons/apple-splash-640-1136.png',
-        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-      }
-    ]
+        media:
+          '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)',
+      },
+    ],
   },
   openGraph: {
     title: 'Newtype Decks - Gundam Card Game Database',
@@ -111,26 +121,51 @@ export default function RootLayout({
 
         {/* Apple touch icons */}
         <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icons/touch-icon-ipad.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png" />
-        <link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/icons/touch-icon-ipad.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/touch-icon-iphone-retina.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="167x167"
+          href="/icons/touch-icon-ipad-retina.png"
+        />
 
         {/* Favicon */}
-        <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/icons/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/icons/favicon-16x16.png"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625] font-sans antialiased">
         <AuthProvider>
           <ReduxProvider>
             <div className="flex min-h-screen flex-col">
-              <header className="border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm sticky top-0 z-50">
+              <header className="sticky top-0 z-50 border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm">
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
-                    <Link href="/" className="text-2xl font-bold text-white hover:text-[#8b7aaa] transition-colors duration-200 cursor-pointer">
+                    <Link
+                      href="/"
+                      className="cursor-pointer text-2xl font-bold text-white transition-colors duration-200 hover:text-[#8b7aaa]"
+                    >
                       Newtype Decks
                     </Link>
-                    <div className="hidden md:flex items-center space-x-6">
+                    <div className="hidden items-center space-x-6 md:flex">
                       <Navbar />
                       <div className="flex items-center gap-4">
                         <PWAStatus />

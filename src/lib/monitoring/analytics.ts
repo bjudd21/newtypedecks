@@ -33,7 +33,8 @@ class AnalyticsProvider {
   private isEnabled: boolean;
 
   constructor() {
-    this.isEnabled = !!process.env.GOOGLE_ANALYTICS_ID || !!process.env.MIXPANEL_TOKEN;
+    this.isEnabled =
+      !!process.env.GOOGLE_ANALYTICS_ID || !!process.env.MIXPANEL_TOKEN;
   }
 
   // Track custom events
@@ -74,7 +75,12 @@ class AnalyticsProvider {
   }
 
   // Track user interactions
-  trackUserAction(action: string, resource: string, userId?: string, metadata?: Record<string, unknown>) {
+  trackUserAction(
+    action: string,
+    resource: string,
+    userId?: string,
+    metadata?: Record<string, unknown>
+  ) {
     this.trackEvent({
       name: 'user_action',
       properties: {
@@ -174,7 +180,7 @@ export class MetricsCollector {
     const metrics = this.metrics.get(metricName) || [];
     if (metrics.length === 0) return null;
 
-    const values = metrics.map(m => m.value);
+    const values = metrics.map((m) => m.value);
     return {
       count: values.length,
       min: Math.min(...values),
@@ -189,7 +195,7 @@ export class MetricsCollector {
     const cutoff = new Date(Date.now() - olderThanHours * 60 * 60 * 1000);
 
     this.metrics.forEach((metrics, key) => {
-      const filtered = metrics.filter(m => m.timestamp! > cutoff);
+      const filtered = metrics.filter((m) => m.timestamp! > cutoff);
       this.metrics.set(key, filtered);
     });
   }
@@ -238,7 +244,11 @@ export const businessMetrics = {
     });
   },
 
-  trackDeckShare(deckId: string, shareType: 'public' | 'private' | 'url', userId?: string) {
+  trackDeckShare(
+    deckId: string,
+    shareType: 'public' | 'private' | 'url',
+    userId?: string
+  ) {
     analytics.trackUserAction('deck_share', 'deck', userId, {
       deck_id: deckId,
       share_type: shareType,
@@ -252,7 +262,11 @@ export const businessMetrics = {
   },
 
   // Collection metrics
-  trackCollectionUpdate(cardCount: number, totalValue: number, userId?: string) {
+  trackCollectionUpdate(
+    cardCount: number,
+    totalValue: number,
+    userId?: string
+  ) {
     analytics.trackUserAction('collection_update', 'collection', userId, {
       card_count: cardCount,
       total_value: totalValue,
@@ -266,7 +280,10 @@ export const businessMetrics = {
   },
 
   // Authentication metrics
-  trackUserRegistration(userId: string, method: 'email' | 'google' | 'discord') {
+  trackUserRegistration(
+    userId: string,
+    method: 'email' | 'google' | 'discord'
+  ) {
     analytics.trackUserAction('user_register', 'auth', userId, { method });
     metricsCollector.collectMetric({
       name: 'user_registrations',
@@ -301,7 +318,12 @@ export const businessMetrics = {
     });
   },
 
-  trackAPIResponse(endpoint: string, method: string, duration: number, success: boolean) {
+  trackAPIResponse(
+    endpoint: string,
+    method: string,
+    duration: number,
+    success: boolean
+  ) {
     metricsCollector.collectMetric({
       name: 'api_response_time',
       value: duration,
@@ -334,7 +356,12 @@ export function trackWebVitals() {
   if (typeof window === 'undefined') return;
 
   // Core Web Vitals
-  function sendToAnalytics(metric: { name: string; value: number; id: string; delta: number }) {
+  function sendToAnalytics(metric: {
+    name: string;
+    value: number;
+    id: string;
+    delta: number;
+  }) {
     analytics.trackEvent({
       name: 'web_vital',
       properties: {
@@ -354,13 +381,15 @@ export function trackWebVitals() {
   }
 
   // Import and track web vitals
-  import('web-vitals').then((webVitals) => {
-    if (webVitals.onCLS) webVitals.onCLS(sendToAnalytics);
-    if (webVitals.onINP) webVitals.onINP(sendToAnalytics); // FID is replaced by INP
-    if (webVitals.onFCP) webVitals.onFCP(sendToAnalytics);
-    if (webVitals.onLCP) webVitals.onLCP(sendToAnalytics);
-    if (webVitals.onTTFB) webVitals.onTTFB(sendToAnalytics);
-  }).catch(console.error);
+  import('web-vitals')
+    .then((webVitals) => {
+      if (webVitals.onCLS) webVitals.onCLS(sendToAnalytics);
+      if (webVitals.onINP) webVitals.onINP(sendToAnalytics); // FID is replaced by INP
+      if (webVitals.onFCP) webVitals.onFCP(sendToAnalytics);
+      if (webVitals.onLCP) webVitals.onLCP(sendToAnalytics);
+      if (webVitals.onTTFB) webVitals.onTTFB(sendToAnalytics);
+    })
+    .catch(console.error);
 }
 
 // Session tracking

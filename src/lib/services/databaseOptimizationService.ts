@@ -54,7 +54,10 @@ export class DatabaseOptimizationService {
   async monitorQuery<T>(
     queryId: string,
     queryFn: () => Promise<T>,
-    context: { filters?: Record<string, unknown>; options?: Record<string, unknown> } = {}
+    context: {
+      filters?: Record<string, unknown>;
+      options?: Record<string, unknown>;
+    } = {}
   ): Promise<T> {
     const startTime = Date.now();
 
@@ -94,7 +97,10 @@ export class DatabaseOptimizationService {
   /**
    * Optimize card search query based on filters
    */
-  buildOptimizedCardQuery(filters: CardSearchFilters, options: CardSearchOptions) {
+  buildOptimizedCardQuery(
+    filters: CardSearchFilters,
+    options: CardSearchOptions
+  ) {
     const where: Record<string, unknown> = {};
     const orderBy: unknown[] = [];
 
@@ -133,43 +139,71 @@ export class DatabaseOptimizationService {
     // Boolean filters
     if (filters.isFoil !== undefined) where.isFoil = filters.isFoil;
     if (filters.isPromo !== undefined) where.isPromo = filters.isPromo;
-    if (filters.isAlternate !== undefined) where.isAlternate = filters.isAlternate;
+    if (filters.isAlternate !== undefined)
+      where.isAlternate = filters.isAlternate;
 
     // Range filters (use indexes)
     if (filters.levelMin !== undefined || filters.levelMax !== undefined) {
       where.level = {} as { gte?: number; lte?: number };
-      if (filters.levelMin !== undefined) (where.level as { gte?: number; lte?: number }).gte = filters.levelMin;
-      if (filters.levelMax !== undefined) (where.level as { gte?: number; lte?: number }).lte = filters.levelMax;
+      if (filters.levelMin !== undefined)
+        (where.level as { gte?: number; lte?: number }).gte = filters.levelMin;
+      if (filters.levelMax !== undefined)
+        (where.level as { gte?: number; lte?: number }).lte = filters.levelMax;
     }
 
     if (filters.costMin !== undefined || filters.costMax !== undefined) {
       where.cost = {} as { gte?: number; lte?: number };
-      if (filters.costMin !== undefined) (where.cost as { gte?: number; lte?: number }).gte = filters.costMin;
-      if (filters.costMax !== undefined) (where.cost as { gte?: number; lte?: number }).lte = filters.costMax;
+      if (filters.costMin !== undefined)
+        (where.cost as { gte?: number; lte?: number }).gte = filters.costMin;
+      if (filters.costMax !== undefined)
+        (where.cost as { gte?: number; lte?: number }).lte = filters.costMax;
     }
 
-    if (filters.clashPointsMin !== undefined || filters.clashPointsMax !== undefined) {
+    if (
+      filters.clashPointsMin !== undefined ||
+      filters.clashPointsMax !== undefined
+    ) {
       where.clashPoints = {} as { gte?: number; lte?: number };
-      if (filters.clashPointsMin !== undefined) (where.clashPoints as { gte?: number; lte?: number }).gte = filters.clashPointsMin;
-      if (filters.clashPointsMax !== undefined) (where.clashPoints as { gte?: number; lte?: number }).lte = filters.clashPointsMax;
+      if (filters.clashPointsMin !== undefined)
+        (where.clashPoints as { gte?: number; lte?: number }).gte =
+          filters.clashPointsMin;
+      if (filters.clashPointsMax !== undefined)
+        (where.clashPoints as { gte?: number; lte?: number }).lte =
+          filters.clashPointsMax;
     }
 
     if (filters.priceMin !== undefined || filters.priceMax !== undefined) {
       where.price = {} as { gte?: number; lte?: number };
-      if (filters.priceMin !== undefined) (where.price as { gte?: number; lte?: number }).gte = filters.priceMin;
-      if (filters.priceMax !== undefined) (where.price as { gte?: number; lte?: number }).lte = filters.priceMax;
+      if (filters.priceMin !== undefined)
+        (where.price as { gte?: number; lte?: number }).gte = filters.priceMin;
+      if (filters.priceMax !== undefined)
+        (where.price as { gte?: number; lte?: number }).lte = filters.priceMax;
     }
 
-    if (filters.hitPointsMin !== undefined || filters.hitPointsMax !== undefined) {
+    if (
+      filters.hitPointsMin !== undefined ||
+      filters.hitPointsMax !== undefined
+    ) {
       where.hitPoints = {} as { gte?: number; lte?: number };
-      if (filters.hitPointsMin !== undefined) (where.hitPoints as { gte?: number; lte?: number }).gte = filters.hitPointsMin;
-      if (filters.hitPointsMax !== undefined) (where.hitPoints as { gte?: number; lte?: number }).lte = filters.hitPointsMax;
+      if (filters.hitPointsMin !== undefined)
+        (where.hitPoints as { gte?: number; lte?: number }).gte =
+          filters.hitPointsMin;
+      if (filters.hitPointsMax !== undefined)
+        (where.hitPoints as { gte?: number; lte?: number }).lte =
+          filters.hitPointsMax;
     }
 
-    if (filters.attackPointsMin !== undefined || filters.attackPointsMax !== undefined) {
+    if (
+      filters.attackPointsMin !== undefined ||
+      filters.attackPointsMax !== undefined
+    ) {
       where.attackPoints = {} as { gte?: number; lte?: number };
-      if (filters.attackPointsMin !== undefined) (where.attackPoints as { gte?: number; lte?: number }).gte = filters.attackPointsMin;
-      if (filters.attackPointsMax !== undefined) (where.attackPoints as { gte?: number; lte?: number }).lte = filters.attackPointsMax;
+      if (filters.attackPointsMin !== undefined)
+        (where.attackPoints as { gte?: number; lte?: number }).gte =
+          filters.attackPointsMin;
+      if (filters.attackPointsMax !== undefined)
+        (where.attackPoints as { gte?: number; lte?: number }).lte =
+          filters.attackPointsMax;
     }
 
     // Array filters
@@ -224,7 +258,7 @@ export class DatabaseOptimizationService {
     slowQueryCount: number;
     suggestions: string[];
   } {
-    const queries = this.queryMetrics.filter(m => m.queryId === queryId);
+    const queries = this.queryMetrics.filter((m) => m.queryId === queryId);
 
     if (queries.length === 0) {
       return {
@@ -234,23 +268,32 @@ export class DatabaseOptimizationService {
       };
     }
 
-    const averageTime = queries.reduce((sum, q) => sum + q.duration, 0) / queries.length;
-    const slowQueryCount = queries.filter(q => q.duration > this.slowQueryThreshold).length;
+    const averageTime =
+      queries.reduce((sum, q) => sum + q.duration, 0) / queries.length;
+    const slowQueryCount = queries.filter(
+      (q) => q.duration > this.slowQueryThreshold
+    ).length;
     const suggestions: string[] = [];
 
     // Analyze patterns and suggest optimizations
     if (averageTime > 500) {
-      suggestions.push('Consider adding database indexes for frequently filtered fields');
+      suggestions.push(
+        'Consider adding database indexes for frequently filtered fields'
+      );
     }
 
     if (slowQueryCount > queries.length * 0.1) {
-      suggestions.push('High percentage of slow queries detected - review query structure');
+      suggestions.push(
+        'High percentage of slow queries detected - review query structure'
+      );
     }
 
     // Analyze filter patterns
     const commonFilters = this.analyzeCommonFilters(queries);
     if (commonFilters.length > 0) {
-      suggestions.push(`Consider composite indexes for: ${commonFilters.join(', ')}`);
+      suggestions.push(
+        `Consider composite indexes for: ${commonFilters.join(', ')}`
+      );
     }
 
     return {
@@ -268,7 +311,7 @@ export class DatabaseOptimizationService {
       // Get slow queries from recent metrics
       const recentDate = new Date(Date.now() - 24 * 60 * 60 * 1000); // Last 24 hours
       const slowQueries = this.queryMetrics.filter(
-        m => m.timestamp > recentDate && m.duration > this.slowQueryThreshold
+        (m) => m.timestamp > recentDate && m.duration > this.slowQueryThreshold
       );
 
       // For a full implementation, you would query actual database statistics
@@ -303,11 +346,11 @@ export class DatabaseOptimizationService {
 
       // Clear old query metrics
       const oldMetrics = this.queryMetrics.filter(
-        m => Date.now() - m.timestamp.getTime() > 7 * 24 * 60 * 60 * 1000
+        (m) => Date.now() - m.timestamp.getTime() > 7 * 24 * 60 * 60 * 1000
       );
 
       this.queryMetrics = this.queryMetrics.filter(
-        m => Date.now() - m.timestamp.getTime() <= 7 * 24 * 60 * 60 * 1000
+        (m) => Date.now() - m.timestamp.getTime() <= 7 * 24 * 60 * 60 * 1000
       );
 
       if (oldMetrics.length > 0) {
@@ -346,7 +389,9 @@ export class DatabaseOptimizationService {
 
     // Keep only recent metrics (last 7 days)
     const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    this.queryMetrics = this.queryMetrics.filter(m => m.timestamp.getTime() > cutoff);
+    this.queryMetrics = this.queryMetrics.filter(
+      (m) => m.timestamp.getTime() > cutoff
+    );
   }
 
   /**
@@ -355,14 +400,20 @@ export class DatabaseOptimizationService {
   private analyzeCommonFilters(queries: QueryPerformanceMetrics[]): string[] {
     const filterCombinations: Map<string, number> = new Map();
 
-    queries.forEach(query => {
+    queries.forEach((query) => {
       const filters = Object.keys(query.filters || {})
-        .filter(key => query.filters[key] !== undefined && query.filters[key] !== null)
+        .filter(
+          (key) =>
+            query.filters[key] !== undefined && query.filters[key] !== null
+        )
         .sort();
 
       if (filters.length > 1) {
         const combination = filters.join('+');
-        filterCombinations.set(combination, (filterCombinations.get(combination) || 0) + 1);
+        filterCombinations.set(
+          combination,
+          (filterCombinations.get(combination) || 0) + 1
+        );
       }
     });
 
@@ -382,11 +433,14 @@ export class DatabaseOptimizationService {
     topSlowQueries: QueryPerformanceMetrics[];
   } {
     const total = this.queryMetrics.length;
-    const averageTime = total > 0
-      ? this.queryMetrics.reduce((sum, q) => sum + q.duration, 0) / total
-      : 0;
+    const averageTime =
+      total > 0
+        ? this.queryMetrics.reduce((sum, q) => sum + q.duration, 0) / total
+        : 0;
 
-    const slowQueries = this.queryMetrics.filter(q => q.duration > this.slowQueryThreshold);
+    const slowQueries = this.queryMetrics.filter(
+      (q) => q.duration > this.slowQueryThreshold
+    );
     const topSlowQueries = slowQueries
       .sort((a, b) => b.duration - a.duration)
       .slice(0, 5);

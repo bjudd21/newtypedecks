@@ -81,21 +81,24 @@ export class CardService {
           limit = 20,
           sortBy: _sortBy = 'name',
           sortOrder: _sortOrder = 'asc',
-          includeRelations = true
+          includeRelations = true,
         } = options;
 
         const skip = (page - 1) * limit;
 
         // Use optimized query builder
-        const { where: whereClause, orderBy } = dbOptimizer.buildOptimizedCardQuery(filters, options);
+        const { where: whereClause, orderBy } =
+          dbOptimizer.buildOptimizedCardQuery(filters, options);
 
         // Include relations if requested
-        const include = includeRelations ? {
-          type: true,
-          rarity: true,
-          set: true,
-          rulings: true
-        } : undefined;
+        const include = includeRelations
+          ? {
+              type: true,
+              rarity: true,
+              set: true,
+              rulings: true,
+            }
+          : undefined;
 
         // Execute queries
         const [cards, total] = await Promise.all([
@@ -104,9 +107,9 @@ export class CardService {
             include,
             skip,
             take: limit,
-            orderBy: orderBy as any // TODO: Fix buildOptimizedCardQuery to return proper Prisma types
+            orderBy: orderBy as any, // TODO: Fix buildOptimizedCardQuery to return proper Prisma types
           }) as Promise<CardWithRelations[]>,
-          db.card.count({ where: whereClause })
+          db.card.count({ where: whereClause }),
         ]);
 
         const totalPages = Math.ceil(total / limit);
@@ -116,10 +119,13 @@ export class CardService {
           total,
           page,
           limit,
-          totalPages
+          totalPages,
         };
       },
-      { filters: filters as Record<string, unknown>, options: options as Record<string, unknown> } // TODO: Update monitorQuery to accept proper types
+      {
+        filters: filters as Record<string, unknown>,
+        options: options as Record<string, unknown>,
+      } // TODO: Update monitorQuery to accept proper types
     );
 
     // Track the search analytics
@@ -141,19 +147,24 @@ export class CardService {
   /**
    * Get a single card by ID
    */
-  static async getCardById(id: string, includeRelations = true): Promise<CardWithRelations | null> {
+  static async getCardById(
+    id: string,
+    includeRelations = true
+  ): Promise<CardWithRelations | null> {
     const db = await getDatabaseClient();
 
-    const include = includeRelations ? {
-      type: true,
-      rarity: true,
-      set: true,
-      rulings: true
-    } : undefined;
+    const include = includeRelations
+      ? {
+          type: true,
+          rarity: true,
+          set: true,
+          rulings: true,
+        }
+      : undefined;
 
     return db.card.findUnique({
       where: { id },
-      include
+      include,
     }) as Promise<CardWithRelations | null>;
   }
 
@@ -167,21 +178,23 @@ export class CardService {
   ): Promise<CardWithRelations | null> {
     const db = await getDatabaseClient();
 
-    const include = includeRelations ? {
-      type: true,
-      rarity: true,
-      set: true,
-      rulings: true
-    } : undefined;
+    const include = includeRelations
+      ? {
+          type: true,
+          rarity: true,
+          set: true,
+          rulings: true,
+        }
+      : undefined;
 
     return db.card.findUnique({
       where: {
         setId_setNumber: {
           setId,
-          setNumber
-        }
+          setNumber,
+        },
       },
-      include
+      include,
     }) as Promise<CardWithRelations | null>;
   }
 
@@ -198,20 +211,20 @@ export class CardService {
     }
 
     // Create the card
-    const card = await db.card.create({
+    const card = (await db.card.create({
       data: {
         ...data,
         keywords: data.keywords || [],
         tags: data.tags || [],
-        language: data.language || 'en'
+        language: data.language || 'en',
       },
       include: {
         type: true,
         rarity: true,
         set: true,
-        rulings: true
-      }
-    }) as CardWithRelations;
+        rulings: true,
+      },
+    })) as CardWithRelations;
 
     // Invalidate related cache entries
     await searchCache.invalidateByFilters({
@@ -220,7 +233,7 @@ export class CardService {
       setId: card.setId,
       faction: card.faction || undefined,
       series: card.series || undefined,
-      nation: card.nation || undefined
+      nation: card.nation || undefined,
     });
 
     return card;
@@ -249,21 +262,21 @@ export class CardService {
         setId: true,
         faction: true,
         series: true,
-        nation: true
-      }
+        nation: true,
+      },
     });
 
     // Update the card
-    const card = await db.card.update({
+    const card = (await db.card.update({
       where: { id },
       data: updateData,
       include: {
         type: true,
         rarity: true,
         set: true,
-        rulings: true
-      }
-    }) as CardWithRelations;
+        rulings: true,
+      },
+    })) as CardWithRelations;
 
     // Invalidate cache entries for both old and new values
     if (existingCard) {
@@ -273,7 +286,7 @@ export class CardService {
         setId: existingCard.setId,
         faction: existingCard.faction || undefined,
         series: existingCard.series || undefined,
-        nation: existingCard.nation || undefined
+        nation: existingCard.nation || undefined,
       });
     }
 
@@ -283,7 +296,7 @@ export class CardService {
       setId: card.setId,
       faction: card.faction || undefined,
       series: card.series || undefined,
-      nation: card.nation || undefined
+      nation: card.nation || undefined,
     });
 
     return card;
@@ -305,12 +318,12 @@ export class CardService {
           setId: true,
           faction: true,
           series: true,
-          nation: true
-        }
+          nation: true,
+        },
       });
 
       await db.card.delete({
-        where: { id }
+        where: { id },
       });
 
       // Invalidate cache entries
@@ -321,7 +334,7 @@ export class CardService {
           setId: cardToDelete.setId,
           faction: cardToDelete.faction || undefined,
           series: cardToDelete.series || undefined,
-          nation: cardToDelete.nation || undefined
+          nation: cardToDelete.nation || undefined,
         });
       }
 
@@ -334,38 +347,48 @@ export class CardService {
   /**
    * Get cards by IDs
    */
-  static async getCardsByIds(ids: string[], includeRelations = true): Promise<CardWithRelations[]> {
+  static async getCardsByIds(
+    ids: string[],
+    includeRelations = true
+  ): Promise<CardWithRelations[]> {
     const db = await getDatabaseClient();
 
-    const include = includeRelations ? {
-      type: true,
-      rarity: true,
-      set: true,
-      rulings: true
-    } : undefined;
+    const include = includeRelations
+      ? {
+          type: true,
+          rarity: true,
+          set: true,
+          rulings: true,
+        }
+      : undefined;
 
     return db.card.findMany({
       where: {
         id: {
-          in: ids
-        }
+          in: ids,
+        },
       },
-      include
+      include,
     }) as Promise<CardWithRelations[]>;
   }
 
   /**
    * Get random cards
    */
-  static async getRandomCards(count = 10, includeRelations = true): Promise<CardWithRelations[]> {
+  static async getRandomCards(
+    count = 10,
+    includeRelations = true
+  ): Promise<CardWithRelations[]> {
     const db = await getDatabaseClient();
 
-    const include = includeRelations ? {
-      type: true,
-      rarity: true,
-      set: true,
-      rulings: true
-    } : undefined;
+    const include = includeRelations
+      ? {
+          type: true,
+          rarity: true,
+          set: true,
+          rulings: true,
+        }
+      : undefined;
 
     // Get total count first
     const total = await db.card.count();
@@ -381,11 +404,11 @@ export class CardService {
 
       usedSkips.add(skip);
 
-      const card = await db.card.findFirst({
+      const card = (await db.card.findFirst({
         skip,
         take: 1,
-        include
-      }) as CardWithRelations | null;
+        include,
+      })) as CardWithRelations | null;
 
       if (card) {
         randomCards.push(card);
@@ -398,57 +421,73 @@ export class CardService {
   /**
    * Get cards by faction
    */
-  static async getCardsByFaction(faction: string, limit = 20): Promise<CardWithRelations[]> {
+  static async getCardsByFaction(
+    faction: string,
+    limit = 20
+  ): Promise<CardWithRelations[]> {
     return this.searchCards(
       { faction },
       { limit, includeRelations: true }
-    ).then(result => result.cards);
+    ).then((result) => result.cards);
   }
 
   /**
    * Get cards by series
    */
-  static async getCardsBySeries(series: string, limit = 20): Promise<CardWithRelations[]> {
-    return this.searchCards(
-      { series },
-      { limit, includeRelations: true }
-    ).then(result => result.cards);
+  static async getCardsBySeries(
+    series: string,
+    limit = 20
+  ): Promise<CardWithRelations[]> {
+    return this.searchCards({ series }, { limit, includeRelations: true }).then(
+      (result) => result.cards
+    );
   }
 
   /**
    * Get cards by type
    */
-  static async getCardsByType(typeId: string, limit = 20): Promise<CardWithRelations[]> {
-    return this.searchCards(
-      { typeId },
-      { limit, includeRelations: true }
-    ).then(result => result.cards);
+  static async getCardsByType(
+    typeId: string,
+    limit = 20
+  ): Promise<CardWithRelations[]> {
+    return this.searchCards({ typeId }, { limit, includeRelations: true }).then(
+      (result) => result.cards
+    );
   }
 
   /**
    * Get cards by rarity
    */
-  static async getCardsByRarity(rarityId: string, limit = 20): Promise<CardWithRelations[]> {
+  static async getCardsByRarity(
+    rarityId: string,
+    limit = 20
+  ): Promise<CardWithRelations[]> {
     return this.searchCards(
       { rarityId },
       { limit, includeRelations: true }
-    ).then(result => result.cards);
+    ).then((result) => result.cards);
   }
 
   /**
    * Get cards by set
    */
-  static async getCardsBySet(setId: string, limit = 100): Promise<CardWithRelations[]> {
+  static async getCardsBySet(
+    setId: string,
+    limit = 100
+  ): Promise<CardWithRelations[]> {
     return this.searchCards(
       { setId },
       { limit, sortBy: 'setNumber', sortOrder: 'asc', includeRelations: true }
-    ).then(result => result.cards);
+    ).then((result) => result.cards);
   }
 
   /**
    * Search cards by text (name, description, official text)
    */
-  static async searchCardsByText(query: string, limit = 20): Promise<CardWithRelations[]> {
+  static async searchCardsByText(
+    query: string,
+    limit = 20
+  ): Promise<CardWithRelations[]> {
     const db = await getDatabaseClient();
 
     return db.card.findMany({
@@ -458,19 +497,19 @@ export class CardService {
           { description: { contains: query, mode: 'insensitive' } },
           { officialText: { contains: query, mode: 'insensitive' } },
           { pilot: { contains: query, mode: 'insensitive' } },
-          { model: { contains: query, mode: 'insensitive' } }
-        ]
+          { model: { contains: query, mode: 'insensitive' } },
+        ],
       },
       include: {
         type: true,
         rarity: true,
         set: true,
-        rulings: true
+        rulings: true,
       },
       take: limit,
       orderBy: {
-        name: 'asc'
-      }
+        name: 'asc',
+      },
     }) as Promise<CardWithRelations[]>;
   }
 
@@ -481,13 +520,13 @@ export class CardService {
     const db = await getDatabaseClient();
 
     // Get all cards for statistics
-    const cards = await db.card.findMany({
+    const cards = (await db.card.findMany({
       include: {
         type: true,
         rarity: true,
-        set: true
-      }
-    }) as CardWithRelations[];
+        set: true,
+      },
+    })) as CardWithRelations[];
 
     return CardUtils.calculateStats(cards);
   }
@@ -509,7 +548,7 @@ export class CardService {
       } catch (error) {
         failed.push({
           data: cardData,
-          error: error instanceof Error ? error.message : 'Unknown error'
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     }
@@ -525,12 +564,14 @@ export const CardHelpers = {
   /**
    * Format card display name
    */
-  formatDisplayName: (card: CardWithRelations) => new CardModel(card).getDisplayName(),
+  formatDisplayName: (card: CardWithRelations) =>
+    new CardModel(card).getDisplayName(),
 
   /**
    * Get card power level
    */
-  getPowerLevel: (card: CardWithRelations) => new CardModel(card).getPowerLevel(),
+  getPowerLevel: (card: CardWithRelations) =>
+    new CardModel(card).getPowerLevel(),
 
   /**
    * Check if card matches filters
@@ -562,7 +603,7 @@ export const CardHelpers = {
   /**
    * Create image info
    */
-  createImageInfo: CardUtils.createImageInfo
+  createImageInfo: CardUtils.createImageInfo,
 };
 
 // Export the service for use in other modules

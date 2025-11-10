@@ -40,7 +40,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     return NextResponse.json(submission, { status: 200 });
-
   } catch (error) {
     console.error('Submission get API error:', error);
 
@@ -71,11 +70,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     // Update the submission
     const submission = await CardSubmissionService.updateSubmission(updateData);
 
-    return NextResponse.json({
-      message: 'Submission updated successfully',
-      submission,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: 'Submission updated successfully',
+        submission,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Submission update API error:', error);
 
@@ -120,11 +121,13 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     await CardSubmissionService.deleteSubmission(id);
 
-    return NextResponse.json({
-      message: 'Submission deleted successfully',
-      id,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: 'Submission deleted successfully',
+        id,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Submission delete API error:', error);
 
@@ -139,7 +142,10 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    if (error instanceof Error && error.message.includes('Cannot delete published')) {
+    if (
+      error instanceof Error &&
+      error.message.includes('Cannot delete published')
+    ) {
       return NextResponse.json(
         {
           error: 'Cannot delete submission',

@@ -10,22 +10,44 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { CardSearch } from '@/components/card/CardSearch';
 import { CardDisplay } from '@/components/card/CardDisplay';
-import { Card, CardContent, CardHeader, CardTitle, Button, InfiniteScroll, useInfiniteScroll, Pagination } from '@/components/ui';
-import type { CardWithRelations, CardSearchFilters, CardSearchOptions, CardSearchResult } from '@/lib/types/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  InfiniteScroll,
+  useInfiniteScroll,
+  Pagination,
+} from '@/components/ui';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+  CardSearchOptions,
+  CardSearchResult,
+} from '@/lib/types/card';
 
 type PaginationMode = 'infinite' | 'traditional';
 
 export function CardsPageClient() {
-  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(null);
+  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(
+    null
+  );
   const [activeFilters, setActiveFilters] = useState<CardSearchFilters>({});
-  const [sortOptions, setSortOptions] = useState<{ sortBy: string; sortOrder: 'asc' | 'desc' }>({
+  const [sortOptions, setSortOptions] = useState<{
+    sortBy: string;
+    sortOrder: 'asc' | 'desc';
+  }>({
     sortBy: 'name',
     sortOrder: 'asc',
   });
-  const [paginationMode, setPaginationMode] = useState<PaginationMode>('infinite');
+  const [paginationMode, setPaginationMode] =
+    useState<PaginationMode>('infinite');
 
   // Traditional pagination state
-  const [traditionalCards, setTraditionalCards] = useState<CardWithRelations[]>([]);
+  const [traditionalCards, setTraditionalCards] = useState<CardWithRelations[]>(
+    []
+  );
   const [traditionalLoading, setTraditionalLoading] = useState(false);
   const [traditionalError, setTraditionalError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,85 +56,92 @@ export function CardsPageClient() {
   const pageSize = 20;
 
   // Load function for infinite scroll
-  const loadCards = useCallback(async (page: number, pageSize: number) => {
-    try {
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: activeFilters,
-          options: {
-            page,
-            limit: pageSize,
-            sortBy: sortOptions.sortBy,
-            sortOrder: sortOptions.sortOrder,
-            includeRelations: true,
-          } as CardSearchOptions,
-        }),
-      });
+  const loadCards = useCallback(
+    async (page: number, pageSize: number) => {
+      try {
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            filters: activeFilters,
+            options: {
+              page,
+              limit: pageSize,
+              sortBy: sortOptions.sortBy,
+              sortOrder: sortOptions.sortOrder,
+              includeRelations: true,
+            } as CardSearchOptions,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch cards');
+        if (!response.ok) {
+          throw new Error('Failed to fetch cards');
+        }
+
+        const result = await response.json();
+
+        return {
+          items: result.cards as CardWithRelations[],
+          hasMore: result.page < result.totalPages,
+          total: result.total,
+        };
+      } catch (error) {
+        console.error('Error loading cards:', error);
+        throw error;
       }
-
-      const result = await response.json();
-
-      return {
-        items: result.cards as CardWithRelations[],
-        hasMore: result.page < result.totalPages,
-        total: result.total,
-      };
-    } catch (error) {
-      console.error('Error loading cards:', error);
-      throw error;
-    }
-  }, [activeFilters, sortOptions]);
+    },
+    [activeFilters, sortOptions]
+  );
 
   // Traditional pagination load function
-  const loadTraditionalPage = useCallback(async (page: number) => {
-    if (traditionalLoading) return;
+  const loadTraditionalPage = useCallback(
+    async (page: number) => {
+      if (traditionalLoading) return;
 
-    try {
-      setTraditionalLoading(true);
-      setTraditionalError(null);
+      try {
+        setTraditionalLoading(true);
+        setTraditionalError(null);
 
-      const response = await fetch('/api/cards/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: activeFilters,
-          options: {
-            page,
-            limit: pageSize,
-            sortBy: sortOptions.sortBy,
-            sortOrder: sortOptions.sortOrder,
-            includeRelations: true,
-          } as CardSearchOptions,
-        }),
-      });
+        const response = await fetch('/api/cards/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            filters: activeFilters,
+            options: {
+              page,
+              limit: pageSize,
+              sortBy: sortOptions.sortBy,
+              sortOrder: sortOptions.sortOrder,
+              includeRelations: true,
+            } as CardSearchOptions,
+          }),
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch cards');
+        if (!response.ok) {
+          throw new Error('Failed to fetch cards');
+        }
+
+        const result: CardSearchResult = await response.json();
+
+        setTraditionalCards(result.cards);
+        setTotalPages(result.totalPages);
+        setTotalResults(result.total);
+        setCurrentPage(result.page);
+      } catch (error) {
+        console.error('Error loading cards:', error);
+        setTraditionalError(
+          error instanceof Error ? error.message : 'Failed to load cards'
+        );
+      } finally {
+        setTraditionalLoading(false);
       }
-
-      const result: CardSearchResult = await response.json();
-
-      setTraditionalCards(result.cards);
-      setTotalPages(result.totalPages);
-      setTotalResults(result.total);
-      setCurrentPage(result.page);
-
-    } catch (error) {
-      console.error('Error loading cards:', error);
-      setTraditionalError(error instanceof Error ? error.message : 'Failed to load cards');
-    } finally {
-      setTraditionalLoading(false);
-    }
-  }, [activeFilters, sortOptions, traditionalLoading, pageSize]);
+    },
+    [activeFilters, sortOptions, traditionalLoading, pageSize]
+  );
 
   // Infinite scroll hook
   const {
@@ -140,10 +169,13 @@ export function CardsPageClient() {
     setSelectedCard(card);
   }, []);
 
-  const handleSortChange = useCallback((sortField: string, sortOrder: 'asc' | 'desc') => {
-    setSortOptions({ sortBy: sortField, sortOrder });
-    setCurrentPage(1); // Reset to page 1 when sort changes
-  }, []);
+  const handleSortChange = useCallback(
+    (sortField: string, sortOrder: 'asc' | 'desc') => {
+      setSortOptions({ sortBy: sortField, sortOrder });
+      setCurrentPage(1); // Reset to page 1 when sort changes
+    },
+    []
+  );
 
   const handleSearch = useCallback(() => {
     if (paginationMode === 'infinite') {
@@ -154,33 +186,45 @@ export function CardsPageClient() {
     }
   }, [paginationMode, resetInfinite, loadTraditionalPage]);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (paginationMode === 'traditional') {
-      loadTraditionalPage(page);
-    }
-  }, [paginationMode, loadTraditionalPage]);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (paginationMode === 'traditional') {
+        loadTraditionalPage(page);
+      }
+    },
+    [paginationMode, loadTraditionalPage]
+  );
 
-  const handlePaginationModeChange = useCallback((mode: PaginationMode) => {
-    setPaginationMode(mode);
-    setCurrentPage(1);
-    if (mode === 'traditional' && Object.keys(activeFilters).length > 0) {
-      loadTraditionalPage(1);
-    } else if (mode === 'infinite') {
-      resetInfinite();
-    }
-  }, [activeFilters, loadTraditionalPage, resetInfinite]);
+  const handlePaginationModeChange = useCallback(
+    (mode: PaginationMode) => {
+      setPaginationMode(mode);
+      setCurrentPage(1);
+      if (mode === 'traditional' && Object.keys(activeFilters).length > 0) {
+        loadTraditionalPage(1);
+      } else if (mode === 'infinite') {
+        resetInfinite();
+      }
+    },
+    [activeFilters, loadTraditionalPage, resetInfinite]
+  );
 
   // Get current state based on pagination mode
-  const currentCards = paginationMode === 'infinite' ? infiniteCards : traditionalCards;
-  const currentLoading = paginationMode === 'infinite' ? infiniteLoading : traditionalLoading;
-  const currentError = paginationMode === 'infinite' ? infiniteError : traditionalError;
-  const currentTotal = paginationMode === 'infinite' ? infiniteTotal : totalResults;
+  const currentCards =
+    paginationMode === 'infinite' ? infiniteCards : traditionalCards;
+  const currentLoading =
+    paginationMode === 'infinite' ? infiniteLoading : traditionalLoading;
+  const currentError =
+    paginationMode === 'infinite' ? infiniteError : traditionalError;
+  const currentTotal =
+    paginationMode === 'infinite' ? infiniteTotal : totalResults;
 
   // Check if we have any active search
   const hasActiveSearch = useMemo(() => {
-    return Object.values(activeFilters).some(value =>
-      value !== undefined && value !== null &&
-      (Array.isArray(value) ? value.length > 0 : value !== '')
+    return Object.values(activeFilters).some(
+      (value) =>
+        value !== undefined &&
+        value !== null &&
+        (Array.isArray(value) ? value.length > 0 : value !== '')
     );
   }, [activeFilters]);
 
@@ -198,7 +242,7 @@ export function CardsPageClient() {
       {(hasActiveSearch || currentCards.length > 0) && (
         <div className="space-y-4">
           {/* Results header with sorting and pagination mode */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-semibold text-gray-900">
                 Search Results
@@ -210,11 +254,11 @@ export function CardsPageClient() {
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               {/* Pagination mode selector */}
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">View:</span>
-                <div className="flex border border-gray-300 rounded-md overflow-hidden">
+                <div className="flex overflow-hidden rounded-md border border-gray-300">
                   <button
                     onClick={() => handlePaginationModeChange('infinite')}
                     className={`px-3 py-1 text-xs font-medium transition-colors ${
@@ -242,7 +286,7 @@ export function CardsPageClient() {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-600">Sort by:</span>
                 <select
-                  className="text-sm border border-gray-300 rounded px-2 py-1"
+                  className="rounded border border-gray-300 px-2 py-1 text-sm"
                   value={`${sortOptions.sortBy}:${sortOptions.sortOrder}`}
                   onChange={(e) => {
                     const [sortBy, sortOrder] = e.target.value.split(':');
@@ -278,22 +322,35 @@ export function CardsPageClient() {
                 />
               )}
               renderSkeleton={() => (
-                <div className="border rounded-lg p-4 animate-pulse">
-                  <div className="bg-gray-200 h-32 w-full rounded mb-2"></div>
-                  <div className="bg-gray-200 h-4 w-3/4 rounded mb-1"></div>
-                  <div className="bg-gray-200 h-3 w-1/2 rounded"></div>
+                <div className="animate-pulse rounded-lg border p-4">
+                  <div className="mb-2 h-32 w-full rounded bg-gray-200"></div>
+                  <div className="mb-1 h-4 w-3/4 rounded bg-gray-200"></div>
+                  <div className="h-3 w-1/2 rounded bg-gray-200"></div>
                 </div>
               )}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               containerClassName="space-y-4"
               errorMessage={infiniteError || undefined}
               onRetry={retryInfinite}
               endMessage={
-                <div className="text-center text-gray-500 py-8">
-                  <svg className="h-8 w-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                <div className="py-8 text-center text-gray-500">
+                  <svg
+                    className="mx-auto mb-2 h-8 w-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                    />
                   </svg>
-                  <p className="text-sm">You&apos;ve seen all {infiniteTotal.toLocaleString()} matching cards</p>
+                  <p className="text-sm">
+                    You&apos;ve seen all {infiniteTotal.toLocaleString()}{' '}
+                    matching cards
+                  </p>
                 </div>
               }
             />
@@ -302,12 +359,15 @@ export function CardsPageClient() {
             <div className="space-y-4">
               {/* Loading state */}
               {traditionalLoading && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {Array.from({ length: 12 }).map((_, index) => (
-                    <div key={index} className="border rounded-lg p-4 animate-pulse">
-                      <div className="bg-gray-200 h-32 w-full rounded mb-2"></div>
-                      <div className="bg-gray-200 h-4 w-3/4 rounded mb-1"></div>
-                      <div className="bg-gray-200 h-3 w-1/2 rounded"></div>
+                    <div
+                      key={index}
+                      className="animate-pulse rounded-lg border p-4"
+                    >
+                      <div className="mb-2 h-32 w-full rounded bg-gray-200"></div>
+                      <div className="mb-1 h-4 w-3/4 rounded bg-gray-200"></div>
+                      <div className="h-3 w-1/2 rounded bg-gray-200"></div>
                     </div>
                   ))}
                 </div>
@@ -315,10 +375,20 @@ export function CardsPageClient() {
 
               {/* Error state */}
               {traditionalError && (
-                <div className="text-center py-8">
-                  <div className="text-red-600 mb-4">
-                    <svg className="h-8 w-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div className="py-8 text-center">
+                  <div className="mb-4 text-red-600">
+                    <svg
+                      className="mx-auto mb-2 h-8 w-8"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                     <p className="text-sm">{traditionalError}</p>
                   </div>
@@ -333,32 +403,34 @@ export function CardsPageClient() {
               )}
 
               {/* Card grid */}
-              {!traditionalLoading && !traditionalError && traditionalCards.length > 0 && (
-                <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {traditionalCards.map((card: CardWithRelations) => (
-                      <CardDisplay
-                        key={card.id}
-                        card={card}
-                        onClick={handleCardClick}
-                        className="cursor-pointer"
-                      />
-                    ))}
-                  </div>
-
-                  {/* Pagination controls */}
-                  {totalPages > 1 && (
-                    <div className="flex justify-center mt-8">
-                      <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                        disabled={traditionalLoading}
-                      />
+              {!traditionalLoading &&
+                !traditionalError &&
+                traditionalCards.length > 0 && (
+                  <>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {traditionalCards.map((card: CardWithRelations) => (
+                        <CardDisplay
+                          key={card.id}
+                          card={card}
+                          onClick={handleCardClick}
+                          className="cursor-pointer"
+                        />
+                      ))}
                     </div>
-                  )}
-                </>
-              )}
+
+                    {/* Pagination controls */}
+                    {totalPages > 1 && (
+                      <div className="mt-8 flex justify-center">
+                        <Pagination
+                          currentPage={currentPage}
+                          totalPages={totalPages}
+                          onPageChange={handlePageChange}
+                          disabled={traditionalLoading}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
             </div>
           )}
 
@@ -367,10 +439,22 @@ export function CardsPageClient() {
             <Card className="border-gray-200">
               <CardContent className="py-8">
                 <div className="text-center">
-                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">No cards found</h3>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">
+                    No cards found
+                  </h3>
                   <p className="mt-1 text-sm text-gray-500">
                     Try adjusting your search terms or filters.
                   </p>
@@ -394,37 +478,52 @@ export function CardsPageClient() {
       )}
 
       {/* Welcome message when no search has been performed */}
-      {!hasActiveSearch && currentCards.length === 0 && !currentLoading && !currentError && (
-        <Card className="border-gray-200">
-          <CardContent className="py-8">
-            <div className="text-center">
-              <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">
-                Welcome to the Card Database
-              </h3>
-              <p className="mt-2 text-sm text-gray-500 max-w-sm mx-auto">
-                Use the search bar above to find specific cards, or use the advanced filters to browse cards by faction, series, level, and more.
-              </p>
-              <div className="mt-4">
-                <Button
-                  onClick={handleSearch}
-                  variant="default"
-                  className="mx-auto"
+      {!hasActiveSearch &&
+        currentCards.length === 0 &&
+        !currentLoading &&
+        !currentError && (
+          <Card className="border-gray-200">
+            <CardContent className="py-8">
+              <div className="text-center">
+                <svg
+                  className="mx-auto h-16 w-16 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  Browse All Cards
-                </Button>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">
+                  Welcome to the Card Database
+                </h3>
+                <p className="mx-auto mt-2 max-w-sm text-sm text-gray-500">
+                  Use the search bar above to find specific cards, or use the
+                  advanced filters to browse cards by faction, series, level,
+                  and more.
+                </p>
+                <div className="mt-4">
+                  <Button
+                    onClick={handleSearch}
+                    variant="default"
+                    className="mx-auto"
+                  >
+                    Browse All Cards
+                  </Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+            </CardContent>
+          </Card>
+        )}
 
       {/* Card detail modal (future enhancement) */}
       {selectedCard && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <Card className="max-h-[90vh] w-full max-w-2xl overflow-y-auto">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>{selectedCard.name}</CardTitle>
@@ -432,17 +531,24 @@ export function CardsPageClient() {
                   onClick={() => setSelectedCard(null)}
                   className="text-gray-400 hover:text-gray-600"
                 >
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
             </CardHeader>
             <CardContent>
-              <CardDisplay
-                card={selectedCard}
-                showFullDetails={true}
-              />
+              <CardDisplay card={selectedCard} showFullDetails={true} />
             </CardContent>
           </Card>
         </div>

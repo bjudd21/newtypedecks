@@ -8,17 +8,21 @@ export default withAuth(
 
     // Admin-only routes
     const adminRoutes = ['/admin'];
-    if (adminRoutes.some(route => pathname.startsWith(route))) {
+    if (adminRoutes.some((route) => pathname.startsWith(route))) {
       if (!token || token.role !== 'ADMIN') {
-        return NextResponse.redirect(new URL('/auth/signin?error=AdminRequired', req.url));
+        return NextResponse.redirect(
+          new URL('/auth/signin?error=AdminRequired', req.url)
+        );
       }
     }
 
     // Moderator+ routes
     const moderatorRoutes = ['/moderation'];
-    if (moderatorRoutes.some(route => pathname.startsWith(route))) {
+    if (moderatorRoutes.some((route) => pathname.startsWith(route))) {
       if (!token || (token.role !== 'MODERATOR' && token.role !== 'ADMIN')) {
-        return NextResponse.redirect(new URL('/auth/signin?error=ModeratorRequired', req.url));
+        return NextResponse.redirect(
+          new URL('/auth/signin?error=ModeratorRequired', req.url)
+        );
       }
     }
 
@@ -29,13 +33,16 @@ export default withAuth(
       '/decks/create',
       '/decks/edit',
       '/collection',
-      '/settings'
+      '/settings',
     ];
 
-    if (authRoutes.some(route => pathname.startsWith(route))) {
+    if (authRoutes.some((route) => pathname.startsWith(route))) {
       if (!token) {
         return NextResponse.redirect(
-          new URL(`/auth/signin?callbackUrl=${encodeURIComponent(pathname)}`, req.url)
+          new URL(
+            `/auth/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+            req.url
+          )
         );
       }
     }
@@ -55,10 +62,10 @@ export default withAuth(
           '/about',
           '/auth',
           '/api/cards',
-          '/api/public'
+          '/api/public',
         ];
 
-        if (publicRoutes.some(route => pathname.startsWith(route))) {
+        if (publicRoutes.some((route) => pathname.startsWith(route))) {
           return true;
         }
 

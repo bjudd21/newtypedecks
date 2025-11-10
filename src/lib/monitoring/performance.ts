@@ -51,7 +51,11 @@ class PerformanceMonitor {
   }
 
   // Start performance timing
-  startTiming(name: string, type: PerformanceEntry['type'], metadata?: Record<string, unknown>): string {
+  startTiming(
+    name: string,
+    type: PerformanceEntry['type'],
+    metadata?: Record<string, unknown>
+  ): string {
     const timerId = `${type}:${name}:${Date.now()}`;
     this.activeTimers.set(timerId, performance.now());
 
@@ -64,7 +68,10 @@ class PerformanceMonitor {
   }
 
   // End performance timing
-  endTiming(timerId: string, metadata?: Record<string, unknown>): PerformanceEntry | null {
+  endTiming(
+    timerId: string,
+    metadata?: Record<string, unknown>
+  ): PerformanceEntry | null {
     const startTime = this.activeTimers.get(timerId);
     if (!startTime) {
       logger.warn(`Timer not found: ${timerId}`);
@@ -73,7 +80,10 @@ class PerformanceMonitor {
 
     const endTime = performance.now();
     const duration = endTime - startTime;
-    const [type, name] = timerId.split(':') as [PerformanceEntry['type'], string];
+    const [type, name] = timerId.split(':') as [
+      PerformanceEntry['type'],
+      string,
+    ];
 
     const entry: PerformanceEntry = {
       name,
@@ -98,10 +108,13 @@ class PerformanceMonitor {
     // Log slow operations
     const threshold = this.thresholds[type];
     if (duration > threshold) {
-      logger.warn(`Slow ${type} operation: ${name} took ${duration.toFixed(2)}ms`, {
-        action: 'performance_slow',
-        context: { timerId, duration, threshold, metadata },
-      });
+      logger.warn(
+        `Slow ${type} operation: ${name} took ${duration.toFixed(2)}ms`,
+        {
+          action: 'performance_slow',
+          context: { timerId, duration, threshold, metadata },
+        }
+      );
     } else {
       logger.debug(`Completed timing: ${name} (${duration.toFixed(2)}ms)`, {
         action: 'performance_end',
@@ -155,18 +168,18 @@ class PerformanceMonitor {
     let filtered = this.entries;
 
     if (type) {
-      filtered = filtered.filter(entry => entry.type === type);
+      filtered = filtered.filter((entry) => entry.type === type);
     }
 
     if (name) {
-      filtered = filtered.filter(entry => entry.name === name);
+      filtered = filtered.filter((entry) => entry.name === name);
     }
 
     if (filtered.length === 0) {
       return null;
     }
 
-    const durations = filtered.map(entry => entry.duration);
+    const durations = filtered.map((entry) => entry.duration);
     const sorted = [...durations].sort((a, b) => a - b);
 
     return {
@@ -232,12 +245,15 @@ class PerformanceMonitor {
   }
 
   private trackPageLoadMetrics() {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const navigation = performance.getEntriesByType(
+      'navigation'
+    )[0] as PerformanceNavigationTiming;
 
     if (navigation) {
       const metrics = {
         ttfb: navigation.responseStart - navigation.requestStart,
-        domContentLoaded: navigation.domContentLoadedEventEnd - navigation.startTime,
+        domContentLoaded:
+          navigation.domContentLoadedEventEnd - navigation.startTime,
         loadComplete: navigation.loadEventEnd - navigation.startTime,
         domInteractive: navigation.domInteractive - navigation.startTime,
       };
@@ -386,7 +402,7 @@ class PerformanceMonitor {
   // Clear old entries
   clearOldEntries(olderThanMinutes: number = 60) {
     const cutoff = Date.now() - olderThanMinutes * 60 * 1000;
-    this.entries = this.entries.filter(entry => entry.endTime > cutoff);
+    this.entries = this.entries.filter((entry) => entry.endTime > cutoff);
   }
 
   // Export performance data
@@ -410,35 +426,58 @@ class PerformanceMonitor {
 export const performanceMonitor = new PerformanceMonitor();
 
 // Convenience functions
-export function measureAPI<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
+export function measureAPI<T>(
+  name: string,
+  fn: () => T | Promise<T>,
+  metadata?: Record<string, unknown>
+) {
   return performanceMonitor.measure(name, 'api', fn, metadata);
 }
 
-export function measureDB<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
+export function measureDB<T>(
+  name: string,
+  fn: () => T | Promise<T>,
+  metadata?: Record<string, unknown>
+) {
   return performanceMonitor.measure(name, 'database', fn, metadata);
 }
 
-export function measureComponent<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
+export function measureComponent<T>(
+  name: string,
+  fn: () => T | Promise<T>,
+  metadata?: Record<string, unknown>
+) {
   return performanceMonitor.measure(name, 'component', fn, metadata);
 }
 
-export function measureUserAction<T>(name: string, fn: () => T | Promise<T>, metadata?: Record<string, unknown>) {
+export function measureUserAction<T>(
+  name: string,
+  fn: () => T | Promise<T>,
+  metadata?: Record<string, unknown>
+) {
   return performanceMonitor.measure(name, 'user-action', fn, metadata);
 }
 
 // Performance decorator
-export function measurePerformance(type: PerformanceEntry['type'], operationName?: string) {
+export function measurePerformance(
+  type: PerformanceEntry['type'],
+  operationName?: string
+) {
   return function <T extends (...args: unknown[]) => unknown>(
     target: unknown,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<T>
   ) {
     const method = descriptor.value!;
-    const name = operationName || `${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`;
+    const name =
+      operationName ||
+      `${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`;
 
-    descriptor.value = (function (this: unknown, ...args: unknown[]) {
-      return performanceMonitor.measure(name, type, () => method.apply(this, args));
-    }) as T;
+    descriptor.value = function (this: unknown, ...args: unknown[]) {
+      return performanceMonitor.measure(name, type, () =>
+        method.apply(this, args)
+      );
+    } as T;
 
     return descriptor;
   };

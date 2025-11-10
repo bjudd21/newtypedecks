@@ -1,7 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+  Badge,
+} from '@/components/ui';
 import { formatDistanceToNow } from 'date-fns';
 
 interface FavoriteDeck {
@@ -39,7 +47,7 @@ interface FavoriteDeckManagerProps {
 export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
   onDeckSelect,
   onRemoveFavorite,
-  className
+  className,
 }) => {
   const [favorites, setFavorites] = useState<FavoriteDeck[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +65,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
 
       const params = new URLSearchParams({
         page: currentPage.toString(),
-        limit: '12'
+        limit: '12',
       });
 
       if (searchQuery.trim()) {
@@ -74,7 +82,9 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
       setTotalPages(data.pagination?.pages || 1);
     } catch (err) {
       console.error('Error fetching favorites:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load favorite decks');
+      setError(
+        err instanceof Error ? err.message : 'Failed to load favorite decks'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +106,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
       setRemovingId(deckId);
 
       const response = await fetch(`/api/favorites/${deckId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
 
       if (!response.ok) {
@@ -105,8 +115,8 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
       }
 
       // Remove from local state
-      setFavorites(prevFavorites =>
-        prevFavorites.filter(fav => fav.deck.id !== deckId)
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter((fav) => fav.deck.id !== deckId)
       );
 
       if (onRemoveFavorite) {
@@ -114,8 +124,10 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
       }
     } catch (err) {
       console.error('Error removing favorite:', err);
-      console.warn(`TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to remove favorite'}`);
-    } finally{
+      console.warn(
+        `TODO: Replace with proper UI notification - ${err instanceof Error ? err.message : 'Failed to remove favorite'}`
+      );
+    } finally {
       setRemovingId(null);
     }
   };
@@ -176,21 +188,20 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm">
+            <div className="mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               {error}
             </div>
           )}
 
           {/* Favorites List */}
           {favorites.length === 0 ? (
-            <div className="text-center text-gray-600 py-8">
-              <div className="text-4xl mb-2">♥</div>
+            <div className="py-8 text-center text-gray-600">
+              <div className="mb-2 text-4xl">♥</div>
               <div className="text-lg font-medium">No favorite decks yet</div>
-              <div className="text-sm mt-1">
-                {searchQuery ?
-                  'No favorites match your search.' :
-                  'Browse decks and templates to add them to your favorites!'
-                }
+              <div className="mt-1 text-sm">
+                {searchQuery
+                  ? 'No favorites match your search.'
+                  : 'Browse decks and templates to add them to your favorites!'}
               </div>
             </div>
           ) : (
@@ -198,12 +209,12 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
               {favorites.map((favorite) => (
                 <div
                   key={favorite.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                  className="rounded-lg border p-4 transition-colors hover:bg-gray-50"
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-medium text-gray-900 truncate">
+                  <div className="mb-2 flex items-start justify-between">
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1 flex items-center gap-2">
+                        <h3 className="truncate font-medium text-gray-900">
                           {favorite.deck.name}
                         </h3>
                         {favorite.deck.isTemplate && (
@@ -212,14 +223,20 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                           </Badge>
                         )}
                         {favorite.deck.templateSource && (
-                          <Badge className={getSourceBadgeColor(favorite.deck.templateSource)}>
+                          <Badge
+                            className={getSourceBadgeColor(
+                              favorite.deck.templateSource
+                            )}
+                          >
                             {favorite.deck.templateSource}
                           </Badge>
                         )}
                       </div>
                       <div className="text-sm text-gray-600">
-                        by {favorite.deck.creator.name || 'Unknown'} •
-                        Favorited {formatDistanceToNow(new Date(favorite.favoritedAt), { addSuffix: true })}
+                        by {favorite.deck.creator.name || 'Unknown'} • Favorited{' '}
+                        {formatDistanceToNow(new Date(favorite.favoritedAt), {
+                          addSuffix: true,
+                        })}
                       </div>
                     </div>
 
@@ -228,19 +245,21 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                       variant="outline"
                       size="sm"
                       disabled={removingId === favorite.deck.id}
-                      className="text-red-600 hover:text-red-700 hover:border-red-300"
+                      className="text-red-600 hover:border-red-300 hover:text-red-700"
                     >
-                      {removingId === favorite.deck.id ? 'Removing...' : 'Remove'}
+                      {removingId === favorite.deck.id
+                        ? 'Removing...'
+                        : 'Remove'}
                     </Button>
                   </div>
 
                   {favorite.deck.description && (
-                    <div className="text-sm text-gray-600 mb-3 line-clamp-2">
+                    <div className="mb-3 line-clamp-2 text-sm text-gray-600">
                       {favorite.deck.description}
                     </div>
                   )}
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-gray-500 mb-3">
+                  <div className="mb-3 grid grid-cols-2 gap-2 text-xs text-gray-500 md:grid-cols-4">
                     <div>{favorite.deck.cardCount} cards</div>
                     <div>{favorite.deck.uniqueCards} unique</div>
                     <div>Cost: {favorite.deck.totalCost}</div>
@@ -253,7 +272,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                   </div>
 
                   {favorite.deck.colors.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-3">
+                    <div className="mb-3 flex flex-wrap gap-1">
                       {favorite.deck.colors.slice(0, 4).map((color) => (
                         <Badge
                           key={color}
@@ -284,7 +303,10 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                       <Button
                         onClick={() => {
                           // This could trigger template usage flow
-                          window.open(`/templates/${favorite.deck.id}`, '_blank');
+                          window.open(
+                            `/templates/${favorite.deck.id}`,
+                            '_blank'
+                          );
                         }}
                         variant="outline"
                         size="sm"
@@ -293,7 +315,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
                       </Button>
                     )}
 
-                    <div className="text-xs text-gray-400 ml-auto">
+                    <div className="ml-auto text-xs text-gray-400">
                       {favorite.deck.isPublic ? 'Public' : 'Private'}
                     </div>
                   </div>
@@ -306,7 +328,7 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
           {totalPages > 1 && (
             <div className="mt-6 flex items-center justify-center gap-2">
               <Button
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
                 variant="outline"
                 size="sm"
@@ -319,7 +341,9 @@ export const FavoriteDeckManager: React.FC<FavoriteDeckManagerProps> = ({
               </span>
 
               <Button
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 variant="outline"
                 size="sm"

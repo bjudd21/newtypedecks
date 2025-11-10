@@ -17,7 +17,7 @@ export function AuthGuard({
   children,
   requiredRole,
   fallback,
-  redirectTo = '/auth/signin'
+  redirectTo = '/auth/signin',
 }: AuthGuardProps) {
   const { isAuthenticated, isLoading, hasRole, user } = useAuth();
   const router = useRouter();
@@ -25,7 +25,7 @@ export function AuthGuard({
   // Show loading spinner while checking authentication
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
+      <div className="flex min-h-[200px] items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -37,9 +37,11 @@ export function AuthGuard({
       return <>{fallback}</>;
     }
 
-    router.push(`${redirectTo}?callbackUrl=${encodeURIComponent(window.location.pathname)}`);
+    router.push(
+      `${redirectTo}?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+    );
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
+      <div className="flex min-h-[200px] items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -52,10 +54,12 @@ export function AuthGuard({
     }
 
     return (
-      <div className="min-h-[200px] flex items-center justify-center">
+      <div className="flex min-h-[200px] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Access Denied</h2>
-          <p className="text-gray-600 mb-4">
+          <h2 className="mb-2 text-2xl font-semibold text-gray-900">
+            Access Denied
+          </h2>
+          <p className="mb-4 text-gray-600">
             You don&apos;t have permission to access this content.
           </p>
           <p className="text-sm text-gray-500">
@@ -70,25 +74,49 @@ export function AuthGuard({
 }
 
 // Convenience components for specific roles
-export function AdminGuard({ children, fallback, redirectTo }: Omit<AuthGuardProps, 'requiredRole'>) {
+export function AdminGuard({
+  children,
+  fallback,
+  redirectTo,
+}: Omit<AuthGuardProps, 'requiredRole'>) {
   return (
-    <AuthGuard requiredRole={UserRole.ADMIN} fallback={fallback} redirectTo={redirectTo}>
+    <AuthGuard
+      requiredRole={UserRole.ADMIN}
+      fallback={fallback}
+      redirectTo={redirectTo}
+    >
       {children}
     </AuthGuard>
   );
 }
 
-export function ModeratorGuard({ children, fallback, redirectTo }: Omit<AuthGuardProps, 'requiredRole'>) {
+export function ModeratorGuard({
+  children,
+  fallback,
+  redirectTo,
+}: Omit<AuthGuardProps, 'requiredRole'>) {
   return (
-    <AuthGuard requiredRole={UserRole.MODERATOR} fallback={fallback} redirectTo={redirectTo}>
+    <AuthGuard
+      requiredRole={UserRole.MODERATOR}
+      fallback={fallback}
+      redirectTo={redirectTo}
+    >
       {children}
     </AuthGuard>
   );
 }
 
-export function UserGuard({ children, fallback, redirectTo }: Omit<AuthGuardProps, 'requiredRole'>) {
+export function UserGuard({
+  children,
+  fallback,
+  redirectTo,
+}: Omit<AuthGuardProps, 'requiredRole'>) {
   return (
-    <AuthGuard requiredRole={UserRole.USER} fallback={fallback} redirectTo={redirectTo}>
+    <AuthGuard
+      requiredRole={UserRole.USER}
+      fallback={fallback}
+      redirectTo={redirectTo}
+    >
       {children}
     </AuthGuard>
   );

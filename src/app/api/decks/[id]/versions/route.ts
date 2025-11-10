@@ -30,9 +30,9 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
+        userId: session.user.id,
       },
-      select: { id: true, name: true }
+      select: { id: true, name: true },
     });
 
     if (!deck) {
@@ -50,8 +50,8 @@ export async function GET(request: NextRequest, context: RouteContext) {
           select: {
             id: true,
             name: true,
-            image: true
-          }
+            image: true,
+          },
         },
         cards: {
           include: {
@@ -59,20 +59,20 @@ export async function GET(request: NextRequest, context: RouteContext) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
-          }
+                set: true,
+              },
+            },
+          },
         },
         _count: {
-          select: { cards: true }
-        }
+          select: { cards: true },
+        },
       },
-      orderBy: { version: 'desc' }
+      orderBy: { version: 'desc' },
     });
 
     // Calculate statistics for each version
-    const versionsWithStats = versions.map(version => ({
+    const versionsWithStats = versions.map((version) => ({
       id: version.id,
       version: version.version,
       name: version.name,
@@ -83,22 +83,25 @@ export async function GET(request: NextRequest, context: RouteContext) {
       createdAt: version.createdAt,
       cardCount: version.cards.reduce((sum, vc) => sum + vc.quantity, 0),
       uniqueCards: version.cards.length,
-      totalCost: version.cards.reduce((sum, vc) => sum + ((vc.card.cost || 0) * vc.quantity), 0),
-      cards: version.cards.map(vc => ({
+      totalCost: version.cards.reduce(
+        (sum, vc) => sum + (vc.card.cost || 0) * vc.quantity,
+        0
+      ),
+      cards: version.cards.map((vc) => ({
         id: vc.id,
         cardId: vc.cardId,
         quantity: vc.quantity,
         category: vc.category,
-        card: vc.card
-      }))
+        card: vc.card,
+      })),
     }));
 
     return NextResponse.json({
       deck: {
         id: deck.id,
-        name: deck.name
+        name: deck.name,
       },
-      versions: versionsWithStats
+      versions: versionsWithStats,
     });
   } catch (error) {
     console.error('Get deck versions error:', error);
@@ -127,15 +130,15 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
+        userId: session.user.id,
       },
       include: {
         cards: {
           include: {
-            card: true
-          }
-        }
-      }
+            card: true,
+          },
+        },
+      },
     });
 
     if (!deck) {
@@ -149,7 +152,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const lastVersion = await prisma.deckVersion.findFirst({
       where: { deckId },
       orderBy: { version: 'desc' },
-      select: { version: true }
+      select: { version: true },
     });
 
     const nextVersion = (lastVersion?.version || 0) + 1;
@@ -166,20 +169,20 @@ export async function POST(request: NextRequest, context: RouteContext) {
         isPublic: deck.isPublic,
         createdBy: session.user.id,
         cards: {
-          create: deck.cards.map(deckCard => ({
+          create: deck.cards.map((deckCard) => ({
             cardId: deckCard.cardId,
             quantity: deckCard.quantity,
-            category: deckCard.category
-          }))
-        }
+            category: deckCard.category,
+          })),
+        },
       },
       include: {
         creator: {
           select: {
             id: true,
             name: true,
-            image: true
-          }
+            image: true,
+          },
         },
         cards: {
           include: {
@@ -187,12 +190,12 @@ export async function POST(request: NextRequest, context: RouteContext) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
-          }
-        }
-      }
+                set: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     // Update deck's current version
@@ -201,8 +204,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
       data: {
         currentVersion: nextVersion,
         versionName: versionName?.trim() || null,
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     });
 
     return NextResponse.json(
@@ -219,8 +222,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
           createdAt: newVersion.createdAt,
           cardCount: newVersion.cards.reduce((sum, vc) => sum + vc.quantity, 0),
           uniqueCards: newVersion.cards.length,
-          cards: newVersion.cards
-        }
+          cards: newVersion.cards,
+        },
       },
       { status: 201 }
     );

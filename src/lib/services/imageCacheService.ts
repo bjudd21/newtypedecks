@@ -52,7 +52,8 @@ export class ImageCacheService {
     this.config = {
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
       maxSize: 100 * 1024 * 1024, // 100MB
-      enableServiceWorker: typeof window !== 'undefined' && 'serviceWorker' in navigator,
+      enableServiceWorker:
+        typeof window !== 'undefined' && 'serviceWorker' in navigator,
       enableMemoryCache: true,
       enableIndexedDB: typeof window !== 'undefined' && 'indexedDB' in window,
       preloadCritical: true,
@@ -97,7 +98,10 @@ export class ImageCacheService {
   /**
    * Get cached image or fetch from network
    */
-  async getImage(url: string, priority: 'high' | 'normal' | 'low' = 'normal'): Promise<string> {
+  async getImage(
+    url: string,
+    priority: 'high' | 'normal' | 'low' = 'normal'
+  ): Promise<string> {
     this.stats.totalRequests++;
 
     try {
@@ -143,13 +147,19 @@ export class ImageCacheService {
   /**
    * Preload critical images
    */
-  async preloadImages(urls: string[], priority: 'high' | 'normal' | 'low' = 'high'): Promise<void> {
+  async preloadImages(
+    urls: string[],
+    priority: 'high' | 'normal' | 'low' = 'high'
+  ): Promise<void> {
     if (!this.config.preloadCritical) return;
 
-    const preloadPromises = urls.slice(0, 10).map(url => // Limit to 10 images
-      this.getImage(url, priority).catch(error => {
-        console.warn(`Failed to preload image ${url}:`, error);
-      })
+    const preloadPromises = urls.slice(0, 10).map(
+      (
+        url // Limit to 10 images
+      ) =>
+        this.getImage(url, priority).catch((error) => {
+          console.warn(`Failed to preload image ${url}:`, error);
+        })
     );
 
     await Promise.allSettled(preloadPromises);
@@ -161,7 +171,7 @@ export class ImageCacheService {
   async prefetchImages(urls: string[]): Promise<void> {
     // Use requestIdleCallback to prefetch during idle time
     if ('requestIdleCallback' in window) {
-      urls.forEach(url => {
+      urls.forEach((url) => {
         requestIdleCallback(() => {
           this.getImage(url, 'low').catch(() => {
             // Silently fail prefetch attempts
@@ -240,7 +250,8 @@ export class ImageCacheService {
   private async registerServiceWorker(): Promise<void> {
     if ('serviceWorker' in navigator) {
       try {
-        const registration = await navigator.serviceWorker.register('/sw-image-cache.js');
+        const registration =
+          await navigator.serviceWorker.register('/sw-image-cache.js');
         console.warn('Image cache service worker registered:', registration);
       } catch (error) {
         console.warn('Failed to register service worker:', error);
@@ -250,9 +261,12 @@ export class ImageCacheService {
 
   private setupCleanupTasks(): void {
     // Clean up expired items every 5 minutes
-    setInterval(() => {
-      this.cleanupExpiredItems();
-    }, 5 * 60 * 1000);
+    setInterval(
+      () => {
+        this.cleanupExpiredItems();
+      },
+      5 * 60 * 1000
+    );
 
     // Cleanup on page unload
     if (typeof window !== 'undefined') {
@@ -344,7 +358,10 @@ export class ImageCacheService {
     }
   }
 
-  private async fetchFromNetwork(url: string, priority: 'high' | 'normal' | 'low'): Promise<Blob> {
+  private async fetchFromNetwork(
+    url: string,
+    priority: 'high' | 'normal' | 'low'
+  ): Promise<Blob> {
     const fetchOptions: RequestInit = {
       cache: 'default',
     };
@@ -357,20 +374,26 @@ export class ImageCacheService {
     const response = await fetch(url, fetchOptions);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch image: ${response.status} ${response.statusText}`
+      );
     }
 
     return response.blob();
   }
 
   private getMemoryCacheSize(): number {
-    return Array.from(this.memoryCache.values()).reduce((total, item) => total + item.size, 0);
+    return Array.from(this.memoryCache.values()).reduce(
+      (total, item) => total + item.size,
+      0
+    );
   }
 
   private evictLRUMemoryItems(spaceNeeded: number): void {
     // Sort by access time (least recently used first)
-    const entries = Array.from(this.memoryCache.entries())
-      .sort((a, b) => a[1].accessed - b[1].accessed);
+    const entries = Array.from(this.memoryCache.entries()).sort(
+      (a, b) => a[1].accessed - b[1].accessed
+    );
 
     let freedSpace = 0;
     for (const [url, item] of entries) {

@@ -106,7 +106,8 @@ export function InfiniteScroll<T>({
       setError(null);
       await loadMore();
     } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Failed to load more items';
+      const errorMsg =
+        err instanceof Error ? err.message : 'Failed to load more items';
       setError(errorMsg);
     }
   }, [isLoading, hasMore, loadMore]);
@@ -125,15 +126,13 @@ export function InfiniteScroll<T>({
     if (!renderSkeleton) {
       return Array.from({ length: 6 }).map((_, index) => (
         <div key={`skeleton-${index}`} className="animate-pulse">
-          <div className="bg-gray-200 rounded-lg h-48 mb-4"></div>
+          <div className="mb-4 h-48 rounded-lg bg-gray-200"></div>
         </div>
       ));
     }
 
     return Array.from({ length: 6 }).map((_, index) => (
-      <div key={`skeleton-${index}`}>
-        {renderSkeleton()}
-      </div>
+      <div key={`skeleton-${index}`}>{renderSkeleton()}</div>
     ));
   };
 
@@ -142,17 +141,13 @@ export function InfiniteScroll<T>({
       {/* Items grid/list */}
       <div className={className}>
         {items.map((item, index) => (
-          <div key={index}>
-            {renderItem(item, index)}
-          </div>
+          <div key={index}>{renderItem(item, index)}</div>
         ))}
       </div>
 
       {/* Loading state for initial load */}
       {isLoading && items.length === 0 && (
-        <div className={className}>
-          {renderSkeletonItems()}
-        </div>
+        <div className={className}>{renderSkeletonItems()}</div>
       )}
 
       {/* Loading more state */}
@@ -168,9 +163,19 @@ export function InfiniteScroll<T>({
       {/* Error state */}
       {error && (
         <div className="flex flex-col items-center py-8 text-center">
-          <div className="text-red-600 mb-4">
-            <svg className="h-8 w-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div className="mb-4 text-red-600">
+            <svg
+              className="mx-auto mb-2 h-8 w-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <p className="text-sm">{errorMessage || error}</p>
           </div>
@@ -198,19 +203,29 @@ export function InfiniteScroll<T>({
         <div className="flex justify-center py-8">
           {endMessage || (
             <div className="text-center text-gray-500">
-              <svg className="h-8 w-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              <svg
+                className="mx-auto mb-2 h-8 w-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                />
               </svg>
-              <p className="text-sm">You&apos;ve reached the end of the results</p>
+              <p className="text-sm">
+                You&apos;ve reached the end of the results
+              </p>
             </div>
           )}
         </div>
       )}
 
       {/* Intersection observer target */}
-      {!enableManualLoad && (
-        <div ref={loadingRef} className="h-1" />
-      )}
+      {!enableManualLoad && <div ref={loadingRef} className="h-1" />}
     </div>
   );
 }
@@ -219,7 +234,10 @@ export function InfiniteScroll<T>({
 export interface UseInfiniteScrollOptions<T> {
   initialItems?: T[];
   pageSize?: number;
-  loadFunction: (page: number, pageSize: number) => Promise<{
+  loadFunction: (
+    page: number,
+    pageSize: number
+  ) => Promise<{
     items: T[];
     hasMore: boolean;
     total?: number;
@@ -263,13 +281,15 @@ export function useInfiniteScroll<T>({
 
       const result = await loadFunction(page, pageSize);
 
-      setItems(prev => page === 1 ? result.items : [...prev, ...result.items]);
+      setItems((prev) =>
+        page === 1 ? result.items : [...prev, ...result.items]
+      );
       setHasMore(result.hasMore);
       setTotal(result.total || 0);
-      setPage(prev => prev + 1);
-
+      setPage((prev) => prev + 1);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load items';
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to load items';
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -318,10 +338,15 @@ export function useInfiniteScroll<T>({
 }
 
 // Performance optimized infinite scroll for large lists
-export interface VirtualizedInfiniteScrollProps<T> extends Omit<InfiniteScrollProps<T>, 'renderItem'> {
+export interface VirtualizedInfiniteScrollProps<T>
+  extends Omit<InfiniteScrollProps<T>, 'renderItem'> {
   itemHeight: number;
   containerHeight: number;
-  renderItem: (item: T, index: number, style: React.CSSProperties) => React.ReactNode;
+  renderItem: (
+    item: T,
+    index: number,
+    style: React.CSSProperties
+  ) => React.ReactNode;
   overscan?: number;
 }
 
@@ -350,7 +375,11 @@ export function VirtualizedInfiniteScroll<T>({
   const visibleItems = items.slice(startIndex, endIndex + 1);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop: newScrollTop, scrollHeight, clientHeight } = event.currentTarget;
+    const {
+      scrollTop: newScrollTop,
+      scrollHeight,
+      clientHeight,
+    } = event.currentTarget;
     setScrollTop(newScrollTop);
 
     // Check if we need to load more
@@ -373,16 +402,12 @@ export function VirtualizedInfiniteScroll<T>({
       <div style={{ height: totalHeight, position: 'relative' }}>
         {visibleItems.map((item, index) => {
           const actualIndex = startIndex + index;
-          return renderItem(
-            item,
-            actualIndex,
-            {
-              position: 'absolute',
-              top: actualIndex * itemHeight,
-              height: itemHeight,
-              width: '100%',
-            }
-          );
+          return renderItem(item, actualIndex, {
+            position: 'absolute',
+            top: actualIndex * itemHeight,
+            height: itemHeight,
+            width: '100%',
+          });
         })}
       </div>
 

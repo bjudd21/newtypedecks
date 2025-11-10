@@ -86,7 +86,7 @@ export class SearchAnalyticsService {
     enableTrendAnalysis: true,
     dataRetentionDays: 90,
     aggregationInterval: 15, // 15 minutes
-    enableAnonymization: true
+    enableAnonymization: true,
   };
 
   private constructor(config?: Partial<AnalyticsConfig>) {
@@ -98,7 +98,9 @@ export class SearchAnalyticsService {
     this.startPeriodicProcessing();
   }
 
-  public static getInstance(config?: Partial<AnalyticsConfig>): SearchAnalyticsService {
+  public static getInstance(
+    config?: Partial<AnalyticsConfig>
+  ): SearchAnalyticsService {
     if (!SearchAnalyticsService.instance) {
       SearchAnalyticsService.instance = new SearchAnalyticsService(config);
     }
@@ -136,7 +138,7 @@ export class SearchAnalyticsService {
       responseTime,
       source: context.source || 'manual',
       userAgent: context.userAgent,
-      referer: context.referer
+      referer: context.referer,
     };
 
     this.events.push(event);
@@ -174,9 +176,13 @@ export class SearchAnalyticsService {
       // Update existing pattern
       existingPattern.count++;
       existingPattern.avgResponseTime =
-        (existingPattern.avgResponseTime * (existingPattern.count - 1) + event.responseTime) / existingPattern.count;
+        (existingPattern.avgResponseTime * (existingPattern.count - 1) +
+          event.responseTime) /
+        existingPattern.count;
       existingPattern.avgResultCount =
-        (existingPattern.avgResultCount * (existingPattern.count - 1) + event.resultCount) / existingPattern.count;
+        (existingPattern.avgResultCount * (existingPattern.count - 1) +
+          event.resultCount) /
+        existingPattern.count;
       existingPattern.lastSeen = event.timestamp;
 
       if (event.userId) {
@@ -191,7 +197,7 @@ export class SearchAnalyticsService {
         avgResultCount: event.resultCount,
         firstSeen: event.timestamp,
         lastSeen: event.timestamp,
-        uniqueUsers: new Set(event.userId ? [event.userId] : [])
+        uniqueUsers: new Set(event.userId ? [event.userId] : []),
       };
 
       this.patterns.set(patternKey, newPattern);
@@ -210,7 +216,10 @@ export class SearchAnalyticsService {
       // Update existing behavior
       existingBehavior.totalSearches++;
       existingBehavior.avgResponseTime =
-        (existingBehavior.avgResponseTime * (existingBehavior.totalSearches - 1) + event.responseTime) / existingBehavior.totalSearches;
+        (existingBehavior.avgResponseTime *
+          (existingBehavior.totalSearches - 1) +
+          event.responseTime) /
+        existingBehavior.totalSearches;
 
       // Update preferred filters
       Object.entries(event.filters).forEach(([key, value]) => {
@@ -246,8 +255,10 @@ export class SearchAnalyticsService {
         searchFrequency: 'low', // Will be updated based on patterns
         avgResponseTime: event.responseTime,
         mostActiveTimeOfDay: event.timestamp.getHours(),
-        preferredSortOrder: event.options.sortBy && event.options.sortOrder ?
-          `${event.options.sortBy}:${event.options.sortOrder}` : 'name:asc'
+        preferredSortOrder:
+          event.options.sortBy && event.options.sortOrder
+            ? `${event.options.sortBy}:${event.options.sortOrder}`
+            : 'name:asc',
       };
 
       this.userBehaviors.set(event.userId, newBehavior);
@@ -257,7 +268,10 @@ export class SearchAnalyticsService {
   /**
    * Get popular searches
    */
-  getPopularSearches(limit = 10, timeframe?: 'day' | 'week' | 'month'): PopularSearch[] {
+  getPopularSearches(
+    limit = 10,
+    timeframe?: 'day' | 'week' | 'month'
+  ): PopularSearch[] {
     const cutoffTime = timeframe ? this.getTimeframeCutoff(timeframe) : null;
 
     const popularPatterns = Array.from(this.patterns.entries())
@@ -271,7 +285,7 @@ export class SearchAnalyticsService {
       options: { sortBy: 'name', sortOrder: 'asc' as const },
       popularity: pattern.count,
       trendScore: this.calculateTrendScore(pattern),
-      lastQueried: pattern.lastSeen
+      lastQueried: pattern.lastSeen,
     }));
   }
 
@@ -280,26 +294,32 @@ export class SearchAnalyticsService {
    */
   getSearchTrends(timeframe: 'hour' | 'day' | 'week' | 'month'): SearchTrend {
     const cutoffTime = this.getTimeframeCutoff(timeframe);
-    const relevantEvents = this.events.filter(event => event.timestamp >= cutoffTime);
+    const relevantEvents = this.events.filter(
+      (event) => event.timestamp >= cutoffTime
+    );
 
     // Group events by time buckets
     const bucketSize = this.getBucketSize(timeframe);
-    const buckets = new Map<number, {
-      searchCount: number;
-      uniqueUsers: Set<string>;
-      totalResponseTime: number;
-      filterCounts: Map<string, number>;
-    }>();
+    const buckets = new Map<
+      number,
+      {
+        searchCount: number;
+        uniqueUsers: Set<string>;
+        totalResponseTime: number;
+        filterCounts: Map<string, number>;
+      }
+    >();
 
-    relevantEvents.forEach(event => {
-      const bucketKey = Math.floor(event.timestamp.getTime() / bucketSize) * bucketSize;
+    relevantEvents.forEach((event) => {
+      const bucketKey =
+        Math.floor(event.timestamp.getTime() / bucketSize) * bucketSize;
 
       if (!buckets.has(bucketKey)) {
         buckets.set(bucketKey, {
           searchCount: 0,
           uniqueUsers: new Set(),
           totalResponseTime: 0,
-          filterCounts: new Map()
+          filterCounts: new Map(),
         });
       }
 
@@ -312,7 +332,10 @@ export class SearchAnalyticsService {
       Object.entries(event.filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== '') {
           const filterKey = `${key}:${JSON.stringify(value)}`;
-          bucket.filterCounts.set(filterKey, (bucket.filterCounts.get(filterKey) || 0) + 1);
+          bucket.filterCounts.set(
+            filterKey,
+            (bucket.filterCounts.get(filterKey) || 0) + 1
+          );
         }
       });
     });
@@ -323,10 +346,13 @@ export class SearchAnalyticsService {
         timestamp: new Date(timestamp),
         searchCount: bucket.searchCount,
         uniqueUsers: bucket.uniqueUsers.size,
-        avgResponseTime: bucket.searchCount > 0 ? bucket.totalResponseTime / bucket.searchCount : 0,
+        avgResponseTime:
+          bucket.searchCount > 0
+            ? bucket.totalResponseTime / bucket.searchCount
+            : 0,
         popularFilters: Object.fromEntries(
           Array.from(bucket.filterCounts.entries()).slice(0, 10)
-        )
+        ),
       }));
 
     return { timeframe, data };
@@ -344,9 +370,9 @@ export class SearchAnalyticsService {
    */
   getPerformanceMetrics(timeframe?: 'day' | 'week' | 'month') {
     const cutoffTime = timeframe ? this.getTimeframeCutoff(timeframe) : null;
-    const relevantEvents = cutoffTime ?
-      this.events.filter(event => event.timestamp >= cutoffTime) :
-      this.events;
+    const relevantEvents = cutoffTime
+      ? this.events.filter((event) => event.timestamp >= cutoffTime)
+      : this.events;
 
     if (relevantEvents.length === 0) {
       return {
@@ -356,33 +382,38 @@ export class SearchAnalyticsService {
         p95ResponseTime: 0,
         slowQueries: [],
         popularFilters: {},
-        searchVolume: []
+        searchVolume: [],
       };
     }
 
-    const responseTimes = relevantEvents.map(e => e.responseTime).sort((a, b) => a - b);
-    const avgResponseTime = responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length;
+    const responseTimes = relevantEvents
+      .map((e) => e.responseTime)
+      .sort((a, b) => a - b);
+    const avgResponseTime =
+      responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length;
     const medianIndex = Math.floor(responseTimes.length / 2);
-    const medianResponseTime = responseTimes.length % 2 === 0 ?
-      (responseTimes[medianIndex - 1] + responseTimes[medianIndex]) / 2 :
-      responseTimes[medianIndex];
+    const medianResponseTime =
+      responseTimes.length % 2 === 0
+        ? (responseTimes[medianIndex - 1] + responseTimes[medianIndex]) / 2
+        : responseTimes[medianIndex];
     const p95Index = Math.floor(responseTimes.length * 0.95);
     const p95ResponseTime = responseTimes[p95Index];
 
     // Identify slow queries (top 5% by response time)
-    const slowQueryThreshold = responseTimes[Math.floor(responseTimes.length * 0.95)];
+    const slowQueryThreshold =
+      responseTimes[Math.floor(responseTimes.length * 0.95)];
     const slowQueries = relevantEvents
-      .filter(e => e.responseTime >= slowQueryThreshold)
-      .map(e => ({
+      .filter((e) => e.responseTime >= slowQueryThreshold)
+      .map((e) => ({
         filters: e.filters,
         responseTime: e.responseTime,
         resultCount: e.resultCount,
-        timestamp: e.timestamp
+        timestamp: e.timestamp,
       }));
 
     // Calculate popular filters
     const filterCounts: Record<string, number> = {};
-    relevantEvents.forEach(event => {
+    relevantEvents.forEach((event) => {
       Object.entries(event.filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== '') {
           const filterKey = `${key}:${JSON.stringify(value)}`;
@@ -402,14 +433,17 @@ export class SearchAnalyticsService {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 20)
       ),
-      searchVolume: this.getSearchTrends(timeframe || 'day').data
+      searchVolume: this.getSearchTrends(timeframe || 'day').data,
     };
   }
 
   /**
    * Generate suggestions based on user behavior
    */
-  generateSearchSuggestions(userId?: string, currentFilters: Partial<CardSearchFilters> = {}): Array<{
+  generateSearchSuggestions(
+    userId?: string,
+    currentFilters: Partial<CardSearchFilters> = {}
+  ): Array<{
     type: 'popular' | 'personalized' | 'related';
     label: string;
     filters: CardSearchFilters;
@@ -424,12 +458,12 @@ export class SearchAnalyticsService {
 
     // Add popular searches
     const popularSearches = this.getPopularSearches(5);
-    popularSearches.forEach(search => {
+    popularSearches.forEach((search) => {
       suggestions.push({
         type: 'popular',
         label: `Popular: ${search.query}`,
         filters: search.filters,
-        confidence: Math.min(search.popularity / 100, 1)
+        confidence: Math.min(search.popularity / 100, 1),
       });
     });
 
@@ -449,7 +483,7 @@ export class SearchAnalyticsService {
               type: 'personalized',
               label: `Your favorite: ${key} = ${value}`,
               filters: { [key]: value } as CardSearchFilters,
-              confidence: Math.min(count / userBehavior.totalSearches, 1)
+              confidence: Math.min(count / userBehavior.totalSearches, 1),
             });
           } catch {
             // Ignore invalid JSON
@@ -461,23 +495,21 @@ export class SearchAnalyticsService {
     // Add related suggestions based on current filters
     if (Object.keys(currentFilters).length > 0) {
       const relatedPatterns = Array.from(this.patterns.values())
-        .filter(pattern => this.hasOverlap(pattern.filters, currentFilters))
+        .filter((pattern) => this.hasOverlap(pattern.filters, currentFilters))
         .sort((a, b) => b.count - a.count)
         .slice(0, 3);
 
-      relatedPatterns.forEach(pattern => {
+      relatedPatterns.forEach((pattern) => {
         suggestions.push({
           type: 'related',
           label: `Related: ${this.patternToReadableQuery(pattern.filters)}`,
           filters: pattern.filters as CardSearchFilters,
-          confidence: Math.min(pattern.count / 50, 1)
+          confidence: Math.min(pattern.count / 50, 1),
         });
       });
     }
 
-    return suggestions
-      .sort((a, b) => b.confidence - a.confidence)
-      .slice(0, 10);
+    return suggestions.sort((a, b) => b.confidence - a.confidence).slice(0, 10);
   }
 
   /**
@@ -491,13 +523,16 @@ export class SearchAnalyticsService {
     // Create a consistent key from filters
     const sortedFilters = Object.keys(filters)
       .sort()
-      .reduce((obj, key) => {
-        const value = filters[key as keyof CardSearchFilters];
-        if (value !== undefined && value !== null && value !== '') {
-          (obj as Record<string, unknown>)[key] = value;
-        }
-        return obj;
-      }, {} as Record<string, unknown>);
+      .reduce(
+        (obj, key) => {
+          const value = filters[key as keyof CardSearchFilters];
+          if (value !== undefined && value !== null && value !== '') {
+            (obj as Record<string, unknown>)[key] = value;
+          }
+          return obj;
+        },
+        {} as Record<string, unknown>
+      );
 
     return JSON.stringify(sortedFilters);
   }
@@ -521,16 +556,18 @@ export class SearchAnalyticsService {
   private calculateTrendScore(pattern: SearchPattern): number {
     // Calculate trend based on recent activity vs historical
     const now = Date.now();
-    const dayAgo = now - (24 * 60 * 60 * 1000);
+    const dayAgo = now - 24 * 60 * 60 * 1000;
 
     // Simple trend calculation - could be more sophisticated
     const recentActivity = pattern.lastSeen.getTime() > dayAgo ? 1 : 0;
     const totalActivity = pattern.count;
 
-    return (recentActivity * 0.7) + (Math.min(totalActivity / 100, 1) * 0.3);
+    return recentActivity * 0.7 + Math.min(totalActivity / 100, 1) * 0.3;
   }
 
-  private getTimeframeCutoff(timeframe: 'hour' | 'day' | 'week' | 'month'): Date {
+  private getTimeframeCutoff(
+    timeframe: 'hour' | 'day' | 'week' | 'month'
+  ): Date {
     const now = new Date();
     switch (timeframe) {
       case 'hour':
@@ -557,9 +594,15 @@ export class SearchAnalyticsService {
     }
   }
 
-  private hasOverlap(filters1: Partial<CardSearchFilters>, filters2: Partial<CardSearchFilters>): boolean {
+  private hasOverlap(
+    filters1: Partial<CardSearchFilters>,
+    filters2: Partial<CardSearchFilters>
+  ): boolean {
     for (const key of Object.keys(filters2)) {
-      if (filters1[key as keyof CardSearchFilters] === filters2[key as keyof CardSearchFilters]) {
+      if (
+        filters1[key as keyof CardSearchFilters] ===
+        filters2[key as keyof CardSearchFilters]
+      ) {
         return true;
       }
     }
@@ -568,17 +611,22 @@ export class SearchAnalyticsService {
 
   private cleanOldEvents(): void {
     if (this.events.length > 10000) {
-      const cutoff = new Date(Date.now() - this.config.dataRetentionDays * 24 * 60 * 60 * 1000);
-      this.events = this.events.filter(event => event.timestamp >= cutoff);
+      const cutoff = new Date(
+        Date.now() - this.config.dataRetentionDays * 24 * 60 * 60 * 1000
+      );
+      this.events = this.events.filter((event) => event.timestamp >= cutoff);
     }
   }
 
   private startPeriodicProcessing(): void {
     // Process analytics data periodically
-    setInterval(() => {
-      this.cleanOldEvents();
-      // Could add more periodic processing here
-    }, this.config.aggregationInterval * 60 * 1000);
+    setInterval(
+      () => {
+        this.cleanOldEvents();
+        // Could add more periodic processing here
+      },
+      this.config.aggregationInterval * 60 * 1000
+    );
   }
 }
 

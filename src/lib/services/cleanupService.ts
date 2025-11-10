@@ -75,7 +75,8 @@ export class CleanupService {
   /**
    * Schedule cleanup to run periodically
    */
-  startPeriodicCleanup(intervalMs: number = 6 * 60 * 60 * 1000): void { // Default: every 6 hours
+  startPeriodicCleanup(intervalMs: number = 6 * 60 * 60 * 1000): void {
+    // Default: every 6 hours
     console.warn(`Starting periodic cleanup with interval: ${intervalMs}ms`);
 
     // Run cleanup immediately

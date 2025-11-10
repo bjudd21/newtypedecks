@@ -76,8 +76,4 @@ export type {
 } from './AdvancedFilters';
 
 export { AdvancedSort } from './AdvancedSort';
-export type {
-  AdvancedSortProps,
-  SortOption,
-  ActiveSort,
-} from './AdvancedSort';
+export type { AdvancedSortProps, SortOption, ActiveSort } from './AdvancedSort';

@@ -39,7 +39,7 @@ export class CardSubmissionService {
     }
 
     // Create the submission
-    const submission = await prisma.cardSubmission.create({
+    const submission = (await prisma.cardSubmission.create({
       data: {
         ...data,
         submittedBy,
@@ -59,7 +59,7 @@ export class CardSubmissionService {
         reviewer: true,
         publishedCard: true,
       },
-    }) as CardSubmissionWithRelations;
+    })) as CardSubmissionWithRelations;
 
     return submission;
   }
@@ -71,14 +71,16 @@ export class CardSubmissionService {
     id: string,
     includeRelations = true
   ): Promise<CardSubmissionWithRelations | null> {
-    const include = includeRelations ? {
-      user: true,
-      reviewer: true,
-      publishedCard: true,
-      type: true,
-      rarity: true,
-      set: true,
-    } : undefined;
+    const include = includeRelations
+      ? {
+          user: true,
+          reviewer: true,
+          publishedCard: true,
+          type: true,
+          rarity: true,
+          set: true,
+        }
+      : undefined;
 
     return prisma.cardSubmission.findUnique({
       where: { id },
@@ -94,7 +96,7 @@ export class CardSubmissionService {
   ): Promise<CardSubmissionWithRelations> {
     const { id, ...updateData } = data;
 
-    const submission = await prisma.cardSubmission.update({
+    const submission = (await prisma.cardSubmission.update({
       where: { id },
       data: updateData,
       include: {
@@ -102,7 +104,7 @@ export class CardSubmissionService {
         reviewer: true,
         publishedCard: true,
       },
-    }) as CardSubmissionWithRelations;
+    })) as CardSubmissionWithRelations;
 
     return submission;
   }
@@ -153,8 +155,10 @@ export class CardSubmissionService {
 
     if (filters.dateFrom || filters.dateTo) {
       where.createdAt = {} as { gte?: Date; lte?: Date };
-      if (filters.dateFrom) (where.createdAt as { gte?: Date; lte?: Date }).gte = filters.dateFrom;
-      if (filters.dateTo) (where.createdAt as { gte?: Date; lte?: Date }).lte = filters.dateTo;
+      if (filters.dateFrom)
+        (where.createdAt as { gte?: Date; lte?: Date }).gte = filters.dateFrom;
+      if (filters.dateTo)
+        (where.createdAt as { gte?: Date; lte?: Date }).lte = filters.dateTo;
     }
 
     if (filters.name) {
@@ -173,14 +177,16 @@ export class CardSubmissionService {
     }
 
     // Include relations if requested
-    const include = includeRelations ? {
-      user: true,
-      reviewer: true,
-      publishedCard: true,
-      type: true,
-      rarity: true,
-      set: true,
-    } : undefined;
+    const include = includeRelations
+      ? {
+          user: true,
+          reviewer: true,
+          publishedCard: true,
+          type: true,
+          rarity: true,
+          set: true,
+        }
+      : undefined;
 
     // Execute search
     const [submissions, total] = await Promise.all([
@@ -212,7 +218,7 @@ export class CardSubmissionService {
   ): Promise<CardSubmissionWithRelations> {
     const { id, status, reviewNotes, rejectionReason } = reviewData;
 
-    const submission = await prisma.cardSubmission.update({
+    const submission = (await prisma.cardSubmission.update({
       where: { id },
       data: {
         status,
@@ -226,7 +232,7 @@ export class CardSubmissionService {
         reviewer: true,
         publishedCard: true,
       },
-    }) as CardSubmissionWithRelations;
+    })) as CardSubmissionWithRelations;
 
     return submission;
   }
@@ -237,7 +243,10 @@ export class CardSubmissionService {
   static async publishSubmission(
     submissionId: string,
     _publishedBy: string
-  ): Promise<{ submission: CardSubmissionWithRelations; card: import('@prisma/client').Card }> {
+  ): Promise<{
+    submission: CardSubmissionWithRelations;
+    card: import('@prisma/client').Card;
+  }> {
     const submission = await this.getSubmissionById(submissionId);
 
     if (!submission) {
@@ -259,7 +268,7 @@ export class CardSubmissionService {
     const card = await CardService.createCard(cardData);
 
     // Update submission status
-    const updatedSubmission = await prisma.cardSubmission.update({
+    const updatedSubmission = (await prisma.cardSubmission.update({
       where: { id: submissionId },
       data: {
         status: 'PUBLISHED',
@@ -271,7 +280,7 @@ export class CardSubmissionService {
         reviewer: true,
         publishedCard: true,
       },
-    }) as CardSubmissionWithRelations;
+    })) as CardSubmissionWithRelations;
 
     return { submission: updatedSubmission, card };
   }
@@ -313,11 +322,14 @@ export class CardSubmissionService {
     }
 
     // Upload and process the image
-    const uploadResult = await SubmissionImageService.uploadSubmissionImage(file, {
-      cardName: submission.name,
-      setCode: 'SUB', // Default set code for submissions
-      setNumber: submission.setNumber,
-    });
+    const uploadResult = await SubmissionImageService.uploadSubmissionImage(
+      file,
+      {
+        cardName: submission.name,
+        setCode: 'SUB', // Default set code for submissions
+        setNumber: submission.setNumber,
+      }
+    );
 
     if (!uploadResult.success) {
       throw new Error(uploadResult.message || 'Failed to upload image');
@@ -383,15 +395,21 @@ export class CardSubmissionService {
       this.calculateAverageReviewTime(),
     ]);
 
-    const byStatus = statusCounts.reduce((acc, item) => {
-      acc[item.status as SubmissionStatus] = item._count.status;
-      return acc;
-    }, {} as Record<SubmissionStatus, number>);
+    const byStatus = statusCounts.reduce(
+      (acc, item) => {
+        acc[item.status as SubmissionStatus] = item._count.status;
+        return acc;
+      },
+      {} as Record<SubmissionStatus, number>
+    );
 
-    const byPriority = priorityCounts.reduce((acc, item) => {
-      acc[item.priority as SubmissionPriority] = item._count.priority;
-      return acc;
-    }, {} as Record<SubmissionPriority, number>);
+    const byPriority = priorityCounts.reduce(
+      (acc, item) => {
+        acc[item.priority as SubmissionPriority] = item._count.priority;
+        return acc;
+      },
+      {} as Record<SubmissionPriority, number>
+    );
 
     return {
       total,
@@ -417,19 +435,25 @@ export class CardSubmissionService {
       try {
         switch (action) {
           case 'approve':
-            await this.reviewSubmission({
-              id: submissionId,
-              status: 'APPROVED',
-              reviewNotes: data?.reviewNotes,
-            }, data?.reviewNotes ? 'batch-operation' : 'system');
+            await this.reviewSubmission(
+              {
+                id: submissionId,
+                status: 'APPROVED',
+                reviewNotes: data?.reviewNotes,
+              },
+              data?.reviewNotes ? 'batch-operation' : 'system'
+            );
             break;
 
           case 'reject':
-            await this.reviewSubmission({
-              id: submissionId,
-              status: 'REJECTED',
-              rejectionReason: data?.rejectionReason,
-            }, 'batch-operation');
+            await this.reviewSubmission(
+              {
+                id: submissionId,
+                status: 'REJECTED',
+                rejectionReason: data?.rejectionReason,
+              },
+              'batch-operation'
+            );
             break;
 
           case 'archive':
@@ -472,7 +496,9 @@ export class CardSubmissionService {
   /**
    * Validate submission data
    */
-  private static validateSubmissionData(data: CreateSubmissionData): SubmissionValidationResult {
+  private static validateSubmissionData(
+    data: CreateSubmissionData
+  ): SubmissionValidationResult {
     const errors: string[] = [];
     const warnings: string[] = [];
 
@@ -595,8 +621,9 @@ export class CardSubmissionService {
 
     const totalHours = reviewedSubmissions.reduce((sum, submission) => {
       if (submission.reviewedAt) {
-        const diffMs = submission.reviewedAt.getTime() - submission.createdAt.getTime();
-        return sum + (diffMs / (1000 * 60 * 60)); // Convert to hours
+        const diffMs =
+          submission.reviewedAt.getTime() - submission.createdAt.getTime();
+        return sum + diffMs / (1000 * 60 * 60); // Convert to hours
       }
       return sum;
     }, 0);
@@ -642,7 +669,10 @@ export class CardSubmissionService {
     return rarity.id;
   }
 
-  private static async findOrCreateSet(name: string, code: string): Promise<string> {
+  private static async findOrCreateSet(
+    name: string,
+    code: string
+  ): Promise<string> {
     let cardSet = await prisma.set.findUnique({
       where: { code },
     });

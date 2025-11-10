@@ -4,7 +4,8 @@
  */
 
 // Screen reader only class utility
-export const SCREEN_READER_ONLY = 'sr-only absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0';
+export const SCREEN_READER_ONLY =
+  'sr-only absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0';
 
 /**
  * Generate unique IDs for form elements and ARIA relationships
@@ -85,7 +86,10 @@ export function trapFocus(element: HTMLElement): () => void {
 /**
  * ARIA live region announcements
  */
-export function announceToScreenReader(message: string, priority: 'polite' | 'assertive' = 'polite'): void {
+export function announceToScreenReader(
+  message: string,
+  priority: 'polite' | 'assertive' = 'polite'
+): void {
   const announcement = document.createElement('div');
   announcement.setAttribute('aria-live', priority);
   announcement.setAttribute('aria-atomic', 'true');
@@ -103,7 +107,10 @@ export function announceToScreenReader(message: string, priority: 'polite' | 'as
 /**
  * Skip link functionality
  */
-export function createSkipLink(targetId: string, text: string = 'Skip to main content'): HTMLElement {
+export function createSkipLink(
+  targetId: string,
+  text: string = 'Skip to main content'
+): HTMLElement {
   const skipLink = document.createElement('a');
   skipLink.href = `#${targetId}`;
   skipLink.textContent = text;
@@ -113,7 +120,9 @@ export function createSkipLink(targetId: string, text: string = 'Skip to main co
     focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white
     focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2
     focus:ring-blue-500 focus:ring-offset-2
-  `.replace(/\s+/g, ' ').trim();
+  `
+    .replace(/\s+/g, ' ')
+    .trim();
 
   return skipLink;
 }
@@ -121,7 +130,10 @@ export function createSkipLink(targetId: string, text: string = 'Skip to main co
 /**
  * Color contrast helpers
  */
-export function getContrastRatio(_foreground: string, _background: string): number {
+export function getContrastRatio(
+  _foreground: string,
+  _background: string
+): number {
   // Simplified contrast ratio calculation
   // In a real implementation, you'd convert hex/rgb to luminance values
   // This is a placeholder for demonstration
@@ -148,7 +160,10 @@ export function addFocusVisibleSupport(): void {
   }
 
   function onFocus(e: FocusEvent) {
-    if (hadKeyboardEvent || (e.target as HTMLElement).matches(':focus-visible')) {
+    if (
+      hadKeyboardEvent ||
+      (e.target as HTMLElement).matches(':focus-visible')
+    ) {
       (e.target as HTMLElement).classList.add('focus-visible');
     }
   }
@@ -175,7 +190,9 @@ export interface AccessibleFormField {
   describedBy?: string[];
 }
 
-export function createAccessibleFormField(fieldName: string): AccessibleFormField {
+export function createAccessibleFormField(
+  fieldName: string
+): AccessibleFormField {
   const baseId = generateId(fieldName);
   return {
     id: baseId,
@@ -185,7 +202,10 @@ export function createAccessibleFormField(fieldName: string): AccessibleFormFiel
   };
 }
 
-export function getAriaDescribedBy(field: AccessibleFormField, hasError?: boolean): string | undefined {
+export function getAriaDescribedBy(
+  field: AccessibleFormField,
+  hasError?: boolean
+): string | undefined {
   const describedBy = field.describedBy ? [...field.describedBy] : [];
 
   if (hasError && field.errorId) {
@@ -239,9 +259,13 @@ export function getIconButtonProps(label: string, description?: string) {
 /**
  * Accessible navigation props
  */
-export function getNavItemProps(href: string, isActive: boolean, label?: string) {
+export function getNavItemProps(
+  href: string,
+  isActive: boolean,
+  label?: string
+) {
   return {
-    'aria-current': isActive ? 'page' as const : undefined,
+    'aria-current': isActive ? ('page' as const) : undefined,
     'aria-label': label,
   };
 }
@@ -268,7 +292,11 @@ export function getListProps(label: string, description?: string) {
 /**
  * Card image accessibility props
  */
-export function getCardImageProps(cardName: string, size?: string, isInteractive?: boolean) {
+export function getCardImageProps(
+  cardName: string,
+  size?: string,
+  isInteractive?: boolean
+) {
   const alt = `${cardName} card image${size ? ` (${size})` : ''}`;
 
   const props: Record<string, unknown> = {

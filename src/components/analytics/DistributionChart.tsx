@@ -19,7 +19,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
   title,
   data,
   type,
-  className
+  className,
 }) => {
   const entries = Object.entries(data);
   const maxCount = Math.max(...entries.map(([, d]) => d.count));
@@ -33,7 +33,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
     'bg-red-500',
     'bg-indigo-500',
     'bg-pink-500',
-    'bg-gray-500'
+    'bg-gray-500',
   ];
 
   if (entries.length === 0) {
@@ -43,7 +43,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
           <CardTitle className="text-sm">{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-gray-500 py-8">
+          <div className="py-8 text-center text-gray-500">
             No data available
           </div>
         </CardContent>
@@ -65,12 +65,14 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
                 const colorClass = colors[index % colors.length];
                 return (
                   <div key={key} className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full ${colorClass}`}></div>
-                    <div className="flex-1 flex items-center justify-between text-sm">
+                    <div className={`h-3 w-3 rounded-full ${colorClass}`}></div>
+                    <div className="flex flex-1 items-center justify-between text-sm">
                       <span className="font-medium">{key}</span>
                       <div className="flex items-center gap-2">
                         <span className="text-gray-600">{value.count}</span>
-                        <span className="text-gray-500 text-xs">({value.percentage}%)</span>
+                        <span className="text-xs text-gray-500">
+                          ({value.percentage}%)
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -80,7 +82,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
 
             {/* Visual pie representation using stacked progress */}
             <div className="relative">
-              <div className="flex rounded-full overflow-hidden h-4 bg-gray-200">
+              <div className="flex h-4 overflow-hidden rounded-full bg-gray-200">
                 {entries.map(([key, value], index) => {
                   const colorClass = colors[index % colors.length];
                   return (
@@ -101,7 +103,8 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
             <div className="space-y-3">
               {entries.map(([key, value], index) => {
                 const colorClass = colors[index % colors.length];
-                const barWidth = maxCount > 0 ? (value.count / maxCount) * 100 : 0;
+                const barWidth =
+                  maxCount > 0 ? (value.count / maxCount) * 100 : 0;
 
                 return (
                   <div key={key} className="space-y-1">
@@ -109,11 +112,13 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
                       <span className="font-medium">{key}</span>
                       <div className="flex items-center gap-2">
                         <span className="text-gray-600">{value.count}</span>
-                        <span className="text-gray-500 text-xs">({value.percentage}%)</span>
+                        <span className="text-xs text-gray-500">
+                          ({value.percentage}%)
+                        </span>
                       </div>
                     </div>
                     <div className="relative">
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="h-2 w-full rounded-full bg-gray-200">
                         <div
                           className={`h-2 rounded-full ${colorClass}`}
                           style={{ width: `${barWidth}%` }}

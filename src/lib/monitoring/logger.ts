@@ -57,11 +57,13 @@ class Logger {
         level: entry.level.toUpperCase(),
         message: entry.message,
         context: entry.context,
-        error: entry.error ? {
-          name: entry.error.name,
-          message: entry.error.message,
-          stack: entry.error.stack,
-        } : undefined,
+        error: entry.error
+          ? {
+              name: entry.error.name,
+              message: entry.error.message,
+              stack: entry.error.stack,
+            }
+          : undefined,
         userId: entry.userId,
         requestId: entry.requestId,
         component: entry.component,
@@ -154,7 +156,11 @@ class Logger {
     }
   }
 
-  private async log(level: LogLevel, message: string, context?: Partial<LogEntry>) {
+  private async log(
+    level: LogLevel,
+    message: string,
+    context?: Partial<LogEntry>
+  ) {
     if (!this.shouldLog(level)) return;
 
     const entry: LogEntry = {
@@ -193,7 +199,13 @@ class Logger {
   }
 
   // Convenience methods for specific contexts
-  apiLog(method: string, endpoint: string, statusCode: number, duration: number, context?: Partial<LogEntry>) {
+  apiLog(
+    method: string,
+    endpoint: string,
+    statusCode: number,
+    duration: number,
+    context?: Partial<LogEntry>
+  ) {
     return this.info(`${method} ${endpoint} ${statusCode} ${duration}ms`, {
       ...context,
       action: 'api_request',
@@ -207,7 +219,13 @@ class Logger {
     });
   }
 
-  dbLog(operation: string, table: string, duration: number, recordCount?: number, context?: Partial<LogEntry>) {
+  dbLog(
+    operation: string,
+    table: string,
+    duration: number,
+    recordCount?: number,
+    context?: Partial<LogEntry>
+  ) {
     return this.debug(`DB ${operation} on ${table} (${duration}ms)`, {
       ...context,
       action: 'database_query',
@@ -221,21 +239,35 @@ class Logger {
     });
   }
 
-  authLog(action: string, userId?: string, success: boolean = true, context?: Partial<LogEntry>) {
+  authLog(
+    action: string,
+    userId?: string,
+    success: boolean = true,
+    context?: Partial<LogEntry>
+  ) {
     const level = success ? 'info' : 'warn';
-    return this.log(level, `Auth ${action} ${success ? 'succeeded' : 'failed'}`, {
-      ...context,
-      userId,
-      action: 'authentication',
-      context: {
-        authAction: action,
-        success,
-        ...context?.context,
-      },
-    });
+    return this.log(
+      level,
+      `Auth ${action} ${success ? 'succeeded' : 'failed'}`,
+      {
+        ...context,
+        userId,
+        action: 'authentication',
+        context: {
+          authAction: action,
+          success,
+          ...context?.context,
+        },
+      }
+    );
   }
 
-  userActionLog(action: string, resource: string, userId?: string, context?: Partial<LogEntry>) {
+  userActionLog(
+    action: string,
+    resource: string,
+    userId?: string,
+    context?: Partial<LogEntry>
+  ) {
     return this.info(`User action: ${action} on ${resource}`, {
       ...context,
       userId,
@@ -248,7 +280,12 @@ class Logger {
     });
   }
 
-  performanceLog(operation: string, duration: number, success: boolean, context?: Partial<LogEntry>) {
+  performanceLog(
+    operation: string,
+    duration: number,
+    success: boolean,
+    context?: Partial<LogEntry>
+  ) {
     const level = duration > 5000 ? 'warn' : 'debug'; // Warn on slow operations
     return this.log(level, `Performance: ${operation} took ${duration}ms`, {
       ...context,
@@ -269,7 +306,11 @@ class Logger {
 
     // Override log method to include additional context
     const originalLog = childLogger.log.bind(childLogger);
-    childLogger.log = async (level: LogLevel, message: string, context?: Partial<LogEntry>) => {
+    childLogger.log = async (
+      level: LogLevel,
+      message: string,
+      context?: Partial<LogEntry>
+    ) => {
       return originalLog(level, message, { ...additionalContext, ...context });
     };
 
@@ -281,7 +322,11 @@ class Logger {
 export const logger = new Logger();
 
 // Request-specific logger creator
-export function createRequestLogger(requestId: string, userId?: string, component?: string): Logger {
+export function createRequestLogger(
+  requestId: string,
+  userId?: string,
+  component?: string
+): Logger {
   return logger.child({ requestId, userId, component });
 }
 
@@ -299,9 +344,11 @@ export function logPerformance(operation: string) {
   ) {
     const method = descriptor.value!;
 
-    descriptor.value = (async function (this: unknown, ...args: unknown[]) {
+    descriptor.value = async function (this: unknown, ...args: unknown[]) {
       const start = Date.now();
-      const methodLogger = createComponentLogger(`${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`);
+      const methodLogger = createComponentLogger(
+        `${(target as { constructor: { name: string } }).constructor.name}.${propertyName}`
+      );
 
       try {
         const result = await method.apply(this, args);
@@ -314,7 +361,7 @@ export function logPerformance(operation: string) {
         methodLogger.error(`${operation} failed`, error as Error);
         throw error;
       }
-    }) as T;
+    } as T;
 
     return descriptor;
   };
@@ -329,8 +376,10 @@ export function logErrors(component: string) {
   ) {
     const method = descriptor.value!;
 
-    descriptor.value = (async function (this: unknown, ...args: unknown[]) {
-      const methodLogger = createComponentLogger(`${component}.${propertyName}`);
+    descriptor.value = async function (this: unknown, ...args: unknown[]) {
+      const methodLogger = createComponentLogger(
+        `${component}.${propertyName}`
+      );
 
       try {
         return await method.apply(this, args);
@@ -340,7 +389,7 @@ export function logErrors(component: string) {
         });
         throw error;
       }
-    }) as T;
+    } as T;
 
     return descriptor;
   };

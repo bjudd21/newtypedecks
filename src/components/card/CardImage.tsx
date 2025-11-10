@@ -11,7 +11,11 @@ import React, { useState, useCallback } from 'react';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { CardImageAttribution } from '@/components/layout/BandaiNamcoAttribution';
 import { cn } from '@/lib/utils';
-import { getCardImageProps, handleKeyboardActivation, KEYBOARD_CODES } from '@/lib/utils/accessibility';
+import {
+  getCardImageProps,
+  handleKeyboardActivation,
+  KEYBOARD_CODES,
+} from '@/lib/utils/accessibility';
 
 export interface CardImageProps {
   /** Card name for alt text */
@@ -113,7 +117,11 @@ export const CardImage: React.FC<CardImageProps> = ({
   const zoomImageUrl = getZoomImageUrl();
 
   // Generate accessibility props for card image
-  const _cardImageA11yProps = getCardImageProps(name, size, clickToZoom || !!onClick);
+  const _cardImageA11yProps = getCardImageProps(
+    name,
+    size,
+    clickToZoom || !!onClick
+  );
 
   // Placeholder component
   const renderPlaceholder = () => {
@@ -122,9 +130,9 @@ export const CardImage: React.FC<CardImageProps> = ({
     }
 
     return (
-      <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400">
+      <div className="flex h-full w-full flex-col items-center justify-center bg-gray-100 text-gray-400">
         <svg
-          className="w-8 h-8 mb-2"
+          className="mb-2 h-8 w-8"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -136,7 +144,7 @@ export const CardImage: React.FC<CardImageProps> = ({
             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
           />
         </svg>
-        <span className="text-xs text-center px-2">No Image</span>
+        <span className="px-2 text-center text-xs">No Image</span>
       </div>
     );
   };
@@ -149,19 +157,22 @@ export const CardImage: React.FC<CardImageProps> = ({
           'relative overflow-hidden rounded-lg border bg-gray-50',
           sizeConfig.className,
           className,
-          (clickToZoom || onClick) && 'cursor-pointer hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+          (clickToZoom || onClick) &&
+            'cursor-pointer transition-shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
           hasError && 'border-gray-200'
         )}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        {...(clickToZoom || onClick ? {
-          tabIndex: 0,
-          role: 'button',
-          'aria-label': `${name} card image${clickToZoom ? ' - Click to zoom' : ''}`,
-        } : {
-          role: 'img',
-          'aria-label': `${name} card image`,
-        })}
+        {...(clickToZoom || onClick
+          ? {
+              tabIndex: 0,
+              role: 'button',
+              'aria-label': `${name} card image${clickToZoom ? ' - Click to zoom' : ''}`,
+            }
+          : {
+              role: 'img',
+              'aria-label': `${name} card image`,
+            })}
       >
         {/* Loading state */}
         {isLoading && showPlaceholder && (
@@ -172,7 +183,7 @@ export const CardImage: React.FC<CardImageProps> = ({
             aria-live="polite"
           >
             <div className="animate-pulse">
-              <div className="w-8 h-8 bg-gray-200 rounded"></div>
+              <div className="h-8 w-8 rounded bg-gray-200"></div>
             </div>
           </div>
         )}
@@ -195,7 +206,7 @@ export const CardImage: React.FC<CardImageProps> = ({
             alt={`${name} card image`}
             width={sizeConfig.width}
             height={sizeConfig.height}
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
@@ -214,22 +225,35 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Zoom indicator */}
         {clickToZoom && !hasError && selectedImageUrl && (
-          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <div className="pointer-events-none absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
             <div
-              className="bg-black bg-opacity-50 text-white p-1 rounded"
+              className="rounded bg-black bg-opacity-50 p-1 text-white"
               aria-hidden="true"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                />
               </svg>
             </div>
           </div>
         )}
 
         {/* Special card indicators */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1" aria-hidden="true">
+        <div
+          className="absolute left-2 top-2 flex flex-col gap-1"
+          aria-hidden="true"
+        >
           {/* Foil indicator */}
-          <div className="w-2 h-2 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full animate-pulse"></div>
+          <div className="h-2 w-2 animate-pulse rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500"></div>
         </div>
       </div>
 
@@ -243,7 +267,7 @@ export const CardImage: React.FC<CardImageProps> = ({
           aria-labelledby="zoom-modal-title"
           aria-describedby="zoom-modal-description"
         >
-          <div className="relative max-w-4xl max-h-full">
+          <div className="relative max-h-full max-w-4xl">
             <button
               onClick={() => setShowZoom(false)}
               onKeyDown={(e) => {
@@ -251,11 +275,22 @@ export const CardImage: React.FC<CardImageProps> = ({
                   setShowZoom(false);
                 }
               }}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black rounded-md p-1"
+              className="absolute -top-12 right-0 rounded-md p-1 text-white transition-colors hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
               aria-label="Close zoom view"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="h-8 w-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
@@ -265,7 +300,7 @@ export const CardImage: React.FC<CardImageProps> = ({
                 alt={`${name} card image (full size)`}
                 width={600}
                 height={750}
-                className="object-contain max-w-full max-h-[80vh] rounded-lg"
+                className="max-h-[80vh] max-w-full rounded-lg object-contain"
                 priority
                 format="auto"
                 fit="contain"
@@ -280,9 +315,19 @@ export const CardImage: React.FC<CardImageProps> = ({
               )}
 
               {/* Image info overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 rounded-b-lg">
-                <h3 id="zoom-modal-title" className="text-white font-semibold text-lg">{name}</h3>
-                <p id="zoom-modal-description" className="text-gray-300 text-sm">Card image zoom view. Press Escape or click anywhere to close</p>
+              <div className="absolute bottom-0 left-0 right-0 rounded-b-lg bg-gradient-to-t from-black to-transparent p-4">
+                <h3
+                  id="zoom-modal-title"
+                  className="text-lg font-semibold text-white"
+                >
+                  {name}
+                </h3>
+                <p
+                  id="zoom-modal-description"
+                  className="text-sm text-gray-300"
+                >
+                  Card image zoom view. Press Escape or click anywhere to close
+                </p>
               </div>
             </div>
           </div>

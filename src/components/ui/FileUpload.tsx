@@ -123,15 +123,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         className="hidden"
         disabled={disabled}
       />
-      
+
       <div
         className={cn(
-          'relative border-2 border-dashed rounded-lg p-6 text-center transition-colors',
+          'relative rounded-lg border-2 border-dashed p-6 text-center transition-colors',
           dragActive
             ? 'border-blue-400 bg-blue-50'
             : 'border-gray-300 hover:border-gray-400',
-          disabled && 'opacity-50 cursor-not-allowed',
-          isUploading && 'opacity-50 cursor-not-allowed'
+          disabled && 'cursor-not-allowed opacity-50',
+          isUploading && 'cursor-not-allowed opacity-50'
         )}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -165,11 +165,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     {dragActive ? 'Drop files here' : 'Upload card image'}
                   </p>
                   <p className="text-xs">
-                    PNG, JPG, JPEG, WEBP up to {Math.round(maxSize / (1024 * 1024))}MB
+                    PNG, JPG, JPEG, WEBP up to{' '}
+                    {Math.round(maxSize / (1024 * 1024))}MB
                   </p>
                 </div>
               </div>
-              
+
               <Button
                 type="button"
                 variant="outline"

@@ -8,7 +8,9 @@ interface CardDatabaseSearchProps {
   className?: string;
 }
 
-export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ className }) => {
+export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
+  className,
+}) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -46,11 +48,11 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
   ];
 
   return (
-    <div className={`w-full max-w-6xl mx-auto ${className || ''}`}>
+    <div className={`mx-auto w-full max-w-6xl ${className || ''}`}>
       {/* Main Search Interface */}
-      <div className="text-center mb-16">
+      <div className="mb-16 text-center">
         <div className="mb-8">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <h1 className="mb-4 text-5xl font-bold md:text-6xl">
             <span className="text-white">Search</span>{' '}
             <span className="text-gradient">is a powerful</span>{' '}
             <span className="text-neon">Gundam Card Game</span>{' '}
@@ -60,11 +62,21 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
 
         {/* Search Bar */}
         <form onSubmit={handleSearch} className="mb-8">
-          <div className="relative max-w-4xl mx-auto">
-            <div className="flex items-center cyber-border bg-black/40 backdrop-blur-strong rounded-lg p-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 flex items-center justify-center mr-4 flex-shrink-0">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <div className="relative mx-auto max-w-4xl">
+            <div className="cyber-border backdrop-blur-strong flex items-center rounded-lg bg-black/40 p-4">
+              <div className="mr-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-purple-400">
+                <svg
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </div>
               <Input
@@ -72,13 +84,9 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for cards, mechanics, or game text..."
-                className="flex-1 bg-transparent border-none text-lg text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
+                className="flex-1 border-none bg-transparent text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-0"
               />
-              <Button
-                type="submit"
-                variant="cyber"
-                className="ml-4 px-6"
-              >
+              <Button type="submit" variant="cyber" className="ml-4 px-6">
                 Search
               </Button>
             </div>
@@ -86,32 +94,32 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
         </form>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="mb-12 flex flex-wrap justify-center gap-4">
           <Button
             variant="outline"
             onClick={() => handleQuickAction('advanced')}
-            className="px-6 py-3 bg-black/40 border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10"
+            className="border-cyan-400/30 bg-black/40 px-6 py-3 text-cyan-300 hover:bg-cyan-400/10"
           >
             Advanced Search
           </Button>
           <Button
             variant="outline"
             onClick={() => handleQuickAction('syntax')}
-            className="px-6 py-3 bg-black/40 border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10"
+            className="border-cyan-400/30 bg-black/40 px-6 py-3 text-cyan-300 hover:bg-cyan-400/10"
           >
             Syntax Guide
           </Button>
           <Button
             variant="outline"
             onClick={() => handleQuickAction('sets')}
-            className="px-6 py-3 bg-black/40 border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10"
+            className="border-cyan-400/30 bg-black/40 px-6 py-3 text-cyan-300 hover:bg-cyan-400/10"
           >
             All Sets
           </Button>
           <Button
             variant="outline"
             onClick={() => handleQuickAction('random')}
-            className="px-6 py-3 bg-black/40 border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10"
+            className="border-cyan-400/30 bg-black/40 px-6 py-3 text-cyan-300 hover:bg-cyan-400/10"
           >
             Random Card
           </Button>
@@ -121,7 +129,9 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
         <div className="space-y-3">
           {featuredContent.map((item, index) => (
             <div key={index} className="flex items-center justify-center gap-3">
-              <Badge className={`${item.color} text-white font-bold px-2 py-1 text-xs`}>
+              <Badge
+                className={`${item.color} px-2 py-1 text-xs font-bold text-white`}
+              >
                 {item.type}
               </Badge>
               <button
@@ -131,7 +141,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({ classNam
                   params.set('search', item.name);
                   router.push(`/cards?${params.toString()}`);
                 }}
-                className="text-cyan-300 hover:text-cyan-100 transition-colors cursor-pointer"
+                className="cursor-pointer text-cyan-300 transition-colors hover:text-cyan-100"
               >
                 {item.name}
               </button>

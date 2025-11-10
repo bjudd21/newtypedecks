@@ -2,7 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import { socialService, type DeckRating } from '@/lib/services/socialService';
 import { useAuth } from '@/hooks';
 
@@ -13,7 +20,7 @@ interface DeckRatingsProps {
 
 export const DeckRatings: React.FC<DeckRatingsProps> = ({
   deckId,
-  className
+  className,
 }) => {
   const { user, isAuthenticated } = useAuth();
   const [ratings, setRatings] = useState<DeckRating[]>([]);
@@ -21,7 +28,9 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [averageRating, setAverageRating] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0);
-  const [ratingBreakdown, setRatingBreakdown] = useState<Record<number, number>>({});
+  const [ratingBreakdown, setRatingBreakdown] = useState<
+    Record<number, number>
+  >({});
   const [userRating, setUserRating] = useState<DeckRating | null>(null);
   const [showRatingForm, setShowRatingForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +50,7 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
       if (page === 1) {
         setRatings(result.ratings);
       } else {
-        setRatings(prev => [...prev, ...result.ratings]);
+        setRatings((prev) => [...prev, ...result.ratings]);
       }
 
       setAverageRating(result.averageRating);
@@ -52,7 +61,7 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
 
       // Check if current user has rated this deck
       if (isAuthenticated && user) {
-        const existingRating = result.ratings.find(r => r.userId === user.id);
+        const existingRating = result.ratings.find((r) => r.userId === user.id);
         setUserRating(existingRating || null);
       }
     } catch (err) {
@@ -72,9 +81,13 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
     if (!isAuthenticated || !user) return;
 
     try {
-      const result = await socialService.voteCommentHelpful(ratingId, user.id, isHelpful);
-      setRatings(prev =>
-        prev.map(rating =>
+      const result = await socialService.voteCommentHelpful(
+        ratingId,
+        user.id,
+        isHelpful
+      );
+      setRatings((prev) =>
+        prev.map((rating) =>
           rating.id === ratingId
             ? { ...rating, helpfulVotes: result.helpfulVotes, isHelpful }
             : rating
@@ -89,20 +102,22 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     }).format(date);
   };
 
-  const renderStars = (rating: number, interactive = false, size = 'text-lg') => {
+  const renderStars = (
+    rating: number,
+    interactive = false,
+    size = 'text-lg'
+  ) => {
     return (
       <div className={`flex ${size}`}>
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
             className={`cursor-pointer ${
-              star <= rating
-                ? 'text-yellow-400'
-                : 'text-gray-300'
+              star <= rating ? 'text-yellow-400' : 'text-gray-300'
             } ${interactive ? 'hover:text-yellow-300' : ''}`}
           >
             ★
@@ -114,12 +129,18 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
 
   const getRatingText = (rating: number) => {
     switch (rating) {
-      case 5: return 'Excellent';
-      case 4: return 'Good';
-      case 3: return 'Average';
-      case 2: return 'Poor';
-      case 1: return 'Terrible';
-      default: return '';
+      case 5:
+        return 'Excellent';
+      case 4:
+        return 'Good';
+      case 3:
+        return 'Average';
+      case 2:
+        return 'Poor';
+      case 1:
+        return 'Terrible';
+      default:
+        return '';
     }
   };
 
@@ -142,9 +163,9 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
         </CardHeader>
         <CardContent>
           {/* Rating Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">
+              <div className="mb-2 text-4xl font-bold text-gray-900">
                 {averageRating.toFixed(1)}
               </div>
               <div className="mb-2">
@@ -158,18 +179,19 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
             <div className="space-y-2">
               {[5, 4, 3, 2, 1].map((star) => {
                 const count = ratingBreakdown[star] || 0;
-                const percentage = totalRatings > 0 ? (count / totalRatings) * 100 : 0;
+                const percentage =
+                  totalRatings > 0 ? (count / totalRatings) * 100 : 0;
 
                 return (
                   <div key={star} className="flex items-center gap-3">
-                    <span className="text-sm w-6">{star}★</span>
-                    <div className="flex-1 bg-gray-200 rounded-full h-2">
+                    <span className="w-6 text-sm">{star}★</span>
+                    <div className="h-2 flex-1 rounded-full bg-gray-200">
                       <div
-                        className="bg-yellow-400 h-2 rounded-full transition-all"
+                        className="h-2 rounded-full bg-yellow-400 transition-all"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
-                    <span className="text-sm text-gray-600 w-8">{count}</span>
+                    <span className="w-8 text-sm text-gray-600">{count}</span>
                   </div>
                 );
               })}
@@ -178,20 +200,24 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
 
           {/* User's Existing Rating */}
           {userRating && (
-            <Card className="mb-6 bg-blue-50 border-blue-200">
+            <Card className="mb-6 border-blue-200 bg-blue-50">
               <CardContent className="pt-4">
                 <div className="flex items-start gap-3">
-                  <div className="text-blue-600 text-xl">👤</div>
+                  <div className="text-xl text-blue-600">👤</div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-medium text-blue-900">Your Review</span>
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="font-medium text-blue-900">
+                        Your Review
+                      </span>
                       {renderStars(userRating.rating, false, 'text-sm')}
                       <Badge variant="secondary" className="text-xs">
                         {getRatingText(userRating.rating)}
                       </Badge>
                     </div>
                     {userRating.review && (
-                      <p className="text-blue-800 text-sm mb-2">{userRating.review}</p>
+                      <p className="mb-2 text-sm text-blue-800">
+                        {userRating.review}
+                      </p>
                     )}
                     <div className="flex items-center gap-4 text-xs text-blue-600">
                       <span>{formatDate(userRating.createdAt)}</span>
@@ -226,19 +252,19 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
 
           {/* Ratings List */}
           {isLoading && ratings.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto mb-2"></div>
+            <div className="py-8 text-center">
+              <div className="mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2 border-blue-600"></div>
               <p className="text-sm text-gray-600">Loading ratings...</p>
             </div>
           ) : error ? (
-            <div className="text-center py-8">
-              <div className="text-red-600 mb-4">⚠️</div>
+            <div className="py-8 text-center">
+              <div className="mb-4 text-red-600">⚠️</div>
               <p className="text-gray-600">{error}</p>
             </div>
           ) : ratings.length === 0 ? (
-            <div className="text-center py-8 text-gray-600">
-              <div className="text-4xl mb-2">⭐</div>
-              <p className="text-lg font-medium mb-2">No Reviews Yet</p>
+            <div className="py-8 text-center text-gray-600">
+              <div className="mb-2 text-4xl">⭐</div>
+              <p className="mb-2 text-lg font-medium">No Reviews Yet</p>
               <p>Be the first to rate this deck!</p>
             </div>
           ) : (
@@ -257,15 +283,17 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
                             className="rounded-full"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-sm font-bold text-white">
                             {rating.userName.charAt(0).toUpperCase()}
                           </div>
                         )}
                       </div>
 
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-gray-900">{rating.userName}</span>
+                        <div className="mb-1 flex items-center gap-2">
+                          <span className="font-medium text-gray-900">
+                            {rating.userName}
+                          </span>
                           {renderStars(rating.rating, false, 'text-sm')}
                           <Badge variant="outline" className="text-xs">
                             {getRatingText(rating.rating)}
@@ -273,41 +301,53 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
                         </div>
 
                         {rating.review && (
-                          <p className="text-gray-700 mb-3">{rating.review}</p>
+                          <p className="mb-3 text-gray-700">{rating.review}</p>
                         )}
 
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4 text-sm text-gray-600">
                             <span>{formatDate(rating.createdAt)}</span>
                             {rating.helpfulVotes > 0 && (
-                              <span>{rating.helpfulVotes} found this helpful</span>
+                              <span>
+                                {rating.helpfulVotes} found this helpful
+                              </span>
                             )}
                           </div>
 
-                          {isAuthenticated && user && rating.userId !== user.id && (
-                            <div className="flex items-center gap-2">
-                              <Button
-                                onClick={() => handleVoteHelpful(rating.id, true)}
-                                variant="outline"
-                                size="sm"
-                                className={`h-7 text-xs ${
-                                  rating.isHelpful === true ? 'bg-green-50 text-green-700' : ''
-                                }`}
-                              >
-                                👍 Helpful
-                              </Button>
-                              <Button
-                                onClick={() => handleVoteHelpful(rating.id, false)}
-                                variant="outline"
-                                size="sm"
-                                className={`h-7 text-xs ${
-                                  rating.isHelpful === false ? 'bg-red-50 text-red-700' : ''
-                                }`}
-                              >
-                                👎 Not Helpful
-                              </Button>
-                            </div>
-                          )}
+                          {isAuthenticated &&
+                            user &&
+                            rating.userId !== user.id && (
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  onClick={() =>
+                                    handleVoteHelpful(rating.id, true)
+                                  }
+                                  variant="outline"
+                                  size="sm"
+                                  className={`h-7 text-xs ${
+                                    rating.isHelpful === true
+                                      ? 'bg-green-50 text-green-700'
+                                      : ''
+                                  }`}
+                                >
+                                  👍 Helpful
+                                </Button>
+                                <Button
+                                  onClick={() =>
+                                    handleVoteHelpful(rating.id, false)
+                                  }
+                                  variant="outline"
+                                  size="sm"
+                                  className={`h-7 text-xs ${
+                                    rating.isHelpful === false
+                                      ? 'bg-red-50 text-red-700'
+                                      : ''
+                                  }`}
+                                >
+                                  👎 Not Helpful
+                                </Button>
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -317,7 +357,7 @@ export const DeckRatings: React.FC<DeckRatingsProps> = ({
 
               {/* Load More */}
               {hasMore && (
-                <div className="text-center pt-4">
+                <div className="pt-4 text-center">
                   <Button
                     onClick={loadMoreRatings}
                     variant="outline"
@@ -346,7 +386,7 @@ const RatingForm: React.FC<RatingFormProps> = ({
   deckId,
   existingRating,
   onSubmit,
-  onCancel
+  onCancel,
 }) => {
   const { user } = useAuth();
   const [rating, setRating] = useState(existingRating?.rating || 0);
@@ -376,15 +416,15 @@ const RatingForm: React.FC<RatingFormProps> = ({
   };
 
   return (
-    <Card className="mb-6 bg-green-50 border-green-200">
+    <Card className="mb-6 border-green-200 bg-green-50">
       <CardContent className="pt-4">
-        <h4 className="font-medium text-green-900 mb-4">
+        <h4 className="mb-4 font-medium text-green-900">
           {existingRating ? 'Edit Your Review' : 'Write a Review'}
         </h4>
 
         {/* Star Rating */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-green-800 mb-2">
+          <label className="mb-2 block text-sm font-medium text-green-800">
             Rating *
           </label>
           <div className="flex items-center gap-2">
@@ -403,8 +443,17 @@ const RatingForm: React.FC<RatingFormProps> = ({
               ))}
             </div>
             {rating > 0 && (
-              <span className="text-sm text-green-700 ml-2">
-                {rating}/5 - {rating === 5 ? 'Excellent' : rating === 4 ? 'Good' : rating === 3 ? 'Average' : rating === 2 ? 'Poor' : 'Terrible'}
+              <span className="ml-2 text-sm text-green-700">
+                {rating}/5 -{' '}
+                {rating === 5
+                  ? 'Excellent'
+                  : rating === 4
+                    ? 'Good'
+                    : rating === 3
+                      ? 'Average'
+                      : rating === 2
+                        ? 'Poor'
+                        : 'Terrible'}
               </span>
             )}
           </div>
@@ -412,24 +461,24 @@ const RatingForm: React.FC<RatingFormProps> = ({
 
         {/* Written Review */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-green-800 mb-2">
+          <label className="mb-2 block text-sm font-medium text-green-800">
             Review (Optional)
           </label>
           <textarea
             value={review}
             onChange={(e) => setReview(e.target.value)}
             placeholder="Share your thoughts about this deck... What worked well? Any suggestions for improvement?"
-            className="w-full px-3 py-2 border border-green-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full rounded-md border border-green-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
             rows={4}
             maxLength={1000}
           />
-          <div className="text-xs text-green-600 mt-1">
+          <div className="mt-1 text-xs text-green-600">
             {review.length}/1000 characters
           </div>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+          <div className="mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
             {error}
           </div>
         )}
@@ -441,12 +490,13 @@ const RatingForm: React.FC<RatingFormProps> = ({
             variant="default"
             disabled={rating === 0 || isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : existingRating ? 'Update Review' : 'Submit Review'}
+            {isSubmitting
+              ? 'Submitting...'
+              : existingRating
+                ? 'Update Review'
+                : 'Submit Review'}
           </Button>
-          <Button
-            onClick={onCancel}
-            variant="outline"
-          >
+          <Button onClick={onCancel} variant="outline">
             Cancel
           </Button>
         </div>

@@ -10,11 +10,16 @@ export async function GET(request: NextRequest) {
 
     // Parse pagination parameters
     const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
-    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '20')));
+    const limit = Math.min(
+      100,
+      Math.max(1, parseInt(searchParams.get('limit') || '20'))
+    );
 
     // Parse sorting parameters
     const sortBy = searchParams.get('sortBy') || 'name';
-    const sortOrder = (searchParams.get('sortOrder') || 'asc') as 'asc' | 'desc';
+    const sortOrder = (searchParams.get('sortOrder') || 'asc') as
+      | 'asc'
+      | 'desc';
 
     // Parse filter parameters
     const filters: CardSearchFilters = {};
@@ -63,12 +68,24 @@ export async function GET(request: NextRequest) {
     }
 
     // Build search options
-    const validSortFields = ['name', 'level', 'cost', 'clashPoints', 'price', 'hitPoints', 'attackPoints', 'setNumber', 'createdAt'] as const;
-    type ValidSortField = typeof validSortFields[number];
+    const validSortFields = [
+      'name',
+      'level',
+      'cost',
+      'clashPoints',
+      'price',
+      'hitPoints',
+      'attackPoints',
+      'setNumber',
+      'createdAt',
+    ] as const;
+    type ValidSortField = (typeof validSortFields)[number];
     const options: CardSearchOptions = {
       page,
       limit,
-      sortBy: validSortFields.includes(sortBy as ValidSortField) ? sortBy as ValidSortField : 'name',
+      sortBy: validSortFields.includes(sortBy as ValidSortField)
+        ? (sortBy as ValidSortField)
+        : 'name',
       sortOrder,
       includeRelations: true,
     };

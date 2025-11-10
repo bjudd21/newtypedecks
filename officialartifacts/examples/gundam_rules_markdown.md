@@ -1,8 +1,10 @@
 # Gundam Card Game Comprehensive Rules
+
 **Ver. 1.1.1**  
 **Updated August 22, 2025**
 
 ## Table of Contents
+
 1. [Game Overview](#1-game-overview)
 2. [Card Information](#2-card-information)
 3. [Card Types](#3-card-types)
@@ -22,9 +24,11 @@
 ## 1) Game Overview
 
 ### 1-1. Number of Players
+
 **1-1-1.** Gundam Card Game is a competitive game between two players. Refer to the multiplayer rules for rules that apply to games conducted with other player counts.
 
 ### 1-2. Winning and Losing the Game
+
 **1-2-1.** When either player is defeated, the game ends. When one opponent is defeated, the opponent who was not defeated wins the game.
 
 **1-2-2.** The following are all game conditions that result in defeat.
@@ -40,13 +44,14 @@
 **1-2-5.** There are no card effects that force a player to concede. Loss of the game by conceding is never a substitution of any substitution effect.
 
 ### 1-3. Fundamental Game Rules
+
 **1-3-1.** While the rules of the game are fundamentally defined within this comprehensive ruleset, there may be exceptions that arise due a card's effects or special rules. If the text written on a card contradicts the comprehensive rules, the text on the card takes precedence.
 
 **1-3-2.** If a player is required to perform an action that is not possible for any reason, that action is not performed. If a player is required to perform an action and only part of that action is not possible, the player must perform as much of the action as possible.
 
 **1-3-2-1.** If you are required to put an entity into some state that entity is already in, the entity remains in the state it was in, and the action putting it into that state is not performed.
 
-*Ex: If you are instructed to rest a Unit that is currently rested, since the Unit is already rested, it is not rested again.*
+_Ex: If you are instructed to rest a Unit that is currently rested, since the Unit is already rested, it is not rested again._
 
 **1-3-2-2.** If for any reason you are required to perform zero or less repetitions of an action, the action is not performed. An opposite action is not performed for negative repetition counts.
 
@@ -65,11 +70,13 @@
 ## 2) Card Information
 
 ### 2-1. Card Number
+
 **2-1-1.** The serial number of a card. Cards with the same card number are treated in the game as the same card.
 
 **2-1-2.** When preparing to play, there must be four or fewer copies of cards with the same card number in your deck.
 
 ### 2-2. Card Name
+
 **2-2-1.** The name of a card.
 
 **2-2-2.** Cards may be referred to by their card name within a card's text without any additional information provided. In this case, reference the card with that card name.
@@ -79,11 +86,13 @@
 **2-2-4.** A card can have multiple card names.
 
 ### 2-3. Card Type
+
 **2-3-1.** The card type of a card.
 
 **2-3-2.** There are five card types: Unit, Pilot, Command, Base, and Resource. (See [3. Card Types](#3-card-types))
 
 ### 2-4. Color
+
 **2-4-1.** The color of a card. This color may be referred to within card text.
 
 **2-4-2.** With the exception of Resource cards and tokens, all cards have a color.
@@ -93,6 +102,7 @@
 **2-4-3.** The color of a Unit in the battle area is not affected by the color of a card paired with it.
 
 ### 2-5. Trait
+
 **2-5-1.** A card's trait, such as a group, class, or type. This trait may be referred to within card text.
 
 **2-5-2.** Some cards may have multiple traits.
@@ -104,11 +114,13 @@
 **2-5-5.** A Pilot's traits are not added to the traits of a Unit it is paired with.
 
 ### 2-6. Zone
+
 **2-6-1.** A card's zone. This zone may be referred to within card text.
 
 **2-6-2.** Zones are mainly found on Unit and Base cards.
 
 ### 2-7. AP (Attack Points)
+
 **2-7-1.** A card's offensive strength in battle. (See [7. Attacking and Battles](#8-attacking-and-battles))
 
 **2-7-2.** AP is mainly found on Unit and Base cards.
@@ -116,6 +128,7 @@
 **2-7-3.** AP modifiers appear on Pilot cards and Command cards with Pilot effects. These modifiers are added to Units when they are paired.
 
 ### 2-8. HP (Hit Points)
+
 **2-8-1.** A card's defensive strength.
 
 **2-8-2.** A card with HP is destroyed when that HP becomes zero.
@@ -125,6 +138,7 @@
 **2-8-4.** HP modifiers appear on Pilot cards and Command cards with Pilot effects. These modifiers are added to Units when they are paired.
 
 ### 2-9. Lv. (Level)
+
 **2-9-1.** The number of resources that are required when playing a card. This condition is satisfied when the number of resources in your resource area is equal to or greater than the card's level. Whether a Resource is active or rested makes no difference.
 
 **2-9-2.** With the exception of Resource cards and tokens, all cards have a Lv.
@@ -134,6 +148,7 @@
 **2-9-4.** Treat the Lv of a player as the current number of Resources that player has (including EX Resources) when referring to it.
 
 ### 2-10. Cost
+
 **2-10-1.** The cost paid when playing a card. You can pay this cost by resting the necessary number of active Resources in your resource area.
 
 **2-10-2.** With the exception of Resource cards and tokens, all cards have a cost.
@@ -141,6 +156,7 @@
 **2-10-3.** Treat the cost of a token as zero when referring to it.
 
 ### 2-11. Card Text
+
 **2-11-1.** The specific effects that a particular card has.
 
 **2-11-2.** Unless instructed otherwise, card text on Unit and Base cards only takes effect in the battle or shield area.
@@ -150,30 +166,37 @@
 **2-11-4.** Some text includes portions inside parentheses that provide details about a card's effect or keyword effect. These are explanatory notes meant to explain the effect, and they have no influence on the game.
 
 ### 2-12. Link Condition
+
 **2-12-1.** The conditions that are necessary to link a card, such as Pilot names or traits.
 
 **2-12-2.** Only Unit cards have link conditions.
 
 ### 2-13. Card Art
+
 **2-13-1.** Artwork illustrating a card's contents.
 
 ### 2-14. Illustrator's Name
+
 **2-14-1.** The name of a card's illustrator.
 
 ### 2-15. Copyright
+
 **2-15-1.** A card's copyright notice.
 
 ### 2-16. Rarity
+
 **2-16-1.** An indicator of a card's rarity.
 
 ---
 
 ## 3) Card Types
 
-### 3-1. 
+### 3-1.
+
 There are five card types: Unit, Pilot, Command, Base, and Resource. Most card elements can be found on all of the card types. (See [2. Card Information](#2-card-information)) Refer to the rules section of each card type for details about noteworthy card elements.
 
 ### 3-2. Units
+
 **3-2-1.** One of the five card types. When played, Unit cards are deployed into the battle area. They are "Units" while deployed in the battle area and "Unit cards" if they are in any other location.
 
 **3-2-2.** Unit cards are one type of card that composes your deck.
@@ -197,6 +220,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **3-2-6-3.** Units normally cannot attack during the turn in which they are deployed. Link Units can immediately attack during the turn in which they are deployed.
 
 ### 3-3. Pilots
+
 **3-3-1.** One of the five card types. When played, Pilot cards are placed beneath Units in the battle area and paired with them. They are "Pilots" when paired and "Pilot cards" if they are in any other location.
 
 **3-3-2.** Pilot cards are one type of card that composes your deck.
@@ -222,6 +246,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **3-3-9-2.** The card text printed below the card name are effects gained by the paired Unit. Treat them as effects on the paired Unit while they are paired.
 
 ### 3-4. Commands
+
 **3-4-1.** One of the five card types. When played, Command cards activate their command effects. They are "Commands" while their command effects are active and "Command cards" otherwise.
 
 **3-4-2.** Command cards are one type of card that composes your deck.
@@ -245,6 +270,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **3-4-7.** Some Command cards have 【Burst】 effects in addition to their normal command effects. (See [12-2-5. 【Burst】](#13-2-5-burst))
 
 ### 3-5. Bases
+
 **3-5-1.** One of the five card types. When played, Base cards are deployed into the base section of the shield area. They are "Bases" while deployed in the shield area and "Base cards" if they are in any other location.
 
 **3-5-2.** Base cards are one type of card that composes your deck.
@@ -258,6 +284,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **3-5-4-2.** HP shows a Base's defensive strength. When it becomes zero, the Base is destroyed.
 
 ### 3-6. Resources
+
 **3-6-1.** Resources are placed directly into the resource area from the resource deck. They are "Resources" while in the resource area and "Resource cards" if they are in the resource deck area.
 
 **3-6-2.** Resource cards are the type of card that composes your resource deck.
@@ -267,6 +294,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 ## 4) Game Locations
 
 ### 4-1. Locations
+
 **4-1-1.** The locations in the game are the deck area, resource deck area, resource area, battle area, shield area, removal area, hand, and trash.
 
 **4-1-1-1.** Each player has their own instance of each location.
@@ -286,6 +314,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-1-7.** When multiple cards are simultaneously placed into a private location from a public location, unless specified otherwise, the player who owns those cards determines the order in which they are placed into that private location. The order in which those cards are placed is not revealed to the other player.
 
 ### 4-2. Deck Area
+
 **4-2-1.** This is where you place your deck at the start of the game.
 
 **4-2-2.** Your deck area is private. Cards within it are placed face down in a stack. Unless specified otherwise, neither player is allowed to view the contents or order of the cards, nor are they allowed to change the order of the cards.
@@ -295,6 +324,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-2-4.** When instructed to shuffle a deck, the player who owns that deck reorders the cards randomly.
 
 ### 4-3. Resource Deck Area
+
 **4-3-1.** This is the location where you place your resource deck at the start of the game.
 
 **4-3-2.** Your resource deck area is private. Cards within it are placed face down in a stack. Unless specified otherwise, neither player is allowed to view the contents or order of the cards, nor are they allowed to change the order of the cards.
@@ -302,6 +332,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-3-3.** When moving multiple cards from your resource deck to another location simultaneously, they all get treated as though they are placed simultaneously, but physically move the cards one card at a time.
 
 ### 4-4. Resource Area
+
 **4-4-1.** This is where you place Resources from your resource deck.
 
 **4-4-2.** You may have up to 15 Resources in your resource area.
@@ -311,6 +342,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-4-3.** Your resource area is public. Both players are free to view cards in this location.
 
 ### 4-5. Battle Area
+
 **4-5-1.** This is where you place Units and Pilots.
 
 **4-5-2.** Units are placed face up when they are deployed.
@@ -322,6 +354,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-5-5.** Your battle area is public. Both players are free to view cards in this location.
 
 ### 4-6. Shield Area
+
 **4-6-1.** This location is checked when the player is attacked.
 
 **4-6-2.** Within the shield area there is a section to place Shields and a section to place a Base.
@@ -337,11 +370,13 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-6-4-2.** Cards in the shield section are treated as Shields with 1 HP each.
 
 ### 4-7. Removal Area
+
 **4-7-1.** This is where you place removed cards.
 
 **4-7-2.** Your removal area is public. Both players are free to view cards in this location, and you are free to reorder them.
 
 ### 4-8. Hand
+
 **4-8-1.** Your hand is where you place cards drawn from your deck.
 
 **4-8-2.** Your hand is a private location, but each player may freely view or reorder the cards in their own hand.
@@ -351,6 +386,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **4-8-4.** A hand is limited to no more than ten cards. Players may have any number of cards in their hand, but if your hand exceeds the limit during your end phase, you must discard cards until the limit is reached.
 
 ### 4-9. Trash
+
 **4-9-1.** Destroyed Unit, Pilot, and Base cards, and Command cards whose abilities have finished activating, go into the trash.
 
 **4-9-2.** Your trash is public. Cards within it are placed face up in a stack, and both players are free to view their contents. You are free to reorder the cards in your trash.
@@ -360,11 +396,13 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 ## 5) Essential Game Terminology
 
 ### 5-1. Effect
+
 **5-1-1.** An effect is text that is printed within a defined region of a card.
 
 **5-1-2.** Some effects are keyword effects such as <Support> and <Blocker>.
 
 ### 5-2. Player
+
 **5-2-1.** A player is the owner of a card.
 
 **5-2-2.** When "owner" appears in the text of a card, it refers to the player who owns that card.
@@ -372,11 +410,13 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-2-3.** At the end of a game, all cards are returned to the players who own them.
 
 ### 5-3. Active Player and Standby Player
+
 **5-3-1.** The active player is the player responsible for advancing the current turn in progress.
 
 **5-3-2.** The standby player is the player not responsible for advancing the current turn in progress.
 
 ### 5-4. Active and Rested
+
 **5-4-1.** Cards in the battle area, resource area, and base section can be in one of the two following indicative orientations.
 
 **5-4-1-1.** Active: the card is placed vertically.
@@ -386,6 +426,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-4-2.** When a card is placed into the battle area, resource area, or base section, it is generally set as active.
 
 ### 5-5. Damage
+
 **5-5-1.** When damage is dealt to a Unit, Base, or Shield, the dealt damage is shown with counters. (See [5-17. Counters](#5-18-counter))
 
 **5-5-1-1.** Show the current amount of damage a card has received by placing a number of counters equal to that damage on top of it.
@@ -401,6 +442,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-5-6.** When damage received by a Base or Shield exceeds its HP, the excess damage is not dealt to another Shield.
 
 ### 5-6. HP Recovery
+
 **5-6-1.** When a Unit or Base recovers from received damage for any reason, remove a number of damage counters from it equal to the amount it recovers.
 
 **5-6-2.** If the amount recovered exceeds the amount of damage the card has currently received, remove all of its counters. HP does not increase by the amount exceeded.
@@ -408,17 +450,21 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-6-3.** A Unit that has not received damage cannot recover HP.
 
 ### 5-7. Play
+
 **5-7-1.** This typically describes revealing a card in your hand and paying its cost to use it.
 
 **5-7-1-1.** Sometimes cards are played from locations other than your hand due to effects.
 
 ### 5-8. Deploy
+
 **5-8-1.** This describes a Unit or Base being placed on the field.
 
 ### 5-9. Pair
+
 **5-9-1.** This describes placing a Pilot card, or a Command card with a 【Pilot】 effect, beneath a Unit.
 
 ### 5-10. Destroy
+
 **5-10-1.** This describes cards receiving damage equal to or greater than their HP and cards being placed from the field into the trash by effects.
 
 **5-10-2.** When a Unit or Base is destroyed, it is placed face up into the trash of the player who owns it.
@@ -428,30 +474,37 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-10-4.** A card placed into the trash by rules management when the limit on the number of cards in the battle area or base section is exceeded is not treated as destroyed. (See [11. Rules Management](#11-rules-management))
 
 ### 5-11. Discard
+
 **5-11-1.** This describes placing a card from the hand into the trash.
 
 ### 5-12. Remove
+
 **5-12-1.** This describes a card being placed from any location into the removal area.
 
 **5-12-2.** A removed Unit or Base is not treated as destroyed.
 
 ### 5-13. Randomly
+
 **5-13-1.** Cards handled randomly are reordered without intentional interference from the player.
 
 ### 5-14. Draw (a Card)
+
 **5-14-1.** This describes adding the top card from your deck to your hand without showing it to the other player.
 
 **5-14-1-1.** If a player is instructed to "draw 1," they move the top card of their deck to their hand without showing it to the other player.
 
 ### 5-15. Shuffle
+
 **5-15-1.** When instructed to shuffle your deck, reorder the cards in your deck area randomly.
 
 **5-15-1-1.** When instructed to shuffle your deck and there is only one card in your deck area, treat the deck as shuffled even though the order of that card has not changed.
 
 ### 5-16. Gain
+
 **5-16-1.** This describes a new effect being added to a card by some effect.
 
 ### 5-17. Token
+
 **5-17-1.** Cards treated as Units, Bases, or Resources can be placed on the field from outside the game by various effects. These cards are called tokens.
 
 **5-17-2.** Tokens have the following rules.
@@ -485,6 +538,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-17-3-2-3.** When an EX Resource is used to pay a cost, that EX Resource is removed from the game.
 
 ### 5-18. Counter
+
 **5-18-1.** During a game, specific counters are placed on and removed from cards.
 
 **5-18-1-1.** In the Gundam Card Game, counters displaying how much damage a card has received are typically placed on Units and Bases when they receive damage.
@@ -494,15 +548,17 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **5-18-3.** When removing counters from a card, remove the indicated number of counters from the top of the card.
 
 ### 5-19. / (Forward Slash)
+
 **5-19-1.** The "/" character is sometimes used with traits, among other places. It performs the same function as the conjunction "or" would in those situations.
 
-*Ex: If an effect reads "1 (Zeon)/(Neo Zeon) Unit card," choose either one (Zeon) Unit card or one (Neo Zeon) Unit card.*
+_Ex: If an effect reads "1 (Zeon)/(Neo Zeon) Unit card," choose either one (Zeon) Unit card or one (Neo Zeon) Unit card._
 
 ---
 
 ## 6) Preparing to Play
 
 ### 6-1. Preparing a Deck, Resource Deck, and Token Cards
+
 **6-1-1.** Before the game, each player prepares a deck and a resource deck. A deck consists of exactly 50 cards, and a resource deck consists of exactly 10 cards.
 
 **6-1-1-1.** A deck is constructed with Unit, Pilot, Command, and Base cards.
@@ -522,6 +578,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **6-1-2-1.** If you intend to use other tokens, make sure to have the necessary token cards at hand.
 
 ### 6-2. Before the Game
+
 **6-2-1.** Before the game starts, each player follows the steps listed below.
 
 **6-2-1-1.** Present the deck and resource deck you will use in the game. The deck and resource deck must conform to the rules on deck construction explained in 6-1.
@@ -553,6 +610,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 ## 7) Game Progression
 
 ### 7-1. Turn Flow
+
 **7-1-1.** Each turn progresses with the completion of five phases in order: start phase, draw phase, resource phase, main phase, and end phase.
 
 **7-1-2.** During a game, one of the two players controls game progress as the active player. The active player completes phases in the order described below.
@@ -560,6 +618,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **7-1-3.** During each phase, if effects are triggered by actions taken that phase, play does not advance to the next phase until all of those effects are resolved.
 
 ### 7-2. Start Phase
+
 **7-2-1.** The start phase consists of two steps, which are performed in order: active step and start step.
 
 **7-2-2.** During each step, if effects are triggered by actions taken that step, play does not advance to the next step until all of those effects are resolved.
@@ -577,14 +636,17 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **7-2-5.** After all of the steps listed above have been completed, the start phase ends and you move to the draw phase.
 
 ### 7-3. Draw Phase
+
 **7-3-1.** The active player draws one card from their deck and adds it to their hand.
 
 **7-3-1-1.** When they draw a card and their deck then has no cards in it, they immediately lose the game.
 
 ### 7-4. Resource Phase
+
 **7-4-1.** The active player places one Resource card from their resource deck into their resource area face up and active.
 
 ### 7-5. Main Phase
+
 **7-5-1.** The active player may choose from the following list of actions permitted during the main phase: play a card from their hand, activate an 【Activate･Main】 effect, and attack with a Unit. These actions may be performed in any order as many times as desired within their permissible limits. With the exception of actions performed due to an ability, these actions may only be performed when there are currently no abilities that have been triggered and are awaiting activation.
 
 **7-5-2.** Playing Cards from the Hand
@@ -616,6 +678,7 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 **7-5-5-2.** When the end of the main phase is declared, the turn immediately enters the end phase.
 
 ### 7-6. End Phase
+
 **7-6-1.** The end phase consists of four steps, which are performed in order: action step, end step, hand step, and cleanup step.
 
 **7-6-2.** During each step, if effects are triggered by actions taken that step, play does not advance to the next step until all of those effects are resolved.
@@ -642,10 +705,12 @@ There are five card types: Unit, Pilot, Command, Base, and Resource. Most card e
 
 ## 8) Attacking and Battles
 
-### 8-1. 
+### 8-1.
+
 Using a main phase attack with a Unit, the active player may use one of their Units to attack the opposing player or a rested enemy Unit in the battle area. If they attack, enter battle and perform the following five steps in order: attack step, block step, action step, damage step, and battle end step.
 
 ### 8-2. Attack Step
+
 **8-2-1.** Select one active Unit in your battle area and rest it, then declare an attack target. The attack target can be either the opposing player or a rested enemy Unit.
 
 **8-2-2.** Effects with 【Attack】 or "when this Unit attacks" timing activate.
@@ -655,6 +720,7 @@ Using a main phase attack with a Unit, the active player may use one of their Un
 **8-2-4.** At the end of the attack step, if the attacking Unit or the Unit targeted for attack has been destroyed or otherwise moved to another location due to some event, continue to the battle end step rather than the block step.
 
 ### 8-3. Block Step
+
 **8-3-1.** The standby player may activate <Blocker> on one of their active Units in the battle area. When activated, this effect changes the attack target of the attacking Unit to the Unit with <Blocker>.
 
 **8-3-2.** The <Blocker> effect can be activated only one time in response to each attack.
@@ -666,11 +732,13 @@ Using a main phase attack with a Unit, the active player may use one of their Un
 **8-3-5.** At the end of the block step, if the attacking Unit or the Unit targeted for attack has been destroyed or otherwise moved to another location due to some event, continue to the battle end step rather than the action step.
 
 ### 8-4. Action Step
+
 **8-4-1.** Taking turns starting with the standby player, players may activate 【Action】 Command cards and 【Activate･Action】 effects. (See [8. Action Steps](#9-action-steps))
 
 **8-4-2.** At the end of the action step, if the attacking Unit or the Unit targeted for attack has been destroyed or otherwise moved to another location due to some event, continue to the battle end step rather than the damage step.
 
 ### 8-5. Damage Step
+
 **8-5-1.** Confirm the attacking Unit's attack target at this point. If the attack target is a player, an attack on a player succeeds. If the attack target is an enemy Unit, an attack on a Unit succeeds.
 
 **8-5-2.** Attack on a Player
@@ -704,6 +772,7 @@ Using a main phase attack with a Unit, the active player may use one of their Un
 **8-5-4.** When you have resolved all effects activated during this step, continue to the battle end step.
 
 ### 8-6. Battle End Step
+
 **8-6-1.** All effects worded "during this battle" lose effect.
 
 **8-6-2.** When you have resolved all effects activated during this step, the battle ends, and you return to the main phase. (See [6-5. Main Phase](#7-5-main-phase))
@@ -712,13 +781,16 @@ Using a main phase attack with a Unit, the active player may use one of their Un
 
 ## 9) Action Steps
 
-### 9-1. 
+### 9-1.
+
 An action step occurs after the block step and during the end phase.
 
-### 9-2. 
+### 9-2.
+
 During an action step, taking turns starting with the standby player, players may activate 【Action】 Command cards and 【Activate･Action】 effects.
 
-### 9-3. 
+### 9-3.
+
 The standby player may choose to perform one of the following actions: activate an 【Action】 Command card, activate an 【Activate･Action】 effect, or pass.
 
 **9-3-1.** Activating an 【Action】 Command card is the act of paying the cost of a Command card in your hand with an 【Action】 effect to play it and activate that effect.
@@ -727,14 +799,16 @@ The standby player may choose to perform one of the following actions: activate 
 
 **9-3-3.** Pass means doing nothing and letting the right to take an action pass to your opponent.
 
-### 9-4. 
+### 9-4.
+
 Next, the active player may choose one of the following actions: activate an 【Action】 Command card, activate an 【Activate･Action】 effect, or pass.
 
 **9-4-1.** Unless both players have consecutively declared that they are passing, the right to take an action once again passes back to the standby player.
 
 **9-4-2.** Continue in this manner, standby player → active player → standby player and so on, until both players consecutively declare they are passing.
 
-### 9-5. 
+### 9-5.
+
 When both players have consecutively declared they are passing, the action step ends.
 
 ---
@@ -742,6 +816,7 @@ When both players have consecutively declared they are passing, the action step 
 ## 10) Effect Activation and Resolution
 
 ### 10-1. Effects
+
 **10-1-1.** An effect consists of a directive and related compensation which originate from the text on a card.
 
 **10-1-2.** Unless the text specifies otherwise, an effect will only affect cards on the field. If a location for where to activate the effect is not specified, an effect on a Unit or Base can only be activated while that card is in the battle or shield area.
@@ -811,6 +886,7 @@ When both players have consecutively declared they are passing, the action step 
 **10-1-9-1-1.** If an effect reads "(do) B instead of A," the portion B that occurs due to that capability is a substitution effect.
 
 ### 10-2. Effect Conditions
+
 **10-2-1.** When certain conditions are required for an effect to activate, it will not activate unless those conditions are fulfilled.
 
 **10-2-2.** If an effect requires choosing a target, that effect will not activate if the target cannot be chosen.
@@ -818,6 +894,7 @@ When both players have consecutively declared they are passing, the action step 
 **10-2-3.** Even if an effect's conditions are fulfilled, that effect will not activate if it is restricted by an effect that disallows it.
 
 ### 10-3. Effect Activation Steps
+
 **10-3-1.** When activating an effect, follow the steps listed below.
 
 **10-3-1-1.** If conditions are required to activate the effect, they must be fulfilled, otherwise the effect cannot be activated.
@@ -843,11 +920,13 @@ When both players have consecutively declared they are passing, the action step 
 ## 11) Rules Management
 
 ### 11-1. Rules Management Fundamentals
+
 **11-1-1.** Rules management is management stipulated within the rules that automatically takes place when a specific event occurs or is occurring during a game.
 
 **11-1-2.** Immediately resolve rules management the moment an event occurs, regardless of if other actions are being performed.
 
 ### 11-2. Determination of Defeat Management
+
 **11-2-1.** At the start of rules management, if any player fulfills a condition for defeat, all players fulfilling a condition for defeat are immediately defeated.
 
 **11-2-1-1.** When any player receives battle damage from a Unit while they have no cards in their shield area, that player fulfills a condition for defeat.
@@ -855,11 +934,13 @@ When both players have consecutively declared they are passing, the action step 
 **11-2-1-2.** When any player has no cards in their deck, that player fulfills a condition for defeat.
 
 ### 11-3. Destruction Management
+
 **11-3-1.** When the HP of a Unit, Base, or Shield becomes zero less after receiving damage, that Unit, Base, or Shield is destroyed. The destroyed card is placed into the trash.
 
 **11-3-1-1.** Shields are treated as having 1 HP each.
 
 ### 11-4. Battle Area Excess Management
+
 **11-4-1.** Units in the battle area are limited to six at most.
 
 **11-4-2.** If the battle area is at its upper limit when a Unit card is being played or a Unit is being deployed by an effect, choose one Unit already in the battle area and place it into the trash.
@@ -869,6 +950,7 @@ When both players have consecutively declared they are passing, the action step 
 **11-4-2-2.** When multiple Units are deployed simultaneously, place an equal number of Units already in the battle area into the trash.
 
 ### 11-5. Managing Shield Area Base Section Excess
+
 **11-5-1.** The base section is limited to one Base at most.
 
 **11-5-2.** If the base section is full when a new Base card is played or a new Base is deployed by some effect, choose one Base already in the base section and place it into the trash.
@@ -879,10 +961,12 @@ When both players have consecutively declared they are passing, the action step 
 
 ## 12) Multiplayer Battle
 
-### 12-1. 
+### 12-1.
+
 These rules cover games played between three or more players. Battle royale can be played with three or more players, and team battle can be played with four players.
 
-### 12-2. 
+### 12-2.
+
 Battle royale rules are for multiplayer battles between three or more players in which each player battles all of the other players as opponents. Rules for deck construction (see [6. Preparing to Play](#6-preparing-to-play)) and game progression (see [7. Game Progression](#7-game-progression)) are generally the same as those for two player battles.
 
 **12-2-1.** All players use a method such as rock paper scissors to decide which of them will go first. Player One then chooses either clockwise or counterclockwise play. After that, when the active player's turn ends, the turn moves to the next player either clockwise or counterclockwise from them depending on the direction first chosen.
@@ -905,7 +989,8 @@ Battle royale rules are for multiplayer battles between three or more players in
 
 **12-2-8.** Action steps are performed in order starting with the next player after the active player. They end when all players have chosen to pass.
 
-### 12-3. 
+### 12-3.
+
 Team battle rules are for multiplayer battles between two teams consisting of two players each. Rules for deck construction (see [6. Preparing to Play](#6-preparing-to-play)) and game progression (see [7. Game Progression](#7-game-progression)) are generally the same as those for two player battles.
 
 **12-3-1.** Each team proceeds through each turn phase as a team rather than individually.
@@ -945,13 +1030,15 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 ### 13-1. Keyword Effects
 
 #### 13-1-1. <Repair>
+
 **13-1-1-1.** <Repair> is a keyword effect that activates at the end of your turn. <Repair (amount)> indicates the effect "At the end of your turn, this Unit recovers (amount) HP."
 
 **13-1-1-2.** If a Unit with <Repair> gains a new copy of <Repair> from some effect, rather than gaining multiple copies, the amount from the new copy of <Repair> is added to the original.
 
-*Ex: If a Unit with <Repair 1> gains <Repair 2>, the <Repair> effect on that Unit becomes <Repair 3>.*
+_Ex: If a Unit with <Repair 1> gains <Repair 2>, the <Repair> effect on that Unit becomes <Repair 3>._
 
 #### 13-1-2. <Breach>
+
 **13-1-2-1.** <Breach> is a keyword effect that activates when the Unit destroys an enemy Unit with battle damage. <Breach (amount)> indicates the effect "when this Unit destroys an enemy Unit with battle damage during your turn, <Breach> deals (amount) damage to the first card in the shield area of the opponent who owns the destroyed Unit."
 
 **13-1-2-2.** Dealing damage to the first card in the shield area deals that damage to the enemy Base if there is one. Otherwise, it deals that damage to the enemy's topmost Shield.
@@ -962,21 +1049,24 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 
 **13-1-2-5.** If a Unit with <Breach> gains a new copy of <Breach> from some effect, rather than gaining multiple copies, the amount from the new copy of <Breach> is added to the original.
 
-*Ex: If a Unit with <Breach 1> gains <Breach 2>, the <Breach> effect on that Unit becomes <Breach 3>.*
+_Ex: If a Unit with <Breach 1> gains <Breach 2>, the <Breach> effect on that Unit becomes <Breach 3>._
 
 #### 13-1-3. <Support>
+
 **13-1-3-1.** <Support> is a keyword effect that activates when you rest the Unit. <Support (amount)> indicates the effect "【Activate･Main】Rest this Unit：Choose one other friendly unit. It gets AP+(amount) during this turn."
 
 **13-1-3-2.** If a Unit with <Support> gains a new copy of <Support> from some effect, rather than gaining multiple copies, the amount from the new copy of <Support> is added to the original.
 
-*Ex: If a Unit with <Support 1> gains <Support 2>, the <Support> effect on that Unit becomes <Support 3>.*
+_Ex: If a Unit with <Support 1> gains <Support 2>, the <Support> effect on that Unit becomes <Support 3>._
 
 #### 13-1-4. <Blocker>
+
 **13-1-4-1.** <Blocker> is a keyword effect that can change the attack target to the Unit with <Blocker> when you declare a block and rest that Unit.
 
 **13-1-4-2.** Multiple copies of <Blocker> cannot be given to the same Unit.
 
 #### 13-1-5. <First Strike>
+
 **13-1-5-1.** <First Strike> is a keyword effect that deals battle damage before the enemy does when the attacking Unit battles.
 
 **13-1-5-2.** Dealing battle damage before the enemy means it deals battle damage first during the damage step (7-6). During normal management, both Units deal battle damage simultaneously, but a Unit with <First Strike> deals damage first, after which the Unit targeted for attack deals damage. If the enemy Unit or Base is destroyed by this battle damage, battle damage from the Unit or Base targeted for attack is not received.
@@ -984,6 +1074,7 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 **13-1-5-3.** Multiple copies of <First Strike> cannot be given to the same Unit.
 
 #### 13-1-6. <High-Maneuver>
+
 **13-1-6-1.** <High-Maneuver> is a keyword effect that is continuously active while the Unit is attacking. <High-Maneuver> indicates the effect "While this Unit is attacking, enemy Units cannot activate <Blocker>."
 
 **13-1-6-2.** Multiple copies of <High-Maneuver> cannot be given to the same Unit.
@@ -991,17 +1082,21 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 ### 13-2. Keywords
 
 #### 13-2-1. 【Activate･Main】
+
 **13-2-1-1.** 【Activate･Main】 is the keyword for an activated effect (see 9-1-7) that can only be activated during your main phase while the Unit is not attacking. "【Activate･Main】 (condition)：(text)" means you may fulfill the condition (condition) during your main phase. If you do, perform (text).
 
 #### 13-2-2. 【Activate･Action】
+
 **13-2-2-1.** 【Activate･Action】 is the keyword for an activated effect (see 9-1-7) that can only be activated during action steps. "【Activate･Action】 (condition)：(text)" means you may fulfill the condition (condition) during an action step. If you do, perform (text).
 
 #### 13-2-3. 【Main】
+
 **13-2-3-1.** 【Main】 is the keyword for a command effect found only on Command cards that can be activated by playing the card during your main phase while no Units are attacking.
 
 **13-2-3-2.** Some effects list 【Main】 and 【Action】 together. In this case, the effect can be activated at either time.
 
 #### 13-2-4. 【Action】
+
 **13-2-4-1.** 【Action】 is the keyword for a command effect found only on Command cards that can be activated by playing the card during an action step.
 
 **13-2-4-2.** You cannot pair a Command card with a 【Pilot】 effect as a Pilot during an action step.
@@ -1009,6 +1104,7 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 **13-2-4-3.** Some effects list 【Main】 and 【Action】 together. In this case, the effect can be activated at either time.
 
 #### 13-2-5. 【Burst】
+
 **13-2-5-1.** 【Burst】 is the keyword for an effect that can be activated immediately before a Shield is placed into the trash when it is destroyed by damage or an effect. "【Burst】 (text)" means when this card is acting as a Shield and is revealed after being destroyed, you may activate the following effect without paying its cost. If you do, perform (text).
 
 **13-2-5-2.** You can also choose not to activate the 【Burst】 effect. In that case, the card is placed into the trash.
@@ -1016,12 +1112,15 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 **13-2-5-3.** When activating a 【Burst】 effect, do so before the card is placed into the trash. Unless the card moves to another location, place it into the trash after its effect has ended.
 
 #### 13-2-6. 【Deploy】
+
 **13-2-6-1.** 【Deploy】 is the keyword for an effect that activates when the card is deployed.
 
 #### 13-2-7. 【Attack】
+
 **13-2-7-1.** 【Attack】 is the keyword for an effect that activates when the Unit declares an attack during your attack step.
 
 #### 13-2-8. 【Destroyed】
+
 **13-2-8-1.** 【Destroyed】 is the keyword for an effect that activates when the Unit or Base is destroyed in battle or by some effect and placed into the trash.
 
 **13-2-8-2.** An effect activated by 【Destroyed】 activates from the trash as an effect on the destroyed card.
@@ -1029,22 +1128,27 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 **13-2-8-2-1.** If there is text referring to the state of that card, refer to its state while it was in its last location prior to being destroyed and placed into the trash.
 
 #### 13-2-9. 【When Paired】
+
 **13-2-9-1.** 【When Paired】 is the keyword for an effect that activates when a Pilot is paired with a Unit.
 
 **13-2-9-2.** 【When Paired】 can appear as "【When Paired･(qualifications)】 (text)." This means when a Pilot fulfilling the (qualifications) is paired with this Unit, perform (text).
 
 #### 13-2-10. 【During Pair】
+
 **13-2-10-1.** 【During Pair】 is the keyword for an effect that is continuously active while a Pilot is paired with that Unit.
 
 **13-2-10-2.** 【During Pair】 can appear as "【During Pair･(qualifications)】 (text)." This means while a Pilot fulfilling the (qualifications) is paired with this Unit, perform (text).
 
 #### 13-2-11. 【When Linked】
+
 **13-2-11-1.** 【When Linked】is a keyword that indicates an effect activates when a pilot that meets the link condition is set.
 
 #### 13-2-12. 【During Link】
+
 **13-2-12-1.** 【During Link】is a keyword that indicates an effect remains active while a pilot that meets the link condition is set to the unit.
 
 #### 13-2-13. 【Once per Turn】
+
 **13-2-13-1.** 【Once per Turn】 is the keyword indicating that that effect can only be activated one time during that turn.
 
 **13-2-13-2.** If multiple cards have a copy of the same effect with 【Once per Turn】, each card can activate it one time.
@@ -1054,6 +1158,7 @@ Team battle rules are for multiplayer battles between two teams consisting of tw
 ## Update History
 
 ### Ver. 1.1.10 (July 24, 2025) Update
+
 - 13-2-11, 13-2-12. Added (【When Linked】【During Link】 keywords)
 - 7-5-5-2. Added (card playing steps)
 - 10-3-4. Removed (unnecessary rule)

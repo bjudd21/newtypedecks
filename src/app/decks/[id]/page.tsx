@@ -1,6 +1,12 @@
 // Individual deck detail page
 import { Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Skeleton } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Skeleton,
+} from '@/components/ui';
 import { PageLayout } from '@/components/layout';
 
 interface DeckDetailPageProps {
@@ -9,18 +15,20 @@ interface DeckDetailPageProps {
   };
 }
 
-export default function DeckDetailPage({ params: _params }: DeckDetailPageProps) {
+export default function DeckDetailPage({
+  params: _params,
+}: DeckDetailPageProps) {
   return (
     <PageLayout>
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-6xl">
         <Suspense fallback={<Skeleton lines={2} />}>
           <div className="mb-6">
-            <Skeleton className="h-8 w-64 mb-2" />
+            <Skeleton className="mb-2 h-8 w-64" />
             <Skeleton className="h-4 w-96" />
           </div>
         </Suspense>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Deck Information */}
           <div className="lg:col-span-1">
             <Card>
@@ -31,20 +39,28 @@ export default function DeckDetailPage({ params: _params }: DeckDetailPageProps)
                 <Suspense fallback={<Skeleton lines={6} />}>
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Name</label>
-                      <Skeleton className="h-4 w-48 mt-1" />
+                      <label className="text-sm font-medium text-gray-700">
+                        Name
+                      </label>
+                      <Skeleton className="mt-1 h-4 w-48" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Creator</label>
-                      <Skeleton className="h-4 w-32 mt-1" />
+                      <label className="text-sm font-medium text-gray-700">
+                        Creator
+                      </label>
+                      <Skeleton className="mt-1 h-4 w-32" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Created</label>
-                      <Skeleton className="h-4 w-24 mt-1" />
+                      <label className="text-sm font-medium text-gray-700">
+                        Created
+                      </label>
+                      <Skeleton className="mt-1 h-4 w-24" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Description</label>
-                      <Skeleton className="h-16 w-full mt-1" />
+                      <label className="text-sm font-medium text-gray-700">
+                        Description
+                      </label>
+                      <Skeleton className="mt-1 h-16 w-full" />
                     </div>
                   </div>
                 </Suspense>
@@ -63,11 +79,15 @@ export default function DeckDetailPage({ params: _params }: DeckDetailPageProps)
                       <Skeleton className="h-4 w-8" />
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Unique Cards</span>
+                      <span className="text-sm text-gray-600">
+                        Unique Cards
+                      </span>
                       <Skeleton className="h-4 w-8" />
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Average Cost</span>
+                      <span className="text-sm text-gray-600">
+                        Average Cost
+                      </span>
                       <Skeleton className="h-4 w-8" />
                     </div>
                   </div>
@@ -85,12 +105,15 @@ export default function DeckDetailPage({ params: _params }: DeckDetailPageProps)
               <CardContent>
                 <Suspense fallback={<Skeleton lines={8} />}>
                   <div className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {Array.from({ length: 8 }).map((_, index) => (
-                        <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3 rounded-lg border p-3"
+                        >
                           <Skeleton className="h-12 w-12 rounded" />
                           <div className="flex-1">
-                            <Skeleton className="h-4 w-32 mb-1" />
+                            <Skeleton className="mb-1 h-4 w-32" />
                             <Skeleton className="h-3 w-20" />
                           </div>
                           <Skeleton className="h-6 w-8" />

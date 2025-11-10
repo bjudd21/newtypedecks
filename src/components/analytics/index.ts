@@ -11,5 +11,5 @@ export type {
   DeckCard,
   DeckSuggestion,
   DeckImprovement,
-  MetaGameData
+  MetaGameData,
 } from '@/lib/services/deckAnalyticsService';

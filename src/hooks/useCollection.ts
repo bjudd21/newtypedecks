@@ -39,213 +39,243 @@ export function useCollection() {
     setError(null);
   }, []);
 
-  const getCollection = useCallback(async (options?: {
-    page?: number;
-    limit?: number;
-    search?: string;
-    rarity?: string;
-    type?: string;
-    faction?: string;
-  }): Promise<Collection | null> => {
-    if (!isAuthenticated) {
-      setError('Authentication required');
-      return null;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const params = new URLSearchParams();
-      if (options?.page) params.set('page', options.page.toString());
-      if (options?.limit) params.set('limit', options.limit.toString());
-      if (options?.search) params.set('search', options.search);
-      if (options?.rarity) params.set('rarity', options.rarity);
-      if (options?.type) params.set('type', options.type);
-      if (options?.faction) params.set('faction', options.faction);
-
-      const response = await fetch(`/api/collections?${params.toString()}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || 'Failed to load collection');
+  const getCollection = useCallback(
+    async (options?: {
+      page?: number;
+      limit?: number;
+      search?: string;
+      rarity?: string;
+      type?: string;
+      faction?: string;
+    }): Promise<Collection | null> => {
+      if (!isAuthenticated) {
+        setError('Authentication required');
         return null;
       }
 
-      return data.collection;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load collection';
-      setError(errorMessage);
-      return null;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isAuthenticated]);
+      setIsLoading(true);
+      setError(null);
 
-  const addToCollection = useCallback(async (
-    cardId: string,
-    quantity: number = 1,
-    condition: string = 'Near Mint'
-  ): Promise<boolean> => {
-    if (!isAuthenticated) {
-      setError('Authentication required');
-      return false;
-    }
+      try {
+        const params = new URLSearchParams();
+        if (options?.page) params.set('page', options.page.toString());
+        if (options?.limit) params.set('limit', options.limit.toString());
+        if (options?.search) params.set('search', options.search);
+        if (options?.rarity) params.set('rarity', options.rarity);
+        if (options?.type) params.set('type', options.type);
+        if (options?.faction) params.set('faction', options.faction);
 
-    setIsLoading(true);
-    setError(null);
+        const response = await fetch(`/api/collections?${params.toString()}`);
+        const data = await response.json();
 
-    try {
-      const response = await fetch('/api/collections', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cardId,
-          quantity,
-          condition,
-          action: 'add'
-        }),
-      });
+        if (!response.ok) {
+          setError(data.error || 'Failed to load collection');
+          return null;
+        }
 
-      const data = await response.json();
+        return data.collection;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to load collection';
+        setError(errorMessage);
+        return null;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isAuthenticated]
+  );
 
-      if (!response.ok) {
-        setError(data.error || 'Failed to add card to collection');
+  const addToCollection = useCallback(
+    async (
+      cardId: string,
+      quantity: number = 1,
+      condition: string = 'Near Mint'
+    ): Promise<boolean> => {
+      if (!isAuthenticated) {
+        setError('Authentication required');
         return false;
       }
 
-      return true;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to add card to collection';
-      setError(errorMessage);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isAuthenticated]);
+      setIsLoading(true);
+      setError(null);
 
-  const updateCollection = useCallback(async (
-    cardId: string,
-    quantity: number,
-    condition: string = 'Near Mint'
-  ): Promise<boolean> => {
-    if (!isAuthenticated) {
-      setError('Authentication required');
-      return false;
-    }
+      try {
+        const response = await fetch('/api/collections', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cardId,
+            quantity,
+            condition,
+            action: 'add',
+          }),
+        });
 
-    setIsLoading(true);
-    setError(null);
+        const data = await response.json();
 
-    try {
-      const response = await fetch('/api/collections', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cardId,
-          quantity,
-          condition,
-          action: 'set'
-        }),
-      });
+        if (!response.ok) {
+          setError(data.error || 'Failed to add card to collection');
+          return false;
+        }
 
-      const data = await response.json();
+        return true;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'Failed to add card to collection';
+        setError(errorMessage);
+        return false;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isAuthenticated]
+  );
 
-      if (!response.ok) {
-        setError(data.error || 'Failed to update collection');
+  const updateCollection = useCallback(
+    async (
+      cardId: string,
+      quantity: number,
+      condition: string = 'Near Mint'
+    ): Promise<boolean> => {
+      if (!isAuthenticated) {
+        setError('Authentication required');
         return false;
       }
 
-      return true;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to update collection';
-      setError(errorMessage);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isAuthenticated]);
+      setIsLoading(true);
+      setError(null);
 
-  const removeFromCollection = useCallback(async (cardId: string): Promise<boolean> => {
-    if (!isAuthenticated) {
-      setError('Authentication required');
-      return false;
-    }
+      try {
+        const response = await fetch('/api/collections', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cardId,
+            quantity,
+            condition,
+            action: 'set',
+          }),
+        });
 
-    setIsLoading(true);
-    setError(null);
+        const data = await response.json();
 
-    try {
-      const response = await fetch('/api/collections', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cardId,
-          action: 'remove'
-        }),
-      });
+        if (!response.ok) {
+          setError(data.error || 'Failed to update collection');
+          return false;
+        }
 
-      const data = await response.json();
+        return true;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to update collection';
+        setError(errorMessage);
+        return false;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isAuthenticated]
+  );
 
-      if (!response.ok) {
-        setError(data.error || 'Failed to remove card from collection');
+  const removeFromCollection = useCallback(
+    async (cardId: string): Promise<boolean> => {
+      if (!isAuthenticated) {
+        setError('Authentication required');
         return false;
       }
 
-      return true;
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to remove card from collection';
-      setError(errorMessage);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isAuthenticated]);
+      setIsLoading(true);
+      setError(null);
 
-  const getCardQuantity = useCallback(async (cardId: string): Promise<number> => {
-    if (!isAuthenticated) {
-      return 0;
-    }
+      try {
+        const response = await fetch('/api/collections', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cardId,
+            action: 'remove',
+          }),
+        });
 
-    try {
-      const collection = await getCollection();
-      if (!collection) return 0;
+        const data = await response.json();
 
-      const collectionCard = collection.cards.find(cc => cc.cardId === cardId);
-      return collectionCard?.quantity || 0;
-    } catch (error) {
-      console.error('Error getting card quantity:', error);
-      return 0;
-    }
-  }, [isAuthenticated, getCollection]);
+        if (!response.ok) {
+          setError(data.error || 'Failed to remove card from collection');
+          return false;
+        }
 
-  const getCardQuantities = useCallback(async (cardIds: string[]): Promise<Record<string, number>> => {
-    if (!isAuthenticated || cardIds.length === 0) {
-      return {};
-    }
+        return true;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'Failed to remove card from collection';
+        setError(errorMessage);
+        return false;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isAuthenticated]
+  );
 
-    try {
-      const collection = await getCollection();
-      if (!collection) return {};
+  const getCardQuantity = useCallback(
+    async (cardId: string): Promise<number> => {
+      if (!isAuthenticated) {
+        return 0;
+      }
 
-      const quantities: Record<string, number> = {};
-      cardIds.forEach(cardId => {
-        const collectionCard = collection.cards.find(cc => cc.cardId === cardId);
-        quantities[cardId] = collectionCard?.quantity || 0;
-      });
+      try {
+        const collection = await getCollection();
+        if (!collection) return 0;
 
-      return quantities;
-    } catch (error) {
-      console.error('Error getting card quantities:', error);
-      return {};
-    }
-  }, [isAuthenticated, getCollection]);
+        const collectionCard = collection.cards.find(
+          (cc) => cc.cardId === cardId
+        );
+        return collectionCard?.quantity || 0;
+      } catch (error) {
+        console.error('Error getting card quantity:', error);
+        return 0;
+      }
+    },
+    [isAuthenticated, getCollection]
+  );
+
+  const getCardQuantities = useCallback(
+    async (cardIds: string[]): Promise<Record<string, number>> => {
+      if (!isAuthenticated || cardIds.length === 0) {
+        return {};
+      }
+
+      try {
+        const collection = await getCollection();
+        if (!collection) return {};
+
+        const quantities: Record<string, number> = {};
+        cardIds.forEach((cardId) => {
+          const collectionCard = collection.cards.find(
+            (cc) => cc.cardId === cardId
+          );
+          quantities[cardId] = collectionCard?.quantity || 0;
+        });
+
+        return quantities;
+      } catch (error) {
+        console.error('Error getting card quantities:', error);
+        return {};
+      }
+    },
+    [isAuthenticated, getCollection]
+  );
 
   return {
     isLoading,

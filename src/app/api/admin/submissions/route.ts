@@ -47,12 +47,14 @@ export async function GET(request: NextRequest) {
     // Default: return basic admin info
     const statistics = await CardSubmissionService.getSubmissionStatistics();
 
-    return NextResponse.json({
-      statistics,
-      message: 'Admin submissions overview',
-      timestamp: new Date().toISOString(),
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        statistics,
+        message: 'Admin submissions overview',
+        timestamp: new Date().toISOString(),
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Admin submissions API error:', error);
 
@@ -86,7 +88,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!['approve', 'reject', 'archive', 'priority'].includes(operation.action)) {
+    if (
+      !['approve', 'reject', 'archive', 'priority'].includes(operation.action)
+    ) {
       return NextResponse.json(
         {
           error: 'Invalid action',
@@ -99,14 +103,16 @@ export async function POST(request: NextRequest) {
     // Execute batch operation
     const result = await CardSubmissionService.batchOperation(operation);
 
-    return NextResponse.json({
-      message: `Batch ${operation.action} completed`,
-      result,
-      processedCount: operation.submissionIds.length,
-      successfulCount: result.successful.length,
-      failedCount: result.failed.length,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: `Batch ${operation.action} completed`,
+        result,
+        processedCount: operation.submissionIds.length,
+        successfulCount: result.successful.length,
+        failedCount: result.failed.length,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Admin batch operation API error:', error);
 

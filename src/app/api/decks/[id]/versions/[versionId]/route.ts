@@ -30,9 +30,9 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
+        userId: session.user.id,
       },
-      select: { id: true, name: true }
+      select: { id: true, name: true },
     });
 
     if (!deck) {
@@ -46,15 +46,15 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const version = await prisma.deckVersion.findUnique({
       where: {
         id: versionId,
-        deckId: deckId
+        deckId: deckId,
       },
       include: {
         creator: {
           select: {
             id: true,
             name: true,
-            image: true
-          }
+            image: true,
+          },
         },
         cards: {
           include: {
@@ -62,23 +62,17 @@ export async function GET(request: NextRequest, context: RouteContext) {
               include: {
                 type: true,
                 rarity: true,
-                set: true
-              }
-            }
+                set: true,
+              },
+            },
           },
-          orderBy: [
-            { category: 'asc' },
-            { card: { name: 'asc' } }
-          ]
-        }
-      }
+          orderBy: [{ category: 'asc' }, { card: { name: 'asc' } }],
+        },
+      },
     });
 
     if (!version) {
-      return NextResponse.json(
-        { error: 'Version not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Version not found' }, { status: 404 });
     }
 
     // Calculate statistics
@@ -94,22 +88,25 @@ export async function GET(request: NextRequest, context: RouteContext) {
       createdAt: version.createdAt,
       cardCount: version.cards.reduce((sum, vc) => sum + vc.quantity, 0),
       uniqueCards: version.cards.length,
-      totalCost: version.cards.reduce((sum, vc) => sum + ((vc.card.cost || 0) * vc.quantity), 0),
-      cards: version.cards.map(vc => ({
+      totalCost: version.cards.reduce(
+        (sum, vc) => sum + (vc.card.cost || 0) * vc.quantity,
+        0
+      ),
+      cards: version.cards.map((vc) => ({
         id: vc.id,
         cardId: vc.cardId,
         quantity: vc.quantity,
         category: vc.category,
-        card: vc.card
-      }))
+        card: vc.card,
+      })),
     };
 
     return NextResponse.json({
       deck: {
         id: deck.id,
-        name: deck.name
+        name: deck.name,
       },
-      version: versionWithStats
+      version: versionWithStats,
     });
   } catch (error) {
     console.error('Get deck version error:', error);
@@ -145,8 +142,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
-      }
+        userId: session.user.id,
+      },
     });
 
     if (!deck) {
@@ -160,18 +157,15 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const versionToRestore = await prisma.deckVersion.findUnique({
       where: {
         id: versionId,
-        deckId: deckId
+        deckId: deckId,
       },
       include: {
-        cards: true
-      }
+        cards: true,
+      },
     });
 
     if (!versionToRestore) {
-      return NextResponse.json(
-        { error: 'Version not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Version not found' }, { status: 404 });
     }
 
     // Perform restore in a transaction
@@ -179,14 +173,14 @@ export async function POST(request: NextRequest, context: RouteContext) {
       // First, create a new version with current state (before restoration)
       const currentVersion = await tx.deckVersion.findFirst({
         where: { deckId },
-        orderBy: { version: 'desc' }
+        orderBy: { version: 'desc' },
       });
 
       const nextVersion = (currentVersion?.version || 0) + 1;
 
       // Save current state as "Before restoration" version
       const currentDeckCards = await tx.deckCard.findMany({
-        where: { deckId }
+        where: { deckId },
       });
 
       await tx.deckVersion.create({
@@ -200,28 +194,28 @@ export async function POST(request: NextRequest, context: RouteContext) {
           isPublic: deck.isPublic,
           createdBy: session.user.id,
           cards: {
-            create: currentDeckCards.map(deckCard => ({
+            create: currentDeckCards.map((deckCard) => ({
               cardId: deckCard.cardId,
               quantity: deckCard.quantity,
-              category: deckCard.category
-            }))
-          }
-        }
+              category: deckCard.category,
+            })),
+          },
+        },
       });
 
       // Delete current deck cards
       await tx.deckCard.deleteMany({
-        where: { deckId }
+        where: { deckId },
       });
 
       // Restore cards from the selected version
       const restoredCards = await tx.deckCard.createMany({
-        data: versionToRestore.cards.map(vc => ({
+        data: versionToRestore.cards.map((vc) => ({
           deckId,
           cardId: vc.cardId,
           quantity: vc.quantity,
-          category: vc.category
-        }))
+          category: vc.category,
+        })),
       });
 
       // Update deck metadata
@@ -232,8 +226,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
           description: versionToRestore.description,
           currentVersion: nextVersion + 1,
           versionName: `Restored from v${versionToRestore.version}`,
-          updatedAt: new Date()
-        }
+          updatedAt: new Date(),
+        },
       });
 
       return { restoredCards, newVersion: nextVersion + 1 };
@@ -242,7 +236,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
     return NextResponse.json({
       message: `Deck restored to version ${versionToRestore.version}`,
       restoredFromVersion: versionToRestore.version,
-      newCurrentVersion: result.newVersion
+      newCurrentVersion: result.newVersion,
     });
   } catch (error) {
     console.error('Restore deck version error:', error);
@@ -270,8 +264,8 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     const deck = await prisma.deck.findUnique({
       where: {
         id: deckId,
-        userId: session.user.id
-      }
+        userId: session.user.id,
+      },
     });
 
     if (!deck) {
@@ -285,20 +279,17 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     const versionToDelete = await prisma.deckVersion.findUnique({
       where: {
         id: versionId,
-        deckId: deckId
-      }
+        deckId: deckId,
+      },
     });
 
     if (!versionToDelete) {
-      return NextResponse.json(
-        { error: 'Version not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Version not found' }, { status: 404 });
     }
 
     // Check if this is the only version
     const versionCount = await prisma.deckVersion.count({
-      where: { deckId }
+      where: { deckId },
     });
 
     if (versionCount <= 1) {
@@ -310,11 +301,11 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
 
     // Delete the version (cascade will delete version cards)
     await prisma.deckVersion.delete({
-      where: { id: versionId }
+      where: { id: versionId },
     });
 
     return NextResponse.json({
-      message: `Version ${versionToDelete.version} deleted successfully`
+      message: `Version ${versionToDelete.version} deleted successfully`,
     });
   } catch (error) {
     console.error('Delete deck version error:', error);

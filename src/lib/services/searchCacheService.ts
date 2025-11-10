@@ -4,7 +4,11 @@
  * Provides intelligent caching for card search results with TTL and LRU eviction
  */
 
-import type { CardSearchFilters, CardSearchOptions, CardSearchResult } from '@/lib/types/card';
+import type {
+  CardSearchFilters,
+  CardSearchOptions,
+  CardSearchResult,
+} from '@/lib/types/card';
 
 export interface CacheEntry {
   result: CardSearchResult;
@@ -46,7 +50,7 @@ export class SearchCacheService {
     totalHits: 0,
     totalMisses: 0,
     totalSize: 0,
-    responseTimes: [] as number[]
+    responseTimes: [] as number[],
   };
 
   private config: CacheConfig = {
@@ -54,7 +58,7 @@ export class SearchCacheService {
     maxEntries: 1000,
     defaultTTL: 5 * 60 * 1000, // 5 minutes
     enableCompression: true,
-    cleanupInterval: 30 * 1000 // 30 seconds
+    cleanupInterval: 30 * 1000, // 30 seconds
   };
 
   private cleanupTimer?: NodeJS.Timeout;
@@ -78,21 +82,26 @@ export class SearchCacheService {
   /**
    * Generate cache key from filters and options
    */
-  private generateCacheKey(filters: CardSearchFilters, options: CardSearchOptions): string {
+  private generateCacheKey(
+    filters: CardSearchFilters,
+    options: CardSearchOptions
+  ): string {
     // Create a normalized key that ignores order and undefined values
     const normalizedFilters = this.normalizeFilters(filters);
     const normalizedOptions = this.normalizeOptions(options);
 
     return JSON.stringify({
       f: normalizedFilters,
-      o: normalizedOptions
+      o: normalizedOptions,
     });
   }
 
   /**
    * Normalize filters for consistent cache keys
    */
-  private normalizeFilters(filters: CardSearchFilters): Partial<CardSearchFilters> {
+  private normalizeFilters(
+    filters: CardSearchFilters
+  ): Partial<CardSearchFilters> {
     const normalized: Partial<CardSearchFilters> = {};
 
     // Only include defined values and sort arrays
@@ -112,13 +121,15 @@ export class SearchCacheService {
   /**
    * Normalize options for consistent cache keys
    */
-  private normalizeOptions(options: CardSearchOptions): Partial<CardSearchOptions> {
+  private normalizeOptions(
+    options: CardSearchOptions
+  ): Partial<CardSearchOptions> {
     return {
       page: options.page || 1,
       limit: options.limit || 20,
       sortBy: options.sortBy || 'name',
       sortOrder: options.sortOrder || 'asc',
-      includeRelations: options.includeRelations ?? true
+      includeRelations: options.includeRelations ?? true,
     };
   }
 
@@ -137,13 +148,16 @@ export class SearchCacheService {
    */
   private isEntryValid(entry: CacheEntry): boolean {
     const now = Date.now();
-    return (now - entry.timestamp) < entry.ttl;
+    return now - entry.timestamp < entry.ttl;
   }
 
   /**
    * Get cached search result
    */
-  async get(filters: CardSearchFilters, options: CardSearchOptions): Promise<CardSearchResult | null> {
+  async get(
+    filters: CardSearchFilters,
+    options: CardSearchOptions
+  ): Promise<CardSearchResult | null> {
     const startTime = Date.now();
     const key = this.generateCacheKey(filters, options);
     const entry = this.cache.get(key);
@@ -196,7 +210,7 @@ export class SearchCacheService {
       accessCount: 1,
       lastAccessed: Date.now(),
       ttl,
-      size
+      size,
     };
 
     // Remove existing entry if it exists
@@ -214,7 +228,10 @@ export class SearchCacheService {
    */
   private async ensureCapacity(newEntrySize: number): Promise<void> {
     // Check size limit
-    while (this.stats.totalSize + newEntrySize > this.config.maxSize && this.cache.size > 0) {
+    while (
+      this.stats.totalSize + newEntrySize > this.config.maxSize &&
+      this.cache.size > 0
+    ) {
       await this.evictLRUEntry();
     }
 
@@ -277,7 +294,9 @@ export class SearchCacheService {
   /**
    * Invalidate cache entries matching filters
    */
-  async invalidateByFilters(filters: Partial<CardSearchFilters>): Promise<number> {
+  async invalidateByFilters(
+    filters: Partial<CardSearchFilters>
+  ): Promise<number> {
     let removedCount = 0;
 
     for (const [key, entry] of this.cache.entries()) {
@@ -287,7 +306,9 @@ export class SearchCacheService {
       // Check if any filter matches
       let shouldInvalidate = false;
       for (const [filterKey, filterValue] of Object.entries(filters)) {
-        if (entryFilters[filterKey as keyof CardSearchFilters] === filterValue) {
+        if (
+          entryFilters[filterKey as keyof CardSearchFilters] === filterValue
+        ) {
           shouldInvalidate = true;
           break;
         }
@@ -308,7 +329,8 @@ export class SearchCacheService {
    */
   getStats(): CacheStats {
     const totalRequests = this.stats.totalHits + this.stats.totalMisses;
-    const hitRate = totalRequests > 0 ? this.stats.totalHits / totalRequests : 0;
+    const hitRate =
+      totalRequests > 0 ? this.stats.totalHits / totalRequests : 0;
 
     let oldestEntry = Date.now();
     let newestEntry = 0;
@@ -318,9 +340,11 @@ export class SearchCacheService {
       if (entry.timestamp > newestEntry) newestEntry = entry.timestamp;
     }
 
-    const avgResponseTime = this.stats.responseTimes.length > 0
-      ? this.stats.responseTimes.reduce((a, b) => a + b, 0) / this.stats.responseTimes.length
-      : 0;
+    const avgResponseTime =
+      this.stats.responseTimes.length > 0
+        ? this.stats.responseTimes.reduce((a, b) => a + b, 0) /
+          this.stats.responseTimes.length
+        : 0;
 
     return {
       totalEntries: this.cache.size,
@@ -330,7 +354,7 @@ export class SearchCacheService {
       totalMisses: this.stats.totalMisses,
       avgResponseTime,
       oldestEntry,
-      newestEntry
+      newestEntry,
     };
   }
 
@@ -370,7 +394,7 @@ export class SearchCacheService {
       { filters: { faction: 'Earth Federation' }, options: { limit: 20 } },
       { filters: { faction: 'Zeon' }, options: { limit: 20 } },
       { filters: { series: 'UC' }, options: { limit: 20 } },
-      { filters: { typeId: 'unit' }, options: { limit: 20 } }
+      { filters: { typeId: 'unit' }, options: { limit: 20 } },
     ];
 
     // Note: In a real implementation, you would call the actual search service

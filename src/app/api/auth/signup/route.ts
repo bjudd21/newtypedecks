@@ -5,17 +5,28 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createUser, validateEmail, validatePassword, checkRateLimit } from '@/lib/auth-utils';
+import {
+  createUser,
+  validateEmail,
+  validatePassword,
+  checkRateLimit,
+} from '@/lib/auth-utils';
 import { prisma } from '@/lib/database';
 import { sendEmailVerification } from '@/lib/services/emailService';
-import { generateUrlSafeToken, generateEmailVerificationExpiration } from '@/lib/utils/tokens';
+import {
+  generateUrlSafeToken,
+  generateEmailVerificationExpiration,
+} from '@/lib/utils/tokens';
 
 export async function POST(request: NextRequest) {
   try {
     const { email, password, name } = await request.json();
 
     // Get client IP for rate limiting
-    const clientIP = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const clientIP =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     // Rate limiting
     const rateLimit = checkRateLimit(`signup:${clientIP}`, 3, 15 * 60 * 1000); // 3 attempts per 15 minutes
@@ -23,7 +34,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: 'Too many registration attempts. Please try again later.',
-          resetTime: rateLimit.resetTime
+          resetTime: rateLimit.resetTime,
         },
         { status: 429 }
       );
@@ -52,7 +63,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: 'Password does not meet security requirements',
-          details: passwordValidation.errors
+          details: passwordValidation.errors,
         },
         { status: 400 }
       );
@@ -96,7 +107,10 @@ export async function POST(request: NextRequest) {
       });
 
       if (!emailSent) {
-        console.warn('Failed to send verification email to:', result.user!.email);
+        console.warn(
+          'Failed to send verification email to:',
+          result.user!.email
+        );
       }
     } catch (emailError) {
       console.error('Error sending verification email:', emailError);
@@ -106,7 +120,8 @@ export async function POST(request: NextRequest) {
     // Return success (don't include sensitive data)
     return NextResponse.json(
       {
-        message: 'User created successfully. Please check your email to verify your account.',
+        message:
+          'User created successfully. Please check your email to verify your account.',
         user: {
           id: result.user!.id,
           email: result.user!.email,

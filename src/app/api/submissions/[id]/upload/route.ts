@@ -52,14 +52,19 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     }
 
     // Upload the image
-    const uploadResult = await CardSubmissionService.uploadSubmissionImage(id, file);
+    const uploadResult = await CardSubmissionService.uploadSubmissionImage(
+      id,
+      file
+    );
 
-    return NextResponse.json({
-      message: 'Image uploaded successfully',
-      imageUrl: uploadResult.imageUrl,
-      imageFile: uploadResult.imageFile,
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        message: 'Image uploaded successfully',
+        imageUrl: uploadResult.imageUrl,
+        imageFile: uploadResult.imageFile,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Submission image upload API error:', error);
 

@@ -5,6 +5,7 @@ This folder contains user-facing guides, tutorials, and reference documentation 
 ## Available Tutorials
 
 ### 🎨 Design & Customization
+
 - **[webpage-anatomy.md](./webpage-anatomy.md)** - Complete UI component reference guide
   - Terminology and naming conventions for all webpage components
   - File locations and code references
@@ -19,6 +20,7 @@ This folder contains user-facing guides, tutorials, and reference documentation 
   - Animation and layout adjustments
 
 ### 🛠️ Setup & Configuration
+
 - **[LOCAL_SETUP_GUIDE.md](./LOCAL_SETUP_GUIDE.md)** - Step-by-step local development setup
   - Environment configuration
   - Database setup
@@ -26,6 +28,7 @@ This folder contains user-facing guides, tutorials, and reference documentation 
   - Common troubleshooting steps
 
 ### 📥 Data Import & Management
+
 - **[card-import-guide.md](./card-import-guide.md)** - Complete guide to importing card data and images
   - Card image specifications and naming conventions
   - Card data format (required and optional fields)
@@ -38,7 +41,9 @@ This folder contains user-facing guides, tutorials, and reference documentation 
 For other types of documentation, see:
 
 ### Technical Documentation
+
 See the `/docs` folder for technical documentation:
+
 - API documentation
 - Database schemas
 - Component architecture
@@ -46,11 +51,13 @@ See the `/docs` folder for technical documentation:
 - Development workflows
 
 ### Project Management
+
 - `/tasks` - Task lists and PRD tracking
 - `/projectnotes` - Project notes and clarifying questions
 - `/cursorrules` - Cursor/Claude AI instructions
 
 ### Root Level
+
 - `README.md` - Project overview and quick start
 - `CLAUDE.md` - Instructions for Claude Code
 - `project-memory.md` - Project state and memory
@@ -63,6 +70,7 @@ See the `/docs` folder for technical documentation:
 ## Contributing
 
 When adding new tutorials:
+
 1. Use clear, descriptive filenames
 2. Include a table of contents for longer documents
 3. Add the tutorial to this README with a brief description
@@ -73,6 +81,6 @@ When adding new tutorials:
 
 ---
 
-*Last Updated: November 2024*
+_Last Updated: November 2024_
 
-*For technical API documentation, see `/docs`. For project requirements, see the PRD in the root folder.*
+_For technical API documentation, see `/docs`. For project requirements, see the PRD in the root folder._

@@ -30,39 +30,36 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
               include: {
                 type: true,
                 rarity: true,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         user: {
           select: {
             id: true,
             name: true,
             email: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     if (!deck) {
-      return NextResponse.json(
-        { error: 'Deck not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Deck not found' }, { status: 404 });
     }
 
     // Check permissions - must be owner or deck must be public
     if (!deck.isPublic && (!session?.user || deck.userId !== session.user.id)) {
-      return NextResponse.json(
-        { error: 'Access denied' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
     // Calculate statistics
     const totalCards = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
     const uniqueCards = deck.cards.length;
-    const totalCost = deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
+    const totalCost = deck.cards.reduce(
+      (sum, dc) => sum + (dc.card.cost || 0) * dc.quantity,
+      0
+    );
     const averageCost = totalCards > 0 ? totalCost / totalCards : 0;
 
     const deckWithStats = {
@@ -72,18 +69,20 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       isPublic: deck.isPublic,
       userId: deck.userId,
       user: deck.user,
-      cards: deck.cards.map(dc => ({
+      cards: deck.cards.map((dc) => ({
         cardId: dc.cardId,
         card: dc.card,
         quantity: dc.quantity,
-        category: dc.category || 'main'
+        category: dc.category || 'main',
       })),
       statistics: {
         totalCards,
         uniqueCards,
         totalCost,
         averageCost: Math.round(averageCost * 100) / 100,
-        colors: [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))],
+        colors: [
+          ...new Set(deck.cards.map((dc) => dc.card.faction).filter(Boolean)),
+        ],
       },
       createdAt: deck.createdAt,
       updatedAt: deck.updatedAt,
@@ -116,21 +115,15 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     // Check if deck exists and user owns it
     const existingDeck = await prisma.deck.findUnique({
       where: { id },
-      select: { userId: true, name: true }
+      select: { userId: true, name: true },
     });
 
     if (!existingDeck) {
-      return NextResponse.json(
-        { error: 'Deck not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Deck not found' }, { status: 404 });
     }
 
     if (existingDeck.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: 'Access denied' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
     // Validate input
@@ -150,13 +143,18 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         );
       }
 
-      const cardIds = cards.map((c: unknown) => {
-        const cardObj = c as Record<string, unknown>;
-        return cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id;
-      }).filter(Boolean);
+      const cardIds = cards
+        .map((c: unknown) => {
+          const cardObj = c as Record<string, unknown>;
+          return (
+            cardObj.cardId ||
+            (cardObj.card as Record<string, unknown> | undefined)?.id
+          );
+        })
+        .filter(Boolean);
       const existingCards = await prisma.card.findMany({
         where: { id: { in: cardIds as string[] } },
-        select: { id: true }
+        select: { id: true },
       });
 
       if (existingCards.length !== new Set(cardIds).size) {
@@ -183,11 +181,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
               include: {
                 type: true,
                 rarity: true,
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
 
     // If cards are being updated, replace all cards and create version
@@ -197,8 +195,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const currentDeck = await tx.deck.findUnique({
           where: { id },
           include: {
-            cards: true
-          }
+            cards: true,
+          },
         });
 
         if (!currentDeck) {
@@ -209,7 +207,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const lastVersion = await tx.deckVersion.findFirst({
           where: { deckId: id },
           orderBy: { version: 'desc' },
-          select: { version: true }
+          select: { version: true },
         });
 
         const nextVersion = (lastVersion?.version || 0) + 1;
@@ -227,13 +225,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
               isPublic: currentDeck.isPublic,
               createdBy: session.user.id,
               cards: {
-                create: currentDeck.cards.map(deckCard => ({
+                create: currentDeck.cards.map((deckCard) => ({
                   cardId: deckCard.cardId,
                   quantity: deckCard.quantity,
-                  category: deckCard.category
-                }))
-              }
-            }
+                  category: deckCard.category,
+                })),
+              },
+            },
           });
 
           // Update deck's version tracking
@@ -241,14 +239,14 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
             where: { id },
             data: {
               currentVersion: nextVersion,
-              updatedAt: new Date()
-            }
+              updatedAt: new Date(),
+            },
           });
         }
 
         // Delete existing cards
         await tx.deckCard.deleteMany({
-          where: { deckId: id }
+          where: { deckId: id },
         });
 
         // Add new cards
@@ -257,11 +255,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
             const cardObj = card as Record<string, unknown>;
             return {
               deckId: id,
-              cardId: (cardObj.cardId || (cardObj.card as Record<string, unknown> | undefined)?.id) as string,
-              quantity: Math.max(1, Math.min(4, parseInt(String(cardObj.quantity || 1)))),
-              category: (cardObj.category as string) || 'main'
+              cardId: (cardObj.cardId ||
+                (cardObj.card as Record<string, unknown> | undefined)
+                  ?.id) as string,
+              quantity: Math.max(
+                1,
+                Math.min(4, parseInt(String(cardObj.quantity || 1)))
+              ),
+              category: (cardObj.category as string) || 'main',
             };
-          })
+          }),
         });
 
         // Fetch updated deck with new cards
@@ -274,11 +277,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
                   include: {
                     type: true,
                     rarity: true,
-                  }
-                }
-              }
-            }
-          }
+                  },
+                },
+              },
+            },
+          },
         });
 
         return finalDeck;
@@ -286,13 +289,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
       return NextResponse.json({
         message: 'Deck updated successfully',
-        deck: result
+        deck: result,
       });
     }
 
     return NextResponse.json({
       message: 'Deck updated successfully',
-      deck: updatedDeck
+      deck: updatedDeck,
     });
   } catch (error) {
     console.error('Update deck error:', error);
@@ -318,31 +321,25 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     // Check if deck exists and user owns it
     const existingDeck = await prisma.deck.findUnique({
       where: { id },
-      select: { userId: true, name: true }
+      select: { userId: true, name: true },
     });
 
     if (!existingDeck) {
-      return NextResponse.json(
-        { error: 'Deck not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Deck not found' }, { status: 404 });
     }
 
     if (existingDeck.userId !== session.user.id) {
-      return NextResponse.json(
-        { error: 'Access denied' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
     // Delete the deck (cascade will handle deck cards)
     await prisma.deck.delete({
-      where: { id }
+      where: { id },
     });
 
     return NextResponse.json({
       message: 'Deck deleted successfully',
-      deckName: existingDeck.name
+      deckName: existingDeck.name,
     });
   } catch (error) {
     console.error('Delete deck error:', error);

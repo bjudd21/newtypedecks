@@ -90,7 +90,14 @@
         "properties": {
           "keyword": {
             "type": "string",
-            "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+            "enum": [
+              "Repair",
+              "Breach",
+              "Support",
+              "Blocker",
+              "First Strike",
+              "High-Maneuver"
+            ]
           },
           "value": {
             "type": "integer",
@@ -109,7 +116,13 @@
         "properties": {
           "trigger": {
             "type": "string",
-            "enum": ["Deploy", "Attack", "Destroyed", "When Paired", "When Linked"]
+            "enum": [
+              "Deploy",
+              "Attack",
+              "Destroyed",
+              "When Paired",
+              "When Linked"
+            ]
           },
           "condition": {
             "type": "string",

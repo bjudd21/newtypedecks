@@ -18,7 +18,8 @@ export async function GET(request: NextRequest) {
       '30d': 30 * 24 * 60 * 60 * 1000,
     };
 
-    const timeWindow = timeWindows[timeRange as keyof typeof timeWindows] || timeWindows['1h'];
+    const timeWindow =
+      timeWindows[timeRange as keyof typeof timeWindows] || timeWindows['1h'];
     const since = new Date(Date.now() - timeWindow);
 
     const metrics: any = {};
@@ -97,8 +98,14 @@ export async function GET(request: NextRequest) {
       metrics.errors = {
         total: metricsCollector.getMetricsSummary('error_count'),
         byType: {
-          api: performanceMonitor.getStats('api')?.recent?.filter(e => e.metadata?.error)?.length || 0,
-          database: performanceMonitor.getStats('database')?.recent?.filter(e => e.metadata?.error)?.length || 0,
+          api:
+            performanceMonitor
+              .getStats('api')
+              ?.recent?.filter((e) => e.metadata?.error)?.length || 0,
+          database:
+            performanceMonitor
+              .getStats('database')
+              ?.recent?.filter((e) => e.metadata?.error)?.length || 0,
         },
       };
     }
@@ -130,7 +137,6 @@ export async function GET(request: NextRequest) {
       timestamp: new Date().toISOString(),
       metrics,
     });
-
   } catch (error) {
     logger.error('Failed to fetch monitoring metrics', error as Error, {
       action: 'monitoring_metrics_fetch',

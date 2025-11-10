@@ -21,7 +21,10 @@ export async function hashPassword(password: string): Promise<string> {
 /**
  * Verify a password against a hash
  */
-export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
+export async function verifyPassword(
+  password: string,
+  hashedPassword: string
+): Promise<boolean> {
   return bcrypt.compare(password, hashedPassword);
 }
 
@@ -33,7 +36,11 @@ export async function createUser(data: {
   password: string;
   name?: string;
   role?: UserRole;
-}): Promise<{ success: boolean; user?: import('@prisma/client').User; error?: string }> {
+}): Promise<{
+  success: boolean;
+  user?: import('@prisma/client').User;
+  error?: string;
+}> {
   try {
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -146,7 +153,7 @@ export function validatePassword(password: string): {
     /qwerty/i, // Keyboard patterns
   ];
 
-  if (commonPatterns.some(pattern => pattern.test(password))) {
+  if (commonPatterns.some((pattern) => pattern.test(password))) {
     errors.push('Password contains common patterns and is too weak');
   }
 
@@ -225,7 +232,11 @@ export function generateRandomPassword(length: number = 16): string {
  */
 const attemptCounts = new Map<string, { count: number; lastAttempt: number }>();
 
-export function checkRateLimit(identifier: string, maxAttempts: number = 5, windowMs: number = 15 * 60 * 1000): {
+export function checkRateLimit(
+  identifier: string,
+  maxAttempts: number = 5,
+  windowMs: number = 15 * 60 * 1000
+): {
   allowed: boolean;
   remainingAttempts?: number;
   resetTime?: number;
@@ -250,7 +261,7 @@ export function checkRateLimit(identifier: string, maxAttempts: number = 5, wind
     return {
       allowed: false,
       remainingAttempts: 0,
-      resetTime
+      resetTime,
     };
   }
 
@@ -260,6 +271,6 @@ export function checkRateLimit(identifier: string, maxAttempts: number = 5, wind
 
   return {
     allowed: true,
-    remainingAttempts: maxAttempts - attempts.count
+    remainingAttempts: maxAttempts - attempts.count,
   };
 }

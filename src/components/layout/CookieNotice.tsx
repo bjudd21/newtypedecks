@@ -22,7 +22,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   variant = 'banner',
   onAccept,
   onDecline,
-  showDeclineOption = true
+  showDeclineOption = true,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [cookieConsent, setCookieConsent] = useState<string | null>(null);
@@ -58,79 +58,129 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
 
   if (variant === 'page') {
     return (
-      <div className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 ${className}`}>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Cookie Policy</h2>
+      <div
+        className={`rounded-lg border border-gray-200 bg-white p-6 shadow-sm ${className}`}
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-6 text-2xl font-bold text-gray-900">
+            Cookie Policy
+          </h2>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">What Are Cookies?</h3>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                What Are Cookies?
+              </h3>
+              <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
                 <p className="text-sm text-blue-700">
-                  Cookies are small text files stored on your device that help websites remember
-                  your preferences and improve your browsing experience.
+                  Cookies are small text files stored on your device that help
+                  websites remember your preferences and improve your browsing
+                  experience.
                 </p>
               </div>
               <p className="text-gray-700">
-                We use cookies to enhance your experience on our Gundam Card Game website,
-                remember your preferences, and provide personalized features.
+                We use cookies to enhance your experience on our Gundam Card
+                Game website, remember your preferences, and provide
+                personalized features.
               </p>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Types of Cookies We Use</h3>
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Types of Cookies We Use
+              </h3>
               <div className="space-y-4">
-                <div className="border border-green-200 bg-green-50 rounded-lg p-4">
-                  <h4 className="font-medium text-green-800 mb-2">✅ Essential Cookies (Always Active)</h4>
-                  <p className="text-sm text-green-700 mb-2">
-                    These cookies are necessary for the website to function properly.
+                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+                  <h4 className="mb-2 font-medium text-green-800">
+                    ✅ Essential Cookies (Always Active)
+                  </h4>
+                  <p className="mb-2 text-sm text-green-700">
+                    These cookies are necessary for the website to function
+                    properly.
                   </p>
-                  <ul className="text-sm text-green-600 space-y-1">
-                    <li>• <strong>Authentication:</strong> Keep you logged in</li>
-                    <li>• <strong>Security:</strong> Protect against unauthorized access</li>
-                    <li>• <strong>Preferences:</strong> Remember your UI settings</li>
-                    <li>• <strong>Session:</strong> Maintain your current session</li>
+                  <ul className="space-y-1 text-sm text-green-600">
+                    <li>
+                      • <strong>Authentication:</strong> Keep you logged in
+                    </li>
+                    <li>
+                      • <strong>Security:</strong> Protect against unauthorized
+                      access
+                    </li>
+                    <li>
+                      • <strong>Preferences:</strong> Remember your UI settings
+                    </li>
+                    <li>
+                      • <strong>Session:</strong> Maintain your current session
+                    </li>
                   </ul>
                 </div>
 
-                <div className="border border-blue-200 bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-800 mb-2">📊 Analytics Cookies (Optional)</h4>
-                  <p className="text-sm text-blue-700 mb-2">
+                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                  <h4 className="mb-2 font-medium text-blue-800">
+                    📊 Analytics Cookies (Optional)
+                  </h4>
+                  <p className="mb-2 text-sm text-blue-700">
                     Help us understand how you use the website to improve it.
                   </p>
-                  <ul className="text-sm text-blue-600 space-y-1">
-                    <li>• <strong>Usage Analytics:</strong> Track page views and popular features</li>
-                    <li>• <strong>Performance:</strong> Monitor website speed and errors</li>
-                    <li>• <strong>User Journey:</strong> Understand navigation patterns</li>
+                  <ul className="space-y-1 text-sm text-blue-600">
+                    <li>
+                      • <strong>Usage Analytics:</strong> Track page views and
+                      popular features
+                    </li>
+                    <li>
+                      • <strong>Performance:</strong> Monitor website speed and
+                      errors
+                    </li>
+                    <li>
+                      • <strong>User Journey:</strong> Understand navigation
+                      patterns
+                    </li>
                   </ul>
-                  <p className="text-xs text-blue-600 mt-2">
-                    <em>Note: All analytics data is anonymized and aggregated.</em>
+                  <p className="mt-2 text-xs text-blue-600">
+                    <em>
+                      Note: All analytics data is anonymized and aggregated.
+                    </em>
                   </p>
                 </div>
 
-                <div className="border border-purple-200 bg-purple-50 rounded-lg p-4">
-                  <h4 className="font-medium text-purple-800 mb-2">🎯 Functional Cookies (Optional)</h4>
-                  <p className="text-sm text-purple-700 mb-2">
+                <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
+                  <h4 className="mb-2 font-medium text-purple-800">
+                    🎯 Functional Cookies (Optional)
+                  </h4>
+                  <p className="mb-2 text-sm text-purple-700">
                     Enhance your experience with personalized features.
                   </p>
-                  <ul className="text-sm text-purple-600 space-y-1">
-                    <li>• <strong>Deck Preferences:</strong> Remember your deck building settings</li>
-                    <li>• <strong>Search History:</strong> Provide search suggestions</li>
-                    <li>• <strong>Display Options:</strong> Remember card view preferences</li>
+                  <ul className="space-y-1 text-sm text-purple-600">
+                    <li>
+                      • <strong>Deck Preferences:</strong> Remember your deck
+                      building settings
+                    </li>
+                    <li>
+                      • <strong>Search History:</strong> Provide search
+                      suggestions
+                    </li>
+                    <li>
+                      • <strong>Display Options:</strong> Remember card view
+                      preferences
+                    </li>
                   </ul>
                 </div>
               </div>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Cookie Management</h3>
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Cookie Management
+              </h3>
               <div className="space-y-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Browser Settings</h4>
-                  <p className="text-sm text-gray-700 mb-2">
+                <div className="rounded-lg bg-gray-50 p-4">
+                  <h4 className="mb-2 font-medium text-gray-900">
+                    Browser Settings
+                  </h4>
+                  <p className="mb-2 text-sm text-gray-700">
                     You can control cookies through your browser settings:
                   </p>
-                  <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
+                  <ul className="list-inside list-disc space-y-1 text-sm text-gray-600">
                     <li>Block all cookies (may break website functionality)</li>
                     <li>Block third-party cookies only</li>
                     <li>Delete existing cookies</li>
@@ -138,36 +188,45 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   </ul>
                 </div>
 
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <h4 className="font-medium text-yellow-800 mb-2">⚠️ Important Note</h4>
+                <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+                  <h4 className="mb-2 font-medium text-yellow-800">
+                    ⚠️ Important Note
+                  </h4>
                   <p className="text-sm text-yellow-700">
-                    Disabling essential cookies may prevent core website features from working,
-                    such as staying logged in or saving your deck builds.
+                    Disabling essential cookies may prevent core website
+                    features from working, such as staying logged in or saving
+                    your deck builds.
                   </p>
                 </div>
               </div>
             </section>
 
             <section className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Choices</h3>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-700 mb-4">
-                  Current consent status: <span className="font-medium">
-                    {cookieConsent === 'accepted' ? '✅ Accepted' :
-                     cookieConsent === 'declined' ? '❌ Declined' : '⏳ Not Set'}
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Your Choices
+              </h3>
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                <p className="mb-4 text-sm text-blue-700">
+                  Current consent status:{' '}
+                  <span className="font-medium">
+                    {cookieConsent === 'accepted'
+                      ? '✅ Accepted'
+                      : cookieConsent === 'declined'
+                        ? '❌ Declined'
+                        : '⏳ Not Set'}
                   </span>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={handleAccept}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     Accept All Cookies
                   </button>
                   {showDeclineOption && (
                     <button
                       onClick={handleDecline}
-                      className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                      className="rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
                     >
                       Essential Cookies Only
                     </button>
@@ -177,18 +236,20 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
 
             <section>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Contact Information
+              </h3>
+              <div className="rounded-lg bg-gray-50 p-4">
                 <p className="text-sm text-gray-700">
-                  Questions about our cookie policy? This is a community project.
-                  Please refer to the project documentation or contact the maintainers
-                  through the official channels.
+                  Questions about our cookie policy? This is a community
+                  project. Please refer to the project documentation or contact
+                  the maintainers through the official channels.
                 </p>
               </div>
             </section>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="mt-8 border-t border-gray-200 pt-6">
             <p className="text-xs text-gray-500">
               <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
             </p>
@@ -200,27 +261,44 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
 
   if (variant === 'inline') {
     return (
-      <div className={`border border-gray-200 rounded-lg p-4 bg-gray-50 ${className}`}>
+      <div
+        className={`rounded-lg border border-gray-200 bg-gray-50 p-4 ${className}`}
+      >
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
-            <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="h-5 w-5 text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
           <div className="flex-1">
-            <h4 className="text-sm font-medium text-gray-900 mb-2">Cookie Information</h4>
-            <div className="text-sm text-gray-700 space-y-2">
+            <h4 className="mb-2 text-sm font-medium text-gray-900">
+              Cookie Information
+            </h4>
+            <div className="space-y-2 text-sm text-gray-700">
               <p>
-                We use cookies to enhance your experience, remember your preferences,
-                and provide personalized features.
+                We use cookies to enhance your experience, remember your
+                preferences, and provide personalized features.
               </p>
               <div className="space-y-1">
-                <p><strong>Essential:</strong> Required for login and basic functionality</p>
-                <p><strong>Analytics:</strong> Help us improve the website (optional)</p>
-                <p><strong>Functional:</strong> Remember your preferences (optional)</p>
+                <p>
+                  <strong>Essential:</strong> Required for login and basic
+                  functionality
+                </p>
+                <p>
+                  <strong>Analytics:</strong> Help us improve the website
+                  (optional)
+                </p>
+                <p>
+                  <strong>Functional:</strong> Remember your preferences
+                  (optional)
+                </p>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mt-3">
+            <p className="mt-3 text-xs text-gray-500">
               Current status: {cookieConsent || 'Not set'}
             </p>
           </div>
@@ -231,21 +309,28 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
 
   // Default banner variant
   return (
-    <div className={`fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 shadow-lg z-50 ${className}`}>
+    <div
+      className={`fixed bottom-0 left-0 right-0 z-50 bg-gray-900 p-4 text-white shadow-lg ${className}`}
+    >
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between space-y-4 md:space-y-0">
-          <div className="flex-1 mr-4">
+        <div className="flex flex-col items-start justify-between space-y-4 md:flex-row md:items-center md:space-y-0">
+          <div className="mr-4 flex-1">
             <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 mt-1">
-                <svg className="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="mt-1 flex-shrink-0">
+                <svg
+                  className="h-5 w-5 text-blue-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <h4 className="text-sm font-medium mb-1">We use cookies</h4>
+                <h4 className="mb-1 text-sm font-medium">We use cookies</h4>
                 <p className="text-sm text-gray-300">
-                  We use essential cookies for functionality and optional cookies to improve your experience.
-                  You can choose which types to allow.
+                  We use essential cookies for functionality and optional
+                  cookies to improve your experience. You can choose which types
+                  to allow.
                 </p>
               </div>
             </div>
@@ -254,14 +339,14 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
           <div className="flex flex-wrap gap-3">
             <button
               onClick={handleAccept}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
             >
               Accept All
             </button>
             {showDeclineOption && (
               <button
                 onClick={handleDecline}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                className="rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
               >
                 Essential Only
               </button>

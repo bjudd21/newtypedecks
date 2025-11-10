@@ -1,5 +1,12 @@
 // Test file for environment configuration
-import { env, isDevelopment, isProduction, isTest, corsOrigins, isFeatureEnabled } from './environment';
+import {
+  env,
+  isDevelopment,
+  isProduction,
+  isTest,
+  corsOrigins,
+  isFeatureEnabled,
+} from './environment';
 
 describe('Environment Configuration', () => {
   describe('Environment Detection', () => {

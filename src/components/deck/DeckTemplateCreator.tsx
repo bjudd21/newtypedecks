@@ -1,7 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Input, Select } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Input,
+  Select,
+} from '@/components/ui';
 
 interface DeckTemplateCreatorProps {
   deckId: string;
@@ -18,7 +26,7 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
   deckDescription,
   cardCount,
   onTemplateCreated,
-  className
+  className,
 }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [templateName, setTemplateName] = useState(`${deckName} Template`);
@@ -52,8 +60,8 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
           deckId,
           templateName: templateName.trim(),
           templateDescription: templateDescription.trim(),
-          templateSource: templateSource
-        })
+          templateSource: templateSource,
+        }),
       });
 
       if (!response.ok) {
@@ -66,7 +74,9 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
 
       // Reset form
       setTemplateName(`${deckName} Template`);
-      setTemplateDescription(`Community template based on ${deckName}. A well-balanced deck suitable for competitive play.`);
+      setTemplateDescription(
+        `Community template based on ${deckName}. A well-balanced deck suitable for competitive play.`
+      );
       setTemplateSource('Community');
 
       if (onTemplateCreated) {
@@ -74,7 +84,9 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
       }
     } catch (err) {
       console.error('Error creating template:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create template');
+      setError(
+        err instanceof Error ? err.message : 'Failed to create template'
+      );
     } finally {
       setIsCreating(false);
     }
@@ -86,14 +98,15 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
         <CardHeader>
           <CardTitle>Create Template</CardTitle>
           <div className="text-sm text-gray-600">
-            Share this deck with the community by creating a public template that others can use.
+            Share this deck with the community by creating a public template
+            that others can use.
           </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {/* Template Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Template Name *
               </label>
               <Input
@@ -106,24 +119,24 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
 
             {/* Template Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Description
               </label>
               <textarea
                 value={templateDescription}
                 onChange={(e) => setTemplateDescription(e.target.value)}
                 placeholder="Describe this template's strategy, strengths, and when to use it..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 rows={3}
               />
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="mt-1 text-xs text-gray-500">
                 Help other players understand when and how to use this template.
               </div>
             </div>
 
             {/* Template Source */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="mb-1 block text-sm font-medium text-gray-700">
                 Source Type
               </label>
               <Select
@@ -134,19 +147,23 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
                   { value: 'Tournament', label: 'Tournament' },
                   { value: 'Competitive', label: 'Competitive' },
                   { value: 'Casual', label: 'Casual' },
-                  { value: 'Beginner', label: 'Beginner-Friendly' }
+                  { value: 'Beginner', label: 'Beginner-Friendly' },
                 ]}
               />
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="mt-1 text-xs text-gray-500">
                 Choose the category that best describes this deck template.
               </div>
             </div>
 
             {/* Current Deck Stats */}
-            <div className="p-3 bg-gray-50 rounded-lg">
-              <div className="text-sm font-medium text-gray-900 mb-2">Current Deck:</div>
+            <div className="rounded-lg bg-gray-50 p-3">
+              <div className="mb-2 text-sm font-medium text-gray-900">
+                Current Deck:
+              </div>
               <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-                <div><strong>{deckName}</strong></div>
+                <div>
+                  <strong>{deckName}</strong>
+                </div>
                 <div>{cardCount} cards</div>
                 {deckDescription && (
                   <div className="col-span-2 text-xs">{deckDescription}</div>
@@ -156,17 +173,19 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
 
             {/* Error Display */}
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded text-sm">
+              <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
                 {error}
               </div>
             )}
 
             {/* Template Guidelines */}
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700">
-              <div className="font-medium mb-2">Template Guidelines:</div>
+            <div className="rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
+              <div className="mb-2 font-medium">Template Guidelines:</div>
               <ul className="space-y-1 text-xs">
                 <li>• Templates become public and can be used by anyone</li>
-                <li>• Choose descriptive names and provide helpful descriptions</li>
+                <li>
+                  • Choose descriptive names and provide helpful descriptions
+                </li>
                 <li>• Ensure your deck is complete and well-balanced</li>
                 <li>• Templates help new players learn different strategies</li>
               </ul>
@@ -185,8 +204,9 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
             </div>
 
             {/* Success Note */}
-            <div className="text-xs text-gray-500 text-center">
-              Once created, your template will be available in the community template browser for others to discover and use.
+            <div className="text-center text-xs text-gray-500">
+              Once created, your template will be available in the community
+              template browser for others to discover and use.
             </div>
           </div>
         </CardContent>

@@ -8,7 +8,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Script from 'next/script';
 import { initSentry, errorTracker } from '@/lib/monitoring/sentry';
-import { analytics, initAnalytics, trackWebVitals } from '@/lib/monitoring/analytics';
+import {
+  analytics,
+  initAnalytics,
+  trackWebVitals,
+} from '@/lib/monitoring/analytics';
 import { performanceMonitor } from '@/lib/monitoring/performance';
 import { logger } from '@/lib/monitoring/logger';
 
@@ -16,15 +20,23 @@ interface MonitoringContextType {
   isInitialized: boolean;
   trackError: (error: Error, context?: Record<string, unknown>) => void;
   trackEvent: (name: string, properties?: Record<string, unknown>) => void;
-  trackPerformance: (name: string, duration: number, metadata?: Record<string, unknown>) => void;
+  trackPerformance: (
+    name: string,
+    duration: number,
+    metadata?: Record<string, unknown>
+  ) => void;
 }
 
-const MonitoringContext = createContext<MonitoringContextType | undefined>(undefined);
+const MonitoringContext = createContext<MonitoringContextType | undefined>(
+  undefined
+);
 
 export function useMonitoringContext() {
   const context = useContext(MonitoringContext);
   if (!context) {
-    throw new Error('useMonitoringContext must be used within a MonitoringProvider');
+    throw new Error(
+      'useMonitoringContext must be used within a MonitoringProvider'
+    );
   }
   return context;
 }
@@ -111,7 +123,10 @@ export function MonitoringProvider({
 
     return () => {
       window.removeEventListener('error', handleGlobalError);
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener(
+        'unhandledrejection',
+        handleUnhandledRejection
+      );
     };
   }, [isInitialized]);
 
@@ -124,8 +139,17 @@ export function MonitoringProvider({
     trackEvent: (name: string, properties?: Record<string, unknown>) => {
       analytics.trackEvent({ name, properties });
     },
-    trackPerformance: (name: string, duration: number, metadata?: Record<string, unknown>) => {
-      performanceMonitor.measure(name, 'component', () => Promise.resolve(), metadata);
+    trackPerformance: (
+      name: string,
+      duration: number,
+      metadata?: Record<string, unknown>
+    ) => {
+      performanceMonitor.measure(
+        name,
+        'component',
+        () => Promise.resolve(),
+        metadata
+      );
     },
   };
 
@@ -138,7 +162,7 @@ export function MonitoringProvider({
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
             strategy="afterInteractive"
             onLoad={() => {
-              setScriptsLoaded(prev => ({ ...prev, googleAnalytics: true }));
+              setScriptsLoaded((prev) => ({ ...prev, googleAnalytics: true }));
             }}
           />
           <Script id="google-analytics" strategy="afterInteractive">
@@ -161,7 +185,7 @@ export function MonitoringProvider({
           id="mixpanel"
           strategy="afterInteractive"
           onLoad={() => {
-            setScriptsLoaded(prev => ({ ...prev, mixpanel: true }));
+            setScriptsLoaded((prev) => ({ ...prev, mixpanel: true }));
           }}
         >
           {`
@@ -188,10 +212,16 @@ interface ErrorBoundaryState {
 }
 
 export class MonitoringErrorBoundary extends React.Component<
-  { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> },
+  {
+    children: React.ReactNode;
+    fallback?: React.ComponentType<{ error: Error }>;
+  },
   ErrorBoundaryState
 > {
-  constructor(props: { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> }) {
+  constructor(props: {
+    children: React.ReactNode;
+    fallback?: React.ComponentType<{ error: Error }>;
+  }) {
     super(props);
     this.state = { hasError: false };
   }
@@ -235,8 +265,8 @@ export class MonitoringErrorBoundary extends React.Component<
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
+        <div className="flex min-h-screen items-center justify-center bg-gray-50">
+          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <svg
@@ -259,14 +289,14 @@ export class MonitoringErrorBoundary extends React.Component<
                 </h3>
                 <div className="mt-2 text-sm text-gray-500">
                   <p>
-                    We&apos;re sorry, but something unexpected happened. The error has been
-                    reported and we&apos;re working to fix it.
+                    We&apos;re sorry, but something unexpected happened. The
+                    error has been reported and we&apos;re working to fix it.
                   </p>
                 </div>
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    className="inline-flex items-center rounded-md border border-transparent bg-red-600 px-3 py-2 text-sm font-medium leading-4 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     onClick={() => window.location.reload()}
                   >
                     Reload page
@@ -279,7 +309,7 @@ export class MonitoringErrorBoundary extends React.Component<
                 <summary className="cursor-pointer text-sm text-gray-600">
                   Error details (development only)
                 </summary>
-                <pre className="mt-2 text-xs text-gray-500 overflow-auto">
+                <pre className="mt-2 overflow-auto text-xs text-gray-500">
                   {this.state.error.stack}
                 </pre>
               </details>
