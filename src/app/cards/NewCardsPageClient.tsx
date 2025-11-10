@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { CardGrid } from '@/components/card/CardGrid';
 import { CardDetailOverlay } from '@/components/card/CardDetailOverlay';
 import { Input, Button, Badge } from '@/components/ui';
+import { cn } from '@/lib/utils';
 import type { CardWithRelations, CardSearchFilters, CardSearchOptions, CardSortField } from '@/lib/types/card';
 
 export function NewCardsPageClient() {
@@ -21,6 +22,8 @@ export function NewCardsPageClient() {
 
   // Filter states
   const [selectedSets, setSelectedSets] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<CardSortField>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
@@ -107,6 +110,34 @@ export function NewCardsPageClient() {
     handleSearch();
   };
 
+  // Toggle color filter
+  const toggleColorFilter = (color: string) => {
+    setSelectedColors(prev =>
+      prev.includes(color) ? prev.filter(c => c !== color) : [...prev, color]
+    );
+  };
+
+  // Toggle type filter
+  const toggleTypeFilter = (type: string) => {
+    setSelectedTypes(prev =>
+      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    );
+  };
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setSelectedColors([]);
+    setSelectedTypes([]);
+    setSelectedSets([]);
+  };
+
+  // Apply filters when they change
+  useEffect(() => {
+    if (selectedColors.length > 0 || selectedTypes.length > 0) {
+      handleSearch();
+    }
+  }, [selectedColors, selectedTypes]);
+
   return (
     <div className="space-y-6 min-h-screen">
       {/* Header with search */}
@@ -142,13 +173,90 @@ export function NewCardsPageClient() {
           {/* Color filters */}
           <div className="flex items-center gap-2">
             <span className="text-xs text-gray-400 font-medium mr-1">COLOR:</span>
-            <button className="w-7 h-7 rounded-md bg-blue-600 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Blue" />
-            <button className="w-7 h-7 rounded-md bg-green-600 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Green" />
-            <button className="w-7 h-7 rounded-md bg-red-600 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Red" />
-            <button className="w-7 h-7 rounded-md bg-purple-600 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Purple" />
-            <button className="w-7 h-7 rounded-md bg-white hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="White" />
-            <button className="w-7 h-7 rounded-md bg-yellow-600 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Yellow" />
-            <button className="w-7 h-7 rounded-md bg-gray-400 hover:ring-2 ring-[#6b5a8a] transition-all shadow-md" title="Colorless" />
+            <button
+              onClick={() => toggleColorFilter('blue')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-blue-600 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('blue')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Blue"
+              aria-pressed={selectedColors.includes('blue')}
+            />
+            <button
+              onClick={() => toggleColorFilter('green')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-green-600 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('green')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Green"
+              aria-pressed={selectedColors.includes('green')}
+            />
+            <button
+              onClick={() => toggleColorFilter('red')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-red-600 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('red')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Red"
+              aria-pressed={selectedColors.includes('red')}
+            />
+            <button
+              onClick={() => toggleColorFilter('purple')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-purple-600 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('purple')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Purple"
+              aria-pressed={selectedColors.includes('purple')}
+            />
+            <button
+              onClick={() => toggleColorFilter('white')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-white transition-all duration-300 shadow-md cursor-pointer border border-gray-300',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('white')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by White"
+              aria-pressed={selectedColors.includes('white')}
+            />
+            <button
+              onClick={() => toggleColorFilter('yellow')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-yellow-600 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('yellow')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Yellow"
+              aria-pressed={selectedColors.includes('yellow')}
+            />
+            <button
+              onClick={() => toggleColorFilter('colorless')}
+              className={cn(
+                'w-7 h-7 rounded-md bg-gray-400 transition-all duration-300 shadow-md cursor-pointer',
+                'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+                selectedColors.includes('colorless')
+                  ? 'ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640] scale-110'
+                  : 'hover:ring-2 hover:ring-[#6b5a8a]/50 hover:scale-105'
+              )}
+              title="Filter by Colorless"
+              aria-pressed={selectedColors.includes('colorless')}
+            />
           </div>
 
           <div className="h-7 w-px bg-[#443a5c]" />
@@ -156,10 +264,58 @@ export function NewCardsPageClient() {
           {/* Type filters */}
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs text-gray-400 font-medium mr-1">TYPE:</span>
-            <Button variant="outline" size="sm" className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white">Unit</Button>
-            <Button variant="outline" size="sm" className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white">Command</Button>
-            <Button variant="outline" size="sm" className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white">Base</Button>
-            <Button variant="outline" size="sm" className="text-xs h-7 px-3 bg-[#1a1625] border-[#443a5c] hover:bg-[#6b5a8a] hover:border-[#6b5a8a] text-white">Pilot</Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => toggleTypeFilter('Unit')}
+              className={cn(
+                'text-xs h-7 px-3 transition-all duration-300',
+                selectedTypes.includes('Unit')
+                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
+                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+              )}
+            >
+              Unit
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => toggleTypeFilter('Command')}
+              className={cn(
+                'text-xs h-7 px-3 transition-all duration-300',
+                selectedTypes.includes('Command')
+                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
+                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+              )}
+            >
+              Command
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => toggleTypeFilter('Base')}
+              className={cn(
+                'text-xs h-7 px-3 transition-all duration-300',
+                selectedTypes.includes('Base')
+                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
+                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+              )}
+            >
+              Base
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => toggleTypeFilter('Pilot')}
+              className={cn(
+                'text-xs h-7 px-3 transition-all duration-300',
+                selectedTypes.includes('Pilot')
+                  ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md'
+                  : 'bg-[#1a1625] border-[#443a5c] text-white hover:bg-[#2d2640] hover:border-[#6b5a8a]'
+              )}
+            >
+              Pilot
+            </Button>
           </div>
 
           <div className="h-7 w-px bg-[#443a5c]" />
@@ -198,6 +354,45 @@ export function NewCardsPageClient() {
             </button>
           </div>
         </div>
+
+        {/* Active filters display */}
+        {(selectedColors.length > 0 || selectedTypes.length > 0) && (
+          <div className="flex items-center gap-3 flex-wrap p-3 bg-[#1a1625] rounded-lg border border-[#443a5c]">
+            <span className="text-xs text-gray-400 font-medium">Active filters:</span>
+
+            {/* Color filter badges */}
+            {selectedColors.map(color => (
+              <Badge
+                key={color}
+                className="bg-[#6b5a8a] hover:bg-[#8b7aaa] text-white cursor-pointer transition-colors duration-200 flex items-center gap-1.5 px-2.5 py-1"
+                onClick={() => toggleColorFilter(color)}
+              >
+                <span className="capitalize">{color}</span>
+                <span className="text-xs">✕</span>
+              </Badge>
+            ))}
+
+            {/* Type filter badges */}
+            {selectedTypes.map(type => (
+              <Badge
+                key={type}
+                className="bg-[#6b5a8a] hover:bg-[#8b7aaa] text-white cursor-pointer transition-colors duration-200 flex items-center gap-1.5 px-2.5 py-1"
+                onClick={() => toggleTypeFilter(type)}
+              >
+                {type}
+                <span className="text-xs">✕</span>
+              </Badge>
+            ))}
+
+            {/* Clear all button */}
+            <button
+              onClick={clearAllFilters}
+              className="text-xs text-[#8b7aaa] hover:text-[#a89ec7] transition-colors duration-200 font-medium ml-auto"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
 
         {/* Sort bar and results */}
         <div className="flex items-center justify-between px-1">

@@ -23,11 +23,11 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
 
   return (
     <div
-      className="group relative cursor-pointer transition-all duration-200 hover:-translate-y-1"
+      className="group relative cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]"
       onClick={handleClick}
     >
       {/* Card Image Container */}
-      <div className="aspect-[5/7] relative bg-[#1a1625] rounded-lg overflow-hidden border-2 border-[#443a5c] hover:border-[#6b5a8a] transition-all shadow-lg hover:shadow-[#6b5a8a]/20">
+      <div className="aspect-[5/7] relative bg-[#1a1625] rounded-lg overflow-hidden border-2 border-[#443a5c] hover:border-[#6b5a8a] transition-all shadow-lg hover:shadow-2xl hover:shadow-[#6b5a8a]/40">
         {card.imageUrl ? (
           <img
             src={card.imageUrl}
@@ -46,7 +46,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
         )}
 
         {/* Hover overlay with subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#6b5a8a]/0 to-[#6b5a8a]/0 group-hover:from-[#6b5a8a]/10 group-hover:to-transparent transition-all" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#6b5a8a]/0 to-[#6b5a8a]/0 group-hover:from-[#6b5a8a]/20 group-hover:to-transparent/5 transition-all duration-300" />
 
         {/* Stats badges - top right */}
         <div className="absolute top-2 right-2 flex flex-col gap-1">

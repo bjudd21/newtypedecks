@@ -137,9 +137,12 @@ export function MobileMenu() {
                     }
                   }}
                   className={cn(
-                    'block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors duration-200',
-                    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-                    isActive && 'text-blue-600 bg-blue-50 font-medium'
+                    'block px-4 py-2.5 rounded-lg transition-all duration-300',
+                    'border',
+                    'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625]',
+                    isActive
+                      ? 'bg-[#6b5a8a] border-[#8b7aaa] text-white shadow-md font-medium'
+                      : 'bg-[#2d2640] border-[#443a5c] text-gray-300 hover:text-white hover:bg-[#3a3050] hover:border-[#6b5a8a] hover:shadow-md'
                   )}
                   {...navProps}
                 >

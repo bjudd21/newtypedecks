@@ -32,9 +32,12 @@ export function Navbar() {
             key={item.name}
             href={item.href}
             className={cn(
-              'text-gray-300 hover:text-white transition-colors duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 rounded-md px-2 py-1',
-              isActive && 'text-[#6b5a8a] font-medium'
+              'px-4 py-2 rounded-full transition-all duration-300 ease-in-out',
+              'flex items-center justify-center',
+              'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625]',
+              isActive
+                ? 'bg-[#6b5a8a] border border-[#8b7aaa] text-white shadow-lg shadow-[#6b5a8a]/30 font-medium'
+                : 'bg-[#2d2640] border border-[#443a5c] text-gray-300 hover:text-white hover:bg-[#3a3050] hover:border-[#6b5a8a] hover:shadow-lg hover:shadow-[#6b5a8a]/20 hover:scale-105'
             )}
             {...navProps}
           >
