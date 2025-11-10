@@ -36,15 +36,27 @@ export const PWAStatus: React.FC<PWAStatusProps> = ({
 
     // Listen for PWA events
     const unsubscribeOnline = pwaService.on('online', (data: unknown) => {
-      setPwaState((prev: typeof pwaState) => ({ ...prev, isOnline: data as boolean }));
+      setPwaState((prev: typeof pwaState) => ({
+        ...prev,
+        isOnline: data as boolean,
+      }));
     });
 
-    const unsubscribeUpdate = pwaService.on('updateAvailable', (data: unknown) => {
-      setPwaState((prev: typeof pwaState) => ({ ...prev, updateAvailable: data as boolean }));
-    });
+    const unsubscribeUpdate = pwaService.on(
+      'updateAvailable',
+      (data: unknown) => {
+        setPwaState((prev: typeof pwaState) => ({
+          ...prev,
+          updateAvailable: data as boolean,
+        }));
+      }
+    );
 
     const unsubscribeCacheSize = pwaService.on('cacheSize', (data: unknown) => {
-      setPwaState((prev: typeof pwaState) => ({ ...prev, cacheSize: data as number }));
+      setPwaState((prev: typeof pwaState) => ({
+        ...prev,
+        cacheSize: data as number,
+      }));
     });
 
     const unsubscribeSynced = pwaService.on('deckSynced', () => {

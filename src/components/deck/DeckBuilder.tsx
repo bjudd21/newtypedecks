@@ -62,29 +62,37 @@ type DeckCard = {
 
 // Helper: Calculate deck statistics
 const calculateDeckStats = (cards: DeckCard[] | undefined) => {
-  const totalCards = cards?.reduce((sum: number, deckCard: DeckCard) => sum + deckCard.quantity, 0) || 0;
+  const totalCards =
+    cards?.reduce(
+      (sum: number, deckCard: DeckCard) => sum + deckCard.quantity,
+      0
+    ) || 0;
   const uniqueCards = cards?.length || 0;
-  const totalCost = cards?.reduce(
-    (sum: number, deckCard: DeckCard) => sum + (deckCard.card.cost || 0) * deckCard.quantity,
-    0
-  ) || 0;
+  const totalCost =
+    cards?.reduce(
+      (sum: number, deckCard: DeckCard) =>
+        sum + (deckCard.card.cost || 0) * deckCard.quantity,
+      0
+    ) || 0;
 
   return { totalCards, uniqueCards, totalCost };
 };
 
 // Helper: Group cards by type
 const groupCardsByType = (cards: DeckCard[] | undefined) => {
-  return cards?.reduce(
-    (acc: Record<string, DeckCard[]>, deckCard: DeckCard) => {
-      const type = deckCard.card.type?.name || 'Unknown';
-      if (!acc[type]) {
-        acc[type] = [];
-      }
-      acc[type].push(deckCard);
-      return acc;
-    },
-    {} as Record<string, DeckCard[]>
-  ) || {};
+  return (
+    cards?.reduce(
+      (acc: Record<string, DeckCard[]>, deckCard: DeckCard) => {
+        const type = deckCard.card.type?.name || 'Unknown';
+        if (!acc[type]) {
+          acc[type] = [];
+        }
+        acc[type].push(deckCard);
+        return acc;
+      },
+      {} as Record<string, DeckCard[]>
+    ) || {}
+  );
 };
 
 // Deck Statistics Component
@@ -94,7 +102,11 @@ interface DeckStatsProps {
   totalCost: number;
 }
 
-const DeckStats: React.FC<DeckStatsProps> = ({ totalCards, uniqueCards, totalCost }) => (
+const DeckStats: React.FC<DeckStatsProps> = ({
+  totalCards,
+  uniqueCards,
+  totalCost,
+}) => (
   <div className="grid grid-cols-3 gap-4">
     <div className="rounded-lg bg-gray-50 p-3 text-center">
       <div className="text-2xl font-bold text-gray-900">{totalCards}</div>
@@ -300,28 +312,18 @@ const DeckActions: React.FC<DeckActionsProps> = ({
         disabled={uniqueCards === 0 || deckLoading}
         onClick={onSaveDeck}
       >
-        {deckLoading
-          ? 'Saving...'
-          : savedDeckId
-            ? 'Update Deck'
-            : 'Save Deck'}
+        {deckLoading ? 'Saving...' : savedDeckId ? 'Update Deck' : 'Save Deck'}
       </Button>
     )}
 
     {isAuthenticated && savedDeckId && uniqueCards > 0 && (
-      <Button
-        variant="outline"
-        onClick={onToggleTemplateCreator}
-      >
+      <Button variant="outline" onClick={onToggleTemplateCreator}>
         {showTemplateCreator ? 'Hide Template Creator' : 'Create Template'}
       </Button>
     )}
 
     {uniqueCards > 0 && (
-      <Button
-        variant="outline"
-        onClick={onToggleAnalytics}
-      >
+      <Button variant="outline" onClick={onToggleAnalytics}>
         {showAnalytics ? 'Hide Analytics' : '📊 Deck Analytics'}
       </Button>
     )}
@@ -347,7 +349,10 @@ interface ExportDropdownProps {
   disabled: boolean;
 }
 
-const ExportDropdown: React.FC<ExportDropdownProps> = ({ onExport, disabled }) => (
+const ExportDropdown: React.FC<ExportDropdownProps> = ({
+  onExport,
+  disabled,
+}) => (
   <div className="group relative">
     <Button
       variant="outline"
@@ -382,9 +387,7 @@ const ExportDropdown: React.FC<ExportDropdownProps> = ({ onExport, disabled }) =
           className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
         >
           📊 CSV Format
-          <div className="text-xs text-gray-500">
-            Spreadsheet compatible
-          </div>
+          <div className="text-xs text-gray-500">Spreadsheet compatible</div>
         </button>
         <button
           onClick={() => onExport('mtga')}
@@ -636,7 +639,9 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   );
 
   // Calculate deck statistics using helper
-  const { totalCards, uniqueCards, totalCost } = calculateDeckStats(currentDeck?.cards);
+  const { totalCards, uniqueCards, totalCost } = calculateDeckStats(
+    currentDeck?.cards
+  );
 
   // Group cards by type using helper
   const cardsByType = groupCardsByType(currentDeck?.cards);
@@ -653,7 +658,9 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
           isAuthenticated={isAuthenticated}
           savedDeckId={savedDeckId}
           showVersionHistory={showVersionHistory}
-          onToggleVersionHistory={() => setShowVersionHistory(!showVersionHistory)}
+          onToggleVersionHistory={() =>
+            setShowVersionHistory(!showVersionHistory)
+          }
           deckDescription={deckDescription}
           setDeckDescription={setDeckDescription}
           deckFormat={deckFormat}
@@ -664,7 +671,11 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         />
 
         {/* Deck Statistics */}
-        <DeckStats totalCards={totalCards} uniqueCards={uniqueCards} totalCost={totalCost} />
+        <DeckStats
+          totalCards={totalCards}
+          uniqueCards={uniqueCards}
+          totalCost={totalCost}
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
@@ -793,7 +804,9 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         savedDeckId={savedDeckId}
         onSaveDeck={handleSaveDeck}
         showTemplateCreator={showTemplateCreator}
-        onToggleTemplateCreator={() => setShowTemplateCreator(!showTemplateCreator)}
+        onToggleTemplateCreator={() =>
+          setShowTemplateCreator(!showTemplateCreator)
+        }
         showAnalytics={showAnalytics}
         onToggleAnalytics={() => setShowAnalytics(!showAnalytics)}
         onExport={handleExport}

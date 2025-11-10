@@ -80,7 +80,10 @@ interface CardTextSectionProps {
   officialText?: string | null;
 }
 
-const CardTextSection: React.FC<CardTextSectionProps> = ({ description, officialText }) => (
+const CardTextSection: React.FC<CardTextSectionProps> = ({
+  description,
+  officialText,
+}) => (
   <>
     {description && (
       <div>
@@ -106,7 +109,10 @@ interface KeywordsAndTagsProps {
   tags?: string[] | null;
 }
 
-const KeywordsAndTags: React.FC<KeywordsAndTagsProps> = ({ keywords, tags }) => (
+const KeywordsAndTags: React.FC<KeywordsAndTagsProps> = ({
+  keywords,
+  tags,
+}) => (
   <>
     {keywords && keywords.length > 0 && (
       <div>
@@ -197,7 +203,8 @@ const ReviewHistory: React.FC<ReviewHistoryProps> = ({
       )}
       {reviewedBy && reviewedAt && (
         <p className="mt-1 text-xs text-gray-500">
-          Reviewed by {reviewedBy} on {new Date(reviewedAt).toLocaleDateString()}
+          Reviewed by {reviewedBy} on{' '}
+          {new Date(reviewedAt).toLocaleDateString()}
         </p>
       )}
     </div>
@@ -333,9 +340,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       )}
 
       {status === 'PUBLISHED' && (
-        <span className="text-sm font-medium text-green-600">
-          Published ✓
-        </span>
+        <span className="text-sm font-medium text-green-600">Published ✓</span>
       )}
     </div>
   </div>
@@ -392,7 +397,12 @@ export const SubmissionReviewCard: React.FC<SubmissionReviewCardProps> = ({
 
   const handleReject = () => {
     if (!onReview || !rejectionReason.trim()) return;
-    onReview(submission.id, 'REJECTED', reviewNotes || undefined, rejectionReason);
+    onReview(
+      submission.id,
+      'REJECTED',
+      reviewNotes || undefined,
+      rejectionReason
+    );
     setShowReviewForm(false);
     setReviewNotes('');
     setRejectionReason('');

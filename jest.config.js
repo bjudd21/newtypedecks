@@ -14,7 +14,10 @@ const customJestConfig = {
   // Test environment
   testEnvironment: 'jsdom',
 
-  // Module name mapping is handled by Next.js automatically
+  // Module name mapping for path aliases
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 
   // Test file patterns
   testMatch: [

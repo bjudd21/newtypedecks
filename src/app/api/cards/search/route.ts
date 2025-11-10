@@ -112,8 +112,7 @@ function sanitizeSearchOptions(options: unknown): CardSearchOptions {
   ];
 
   return {
-    page:
-      typeof o.page === 'number' && o.page > 0 ? Math.floor(o.page) : 1,
+    page: typeof o.page === 'number' && o.page > 0 ? Math.floor(o.page) : 1,
     limit:
       typeof o.limit === 'number' && o.limit > 0 && o.limit <= 100
         ? Math.floor(o.limit)
@@ -129,20 +128,34 @@ function sanitizeSearchOptions(options: unknown): CardSearchOptions {
   };
 }
 
-function validateRanges(
-  filters: CardSearchFilters
-): NextResponse | null {
+function validateRanges(filters: CardSearchFilters): NextResponse | null {
   const ranges = [
     { min: filters.levelMin, max: filters.levelMax, field: 'level' },
     { min: filters.costMin, max: filters.costMax, field: 'cost' },
-    { min: filters.clashPointsMin, max: filters.clashPointsMax, field: 'clashPoints' },
+    {
+      min: filters.clashPointsMin,
+      max: filters.clashPointsMax,
+      field: 'clashPoints',
+    },
     { min: filters.priceMin, max: filters.priceMax, field: 'price' },
-    { min: filters.hitPointsMin, max: filters.hitPointsMax, field: 'hitPoints' },
-    { min: filters.attackPointsMin, max: filters.attackPointsMax, field: 'attackPoints' },
+    {
+      min: filters.hitPointsMin,
+      max: filters.hitPointsMax,
+      field: 'hitPoints',
+    },
+    {
+      min: filters.attackPointsMin,
+      max: filters.attackPointsMax,
+      field: 'attackPoints',
+    },
   ];
 
   for (const range of ranges) {
-    if (range.min !== undefined && range.max !== undefined && range.min > range.max) {
+    if (
+      range.min !== undefined &&
+      range.max !== undefined &&
+      range.min > range.max
+    ) {
       return NextResponse.json(
         {
           error: 'Invalid range',

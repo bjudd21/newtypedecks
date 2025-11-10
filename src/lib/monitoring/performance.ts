@@ -248,7 +248,8 @@ class PerformanceMonitor {
       memory: {
         used: perf.memory.usedJSHeapSize,
         total: perf.memory.totalJSHeapSize,
-        percentage: (perf.memory.usedJSHeapSize / perf.memory.totalJSHeapSize) * 100,
+        percentage:
+          (perf.memory.usedJSHeapSize / perf.memory.totalJSHeapSize) * 100,
       },
     };
   }

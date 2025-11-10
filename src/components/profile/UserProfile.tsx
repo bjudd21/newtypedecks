@@ -118,7 +118,11 @@ export function UserProfile({ user }: UserProfileProps) {
   const handleDeleteAccount = async () => {
     // TODO: Replace with proper confirmation dialog component
     // eslint-disable-next-line no-alert
-    if (!window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+    if (
+      !window.confirm(
+        'Are you sure you want to delete your account? This action cannot be undone.'
+      )
+    ) {
       return;
     }
 

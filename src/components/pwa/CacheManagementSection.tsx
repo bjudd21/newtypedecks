@@ -6,7 +6,13 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+} from '@/components/ui';
 import { pwaService, type PWAState } from '@/lib/services/pwaService';
 
 interface CacheManagementSectionProps {
@@ -46,7 +52,9 @@ export function CacheManagementSection({
                   disabled={actionLoading === 'clearCache'}
                   className="mt-1"
                 >
-                  {actionLoading === 'clearCache' ? 'Clearing...' : 'Clear Cache'}
+                  {actionLoading === 'clearCache'
+                    ? 'Clearing...'
+                    : 'Clear Cache'}
                 </Button>
               )}
             </div>

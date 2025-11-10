@@ -354,9 +354,10 @@ export class CardValidator {
   /**
    * Validate required fields
    */
-  private static validateRequiredFields(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateRequiredFields(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (!data.name?.trim()) {
@@ -381,9 +382,10 @@ export class CardValidator {
   /**
    * Validate set number format
    */
-  private static validateSetNumber(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateSetNumber(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (
@@ -413,9 +415,10 @@ export class CardValidator {
   /**
    * Validate numeric fields
    */
-  private static validateNumericFields(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateNumericFields(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     const fieldValidations = [
@@ -449,9 +452,10 @@ export class CardValidator {
   /**
    * Validate text field lengths
    */
-  private static validateTextFieldLengths(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateTextFieldLengths(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (
@@ -487,9 +491,10 @@ export class CardValidator {
   /**
    * Validate array fields (keywords and tags)
    */
-  private static validateArrayFields(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateArrayFields(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (
@@ -535,9 +540,10 @@ export class CardValidator {
   /**
    * Validate faction attribute
    */
-  private static validateFaction(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateFaction(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const warnings: string[] = [];
 
     if (
@@ -555,9 +561,10 @@ export class CardValidator {
   /**
    * Validate series attribute
    */
-  private static validateSeries(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateSeries(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const warnings: string[] = [];
 
     if (
@@ -575,9 +582,10 @@ export class CardValidator {
   /**
    * Validate language attribute
    */
-  private static validateLanguage(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateLanguage(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (
@@ -595,9 +603,10 @@ export class CardValidator {
   /**
    * Validate abilities JSON structure
    */
-  private static validateAbilitiesJson(
-    data: CreateCardData
-  ): { errors: string[]; warnings: string[] } {
+  private static validateAbilitiesJson(data: CreateCardData): {
+    errors: string[];
+    warnings: string[];
+  } {
     const errors: string[] = [];
 
     if (data.abilities) {

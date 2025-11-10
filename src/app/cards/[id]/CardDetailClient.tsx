@@ -34,8 +34,7 @@ function parseAbilities(abilities: string) {
           const abilityObj = ability as Record<string, unknown>;
           return {
             name: (abilityObj.name as string) || `Ability ${index + 1}`,
-            description:
-              (abilityObj.description as string) || String(ability),
+            description: (abilityObj.description as string) || String(ability),
             cost: abilityObj.cost != null ? String(abilityObj.cost) : null,
           };
         })
@@ -703,9 +702,7 @@ function CardMetadataSection({ card }: { card: CardWithRelations }) {
 
           {card.rulings && card.rulings.length > 0 && (
             <div>
-              <label className="font-medium text-gray-300">
-                Rulings Count
-              </label>
+              <label className="font-medium text-gray-300">Rulings Count</label>
               <div className="mt-1 text-white">
                 {card.rulings.length} rulings
               </div>

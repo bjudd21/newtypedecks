@@ -8,93 +8,171 @@ describe('Badge Component', () => {
 
     const badge = screen.getByText('Default Badge');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-gray-100', 'text-gray-800');
+    // Check for dark theme default variant classes
+    expect(badge.parentElement).toHaveClass('bg-gray-800/50', 'text-gray-300');
   });
 
   it('renders with different variants', () => {
     const { rerender } = render(<Badge variant="primary">Primary</Badge>);
-    expect(screen.getByText('Primary')).toHaveClass(
-      'bg-blue-100',
-      'text-blue-800'
-    );
+    const getPrimaryBadge = () => screen.getByText('Primary').parentElement;
+    expect(getPrimaryBadge()).toHaveClass('bg-cyan-900/30', 'text-cyan-300');
 
     rerender(<Badge variant="success">Success</Badge>);
-    expect(screen.getByText('Success')).toHaveClass(
-      'bg-green-100',
-      'text-green-800'
-    );
+    const getSuccessBadge = () => screen.getByText('Success').parentElement;
+    expect(getSuccessBadge()).toHaveClass('bg-green-900/30', 'text-green-300');
 
     rerender(<Badge variant="warning">Warning</Badge>);
-    expect(screen.getByText('Warning')).toHaveClass(
-      'bg-yellow-100',
-      'text-yellow-800'
-    );
+    const getWarningBadge = () => screen.getByText('Warning').parentElement;
+    expect(getWarningBadge()).toHaveClass('bg-yellow-900/30', 'text-yellow-300');
 
-    rerender(<Badge variant="error">Error</Badge>);
-    expect(screen.getByText('Error')).toHaveClass('bg-red-100', 'text-red-800');
+    rerender(<Badge variant="destructive">Destructive</Badge>);
+    const getDestructiveBadge = () =>
+      screen.getByText('Destructive').parentElement;
+    expect(getDestructiveBadge()).toHaveClass('bg-red-900/30', 'text-red-300');
+  });
+
+  it('renders with cyberpunk theme variants', () => {
+    const { rerender } = render(<Badge variant="cyber">Cyber</Badge>);
+    const getCyberBadge = () => screen.getByText('Cyber').parentElement;
+    expect(getCyberBadge()).toHaveClass('text-cyan-100');
+
+    rerender(<Badge variant="neon">Neon</Badge>);
+    const getNeonBadge = () => screen.getByText('Neon').parentElement;
+    expect(getNeonBadge()).toHaveClass('text-green-100');
+
+    rerender(<Badge variant="plasma">Plasma</Badge>);
+    const getPlasmaBadge = () => screen.getByText('Plasma').parentElement;
+    expect(getPlasmaBadge()).toHaveClass('text-purple-100');
+
+    rerender(<Badge variant="hologram">Hologram</Badge>);
+    const getHologramBadge = () => screen.getByText('Hologram').parentElement;
+    expect(getHologramBadge()).toHaveClass('text-cyan-300');
   });
 
   it('renders with different sizes', () => {
     const { rerender } = render(<Badge size="sm">Small</Badge>);
-    expect(screen.getByText('Small')).toHaveClass('px-2', 'py-1', 'text-xs');
+    expect(screen.getByText('Small').parentElement).toHaveClass(
+      'px-2',
+      'py-0.5',
+      'text-xs'
+    );
 
     rerender(<Badge size="lg">Large</Badge>);
-    expect(screen.getByText('Large')).toHaveClass('px-3', 'py-2', 'text-base');
-
-    rerender(<Badge size="md">Medium</Badge>);
-    expect(screen.getByText('Medium')).toHaveClass(
-      'px-2.5',
-      'py-1.5',
+    expect(screen.getByText('Large').parentElement).toHaveClass(
+      'px-3',
+      'py-1',
       'text-sm'
+    );
+
+    rerender(<Badge size="xl">Extra Large</Badge>);
+    expect(screen.getByText('Extra Large').parentElement).toHaveClass(
+      'px-4',
+      'py-1.5',
+      'text-base'
     );
   });
 
   it('applies custom className', () => {
     render(<Badge className="custom-class">Custom</Badge>);
 
-    const badge = screen.getByText('Custom');
+    const badge = screen.getByText('Custom').parentElement;
     expect(badge).toHaveClass('custom-class');
+  });
+
+  it('renders with animation wrapper when animate is true', () => {
+    render(<Badge animate>Animated</Badge>);
+    // Badge should render with animation (verified by rendering without error)
+    const badge = screen.getByText('Animated');
+    expect(badge).toBeInTheDocument();
   });
 });
 
 describe('RarityBadge Component', () => {
   it('renders common rarity with default variant', () => {
-    render(<RarityBadge rarity="Common">Common</RarityBadge>);
+    render(<RarityBadge rarity="Common" />);
 
     const badge = screen.getByText('Common');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-gray-100', 'text-gray-800');
+    // Common maps to 'default' variant with dark theme
+    expect(badge.closest('div')).toHaveClass('bg-gray-800/50', 'text-gray-300');
   });
 
-  it('renders rare rarity with primary variant', () => {
-    render(<RarityBadge rarity="Rare">Rare</RarityBadge>);
+  it('renders uncommon rarity with primary variant', () => {
+    render(<RarityBadge rarity="Uncommon" />);
+
+    const badge = screen.getByText('Uncommon');
+    expect(badge).toBeInTheDocument();
+    // Uncommon maps to 'primary' variant (cyan)
+    expect(badge.closest('div')).toHaveClass('bg-cyan-900/30', 'text-cyan-300');
+  });
+
+  it('renders rare rarity with cyber variant', () => {
+    render(<RarityBadge rarity="Rare" />);
 
     const badge = screen.getByText('Rare');
-    expect(badge).toHaveClass('bg-blue-100', 'text-blue-800');
+    expect(badge).toBeInTheDocument();
+    // Rare maps to 'cyber' variant
+    expect(badge.closest('div')).toHaveClass('text-cyan-100');
   });
 
-  it('renders legendary rarity with warning variant', () => {
-    render(<RarityBadge rarity="Legendary">Legendary</RarityBadge>);
+  it('renders epic rarity with neon variant', () => {
+    render(<RarityBadge rarity="Epic" />);
+
+    const badge = screen.getByText('Epic');
+    expect(badge).toBeInTheDocument();
+    // Epic maps to 'neon' variant
+    expect(badge.closest('div')).toHaveClass('text-green-100');
+  });
+
+  it('renders legendary rarity with plasma variant', () => {
+    render(<RarityBadge rarity="Legendary" />);
 
     const badge = screen.getByText('Legendary');
-    expect(badge).toHaveClass('bg-yellow-100', 'text-yellow-800');
+    expect(badge).toBeInTheDocument();
+    // Legendary maps to 'plasma' variant
+    expect(badge.closest('div')).toHaveClass('text-purple-100');
+    // Should have sparkle effect
+    expect(screen.getByText('✦')).toBeInTheDocument();
   });
 
-  it('renders mythic rarity with error variant', () => {
-    render(<RarityBadge rarity="Mythic">Mythic</RarityBadge>);
+  it('renders mythic rarity with hologram variant', () => {
+    render(<RarityBadge rarity="Mythic" />);
 
     const badge = screen.getByText('Mythic');
-    expect(badge).toHaveClass('bg-red-100', 'text-red-800');
+    expect(badge).toBeInTheDocument();
+    // Mythic maps to 'hologram' variant
+    expect(badge.closest('div')).toHaveClass('text-cyan-300');
+    // Should have sparkle effect
+    expect(screen.getByText('✦')).toBeInTheDocument();
   });
 
-  it('applies custom color when provided', () => {
-    render(
-      <RarityBadge rarity="Custom" color="#FF5733">
-        Custom
-      </RarityBadge>
-    );
+  it('handles case-insensitive rarity matching', () => {
+    render(<RarityBadge rarity="LEGENDARY" />);
 
-    const badge = screen.getByText('Custom');
-    expect(badge).toHaveClass('bg-[#FF5733]');
+    const badge = screen.getByText('LEGENDARY');
+    expect(badge).toBeInTheDocument();
+    expect(badge.closest('div')).toHaveClass('text-purple-100');
+  });
+
+  it('applies custom size', () => {
+    render(<RarityBadge rarity="Rare" size="lg" />);
+
+    const badge = screen.getByText('Rare');
+    expect(badge.closest('div')).toHaveClass('px-3', 'py-1', 'text-sm');
+  });
+
+  it('applies custom className', () => {
+    render(<RarityBadge rarity="Common" className="custom-rarity-class" />);
+
+    const badge = screen.getByText('Common');
+    expect(badge.closest('div')).toHaveClass('custom-rarity-class');
+  });
+
+  it('can disable animation', () => {
+    render(<RarityBadge rarity="Rare" animate={false} />);
+
+    const badge = screen.getByText('Rare');
+    expect(badge).toBeInTheDocument();
+    // Badge should still render without animation wrapper
   });
 });

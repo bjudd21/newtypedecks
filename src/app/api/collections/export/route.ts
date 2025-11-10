@@ -107,9 +107,10 @@ export async function GET(request: NextRequest) {
     const filterBy = searchParams.get('filterBy'); // 'owned', 'complete', 'valuable'
 
     // Build where clause for collection cards based on filters
-    const cardsWhereClause: Prisma.CollectionCardWhereInput = filterBy === 'owned' || filterBy === 'complete'
-      ? { quantity: { gt: 0 } }
-      : {};
+    const cardsWhereClause: Prisma.CollectionCardWhereInput =
+      filterBy === 'owned' || filterBy === 'complete'
+        ? { quantity: { gt: 0 } }
+        : {};
 
     // Get collection with cards
     const userCollection = await prisma.collection.findUnique({

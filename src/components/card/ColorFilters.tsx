@@ -21,7 +21,13 @@ interface ColorButtonProps {
   title: string;
 }
 
-function ColorButton({ color: _color, isSelected, onClick, className, title }: ColorButtonProps) {
+function ColorButton({
+  color: _color,
+  isSelected,
+  onClick,
+  className,
+  title,
+}: ColorButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -44,11 +50,22 @@ const COLOR_CONFIG = [
   { color: 'green', className: 'bg-green-600', title: 'Filter by Green' },
   { color: 'red', className: 'bg-red-600', title: 'Filter by Red' },
   { color: 'purple', className: 'bg-purple-600', title: 'Filter by Purple' },
-  { color: 'white', className: 'bg-white border border-gray-300', title: 'Filter by White' },
-  { color: 'colorless', className: 'bg-gray-400', title: 'Filter by Colorless' },
+  {
+    color: 'white',
+    className: 'bg-white border border-gray-300',
+    title: 'Filter by White',
+  },
+  {
+    color: 'colorless',
+    className: 'bg-gray-400',
+    title: 'Filter by Colorless',
+  },
 ];
 
-export function ColorFilters({ selectedColors, onToggleColor }: ColorFiltersProps) {
+export function ColorFilters({
+  selectedColors,
+  onToggleColor,
+}: ColorFiltersProps) {
   return (
     <div className="flex items-center gap-2">
       <span className="mr-1 text-xs font-medium text-gray-400">COLOR:</span>

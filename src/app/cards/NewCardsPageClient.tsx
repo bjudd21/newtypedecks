@@ -17,7 +17,10 @@ import type {
   CardSortField,
 } from '@/lib/types/card';
 
-async function fetchCards(filters: CardSearchFilters, options: CardSearchOptions) {
+async function fetchCards(
+  filters: CardSearchFilters,
+  options: CardSearchOptions
+) {
   const response = await fetch('/api/cards/search', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -45,7 +48,9 @@ export function NewCardsPageClient() {
 
   const [cards, setCards] = useState<CardWithRelations[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(null);
+  const [selectedCard, setSelectedCard] = useState<CardWithRelations | null>(
+    null
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -138,7 +143,11 @@ export function NewCardsPageClient() {
       handleSearch(search);
     } else if (random === 'true') {
       handleRandomCard();
-    } else if (!searchParams.get('advanced') && !searchParams.get('help') && !searchParams.get('view')) {
+    } else if (
+      !searchParams.get('advanced') &&
+      !searchParams.get('help') &&
+      !searchParams.get('view')
+    ) {
       handleSearch();
     }
   }, [searchParams]);
@@ -199,7 +208,11 @@ export function NewCardsPageClient() {
               className="bg-[#6b5a8a] p-2 transition-colors hover:bg-[#8b7aaa]"
               title="Grid view"
             >
-              <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                className="h-4 w-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
             </button>
@@ -207,7 +220,11 @@ export function NewCardsPageClient() {
               className="bg-[#1a1625] p-2 transition-colors hover:bg-[#2d2640]"
               title="List view"
             >
-              <svg className="h-4 w-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                className="h-4 w-4 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path
                   fillRule="evenodd"
                   d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
@@ -263,7 +280,11 @@ export function NewCardsPageClient() {
       />
 
       <div className="pb-6">
-        <CardGrid cards={cards} onCardClick={handleCardClick} loading={loading} />
+        <CardGrid
+          cards={cards}
+          onCardClick={handleCardClick}
+          loading={loading}
+        />
       </div>
 
       <PaginationBar

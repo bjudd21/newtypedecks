@@ -6,7 +6,14 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import type { PWAState } from '@/lib/services/pwaService';
 
 interface AdvancedSettingsSectionProps {
@@ -83,8 +90,9 @@ export function AdvancedSettingsSection({
           <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
             <div className="mb-1 font-medium text-yellow-900">⚠️ Warning</div>
             <div className="text-sm text-yellow-700">
-              Disabling the service worker will remove all offline functionality.
-              You&apos;ll need to refresh the page to re-enable offline features.
+              Disabling the service worker will remove all offline
+              functionality. You&apos;ll need to refresh the page to re-enable
+              offline features.
             </div>
           </div>
         </div>

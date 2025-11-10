@@ -196,7 +196,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   };
 
   // Helper: Parse CSV format data
-  const parseCSVData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+  const parseCSVData = (
+    data: string
+  ): { errors: ValidationError[]; preview: PreviewCard[] } => {
     const errors: ValidationError[] = [];
     const preview: PreviewCard[] = [];
     const lines = data.trim().split('\n');
@@ -215,7 +217,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   };
 
   // Helper: Parse JSON format data
-  const parseJSONData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+  const parseJSONData = (
+    data: string
+  ): { errors: ValidationError[]; preview: PreviewCard[] } => {
     const errors: ValidationError[] = [];
     const preview: PreviewCard[] = [];
 
@@ -262,7 +266,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   };
 
   // Helper: Parse decklist format data
-  const parseDecklistData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+  const parseDecklistData = (
+    data: string
+  ): { errors: ValidationError[]; preview: PreviewCard[] } => {
     const errors: ValidationError[] = [];
     const preview: PreviewCard[] = [];
     const lines = data.trim().split('\n');

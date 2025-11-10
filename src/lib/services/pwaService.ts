@@ -280,9 +280,9 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as ServiceWorkerRegistrationWithSync).sync?.register(
-            'sync-deck-saves'
-          );
+          await (
+            registration as ServiceWorkerRegistrationWithSync
+          ).sync?.register('sync-deck-saves');
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);
@@ -308,9 +308,9 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as ServiceWorkerRegistrationWithSync).sync?.register(
-            'sync-collection-updates'
-          );
+          await (
+            registration as ServiceWorkerRegistrationWithSync
+          ).sync?.register('sync-collection-updates');
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);

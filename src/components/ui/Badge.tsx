@@ -128,12 +128,13 @@ export const RarityBadge: React.FC<RarityBadgeProps> = ({
 }) => {
   const getRarityVariant = (rarity: string) => {
     const rarityLower = rarity.toLowerCase();
-    if (rarityLower.includes('common')) return 'default';
-    if (rarityLower.includes('uncommon')) return 'primary';
-    if (rarityLower.includes('rare')) return 'cyber';
-    if (rarityLower.includes('epic')) return 'neon';
+    // Check for more specific rarities first to avoid substring matches
     if (rarityLower.includes('legendary')) return 'plasma';
     if (rarityLower.includes('mythic')) return 'hologram';
+    if (rarityLower.includes('uncommon')) return 'primary';
+    if (rarityLower.includes('epic')) return 'neon';
+    if (rarityLower.includes('rare')) return 'cyber';
+    if (rarityLower.includes('common')) return 'default';
     return 'default';
   };
 
