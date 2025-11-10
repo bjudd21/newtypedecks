@@ -187,7 +187,7 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
   const handleCreateVersion = async () => {
     console.warn('TODO: Replace with proper UI dialog');
     const versionName = 'Manual Save'; // Default name for now
-    const changeNote = undefined; // No notes for now
+    const changeNote: string | undefined = undefined; // No notes for now
 
     try {
       const response = await fetch(`/api/decks/${deckId}/versions`, {

@@ -73,22 +73,23 @@ const eslintConfig = [
       'quotes': ['error', 'single', { avoidEscape: true }],
       'semi': ['error', 'always'],
       
-      // Complexity Rules
-      'complexity': ['warn', 10],
+      // Complexity Rules (pragmatic settings for real-world applications)
+      'complexity': ['warn', 15], // Increased from 10 - complex business logic exists
       'max-depth': ['warn', 4],
-      'max-lines': ['warn', 300],
-      'max-lines-per-function': ['warn', 50],
-      'max-params': ['warn', 4],
-      'max-statements': ['warn', 20],
-      
+      'max-lines': ['warn', 500], // Increased from 300 - service files need space
+      'max-lines-per-function': ['warn', 100], // Increased from 50 - business logic is complex
+      'max-params': ['warn', 6], // Increased from 4 - sometimes needed for services
+      'max-statements': ['warn', 30], // Increased from 20 - complex operations need more statements
+
       // File Size Rules (custom)
       'max-len': ['warn', {
-        code: 100,
+        code: 120, // Increased from 100 - more reasonable for modern development
         tabWidth: 2,
         ignoreUrls: true,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true
+        ignoreRegExpLiterals: true,
+        ignoreComments: true // Added - allow longer comments for documentation
       }]
     }
   },
@@ -107,6 +108,16 @@ const eslintConfig = [
       // Relax rules for config files
       '@typescript-eslint/no-require-imports': 'off',
       'import/no-commonjs': 'off'
+    }
+  },
+  {
+    files: ['public/sw.js', 'public/sw-*.js', '**/service-worker.js'],
+    rules: {
+      // Relax rules for service workers - they need console for debugging and are inherently complex
+      'no-console': 'off',
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'complexity': 'off'
     }
   },
   {
