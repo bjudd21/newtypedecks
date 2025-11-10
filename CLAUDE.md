@@ -228,3 +228,39 @@ This project includes proper attribution and disclaimers for Bandai Namco Entert
 
 ### Task Management
 When implementing features from the PRD (Product Requirements Document), follow the task management guidelines in `cursorrules/process-task-list.md` for proper progress tracking and completion protocols.
+
+## Documentation
+
+This project has comprehensive documentation organized into focused guides:
+
+### For Understanding the System
+- **[docs/ARCHITECTURE.md](/docs/ARCHITECTURE.md)** - How the website actually works (Next.js, PostgreSQL, Redis, request flow)
+  - Read this first to understand the runtime architecture
+  - Great for junior developers and onboarding
+  - Explains localhost:3000, Docker services, development vs production
+
+### For Development
+- **[docs/DEVELOPER_GUIDE.md](/docs/DEVELOPER_GUIDE.md)** - Complete development workflow and standards
+  - Getting started and setup
+  - Environment configuration
+  - Component library reference
+  - Code quality standards
+  - OAuth integration
+  - Testing and debugging
+
+### For Technical Reference
+- **[docs/API_REFERENCE.md](/docs/API_REFERENCE.md)** - API endpoints and database reference
+  - REST API endpoints documentation
+  - Database schema and models
+  - Database operations and queries
+  - Data validation and security
+
+### For Deployment
+- **[docs/DEPLOYMENT.md](/docs/DEPLOYMENT.md)** - Production deployment guide
+  - Quick deployment checklist
+  - Platform-specific guides (Vercel, Docker, Kubernetes)
+  - SSL/TLS configuration
+  - Monitoring and maintenance
+
+### Quick Reference
+- **This file (CLAUDE.md)** - Quick command reference and project overview for Claude Code
