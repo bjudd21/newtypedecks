@@ -134,165 +134,206 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
     []
   );
 
+  // Helper: Detect CSV header and return start index
+  const detectCSVHeader = (lines: string[]): number => {
+    const firstLine = lines[0]?.toLowerCase();
+    if (
+      firstLine &&
+      (firstLine.includes('name') ||
+        firstLine.includes('card') ||
+        firstLine.includes('quantity'))
+    ) {
+      return 1;
+    }
+    return 0;
+  };
+
+  // Helper: Parse a single CSV line
+  const parseCSVLine = (
+    line: string,
+    lineNumber: number
+  ): { error?: ValidationError; preview?: PreviewCard } => {
+    if (!line) return {};
+
+    const parts = line.includes('\t') ? line.split('\t') : line.split(',');
+
+    if (parts.length < 2) {
+      return {
+        error: {
+          line: lineNumber,
+          error: 'Insufficient columns',
+          suggestion: 'Each line should have at least card name and quantity',
+        },
+      };
+    }
+
+    const cardName = parts[0]?.trim().replace(/^["']|["']$/g, '');
+    const quantity = parseInt(parts[1]?.trim()) || 0;
+
+    if (!cardName) {
+      return { error: { line: lineNumber, error: 'Missing card name' } };
+    }
+
+    if (quantity <= 0) {
+      return {
+        error: {
+          line: lineNumber,
+          error: 'Invalid quantity',
+          suggestion: 'Quantity must be a positive number',
+        },
+      };
+    }
+
+    return {
+      preview: {
+        line: lineNumber,
+        cardName,
+        quantity,
+        setName: parts[2]?.trim().replace(/^["']|["']$/g, ''),
+        setNumber: parts[3]?.trim().replace(/^["']|["']$/g, ''),
+      },
+    };
+  };
+
+  // Helper: Parse CSV format data
+  const parseCSVData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+    const errors: ValidationError[] = [];
+    const preview: PreviewCard[] = [];
+    const lines = data.trim().split('\n');
+    const startIndex = detectCSVHeader(lines);
+
+    for (let i = startIndex; i < Math.min(lines.length, startIndex + 10); i++) {
+      const result = parseCSVLine(lines[i].trim(), i + 1);
+      if (result.error) {
+        errors.push(result.error);
+      } else if (result.preview) {
+        preview.push(result.preview);
+      }
+    }
+
+    return { errors, preview };
+  };
+
+  // Helper: Parse JSON format data
+  const parseJSONData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+    const errors: ValidationError[] = [];
+    const preview: PreviewCard[] = [];
+
+    const jsonData = JSON.parse(data);
+    if (!Array.isArray(jsonData)) {
+      errors.push({
+        line: 1,
+        error: 'Data must be an array of card objects',
+      });
+      return { errors, preview };
+    }
+
+    for (let i = 0; i < Math.min(jsonData.length, 10); i++) {
+      const item = jsonData[i];
+      const cardName = item.cardName || item.name;
+      const quantity = parseInt(item.quantity) || parseInt(item.count) || 0;
+
+      if (!cardName) {
+        errors.push({
+          line: i + 1,
+          error: 'Missing card name in object',
+        });
+        continue;
+      }
+
+      if (quantity <= 0) {
+        errors.push({
+          line: i + 1,
+          error: 'Invalid quantity in object',
+        });
+        continue;
+      }
+
+      preview.push({
+        line: i + 1,
+        cardName,
+        quantity,
+        setName: item.setName || item.set,
+        cardId: item.cardId || item.id,
+      });
+    }
+
+    return { errors, preview };
+  };
+
+  // Helper: Parse decklist format data
+  const parseDecklistData = (data: string): { errors: ValidationError[], preview: PreviewCard[] } => {
+    const errors: ValidationError[] = [];
+    const preview: PreviewCard[] = [];
+    const lines = data.trim().split('\n');
+
+    for (let i = 0; i < Math.min(lines.length, 10); i++) {
+      const line = lines[i].trim();
+      if (!line || line.startsWith('//') || line.startsWith('#')) continue;
+
+      const match = line.match(/^(\d+)x?\s+(.+)$/);
+      if (!match) {
+        errors.push({
+          line: i + 1,
+          error: 'Invalid format',
+          suggestion: 'Use format like "3 Card Name" or "2x Card Name"',
+        });
+        continue;
+      }
+
+      const quantity = parseInt(match[1]);
+      const cardName = match[2].trim();
+
+      if (quantity <= 0) {
+        errors.push({ line: i + 1, error: 'Invalid quantity' });
+        continue;
+      }
+
+      if (!cardName) {
+        errors.push({ line: i + 1, error: 'Missing card name' });
+        continue;
+      }
+
+      preview.push({
+        line: i + 1,
+        cardName,
+        quantity,
+      });
+    }
+
+    return { errors, preview };
+  };
+
   // Validate and generate preview
   const validateAndPreview = useCallback(
     (data: string) => {
-      const errors: ValidationError[] = [];
-      const preview: PreviewCard[] = [];
-
       if (!data.trim()) {
         setValidationErrors([]);
         setPreviewData([]);
         return;
       }
 
+      let errors: ValidationError[] = [];
+      let preview: PreviewCard[] = [];
+
       try {
         switch (selectedSource.format) {
           case 'csv': {
-            const lines = data.trim().split('\n');
-            let startIndex = 0;
-
-            // Detect header
-            const firstLine = lines[0]?.toLowerCase();
-            if (
-              firstLine &&
-              (firstLine.includes('name') ||
-                firstLine.includes('card') ||
-                firstLine.includes('quantity'))
-            ) {
-              startIndex = 1;
-            }
-
-            for (
-              let i = startIndex;
-              i < Math.min(lines.length, startIndex + 10);
-              i++
-            ) {
-              const line = lines[i].trim();
-              if (!line) continue;
-
-              const parts = line.includes('\t')
-                ? line.split('\t')
-                : line.split(',');
-
-              if (parts.length < 2) {
-                errors.push({
-                  line: i + 1,
-                  error: 'Insufficient columns',
-                  suggestion:
-                    'Each line should have at least card name and quantity',
-                });
-                continue;
-              }
-
-              const cardName = parts[0]?.trim().replace(/^["']|["']$/g, '');
-              const quantity = parseInt(parts[1]?.trim()) || 0;
-
-              if (!cardName) {
-                errors.push({ line: i + 1, error: 'Missing card name' });
-                continue;
-              }
-
-              if (quantity <= 0) {
-                errors.push({
-                  line: i + 1,
-                  error: 'Invalid quantity',
-                  suggestion: 'Quantity must be a positive number',
-                });
-                continue;
-              }
-
-              preview.push({
-                line: i + 1,
-                cardName,
-                quantity,
-                setName: parts[2]?.trim().replace(/^["']|["']$/g, ''),
-                setNumber: parts[3]?.trim().replace(/^["']|["']$/g, ''),
-              });
-            }
+            const result = parseCSVData(data);
+            errors = result.errors;
+            preview = result.preview;
             break;
           }
-
           case 'json': {
-            const jsonData = JSON.parse(data);
-            if (!Array.isArray(jsonData)) {
-              errors.push({
-                line: 1,
-                error: 'Data must be an array of card objects',
-              });
-              break;
-            }
-
-            for (let i = 0; i < Math.min(jsonData.length, 10); i++) {
-              const item = jsonData[i];
-              const cardName = item.cardName || item.name;
-              const quantity =
-                parseInt(item.quantity) || parseInt(item.count) || 0;
-
-              if (!cardName) {
-                errors.push({
-                  line: i + 1,
-                  error: 'Missing card name in object',
-                });
-                continue;
-              }
-
-              if (quantity <= 0) {
-                errors.push({
-                  line: i + 1,
-                  error: 'Invalid quantity in object',
-                });
-                continue;
-              }
-
-              preview.push({
-                line: i + 1,
-                cardName,
-                quantity,
-                setName: item.setName || item.set,
-                cardId: item.cardId || item.id,
-              });
-            }
+            const result = parseJSONData(data);
+            errors = result.errors;
+            preview = result.preview;
             break;
           }
-
           case 'decklist': {
-            const lines = data.trim().split('\n');
-
-            for (let i = 0; i < Math.min(lines.length, 10); i++) {
-              const line = lines[i].trim();
-              if (!line || line.startsWith('//') || line.startsWith('#'))
-                continue;
-
-              const match = line.match(/^(\d+)x?\s+(.+)$/);
-              if (!match) {
-                errors.push({
-                  line: i + 1,
-                  error: 'Invalid format',
-                  suggestion: 'Use format like "3 Card Name" or "2x Card Name"',
-                });
-                continue;
-              }
-
-              const quantity = parseInt(match[1]);
-              const cardName = match[2].trim();
-
-              if (quantity <= 0) {
-                errors.push({ line: i + 1, error: 'Invalid quantity' });
-                continue;
-              }
-
-              if (!cardName) {
-                errors.push({ line: i + 1, error: 'Missing card name' });
-                continue;
-              }
-
-              preview.push({
-                line: i + 1,
-                cardName,
-                quantity,
-              });
-            }
+            const result = parseDecklistData(data);
+            errors = result.errors;
+            preview = result.preview;
             break;
           }
         }
