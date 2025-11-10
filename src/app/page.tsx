@@ -22,16 +22,6 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center px-4 py-20">
         <div className="w-full max-w-3xl mx-auto text-center">
-          {/* Main Heading */}
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-light mb-8 text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Gundam Card Game is a powerful <span className="font-semibold">card search</span>
-          </motion.h1>
-
           {/* Search Bar */}
           <motion.form
             onSubmit={handleSearch}
@@ -113,7 +103,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-semibold text-white">Recent Decks</h2>
-            <Link href="/community/decks" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <Link href="/decks" className="text-sm text-gray-400 hover:text-white transition-colors">
               View recent decks →
             </Link>
           </div>
@@ -168,13 +158,6 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">COMMUNITY</h3>
-              <ul className="space-y-2">
-                <li><Link href="/community" className="text-sm text-gray-500 hover:text-white transition-colors">Community Hub</Link></li>
-                <li><Link href="/community/decks" className="text-sm text-gray-500 hover:text-white transition-colors">Shared Decks</Link></li>
-              </ul>
-            </div>
-            <div>
               <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">DEVELOPERS</h3>
               <ul className="space-y-2">
                 <li><Link href="/api" className="text-sm text-gray-500 hover:text-white transition-colors">API Documentation</Link></li>
@@ -183,13 +166,12 @@ export default function Home() {
             <div>
               <h3 className="text-xs font-bold text-gray-400 uppercase mb-3">MORE</h3>
               <ul className="space-y-2">
-                <li><Link href="/about" className="text-sm text-gray-500 hover:text-white transition-colors">About</Link></li>
                 <li><Link href="/help" className="text-sm text-gray-500 hover:text-white transition-colors">Help</Link></li>
               </ul>
             </div>
           </div>
           <div className="pt-8 border-t border-[#2d2640] text-center text-xs text-gray-600">
-            <p>© {new Date().getFullYear()} Gundam Card Game Database. Not affiliated with Bandai Namco.</p>
+            <p>© {new Date().getFullYear()} Newtype Decks. Not affiliated with Bandai Namco.</p>
           </div>
         </div>
       </footer>

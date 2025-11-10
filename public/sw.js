@@ -1,5 +1,5 @@
-// Service Worker for Gundam Card Game PWA
-const CACHE_NAME = 'gcg-database-v4-compact-overlay';
+// Service Worker for Newtype Decks (Gundam Card Game) PWA
+const CACHE_NAME = 'gcg-database-v7-core';
 const OFFLINE_URL = '/offline';
 
 // Resources to cache on install
@@ -8,7 +8,6 @@ const STATIC_CACHE_URLS = [
   '/cards',
   '/decks',
   '/collection',
-  '/community',
   '/offline',
   '/manifest.json'
 ];

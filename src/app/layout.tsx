@@ -16,9 +16,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Gundam Card Game Database',
+  title: 'Newtype Decks - Gundam Card Game Database',
   description:
-    'A comprehensive database and deck building platform for the Gundam Card Game',
+    'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
   keywords: ['gundam', 'card game', 'database', 'deck building', 'collection'],
   authors: [{ name: 'Gundam Card Game Community' }],
   manifest: '/manifest.json',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'GCG Database',
+    title: 'Newtype Decks',
     startupImage: [
       {
         url: '/icons/apple-splash-2048-2732.png',
@@ -78,9 +78,9 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: 'Gundam Card Game Database',
+    title: 'Newtype Decks - Gundam Card Game Database',
     description:
-      'A comprehensive database and deck building platform for the Gundam Card Game',
+      'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
     type: 'website',
     locale: 'en_US',
   },
@@ -99,10 +99,10 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         {/* PWA meta tags */}
-        <meta name="application-name" content="GCG Database" />
+        <meta name="application-name" content="Newtype Decks" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="GCG Database" />
+        <meta name="apple-mobile-web-app-title" content="Newtype Decks" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -128,7 +128,7 @@ export default function RootLayout({
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
                     <h1 className="text-2xl font-bold text-white">
-                      Gundam Card Game
+                      Newtype Decks
                     </h1>
                     <div className="hidden md:flex items-center space-x-6">
                       <Navbar />
