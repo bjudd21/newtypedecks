@@ -246,7 +246,7 @@ export default function Home() {
             </div>
           </div>
           <div className="pt-8 border-t border-[#2d2640] text-center">
-            <p className="text-xs text-gray-600 mb-2">© {new Date().getFullYear()} Gundam Deck Builder. Not affiliated with Bandai Namco Entertainment.</p>
+            <p className="text-xs text-gray-600 mb-2">© {new Date().getFullYear()} Newtype Decks. Not affiliated with Bandai Namco Entertainment.</p>
             <p className="text-xs text-gray-700">Made with ❤️ for the Gundam Card Game community</p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
-  "name": "Gundam Deck Builder - Gundam Card Game",
-  "short_name": "Gundam Deck Builder",
-  "description": "Gundam Deck Builder: Comprehensive Gundam Card Game database, deck builder, and collection manager",
+  "name": "Newtype Decks - Gundam Card Game",
+  "short_name": "Newtype Decks",
+  "description": "Newtype Decks: Comprehensive Gundam Card Game database, deck builder, and collection manager",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a1625",
