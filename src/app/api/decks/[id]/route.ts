@@ -24,13 +24,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const deck = await prisma.deck.findUnique({
       where: { id },
       include: {
-        deckCards: {
+        cards: {
           include: {
             card: {
               include: {
                 type: true,
                 rarity: true,
-                faction: true,
               }
             }
           }
@@ -61,20 +60,19 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     // Calculate statistics
-    const totalCards = deck.deckCards.reduce((sum, dc) => sum + dc.quantity, 0);
-    const uniqueCards = deck.deckCards.length;
-    const totalCost = deck.deckCards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
+    const totalCards = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
+    const uniqueCards = deck.cards.length;
+    const totalCost = deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
     const averageCost = totalCards > 0 ? totalCost / totalCards : 0;
 
     const deckWithStats = {
       id: deck.id,
       name: deck.name,
       description: deck.description,
-      format: deck.format,
       isPublic: deck.isPublic,
       userId: deck.userId,
       user: deck.user,
-      cards: deck.deckCards.map(dc => ({
+      cards: deck.cards.map(dc => ({
         cardId: dc.cardId,
         card: dc.card,
         quantity: dc.quantity,
@@ -85,7 +83,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         uniqueCards,
         totalCost,
         averageCost: Math.round(averageCost * 100) / 100,
-        colors: [...new Set(deck.deckCards.map(dc => dc.card.faction?.name).filter(Boolean))],
+        colors: [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))],
       },
       createdAt: deck.createdAt,
       updatedAt: deck.updatedAt,
@@ -113,7 +111,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const { name, description, format, isPublic, cards } = await request.json();
+    const { name, description, isPublic, cards } = await request.json();
 
     // Check if deck exists and user owns it
     const existingDeck = await prisma.deck.findUnique({
@@ -170,20 +168,18 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const updateData: any = {};
     if (name !== undefined) updateData.name = name;
     if (description !== undefined) updateData.description = description;
-    if (format !== undefined) updateData.format = format;
     if (isPublic !== undefined) updateData.isPublic = Boolean(isPublic);
 
     const updatedDeck = await prisma.deck.update({
       where: { id },
       data: updateData,
       include: {
-        deckCards: {
+        cards: {
           include: {
             card: {
               include: {
                 type: true,
                 rarity: true,
-                faction: true,
               }
             }
           }
@@ -198,7 +194,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const currentDeck = await tx.deck.findUnique({
           where: { id },
           include: {
-            deckCards: true
+            cards: true
           }
         });
 
@@ -216,7 +212,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const nextVersion = (lastVersion?.version || 0) + 1;
 
         // Create version snapshot of current state (before update)
-        if (currentDeck.deckCards.length > 0) {
+        if (currentDeck.cards.length > 0) {
           await tx.deckVersion.create({
             data: {
               deckId: id,
@@ -228,7 +224,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
               isPublic: currentDeck.isPublic,
               createdBy: session.user.id,
               cards: {
-                create: currentDeck.deckCards.map(deckCard => ({
+                create: currentDeck.cards.map(deckCard => ({
                   cardId: deckCard.cardId,
                   quantity: deckCard.quantity,
                   category: deckCard.category
@@ -266,13 +262,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         const finalDeck = await tx.deck.findUnique({
           where: { id },
           include: {
-            deckCards: {
+            cards: {
               include: {
                 card: {
                   include: {
                     type: true,
                     rarity: true,
-                    set: true,
                   }
                 }
               }

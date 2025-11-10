@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
     const search = searchParams.get('search') || '';
-    const format = searchParams.get('format');
     const sortBy = searchParams.get('sortBy') || 'updatedAt';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
 
@@ -31,10 +30,6 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    if (format) {
-      where.format = format;
-    }
-
     // Get public decks
     const [decks, total] = await Promise.all([
       prisma.deck.findMany({
@@ -47,19 +42,18 @@ export async function GET(request: NextRequest) {
               email: true,
             }
           },
-          deckCards: {
+          cards: {
             include: {
               card: {
                 include: {
                   type: true,
                   rarity: true,
-                  faction: true,
                 }
               }
             }
           },
           _count: {
-            select: { deckCards: true }
+            select: { cards: true }
           }
         },
         orderBy: { [sortBy]: sortOrder },
@@ -71,16 +65,15 @@ export async function GET(request: NextRequest) {
 
     // Calculate deck statistics and remove sensitive data
     const publicDecks = decks.map(deck => {
-      const totalCards = deck.deckCards.reduce((sum, dc) => sum + dc.quantity, 0);
-      const uniqueCards = deck.deckCards.length;
-      const totalCost = deck.deckCards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
-      const colors = [...new Set(deck.deckCards.map(dc => dc.card.faction?.name).filter(Boolean))];
+      const totalCards = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
+      const uniqueCards = deck.cards.length;
+      const totalCost = deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0);
+      const colors = [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))];
 
       return {
         id: deck.id,
         name: deck.name,
         description: deck.description,
-        format: deck.format,
         createdAt: deck.createdAt,
         updatedAt: deck.updatedAt,
         author: {
@@ -95,7 +88,7 @@ export async function GET(request: NextRequest) {
           colors,
         },
         // Don't expose full card list in browse view for performance
-        cardPreview: deck.deckCards.slice(0, 3).map(dc => ({
+        cardPreview: deck.cards.slice(0, 3).map(dc => ({
           card: {
             id: dc.card.id,
             name: dc.card.name,

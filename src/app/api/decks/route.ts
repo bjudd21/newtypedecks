@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
-    const format = searchParams.get('format');
     const isPublic = searchParams.get('public') === 'true';
 
     const skip = (page - 1) * limit;
@@ -45,28 +44,23 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    if (format) {
-      where.format = format;
-    }
-
     // Get decks with card count
     const [decks, total] = await Promise.all([
       prisma.deck.findMany({
         where,
         include: {
-          deckCards: {
+          cards: {
             include: {
               card: {
                 include: {
                   type: true,
                   rarity: true,
-                  faction: true,
                 }
               }
             }
           },
           _count: {
-            select: { deckCards: true }
+            select: { cards: true }
           }
         },
         orderBy: { updatedAt: 'desc' },
@@ -81,14 +75,13 @@ export async function GET(request: NextRequest) {
       id: deck.id,
       name: deck.name,
       description: deck.description,
-      format: deck.format,
       isPublic: deck.isPublic,
       createdAt: deck.createdAt,
       updatedAt: deck.updatedAt,
-      cardCount: deck.deckCards.reduce((sum, dc) => sum + dc.quantity, 0),
-      uniqueCards: deck.deckCards.length,
-      totalCost: deck.deckCards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0),
-      colors: [...new Set(deck.deckCards.map(dc => dc.card.faction?.name).filter(Boolean))],
+      cardCount: deck.cards.reduce((sum, dc) => sum + dc.quantity, 0),
+      uniqueCards: deck.cards.length,
+      totalCost: deck.cards.reduce((sum, dc) => sum + ((dc.card.cost || 0) * dc.quantity), 0),
+      colors: [...new Set(deck.cards.map(dc => dc.card.faction).filter(Boolean))],
     }));
 
     return NextResponse.json({
@@ -120,7 +113,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, description, format, isPublic, cards } = await request.json();
+    const { name, description, isPublic, cards } = await request.json();
 
     // Validate input
     if (!name || !cards || !Array.isArray(cards)) {
@@ -163,10 +156,9 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         description: description || '',
-        format: format || 'Standard',
         isPublic: Boolean(isPublic),
         userId: session.user.id,
-        deckCards: {
+        cards: {
           create: cards.map((card: any) => ({
             cardId: card.cardId || card.card?.id,
             quantity: Math.max(1, Math.min(4, parseInt(card.quantity) || 1)),
@@ -175,13 +167,12 @@ export async function POST(request: NextRequest) {
         }
       },
       include: {
-        deckCards: {
+        cards: {
           include: {
             card: {
               include: {
                 type: true,
                 rarity: true,
-                faction: true,
               }
             }
           }
