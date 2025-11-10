@@ -84,10 +84,14 @@ export async function GET(request: NextRequest) {
     const options: SubmissionSearchOptions = {
       page: parseInt(searchParams.get('page') || '1', 10),
       limit: parseInt(searchParams.get('limit') || '20', 10),
-      sortBy: validSortFields.includes(sortBy as any)
+      sortBy: validSortFields.includes(
+        sortBy as (typeof validSortFields)[number]
+      )
         ? (sortBy as (typeof validSortFields)[number])
         : 'createdAt',
-      sortOrder: validSortOrders.includes(sortOrder as any)
+      sortOrder: validSortOrders.includes(
+        sortOrder as (typeof validSortOrders)[number]
+      )
         ? (sortOrder as (typeof validSortOrders)[number])
         : 'desc',
       includeRelations: searchParams.get('includeRelations') !== 'false',

@@ -166,7 +166,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     // Update deck
-    const updateData: any = {};
+    interface DeckUpdateData {
+      name?: string;
+      description?: string | null;
+      isPublic?: boolean;
+    }
+
+    const updateData: DeckUpdateData = {};
     if (name !== undefined) updateData.name = name;
     if (description !== undefined) updateData.description = description;
     if (isPublic !== undefined) updateData.isPublic = Boolean(isPublic);

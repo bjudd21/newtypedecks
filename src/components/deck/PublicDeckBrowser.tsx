@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import type { Rarity } from '@prisma/client';
 import {
   Card,
   CardContent,
@@ -36,7 +37,7 @@ interface PublicDeck {
       id: string;
       name: string;
       imageUrl?: string;
-      rarity: any;
+      rarity: Rarity;
     };
     quantity: number;
   }>;

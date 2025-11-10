@@ -16,7 +16,11 @@ import { useAuth, useCollection } from '@/hooks';
 import { CollectionImporter } from './CollectionImporter';
 import { AdvancedImporter } from './AdvancedImporter';
 import { CollectionExporter } from './CollectionExporter';
-import type { Card as CardType } from '@/lib/types';
+import type {
+  Card as CardType,
+  CollectionStatistics,
+  CollectionPagination,
+} from '@/lib/types';
 
 interface CollectionCard {
   cardId: string;
@@ -47,8 +51,8 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
   const [collection, setCollection] = useState<{
     userId: string;
     cards: CollectionCard[];
-    statistics: any;
-    pagination?: any;
+    statistics: CollectionStatistics;
+    pagination?: CollectionPagination;
   } | null>(null);
 
   const [filters, setFilters] = useState({

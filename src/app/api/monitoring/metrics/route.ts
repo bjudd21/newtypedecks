@@ -4,6 +4,14 @@ import { metricsCollector } from '@/lib/monitoring/analytics';
 import { performanceMonitor } from '@/lib/monitoring/performance';
 import { logger } from '@/lib/monitoring/logger';
 
+// Metrics response interface
+interface MetricsResponse {
+  performance?: Record<string, unknown>;
+  business?: Record<string, unknown>;
+  errors?: Record<string, unknown>;
+  health?: Record<string, unknown>;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -22,7 +30,7 @@ export async function GET(request: NextRequest) {
       timeWindows[timeRange as keyof typeof timeWindows] || timeWindows['1h'];
     const since = new Date(Date.now() - timeWindow);
 
-    const metrics: any = {};
+    const metrics: MetricsResponse = {};
 
     // Performance metrics
     if (!category || category === 'performance') {

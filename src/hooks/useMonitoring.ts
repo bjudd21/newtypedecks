@@ -396,9 +396,15 @@ export function useFormMonitoring(formName: string) {
   };
 }
 
+// React error info interface
+interface ReactErrorInfo {
+  componentStack?: string;
+  digest?: string;
+}
+
 export function useErrorBoundaryMonitoring(boundaryName: string) {
   const trackBoundaryError = useCallback(
-    (error: Error, errorInfo: any) => {
+    (error: Error, errorInfo: ReactErrorInfo) => {
       errorTracker.captureException(error, {
         errorBoundary: {
           name: boundaryName,

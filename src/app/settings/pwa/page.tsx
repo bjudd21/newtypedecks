@@ -38,7 +38,8 @@ export default function PWASettingsPage() {
     loadPWAData();
 
     // Listen for PWA events
-    const unsubscribeOnline = pwaService.on('online', (isOnline: boolean) => {
+    const unsubscribeOnline = pwaService.on('online', (data) => {
+      const isOnline = data as boolean;
       setPwaState((prev) => ({ ...prev, isOnline }));
       if (isOnline) {
         loadOfflineData();

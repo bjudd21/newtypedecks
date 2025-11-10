@@ -9,6 +9,7 @@ import {
   Button,
   Select,
 } from '@/components/ui';
+import type { PreviewCard } from '@/lib/types';
 
 interface ImportResult {
   success: number;
@@ -37,7 +38,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
   const [isImporting, setIsImporting] = useState(false);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [previewCards, setPreviewCards] = useState<any[]>([]);
+  const [previewCards, setPreviewCards] = useState<PreviewCard[]>([]);
 
   // Handle file upload
   const handleFileUpload = useCallback(

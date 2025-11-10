@@ -107,7 +107,7 @@ export class CardService {
             include,
             skip,
             take: limit,
-            orderBy: orderBy as any, // TODO: Fix buildOptimizedCardQuery to return proper Prisma types
+            orderBy: orderBy as unknown as Record<string, unknown>,
           }) as Promise<CardWithRelations[]>,
           db.card.count({ where: whereClause }),
         ]);

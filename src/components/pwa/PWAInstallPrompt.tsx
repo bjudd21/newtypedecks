@@ -24,11 +24,12 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
     });
 
     // Listen for PWA events
-    const unsubscribeInstallable = pwaService.on(
-      'installable',
-      setIsInstallable
-    );
-    const unsubscribeInstalled = pwaService.on('installed', setIsInstalled);
+    const unsubscribeInstallable = pwaService.on('installable', (data) => {
+      setIsInstallable(data as boolean);
+    });
+    const unsubscribeInstalled = pwaService.on('installed', (data) => {
+      setIsInstalled(data as boolean);
+    });
 
     // Check if already dismissed
     const dismissed = localStorage.getItem('pwa-install-dismissed');

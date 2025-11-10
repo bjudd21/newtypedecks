@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,6 +11,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, children, variant = 'default', ...props }, ref) => {
+    // Extract HTML attributes and omit those that conflict with motion
+    const { onClick, onMouseEnter, onMouseLeave, ...restProps } = props;
     const variants = {
       default:
         'rounded-lg border border-gray-700 bg-gray-900/50 backdrop-blur-sm shadow-lg',
@@ -33,7 +35,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           transition: { type: 'spring', stiffness: 400, damping: 17 },
         }}
         transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-        {...(props as any)} // TODO: Fix motion component type conflicts with HTMLAttributes
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        {...(restProps as Omit<HTMLMotionProps<'div'>, 'ref'>)}
       >
         {variant === 'hologram' && (
           <motion.div

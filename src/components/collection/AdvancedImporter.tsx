@@ -10,6 +10,7 @@ import {
   Select,
   Badge,
 } from '@/components/ui';
+import type { PreviewCard } from '@/lib/types';
 
 interface ImportSource {
   id: string;
@@ -93,7 +94,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
     []
   );
-  const [previewData, setPreviewData] = useState<any[]>([]);
+  const [previewData, setPreviewData] = useState<PreviewCard[]>([]);
   const [currentStep, setCurrentStep] = useState<
     'select' | 'data' | 'validate' | 'options' | 'import'
   >('select');
@@ -137,7 +138,7 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
   const validateAndPreview = useCallback(
     (data: string) => {
       const errors: ValidationError[] = [];
-      const preview: unknown[] = [];
+      const preview: PreviewCard[] = [];
 
       if (!data.trim()) {
         setValidationErrors([]);

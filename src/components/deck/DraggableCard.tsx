@@ -34,7 +34,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   const [isDragging, setIsDragging] = useState(false);
 
   // Handle drag start
-  const handleDragStart = (e: React.DragEvent) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     if (!isEditing) return;
 
     const dragData: DragData = {
@@ -65,15 +65,23 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   };
 
   // Handle drag end
-  const handleDragEnd = () => {
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
     setIsDragging(false);
   };
+
+  // Wrapper props with HTML5 drag events
+  const dragProps = isEditing
+    ? {
+        onDragStart: handleDragStart,
+        onDragEnd: handleDragEnd,
+      }
+    : {};
 
   return (
     <motion.div
       draggable={isEditing}
-      onDragStart={handleDragStart as any} // TODO: Fix type conflict between HTML drag and framer-motion
-      onDragEnd={handleDragEnd as any} // TODO: Fix type conflict between HTML drag and framer-motion
+      {...(dragProps as Record<string, unknown>)}
       className={`
         ${className}
         ${isEditing ? 'cursor-move' : 'cursor-default'}

@@ -366,9 +366,9 @@ export class ImageCacheService {
       cache: 'default',
     };
 
-    // Set priority if supported
+    // Set priority if supported (experimental feature, requires type assertion)
     if ('priority' in Request.prototype) {
-      (fetchOptions as any).priority = priority; // TODO: Add proper RequestInit type with priority
+      (fetchOptions as Record<string, unknown>).priority = priority;
     }
 
     const response = await fetch(url, fetchOptions);

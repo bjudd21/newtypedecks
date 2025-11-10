@@ -33,11 +33,30 @@ export interface PWAInstallPrompt {
   prompt(): Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+// Event listener type for PWA events
+type PWAEventListener = (data: unknown) => void;
+
+// Extended Navigator interface with standalone property
+interface NavigatorStandalone extends Navigator {
+  standalone?: boolean;
+}
+
+// Extended ServiceWorkerRegistration with SyncManager
+interface ServiceWorkerRegistrationWithSync extends ServiceWorkerRegistration {
+  sync?: {
+    register(tag: string): Promise<void>;
+  };
+}
+
+// BeforeInstallPromptEvent interface
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 class PWAService {
   private deferredPrompt: PWAInstallPrompt | null = null;
   private registration: ServiceWorkerRegistration | null = null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private listeners: Map<string, ((...args: any[]) => any)[]> = new Map();
+  private listeners: Map<string, PWAEventListener[]> = new Map();
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -55,7 +74,7 @@ class PWAService {
     // PWA install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
-      this.deferredPrompt = e as any; // TODO: Add proper BeforeInstallPromptEvent type
+      this.deferredPrompt = e as BeforeInstallPromptEvent;
       this.emit('installable', true);
     });
 
@@ -135,13 +154,12 @@ class PWAService {
   }
 
   // Event emitter methods
-  private emit(event: string, data: any) {
+  private emit(event: string, data: unknown) {
     const callbacks = this.listeners.get(event) || [];
     callbacks.forEach((callback) => callback(data));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public on(event: string, callback: (...args: any[]) => any) {
+  public on(event: string, callback: PWAEventListener) {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, []);
     }
@@ -182,8 +200,8 @@ class PWAService {
     // Check if running in standalone mode (installed PWA)
     return (
       window.matchMedia('(display-mode: standalone)').matches ||
-      (window.navigator as any).standalone === true
-    ); // TODO: Add proper Navigator type with standalone
+      (window.navigator as NavigatorStandalone).standalone === true
+    );
   }
 
   // Service Worker Management
@@ -262,7 +280,9 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as any).sync.register('sync-deck-saves'); // TODO: Add proper SyncManager type
+          await (registration as ServiceWorkerRegistrationWithSync).sync?.register(
+            'sync-deck-saves'
+          );
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);
@@ -288,7 +308,9 @@ class PWAService {
       try {
         const registration = await navigator.serviceWorker.ready;
         if ('sync' in registration) {
-          await (registration as any).sync.register('sync-collection-updates'); // TODO: Add proper SyncManager type
+          await (registration as ServiceWorkerRegistrationWithSync).sync?.register(
+            'sync-collection-updates'
+          );
         }
       } catch (error) {
         console.warn('Background sync registration failed:', error);
@@ -306,7 +328,10 @@ class PWAService {
     return await this.getOfflineData('pending-collection-updates');
   }
 
-  private async storeOfflineData(storeName: string, data: any): Promise<void> {
+  private async storeOfflineData(
+    storeName: string,
+    data: OfflineDeck | OfflineCollectionUpdate
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('GCG-Offline', 1);
 
@@ -331,7 +356,9 @@ class PWAService {
     });
   }
 
-  private async getOfflineData(storeName: string): Promise<any[]> {
+  private async getOfflineData<T = OfflineDeck | OfflineCollectionUpdate>(
+    storeName: string
+  ): Promise<T[]> {
     return new Promise((resolve) => {
       const request = indexedDB.open('GCG-Offline', 1);
 

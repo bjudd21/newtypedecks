@@ -74,9 +74,11 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
     };
 
     // Listen for PWA service events
-    const unsubscribeOnline = pwaService.on('online', handleOnline);
-    const unsubscribeOffline = pwaService.on('online', (online: boolean) => {
-      if (!online) handleOffline();
+    const unsubscribeOnline = pwaService.on('online', (data) => {
+      if (data) handleOnline();
+    });
+    const unsubscribeOffline = pwaService.on('online', (data) => {
+      if (!data) handleOffline();
     });
 
     const unsubscribeDeckSynced = pwaService.on(

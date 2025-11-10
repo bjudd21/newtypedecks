@@ -10,6 +10,7 @@ import {
   Input,
   Badge,
 } from '@/components/ui';
+import type { ExportRecord } from '@/lib/types';
 
 interface ExportFormat {
   id: string;
@@ -82,7 +83,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
   });
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [exportHistory, setExportHistory] = useState<any[]>([]);
+  const [exportHistory, setExportHistory] = useState<ExportRecord[]>([]);
 
   // Handle format selection
   const handleFormatSelect = useCallback((format: ExportFormat) => {

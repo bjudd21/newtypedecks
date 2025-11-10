@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { Prisma } from '@prisma/client';
 
 interface CollectionCardData {
   card: {
@@ -28,6 +29,65 @@ interface CollectionCardData {
   updatedAt: Date;
 }
 
+interface ExportOptions {
+  includeMetadata?: boolean;
+  includeConditions?: boolean;
+  includeValues?: boolean;
+  userId?: string;
+  customFields?: string[];
+  exportName?: string;
+  onlyOwned?: boolean;
+}
+
+interface ExportSetInfo {
+  name?: string;
+  code?: string;
+  number?: string | null;
+}
+
+interface ExportCardInfo {
+  type?: string;
+  rarity?: string;
+  cost?: number | null;
+  description?: string | null;
+}
+
+interface ExportCardData {
+  cardId: string;
+  cardName: string;
+  quantity: number;
+  set: ExportSetInfo;
+  cardInfo: ExportCardInfo;
+  condition?: string;
+  marketPrice?: number;
+  totalValue?: number;
+  metadata?: {
+    addedDate: Date;
+    lastUpdated: Date;
+  };
+  customData?: Record<string, unknown>;
+}
+
+interface ExportInfo {
+  format: string;
+  version: string;
+  exportedAt: string;
+  exportedBy?: string;
+  recordCount: number;
+  exportOptions: ExportOptions;
+}
+
+interface JSONExportData {
+  exportInfo: ExportInfo;
+  collection: ExportCardData[];
+}
+
+interface ExportResult {
+  content: string;
+  contentType: string;
+  filename: string;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -46,31 +106,17 @@ export async function GET(request: NextRequest) {
     const includeValues = searchParams.get('includeValues') === 'true';
     const filterBy = searchParams.get('filterBy'); // 'owned', 'complete', 'valuable'
 
-    // Get user's collection
-    const whereClause: any = { userId: session.user.id };
-
-    // Apply filters if specified
-    if (filterBy) {
-      switch (filterBy) {
-        case 'owned':
-          whereClause.quantity = { gt: 0 };
-          break;
-        case 'complete':
-          // Could filter by complete sets, but for now just owned cards
-          whereClause.quantity = { gt: 0 };
-          break;
-        case 'valuable':
-          // Could filter by card value, but for now include all
-          break;
-      }
-    }
+    // Build where clause for collection cards based on filters
+    const cardsWhereClause: Prisma.CollectionCardWhereInput = filterBy === 'owned' || filterBy === 'complete'
+      ? { quantity: { gt: 0 } }
+      : {};
 
     // Get collection with cards
     const userCollection = await prisma.collection.findUnique({
       where: { userId: session.user.id },
       include: {
         cards: {
-          where: filterBy === 'owned' ? { quantity: { gt: 0 } } : {},
+          where: cardsWhereClause,
           include: {
             card: {
               include: {
@@ -209,8 +255,8 @@ export async function POST(request: NextRequest) {
 async function generateExportData(
   collectionCards: CollectionCardData[],
   format: string,
-  options: any = {}
-) {
+  options: ExportOptions = {}
+): Promise<ExportResult> {
   const timestamp = new Date().toISOString();
 
   switch (format.toLowerCase()) {
@@ -232,8 +278,8 @@ async function generateExportData(
 // Generate CSV export
 function generateCSVExport(
   collectionCards: CollectionCardData[],
-  options: any
-) {
+  options: ExportOptions
+): ExportResult {
   const headers = [
     'Card Name',
     'Quantity',
@@ -294,10 +340,10 @@ function generateCSVExport(
 // Generate JSON export
 function generateJSONExport(
   collectionCards: CollectionCardData[],
-  options: any,
+  options: ExportOptions,
   timestamp: string
-) {
-  const exportData: any = {
+): ExportResult {
+  const exportData: JSONExportData = {
     exportInfo: {
       format: 'gundam-card-game-collection',
       version: '1.0',
@@ -308,7 +354,7 @@ function generateJSONExport(
     },
     collection: collectionCards.map((collectionCard) => {
       const card = collectionCard.card;
-      const exportCard: any = {
+      const exportCard: ExportCardData = {
         cardId: card.id,
         cardName: card.name,
         quantity: collectionCard.quantity,
@@ -347,7 +393,7 @@ function generateJSONExport(
         exportCard.customData = {};
         options.customFields.forEach((field: string) => {
           if (card[field] !== undefined) {
-            exportCard.customData[field] = card[field];
+            exportCard.customData![field] = card[field];
           }
         });
       }
@@ -366,8 +412,8 @@ function generateJSONExport(
 // Generate simple text list export
 function generateTextExport(
   collectionCards: CollectionCardData[],
-  options: any
-) {
+  options: ExportOptions
+): ExportResult {
   const lines: string[] = [];
 
   if (options.includeMetadata) {
@@ -405,8 +451,8 @@ function generateTextExport(
 // Generate deck list format export
 function generateDeckListExport(
   collectionCards: CollectionCardData[],
-  _options: any
-) {
+  _options: ExportOptions
+): ExportResult {
   const lines: string[] = [];
 
   lines.push('// Gundam Card Game Collection');
@@ -429,8 +475,8 @@ function generateDeckListExport(
 // Generate Excel export (would require additional library)
 function generateExcelExport(
   collectionCards: CollectionCardData[],
-  options: any
-) {
+  options: ExportOptions
+): ExportResult {
   // For now, return CSV format with Excel-friendly headers
   // In a full implementation, you'd use a library like 'xlsx' or 'exceljs'
   return generateCSVExport(collectionCards, options);

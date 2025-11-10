@@ -34,9 +34,20 @@ interface DeckTemplate {
   updatedAt: string;
 }
 
+interface TemplateCustomizations {
+  name?: string;
+  description?: string;
+  format?: string;
+  isPublic?: boolean;
+  [key: string]: unknown;
+}
+
 interface DeckTemplateBrowserProps {
   onTemplateSelect?: (template: DeckTemplate) => void;
-  onCreateFromTemplate?: (templateId: string, customizations?: any) => void;
+  onCreateFromTemplate?: (
+    templateId: string,
+    customizations?: TemplateCustomizations
+  ) => void;
   className?: string;
 }
 

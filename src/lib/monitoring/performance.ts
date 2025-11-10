@@ -232,14 +232,23 @@ class PerformanceMonitor {
   }
 
   private getBrowserResourceUsage(): ResourceUsage | null {
-    if (!('memory' in performance)) return null;
+    // Extended Performance interface with memory property
+    interface PerformanceWithMemory extends Performance {
+      memory?: {
+        usedJSHeapSize: number;
+        totalJSHeapSize: number;
+        jsHeapSizeLimit: number;
+      };
+    }
 
-    const memory = (performance as any).memory; // TODO: Add proper PerformanceMemory type
+    const perf = performance as PerformanceWithMemory;
+    if (!perf.memory) return null;
+
     return {
       memory: {
-        used: memory.usedJSHeapSize,
-        total: memory.totalJSHeapSize,
-        percentage: (memory.usedJSHeapSize / memory.totalJSHeapSize) * 100,
+        used: perf.memory.usedJSHeapSize,
+        total: perf.memory.totalJSHeapSize,
+        percentage: (perf.memory.usedJSHeapSize / perf.memory.totalJSHeapSize) * 100,
       },
     };
   }

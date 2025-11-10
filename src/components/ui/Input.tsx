@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface InputProps
@@ -22,6 +22,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       helperText,
       id,
       variant = 'default',
+      onFocus,
+      onBlur,
       ...props
     },
     ref
@@ -84,18 +86,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             suppressHydrationWarning={!id}
             onFocus={(e) => {
               setIsFocused(true);
-              props.onFocus?.(e);
+              onFocus?.(e);
             }}
             onBlur={(e) => {
               setIsFocused(false);
-              props.onBlur?.(e);
+              onBlur?.(e);
             }}
             whileFocus={{
               scale: 1.01,
               y: -1,
             }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            {...(props as any)} // TODO: Fix motion component type conflicts with InputHTMLAttributes
+            {...(props as Omit<HTMLMotionProps<'input'>, 'ref'>)}
           />
 
           {/* Scan line animation on focus */}

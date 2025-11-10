@@ -4,6 +4,9 @@
 // Export all card-related types
 export * from './card';
 
+// Export all collection-related types
+export * from './collection';
+
 // Re-export Prisma types for convenience
 export type {
   User,

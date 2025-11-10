@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import type { PrismaCardWhere } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
   try {
@@ -31,7 +32,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
 
     // Build where clause for card filtering
-    const cardWhere: any = {};
+    const cardWhere: PrismaCardWhere = {};
 
     if (search) {
       cardWhere.OR = [
@@ -41,15 +42,15 @@ export async function GET(request: NextRequest) {
     }
 
     if (rarity) {
-      cardWhere.rarity = { name: rarity };
+      cardWhere.rarity = { is: { name: rarity } };
     }
 
     if (type) {
-      cardWhere.type = { name: type };
+      cardWhere.type = { is: { name: type } };
     }
 
     if (faction) {
-      cardWhere.faction = { name: faction };
+      cardWhere.faction = faction;
     }
 
     // Get user's collection

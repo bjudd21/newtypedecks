@@ -169,8 +169,13 @@ export function createMonitoringMiddleware() {
   };
 }
 
+// Extended NextRequest with monitoring context
+interface NextRequestWithMonitoring extends NextRequest {
+  monitoring?: MonitoringContext;
+}
+
 // Wrap API route handler with monitoring
-export function withMonitoring<T extends any[]>(
+export function withMonitoring<T extends unknown[]>(
   handler: (req: NextRequest, ...args: T) => Promise<NextResponse>
 ) {
   const middleware = createMonitoringMiddleware();
@@ -178,7 +183,7 @@ export function withMonitoring<T extends any[]>(
   return async (req: NextRequest, ...args: T): Promise<NextResponse> => {
     return middleware(req, async (request, context) => {
       // Set monitoring context for the handler
-      (request as any).monitoring = context; // TODO: Extend NextRequest type with monitoring property
+      (request as NextRequestWithMonitoring).monitoring = context;
       return handler(request, ...args);
     });
   };
