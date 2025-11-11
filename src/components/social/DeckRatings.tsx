@@ -468,7 +468,7 @@ const RatingForm: React.FC<RatingFormProps> = ({
             value={review}
             onChange={(e) => setReview(e.target.value)}
             placeholder="Share your thoughts about this deck... What worked well? Any suggestions for improvement?"
-            className="w-full rounded-md border border-green-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full rounded-md border border-green-300 px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none"
             rows={4}
             maxLength={1000}
           />

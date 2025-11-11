@@ -84,7 +84,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for cards, mechanics, or game text..."
-                className="flex-1 border-none bg-transparent text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-0"
+                className="flex-1 border-none bg-transparent text-lg text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
               />
               <Button type="submit" variant="cyber" className="ml-4 px-6">
                 Search

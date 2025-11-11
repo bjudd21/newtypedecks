@@ -103,15 +103,15 @@ const Select: React.FC<SelectProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled}
           className={cn(
-            'relative w-full cursor-default rounded-md border bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm',
+            'relative w-full cursor-default rounded-md border bg-[#1a1625] py-2 pr-10 pl-3 text-left shadow-sm focus:border-[#8b7aaa] focus:ring-1 focus:ring-[#8b7aaa] focus:outline-none sm:text-sm',
             error
-              ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
-              : 'border-gray-300 text-gray-900 placeholder-gray-500',
-            disabled && 'cursor-not-allowed bg-gray-50 text-gray-500'
+              ? 'border-red-900/50 text-red-400 placeholder-red-400 focus:border-red-500 focus:ring-red-500'
+              : 'border-[#443a5c] text-white placeholder-gray-500',
+            disabled && 'cursor-not-allowed bg-[#2d2640] text-gray-500'
           )}
         >
           <span
-            className={cn('block truncate', !selectedOption && 'text-gray-500')}
+            className={cn('block truncate', !selectedOption && 'text-gray-400')}
           >
             {selectedOption ? selectedOption.label : placeholder}
           </span>
@@ -136,7 +136,7 @@ const Select: React.FC<SelectProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <div className="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#2d2640] py-1 text-base shadow-lg ring-1 ring-[#443a5c] focus:outline-none sm:text-sm">
             {options.length > 10 && (
               <div className="px-3 py-2">
                 <input
@@ -145,13 +145,13 @@ const Select: React.FC<SelectProps> = ({
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search..."
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-[#443a5c] bg-[#1a1625] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#8b7aaa] focus:ring-1 focus:ring-[#8b7aaa] focus:outline-none"
                 />
               </div>
             )}
 
             {filteredOptions.length === 0 ? (
-              <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+              <div className="relative cursor-default px-4 py-2 text-gray-400 select-none">
                 No options found.
               </div>
             ) : (
@@ -160,17 +160,17 @@ const Select: React.FC<SelectProps> = ({
                   key={option.value}
                   onClick={() => handleSelect(option)}
                   className={cn(
-                    'relative cursor-pointer select-none px-4 py-2 hover:bg-blue-50',
-                    option.value === value && 'bg-blue-100 text-blue-900',
+                    'relative cursor-pointer px-4 py-2 select-none text-white hover:bg-[#3a3050]',
+                    option.value === value && 'bg-[#8b7aaa]/30 text-[#a89ec7]',
                     option.disabled &&
-                      'cursor-not-allowed text-gray-400 hover:bg-white'
+                      'cursor-not-allowed text-gray-500 hover:bg-[#2d2640]'
                   )}
                 >
                   <span className="block truncate font-normal">
                     {option.label}
                   </span>
                   {option.value === value && (
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600">
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#8b7aaa]">
                       <svg
                         className="h-5 w-5"
                         fill="currentColor"

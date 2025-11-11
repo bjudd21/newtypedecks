@@ -347,7 +347,7 @@ function OfficialText({ text }: { text: string }) {
       </CardHeader>
       <CardContent>
         <div className="rounded-r-md border-l-4 border-blue-400 bg-blue-900/20 p-4">
-          <div className="whitespace-pre-line font-mono text-sm leading-relaxed text-gray-200">
+          <div className="font-mono text-sm leading-relaxed whitespace-pre-line text-gray-200">
             {text}
           </div>
         </div>
@@ -663,7 +663,7 @@ function CardMetadataSection({ card }: { card: CardWithRelations }) {
         <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <label className="font-medium text-gray-300">Card ID</label>
-            <div className="mt-1 break-all font-mono text-xs text-gray-400">
+            <div className="mt-1 font-mono text-xs break-all text-gray-400">
               {card.id}
             </div>
           </div>

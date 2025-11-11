@@ -129,7 +129,7 @@ const Toast: React.FC<ToastProps> = ({
           <div className="ml-4 flex flex-shrink-0">
             <button
               onClick={handleClose}
-              className="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
             >
               <span className="sr-only">Close</span>
               <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -167,7 +167,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
   return (
     <div
       className={cn(
-        'pointer-events-none fixed right-0 top-0 z-50 flex max-h-screen w-full flex-col items-end space-y-4 p-4 sm:items-end',
+        'pointer-events-none fixed top-0 right-0 z-50 flex max-h-screen w-full flex-col items-end space-y-4 p-4 sm:items-end',
         className
       )}
     >

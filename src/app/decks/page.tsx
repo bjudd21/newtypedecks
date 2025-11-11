@@ -75,14 +75,11 @@ export default function DecksPage() {
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
-                  className={`
-                    relative flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300
-                    ${
-                      activeTab === tab.id
-                        ? 'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg shadow-[#8b7aaa]/30'
-                        : 'text-gray-400 hover:bg-[#3a3050] hover:text-white'
-                    }
-                  `}
+                  className={`relative flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300 ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg shadow-[#8b7aaa]/30'
+                      : 'text-gray-400 hover:bg-[#3a3050] hover:text-white'
+                  } `}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, x: -20 }}

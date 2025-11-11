@@ -126,7 +126,7 @@ export const DeckTemplateCreator: React.FC<DeckTemplateCreatorProps> = ({
                 value={templateDescription}
                 onChange={(e) => setTemplateDescription(e.target.value)}
                 placeholder="Describe this template's strategy, strengths, and when to use it..."
-                className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 rows={3}
               />
               <div className="mt-1 text-xs text-gray-500">

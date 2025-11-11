@@ -102,7 +102,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
     return (
       <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base uppercase tracking-wide text-[#a89ec7]">
+          <CardTitle className="flex items-center gap-2 text-base tracking-wide text-[#a89ec7] uppercase">
             <span>📋</span>
             Deck Validation
           </CardTitle>
@@ -135,7 +135,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
             >
               {validationSummary.isValid ? '✅' : '❌'}
             </motion.span>
-            <span className="text-base uppercase tracking-wide text-[#a89ec7]">
+            <span className="text-base tracking-wide text-[#a89ec7] uppercase">
               Deck Validation
             </span>
           </div>
@@ -186,7 +186,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
           {/* Validation Results */}
           {showDetails && displayResults.length > 0 && (
             <div className="space-y-2">
-              <h4 className="text-sm font-semibold uppercase tracking-wide text-[#a89ec7]">
+              <h4 className="text-sm font-semibold tracking-wide text-[#a89ec7] uppercase">
                 {onlyErrors ? 'Errors' : 'Validation Results'}
               </h4>
 
@@ -237,7 +237,7 @@ export const DeckValidator: React.FC<DeckValidatorProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h4 className="text-sm font-semibold uppercase tracking-wide text-[#a89ec7]">
+              <h4 className="text-sm font-semibold tracking-wide text-[#a89ec7] uppercase">
                 Suggestions
               </h4>
               <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-3">

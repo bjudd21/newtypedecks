@@ -906,7 +906,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
 
       {/* Share Modal */}
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
           <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">
@@ -937,7 +937,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
                 <div className="rounded-lg border border-red-200 bg-red-50 p-4">
                   <div className="flex items-start">
                     <svg
-                      className="mr-2 mt-0.5 h-5 w-5 text-red-600"
+                      className="mt-0.5 mr-2 h-5 w-5 text-red-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -992,7 +992,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
                 <div className="mb-4 rounded-lg border border-[#8b7aaa]/30 bg-gradient-to-r from-[#2d2640] to-[#3a3050] p-3">
                   <div className="flex items-start">
                     <svg
-                      className="mr-2 mt-0.5 h-4 w-4 text-[#a89ec7]"
+                      className="mt-0.5 mr-2 h-4 w-4 text-[#a89ec7]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

@@ -23,7 +23,10 @@ describe('Badge Component', () => {
 
     rerender(<Badge variant="warning">Warning</Badge>);
     const getWarningBadge = () => screen.getByText('Warning').parentElement;
-    expect(getWarningBadge()).toHaveClass('bg-yellow-900/30', 'text-yellow-300');
+    expect(getWarningBadge()).toHaveClass(
+      'bg-yellow-900/30',
+      'text-yellow-300'
+    );
 
     rerender(<Badge variant="destructive">Destructive</Badge>);
     const getDestructiveBadge = () =>

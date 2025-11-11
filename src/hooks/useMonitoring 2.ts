@@ -1,5 +1,3 @@
-'use client';
-
 /**
  * React hook for client-side monitoring and analytics
  * Provides easy integration of monitoring capabilities into React components

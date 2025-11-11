@@ -63,7 +63,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#6b5a8a]/0 to-[#6b5a8a]/0 transition-all duration-300 group-hover:from-[#6b5a8a]/20 group-hover:to-transparent/5" />
 
         {/* Stats badges - top right */}
-        <div className="absolute right-2 top-2 flex flex-col gap-1">
+        <div className="absolute top-2 right-2 flex flex-col gap-1">
           {card.cost !== undefined && (
             <div className="rounded-md border border-[#443a5c] bg-[#1a1625]/90 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
               {card.cost}
@@ -78,7 +78,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
 
         {/* Rarity indicator - top left */}
         {card.rarity && (
-          <div className="absolute left-2 top-2">
+          <div className="absolute top-2 left-2">
             <div
               className={`h-2.5 w-2.5 rounded-full shadow-lg ${
                 card.rarity.name?.toLowerCase().includes('secret')

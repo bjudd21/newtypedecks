@@ -75,7 +75,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
   return (
     <div className={cn('relative', className)}>
       {children}
-      <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+      <div className="bg-opacity-75 absolute inset-0 flex items-center justify-center bg-white">
         <div className="flex flex-col items-center space-y-2">
           <Spinner size="lg" />
           <p className="text-sm text-gray-600">{message}</p>

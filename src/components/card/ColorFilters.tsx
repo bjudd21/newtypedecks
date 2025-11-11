@@ -33,7 +33,7 @@ function ColorButton({
       onClick={onClick}
       className={cn(
         'h-7 w-7 cursor-pointer rounded-md shadow-md transition-all duration-300',
-        'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a]',
+        'focus:ring-2 focus:ring-[#6b5a8a] focus:outline-none',
         isSelected
           ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
           : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50',

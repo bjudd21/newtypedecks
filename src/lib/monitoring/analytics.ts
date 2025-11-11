@@ -3,8 +3,6 @@
  * Provides application performance metrics, user behavior tracking, and business metrics
  */
 
-import '../../../types/global';
-
 export interface AnalyticsEvent {
   name: string;
   properties?: Record<string, unknown>;

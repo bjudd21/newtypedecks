@@ -360,7 +360,7 @@ export const AdminSubmissionsDashboard: React.FC<
           submissions.map((submission) => (
             <div key={submission.id} className="relative">
               <div
-                className="absolute left-4 top-4 z-10"
+                className="absolute top-4 left-4 z-10"
                 onClick={(e) => e.stopPropagation()}
               >
                 <input

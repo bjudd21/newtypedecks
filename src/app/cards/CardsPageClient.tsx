@@ -392,7 +392,7 @@ interface CardDetailModalProps {
 
 function CardDetailModal({ card, onClose }: CardDetailModalProps) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
       <Card className="max-h-[90vh] w-full max-w-2xl overflow-y-auto">
         <CardHeader>
           <div className="flex items-center justify-between">

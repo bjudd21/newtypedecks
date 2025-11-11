@@ -129,7 +129,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               <h4 className="text-md mb-4 font-semibold">Legal & Resources</h4>
               <div className="space-y-3">
                 <div>
-                  <h5 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  <h5 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
                     Legal Information
                   </h5>
                   <div className="space-y-1 text-sm">
@@ -154,7 +154,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   </div>
                 </div>
                 <div>
-                  <h5 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  <h5 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
                     Official Resources
                   </h5>
                   <a

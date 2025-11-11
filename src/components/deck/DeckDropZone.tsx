@@ -151,7 +151,7 @@ export const DeckDropZone: React.FC<DeckDropZoneProps> = ({
     >
       {/* Drop zone content */}
       <div className="p-4">
-        <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-400">
+        <div className="mb-2 text-sm font-semibold tracking-wide text-gray-400 uppercase">
           {title}
         </div>
 

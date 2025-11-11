@@ -310,7 +310,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   // Default banner variant
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-50 bg-gray-900 p-4 text-white shadow-lg ${className}`}
+      className={`fixed right-0 bottom-0 left-0 z-50 bg-gray-900 p-4 text-white shadow-lg ${className}`}
     >
       <div className="container mx-auto">
         <div className="flex flex-col items-start justify-between space-y-4 md:flex-row md:items-center md:space-y-0">

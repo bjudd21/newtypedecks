@@ -75,7 +75,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+      className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
       onClick={handleOverlayClick}
     >
       <div

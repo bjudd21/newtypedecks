@@ -158,7 +158,7 @@ export const CardImage: React.FC<CardImageProps> = ({
           sizeConfig.className,
           className,
           (clickToZoom || onClick) &&
-            'cursor-pointer transition-shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+            'cursor-pointer transition-shadow hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none',
           hasError && 'border-gray-200'
         )}
         onClick={handleClick}
@@ -225,9 +225,9 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Zoom indicator */}
         {clickToZoom && !hasError && selectedImageUrl && (
-          <div className="pointer-events-none absolute right-2 top-2 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="pointer-events-none absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
             <div
-              className="rounded bg-black bg-opacity-50 p-1 text-white"
+              className="bg-opacity-50 rounded bg-black p-1 text-white"
               aria-hidden="true"
             >
               <svg
@@ -249,7 +249,7 @@ export const CardImage: React.FC<CardImageProps> = ({
 
         {/* Special card indicators */}
         <div
-          className="absolute left-2 top-2 flex flex-col gap-1"
+          className="absolute top-2 left-2 flex flex-col gap-1"
           aria-hidden="true"
         >
           {/* Foil indicator */}
@@ -260,7 +260,7 @@ export const CardImage: React.FC<CardImageProps> = ({
       {/* Zoom modal */}
       {showZoom && zoomImageUrl && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4"
+          className="bg-opacity-80 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
           onClick={() => setShowZoom(false)}
           role="dialog"
           aria-modal="true"
@@ -275,7 +275,7 @@ export const CardImage: React.FC<CardImageProps> = ({
                   setShowZoom(false);
                 }
               }}
-              className="absolute -top-12 right-0 rounded-md p-1 text-white transition-colors hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
+              className="absolute -top-12 right-0 rounded-md p-1 text-white transition-colors hover:text-gray-300 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
               aria-label="Close zoom view"
             >
               <svg
@@ -315,7 +315,7 @@ export const CardImage: React.FC<CardImageProps> = ({
               )}
 
               {/* Image info overlay */}
-              <div className="absolute bottom-0 left-0 right-0 rounded-b-lg bg-gradient-to-t from-black to-transparent p-4">
+              <div className="absolute right-0 bottom-0 left-0 rounded-b-lg bg-gradient-to-t from-black to-transparent p-4">
                 <h3
                   id="zoom-modal-title"
                   className="text-lg font-semibold text-white"

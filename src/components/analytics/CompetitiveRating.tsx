@@ -57,11 +57,7 @@ export const CompetitiveRating: React.FC<CompetitiveRatingProps> = ({
     <div className={`flex items-center gap-3 ${className}`}>
       <div className="flex items-center gap-2">
         <div
-          className={`
-          flex h-12 w-12 items-center justify-center rounded-full font-bold
-          ${color}
-          ${size === 'sm' ? 'h-8 w-8' : size === 'lg' ? 'h-16 w-16' : 'h-12 w-12'}
-        `}
+          className={`flex h-12 w-12 items-center justify-center rounded-full font-bold ${color} ${size === 'sm' ? 'h-8 w-8' : size === 'lg' ? 'h-16 w-16' : 'h-12 w-12'} `}
         >
           <span className={sizeClasses.tier}>{tier}</span>
         </div>

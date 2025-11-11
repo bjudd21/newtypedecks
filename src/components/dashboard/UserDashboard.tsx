@@ -207,23 +207,6 @@ export function UserDashboard({ user }: UserDashboardProps) {
             <div className="space-y-4">
               <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
                 <h4 className="mb-2 font-medium text-white">
-                  Display Preferences
-                </h4>
-                <p className="mb-3 text-sm text-gray-400">
-                  Customize how cards and decks are displayed.
-                </p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-                >
-                  COMING SOON
-                </Button>
-              </div>
-
-              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
-                <h4 className="mb-2 font-medium text-white">
                   Privacy Settings
                 </h4>
                 <p className="mb-3 text-sm text-gray-400">
@@ -258,63 +241,6 @@ export function UserDashboard({ user }: UserDashboardProps) {
         </Card>
       </div>
 
-      {/* Help & Support */}
-      <Card className="mt-8 border-[#443a5c] bg-[#2d2640]">
-        <CardHeader>
-          <CardTitle className="text-[#a89ec7]">NEED HELP?</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
-              <div className="mb-2 text-2xl">📖</div>
-              <h4 className="mb-1 font-medium text-white">User Guide</h4>
-              <p className="mb-3 text-sm text-gray-400">
-                Learn how to use all features effectively.
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled
-                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-              >
-                COMING SOON
-              </Button>
-            </div>
-
-            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
-              <div className="mb-2 text-2xl">❓</div>
-              <h4 className="mb-1 font-medium text-white">FAQs</h4>
-              <p className="mb-3 text-sm text-gray-400">
-                Find answers to common questions.
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled
-                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-              >
-                COMING SOON
-              </Button>
-            </div>
-
-            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
-              <div className="mb-2 text-2xl">💬</div>
-              <h4 className="mb-1 font-medium text-white">Community</h4>
-              <p className="mb-3 text-sm text-gray-400">
-                Connect with other Gundam Card Game players.
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled
-                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-              >
-                COMING SOON
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

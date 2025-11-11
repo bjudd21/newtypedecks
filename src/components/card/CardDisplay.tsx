@@ -228,7 +228,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
     return (
       <button
         onClick={handleClick}
-        className="w-full rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="w-full rounded-lg text-left focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
       >
         {cardContent}
       </button>
@@ -238,7 +238,7 @@ export const CardDisplay: React.FC<CardDisplayProps> = ({
   return (
     <Link
       href={`/cards/${card.id}`}
-      className="block rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="block rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
     >
       {cardContent}
     </Link>

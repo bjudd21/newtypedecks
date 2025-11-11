@@ -253,7 +253,7 @@ export function NewCardsPageClient() {
                 setSortBy(field as CardSortField);
                 setSortOrder(order as 'asc' | 'desc');
               }}
-              className="h-8 rounded-md border-[#443a5c] bg-[#2d2640] px-3 text-sm text-white focus:border-[#6b5a8a] focus:outline-none focus:ring-[#6b5a8a]/30"
+              className="h-8 rounded-md border-[#443a5c] bg-[#2d2640] px-3 text-sm text-white focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30 focus:outline-none"
             >
               <option value="name:asc">Name (A-Z)</option>
               <option value="cost:asc">Cost (Low to High)</option>

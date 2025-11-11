@@ -249,10 +249,10 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
   return (
     <div className={className}>
-      <Card>
+      <Card className="border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle>Import Collection</CardTitle>
-          <div className="text-sm text-gray-600">
+          <CardTitle className="text-[#a89ec7]">IMPORT COLLECTION</CardTitle>
+          <div className="text-sm text-gray-400">
             Bulk import cards to your collection from various formats
           </div>
         </CardHeader>
@@ -260,7 +260,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
           <div className="space-y-6">
             {/* Format Selection */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-400">
                 Import Format
               </label>
               <Select
@@ -273,14 +273,14 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                   { value: 'mtga', label: 'MTG Arena Format' },
                 ]}
               />
-              <div className="mt-1 text-xs text-gray-500">
+              <div className="mt-1 text-xs text-gray-400">
                 {getFormatDescription(selectedFormat)}
               </div>
             </div>
 
             {/* Update Behavior */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-400">
                 Update Behavior
               </label>
               <Select
@@ -292,44 +292,44 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                   { value: 'skip', label: 'Skip cards already in collection' },
                 ]}
               />
-              <div className="mt-1 text-xs text-gray-500">
+              <div className="mt-1 text-xs text-gray-400">
                 How to handle cards that are already in your collection
               </div>
             </div>
 
             {/* File Upload */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-400">
                 Upload File
               </label>
               <input
                 type="file"
                 accept=".csv,.tsv,.txt,.json"
                 onChange={handleFileUpload}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+                className="block w-full text-sm text-gray-400 file:mr-4 file:rounded-full file:border-0 file:bg-[#8b7aaa]/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#8b7aaa] hover:file:bg-[#8b7aaa]/30"
               />
             </div>
 
             {/* Manual Data Input */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-gray-700">
+              <label className="mb-2 block text-sm font-medium text-gray-400">
                 Or Paste Data Manually
               </label>
               <textarea
                 value={importData}
                 onChange={(e) => handleDataChange(e.target.value)}
                 placeholder={`Example ${selectedFormat} format:\n${getFormatExample(selectedFormat)}`}
-                className="h-32 w-full rounded-md border border-gray-300 px-3 py-2 font-mono text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="h-32 w-full rounded-md border border-[#443a5c] bg-[#1a1625] px-3 py-2 font-mono text-sm text-white placeholder-gray-500 shadow-sm focus:border-[#8b7aaa] focus:ring-1 focus:ring-[#8b7aaa] focus:outline-none"
               />
             </div>
 
             {/* Preview */}
             {previewCards.length > 0 && (
               <div>
-                <div className="mb-2 text-sm font-medium text-gray-700">
+                <div className="mb-2 text-sm font-medium text-gray-400">
                   Preview (first 5 cards)
                 </div>
-                <div className="rounded border border-gray-200 bg-gray-50 p-3">
+                <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3">
                   {previewCards.map((card, index) => (
                     <div
                       key={index}
@@ -338,15 +338,15 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                       <span className="w-8 text-center font-mono">
                         {card.quantity}x
                       </span>
-                      <span className="flex-1">{card.cardName}</span>
+                      <span className="flex-1 text-white">{card.cardName}</span>
                       {card.setName && (
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-400">
                           ({card.setName})
                         </span>
                       )}
                     </div>
                   ))}
-                  <div className="mt-2 text-xs text-gray-500">
+                  <div className="mt-2 text-xs text-gray-400">
                     Ready to import {previewCards.length} card types
                   </div>
                 </div>
@@ -355,7 +355,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
             {/* Error Display */}
             {error && (
-              <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              <div className="rounded border border-red-900/50 bg-red-950/30 p-3 text-sm text-red-400">
                 {error}
               </div>
             )}
@@ -365,10 +365,9 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
               <Button
                 onClick={handleImport}
                 disabled={!importData.trim() || isImporting}
-                variant="default"
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
               >
-                {isImporting ? 'Importing...' : 'Import to Collection'}
+                {isImporting ? 'Importing...' : 'IMPORT TO COLLECTION'}
               </Button>
 
               <Button
@@ -380,44 +379,45 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                 }}
                 variant="outline"
                 disabled={isImporting}
+                className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
               >
-                Clear
+                CLEAR
               </Button>
             </div>
 
             {/* Import Result */}
             {importResult && (
-              <div className="rounded border border-green-200 bg-green-50 p-4">
-                <div className="mb-2 font-medium text-green-800">
+              <div className="rounded border border-green-900/50 bg-green-950/30 p-4">
+                <div className="mb-2 font-medium text-green-400">
                   Import Complete!
                 </div>
                 <div className="mb-3 grid grid-cols-3 gap-4 text-sm">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-green-600">
+                    <div className="text-lg font-bold text-green-400">
                       {importResult.success}
                     </div>
-                    <div className="text-gray-600">Successful</div>
+                    <div className="text-gray-400">Successful</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-yellow-600">
+                    <div className="text-lg font-bold text-yellow-400">
                       {importResult.skipped}
                     </div>
-                    <div className="text-gray-600">Skipped</div>
+                    <div className="text-gray-400">Skipped</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-red-600">
+                    <div className="text-lg font-bold text-red-400">
                       {importResult.failed}
                     </div>
-                    <div className="text-gray-600">Failed</div>
+                    <div className="text-gray-400">Failed</div>
                   </div>
                 </div>
 
                 {importResult.errors.length > 0 && (
                   <details className="mt-3">
-                    <summary className="cursor-pointer text-sm font-medium text-red-700">
+                    <summary className="cursor-pointer text-sm font-medium text-red-400">
                       View Errors ({importResult.errors.length})
                     </summary>
-                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-red-50 p-2 text-xs text-red-600">
+                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-red-950/50 p-2 text-xs text-red-400">
                       {importResult.errors.map((error, index) => (
                         <div key={index}>• {error}</div>
                       ))}
@@ -427,19 +427,19 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
                 {importResult.imported.length > 0 && (
                   <details className="mt-3">
-                    <summary className="cursor-pointer text-sm font-medium text-green-700">
+                    <summary className="cursor-pointer text-sm font-medium text-green-400">
                       View Imported Cards ({importResult.imported.length})
                     </summary>
-                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-50 p-2 text-xs">
+                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-950/50 p-2 text-xs">
                       {importResult.imported.slice(0, 10).map((item, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <span className="w-6">{item.quantity}x</span>
-                          <span className="flex-1">{item.cardName}</span>
+                          <span className="w-6 text-white">{item.quantity}x</span>
+                          <span className="flex-1 text-white">{item.cardName}</span>
                           <span
                             className={`rounded px-1 text-xs ${
                               item.action === 'added'
-                                ? 'bg-blue-100 text-blue-700'
-                                : 'bg-orange-100 text-orange-700'
+                                ? 'bg-[#8b7aaa]/30 text-[#8b7aaa]'
+                                : 'bg-orange-900/30 text-orange-400'
                             }`}
                           >
                             {item.action}
@@ -447,7 +447,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                         </div>
                       ))}
                       {importResult.imported.length > 10 && (
-                        <div className="mt-1 text-gray-500">
+                        <div className="mt-1 text-gray-400">
                           ... and {importResult.imported.length - 10} more
                         </div>
                       )}
@@ -458,8 +458,8 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
             )}
 
             {/* Format Guidelines */}
-            <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
-              <div className="mb-2 font-medium">Import Guidelines:</div>
+            <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-xs text-gray-400">
+              <div className="mb-2 font-medium text-white">Import Guidelines:</div>
               <ul className="space-y-1">
                 <li>• Maximum 1000 cards per import</li>
                 <li>• Cards are matched by name, set number, or card ID</li>

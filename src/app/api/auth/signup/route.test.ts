@@ -44,7 +44,9 @@ describe('POST /api/auth/signup', () => {
       isValid: true,
       errors: [],
     });
-    (tokens.generateUrlSafeToken as jest.Mock).mockReturnValue('mock-token-123');
+    (tokens.generateUrlSafeToken as jest.Mock).mockReturnValue(
+      'mock-token-123'
+    );
     (tokens.generateEmailVerificationExpiration as jest.Mock).mockReturnValue(
       new Date(Date.now() + 24 * 60 * 60 * 1000)
     );
@@ -199,7 +201,9 @@ describe('POST /api/auth/signup', () => {
           emailVerified: null,
         },
       });
-      (emailService.sendEmailVerification as jest.Mock).mockResolvedValue(false);
+      (emailService.sendEmailVerification as jest.Mock).mockResolvedValue(
+        false
+      );
 
       const request = new NextRequest('http://localhost:3000/api/auth/signup', {
         method: 'POST',
@@ -274,7 +278,10 @@ describe('POST /api/auth/signup', () => {
     it('should reject weak password', async () => {
       (authUtils.validatePassword as jest.Mock).mockReturnValue({
         isValid: false,
-        errors: ['Password must be at least 8 characters', 'Must contain uppercase'],
+        errors: [
+          'Password must be at least 8 characters',
+          'Must contain uppercase',
+        ],
       });
 
       const request = new NextRequest('http://localhost:3000/api/auth/signup', {
@@ -289,7 +296,9 @@ describe('POST /api/auth/signup', () => {
       const data = await response.json();
 
       expect(response.status).toBe(400);
-      expect(data.error).toContain('Password does not meet security requirements');
+      expect(data.error).toContain(
+        'Password does not meet security requirements'
+      );
       expect(data.details).toEqual([
         'Password must be at least 8 characters',
         'Must contain uppercase',

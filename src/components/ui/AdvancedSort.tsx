@@ -104,7 +104,7 @@ export const AdvancedSort: React.FC<AdvancedSortProps> = ({
     <div className={cn('space-y-2', className)}>
       {/* Simple Sort Control */}
       <div className="flex items-center gap-2">
-        <span className="whitespace-nowrap text-sm text-gray-600">
+        <span className="text-sm whitespace-nowrap text-gray-600">
           Sort by:
         </span>
 

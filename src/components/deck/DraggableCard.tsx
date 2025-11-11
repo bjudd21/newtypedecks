@@ -82,14 +82,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
     <motion.div
       draggable={isEditing}
       {...(dragProps as Record<string, unknown>)}
-      className={`
-        ${className}
-        ${isEditing ? 'cursor-move' : 'cursor-default'}
-        ${isDragging ? 'scale-95 transform opacity-50' : ''}
-        relative flex items-center gap-3 rounded-lg border border-[#443a5c] bg-[#1a1625]/30 p-3
-        transition-all duration-200 hover:bg-[#2d2640]/50
-        ${isEditing ? 'hover:border-[#8b7aaa] hover:shadow-lg hover:shadow-[#8b7aaa]/10' : ''}
-      `}
+      className={` ${className} ${isEditing ? 'cursor-move' : 'cursor-default'} ${isDragging ? 'scale-95 transform opacity-50' : ''} relative flex items-center gap-3 rounded-lg border border-[#443a5c] bg-[#1a1625]/30 p-3 transition-all duration-200 hover:bg-[#2d2640]/50 ${isEditing ? 'hover:border-[#8b7aaa] hover:shadow-lg hover:shadow-[#8b7aaa]/10' : ''} `}
       whileHover={isEditing ? { scale: 1.02, y: -2 } : {}}
       transition={{ duration: 0.2 }}
     >
@@ -169,14 +162,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
         <motion.button
           onClick={() => onQuantityChange(quantity - 1)}
           disabled={!isEditing || quantity <= 1}
-          className={`
-            flex h-8 w-8 items-center justify-center rounded border text-sm font-bold
-            ${
-              isEditing && quantity > 1
-                ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
-                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
-            }
-          `}
+          className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-bold ${
+            isEditing && quantity > 1
+              ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
+              : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
+          } `}
           whileHover={isEditing && quantity > 1 ? { scale: 1.1 } : {}}
           whileTap={isEditing && quantity > 1 ? { scale: 0.95 } : {}}
         >
@@ -190,14 +180,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
         <motion.button
           onClick={() => onQuantityChange(quantity + 1)}
           disabled={!isEditing}
-          className={`
-            flex h-8 w-8 items-center justify-center rounded border text-sm font-bold
-            ${
-              isEditing
-                ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
-                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
-            }
-          `}
+          className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-bold ${
+            isEditing
+              ? 'border-[#8b7aaa]/50 text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20'
+              : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
+          } `}
           whileHover={isEditing ? { scale: 1.1 } : {}}
           whileTap={isEditing ? { scale: 0.95 } : {}}
         >
@@ -207,14 +194,11 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
         <motion.button
           onClick={onRemove}
           disabled={!isEditing}
-          className={`
-            flex h-8 w-8 items-center justify-center rounded border text-lg font-bold
-            ${
-              isEditing
-                ? 'border-red-500/50 text-red-400 hover:border-red-500 hover:bg-red-500/20 hover:text-red-300'
-                : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
-            }
-          `}
+          className={`flex h-8 w-8 items-center justify-center rounded border text-lg font-bold ${
+            isEditing
+              ? 'border-red-500/50 text-red-400 hover:border-red-500 hover:bg-red-500/20 hover:text-red-300'
+              : 'cursor-not-allowed border-[#443a5c]/30 text-gray-600'
+          } `}
           whileHover={isEditing ? { scale: 1.1 } : {}}
           whileTap={isEditing ? { scale: 0.95 } : {}}
         >

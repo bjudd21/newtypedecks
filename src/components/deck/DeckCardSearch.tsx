@@ -47,11 +47,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={onClick}
-      className={`
-        flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 hover:bg-gray-50
-        ${isDragging ? 'scale-95 transform opacity-50' : ''}
-        ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''}
-      `}
+      className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 hover:bg-gray-50 ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''} `}
     >
       {/* Card Image Placeholder */}
       <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-gray-200">

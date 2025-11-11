@@ -24,9 +24,20 @@ export const store = configureStore({
         // Ignore these action types
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
         // Ignore these field paths in all actions
-        ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
+        ignoredActionPaths: [
+          'meta.arg',
+          'payload.timestamp',
+          'payload.createdAt',
+          'payload.updatedAt',
+          'payload.emailVerified',
+        ],
         // Ignore these paths in the state
-        ignoredPaths: ['items.dates'],
+        ignoredPaths: [
+          'items.dates',
+          'auth.user.createdAt',
+          'auth.user.updatedAt',
+          'auth.user.emailVerified',
+        ],
       },
     }),
   devTools: process.env.NODE_ENV !== 'production',

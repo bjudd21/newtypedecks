@@ -108,17 +108,17 @@ const DeckStats: React.FC<DeckStatsProps> = ({
   totalCost,
 }) => (
   <div className="grid grid-cols-3 gap-4">
-    <div className="rounded-lg bg-gray-50 p-3 text-center">
-      <div className="text-2xl font-bold text-gray-900">{totalCards}</div>
-      <div className="text-sm text-gray-600">Total Cards</div>
+    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
+      <div className="text-2xl font-bold text-white">{totalCards}</div>
+      <div className="text-sm text-gray-400">Total Cards</div>
     </div>
-    <div className="rounded-lg bg-gray-50 p-3 text-center">
-      <div className="text-2xl font-bold text-gray-900">{uniqueCards}</div>
-      <div className="text-sm text-gray-600">Unique Cards</div>
+    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
+      <div className="text-2xl font-bold text-white">{uniqueCards}</div>
+      <div className="text-sm text-gray-400">Unique Cards</div>
     </div>
-    <div className="rounded-lg bg-gray-50 p-3 text-center">
-      <div className="text-2xl font-bold text-gray-900">{totalCost}</div>
-      <div className="text-sm text-gray-600">Total Cost</div>
+    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
+      <div className="text-2xl font-bold text-white">{totalCost}</div>
+      <div className="text-sm text-gray-400">Total Cost</div>
     </div>
   </div>
 );
@@ -141,9 +141,9 @@ const DeckSettings: React.FC<DeckSettingsProps> = ({
   isPublic,
   setIsPublic,
 }) => (
-  <div className="grid grid-cols-1 gap-4 rounded-lg bg-gray-50 p-4 md:grid-cols-3">
+  <div className="grid grid-cols-1 gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4 md:grid-cols-3">
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-700">
+      <label className="mb-1 block text-sm font-medium text-gray-400">
         Description
       </label>
       <Input
@@ -154,7 +154,7 @@ const DeckSettings: React.FC<DeckSettingsProps> = ({
       />
     </div>
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-700">
+      <label className="mb-1 block text-sm font-medium text-gray-400">
         Format
       </label>
       <Select
@@ -174,9 +174,9 @@ const DeckSettings: React.FC<DeckSettingsProps> = ({
         id="isPublic"
         checked={isPublic}
         onChange={(e) => setIsPublic(e.target.checked)}
-        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
       />
-      <label htmlFor="isPublic" className="text-sm text-gray-700">
+      <label htmlFor="isPublic" className="text-sm text-gray-400">
         Make deck public
       </label>
     </div>
@@ -266,7 +266,7 @@ const DeckHeader: React.FC<DeckHeaderProps> = ({
     )}
 
     {deckError && (
-      <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+      <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400">
         {deckError}
       </div>
     )}
@@ -363,39 +363,39 @@ const ExportDropdown: React.FC<ExportDropdownProps> = ({
       <span className="ml-1 text-xs">▼</span>
     </Button>
 
-    <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border bg-white shadow-lg group-hover:block">
+    <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-lg group-hover:block">
       <div className="py-1">
         <button
           onClick={() => onExport('json')}
           disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
         >
           📄 JSON Format
-          <div className="text-xs text-gray-500">Complete deck data</div>
+          <div className="text-xs text-gray-400">Complete deck data</div>
         </button>
         <button
           onClick={() => onExport('text')}
           disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
         >
           📝 Text Format
-          <div className="text-xs text-gray-500">Human readable</div>
+          <div className="text-xs text-gray-400">Human readable</div>
         </button>
         <button
           onClick={() => onExport('csv')}
           disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
         >
           📊 CSV Format
-          <div className="text-xs text-gray-500">Spreadsheet compatible</div>
+          <div className="text-xs text-gray-400">Spreadsheet compatible</div>
         </button>
         <button
           onClick={() => onExport('mtga')}
           disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
         >
           🎮 MTG Arena Format
-          <div className="text-xs text-gray-500">Other deck builders</div>
+          <div className="text-xs text-gray-400">Other deck builders</div>
         </button>
       </div>
     </div>
@@ -681,9 +681,9 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Card Search Panel */}
         <div className="xl:col-span-1">
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardHeader>
-              <CardTitle>Add Cards</CardTitle>
+              <CardTitle className="text-[#a89ec7]">ADD CARDS</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -694,7 +694,7 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
                   showFilters={false}
                   limit={10}
                 />
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-400">
                   Click or drag cards to add them to your deck. Cards will be
                   added to the main deck by default.
                 </div>
@@ -720,9 +720,11 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
 
         {/* Deck Contents Panel */}
         <div className="xl:col-span-2">
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardHeader>
-              <CardTitle>Deck Contents ({totalCards} cards)</CardTitle>
+              <CardTitle className="text-[#a89ec7]">
+                DECK CONTENTS ({totalCards} CARDS)
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <DeckDropZone
@@ -737,11 +739,11 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
                     ? null
                     : Object.entries(cardsByType).map(([typeName, cards]) => (
                         <div key={typeName} className="space-y-2">
-                          <div className="sticky top-0 flex items-center gap-2 bg-white py-1">
+                          <div className="sticky top-0 flex items-center gap-2 bg-[#2d2640] py-1">
                             <Badge variant="secondary" className="text-xs">
                               {typeName}
                             </Badge>
-                            <span className="text-sm text-gray-600">
+                            <span className="text-sm text-gray-400">
                               (
                               {cards.reduce(
                                 (sum, card) => sum + card.quantity,

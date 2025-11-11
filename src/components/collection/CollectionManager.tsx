@@ -151,12 +151,15 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
   if (!isAuthenticated) {
     return (
       <div className={className}>
-        <Card>
+        <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardContent className="py-12 text-center">
-            <p className="mb-4 text-gray-600">
+            <p className="mb-4 text-gray-400">
               Sign in to manage your card collection
             </p>
-            <Button onClick={() => (window.location.href = '/auth/signin')}>
+            <Button
+              onClick={() => (window.location.href = '/auth/signin')}
+              className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+            >
               Sign In
             </Button>
           </CardContent>
@@ -170,36 +173,36 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
       {/* Collection Statistics */}
       {collection && (
         <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-blue-400">
                 {collection.statistics.totalCards}
               </div>
-              <div className="text-sm text-gray-600">Total Cards</div>
+              <div className="text-sm text-gray-400">Total Cards</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-green-400">
                 {collection.statistics.uniqueCards}
               </div>
-              <div className="text-sm text-gray-600">Unique Cards</div>
+              <div className="text-sm text-gray-400">Unique Cards</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-purple-400">
                 {collection.statistics.completionPercentage}%
               </div>
-              <div className="text-sm text-gray-600">Collection Complete</div>
+              <div className="text-sm text-gray-400">Collection Complete</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-orange-400">
                 ${collection.statistics.totalValue?.toFixed(2) || '0.00'}
               </div>
-              <div className="text-sm text-gray-600">Collection Value</div>
+              <div className="text-sm text-gray-400">Collection Value</div>
             </CardContent>
           </Card>
         </div>
@@ -207,14 +210,14 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
 
       {/* Tab Navigation */}
       <div className="mb-6">
-        <div className="border-b border-gray-200">
+        <div className="border-b border-[#443a5c]">
           <nav className="-mb-px flex space-x-8">
             <button
               onClick={() => setCurrentTab('view')}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 currentTab === 'view'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  ? 'border-[#8b7aaa] text-[#8b7aaa]'
+                  : 'border-transparent text-gray-400 hover:border-[#6b5a8a] hover:text-gray-300'
               }`}
             >
               📖 View Collection
@@ -223,8 +226,8 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
               onClick={() => setCurrentTab('import')}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 currentTab === 'import'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  ? 'border-[#8b7aaa] text-[#8b7aaa]'
+                  : 'border-transparent text-gray-400 hover:border-[#6b5a8a] hover:text-gray-300'
               }`}
             >
               📥 Import Cards
@@ -233,8 +236,8 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
               onClick={() => setCurrentTab('advanced')}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 currentTab === 'advanced'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  ? 'border-[#8b7aaa] text-[#8b7aaa]'
+                  : 'border-transparent text-gray-400 hover:border-[#6b5a8a] hover:text-gray-300'
               }`}
             >
               🔧 Advanced Import
@@ -243,8 +246,8 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
               onClick={() => setCurrentTab('export')}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 currentTab === 'export'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  ? 'border-[#8b7aaa] text-[#8b7aaa]'
+                  : 'border-transparent text-gray-400 hover:border-[#6b5a8a] hover:text-gray-300'
               }`}
             >
               📤 Export Collection
@@ -257,14 +260,14 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
       {currentTab === 'view' && (
         <>
           {/* Filters */}
-          <Card className="mb-6">
+          <Card className="mb-6 border-[#443a5c] bg-[#2d2640]">
             <CardHeader>
-              <CardTitle>Filter Collection</CardTitle>
+              <CardTitle className="text-[#a89ec7]">FILTER COLLECTION</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Search
                   </label>
                   <Input
@@ -276,7 +279,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Rarity
                   </label>
                   <Select
@@ -295,7 +298,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Type
                   </label>
                   <Select
@@ -313,7 +316,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Faction
                   </label>
                   <Select
@@ -339,27 +342,27 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
 
           {/* Error Display */}
           {error && (
-            <div className="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+            <div className="mb-6 rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-red-400">
               {error}
             </div>
           )}
 
           {/* Collection Cards */}
-          <Card>
+          <Card className="border-[#443a5c] bg-[#2d2640]">
             <CardHeader>
-              <CardTitle>
-                My Collection
-                {collection && ` (${collection.cards.length} cards shown)`}
+              <CardTitle className="text-[#a89ec7]">
+                MY COLLECTION
+                {collection && ` (${collection.cards.length} CARDS SHOWN)`}
               </CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
                 <div className="py-8 text-center">
-                  <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
-                  <p className="mt-2 text-gray-600">Loading collection...</p>
+                  <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-[#8b7aaa]"></div>
+                  <p className="mt-2 text-gray-400">Loading collection...</p>
                 </div>
               ) : collection?.cards.length === 0 ? (
-                <div className="py-8 text-center text-gray-600">
+                <div className="py-8 text-center text-gray-400">
                   <p>No cards found in your collection.</p>
                   <p className="mt-1 text-sm">
                     Start adding cards to build your collection!
@@ -370,7 +373,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                   {collection?.cards.map((collectionCard) => (
                     <div
                       key={collectionCard.cardId}
-                      className="flex items-center justify-between rounded-lg border p-4 hover:bg-gray-50"
+                      className="flex items-center justify-between rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 hover:bg-[#3a3050]"
                     >
                       <div className="flex items-center space-x-4">
                         {collectionCard.card.imageUrl && (
@@ -383,7 +386,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                           />
                         )}
                         <div>
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-white">
                             {collectionCard.card.name}
                           </h3>
                           <div className="mt-1 flex items-center space-x-2">
@@ -409,7 +412,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                               </Badge>
                             )}
                           </div>
-                          <p className="mt-1 text-sm text-gray-600">
+                          <p className="mt-1 text-sm text-gray-400">
                             Added:{' '}
                             {new Date(
                               collectionCard.addedAt
@@ -422,7 +425,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                         {editingCard === collectionCard.cardId ? (
                           <div className="flex items-center space-x-2">
                             <div>
-                              <label className="block text-xs text-gray-600">
+                              <label className="block text-xs text-gray-400">
                                 Qty
                               </label>
                               <Input
@@ -437,7 +440,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                               />
                             </div>
                             <div>
-                              <label className="block text-xs text-gray-600">
+                              <label className="block text-xs text-gray-400">
                                 Condition
                               </label>
                               <Select
@@ -475,10 +478,10 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                         ) : (
                           <div className="flex items-center space-x-3">
                             <div className="text-right">
-                              <div className="font-semibold">
+                              <div className="font-semibold text-white">
                                 {collectionCard.quantity}x
                               </div>
-                              <div className="text-xs text-gray-600">
+                              <div className="text-xs text-gray-400">
                                 {collectionCard.condition}
                               </div>
                             </div>
@@ -505,10 +508,11 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                     size="sm"
                     disabled={filters.page <= 1}
                     onClick={() => handleFilterChange('page', filters.page - 1)}
+                    className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white disabled:opacity-50"
                   >
                     Previous
                   </Button>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-400">
                     Page {filters.page} of {collection.pagination.pages}
                   </span>
                   <Button
@@ -516,6 +520,7 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                     size="sm"
                     disabled={filters.page >= collection.pagination.pages}
                     onClick={() => handleFilterChange('page', filters.page + 1)}
+                    className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white disabled:opacity-50"
                   >
                     Next
                   </Button>

@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const variants = {
       default:
-        'border-gray-700 bg-gray-900/50 text-white focus:border-cyan-400 focus:ring-cyan-400/50',
+        'border-[#443a5c] bg-[#1a1625] text-white focus:border-[#8b7aaa] focus:ring-[#8b7aaa]/50',
       cyber:
         'border-cyan-400/50 bg-gray-900/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
       neon: 'border-green-400/50 bg-gray-900/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',
@@ -56,7 +56,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             htmlFor={inputId}
             suppressHydrationWarning={!id}
             className={cn(
-              'font-tech mb-2 block text-sm font-medium uppercase tracking-wide transition-colors duration-300',
+              'font-tech mb-2 block text-sm font-medium tracking-wide uppercase transition-colors duration-300',
               labelVariants[variant],
               isFocused && variant === 'cyber' && 'text-cyan-300',
               isFocused && variant === 'neon' && 'text-green-300',
@@ -75,7 +75,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <motion.input
             type={type}
             className={cn(
-              'flex h-11 w-full rounded-lg border-2 px-4 py-3 text-sm font-medium backdrop-blur-sm transition-all duration-300 placeholder:text-gray-500 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
+              'flex h-11 w-full rounded-lg border-2 px-4 py-3 text-sm font-medium backdrop-blur-sm transition-all duration-300 placeholder:text-gray-500 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
               variants[variant],
               error &&
                 'border-red-500 focus:border-red-500 focus:ring-red-500/30',
@@ -107,7 +107,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               variant === 'cyber' && 'bg-cyan-400',
               variant === 'neon' && 'bg-green-400',
               variant === 'plasma' && 'bg-purple-500',
-              variant === 'default' && 'bg-cyan-400'
+              variant === 'default' && 'bg-[#8b7aaa]'
             )}
             initial={{ width: '0%' }}
             animate={{ width: isFocused ? '100%' : '0%' }}

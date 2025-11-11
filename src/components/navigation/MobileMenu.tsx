@@ -86,7 +86,7 @@ export function MobileMenu() {
         ref={buttonRef}
         onClick={toggleMenu}
         onKeyDown={(e) => handleKeyboardActivation(e, toggleMenu)}
-        className="rounded-md p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="rounded-md p-2 text-gray-600 hover:text-gray-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
         aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
@@ -120,7 +120,7 @@ export function MobileMenu() {
         <div
           ref={menuRef}
           id="mobile-menu"
-          className="absolute left-0 right-0 top-16 z-50 border-b border-gray-200 bg-white shadow-lg"
+          className="absolute top-16 right-0 left-0 z-50 border-b border-gray-200 bg-white shadow-lg"
           role="region"
           aria-label="Mobile navigation menu"
         >
@@ -155,7 +155,7 @@ export function MobileMenu() {
                   className={cn(
                     'block rounded-lg px-4 py-2.5 transition-all duration-300',
                     'border',
-                    'focus:outline-none focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625]',
+                    'focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625] focus:outline-none',
                     isActive
                       ? 'border-[#8b7aaa] bg-[#6b5a8a] font-medium text-white shadow-md'
                       : 'border-[#443a5c] bg-[#2d2640] text-gray-300 hover:border-[#6b5a8a] hover:bg-[#3a3050] hover:text-white hover:shadow-md'

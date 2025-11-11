@@ -206,10 +206,10 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
   return (
     <div className={className}>
-      <Card>
+      <Card className="border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle>Export Collection</CardTitle>
-          <div className="text-sm text-gray-600">
+          <CardTitle className="text-[#a89ec7]">EXPORT COLLECTION</CardTitle>
+          <div className="text-sm text-gray-400">
             Create backups and share your collection in various formats
           </div>
         </CardHeader>
@@ -217,29 +217,29 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
           <div className="space-y-6">
             {/* Collection Stats */}
             {collectionStats && (
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <div className="mb-2 text-sm font-medium text-blue-800">
+              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+                <div className="mb-2 text-sm font-medium text-[#8b7aaa]">
                   Collection Summary
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-3">
                   <div>
-                    <div className="font-semibold text-blue-900">
+                    <div className="font-semibold text-white">
                       {collectionStats.totalCards}
                     </div>
-                    <div className="text-blue-700">Total Cards</div>
+                    <div className="text-gray-400">Total Cards</div>
                   </div>
                   <div>
-                    <div className="font-semibold text-blue-900">
+                    <div className="font-semibold text-white">
                       {collectionStats.uniqueCards}
                     </div>
-                    <div className="text-blue-700">Unique Cards</div>
+                    <div className="text-gray-400">Unique Cards</div>
                   </div>
                   {collectionStats.totalValue && (
                     <div>
-                      <div className="font-semibold text-blue-900">
+                      <div className="font-semibold text-white">
                         ${collectionStats.totalValue.toFixed(2)}
                       </div>
-                      <div className="text-blue-700">Total Value</div>
+                      <div className="text-gray-400">Total Value</div>
                     </div>
                   )}
                 </div>
@@ -248,7 +248,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
             {/* Format Selection */}
             <div>
-              <div className="mb-3 text-sm font-medium text-gray-700">
+              <div className="mb-3 text-sm font-medium text-gray-400">
                 Choose Export Format:
               </div>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -258,17 +258,17 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                     onClick={() => handleFormatSelect(format)}
                     className={`cursor-pointer rounded-lg border p-4 transition-colors ${
                       selectedFormat.id === format.id
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                        ? 'border-[#8b7aaa] bg-[#3a3050]'
+                        : 'border-[#443a5c] hover:border-[#8b7aaa] hover:bg-[#1a1625]'
                     }`}
                   >
                     <div className="mb-2 flex items-center gap-3">
                       <span className="text-2xl">{format.icon}</span>
                       <div>
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-white">
                           {format.name}
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-400">
                           {format.description}
                         </div>
                       </div>
@@ -284,7 +284,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             {/* Export Options */}
             {selectedFormat.supportsOptions && (
               <div>
-                <div className="mb-3 text-sm font-medium text-gray-700">
+                <div className="mb-3 text-sm font-medium text-gray-400">
                   Export Options:
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -297,11 +297,11 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                         onChange={(e) =>
                           handleOptionChange('onlyOwned', e.target.checked)
                         }
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
                       />
                       <label
                         htmlFor="onlyOwned"
-                        className="text-sm text-gray-700"
+                        className="text-sm text-gray-400"
                       >
                         Only export owned cards (quantity &gt; 0)
                       </label>
@@ -318,11 +318,11 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                             e.target.checked
                           )
                         }
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
                       />
                       <label
                         htmlFor="includeMetadata"
-                        className="text-sm text-gray-700"
+                        className="text-sm text-gray-400"
                       >
                         Include metadata (dates, IDs)
                       </label>
@@ -339,11 +339,11 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                             e.target.checked
                           )
                         }
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
                       />
                       <label
                         htmlFor="includeConditions"
-                        className="text-sm text-gray-700"
+                        className="text-sm text-gray-400"
                       >
                         Include card conditions
                       </label>
@@ -359,18 +359,18 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                         onChange={(e) =>
                           handleOptionChange('includeValues', e.target.checked)
                         }
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
                       />
                       <label
                         htmlFor="includeValues"
-                        className="text-sm text-gray-700"
+                        className="text-sm text-gray-400"
                       >
                         Include market values
                       </label>
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700">
+                      <label className="mb-1 block text-sm font-medium text-gray-400">
                         Custom Export Name (optional)
                       </label>
                       <Input
@@ -389,7 +389,7 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
             {/* Error Display */}
             {error && (
-              <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              <div className="rounded border border-red-900/50 bg-red-950/30 p-3 text-sm text-red-400">
                 {error}
               </div>
             )}
@@ -399,12 +399,11 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
               <Button
                 onClick={handleQuickExport}
                 disabled={isExporting}
-                variant="default"
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
               >
                 {isExporting
-                  ? 'Exporting...'
-                  : `Export as ${selectedFormat.name}`}
+                  ? 'EXPORTING...'
+                  : `EXPORT AS ${selectedFormat.name.toUpperCase()}`}
               </Button>
 
               {selectedFormat.supportsOptions && (
@@ -412,8 +411,9 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                   onClick={handleAdvancedExport}
                   disabled={isExporting}
                   variant="outline"
+                  className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
                 >
-                  Advanced Export
+                  ADVANCED EXPORT
                 </Button>
               )}
             </div>
@@ -421,18 +421,18 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             {/* Export History */}
             {exportHistory.length > 0 && (
               <div>
-                <div className="mb-2 text-sm font-medium text-gray-700">
+                <div className="mb-2 text-sm font-medium text-gray-400">
                   Recent Exports
                 </div>
                 <div className="max-h-32 space-y-2 overflow-y-auto">
                   {exportHistory.map((record) => (
                     <div
                       key={record.id}
-                      className="flex items-center justify-between rounded bg-gray-50 p-2 text-sm"
+                      className="flex items-center justify-between rounded border border-[#443a5c] bg-[#1a1625] p-2 text-sm"
                     >
                       <div className="flex-1">
-                        <div className="font-medium">{record.format}</div>
-                        <div className="text-xs text-gray-600">
+                        <div className="font-medium text-white">{record.format}</div>
+                        <div className="text-xs text-gray-400">
                           {new Date(record.date).toLocaleDateString()} •{' '}
                           {record.filename}
                           {record.recordCount &&
@@ -449,8 +449,8 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
             )}
 
             {/* Format Information */}
-            <div className="rounded bg-gray-50 p-3 text-xs text-gray-500">
-              <div className="mb-2 font-medium">Export Guidelines:</div>
+            <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-xs text-gray-400">
+              <div className="mb-2 font-medium text-white">Export Guidelines:</div>
               <ul className="space-y-1">
                 <li>
                   • <strong>JSON:</strong> Complete backup with all data - best

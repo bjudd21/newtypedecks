@@ -9,7 +9,11 @@ describe('Button Component', () => {
     const button = screen.getByRole('button', { name: /click me/i });
     expect(button).toBeInTheDocument();
     // Check for gradient theme classes
-    expect(button).toHaveClass('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600');
+    expect(button).toHaveClass(
+      'bg-gradient-to-r',
+      'from-cyan-500',
+      'to-blue-600'
+    );
   });
 
   it('renders with different variants', () => {
