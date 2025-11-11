@@ -155,15 +155,17 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   return (
-    <Card className={className}>
+    <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
       <CardHeader>
-        <CardTitle className="text-center text-2xl">Create Account</CardTitle>
+        <CardTitle className="bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-center text-2xl text-transparent">
+          Create Account
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* General Error */}
           {errors.general && (
-            <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400">
               {errors.general}
             </div>
           )}
@@ -212,7 +214,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+                className="absolute top-9 right-3 text-gray-500 hover:text-gray-700"
                 disabled={isLoading}
               >
                 {showPassword ? (
@@ -272,7 +274,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
+                className="absolute top-9 right-3 text-gray-500 hover:text-gray-700"
                 disabled={isLoading}
               >
                 {showConfirmPassword ? (
@@ -315,8 +317,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           </div>
 
           {/* Password Requirements */}
-          <div className="rounded bg-gray-50 p-3 text-sm text-gray-600">
-            <p className="mb-1 font-medium">Password Requirements:</p>
+          <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-sm text-gray-400">
+            <p className="mb-1 font-medium text-white">Password Requirements:</p>
             <ul className="space-y-1 text-xs">
               <li>• At least 8 characters long</li>
               <li>• Contains uppercase and lowercase letters</li>
@@ -330,7 +332,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             type="submit"
             variant="default"
             disabled={isLoading}
-            className="w-full"
+            className="w-full bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg hover:from-[#a89ec7] hover:to-[#8b7aaa] hover:shadow-[#8b7aaa]/30"
           >
             {isLoading ? 'Creating Account...' : 'Create Account'}
           </Button>
@@ -340,10 +342,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             <>
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-[#443a5c]" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="text-muted-foreground bg-white px-2">
+                  <span className="bg-[#2d2640] px-2 text-gray-400">
                     Or continue with
                   </span>
                 </div>
@@ -409,10 +411,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
         {/* Sign In Link */}
         <div className="mt-6 text-center text-sm">
-          <span className="text-gray-600">Already have an account? </span>
+          <span className="text-gray-400">Already have an account? </span>
           <button
             onClick={() => router.push('/auth/signin')}
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-medium text-[#8b7aaa] hover:text-[#a89ec7]"
             disabled={isLoading}
           >
             Sign in

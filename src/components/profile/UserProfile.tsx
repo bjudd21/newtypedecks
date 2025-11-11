@@ -150,18 +150,19 @@ export function UserProfile({ user }: UserProfileProps) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {/* Profile Information */}
-      <Card>
+      <Card className="border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            Profile Information
+          <CardTitle className="flex items-center justify-between text-[#a89ec7]">
+            PROFILE INFORMATION
             {!isEditing && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsEditing(true)}
                 disabled={isLoading}
+                className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
               >
-                Edit
+                EDIT
               </Button>
             )}
           </CardTitle>
@@ -187,10 +188,10 @@ export function UserProfile({ user }: UserProfileProps) {
                 />
               ) : (
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Full Name
                   </label>
-                  <p className="text-gray-900">{user.name || 'No name set'}</p>
+                  <p className="text-white">{user.name || 'No name set'}</p>
                 </div>
               )}
             </div>
@@ -208,20 +209,20 @@ export function UserProfile({ user }: UserProfileProps) {
                 />
               ) : (
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-700">
+                  <label className="mb-1 block text-sm font-medium text-gray-400">
                     Email Address
                   </label>
-                  <p className="text-gray-900">{user.email}</p>
+                  <p className="text-white">{user.email}</p>
                 </div>
               )}
             </div>
 
             {/* Role */}
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">
+              <label className="mb-1 block text-sm font-medium text-gray-400">
                 Account Role
               </label>
-              <p className="capitalize text-gray-900">
+              <p className="capitalize text-white">
                 {user.role.toLowerCase()}
               </p>
             </div>
@@ -249,16 +250,16 @@ export function UserProfile({ user }: UserProfileProps) {
       </Card>
 
       {/* Account Actions */}
-      <Card>
+      <Card className="border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle>Account Settings</CardTitle>
+          <CardTitle className="text-[#a89ec7]">ACCOUNT SETTINGS</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {/* Change Password */}
-            <div className="rounded-lg border p-4">
-              <h3 className="mb-2 font-medium text-gray-900">Password</h3>
-              <p className="mb-3 text-sm text-gray-600">
+            <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+              <h3 className="mb-2 font-medium text-white">Password</h3>
+              <p className="mb-3 text-sm text-gray-400">
                 Change your password to keep your account secure.
               </p>
               <Button
@@ -268,29 +269,30 @@ export function UserProfile({ user }: UserProfileProps) {
                   /* TODO: Implement password change */
                 }}
                 disabled={isLoading}
+                className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
               >
-                Change Password
+                CHANGE PASSWORD
               </Button>
             </div>
 
             {/* Account Statistics */}
-            <div className="rounded-lg border p-4">
-              <h3 className="mb-2 font-medium text-gray-900">
+            <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+              <h3 className="mb-2 font-medium text-white">
                 Account Statistics
               </h3>
               <div className="space-y-1 text-sm">
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                   Member since: {new Date().toLocaleDateString()}
                 </p>
-                <p className="text-gray-600">Total decks created: 0</p>
-                <p className="text-gray-600">Cards in collection: 0</p>
+                <p className="text-gray-400">Total decks created: 0</p>
+                <p className="text-gray-400">Cards in collection: 0</p>
               </div>
             </div>
 
             {/* Danger Zone */}
-            <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-              <h3 className="mb-2 font-medium text-red-900">Danger Zone</h3>
-              <p className="mb-3 text-sm text-red-600">
+            <div className="rounded-lg border border-red-900/50 bg-red-950/30 p-4">
+              <h3 className="mb-2 font-medium text-red-400">Danger Zone</h3>
+              <p className="mb-3 text-sm text-red-300/70">
                 Once you delete your account, there is no going back. Please be
                 certain.
               </p>
@@ -299,9 +301,9 @@ export function UserProfile({ user }: UserProfileProps) {
                 size="sm"
                 onClick={handleDeleteAccount}
                 disabled={isLoading}
-                className="border-red-300 text-red-700 hover:bg-red-100"
+                className="border-red-600 text-red-400 hover:bg-red-900/20"
               >
-                Delete Account
+                DELETE ACCOUNT
               </Button>
             </div>
           </div>

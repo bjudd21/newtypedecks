@@ -49,7 +49,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="group relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-[#8b7aaa]">
+              <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-[#8b7aaa]">
                 <svg
                   className="h-6 w-6"
                   fill="none"
@@ -69,7 +69,7 @@ export default function Home() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for cards..."
-                className="w-full rounded-xl border-2 border-[#443a5c] bg-[#2d2640] py-5 pl-14 pr-4 text-lg text-white placeholder-gray-500 shadow-lg transition-all hover:shadow-[#8b7aaa]/10 focus:border-[#8b7aaa] focus:outline-none focus:ring-4 focus:ring-[#8b7aaa]/20"
+                className="w-full rounded-xl border-2 border-[#443a5c] bg-[#2d2640] py-5 pr-4 pl-14 text-lg text-white placeholder-gray-500 shadow-lg transition-all hover:shadow-[#8b7aaa]/10 focus:border-[#8b7aaa] focus:ring-4 focus:ring-[#8b7aaa]/20 focus:outline-none"
               />
             </div>
           </motion.form>
@@ -81,42 +81,57 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Link href="/cards">
-              <Button
-                variant="secondary"
-                size="md"
-                className="border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#3a3050] hover:shadow-[#8b7aaa]/20"
+            {[
+              { href: '/cards', icon: '🔍', label: 'ADVANCED SEARCH' },
+              { href: '/decks', icon: '🎴', label: 'DECK BUILDER' },
+              { href: '/cards?view=sets', icon: '📚', label: 'ALL SETS' },
+              { href: '/cards/random', icon: '🎲', label: 'RANDOM CARD' },
+            ].map((item, index) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.3 + index * 0.1,
+                  type: 'spring',
+                  stiffness: 260,
+                  damping: 20,
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -4,
+                  transition: { duration: 0.2, type: 'spring', stiffness: 300 },
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                🔍 Advanced Search
-              </Button>
-            </Link>
-            <Link href="/decks">
-              <Button
-                variant="secondary"
-                size="md"
-                className="border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#3a3050] hover:shadow-[#8b7aaa]/20"
-              >
-                🎴 Deck Builder
-              </Button>
-            </Link>
-            <Link href="/cards?view=sets">
-              <Button
-                variant="secondary"
-                size="md"
-                className="border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#3a3050] hover:shadow-[#8b7aaa]/20"
-              >
-                📚 All Sets
-              </Button>
-            </Link>
-            <Link href="/cards/random">
-              <Button
-                variant="secondary"
-                size="md"
-                className="border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#3a3050] hover:shadow-[#8b7aaa]/20"
-              >
-                🎲 Random Card
-              </Button>
-            </Link>
+                <Link href={item.href}>
+                  <Button
+                    variant="secondary"
+                    size="md"
+                    className="group relative overflow-hidden border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#3a3050] hover:shadow-xl hover:shadow-[#8b7aaa]/30"
+                  >
+                    {/* Shimmer effect on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8b7aaa]/20 to-transparent"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: '100%' }}
+                      transition={{ duration: 0.6 }}
+                    />
+
+                    {/* Icon with scale animation */}
+                    <motion.span
+                      className="inline-block"
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {item.icon}
+                    </motion.span>
+                    <span className="relative z-10 ml-2">{item.label}</span>
+                  </Button>
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* News Items */}
@@ -126,30 +141,104 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="flex items-center gap-3 rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 transition-colors hover:border-[#8b7aaa]">
-              <Badge className="bg-gradient-to-r from-orange-600 to-red-600 px-3 py-1 text-xs font-semibold text-white">
-                NEW
-              </Badge>
-              <span className="font-medium text-gray-300">
-                Latest Booster Set Available
-              </span>
-            </div>
-            <div className="flex items-center gap-3 rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 transition-colors hover:border-[#8b7aaa]">
-              <Badge className="bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-1 text-xs font-semibold text-white">
-                NEW
-              </Badge>
-              <span className="font-medium text-gray-300">
-                Starter Decks Released
-              </span>
-            </div>
-            <div className="flex items-center gap-3 rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 transition-colors hover:border-[#8b7aaa]">
-              <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-xs font-semibold text-white">
-                LIVE
-              </Badge>
-              <span className="font-medium text-gray-300">
-                Tournament Season 2025
-              </span>
-            </div>
+            {[
+              {
+                badge: 'NEW',
+                badgeColors: 'from-orange-600 to-red-600',
+                text: 'Latest Booster Set Available',
+                glowColor: '[#ff6b35]',
+              },
+              {
+                badge: 'NEW',
+                badgeColors: 'from-blue-600 to-cyan-600',
+                text: 'Starter Decks Released',
+                glowColor: '[#0ea5e9]',
+              },
+              {
+                badge: 'LIVE',
+                badgeColors: 'from-purple-600 to-pink-600',
+                text: 'Tournament Season 2025',
+                glowColor: '[#a855f7]',
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.text}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.5 + index * 0.1,
+                  type: 'spring',
+                  stiffness: 200,
+                  damping: 20,
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  x: 4,
+                  transition: { duration: 0.2, type: 'spring', stiffness: 300 },
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="group cursor-pointer"
+              >
+                <div className="relative flex items-center gap-3 overflow-hidden rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#2d2640]/80 hover:shadow-lg hover:shadow-${item.glowColor}/20">
+                  {/* Animated background gradient on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-[#8b7aaa]/5 via-[#a89ec7]/10 to-[#8b7aaa]/5"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                  />
+
+                  {/* Animated badge */}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Badge
+                      className={`relative bg-gradient-to-r ${item.badgeColors} px-3 py-1 text-xs font-semibold text-white shadow-lg`}
+                    >
+                      {item.badge === 'LIVE' && (
+                        <motion.span
+                          className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-white"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [1, 0.5, 1],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }}
+                        />
+                      )}
+                      {item.badge}
+                    </Badge>
+                  </motion.div>
+
+                  <span className="relative z-10 font-medium text-gray-300 transition-colors group-hover:text-white">
+                    {item.text}
+                  </span>
+
+                  {/* Chevron icon on hover */}
+                  <motion.svg
+                    className="relative z-10 h-4 w-4 text-[#8b7aaa]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileHover={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </motion.svg>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -216,7 +305,7 @@ export default function Home() {
 
                       {/* Badge for featured/new */}
                       {deck === 1 && (
-                        <div className="absolute left-2 top-2">
+                        <div className="absolute top-2 left-2">
                           <Badge className="bg-gradient-to-r from-orange-600 to-red-600 px-2 py-1 text-xs text-white">
                             HOT
                           </Badge>
@@ -288,7 +377,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 grid grid-cols-2 gap-8 md:grid-cols-4">
             <div>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#8b7aaa]">
+              <h3 className="mb-4 text-xs font-bold tracking-wider text-[#8b7aaa] uppercase">
                 CARDS
               </h3>
               <ul className="space-y-3">
@@ -315,7 +404,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#8b7aaa]">
+              <h3 className="mb-4 text-xs font-bold tracking-wider text-[#8b7aaa] uppercase">
                 TOOLS
               </h3>
               <ul className="space-y-3">
@@ -342,7 +431,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#8b7aaa]">
+              <h3 className="mb-4 text-xs font-bold tracking-wider text-[#8b7aaa] uppercase">
                 DEVELOPERS
               </h3>
               <ul className="space-y-3">
@@ -359,7 +448,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-[#8b7aaa]">
+              <h3 className="mb-4 text-xs font-bold tracking-wider text-[#8b7aaa] uppercase">
                 COMMUNITY
               </h3>
               <ul className="space-y-3">

@@ -33,7 +33,8 @@ export default withAuth(
       '/decks/create',
       '/decks/edit',
       '/collection',
-      '/settings',
+      '/settings/pwa',
+      '/favorites',
     ];
 
     if (authRoutes.some((route) => pathname.startsWith(route))) {
@@ -59,7 +60,11 @@ export default withAuth(
           '/',
           '/cards',
           '/decks',
-          '/about',
+          '/templates',
+          '/offline',
+          '/privacy',
+          '/terms',
+          '/cookies',
           '/auth',
           '/api/cards',
           '/api/public',

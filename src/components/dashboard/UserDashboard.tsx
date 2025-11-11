@@ -82,10 +82,10 @@ export function UserDashboard({ user }: UserDashboardProps) {
     <div className="mx-auto max-w-6xl">
       {/* Welcome Section */}
       <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-gray-900">
+        <h1 className="mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-3xl font-bold text-transparent">
           Welcome back{user.name ? `, ${user.name.split(' ')[0]}` : ''}!
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-400">
           Ready to dive into the Gundam Card Game? Here&apos;s your personal
           dashboard.
         </p>
@@ -94,11 +94,11 @@ export function UserDashboard({ user }: UserDashboardProps) {
       {/* Stats Grid */}
       <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, index) => (
-          <Card key={index}>
+          <Card key={index} className="border-[#443a5c] bg-[#2d2640]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="mb-1 text-sm font-medium text-gray-600">
+                  <p className="mb-1 text-sm font-medium text-gray-400">
                     {stat.title}
                   </p>
                   <p className={`text-2xl font-bold ${stat.color}`}>
@@ -114,9 +114,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Quick Actions */}
-        <Card>
+        <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle className="text-[#a89ec7]">QUICK ACTIONS</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -124,15 +124,15 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 <button
                   key={index}
                   onClick={action.action}
-                  className="rounded-lg border border-gray-200 p-4 text-left transition-all duration-200 hover:border-blue-300 hover:shadow-sm"
+                  className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-left transition-all duration-200 hover:border-[#8b7aaa] hover:bg-[#3a3050] hover:shadow-lg hover:shadow-[#8b7aaa]/20"
                 >
                   <div className="mb-2 flex items-center">
                     <span className="mr-3 text-xl">{action.icon}</span>
-                    <h3 className="font-medium text-gray-900">
+                    <h3 className="font-medium text-white transition-colors group-hover:text-[#a89ec7]">
                       {action.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-600">{action.description}</p>
+                  <p className="text-sm text-gray-400">{action.description}</p>
                 </button>
               ))}
             </div>
@@ -140,15 +140,15 @@ export function UserDashboard({ user }: UserDashboardProps) {
         </Card>
 
         {/* Recent Activity */}
-        <Card>
+        <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle className="text-[#a89ec7]">RECENT ACTIVITY</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="py-8 text-center text-gray-500">
+              <div className="py-8 text-center text-gray-400">
                 <p>No recent activity yet.</p>
-                <p className="mt-1 text-sm">
+                <p className="mt-1 text-sm text-gray-500">
                   Start building decks or managing your collection to see
                   activity here.
                 </p>
@@ -161,81 +161,96 @@ export function UserDashboard({ user }: UserDashboardProps) {
       {/* Account Management */}
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Account Info */}
-        <Card>
+        <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle>Account Information</CardTitle>
+            <CardTitle className="text-[#a89ec7]">ACCOUNT INFORMATION</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label className="mb-1 block text-sm font-medium text-gray-400">
                   Name
                 </label>
-                <p className="text-gray-900">{user.name || 'Not set'}</p>
+                <p className="text-white">{user.name || 'Not set'}</p>
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label className="mb-1 block text-sm font-medium text-gray-400">
                   Email
                 </label>
-                <p className="text-gray-900">{user.email}</p>
+                <p className="text-white">{user.email}</p>
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label className="mb-1 block text-sm font-medium text-gray-400">
                   Account Type
                 </label>
-                <p className="capitalize text-gray-900">
+                <p className="text-white capitalize">
                   {user.role.toLowerCase()}
                 </p>
               </div>
               <Button
                 variant="outline"
                 onClick={() => router.push('/profile')}
-                className="w-full"
+                className="w-full border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
               >
-                Edit Profile
+                EDIT PROFILE
               </Button>
             </div>
           </CardContent>
         </Card>
 
         {/* Settings & Preferences */}
-        <Card>
+        <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle>Settings & Preferences</CardTitle>
+            <CardTitle className="text-[#a89ec7]">SETTINGS & PREFERENCES</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="rounded-lg border p-4">
-                <h4 className="mb-2 font-medium text-gray-900">
+              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+                <h4 className="mb-2 font-medium text-white">
                   Display Preferences
                 </h4>
-                <p className="mb-3 text-sm text-gray-600">
+                <p className="mb-3 text-sm text-gray-400">
                   Customize how cards and decks are displayed.
                 </p>
-                <Button variant="outline" size="sm" disabled>
-                  Coming Soon
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+                >
+                  COMING SOON
                 </Button>
               </div>
 
-              <div className="rounded-lg border p-4">
-                <h4 className="mb-2 font-medium text-gray-900">
+              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+                <h4 className="mb-2 font-medium text-white">
                   Privacy Settings
                 </h4>
-                <p className="mb-3 text-sm text-gray-600">
+                <p className="mb-3 text-sm text-gray-400">
                   Control who can see your decks and collection.
                 </p>
-                <Button variant="outline" size="sm" disabled>
-                  Coming Soon
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+                >
+                  COMING SOON
                 </Button>
               </div>
 
-              <div className="rounded-lg border p-4">
-                <h4 className="mb-2 font-medium text-gray-900">Export Data</h4>
-                <p className="mb-3 text-sm text-gray-600">
+              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+                <h4 className="mb-2 font-medium text-white">Export Data</h4>
+                <p className="mb-3 text-sm text-gray-400">
                   Download your decks and collection data.
                 </p>
-                <Button variant="outline" size="sm" disabled>
-                  Coming Soon
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+                >
+                  COMING SOON
                 </Button>
               </div>
             </div>
@@ -244,42 +259,57 @@ export function UserDashboard({ user }: UserDashboardProps) {
       </div>
 
       {/* Help & Support */}
-      <Card className="mt-8">
+      <Card className="mt-8 border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle>Need Help?</CardTitle>
+          <CardTitle className="text-[#a89ec7]">NEED HELP?</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
+            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
               <div className="mb-2 text-2xl">📖</div>
-              <h4 className="mb-1 font-medium text-gray-900">User Guide</h4>
-              <p className="mb-3 text-sm text-gray-600">
+              <h4 className="mb-1 font-medium text-white">User Guide</h4>
+              <p className="mb-3 text-sm text-gray-400">
                 Learn how to use all features effectively.
               </p>
-              <Button variant="outline" size="sm" disabled>
-                Coming Soon
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+              >
+                COMING SOON
               </Button>
             </div>
 
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
+            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
               <div className="mb-2 text-2xl">❓</div>
-              <h4 className="mb-1 font-medium text-gray-900">FAQs</h4>
-              <p className="mb-3 text-sm text-gray-600">
+              <h4 className="mb-1 font-medium text-white">FAQs</h4>
+              <p className="mb-3 text-sm text-gray-400">
                 Find answers to common questions.
               </p>
-              <Button variant="outline" size="sm" disabled>
-                Coming Soon
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+              >
+                COMING SOON
               </Button>
             </div>
 
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
+            <div className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-center transition-all hover:border-[#8b7aaa] hover:bg-[#3a3050]">
               <div className="mb-2 text-2xl">💬</div>
-              <h4 className="mb-1 font-medium text-gray-900">Community</h4>
-              <p className="mb-3 text-sm text-gray-600">
+              <h4 className="mb-1 font-medium text-white">Community</h4>
+              <p className="mb-3 text-sm text-gray-400">
                 Connect with other Gundam Card Game players.
               </p>
-              <Button variant="outline" size="sm" disabled>
-                Coming Soon
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
+              >
+                COMING SOON
               </Button>
             </div>
           </div>

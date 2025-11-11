@@ -1,19 +1,12 @@
+'use client';
+
 /**
  * Deck Templates Page
  */
 
 import React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { DeckTemplateBrowser } from '@/components/deck';
-
-export const metadata: Metadata = {
-  title: 'Deck Templates | Gundam Card Game',
-  description:
-    'Browse and use community-created deck templates to jumpstart your deck building. Discover proven strategies and competitive builds from the Gundam Card Game community.',
-  keywords:
-    'gundam card game, deck templates, community decks, deck building, competitive builds, tournament decks',
-};
 
 export default function TemplatesPage() {
   return (
