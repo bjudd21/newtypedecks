@@ -287,10 +287,10 @@ export const env: EnvironmentConfig = {
 };
 
 /**
- * Validate environment on module load (only in production environments)
- * Skip validation in development to allow for flexible .env loading
+ * Validate environment on module load (only in production runtime)
+ * Skip validation in development, test, and during build phase
  */
-if (env.NODE_ENV === 'production') {
+if (env.NODE_ENV === 'production' && !process.env.NEXT_PHASE) {
   validateEnvironment();
 }
 
