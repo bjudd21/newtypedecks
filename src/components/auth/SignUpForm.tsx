@@ -318,7 +318,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
           {/* Password Requirements */}
           <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-sm text-gray-400">
-            <p className="mb-1 font-medium text-white">Password Requirements:</p>
+            <p className="mb-1 font-medium text-white">
+              Password Requirements:
+            </p>
             <ul className="space-y-1 text-xs">
               <li>• At least 8 characters long</li>
               <li>• Contains uppercase and lowercase letters</li>

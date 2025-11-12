@@ -4,30 +4,31 @@ import { authOptions } from '@/lib/auth';
 import { SignInForm } from '@/components/auth/SignInForm';
 
 interface SignInPageProps {
-  searchParams: {
+  searchParams: Promise<{
     callbackUrl?: string;
     error?: string;
-  };
+  }>;
 }
 
 export default async function SignInPage({ searchParams }: SignInPageProps) {
   const session = await getServerSession(authOptions);
+  const params = await searchParams;
 
   // Redirect if user is already signed in
   if (session) {
-    redirect(searchParams.callbackUrl || '/');
+    redirect(params.callbackUrl || '/');
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        {searchParams.error && (
+        {params.error && (
           <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-700">
-            {getErrorMessage(searchParams.error)}
+            {getErrorMessage(params.error)}
           </div>
         )}
         <SignInForm
-          callbackUrl={searchParams.callbackUrl}
+          callbackUrl={params.callbackUrl}
           className="mx-auto max-w-md"
         />
       </div>

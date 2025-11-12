@@ -172,7 +172,7 @@ Browse All Cards
 
 ```tsx
 <div>
-  <h3 className="mb-3 text-xs font-bold uppercase text-gray-400">SOCIAL</h3>
+  <h3 className="mb-3 text-xs font-bold text-gray-400 uppercase">SOCIAL</h3>
   <ul className="space-y-2">
     <li>
       <Link

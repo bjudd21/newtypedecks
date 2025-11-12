@@ -180,7 +180,7 @@ export default function Home() {
                 whileTap={{ scale: 0.98 }}
                 className="group cursor-pointer"
               >
-                <div className="relative flex items-center gap-3 overflow-hidden rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#2d2640]/80 hover:shadow-lg hover:shadow-${item.glowColor}/20">
+                <div className="hover:shadow-${item.glowColor}/20 relative flex items-center gap-3 overflow-hidden rounded-full border border-[#443a5c] bg-[#2d2640]/50 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#2d2640]/80 hover:shadow-lg">
                   {/* Animated background gradient on hover */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-[#8b7aaa]/5 via-[#a89ec7]/10 to-[#8b7aaa]/5"
@@ -199,7 +199,7 @@ export default function Home() {
                     >
                       {item.badge === 'LIVE' && (
                         <motion.span
-                          className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-white"
+                          className="absolute -top-1 -left-1 h-2 w-2 rounded-full bg-white"
                           animate={{
                             scale: [1, 1.2, 1],
                             opacity: [1, 0.5, 1],

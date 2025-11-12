@@ -163,7 +163,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
         {/* Account Info */}
         <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle className="text-[#a89ec7]">ACCOUNT INFORMATION</CardTitle>
+            <CardTitle className="text-[#a89ec7]">
+              ACCOUNT INFORMATION
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -201,7 +203,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
         {/* Settings & Preferences */}
         <Card className="border-[#443a5c] bg-[#2d2640]">
           <CardHeader>
-            <CardTitle className="text-[#a89ec7]">SETTINGS & PREFERENCES</CardTitle>
+            <CardTitle className="text-[#a89ec7]">
+              SETTINGS & PREFERENCES
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -240,7 +244,6 @@ export function UserDashboard({ user }: UserDashboardProps) {
           </CardContent>
         </Card>
       </div>
-
     </div>
   );
 }

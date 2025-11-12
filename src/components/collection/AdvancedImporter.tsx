@@ -432,7 +432,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
     <div className={className}>
       <Card className="border-[#443a5c] bg-[#2d2640]">
         <CardHeader>
-          <CardTitle className="text-[#a89ec7]">ADVANCED COLLECTION IMPORT</CardTitle>
+          <CardTitle className="text-[#a89ec7]">
+            ADVANCED COLLECTION IMPORT
+          </CardTitle>
           <div className="flex items-center gap-2 text-sm text-gray-400">
             <div className="flex items-center gap-1">
               {['select', 'data', 'validate', 'options', 'import'].map(
@@ -595,7 +597,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
                         <Badge variant="secondary" className="text-xs">
                           {item.quantity}x
                         </Badge>
-                        <span className="flex-1 text-white">{item.cardName}</span>
+                        <span className="flex-1 text-white">
+                          {item.cardName}
+                        </span>
                         {item.setName && (
                           <span className="text-xs text-gray-400">
                             ({item.setName})

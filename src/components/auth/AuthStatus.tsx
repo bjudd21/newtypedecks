@@ -240,7 +240,7 @@ export function AuthStatus({ className = '' }: AuthStatusProps) {
                   className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-2xl shadow-[#1a1625]/50 backdrop-blur-xl"
                 >
                   <div className="py-1">
-                    {menuItems.map((item, index) => (
+                    {menuItems.map((item, _index) => (
                       <motion.button
                         key={item.label}
                         variants={itemVariants}

@@ -433,8 +433,12 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
                     <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-950/50 p-2 text-xs">
                       {importResult.imported.slice(0, 10).map((item, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <span className="w-6 text-white">{item.quantity}x</span>
-                          <span className="flex-1 text-white">{item.cardName}</span>
+                          <span className="w-6 text-white">
+                            {item.quantity}x
+                          </span>
+                          <span className="flex-1 text-white">
+                            {item.cardName}
+                          </span>
                           <span
                             className={`rounded px-1 text-xs ${
                               item.action === 'added'
@@ -459,7 +463,9 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
 
             {/* Format Guidelines */}
             <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-xs text-gray-400">
-              <div className="mb-2 font-medium text-white">Import Guidelines:</div>
+              <div className="mb-2 font-medium text-white">
+                Import Guidelines:
+              </div>
               <ul className="space-y-1">
                 <li>• Maximum 1000 cards per import</li>
                 <li>• Cards are matched by name, set number, or card ID</li>

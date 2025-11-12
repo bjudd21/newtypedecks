@@ -262,7 +262,9 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
           {/* Filters */}
           <Card className="mb-6 border-[#443a5c] bg-[#2d2640]">
             <CardHeader>
-              <CardTitle className="text-[#a89ec7]">FILTER COLLECTION</CardTitle>
+              <CardTitle className="text-[#a89ec7]">
+                FILTER COLLECTION
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">

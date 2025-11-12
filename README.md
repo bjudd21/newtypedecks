@@ -10,12 +10,14 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 ## ✨ Features
 
 ### Card Database
+
 - 🔍 **Advanced Search & Filtering** - Search by name, type, rarity, cost, faction, series, and more
 - 📊 **Detailed Card Information** - View comprehensive card stats, abilities, rulings, and metadata
 - 🖼️ **High-Quality Card Images** - Optimized image delivery with multiple size variants
 - 📱 **Mobile-Responsive Design** - Seamless experience across all devices
 
 ### Deck Building
+
 - 🎴 **Drag-and-Drop Interface** - Intuitive deck construction with visual feedback
 - ✅ **Real-Time Validation** - Instant deck legality checking with detailed error messages
 - 📈 **Deck Analytics** - Cost curves, type distribution, and meta-game insights
@@ -25,6 +27,7 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - 📑 **Deck Templates** - Create and share deck templates with the community
 
 ### Collection Management
+
 - 📦 **Collection Tracking** - Track owned cards with quantity management
 - 📥 **Bulk Import** - Import collections from CSV, JSON, or text formats
 - 📤 **Export Options** - Export your collection in multiple formats
@@ -32,6 +35,7 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - 🔍 **Advanced Filtering** - Filter collection by any card attribute
 
 ### User Experience
+
 - 👤 **User Authentication** - Secure signup, login, and email verification
 - 🎨 **Dark Purple Theme** - Beautiful, consistent dark theme across the entire app
 - 📱 **Progressive Web App** - Install on mobile devices for offline access
@@ -40,6 +44,7 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - 📊 **Analytics Dashboard** - View meta-game trends and deck statistics
 
 ### Administration
+
 - 🛠️ **Admin Panel** - Manage card submissions and user content
 - 📝 **Card Submissions** - Community-driven card database updates
 - 🔍 **Submission Review** - Review and approve community contributions
@@ -97,6 +102,7 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 The `.env.example` file contains safe placeholder values. When you run `npm run env:create`, a `.env` file is created with these placeholders. You must replace them with your actual credentials for development or production.
 
 **Protected files** (already in `.gitignore`):
+
 - `.env`
 - `.env.local`
 - `.env.production`
@@ -302,6 +308,7 @@ SENTRY_AUTH_TOKEN="your-sentry-auth-token"
 ```
 
 **Generate secure secrets:**
+
 ```bash
 npm run env:secrets
 ```
@@ -317,11 +324,13 @@ The project includes Docker Compose configuration for local development:
 - **Next.js App** - Application server (production profile)
 
 Start services:
+
 ```bash
 npm run docker:dev
 ```
 
 Stop services:
+
 ```bash
 npm run docker:down
 ```
@@ -347,6 +356,7 @@ npm run test:ci
 ### Test Coverage
 
 Current test coverage includes:
+
 - ✅ UI components (Button, Badge, Card, Input, etc.)
 - ✅ Authentication API routes (signup, verify-email)
 - ✅ Card search API
@@ -410,6 +420,7 @@ Comprehensive documentation organized by topic:
 ### Common Issues
 
 **Port 3000 already in use**
+
 ```bash
 # Find and kill the process
 lsof -ti:3000 | xargs kill -9
@@ -418,6 +429,7 @@ PORT=3001 npm run dev
 ```
 
 **Docker services not starting**
+
 ```bash
 # Check Docker is running
 docker ps
@@ -427,12 +439,14 @@ npm run docker:dev
 ```
 
 **Prisma client out of sync**
+
 ```bash
 # Regenerate Prisma client
 npm run db:generate
 ```
 
 **Database migration errors**
+
 ```bash
 # Reset database (⚠️ destructive)
 npm run db:reset
@@ -441,6 +455,7 @@ npm run db:push
 ```
 
 **Module not found errors**
+
 ```bash
 # Clear cache and reinstall
 npm run clean
@@ -497,6 +512,7 @@ For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 ### Recent Updates
 
 See git commit history for recent changes. Major updates include:
+
 - ✅ Dark purple theme consistency across all pages
 - ✅ Comprehensive documentation suite
 - ✅ Advanced collection import/export
@@ -555,4 +571,4 @@ This website is a fan-made project created to support the Gundam Card Game commu
 
 **Built with ❤️ by the Gundam Card Game community**
 
-*Version 0.1.0 - Last Updated: November 2025*
+_Version 0.1.0 - Last Updated: November 2025_

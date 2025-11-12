@@ -160,7 +160,7 @@ const Select: React.FC<SelectProps> = ({
                   key={option.value}
                   onClick={() => handleSelect(option)}
                   className={cn(
-                    'relative cursor-pointer px-4 py-2 select-none text-white hover:bg-[#3a3050]',
+                    'relative cursor-pointer px-4 py-2 text-white select-none hover:bg-[#3a3050]',
                     option.value === value && 'bg-[#8b7aaa]/30 text-[#a89ec7]',
                     option.disabled &&
                       'cursor-not-allowed text-gray-500 hover:bg-[#2d2640]'

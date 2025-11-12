@@ -10,9 +10,9 @@ import {
 import { PageLayout } from '@/components/layout';
 
 interface DeckDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function DeckDetailPage({

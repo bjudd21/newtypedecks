@@ -33,6 +33,7 @@ A **web application** is like a restaurant:
 - **Server** = The building that houses everything
 
 When a customer (user) orders food (requests data):
+
 1. The waiter (frontend) takes the order
 2. Sends it to the kitchen (backend/API)
 3. The kitchen gets ingredients from the pantry (database)
@@ -44,6 +45,7 @@ When a customer (user) orders food (requests data):
 Your Gundam Card Game application is a **full-stack** web application, meaning it handles both the "dining area" (user interface) and the "kitchen" (data processing) in one integrated system.
 
 **What it does:**
+
 - Displays a searchable database of Gundam cards
 - Lets users build and save card decks
 - Tracks user collections
@@ -59,41 +61,49 @@ Your Gundam Card Game application is a **full-stack** web application, meaning i
 Think of building a web application like building a house. You need different materials and tools:
 
 #### 1. **Next.js 15** - The Foundation
+
 - **What it is:** A framework (blueprint) for building web applications
 - **Why it matters:** Handles routing (which page to show), server logic, and optimization automatically
 - **Real-world analogy:** Like a pre-built house frame—you don't have to build walls from scratch
 
 #### 2. **React 19** - The Building Blocks
+
 - **What it is:** A library for building user interfaces with reusable components
 - **Why it matters:** Instead of writing HTML for every button, you create one Button component and reuse it everywhere
 - **Real-world analogy:** Like LEGO blocks—build once, use everywhere
 
 #### 3. **TypeScript** - The Safety Inspector
+
 - **What it is:** JavaScript with type checking (catches errors before they happen)
 - **Why it matters:** Prevents bugs by ensuring data has the right shape/type
 - **Real-world analogy:** Like spell-check for code
 
 #### 4. **PostgreSQL** - The Filing Cabinet
+
 - **What it is:** A database that stores all your data (users, cards, decks)
 - **Why it matters:** Permanent, organized storage that survives server restarts
 - **Real-world analogy:** A well-organized filing cabinet with folders and labels
 
 #### 5. **Redis** - The Sticky Notes
+
 - **What it is:** Fast, temporary storage (cache)
 - **Why it matters:** Makes the app faster by remembering frequently accessed data
 - **Real-world analogy:** Sticky notes on your desk for quick reference
 
 #### 6. **Tailwind CSS** - The Paint and Decorations
+
 - **What it is:** A styling system using utility classes
 - **Why it matters:** Makes the app look good without writing custom CSS
 - **Real-world analogy:** Pre-mixed paint colors you can apply quickly
 
 #### 7. **Prisma** - The Translator
+
 - **What it is:** ORM (Object-Relational Mapping) tool
 - **Why it matters:** Lets you talk to the database using JavaScript instead of SQL
 - **Real-world analogy:** A translator who speaks both English and Japanese
 
 #### 8. **Docker** - The Shipping Container
+
 - **What it is:** Containerization tool that packages software
 - **Why it matters:** Runs PostgreSQL and Redis in isolated environments
 - **Real-world analogy:** Shipping containers that work the same everywhere
@@ -107,23 +117,27 @@ Think of building a web application like building a house. You need different ma
 Before you start, you need these tools on your computer:
 
 #### 1. **Node.js** (v18 or higher)
+
 - **What it is:** JavaScript runtime (lets you run JavaScript outside the browser)
 - **Download from:** https://nodejs.org/
 - **How to check:** Open Terminal and type: `node --version`
 - **You should see:** `v18.x.x` or higher
 
 #### 2. **npm** (comes with Node.js)
+
 - **What it is:** Package manager (downloads and manages code libraries)
 - **How to check:** Type: `npm --version`
 - **You should see:** `8.x.x` or higher
 
 #### 3. **Docker Desktop**
+
 - **What it is:** Runs containers for PostgreSQL and Redis
 - **Download from:** https://www.docker.com/products/docker-desktop/
 - **How to check:** Type: `docker --version`
 - **You should see:** `Docker version 20.x.x` or higher
 
 #### 4. **Code Editor** (Recommended: VS Code)
+
 - **What it is:** Where you'll edit code files
 - **Download from:** https://code.visualstudio.com/
 - **Why VS Code:** Has excellent TypeScript support and extensions
@@ -200,11 +214,13 @@ npm run docker:dev
 ```
 
 **What this does:**
+
 - Creates a PostgreSQL database on port 5432
 - Creates a Redis cache on port 6379
 - Both services keep running in the background
 
 **How to stop them later:**
+
 ```bash
 npm run docker:down
 ```
@@ -220,11 +236,13 @@ npm run db:seed
 ```
 
 **What `db:push` does:**
+
 - Reads `prisma/schema.prisma` (database blueprint)
 - Creates tables like `User`, `Card`, `Deck`, `Collection`
 - Sets up relationships between tables
 
 **What `db:seed` does:**
+
 - Adds sample cards, users, and decks
 - Useful for testing the app with real data
 
@@ -325,25 +343,27 @@ src/
 ### Key Files Explained
 
 #### 📄 `package.json` - The Project's Shopping List
+
 Lists all dependencies (libraries) and scripts (commands) for the project.
 
 ```json
 {
   "name": "gundam-card-game",
   "scripts": {
-    "dev": "next dev",           // Start development server
-    "build": "next build",       // Build for production
-    "test": "jest"               // Run tests
+    "dev": "next dev", // Start development server
+    "build": "next build", // Build for production
+    "test": "jest" // Run tests
   },
   "dependencies": {
-    "next": "15.5.3",            // Next.js framework
-    "react": "19.2.0",           // React library
+    "next": "15.5.3", // Next.js framework
+    "react": "19.2.0" // React library
     // ... 50+ more packages
   }
 }
 ```
 
 #### 📄 `prisma/schema.prisma` - The Database Blueprint
+
 Defines all tables, columns, and relationships.
 
 ```prisma
@@ -368,6 +388,7 @@ model Deck {
 ```
 
 #### 📄 `.env` - Secret Configuration
+
 **⚠️ NEVER commit this file to git!**
 
 Contains sensitive information like database passwords and API keys.
@@ -445,6 +466,7 @@ Let's trace what happens when a user visits the card browsing page:
 ### Frontend vs Backend (Explained Simply)
 
 #### Frontend (Client-Side)
+
 **What users see and interact with**
 
 ```typescript
@@ -459,12 +481,14 @@ function SaveButton() {
 ```
 
 **Characteristics:**
+
 - Runs in the user's browser
 - Uses React components
 - Has access to browser APIs (localStorage, cookies)
 - Can be "client" or "server" components in Next.js 15
 
 #### Backend (Server-Side)
+
 **Behind-the-scenes logic**
 
 ```typescript
@@ -474,7 +498,7 @@ export async function POST(request: Request) {
 
   // Save to database
   const deck = await prisma.deck.create({
-    data: { name: data.name, userId: data.userId }
+    data: { name: data.name, userId: data.userId },
   });
 
   return Response.json(deck);
@@ -482,6 +506,7 @@ export async function POST(request: Request) {
 ```
 
 **Characteristics:**
+
 - Runs on the server (your computer or cloud hosting)
 - Has access to database
 - Handles sensitive operations (authentication, payments)
@@ -614,6 +639,7 @@ export function Button({ children, onClick, variant = 'primary' }: ButtonProps) 
 #### Server vs Client Components (Next.js 15)
 
 **Server Components** (default):
+
 - Render on the server
 - Can directly access database
 - NO client-side JavaScript
@@ -630,6 +656,7 @@ export default async function CardsPage() {
 ```
 
 **Client Components:**
+
 - Render on the client (browser)
 - Can use hooks (useState, useEffect)
 - Can have event handlers (onClick, onChange)
@@ -660,6 +687,7 @@ Think of the database like an Excel spreadsheet with multiple sheets (tables):
 #### Tables (Like Spreadsheet Sheets)
 
 **Users Table:**
+
 ```
 | id   | email              | name    | role  |
 |------|--------------------|---------|-------|
@@ -668,6 +696,7 @@ Think of the database like an Excel spreadsheet with multiple sheets (tables):
 ```
 
 **Cards Table:**
+
 ```
 | id   | name           | level | cost | faction |
 |------|----------------|-------|------|---------|
@@ -676,6 +705,7 @@ Think of the database like an Excel spreadsheet with multiple sheets (tables):
 ```
 
 **Decks Table:**
+
 ```
 | id   | name         | userId | createdAt  |
 |------|--------------|--------|------------|
@@ -684,6 +714,7 @@ Think of the database like an Excel spreadsheet with multiple sheets (tables):
 ```
 
 **DeckCards Table** (Join table):
+
 ```
 | deckId | cardId | quantity |
 |--------|--------|----------|
@@ -694,17 +725,19 @@ Think of the database like an Excel spreadsheet with multiple sheets (tables):
 #### How Prisma Talks to the Database
 
 Instead of writing SQL:
+
 ```sql
 SELECT * FROM cards WHERE level >= 5 AND faction = 'EF';
 ```
 
 You write JavaScript:
+
 ```typescript
 const cards = await prisma.card.findMany({
   where: {
     level: { gte: 5 },
-    faction: 'EF'
-  }
+    faction: 'EF',
+  },
 });
 ```
 
@@ -727,7 +760,7 @@ export async function GET(request: Request) {
 
   // Query database
   const cards = await prisma.card.findMany({
-    where: { name: { contains: search } }
+    where: { name: { contains: search } },
   });
 
   // Return JSON response
@@ -741,15 +774,12 @@ export async function POST(request: Request) {
 
   // Validate data
   if (!data.name) {
-    return Response.json(
-      { error: 'Name is required' },
-      { status: 400 }
-    );
+    return Response.json({ error: 'Name is required' }, { status: 400 });
   }
 
   // Create in database
   const card = await prisma.card.create({
-    data: { name: data.name, level: data.level }
+    data: { name: data.name, level: data.level },
   });
 
   // Return created card
@@ -769,6 +799,7 @@ export async function POST(request: Request) {
 Redux is like a shared whiteboard that all components can see and write on.
 
 **Without Redux:**
+
 ```typescript
 // Components pass data through props (like a game of telephone)
 <Parent data={data}>
@@ -781,10 +812,11 @@ Redux is like a shared whiteboard that all components can see and write on.
 ```
 
 **With Redux:**
+
 ```typescript
 // Components access data directly from the store
 function AnyComponent() {
-  const data = useAppSelector(state => state.cards.data);
+  const data = useAppSelector((state) => state.cards.data);
   // No need to pass through all parents!
 }
 ```
@@ -807,15 +839,15 @@ const cardSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
-    }
-  }
+    },
+  },
 });
 
 // Dispatch an action (update the store)
 dispatch(setCards([card1, card2, card3]));
 
 // Select data (read from the store)
-const cards = useAppSelector(state => state.cards.cards);
+const cards = useAppSelector((state) => state.cards.cards);
 ```
 
 ### Styling with Tailwind CSS
@@ -823,6 +855,7 @@ const cards = useAppSelector(state => state.cards.cards);
 Tailwind uses utility classes instead of custom CSS.
 
 **Traditional CSS:**
+
 ```css
 .button {
   background-color: blue;
@@ -833,6 +866,7 @@ Tailwind uses utility classes instead of custom CSS.
 ```
 
 **Tailwind CSS:**
+
 ```typescript
 <button className="bg-blue-500 px-4 py-2 rounded text-white">
   Click me
@@ -840,6 +874,7 @@ Tailwind uses utility classes instead of custom CSS.
 ```
 
 **Common Tailwind Classes:**
+
 - `flex` = Display flex
 - `items-center` = Align items vertically
 - `justify-between` = Space items apart
@@ -915,6 +950,7 @@ POST /api/decks 201 in 245ms
 ```
 
 **What to look for:**
+
 - `200` = Success
 - `201` = Created successfully
 - `400` = Bad request (user error)
@@ -932,6 +968,7 @@ npm run db:studio
 ```
 
 Opens a web interface at http://localhost:5555 where you can:
+
 - View all tables
 - Browse data
 - Edit records
@@ -974,6 +1011,7 @@ npm run db:studio
 #### Change a User's Role
 
 In Prisma Studio:
+
 1. Find the user
 2. Click on the role field
 3. Select: `USER`, `MODERATOR`, or `ADMIN`
@@ -1055,7 +1093,7 @@ const navigation = [
   { name: 'Cards', href: '/cards' },
   { name: 'Decks', href: '/decks' },
   { name: 'Collection', href: '/collection' },
-  { name: 'Tournaments', href: '/tournaments' },  // Add this
+  { name: 'Tournaments', href: '/tournaments' }, // Add this
 ];
 ```
 
@@ -1150,7 +1188,7 @@ export async function GET(request: NextRequest) {
   try {
     const tournaments = await prisma.tournament.findMany({
       orderBy: { date: 'desc' },
-      take: 20
+      take: 20,
     });
 
     return NextResponse.json({ tournaments });
@@ -1169,18 +1207,12 @@ export async function POST(request: NextRequest) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Check admin role
     if (session.user.role !== 'ADMIN') {
-      return NextResponse.json(
-        { error: 'Forbidden' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
     // Parse request body
@@ -1201,7 +1233,7 @@ export async function POST(request: NextRequest) {
         date: new Date(data.date),
         location: data.location,
         maxParticipants: data.maxParticipants || 64,
-      }
+      },
     });
 
     return NextResponse.json(tournament, { status: 201 });
@@ -1286,11 +1318,13 @@ model Deck {
 #### Step 3: Push Changes to Database
 
 **For Development:**
+
 ```bash
 npm run db:push
 ```
 
 **For Production (creates migration):**
+
 ```bash
 npm run db:migrate
 # Enter migration name: "add_tournaments"
@@ -1338,7 +1372,7 @@ async function updateCards() {
   // Update all cards from set ST01
   await prisma.card.updateMany({
     where: { setId: 'ST01' },
-    data: { isPromo: false }
+    data: { isPromo: false },
   });
 
   console.log('Cards updated!');
@@ -1348,6 +1382,7 @@ updateCards();
 ```
 
 Run with:
+
 ```bash
 npx ts-node scripts/update-cards.ts
 ```
@@ -1364,13 +1399,13 @@ export default {
       colors: {
         primary: {
           50: '#f0f9ff',
-          500: '#3b82f6',  // Change this to your color
+          500: '#3b82f6', // Change this to your color
           900: '#1e3a8a',
-        }
-      }
-    }
-  }
-}
+        },
+      },
+    },
+  },
+};
 ```
 
 #### Update Component Styles
@@ -1465,17 +1500,17 @@ The search supports multiple filters simultaneously:
 const cards = await prisma.card.findMany({
   where: {
     AND: [
-      { name: { contains: "Gundam", mode: "insensitive" } },
-      { type: { name: "Unit" } },
-      { faction: "Earth Federation" },
-      { level: { gte: 4, lte: 6 } }
-    ]
+      { name: { contains: 'Gundam', mode: 'insensitive' } },
+      { type: { name: 'Unit' } },
+      { faction: 'Earth Federation' },
+      { level: { gte: 4, lte: 6 } },
+    ],
   },
   include: {
     type: true,
     rarity: true,
-    set: true
-  }
+    set: true,
+  },
 });
 ```
 
@@ -1520,21 +1555,21 @@ function validateDeck(deck: Deck): ValidationResult {
   }
 
   // Check maximum copies (typically 4 per card)
-  deck.cards.forEach(card => {
+  deck.cards.forEach((card) => {
     if (card.quantity > 4) {
       errors.push(`${card.name}: Maximum 4 copies allowed`);
     }
   });
 
   // Check faction restrictions (optional)
-  const factions = new Set(deck.cards.map(c => c.faction));
+  const factions = new Set(deck.cards.map((c) => c.faction));
   if (factions.size > 2) {
     errors.push('Deck cannot have more than 2 factions');
   }
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 }
 ```
@@ -1573,15 +1608,15 @@ async function addToCollection(cardId: string, quantity: number) {
   const existing = await prisma.collectionCard.findFirst({
     where: {
       collectionId: userCollectionId,
-      cardId: cardId
-    }
+      cardId: cardId,
+    },
   });
 
   if (existing) {
     // Update quantity
     await prisma.collectionCard.update({
       where: { id: existing.id },
-      data: { quantity: existing.quantity + quantity }
+      data: { quantity: existing.quantity + quantity },
     });
   } else {
     // Create new entry
@@ -1589,8 +1624,8 @@ async function addToCollection(cardId: string, quantity: number) {
       data: {
         collectionId: userCollectionId,
         cardId: cardId,
-        quantity: quantity
-      }
+        quantity: quantity,
+      },
     });
   }
 }
@@ -1603,16 +1638,16 @@ async function addToCollection(cardId: string, quantity: number) {
 ```typescript
 // Registered in src/app/layout.tsx
 if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-  window.navigator.serviceWorker.register('/sw.js')
-    .then(registration => {
-      console.log('Service Worker registered!');
-    });
+  window.navigator.serviceWorker.register('/sw.js').then((registration) => {
+    console.log('Service Worker registered!');
+  });
 }
 ```
 
 #### What Gets Cached
 
 The service worker caches:
+
 1. **App shell** (HTML, CSS, JavaScript)
 2. **Static assets** (fonts, icons)
 3. **Card images** (for offline viewing)
@@ -1624,16 +1659,15 @@ The service worker caches:
 // Service worker intercepts fetch requests
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return cached version if available
-        if (response) {
-          return response;
-        }
+    caches.match(event.request).then((response) => {
+      // Return cached version if available
+      if (response) {
+        return response;
+      }
 
-        // Otherwise fetch from network
-        return fetch(event.request);
-      })
+      // Otherwise fetch from network
+      return fetch(event.request);
+    })
   );
 });
 ```
@@ -1793,6 +1827,7 @@ POST   /api/auth/signout       # Logout
 ### Component Library Catalog
 
 **UI Components** (`src/components/ui/`)
+
 - `Button.tsx` - Clickable button with variants
 - `Card.tsx` - Container component
 - `Modal.tsx` - Dialog/modal
@@ -1804,6 +1839,7 @@ POST   /api/auth/signout       # Logout
 - `Pagination.tsx` - Page navigation
 
 **Feature Components** (`src/components/[feature]/`)
+
 - `CardGrid.tsx` - Grid of cards
 - `CardDetail.tsx` - Card details modal
 - `CardSearch.tsx` - Search interface
@@ -1824,6 +1860,7 @@ POST   /api/auth/signout       # Logout
 **Cause:** Another process is using port 3000
 
 **Solution:**
+
 ```bash
 # Find and kill the process
 lsof -ti:3000 | xargs kill -9
@@ -1837,6 +1874,7 @@ npm run dev
 **Cause:** Docker isn't running or PostgreSQL container is stopped
 
 **Solution:**
+
 ```bash
 # Check Docker Desktop is running
 # Then restart services
@@ -1852,6 +1890,7 @@ npm run dev
 **Cause:** Prisma client needs to be regenerated
 
 **Solution:**
+
 ```bash
 npm run db:generate
 ```
@@ -1861,6 +1900,7 @@ npm run db:generate
 **Cause:** TypeScript path aliases not recognized
 
 **Solution:**
+
 ```bash
 # Restart TypeScript server in VS Code
 # Press Cmd+Shift+P → "TypeScript: Restart TS Server"
@@ -1874,6 +1914,7 @@ npm run dev
 **Cause:** Redis not running or session expired
 
 **Solution:**
+
 ```bash
 # Restart Redis
 npm run docker:down
@@ -1887,6 +1928,7 @@ npm run docker:dev
 **Cause:** TypeScript compilation errors
 
 **Solution:**
+
 ```bash
 # Check for errors
 npm run type-check
@@ -1903,6 +1945,7 @@ npm run type-check
 **Cause:** Browser cache or build cache
 
 **Solution:**
+
 ```bash
 # Clear Next.js cache
 rm -rf .next
@@ -1926,10 +1969,12 @@ src/components/CardGrid.tsx:42:15
 ```
 
 **What it means:**
+
 - `card.name` might be `undefined`
 - The `Card` component expects `name` to always be a string
 
 **How to fix:**
+
 ```typescript
 // Option 1: Provide default value
 <Card name={card.name || 'Unknown'} />
@@ -1954,19 +1999,21 @@ POST /api/decks 400 in 50ms
 ```
 
 **What it means:**
+
 - The API rejected your request (400 = bad request)
 - The deck name was missing
 
 **How to fix:**
+
 ```typescript
 // Make sure to include required fields
 const response = await fetch('/api/decks', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    name: 'My Deck',  // Include this!
-    description: 'Optional description'
-  })
+    name: 'My Deck', // Include this!
+    description: 'Optional description',
+  }),
 });
 ```
 
@@ -1982,22 +2029,27 @@ const response = await fetch('/api/decks', {
 #### External Resources
 
 **Next.js:**
+
 - Official docs: https://nextjs.org/docs
 - Learn Next.js: https://nextjs.org/learn
 
 **React:**
+
 - Official docs: https://react.dev
 - React tutorial: https://react.dev/learn
 
 **TypeScript:**
+
 - Official docs: https://www.typescriptlang.org/docs
 - TypeScript for JS programmers: https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
 
 **Tailwind CSS:**
+
 - Official docs: https://tailwindcss.com/docs
 - Playground: https://play.tailwindcss.com
 
 **Prisma:**
+
 - Official docs: https://www.prisma.io/docs
 - Database guide: https://www.prisma.io/docs/guides
 

@@ -60,7 +60,14 @@
         "properties": {
           "keyword": {
             "type": "string",
-            "enum": ["Repair", "Breach", "Support", "Blocker", "First Strike", "High-Maneuver"]
+            "enum": [
+              "Repair",
+              "Breach",
+              "Support",
+              "Blocker",
+              "First Strike",
+              "High-Maneuver"
+            ]
           },
           "value": {
             "type": "integer",
@@ -199,10 +206,7 @@
       "description": "Special rules that apply to tokens"
     }
   },
-  "required": [
-    "tokenName",
-    "tokenType"
-  ],
+  "required": ["tokenName", "tokenType"],
   "allOf": [
     {
       "if": {
@@ -257,3 +261,4 @@
       }
     }
   ]
+}

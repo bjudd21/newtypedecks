@@ -431,7 +431,9 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
                       className="flex items-center justify-between rounded border border-[#443a5c] bg-[#1a1625] p-2 text-sm"
                     >
                       <div className="flex-1">
-                        <div className="font-medium text-white">{record.format}</div>
+                        <div className="font-medium text-white">
+                          {record.format}
+                        </div>
                         <div className="text-xs text-gray-400">
                           {new Date(record.date).toLocaleDateString()} •{' '}
                           {record.filename}
@@ -450,7 +452,9 @@ export const CollectionExporter: React.FC<CollectionExporterProps> = ({
 
             {/* Format Information */}
             <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-xs text-gray-400">
-              <div className="mb-2 font-medium text-white">Export Guidelines:</div>
+              <div className="mb-2 font-medium text-white">
+                Export Guidelines:
+              </div>
               <ul className="space-y-1">
                 <li>
                   • <strong>JSON:</strong> Complete backup with all data - best

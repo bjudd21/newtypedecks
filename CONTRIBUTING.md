@@ -24,6 +24,7 @@ We are committed to providing a welcoming and inclusive experience for everyone.
 ### Our Standards
 
 **Positive Behavior:**
+
 - Using welcoming and inclusive language
 - Being respectful of differing viewpoints and experiences
 - Gracefully accepting constructive criticism
@@ -31,6 +32,7 @@ We are committed to providing a welcoming and inclusive experience for everyone.
 - Showing empathy towards other community members
 
 **Unacceptable Behavior:**
+
 - Trolling, insulting/derogatory comments, and personal or political attacks
 - Public or private harassment
 - Publishing others' private information without explicit permission
@@ -56,17 +58,20 @@ Before you begin, ensure you have:
 
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/newtypedecks.git
    cd newtypedecks
    ```
 
 3. **Add upstream remote**:
+
    ```bash
    git remote add upstream https://github.com/bjudd21/newtypedecks.git
    ```
 
 4. **Run the setup**:
+
    ```bash
    npm run setup:full
    ```
@@ -109,6 +114,7 @@ git checkout -b fix/bug-description
 ```
 
 **Branch Naming Conventions:**
+
 - `feature/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation changes
@@ -180,6 +186,7 @@ git push origin feature/your-feature-name
 - Use type inference where appropriate
 
 **Example:**
+
 ```typescript
 // Good
 interface CardProps {
@@ -206,6 +213,7 @@ export const Card = (props: any) => {
 - Keep components focused and single-purpose
 
 **Component Structure:**
+
 ```typescript
 'use client'; // If client component
 
@@ -324,12 +332,14 @@ Closes #123"
 ### Before Submitting
 
 1. **Update your branch** with latest upstream changes:
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Run all quality checks**:
+
    ```bash
    npm run precommit
    ```
@@ -345,18 +355,22 @@ When creating a PR, include:
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 Describe testing performed
 
 ## Checklist
+
 - [ ] Code follows project style guidelines
 - [ ] Self-review completed
 - [ ] Tests added/updated
@@ -393,6 +407,7 @@ git push origin feature/your-feature-name
 ### Test Types
 
 **Unit Tests:**
+
 ```typescript
 // Component test
 describe('CardGrid', () => {
@@ -407,6 +422,7 @@ describe('CardGrid', () => {
 ```
 
 **API Tests:**
+
 ```typescript
 describe('POST /api/cards/search', () => {
   it('should return filtered cards', async () => {
@@ -467,11 +483,13 @@ npm run test:watch
 ### Creating Issues
 
 **Bug Reports:**
+
 ```markdown
 **Describe the bug**
 Clear description of the issue
 
 **To Reproduce**
+
 1. Go to '...'
 2. Click on '...'
 3. See error
@@ -483,12 +501,14 @@ What should happen
 If applicable
 
 **Environment**
+
 - OS: [e.g. macOS, Windows]
 - Browser: [e.g. Chrome 120]
 - Node version: [e.g. 18.17.0]
 ```
 
 **Feature Requests:**
+
 ```markdown
 **Is your feature request related to a problem?**
 Description of the problem
@@ -524,6 +544,7 @@ Any other relevant information
 ### Recognition
 
 Contributors are recognized in:
+
 - GitHub contributors page
 - Release notes for significant contributions
 - README acknowledgments

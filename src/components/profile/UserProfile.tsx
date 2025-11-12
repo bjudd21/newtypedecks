@@ -117,8 +117,9 @@ export function UserProfile({ user }: UserProfileProps) {
 
   const handleDeleteAccount = async () => {
     // TODO: Replace with proper confirmation dialog component
-    // eslint-disable-next-line no-alert
+
     if (
+      // eslint-disable-next-line no-alert
       !window.confirm(
         'Are you sure you want to delete your account? This action cannot be undone.'
       )
@@ -222,9 +223,7 @@ export function UserProfile({ user }: UserProfileProps) {
               <label className="mb-1 block text-sm font-medium text-gray-400">
                 Account Role
               </label>
-              <p className="capitalize text-white">
-                {user.role.toLowerCase()}
-              </p>
+              <p className="text-white capitalize">{user.role.toLowerCase()}</p>
             </div>
 
             {isEditing && (

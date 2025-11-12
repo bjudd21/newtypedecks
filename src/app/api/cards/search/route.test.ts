@@ -385,7 +385,7 @@ describe('GET /api/cards/search', () => {
     );
 
     const response = await GET(request);
-    const data = await response.json();
+    const _data = await response.json();
 
     expect(response.status).toBe(200);
     expect(CardService.searchCards).toHaveBeenCalledWith(

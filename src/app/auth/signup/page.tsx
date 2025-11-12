@@ -4,30 +4,31 @@ import { authOptions } from '@/lib/auth';
 import { SignUpForm } from '@/components/auth/SignUpForm';
 
 interface SignUpPageProps {
-  searchParams: {
+  searchParams: Promise<{
     callbackUrl?: string;
     error?: string;
-  };
+  }>;
 }
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const session = await getServerSession(authOptions);
+  const params = await searchParams;
 
   // Redirect if user is already signed in
   if (session) {
-    redirect(searchParams.callbackUrl || '/');
+    redirect(params.callbackUrl || '/');
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625] px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        {searchParams.error && (
+        {params.error && (
           <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-center text-sm text-red-400">
-            {getErrorMessage(searchParams.error)}
+            {getErrorMessage(params.error)}
           </div>
         )}
         <SignUpForm
-          callbackUrl={searchParams.callbackUrl}
+          callbackUrl={params.callbackUrl}
           className="mx-auto max-w-md"
         />
       </div>
