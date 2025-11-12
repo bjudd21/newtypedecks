@@ -96,11 +96,15 @@ interface EnvironmentConfig {
 function getEnvVar(key: string, fallback?: string): string {
   const value = process.env[key];
   if (!value && fallback === undefined) {
-    // In development or test, provide helpful defaults instead of throwing immediately
-    if (
-      process.env.NODE_ENV === 'development' ||
-      process.env.NODE_ENV === 'test'
-    ) {
+    // During build time or in non-production environments, provide defaults
+    // Only throw errors in actual production runtime
+    const isProductionRuntime =
+      process.env.NODE_ENV === 'production' &&
+      typeof window === 'undefined' &&
+      !process.env.NEXT_PHASE; // Not during build phase
+
+    if (!isProductionRuntime) {
+      // Development, test, or build time - use defaults
       if (process.env.NODE_ENV === 'development') {
         console.warn(
           `Warning: Environment variable ${key} is not set, using default`
@@ -108,6 +112,7 @@ function getEnvVar(key: string, fallback?: string): string {
       }
       return getDefaultValue(key);
     }
+
     throw new Error(`Environment variable ${key} is required but not set`);
   }
   return value || fallback || '';
