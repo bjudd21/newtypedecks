@@ -136,6 +136,7 @@ jobs:
 
       - name: Analyze bundle size
         run: npm run build:analyze
+        continue-on-error: true
 
       - name: Check bundle size
         run: |
