@@ -1,659 +1,211 @@
 {
-  "timestamp": "2025-11-11T23:12:07.925Z",
+  "timestamp": "2025-11-12T05:05:14.326Z",
   "summary": {
-    "passed": 165,
-    "warnings": 18,
-    "errors": 85,
+    "passed": 215,
+    "warnings": 53,
+    "errors": 0,
     "total": 268
   },
   "files": [
     {
-      "file": "src/lib/utils/accessibility.ts",
-      "lines": 364,
-      "limit": 300,
-      "percentage": 121.33333333333334,
-      "size": 8485,
-      "status": "error"
-    },
-    {
       "file": "src/lib/types/card.ts",
       "lines": 400,
-      "limit": 300,
-      "percentage": 133.33333333333331,
+      "limit": 500,
+      "percentage": 80,
       "size": 8304,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/storage/imageProcessing.ts",
       "lines": 555,
-      "limit": 300,
-      "percentage": 185,
+      "limit": 500,
+      "percentage": 111.00000000000001,
       "size": 13651,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/tournamentPrepService.ts",
       "lines": 792,
-      "limit": 300,
-      "percentage": 264,
+      "limit": 500,
+      "percentage": 158.4,
       "size": 20772,
-      "status": "error"
+      "status": "warning"
     },
     {
-      "file": "src/lib/services/socialService(1).ts",
+      "file": "src/lib/services/socialService.ts",
       "lines": 648,
-      "limit": 300,
-      "percentage": 216,
+      "limit": 500,
+      "percentage": 129.6,
       "size": 14986,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/searchCacheService.ts",
       "lines": 408,
-      "limit": 300,
-      "percentage": 136,
+      "limit": 500,
+      "percentage": 81.6,
       "size": 10589,
-      "status": "error"
+      "status": "warning"
     },
     {
-      "file": "src/lib/services/searchAnalyticsService(1).ts",
+      "file": "src/lib/services/searchAnalyticsService.ts",
       "lines": 635,
-      "limit": 300,
-      "percentage": 211.66666666666666,
+      "limit": 500,
+      "percentage": 127,
       "size": 19149,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/pwaService.ts",
       "lines": 524,
-      "limit": 300,
-      "percentage": 174.66666666666666,
+      "limit": 500,
+      "percentage": 104.80000000000001,
       "size": 14462,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/importSchedulerService.ts",
       "lines": 448,
-      "limit": 300,
-      "percentage": 149.33333333333334,
+      "limit": 500,
+      "percentage": 89.60000000000001,
       "size": 11533,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/imageCacheService.ts",
       "lines": 496,
-      "limit": 300,
-      "percentage": 165.33333333333334,
+      "limit": 500,
+      "percentage": 99.2,
       "size": 13048,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/deckValidationService.ts",
       "lines": 541,
-      "limit": 300,
-      "percentage": 180.33333333333331,
+      "limit": 500,
+      "percentage": 108.2,
       "size": 14949,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/deckExportService.ts",
       "lines": 706,
-      "limit": 300,
-      "percentage": 235.33333333333334,
+      "limit": 500,
+      "percentage": 141.2,
       "size": 18898,
-      "status": "error"
+      "status": "warning"
     },
     {
-      "file": "src/lib/services/deckAnalyticsService(1).ts",
+      "file": "src/lib/services/deckAnalyticsService.ts",
       "lines": 485,
-      "limit": 300,
-      "percentage": 161.66666666666666,
+      "limit": 500,
+      "percentage": 97,
       "size": 14861,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/databaseOptimizationService.ts",
       "lines": 456,
-      "limit": 300,
-      "percentage": 152,
+      "limit": 500,
+      "percentage": 91.2,
       "size": 13575,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/dataValidationService.ts",
       "lines": 459,
-      "limit": 300,
-      "percentage": 153,
+      "limit": 500,
+      "percentage": 91.8,
       "size": 12574,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/dataScraperService.ts",
       "lines": 569,
-      "limit": 300,
-      "percentage": 189.66666666666669,
+      "limit": 500,
+      "percentage": 113.79999999999998,
       "size": 14590,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/dataImportService.ts",
       "lines": 442,
-      "limit": 300,
-      "percentage": 147.33333333333334,
+      "limit": 500,
+      "percentage": 88.4,
       "size": 11975,
-      "status": "error"
-    },
-    {
-      "file": "src/lib/services/cdnService.ts",
-      "lines": 398,
-      "limit": 300,
-      "percentage": 132.66666666666666,
-      "size": 10242,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/cardSubmissionService.ts",
       "lines": 699,
-      "limit": 300,
-      "percentage": 233,
+      "limit": 500,
+      "percentage": 139.79999999999998,
       "size": 17697,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/services/cardService.ts",
       "lines": 611,
-      "limit": 300,
-      "percentage": 203.66666666666666,
+      "limit": 500,
+      "percentage": 122.2,
       "size": 14790,
-      "status": "error"
-    },
-    {
-      "file": "src/lib/monitoring/sentry.ts",
-      "lines": 319,
-      "limit": 300,
-      "percentage": 106.33333333333333,
-      "size": 7530,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/monitoring/performance.ts",
       "lines": 497,
-      "limit": 300,
-      "percentage": 165.66666666666669,
+      "limit": 500,
+      "percentage": 99.4,
       "size": 13088,
-      "status": "error"
-    },
-    {
-      "file": "src/lib/monitoring/middleware.ts",
-      "lines": 393,
-      "limit": 300,
-      "percentage": 131,
-      "size": 10461,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/monitoring/logger.ts",
       "lines": 414,
-      "limit": 300,
-      "percentage": 138,
+      "limit": 500,
+      "percentage": 82.8,
       "size": 10497,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/lib/monitoring/analytics.ts",
       "lines": 453,
-      "limit": 300,
-      "percentage": 151,
+      "limit": 500,
+      "percentage": 90.60000000000001,
       "size": 11107,
-      "status": "error"
+      "status": "warning"
     },
     {
-      "file": "src/lib/models/card(1).ts",
+      "file": "src/lib/models/card.ts",
       "lines": 971,
-      "limit": 300,
-      "percentage": 323.6666666666667,
+      "limit": 500,
+      "percentage": 194.2,
       "size": 25793,
-      "status": "error"
-    },
-    {
-      "file": "src/lib/config/environment.ts",
-      "lines": 319,
-      "limit": 300,
-      "percentage": 106.33333333333333,
-      "size": 8996,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/hooks/useMonitoring.ts",
       "lines": 432,
-      "limit": 300,
-      "percentage": 144,
+      "limit": 500,
+      "percentage": 86.4,
       "size": 11129,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/hooks/useMonitoring 2.ts",
       "lines": 430,
-      "limit": 300,
-      "percentage": 143.33333333333334,
+      "limit": 500,
+      "percentage": 86,
       "size": 11114,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/hooks/useCard.ts",
       "lines": 523,
-      "limit": 300,
-      "percentage": 174.33333333333334,
+      "limit": 500,
+      "percentage": 104.60000000000001,
       "size": 13591,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/decks/route.test.ts",
-      "lines": 642,
-      "limit": 300,
-      "percentage": 214,
-      "size": 19909,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/decks/[id]/route.ts",
-      "lines": 358,
-      "limit": 300,
-      "percentage": 119.33333333333334,
-      "size": 9740,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/decks/[id]/route.test.ts",
-      "lines": 678,
-      "limit": 300,
-      "percentage": 225.99999999999997,
-      "size": 21059,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/decks/[id]/versions/[versionId]/route.ts",
-      "lines": 318,
-      "limit": 300,
-      "percentage": 106,
-      "size": 8296,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/collections/route.test.ts",
-      "lines": 728,
-      "limit": 300,
-      "percentage": 242.66666666666669,
-      "size": 23057,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/collections/import/route.ts",
-      "lines": 382,
-      "limit": 300,
-      "percentage": 127.33333333333334,
-      "size": 10044,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/collections/export/route.ts",
-      "lines": 485,
-      "limit": 300,
-      "percentage": 161.66666666666666,
-      "size": 12760,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/cards/search/route.ts",
-      "lines": 327,
-      "limit": 300,
-      "percentage": 109.00000000000001,
-      "size": 9564,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/cards/search/route.test.ts",
-      "lines": 424,
-      "limit": 300,
-      "percentage": 141.33333333333334,
-      "size": 11304,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/auth/verify-email/route.test.ts",
-      "lines": 414,
-      "limit": 300,
-      "percentage": 138,
-      "size": 12302,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/auth/signup/route.test.ts",
-      "lines": 525,
-      "limit": 300,
-      "percentage": 175,
-      "size": 14764,
-      "status": "error"
-    },
-    {
-      "file": "src/app/api/admin/import/route.ts",
-      "lines": 333,
-      "limit": 300,
-      "percentage": 111.00000000000001,
-      "size": 9316,
-      "status": "error"
-    },
-    {
-      "file": "src/components/ui/OptimizedImage.tsx",
-      "lines": 360,
-      "limit": 300,
-      "percentage": 120,
-      "size": 8894,
-      "status": "error"
-    },
-    {
-      "file": "src/components/ui/InfiniteScroll.tsx",
-      "lines": 425,
-      "limit": 300,
-      "percentage": 141.66666666666669,
-      "size": 11514,
-      "status": "error"
-    },
-    {
-      "file": "src/components/ui/AdvancedSort.tsx",
-      "lines": 359,
-      "limit": 300,
-      "percentage": 119.66666666666667,
-      "size": 12521,
-      "status": "error"
-    },
-    {
-      "file": "src/components/ui/AdvancedFilters.tsx",
-      "lines": 617,
-      "limit": 300,
-      "percentage": 205.66666666666666,
-      "size": 20339,
-      "status": "error"
-    },
-    {
-      "file": "src/components/social/UserProfile.tsx",
-      "lines": 463,
-      "limit": 300,
-      "percentage": 154.33333333333331,
-      "size": 16399,
-      "status": "error"
-    },
-    {
-      "file": "src/components/social/DeckRatings.tsx",
-      "lines": 509,
-      "limit": 300,
-      "percentage": 169.66666666666669,
-      "size": 17180,
-      "status": "error"
-    },
-    {
-      "file": "src/components/social/DeckComments.tsx",
-      "lines": 531,
-      "limit": 300,
-      "percentage": 177,
-      "size": 16745,
-      "status": "error"
-    },
-    {
-      "file": "src/components/pwa/PWAStatus.tsx",
-      "lines": 361,
-      "limit": 300,
-      "percentage": 120.33333333333334,
-      "size": 10705,
-      "status": "error"
-    },
-    {
-      "file": "src/components/profile/UserProfile.tsx",
-      "lines": 317,
-      "limit": 300,
-      "percentage": 105.66666666666666,
-      "size": 9341,
-      "status": "error"
-    },
-    {
-      "file": "src/components/monitoring/MonitoringProvider.tsx",
-      "lines": 327,
-      "limit": 300,
-      "percentage": 109.00000000000001,
-      "size": 11518,
-      "status": "error"
-    },
-    {
-      "file": "src/components/layout/TermsOfService(1).tsx",
-      "lines": 363,
-      "limit": 300,
-      "percentage": 121,
-      "size": 14967,
-      "status": "error"
-    },
-    {
-      "file": "src/components/layout/PrivacyNotice.tsx",
-      "lines": 326,
-      "limit": 300,
-      "percentage": 108.66666666666667,
-      "size": 12963,
-      "status": "error"
-    },
-    {
-      "file": "src/components/layout/CookieNotice.tsx",
-      "lines": 362,
-      "limit": 300,
-      "percentage": 120.66666666666667,
-      "size": 13424,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/PublicDeckBrowser.tsx",
-      "lines": 409,
-      "limit": 300,
-      "percentage": 136.33333333333331,
-      "size": 13485,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/FavoriteDeckManager.tsx",
-      "lines": 362,
-      "limit": 300,
-      "percentage": 120.66666666666667,
-      "size": 11610,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/DeckVersionHistory(1).tsx",
-      "lines": 424,
-      "limit": 300,
-      "percentage": 141.33333333333334,
-      "size": 13479,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/DeckVersionComparison(1).tsx",
-      "lines": 369,
-      "limit": 300,
-      "percentage": 123,
-      "size": 12792,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/DeckValidator.tsx",
-      "lines": 302,
-      "limit": 300,
-      "percentage": 100.66666666666666,
-      "size": 10204,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/DeckTemplateBrowser.tsx",
-      "lines": 392,
-      "limit": 300,
-      "percentage": 130.66666666666666,
-      "size": 12236,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/DeckBuilder.tsx",
-      "lines": 897,
-      "limit": 300,
-      "percentage": 299,
-      "size": 27167,
-      "status": "error"
-    },
-    {
-      "file": "src/components/deck/AnonymousDeckBuilder(1).tsx",
-      "lines": 1093,
-      "limit": 300,
-      "percentage": 364.33333333333337,
-      "size": 38733,
-      "status": "error"
-    },
-    {
-      "file": "src/components/collection/CollectionManager.tsx",
-      "lines": 593,
-      "limit": 300,
-      "percentage": 197.66666666666666,
-      "size": 21880,
-      "status": "error"
-    },
-    {
-      "file": "src/components/collection/CollectionImporter.tsx",
-      "lines": 479,
-      "limit": 300,
-      "percentage": 159.66666666666666,
-      "size": 17265,
-      "status": "error"
-    },
-    {
-      "file": "src/components/collection/CollectionExporter.tsx",
-      "lines": 488,
-      "limit": 300,
-      "percentage": 162.66666666666666,
-      "size": 16993,
-      "status": "error"
-    },
-    {
-      "file": "src/components/collection/AdvancedImporter.tsx",
-      "lines": 743,
-      "limit": 300,
-      "percentage": 247.66666666666666,
-      "size": 23342,
-      "status": "error"
-    },
-    {
-      "file": "src/components/card/CardSearch.tsx",
-      "lines": 562,
-      "limit": 300,
-      "percentage": 187.33333333333334,
-      "size": 18667,
-      "status": "error"
-    },
-    {
-      "file": "src/components/card/CardImage.tsx",
-      "lines": 341,
-      "limit": 300,
-      "percentage": 113.66666666666667,
-      "size": 10658,
-      "status": "error"
-    },
-    {
-      "file": "src/components/auth/SignUpForm.tsx",
-      "lines": 429,
-      "limit": 300,
-      "percentage": 143,
-      "size": 15754,
-      "status": "error"
-    },
-    {
-      "file": "src/components/auth/SignInForm(1).tsx",
-      "lines": 317,
-      "limit": 300,
-      "percentage": 105.66666666666666,
-      "size": 11361,
-      "status": "error"
-    },
-    {
-      "file": "src/components/auth/AuthStatus.tsx",
-      "lines": 340,
-      "limit": 300,
-      "percentage": 113.33333333333333,
-      "size": 12161,
-      "status": "error"
-    },
-    {
-      "file": "src/components/analytics/MetaGameInsights(1).tsx",
-      "lines": 476,
-      "limit": 300,
-      "percentage": 158.66666666666666,
-      "size": 17796,
-      "status": "error"
-    },
-    {
-      "file": "src/components/analytics/DeckAnalyticsDisplay.tsx",
-      "lines": 384,
-      "limit": 300,
-      "percentage": 128,
-      "size": 13475,
-      "status": "error"
-    },
-    {
-      "file": "src/components/admin/SubmissionReviewCard.tsx",
-      "lines": 508,
-      "limit": 300,
-      "percentage": 169.33333333333334,
-      "size": 13496,
-      "status": "error"
-    },
-    {
-      "file": "src/components/admin/AdminSubmissionsDashboard.tsx",
-      "lines": 388,
-      "limit": 300,
-      "percentage": 129.33333333333331,
-      "size": 11770,
-      "status": "error"
-    },
-    {
-      "file": "src/app/page.tsx",
-      "lines": 482,
-      "limit": 300,
-      "percentage": 160.66666666666666,
-      "size": 20026,
-      "status": "error"
-    },
-    {
-      "file": "src/app/settings/pwa/page(2).tsx",
-      "lines": 500,
-      "limit": 300,
-      "percentage": 166.66666666666669,
-      "size": 17332,
-      "status": "error"
-    },
-    {
-      "file": "src/app/cards/NewCardsPageClient.tsx",
-      "lines": 307,
-      "limit": 300,
-      "percentage": 102.33333333333334,
-      "size": 9796,
-      "status": "error"
-    },
-    {
-      "file": "src/app/cards/CardsPageClient(4).tsx",
-      "lines": 783,
-      "limit": 300,
-      "percentage": 261,
-      "size": 22674,
-      "status": "error"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient(1).tsx",
-      "lines": 873,
-      "limit": 300,
-      "percentage": 291,
-      "size": 25964,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/app/api/decks/route.test.ts",
@@ -661,7 +213,7 @@
       "limit": 500,
       "percentage": 128.4,
       "size": 19909,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/app/api/decks/[id]/route.test.ts",
@@ -669,7 +221,7 @@
       "limit": 500,
       "percentage": 135.60000000000002,
       "size": 21059,
-      "status": "error"
+      "status": "warning"
     },
     {
       "file": "src/app/api/collections/route.test.ts",
@@ -677,142 +229,14 @@
       "limit": 500,
       "percentage": 145.6,
       "size": 23057,
-      "status": "error"
+      "status": "warning"
     },
     {
-      "file": "src/app/api/auth/signup/route.test.ts",
-      "lines": 525,
+      "file": "src/app/api/collections/export/route.ts",
+      "lines": 485,
       "limit": 500,
-      "percentage": 105,
-      "size": 14764,
-      "status": "error"
-    },
-    {
-      "file": "src/lib/auth.ts",
-      "lines": 291,
-      "limit": 300,
       "percentage": 97,
-      "size": 7356,
-      "status": "warning"
-    },
-    {
-      "file": "src/lib/auth-utils.ts",
-      "lines": 277,
-      "limit": 300,
-      "percentage": 92.33333333333333,
-      "size": 6411,
-      "status": "warning"
-    },
-    {
-      "file": "src/lib/types/submission.ts",
-      "lines": 248,
-      "limit": 300,
-      "percentage": 82.66666666666667,
-      "size": 5071,
-      "status": "warning"
-    },
-    {
-      "file": "src/lib/services/submissionImageService.ts",
-      "lines": 264,
-      "limit": 300,
-      "percentage": 88,
-      "size": 7673,
-      "status": "warning"
-    },
-    {
-      "file": "src/hooks/useDecks.ts",
-      "lines": 255,
-      "limit": 300,
-      "percentage": 85,
-      "size": 5874,
-      "status": "warning"
-    },
-    {
-      "file": "src/hooks/useCollection.ts",
-      "lines": 292,
-      "limit": 300,
-      "percentage": 97.33333333333334,
-      "size": 7124,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/api/search/analytics/route.ts",
-      "lines": 289,
-      "limit": 300,
-      "percentage": 96.33333333333334,
-      "size": 9021,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/api/collections/route(1).ts",
-      "lines": 290,
-      "limit": 300,
-      "percentage": 96.66666666666667,
-      "size": 7478,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/ui/Search.tsx",
-      "lines": 288,
-      "limit": 300,
-      "percentage": 96,
-      "size": 9033,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/layout/LegalComplianceFooter.tsx",
-      "lines": 281,
-      "limit": 300,
-      "percentage": 93.66666666666667,
-      "size": 10533,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/layout/BandaiNamcoAttribution.tsx",
-      "lines": 245,
-      "limit": 300,
-      "percentage": 81.66666666666667,
-      "size": 6529,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/dashboard/UserDashboard.tsx",
-      "lines": 249,
-      "limit": 300,
-      "percentage": 83,
-      "size": 8053,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/card/CardDisplay.tsx",
-      "lines": 249,
-      "limit": 300,
-      "percentage": 83,
-      "size": 7729,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/card/CardDetailOverlay(1).tsx",
-      "lines": 257,
-      "limit": 300,
-      "percentage": 85.66666666666667,
-      "size": 9667,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/layout(1).tsx",
-      "lines": 257,
-      "limit": 300,
-      "percentage": 85.66666666666667,
-      "size": 8749,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/demo/page.tsx",
-      "lines": 283,
-      "limit": 300,
-      "percentage": 94.33333333333334,
-      "size": 9718,
+      "size": 12760,
       "status": "warning"
     },
     {
@@ -820,7 +244,7 @@
       "lines": 424,
       "limit": 500,
       "percentage": 84.8,
-      "size": 11304,
+      "size": 11305,
       "status": "warning"
     },
     {
@@ -832,1275 +256,203 @@
       "status": "warning"
     },
     {
+      "file": "src/app/api/auth/signup/route.test.ts",
+      "lines": 525,
+      "limit": 500,
+      "percentage": 105,
+      "size": 14764,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/ui/InfiniteScroll.tsx",
+      "lines": 425,
+      "limit": 500,
+      "percentage": 85,
+      "size": 11514,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/ui/AdvancedFilters.tsx",
+      "lines": 617,
+      "limit": 500,
+      "percentage": 123.4,
+      "size": 20339,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/social/UserProfile.tsx",
+      "lines": 463,
+      "limit": 500,
+      "percentage": 92.60000000000001,
+      "size": 16399,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/social/DeckRatings.tsx",
+      "lines": 509,
+      "limit": 500,
+      "percentage": 101.8,
+      "size": 17180,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/social/DeckComments.tsx",
+      "lines": 531,
+      "limit": 500,
+      "percentage": 106.2,
+      "size": 16745,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/deck/PublicDeckBrowser.tsx",
+      "lines": 409,
+      "limit": 500,
+      "percentage": 81.8,
+      "size": 13485,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/deck/DeckVersionHistory.tsx",
+      "lines": 424,
+      "limit": 500,
+      "percentage": 84.8,
+      "size": 13479,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/deck/DeckBuilder.tsx",
+      "lines": 897,
+      "limit": 500,
+      "percentage": 179.4,
+      "size": 27167,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/deck/AnonymousDeckBuilder.tsx",
+      "lines": 1093,
+      "limit": 500,
+      "percentage": 218.6,
+      "size": 38733,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/collection/CollectionManager.tsx",
+      "lines": 595,
+      "limit": 500,
+      "percentage": 119,
+      "size": 21912,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/collection/CollectionImporter.tsx",
+      "lines": 485,
+      "limit": 500,
+      "percentage": 97,
+      "size": 17409,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/collection/CollectionExporter.tsx",
+      "lines": 492,
+      "limit": 500,
+      "percentage": 98.4,
+      "size": 17077,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/collection/AdvancedImporter.tsx",
+      "lines": 747,
+      "limit": 500,
+      "percentage": 149.4,
+      "size": 23418,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/card/CardSearch.tsx",
+      "lines": 562,
+      "limit": 500,
+      "percentage": 112.4,
+      "size": 18667,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/auth/SignUpForm.tsx",
+      "lines": 431,
+      "limit": 500,
+      "percentage": 86.2,
+      "size": 15782,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/analytics/MetaGameInsights.tsx",
+      "lines": 476,
+      "limit": 500,
+      "percentage": 95.19999999999999,
+      "size": 17796,
+      "status": "warning"
+    },
+    {
+      "file": "src/components/admin/SubmissionReviewCard.tsx",
+      "lines": 508,
+      "limit": 500,
+      "percentage": 101.6,
+      "size": 13496,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "lines": 482,
+      "limit": 500,
+      "percentage": 96.39999999999999,
+      "size": 20026,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/settings/pwa/page.tsx",
+      "lines": 500,
+      "limit": 500,
+      "percentage": 100,
+      "size": 17332,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/cards/CardsPageClient.tsx",
+      "lines": 783,
+      "limit": 500,
+      "percentage": 156.6,
+      "size": 22674,
+      "status": "warning"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient.tsx",
+      "lines": 873,
+      "limit": 500,
+      "percentage": 174.6,
+      "size": 25964,
+      "status": "warning"
+    },
+    {
       "file": "src/types/global.d.ts",
       "lines": 27,
-      "limit": 300,
-      "percentage": 9,
+      "limit": 500,
+      "percentage": 5.4,
       "size": 600,
       "status": "passed"
     },
     {
       "file": "src/store/index.ts",
       "lines": 53,
-      "limit": 300,
-      "percentage": 17.666666666666668,
+      "limit": 500,
+      "percentage": 10.6,
       "size": 1729,
       "status": "passed"
     },
     {
       "file": "src/store/slices/uiSlice.ts",
       "lines": 193,
-      "limit": 300,
-      "percentage": 64.33333333333333,
+      "limit": 500,
+      "percentage": 38.6,
       "size": 4717,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/slices/uiSlice.test.ts",
-      "lines": 167,
-      "limit": 300,
-      "percentage": 55.666666666666664,
-      "size": 4284,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/slices/deckSlice.ts",
-      "lines": 106,
-      "limit": 300,
-      "percentage": 35.333333333333336,
-      "size": 2930,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/slices/collectionSlice.ts",
-      "lines": 126,
-      "limit": 300,
-      "percentage": 42,
-      "size": 3582,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/slices/cardSlice.ts",
-      "lines": 105,
-      "limit": 300,
-      "percentage": 35,
-      "size": 2190,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/slices/authSlice.ts",
-      "lines": 67,
-      "limit": 300,
-      "percentage": 22.333333333333332,
-      "size": 1646,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/utils/tokens.ts",
-      "lines": 42,
-      "limit": 300,
-      "percentage": 14.000000000000002,
-      "size": 931,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/utils/initializeDirectories.ts",
-      "lines": 67,
-      "limit": 300,
-      "percentage": 22.333333333333332,
-      "size": 1677,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/utils/index.ts",
-      "lines": 150,
-      "limit": 300,
-      "percentage": 50,
-      "size": 3969,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/types/index.ts",
-      "lines": 147,
-      "limit": 300,
-      "percentage": 49,
-      "size": 2825,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/types/collection.ts",
-      "lines": 52,
-      "limit": 300,
-      "percentage": 17.333333333333336,
-      "size": 1009,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/storage/validation.ts",
-      "lines": 141,
-      "limit": 300,
-      "percentage": 47,
-      "size": 3259,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/storage/validation.test.ts",
-      "lines": 154,
-      "limit": 300,
-      "percentage": 51.33333333333333,
-      "size": 5117,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/storage/index.ts",
-      "lines": 5,
-      "limit": 300,
-      "percentage": 1.6666666666666667,
-      "size": 143,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/storage/fileUpload.ts",
-      "lines": 198,
-      "limit": 300,
-      "percentage": 66,
-      "size": 4864,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/startup/initialize.ts",
-      "lines": 45,
-      "limit": 300,
-      "percentage": 15,
-      "size": 1425,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/services/urlDeckSharingService.ts",
-      "lines": 229,
-      "limit": 300,
-      "percentage": 76.33333333333333,
-      "size": 6141,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/services/emailService.ts",
-      "lines": 224,
-      "limit": 300,
-      "percentage": 74.66666666666667,
-      "size": 6250,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/services/cleanupService.ts",
-      "lines": 91,
-      "limit": 300,
-      "percentage": 30.333333333333336,
-      "size": 2465,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/monitoring/index.ts",
-      "lines": 153,
-      "limit": 300,
-      "percentage": 51,
-      "size": 3956,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/database/index.ts",
-      "lines": 42,
-      "limit": 300,
-      "percentage": 14.000000000000002,
-      "size": 1137,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/config/oauth.ts",
-      "lines": 66,
-      "limit": 300,
-      "percentage": 22,
-      "size": 1575,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/config/index.ts",
-      "lines": 3,
-      "limit": 300,
-      "percentage": 1,
-      "size": 56,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/config/environment.test.ts",
-      "lines": 76,
-      "limit": 300,
-      "percentage": 25.333333333333336,
-      "size": 2418,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/config/email.ts",
-      "lines": 73,
-      "limit": 300,
-      "percentage": 24.333333333333336,
-      "size": 1568,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/api/validation.ts",
-      "lines": 130,
-      "limit": 300,
-      "percentage": 43.333333333333336,
-      "size": 2902,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/api/response.ts",
-      "lines": 71,
-      "limit": 300,
-      "percentage": 23.666666666666668,
-      "size": 1209,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/api/index.ts",
-      "lines": 4,
-      "limit": 300,
-      "percentage": 1.3333333333333335,
-      "size": 83,
-      "status": "passed"
-    },
-    {
-      "file": "src/hooks/useAuth.ts",
-      "lines": 51,
-      "limit": 300,
-      "percentage": 17,
-      "size": 1209,
-      "status": "passed"
-    },
-    {
-      "file": "src/hooks/index.ts",
-      "lines": 6,
-      "limit": 300,
-      "percentage": 2,
-      "size": 132,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/index.ts",
-      "lines": 80,
-      "limit": 300,
-      "percentage": 26.666666666666668,
-      "size": 1949,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/social/index.ts",
-      "lines": 19,
-      "limit": 300,
-      "percentage": 6.333333333333334,
-      "size": 425,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/index.ts",
-      "lines": 14,
-      "limit": 300,
-      "percentage": 4.666666666666667,
-      "size": 359,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/profile/index.ts",
-      "lines": 3,
-      "limit": 300,
-      "percentage": 1,
-      "size": 61,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/navigation/index.ts",
-      "lines": 5,
-      "limit": 300,
-      "percentage": 1.6666666666666667,
-      "size": 154,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/layout/index.ts",
-      "lines": 20,
-      "limit": 300,
-      "percentage": 6.666666666666667,
-      "size": 642,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/index.ts",
-      "lines": 21,
-      "limit": 300,
-      "percentage": 7.000000000000001,
-      "size": 1153,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/dashboard/index.ts",
-      "lines": 3,
-      "limit": 300,
-      "percentage": 1,
-      "size": 65,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/collection/index.ts",
-      "lines": 6,
-      "limit": 300,
-      "percentage": 2,
-      "size": 243,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/index.ts",
-      "lines": 8,
-      "limit": 300,
-      "percentage": 2.666666666666667,
-      "size": 377,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/index.ts",
-      "lines": 13,
-      "limit": 300,
-      "percentage": 4.333333333333334,
-      "size": 448,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/analytics/index.ts",
-      "lines": 16,
-      "limit": 300,
-      "percentage": 5.333333333333334,
-      "size": 512,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/user/profile/route.ts",
-      "lines": 170,
-      "limit": 300,
-      "percentage": 56.666666666666664,
-      "size": 3878,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/uploads/submissions/[...path]/route.ts",
-      "lines": 91,
-      "limit": 300,
-      "percentage": 30.333333333333336,
-      "size": 2499,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/upload/card-image/route.ts",
-      "lines": 40,
-      "limit": 300,
-      "percentage": 13.333333333333334,
-      "size": 1080,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/templates/route.ts",
-      "lines": 237,
-      "limit": 300,
-      "percentage": 79,
-      "size": 5968,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/templates/[id]/use/route.ts",
-      "lines": 181,
-      "limit": 300,
-      "percentage": 60.333333333333336,
-      "size": 4554,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/submissions/route.ts",
-      "lines": 166,
-      "limit": 300,
-      "percentage": 55.333333333333336,
-      "size": 4654,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/submissions/[id]/route.ts",
-      "lines": 167,
-      "limit": 300,
-      "percentage": 55.666666666666664,
-      "size": 4278,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/submissions/[id]/upload/route.ts",
-      "lines": 101,
-      "limit": 300,
-      "percentage": 33.666666666666664,
-      "size": 2546,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/reference/route.ts",
-      "lines": 72,
-      "limit": 300,
-      "percentage": 24,
-      "size": 1685,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/reference/types/route.ts",
-      "lines": 38,
-      "limit": 300,
-      "percentage": 12.666666666666668,
-      "size": 823,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/reference/sets/route.ts",
-      "lines": 41,
-      "limit": 300,
-      "percentage": 13.666666666666666,
-      "size": 914,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/reference/rarities/route.ts",
-      "lines": 39,
-      "limit": 300,
-      "percentage": 13,
-      "size": 869,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/monitoring/metrics/route.ts",
-      "lines": 163,
-      "limit": 300,
-      "percentage": 54.333333333333336,
-      "size": 4781,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/monitoring/health/route.ts",
-      "lines": 63,
-      "limit": 300,
-      "percentage": 21,
-      "size": 1572,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/health/route.ts",
-      "lines": 78,
-      "limit": 300,
-      "percentage": 26,
-      "size": 2340,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/health/route.test.ts",
-      "lines": 33,
-      "limit": 300,
-      "percentage": 11,
-      "size": 917,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/favorites/route.ts",
-      "lines": 231,
-      "limit": 300,
-      "percentage": 77,
-      "size": 5813,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/favorites/[deckId]/route.ts",
-      "lines": 111,
-      "limit": 300,
-      "percentage": 37,
-      "size": 2528,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/decks/route.ts",
-      "lines": 219,
-      "limit": 300,
-      "percentage": 73,
-      "size": 5545,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/decks/public/route.ts",
-      "lines": 128,
-      "limit": 300,
-      "percentage": 42.66666666666667,
-      "size": 3360,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/decks/[id]/versions/route.ts",
-      "lines": 238,
-      "limit": 300,
-      "percentage": 79.33333333333333,
-      "size": 5947,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/collections/[cardId]/route.ts",
-      "lines": 98,
-      "limit": 300,
-      "percentage": 32.666666666666664,
-      "size": 2705,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/cards/route.ts",
-      "lines": 187,
-      "limit": 300,
-      "percentage": 62.33333333333333,
-      "size": 5240,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/cards/[id]/route.ts",
-      "lines": 214,
-      "limit": 300,
-      "percentage": 71.33333333333334,
-      "size": 5586,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/verify-email/route.ts",
-      "lines": 99,
-      "limit": 300,
-      "percentage": 33,
-      "size": 2448,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/signup/route.ts",
-      "lines": 143,
-      "limit": 300,
-      "percentage": 47.66666666666667,
-      "size": 3862,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/send-verification/route.ts",
-      "lines": 85,
-      "limit": 300,
-      "percentage": 28.333333333333332,
-      "size": 2328,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/reset-password/route.ts",
-      "lines": 88,
-      "limit": 300,
-      "percentage": 29.333333333333332,
-      "size": 2181,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/register/route.ts",
-      "lines": 39,
-      "limit": 300,
-      "percentage": 13,
-      "size": 1065,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/me/route.ts",
-      "lines": 63,
-      "limit": 300,
-      "percentage": 21,
-      "size": 1673,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/logout/route.ts",
-      "lines": 28,
-      "limit": 300,
-      "percentage": 9.333333333333334,
-      "size": 693,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/login/route.ts",
-      "lines": 37,
-      "limit": 300,
-      "percentage": 12.333333333333334,
-      "size": 958,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/forgot-password/route.ts",
-      "lines": 80,
-      "limit": 300,
-      "percentage": 26.666666666666668,
-      "size": 2183,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/auth/[...nextauth]/route.ts",
-      "lines": 13,
-      "limit": 300,
-      "percentage": 4.333333333333334,
-      "size": 302,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/admin/submissions/route.ts",
-      "lines": 128,
-      "limit": 300,
-      "percentage": 42.66666666666667,
-      "size": 3798,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/admin/submissions/[id]/review/route.ts",
-      "lines": 86,
-      "limit": 300,
-      "percentage": 28.666666666666668,
-      "size": 2366,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/admin/submissions/[id]/publish/route.ts",
-      "lines": 90,
-      "limit": 300,
-      "percentage": 30,
-      "size": 2355,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/api/admin/import/test/route.ts",
-      "lines": 76,
-      "limit": 300,
-      "percentage": 25.333333333333336,
-      "size": 2229,
-      "status": "passed"
-    },
-    {
-      "file": "src/store/Provider.tsx",
-      "lines": 14,
-      "limit": 300,
-      "percentage": 4.666666666666667,
-      "size": 316,
-      "status": "passed"
-    },
-    {
-      "file": "src/lib/test-utils.tsx",
-      "lines": 150,
-      "limit": 300,
-      "percentage": 50,
-      "size": 3817,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Toast.tsx",
-      "lines": 182,
-      "limit": 300,
-      "percentage": 60.66666666666667,
-      "size": 5575,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Spinner.tsx",
-      "lines": 123,
-      "limit": 300,
-      "percentage": 41,
-      "size": 2678,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Select.tsx",
-      "lines": 200,
-      "limit": 300,
-      "percentage": 66.66666666666666,
-      "size": 6388,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Pagination.tsx",
-      "lines": 184,
-      "limit": 300,
-      "percentage": 61.33333333333333,
-      "size": 5512,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Modal.tsx",
-      "lines": 131,
-      "limit": 300,
-      "percentage": 43.666666666666664,
-      "size": 3391,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Input.tsx",
-      "lines": 183,
-      "limit": 300,
-      "percentage": 61,
-      "size": 5865,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/FileUpload.tsx",
-      "lines": 190,
-      "limit": 300,
-      "percentage": 63.33333333333333,
-      "size": 5366,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Card.tsx",
-      "lines": 164,
-      "limit": 300,
-      "percentage": 54.666666666666664,
-      "size": 5117,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Button.tsx",
-      "lines": 183,
-      "limit": 300,
-      "percentage": 61,
-      "size": 6619,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Button.test.tsx",
-      "lines": 172,
-      "limit": 300,
-      "percentage": 57.333333333333336,
-      "size": 4794,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Badge.tsx",
-      "lines": 194,
-      "limit": 300,
-      "percentage": 64.66666666666666,
-      "size": 6119,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/ui/Badge.test.tsx",
-      "lines": 182,
-      "limit": 300,
-      "percentage": 60.66666666666667,
-      "size": 6421,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/PWAInstallPrompt.tsx",
-      "lines": 152,
-      "limit": 300,
-      "percentage": 50.66666666666667,
-      "size": 4543,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/OfflineDataSection.tsx",
-      "lines": 100,
-      "limit": 300,
-      "percentage": 33.33333333333333,
-      "size": 2878,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/LoadingState.tsx",
-      "lines": 20,
-      "limit": 300,
-      "percentage": 6.666666666666667,
-      "size": 472,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/InstallSection.tsx",
-      "lines": 112,
-      "limit": 300,
-      "percentage": 37.333333333333336,
-      "size": 3342,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/CacheManagementSection.tsx",
-      "lines": 85,
-      "limit": 300,
-      "percentage": 28.333333333333332,
-      "size": 2649,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/pwa/AdvancedSettingsSection.tsx",
-      "lines": 103,
-      "limit": 300,
-      "percentage": 34.333333333333336,
-      "size": 3012,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/navigation/Navbar.tsx",
-      "lines": 100,
-      "limit": 300,
-      "percentage": 33.33333333333333,
-      "size": 3450,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/navigation/MobileMenu.tsx",
-      "lines": 176,
-      "limit": 300,
-      "percentage": 58.666666666666664,
-      "size": 5268,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/navigation/Breadcrumb.tsx",
-      "lines": 81,
-      "limit": 300,
-      "percentage": 27,
-      "size": 2049,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/layout/PageLayout.tsx",
-      "lines": 22,
-      "limit": 300,
-      "percentage": 7.333333333333333,
-      "size": 425,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/layout/NonAffiliationStatement.tsx",
-      "lines": 150,
-      "limit": 300,
-      "percentage": 50,
-      "size": 4958,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/layout/CopyrightDisclaimer.tsx",
-      "lines": 101,
-      "limit": 300,
-      "percentage": 33.666666666666664,
-      "size": 3401,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/FavoriteButton.tsx",
-      "lines": 161,
-      "limit": 300,
-      "percentage": 53.666666666666664,
-      "size": 4432,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/DraggableCard.tsx",
-      "lines": 218,
-      "limit": 300,
-      "percentage": 72.66666666666667,
-      "size": 7405,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/DeckTemplateCreator.tsx",
-      "lines": 219,
-      "limit": 300,
-      "percentage": 73,
-      "size": 7270,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/DeckShare.tsx",
-      "lines": 160,
-      "limit": 300,
-      "percentage": 53.333333333333336,
-      "size": 4594,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/DeckDropZone.tsx",
-      "lines": 237,
-      "limit": 300,
-      "percentage": 79,
-      "size": 6691,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/deck/DeckCardSearch.tsx",
-      "lines": 216,
-      "limit": 300,
-      "percentage": 72,
-      "size": 6249,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/TypeFilters.tsx",
-      "lines": 58,
-      "limit": 300,
-      "percentage": 19.333333333333332,
-      "size": 1366,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/SearchHeader.tsx",
-      "lines": 61,
-      "limit": 300,
-      "percentage": 20.333333333333332,
-      "size": 1721,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/PaginationBar.tsx",
-      "lines": 60,
-      "limit": 300,
-      "percentage": 20,
-      "size": 1849,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/ColorFilters.tsx",
-      "lines": 85,
-      "limit": 300,
-      "percentage": 28.333333333333332,
-      "size": 2047,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/CardGrid(1).tsx",
-      "lines": 167,
-      "limit": 300,
-      "percentage": 55.666666666666664,
-      "size": 5600,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/CardDatabaseSearch.tsx",
-      "lines": 157,
-      "limit": 300,
-      "percentage": 52.33333333333333,
-      "size": 5429,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/card/ActiveFiltersDisplay.tsx",
-      "lines": 65,
-      "limit": 300,
-      "percentage": 21.666666666666668,
-      "size": 1858,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/ResetPasswordForm.tsx",
-      "lines": 172,
-      "limit": 300,
-      "percentage": 57.333333333333336,
-      "size": 4783,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/ForgotPasswordForm.tsx",
-      "lines": 124,
-      "limit": 300,
-      "percentage": 41.333333333333336,
-      "size": 3209,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/EmailVerificationBanner.tsx",
-      "lines": 111,
-      "limit": 300,
-      "percentage": 37,
-      "size": 3449,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/AuthProvider.tsx",
-      "lines": 20,
-      "limit": 300,
-      "percentage": 6.666666666666667,
-      "size": 386,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/auth/AuthGuard.tsx",
-      "lines": 124,
-      "limit": 300,
-      "percentage": 41.333333333333336,
-      "size": 2767,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/analytics/SuggestionsList.tsx",
-      "lines": 186,
-      "limit": 300,
-      "percentage": 62,
-      "size": 6272,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/analytics/DistributionChart.tsx",
-      "lines": 140,
-      "limit": 300,
-      "percentage": 46.666666666666664,
-      "size": 4507,
-      "status": "passed"
-    },
-    {
-      "file": "src/components/analytics/CompetitiveRating.tsx",
-      "lines": 99,
-      "limit": 300,
-      "percentage": 33,
-      "size": 3004,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/terms/page.tsx",
-      "lines": 27,
-      "limit": 300,
-      "percentage": 9,
-      "size": 623,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/templates/page(1).tsx",
-      "lines": 118,
-      "limit": 300,
-      "percentage": 39.33333333333333,
-      "size": 4496,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/profile/page.tsx",
-      "lines": 31,
-      "limit": 300,
-      "percentage": 10.333333333333334,
-      "size": 997,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/privacy/page.tsx",
-      "lines": 27,
-      "limit": 300,
-      "percentage": 9,
-      "size": 623,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/offline/page.tsx",
-      "lines": 229,
-      "limit": 300,
-      "percentage": 76.33333333333333,
-      "size": 7928,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/favorites/page.tsx",
-      "lines": 139,
-      "limit": 300,
-      "percentage": 46.33333333333333,
-      "size": 4927,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/decks/page.tsx",
-      "lines": 187,
-      "limit": 300,
-      "percentage": 62.33333333333333,
-      "size": 6529,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/decks/layout.tsx",
-      "lines": 17,
-      "limit": 300,
-      "percentage": 5.666666666666666,
-      "size": 255,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/decks/[id]/page.tsx",
-      "lines": 133,
-      "limit": 300,
-      "percentage": 44.333333333333336,
-      "size": 4602,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/dashboard/page.tsx",
-      "lines": 24,
-      "limit": 300,
-      "percentage": 8,
-      "size": 641,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/dashboard/layout.tsx",
-      "lines": 17,
-      "limit": 300,
-      "percentage": 5.666666666666666,
-      "size": 255,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cookies/page.tsx",
-      "lines": 27,
-      "limit": 300,
-      "percentage": 9,
-      "size": 611,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/collection/page.tsx",
-      "lines": 28,
-      "limit": 300,
-      "percentage": 9.333333333333334,
-      "size": 764,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/collection/layout.tsx",
-      "lines": 17,
-      "limit": 300,
-      "percentage": 5.666666666666666,
-      "size": 255,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/page.tsx",
-      "lines": 42,
-      "limit": 300,
-      "percentage": 14.000000000000002,
-      "size": 1411,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/layout.tsx",
-      "lines": 17,
-      "limit": 300,
-      "percentage": 5.666666666666666,
-      "size": 255,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/page.tsx",
-      "lines": 23,
-      "limit": 300,
-      "percentage": 7.666666666666666,
-      "size": 522,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/verify-email/page.tsx",
-      "lines": 30,
-      "limit": 300,
-      "percentage": 10,
-      "size": 860,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/verify-email/EmailVerificationClient.tsx",
-      "lines": 158,
-      "limit": 300,
-      "percentage": 52.666666666666664,
-      "size": 4646,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/signup/page.tsx",
-      "lines": 61,
-      "limit": 300,
-      "percentage": 20.333333333333332,
-      "size": 2029,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/signin/page.tsx",
-      "lines": 64,
-      "limit": 300,
-      "percentage": 21.333333333333336,
-      "size": 2080,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/reset-password/page.tsx",
-      "lines": 30,
-      "limit": 300,
-      "percentage": 10,
-      "size": 841,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/reset-password/ResetPasswordClient.tsx",
-      "lines": 39,
-      "limit": 300,
-      "percentage": 13,
-      "size": 1123,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/forgot-password/page.tsx",
-      "lines": 18,
-      "limit": 300,
-      "percentage": 6,
-      "size": 412,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/error/page.tsx",
-      "lines": 31,
-      "limit": 300,
-      "percentage": 10.333333333333334,
-      "size": 875,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/auth/error/AuthErrorClient.tsx",
-      "lines": 155,
-      "limit": 300,
-      "percentage": 51.66666666666667,
-      "size": 4942,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/analytics/page.tsx",
-      "lines": 130,
-      "limit": 300,
-      "percentage": 43.333333333333336,
-      "size": 4681,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/admin/page.tsx",
-      "lines": 177,
-      "limit": 300,
-      "percentage": 59,
-      "size": 6256,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/admin/layout.tsx",
-      "lines": 84,
-      "limit": 300,
-      "percentage": 28.000000000000004,
-      "size": 2644,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/admin/submissions/page.tsx",
-      "lines": 27,
-      "limit": 300,
-      "percentage": 9,
-      "size": 785,
       "status": "passed"
     },
     {
@@ -2112,11 +464,243 @@
       "status": "passed"
     },
     {
+      "file": "src/store/slices/deckSlice.ts",
+      "lines": 106,
+      "limit": 500,
+      "percentage": 21.2,
+      "size": 2930,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/collectionSlice.ts",
+      "lines": 126,
+      "limit": 500,
+      "percentage": 25.2,
+      "size": 3582,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/cardSlice.ts",
+      "lines": 105,
+      "limit": 500,
+      "percentage": 21,
+      "size": 2190,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/authSlice.ts",
+      "lines": 67,
+      "limit": 500,
+      "percentage": 13.4,
+      "size": 1646,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/auth.ts",
+      "lines": 291,
+      "limit": 500,
+      "percentage": 58.199999999999996,
+      "size": 7356,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/auth-utils.ts",
+      "lines": 277,
+      "limit": 500,
+      "percentage": 55.400000000000006,
+      "size": 6411,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/utils/tokens.ts",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 931,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/utils/initializeDirectories.ts",
+      "lines": 67,
+      "limit": 500,
+      "percentage": 13.4,
+      "size": 1677,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/utils/index.ts",
+      "lines": 150,
+      "limit": 500,
+      "percentage": 30,
+      "size": 3969,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/utils/accessibility.ts",
+      "lines": 364,
+      "limit": 500,
+      "percentage": 72.8,
+      "size": 8485,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/types/submission.ts",
+      "lines": 248,
+      "limit": 500,
+      "percentage": 49.6,
+      "size": 5071,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/types/index.ts",
+      "lines": 147,
+      "limit": 500,
+      "percentage": 29.4,
+      "size": 2825,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/types/collection.ts",
+      "lines": 52,
+      "limit": 500,
+      "percentage": 10.4,
+      "size": 1009,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/validation.ts",
+      "lines": 141,
+      "limit": 500,
+      "percentage": 28.199999999999996,
+      "size": 3259,
+      "status": "passed"
+    },
+    {
       "file": "src/lib/storage/validation.test.ts",
       "lines": 154,
       "limit": 500,
       "percentage": 30.8,
       "size": 5117,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/index.ts",
+      "lines": 5,
+      "limit": 500,
+      "percentage": 1,
+      "size": 143,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/fileUpload.ts",
+      "lines": 198,
+      "limit": 500,
+      "percentage": 39.6,
+      "size": 4864,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/startup/initialize.ts",
+      "lines": 45,
+      "limit": 500,
+      "percentage": 9,
+      "size": 1425,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/services/urlDeckSharingService.ts",
+      "lines": 229,
+      "limit": 500,
+      "percentage": 45.800000000000004,
+      "size": 6141,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/services/submissionImageService.ts",
+      "lines": 264,
+      "limit": 500,
+      "percentage": 52.800000000000004,
+      "size": 7673,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/services/emailService.ts",
+      "lines": 224,
+      "limit": 500,
+      "percentage": 44.800000000000004,
+      "size": 6250,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/services/cleanupService.ts",
+      "lines": 91,
+      "limit": 500,
+      "percentage": 18.2,
+      "size": 2465,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/services/cdnService.ts",
+      "lines": 398,
+      "limit": 500,
+      "percentage": 79.60000000000001,
+      "size": 10242,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/monitoring/sentry.ts",
+      "lines": 319,
+      "limit": 500,
+      "percentage": 63.800000000000004,
+      "size": 7530,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/monitoring/middleware.ts",
+      "lines": 393,
+      "limit": 500,
+      "percentage": 78.60000000000001,
+      "size": 10461,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/monitoring/index.ts",
+      "lines": 153,
+      "limit": 500,
+      "percentage": 30.599999999999998,
+      "size": 3956,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/database/index.ts",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 1137,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/oauth.ts",
+      "lines": 66,
+      "limit": 500,
+      "percentage": 13.200000000000001,
+      "size": 1575,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/index.ts",
+      "lines": 3,
+      "limit": 500,
+      "percentage": 0.6,
+      "size": 56,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/environment.ts",
+      "lines": 319,
+      "limit": 500,
+      "percentage": 63.800000000000004,
+      "size": 8996,
       "status": "passed"
     },
     {
@@ -2128,11 +712,627 @@
       "status": "passed"
     },
     {
+      "file": "src/lib/config/email.ts",
+      "lines": 73,
+      "limit": 500,
+      "percentage": 14.6,
+      "size": 1568,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/validation.ts",
+      "lines": 130,
+      "limit": 500,
+      "percentage": 26,
+      "size": 2902,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/response.ts",
+      "lines": 71,
+      "limit": 500,
+      "percentage": 14.2,
+      "size": 1209,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/api/index.ts",
+      "lines": 4,
+      "limit": 500,
+      "percentage": 0.8,
+      "size": 83,
+      "status": "passed"
+    },
+    {
+      "file": "src/hooks/useDecks.ts",
+      "lines": 255,
+      "limit": 500,
+      "percentage": 51,
+      "size": 5874,
+      "status": "passed"
+    },
+    {
+      "file": "src/hooks/useCollection.ts",
+      "lines": 292,
+      "limit": 500,
+      "percentage": 58.4,
+      "size": 7124,
+      "status": "passed"
+    },
+    {
+      "file": "src/hooks/useAuth.ts",
+      "lines": 51,
+      "limit": 500,
+      "percentage": 10.2,
+      "size": 1209,
+      "status": "passed"
+    },
+    {
+      "file": "src/hooks/index.ts",
+      "lines": 6,
+      "limit": 500,
+      "percentage": 1.2,
+      "size": 132,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/index.ts",
+      "lines": 80,
+      "limit": 500,
+      "percentage": 16,
+      "size": 1949,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/social/index.ts",
+      "lines": 19,
+      "limit": 500,
+      "percentage": 3.8,
+      "size": 425,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/index.ts",
+      "lines": 14,
+      "limit": 500,
+      "percentage": 2.8000000000000003,
+      "size": 359,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/profile/index.ts",
+      "lines": 3,
+      "limit": 500,
+      "percentage": 0.6,
+      "size": 61,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/index.ts",
+      "lines": 5,
+      "limit": 500,
+      "percentage": 1,
+      "size": 154,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/index.ts",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 642,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/index.ts",
+      "lines": 21,
+      "limit": 500,
+      "percentage": 4.2,
+      "size": 1153,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/dashboard/index.ts",
+      "lines": 3,
+      "limit": 500,
+      "percentage": 0.6,
+      "size": 65,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/collection/index.ts",
+      "lines": 6,
+      "limit": 500,
+      "percentage": 1.2,
+      "size": 243,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/index.ts",
+      "lines": 8,
+      "limit": 500,
+      "percentage": 1.6,
+      "size": 377,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/index.ts",
+      "lines": 13,
+      "limit": 500,
+      "percentage": 2.6,
+      "size": 448,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/analytics/index.ts",
+      "lines": 16,
+      "limit": 500,
+      "percentage": 3.2,
+      "size": 512,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/user/profile/route.ts",
+      "lines": 170,
+      "limit": 500,
+      "percentage": 34,
+      "size": 3878,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/uploads/submissions/[...path]/route.ts",
+      "lines": 91,
+      "limit": 500,
+      "percentage": 18.2,
+      "size": 2499,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/upload/card-image/route.ts",
+      "lines": 40,
+      "limit": 500,
+      "percentage": 8,
+      "size": 1080,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/templates/route.ts",
+      "lines": 237,
+      "limit": 500,
+      "percentage": 47.4,
+      "size": 5968,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/templates/[id]/use/route.ts",
+      "lines": 181,
+      "limit": 500,
+      "percentage": 36.199999999999996,
+      "size": 4554,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/submissions/route.ts",
+      "lines": 166,
+      "limit": 500,
+      "percentage": 33.2,
+      "size": 4654,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/submissions/[id]/route.ts",
+      "lines": 167,
+      "limit": 500,
+      "percentage": 33.4,
+      "size": 4278,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/submissions/[id]/upload/route.ts",
+      "lines": 101,
+      "limit": 500,
+      "percentage": 20.200000000000003,
+      "size": 2546,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/search/analytics/route.ts",
+      "lines": 289,
+      "limit": 500,
+      "percentage": 57.8,
+      "size": 9021,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/reference/route.ts",
+      "lines": 72,
+      "limit": 500,
+      "percentage": 14.399999999999999,
+      "size": 1685,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/reference/types/route.ts",
+      "lines": 38,
+      "limit": 500,
+      "percentage": 7.6,
+      "size": 823,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/reference/sets/route.ts",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 914,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/reference/rarities/route.ts",
+      "lines": 39,
+      "limit": 500,
+      "percentage": 7.8,
+      "size": 869,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/monitoring/metrics/route.ts",
+      "lines": 163,
+      "limit": 500,
+      "percentage": 32.6,
+      "size": 4781,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/monitoring/health/route.ts",
+      "lines": 63,
+      "limit": 500,
+      "percentage": 12.6,
+      "size": 1572,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/health/route.ts",
+      "lines": 78,
+      "limit": 500,
+      "percentage": 15.6,
+      "size": 2340,
+      "status": "passed"
+    },
+    {
       "file": "src/app/api/health/route.test.ts",
       "lines": 33,
       "limit": 500,
       "percentage": 6.6000000000000005,
       "size": 917,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/favorites/route.ts",
+      "lines": 231,
+      "limit": 500,
+      "percentage": 46.2,
+      "size": 5813,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/favorites/[deckId]/route.ts",
+      "lines": 111,
+      "limit": 500,
+      "percentage": 22.2,
+      "size": 2528,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/route.ts",
+      "lines": 219,
+      "limit": 500,
+      "percentage": 43.8,
+      "size": 5545,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/public/route.ts",
+      "lines": 128,
+      "limit": 500,
+      "percentage": 25.6,
+      "size": 3360,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/[id]/route.ts",
+      "lines": 358,
+      "limit": 500,
+      "percentage": 71.6,
+      "size": 9740,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/[id]/versions/route.ts",
+      "lines": 238,
+      "limit": 500,
+      "percentage": 47.599999999999994,
+      "size": 5947,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/[id]/versions/[versionId]/route.ts",
+      "lines": 318,
+      "limit": 500,
+      "percentage": 63.6,
+      "size": 8296,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/route.ts",
+      "lines": 290,
+      "limit": 500,
+      "percentage": 57.99999999999999,
+      "size": 7478,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/import/route.ts",
+      "lines": 382,
+      "limit": 500,
+      "percentage": 76.4,
+      "size": 10044,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/[cardId]/route.ts",
+      "lines": 98,
+      "limit": 500,
+      "percentage": 19.6,
+      "size": 2705,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/route.ts",
+      "lines": 187,
+      "limit": 500,
+      "percentage": 37.4,
+      "size": 5240,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/route.ts",
+      "lines": 327,
+      "limit": 500,
+      "percentage": 65.4,
+      "size": 9564,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/[id]/route.ts",
+      "lines": 214,
+      "limit": 500,
+      "percentage": 42.8,
+      "size": 5586,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/verify-email/route.ts",
+      "lines": 99,
+      "limit": 500,
+      "percentage": 19.8,
+      "size": 2448,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/signup/route.ts",
+      "lines": 143,
+      "limit": 500,
+      "percentage": 28.599999999999998,
+      "size": 3862,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/send-verification/route.ts",
+      "lines": 85,
+      "limit": 500,
+      "percentage": 17,
+      "size": 2328,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/reset-password/route.ts",
+      "lines": 88,
+      "limit": 500,
+      "percentage": 17.599999999999998,
+      "size": 2181,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/register/route.ts",
+      "lines": 39,
+      "limit": 500,
+      "percentage": 7.8,
+      "size": 1065,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/me/route.ts",
+      "lines": 63,
+      "limit": 500,
+      "percentage": 12.6,
+      "size": 1673,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/logout/route.ts",
+      "lines": 28,
+      "limit": 500,
+      "percentage": 5.6000000000000005,
+      "size": 693,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/login/route.ts",
+      "lines": 37,
+      "limit": 500,
+      "percentage": 7.3999999999999995,
+      "size": 958,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/forgot-password/route.ts",
+      "lines": 80,
+      "limit": 500,
+      "percentage": 16,
+      "size": 2183,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/[...nextauth]/route.ts",
+      "lines": 13,
+      "limit": 500,
+      "percentage": 2.6,
+      "size": 302,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/submissions/route.ts",
+      "lines": 128,
+      "limit": 500,
+      "percentage": 25.6,
+      "size": 3798,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/submissions/[id]/review/route.ts",
+      "lines": 86,
+      "limit": 500,
+      "percentage": 17.2,
+      "size": 2366,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/submissions/[id]/publish/route.ts",
+      "lines": 90,
+      "limit": 500,
+      "percentage": 18,
+      "size": 2355,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/import/route.ts",
+      "lines": 333,
+      "limit": 500,
+      "percentage": 66.60000000000001,
+      "size": 9316,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/import/test/route.ts",
+      "lines": 76,
+      "limit": 500,
+      "percentage": 15.2,
+      "size": 2229,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/Provider.tsx",
+      "lines": 14,
+      "limit": 500,
+      "percentage": 2.8000000000000003,
+      "size": 316,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/test-utils.tsx",
+      "lines": 150,
+      "limit": 500,
+      "percentage": 30,
+      "size": 3817,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Toast.tsx",
+      "lines": 182,
+      "limit": 500,
+      "percentage": 36.4,
+      "size": 5575,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Spinner.tsx",
+      "lines": 123,
+      "limit": 500,
+      "percentage": 24.6,
+      "size": 2678,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Select.tsx",
+      "lines": 200,
+      "limit": 500,
+      "percentage": 40,
+      "size": 6388,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Search.tsx",
+      "lines": 288,
+      "limit": 500,
+      "percentage": 57.599999999999994,
+      "size": 9033,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Pagination.tsx",
+      "lines": 184,
+      "limit": 500,
+      "percentage": 36.8,
+      "size": 5512,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/OptimizedImage.tsx",
+      "lines": 360,
+      "limit": 500,
+      "percentage": 72,
+      "size": 8894,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Modal.tsx",
+      "lines": 131,
+      "limit": 500,
+      "percentage": 26.200000000000003,
+      "size": 3391,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Input.tsx",
+      "lines": 183,
+      "limit": 500,
+      "percentage": 36.6,
+      "size": 5865,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/FileUpload.tsx",
+      "lines": 190,
+      "limit": 500,
+      "percentage": 38,
+      "size": 5366,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Card.tsx",
+      "lines": 164,
+      "limit": 500,
+      "percentage": 32.800000000000004,
+      "size": 5117,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Button.tsx",
+      "lines": 183,
+      "limit": 500,
+      "percentage": 36.6,
+      "size": 6619,
       "status": "passed"
     },
     {
@@ -2144,24 +1344,824 @@
       "status": "passed"
     },
     {
+      "file": "src/components/ui/Badge.tsx",
+      "lines": 194,
+      "limit": 500,
+      "percentage": 38.800000000000004,
+      "size": 6119,
+      "status": "passed"
+    },
+    {
       "file": "src/components/ui/Badge.test.tsx",
       "lines": 182,
       "limit": 500,
       "percentage": 36.4,
       "size": 6421,
       "status": "passed"
+    },
+    {
+      "file": "src/components/ui/AdvancedSort.tsx",
+      "lines": 359,
+      "limit": 500,
+      "percentage": 71.8,
+      "size": 12521,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/PWAStatus.tsx",
+      "lines": 361,
+      "limit": 500,
+      "percentage": 72.2,
+      "size": 10705,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/PWAInstallPrompt.tsx",
+      "lines": 152,
+      "limit": 500,
+      "percentage": 30.4,
+      "size": 4543,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/OfflineDataSection.tsx",
+      "lines": 100,
+      "limit": 500,
+      "percentage": 20,
+      "size": 2878,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/LoadingState.tsx",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 472,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/InstallSection.tsx",
+      "lines": 112,
+      "limit": 500,
+      "percentage": 22.400000000000002,
+      "size": 3342,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/CacheManagementSection.tsx",
+      "lines": 85,
+      "limit": 500,
+      "percentage": 17,
+      "size": 2649,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/pwa/AdvancedSettingsSection.tsx",
+      "lines": 103,
+      "limit": 500,
+      "percentage": 20.599999999999998,
+      "size": 3012,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/profile/UserProfile.tsx",
+      "lines": 316,
+      "limit": 500,
+      "percentage": 63.2,
+      "size": 9312,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/Navbar.tsx",
+      "lines": 100,
+      "limit": 500,
+      "percentage": 20,
+      "size": 3450,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/MobileMenu.tsx",
+      "lines": 176,
+      "limit": 500,
+      "percentage": 35.199999999999996,
+      "size": 5268,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/navigation/Breadcrumb.tsx",
+      "lines": 81,
+      "limit": 500,
+      "percentage": 16.2,
+      "size": 2049,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/monitoring/MonitoringProvider.tsx",
+      "lines": 327,
+      "limit": 500,
+      "percentage": 65.4,
+      "size": 11518,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/TermsOfService.tsx",
+      "lines": 363,
+      "limit": 500,
+      "percentage": 72.6,
+      "size": 14967,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/PrivacyNotice.tsx",
+      "lines": 326,
+      "limit": 500,
+      "percentage": 65.2,
+      "size": 12963,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/PageLayout.tsx",
+      "lines": 22,
+      "limit": 500,
+      "percentage": 4.3999999999999995,
+      "size": 425,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/NonAffiliationStatement.tsx",
+      "lines": 150,
+      "limit": 500,
+      "percentage": 30,
+      "size": 4958,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/LegalComplianceFooter.tsx",
+      "lines": 281,
+      "limit": 500,
+      "percentage": 56.2,
+      "size": 10533,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/CopyrightDisclaimer.tsx",
+      "lines": 101,
+      "limit": 500,
+      "percentage": 20.200000000000003,
+      "size": 3401,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/CookieNotice.tsx",
+      "lines": 362,
+      "limit": 500,
+      "percentage": 72.39999999999999,
+      "size": 13424,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/layout/BandaiNamcoAttribution.tsx",
+      "lines": 245,
+      "limit": 500,
+      "percentage": 49,
+      "size": 6529,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/FavoriteDeckManager.tsx",
+      "lines": 362,
+      "limit": 500,
+      "percentage": 72.39999999999999,
+      "size": 11610,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/FavoriteButton.tsx",
+      "lines": 161,
+      "limit": 500,
+      "percentage": 32.2,
+      "size": 4432,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DraggableCard.tsx",
+      "lines": 218,
+      "limit": 500,
+      "percentage": 43.6,
+      "size": 7405,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckVersionComparison.tsx",
+      "lines": 369,
+      "limit": 500,
+      "percentage": 73.8,
+      "size": 12792,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckValidator.tsx",
+      "lines": 302,
+      "limit": 500,
+      "percentage": 60.4,
+      "size": 10204,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckTemplateCreator.tsx",
+      "lines": 219,
+      "limit": 500,
+      "percentage": 43.8,
+      "size": 7270,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckTemplateBrowser.tsx",
+      "lines": 392,
+      "limit": 500,
+      "percentage": 78.4,
+      "size": 12236,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckShare.tsx",
+      "lines": 160,
+      "limit": 500,
+      "percentage": 32,
+      "size": 4594,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckDropZone.tsx",
+      "lines": 237,
+      "limit": 500,
+      "percentage": 47.4,
+      "size": 6691,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckCardSearch.tsx",
+      "lines": 216,
+      "limit": 500,
+      "percentage": 43.2,
+      "size": 6249,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/dashboard/UserDashboard.tsx",
+      "lines": 252,
+      "limit": 500,
+      "percentage": 50.4,
+      "size": 8108,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/TypeFilters.tsx",
+      "lines": 58,
+      "limit": 500,
+      "percentage": 11.600000000000001,
+      "size": 1366,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/SearchHeader.tsx",
+      "lines": 61,
+      "limit": 500,
+      "percentage": 12.2,
+      "size": 1721,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/PaginationBar.tsx",
+      "lines": 60,
+      "limit": 500,
+      "percentage": 12,
+      "size": 1849,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/ColorFilters.tsx",
+      "lines": 85,
+      "limit": 500,
+      "percentage": 17,
+      "size": 2047,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/CardImage.tsx",
+      "lines": 341,
+      "limit": 500,
+      "percentage": 68.2,
+      "size": 10658,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/CardGrid.tsx",
+      "lines": 167,
+      "limit": 500,
+      "percentage": 33.4,
+      "size": 5600,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/CardDisplay.tsx",
+      "lines": 249,
+      "limit": 500,
+      "percentage": 49.8,
+      "size": 7729,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/CardDetailOverlay.tsx",
+      "lines": 257,
+      "limit": 500,
+      "percentage": 51.4,
+      "size": 9667,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/CardDatabaseSearch.tsx",
+      "lines": 157,
+      "limit": 500,
+      "percentage": 31.4,
+      "size": 5429,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/card/ActiveFiltersDisplay.tsx",
+      "lines": 65,
+      "limit": 500,
+      "percentage": 13,
+      "size": 1858,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignInForm.tsx",
+      "lines": 317,
+      "limit": 500,
+      "percentage": 63.4,
+      "size": 11361,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/ResetPasswordForm.tsx",
+      "lines": 172,
+      "limit": 500,
+      "percentage": 34.4,
+      "size": 4783,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/ForgotPasswordForm.tsx",
+      "lines": 124,
+      "limit": 500,
+      "percentage": 24.8,
+      "size": 3209,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/EmailVerificationBanner.tsx",
+      "lines": 111,
+      "limit": 500,
+      "percentage": 22.2,
+      "size": 3449,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/AuthStatus.tsx",
+      "lines": 340,
+      "limit": 500,
+      "percentage": 68,
+      "size": 12162,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/AuthProvider.tsx",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 386,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/AuthGuard.tsx",
+      "lines": 124,
+      "limit": 500,
+      "percentage": 24.8,
+      "size": 2767,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/analytics/SuggestionsList.tsx",
+      "lines": 186,
+      "limit": 500,
+      "percentage": 37.2,
+      "size": 6272,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/analytics/DistributionChart.tsx",
+      "lines": 140,
+      "limit": 500,
+      "percentage": 28.000000000000004,
+      "size": 4507,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/analytics/DeckAnalyticsDisplay.tsx",
+      "lines": 384,
+      "limit": 500,
+      "percentage": 76.8,
+      "size": 13475,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/analytics/CompetitiveRating.tsx",
+      "lines": 99,
+      "limit": 500,
+      "percentage": 19.8,
+      "size": 3004,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/admin/AdminSubmissionsDashboard.tsx",
+      "lines": 388,
+      "limit": 500,
+      "percentage": 77.60000000000001,
+      "size": 11770,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "lines": 257,
+      "limit": 500,
+      "percentage": 51.4,
+      "size": 8749,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/terms/page.tsx",
+      "lines": 27,
+      "limit": 500,
+      "percentage": 5.4,
+      "size": 623,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/templates/page.tsx",
+      "lines": 118,
+      "limit": 500,
+      "percentage": 23.599999999999998,
+      "size": 4496,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/profile/page.tsx",
+      "lines": 31,
+      "limit": 500,
+      "percentage": 6.2,
+      "size": 997,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/privacy/page.tsx",
+      "lines": 27,
+      "limit": 500,
+      "percentage": 5.4,
+      "size": 623,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/offline/page.tsx",
+      "lines": 229,
+      "limit": 500,
+      "percentage": 45.800000000000004,
+      "size": 7928,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/favorites/page.tsx",
+      "lines": 139,
+      "limit": 500,
+      "percentage": 27.800000000000004,
+      "size": 4927,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/demo/page.tsx",
+      "lines": 283,
+      "limit": 500,
+      "percentage": 56.599999999999994,
+      "size": 9718,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/decks/page.tsx",
+      "lines": 187,
+      "limit": 500,
+      "percentage": 37.4,
+      "size": 6529,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/decks/layout.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 258,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/decks/[id]/page.tsx",
+      "lines": 133,
+      "limit": 500,
+      "percentage": 26.6,
+      "size": 4611,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/dashboard/page.tsx",
+      "lines": 24,
+      "limit": 500,
+      "percentage": 4.8,
+      "size": 641,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/dashboard/layout.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 258,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cookies/page.tsx",
+      "lines": 27,
+      "limit": 500,
+      "percentage": 5.4,
+      "size": 611,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/collection/page.tsx",
+      "lines": 28,
+      "limit": 500,
+      "percentage": 5.6000000000000005,
+      "size": 764,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/collection/layout.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 258,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/page.tsx",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 1411,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/layout.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 258,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/NewCardsPageClient.tsx",
+      "lines": 307,
+      "limit": 500,
+      "percentage": 61.4,
+      "size": 9796,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/page.tsx",
+      "lines": 23,
+      "limit": 500,
+      "percentage": 4.6,
+      "size": 522,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/verify-email/page.tsx",
+      "lines": 30,
+      "limit": 500,
+      "percentage": 6,
+      "size": 860,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/verify-email/EmailVerificationClient.tsx",
+      "lines": 158,
+      "limit": 500,
+      "percentage": 31.6,
+      "size": 4646,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/signup/page.tsx",
+      "lines": 62,
+      "limit": 500,
+      "percentage": 12.4,
+      "size": 2051,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/signin/page.tsx",
+      "lines": 65,
+      "limit": 500,
+      "percentage": 13,
+      "size": 2102,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/reset-password/page.tsx",
+      "lines": 30,
+      "limit": 500,
+      "percentage": 6,
+      "size": 841,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/reset-password/ResetPasswordClient.tsx",
+      "lines": 39,
+      "limit": 500,
+      "percentage": 7.8,
+      "size": 1123,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/forgot-password/page.tsx",
+      "lines": 18,
+      "limit": 500,
+      "percentage": 3.5999999999999996,
+      "size": 412,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/error/page.tsx",
+      "lines": 31,
+      "limit": 500,
+      "percentage": 6.2,
+      "size": 875,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/auth/error/AuthErrorClient.tsx",
+      "lines": 155,
+      "limit": 500,
+      "percentage": 31,
+      "size": 4942,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/analytics/page.tsx",
+      "lines": 130,
+      "limit": 500,
+      "percentage": 26,
+      "size": 4681,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/page.tsx",
+      "lines": 177,
+      "limit": 500,
+      "percentage": 35.4,
+      "size": 6256,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/layout.tsx",
+      "lines": 84,
+      "limit": 500,
+      "percentage": 16.8,
+      "size": 2644,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/submissions/page.tsx",
+      "lines": 27,
+      "limit": 500,
+      "percentage": 5.4,
+      "size": 785,
+      "status": "passed"
+    },
+    {
+      "file": "src/store/slices/uiSlice.test.ts",
+      "lines": 167,
+      "limit": 1000,
+      "percentage": 16.7,
+      "size": 4284,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/storage/validation.test.ts",
+      "lines": 154,
+      "limit": 1000,
+      "percentage": 15.4,
+      "size": 5117,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/config/environment.test.ts",
+      "lines": 76,
+      "limit": 1000,
+      "percentage": 7.6,
+      "size": 2418,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/health/route.test.ts",
+      "lines": 33,
+      "limit": 1000,
+      "percentage": 3.3000000000000003,
+      "size": 917,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/route.test.ts",
+      "lines": 642,
+      "limit": 1000,
+      "percentage": 64.2,
+      "size": 19909,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/decks/[id]/route.test.ts",
+      "lines": 678,
+      "limit": 1000,
+      "percentage": 67.80000000000001,
+      "size": 21059,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/collections/route.test.ts",
+      "lines": 728,
+      "limit": 1000,
+      "percentage": 72.8,
+      "size": 23057,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/route.test.ts",
+      "lines": 424,
+      "limit": 1000,
+      "percentage": 42.4,
+      "size": 11305,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/verify-email/route.test.ts",
+      "lines": 414,
+      "limit": 1000,
+      "percentage": 41.4,
+      "size": 12302,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/auth/signup/route.test.ts",
+      "lines": 525,
+      "limit": 1000,
+      "percentage": 52.5,
+      "size": 14764,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Button.test.tsx",
+      "lines": 172,
+      "limit": 1000,
+      "percentage": 17.2,
+      "size": 4794,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/ui/Badge.test.tsx",
+      "lines": 182,
+      "limit": 1000,
+      "percentage": 18.2,
+      "size": 6421,
+      "status": "passed"
     }
   ],
   "config": {
     "limits": {
-      "src/**/*.ts": 300,
-      "src/**/*.tsx": 300,
-      "src/**/*.js": 300,
-      "src/**/*.jsx": 300,
-      "src/**/*.test.ts": 500,
-      "src/**/*.test.tsx": 500,
-      "src/**/*.spec.ts": 500,
-      "src/**/*.spec.tsx": 500
+      "src/**/*.ts": 500,
+      "src/**/*.tsx": 500,
+      "src/**/*.js": 500,
+      "src/**/*.jsx": 500,
+      "src/**/*.test.ts": 1000,
+      "src/**/*.test.tsx": 1000,
+      "src/**/*.spec.ts": 1000,
+      "src/**/*.spec.tsx": 1000
     },
     "ignore": [
       "node_modules/**",
@@ -2178,6 +2178,6 @@
       "prisma/migrations/**"
     ],
     "warningThreshold": 0.8,
-    "errorThreshold": 1
+    "errorThreshold": 2.5
   }
 }

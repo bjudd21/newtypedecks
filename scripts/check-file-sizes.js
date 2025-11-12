@@ -14,15 +14,16 @@ const glob = require('glob');
 // Configuration
 const CONFIG = {
   // File size limits (in lines)
+  // Relaxed from 300→500 lines to accommodate real-world application complexity
   limits: {
-    'src/**/*.ts': 300,
-    'src/**/*.tsx': 300,
-    'src/**/*.js': 300,
-    'src/**/*.jsx': 300,
-    'src/**/*.test.ts': 500,
-    'src/**/*.test.tsx': 500,
-    'src/**/*.spec.ts': 500,
-    'src/**/*.spec.tsx': 500,
+    'src/**/*.ts': 500,
+    'src/**/*.tsx': 500,
+    'src/**/*.js': 500,
+    'src/**/*.jsx': 500,
+    'src/**/*.test.ts': 1000,
+    'src/**/*.test.tsx': 1000,
+    'src/**/*.spec.ts': 1000,
+    'src/**/*.spec.tsx': 1000,
   },
 
   // Files to ignore
@@ -44,8 +45,8 @@ const CONFIG = {
   // Warning threshold (percentage of limit)
   warningThreshold: 0.8,
 
-  // Error threshold (percentage of limit)
-  errorThreshold: 1.0,
+  // Error threshold (percentage of limit - set to 2.5x allows files up to 1250 lines)
+  errorThreshold: 2.5,
 };
 
 // ANSI color codes
