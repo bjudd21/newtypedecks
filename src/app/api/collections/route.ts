@@ -58,10 +58,24 @@ export async function GET(request: NextRequest) {
       where: { userId: session.user.id },
     });
 
+    // If no collection exists yet, return empty collection
     if (!userCollection) {
-      // Create collection if it doesn't exist
-      await prisma.collection.create({
-        data: { userId: session.user.id },
+      return NextResponse.json({
+        collection: {
+          userId: session.user.id,
+          cards: [],
+          statistics: {
+            totalCards: 0,
+            uniqueCards: 0,
+            completionPercentage: 0,
+          },
+          pagination: {
+            page,
+            limit,
+            total: 0,
+            pages: 0,
+          },
+        },
       });
     }
 

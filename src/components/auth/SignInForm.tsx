@@ -118,15 +118,17 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   };
 
   return (
-    <Card className={className}>
+    <Card className={`border-[#443a5c] bg-[#2d2640] shadow-2xl ${className}`}>
       <CardHeader>
-        <CardTitle className="text-center text-2xl">Sign In</CardTitle>
+        <CardTitle className="text-center text-2xl text-[#8b7aaa]">
+          Sign In
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* General Error */}
           {errors.general && (
-            <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="rounded-lg border border-red-500/50 bg-red-950/30 px-4 py-3 text-sm text-red-400">
               {errors.general}
             </div>
           )}
@@ -161,7 +163,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-9 right-3 text-gray-500 hover:text-gray-700"
+                className="absolute top-9 right-3 text-gray-400 hover:text-[#8b7aaa]"
                 disabled={isLoading}
               >
                 {showPassword ? (
@@ -208,7 +210,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             <button
               type="button"
               onClick={() => router.push('/auth/forgot-password')}
-              className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+              className="text-sm text-[#8b7aaa] hover:text-[#a89ec7] hover:underline"
               disabled={isLoading}
             >
               Forgot password?
@@ -218,7 +220,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           {/* Sign In Button */}
           <Button
             type="submit"
-            variant="default"
+            variant="critical"
             disabled={isLoading}
             className="w-full"
           >
@@ -230,10 +232,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             <>
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-[#443a5c]" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="text-muted-foreground bg-white px-2">
+                  <span className="bg-[#2d2640] px-2 text-gray-400">
                     Or continue with
                   </span>
                 </div>
@@ -299,10 +301,10 @@ export const SignInForm: React.FC<SignInFormProps> = ({
 
         {/* Sign Up Link */}
         <div className="mt-6 text-center text-sm">
-          <span className="text-gray-600">Don&apos;t have an account? </span>
+          <span className="text-gray-400">Don&apos;t have an account? </span>
           <button
             onClick={() => router.push('/auth/signup')}
-            className="font-medium text-blue-600 hover:text-blue-700"
+            className="font-medium text-[#8b7aaa] hover:text-[#a89ec7]"
             disabled={isLoading}
           >
             Sign up

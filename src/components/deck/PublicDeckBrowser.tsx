@@ -63,7 +63,6 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
 
   const [filters, setFilters] = useState({
     search: '',
-    format: '',
     sortBy: 'updatedAt',
     sortOrder: 'desc',
   });
@@ -161,7 +160,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
           <CardTitle>Browse Community Decks</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-700">
                 Search
@@ -170,24 +169,6 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
                 placeholder="Search decks..."
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700">
-                Format
-              </label>
-              <Select
-                value={filters.format}
-                onChange={(value: string) =>
-                  handleFilterChange('format', value)
-                }
-                options={[
-                  { value: '', label: 'All Formats' },
-                  { value: 'Standard', label: 'Standard' },
-                  { value: 'Advanced', label: 'Advanced' },
-                  { value: 'Casual', label: 'Casual' },
-                  { value: 'Custom', label: 'Custom' },
-                ]}
               />
             </div>
             <div>

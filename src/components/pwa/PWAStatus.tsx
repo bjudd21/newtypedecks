@@ -136,13 +136,6 @@ export const PWAStatus: React.FC<PWAStatusProps> = ({
   if (!showDetails) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        {/* Online/Offline indicator */}
-        <div
-          className={`h-3 w-3 rounded-full ${
-            pwaState.isOnline ? 'bg-green-500' : 'bg-red-500'
-          }`}
-        />
-
         {/* PWA status */}
         {pwaState.isInstalled && (
           <Badge

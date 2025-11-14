@@ -20,38 +20,20 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
       {/* Hero Section */}
-      <section className="relative flex min-h-[75vh] items-center justify-center px-4 py-20">
-        <div className="mx-auto w-full max-w-4xl text-center">
-          {/* Hero Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
-          >
-            <h1 className="mb-4 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-5xl font-bold text-transparent text-white md:text-6xl lg:text-7xl">
-              Build Your Ultimate
-              <br />
-              Gundam Deck
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg text-gray-400 md:text-xl">
-              Browse thousands of cards, craft powerful decks, and dominate the
-              battlefield with the most comprehensive Gundam Card Game platform.
-            </p>
-          </motion.div>
-
+      <section className="relative flex items-center justify-center px-4 py-12">
+        <div className="mx-auto w-full max-w-5xl text-center">
           {/* Search Bar */}
           <motion.form
             onSubmit={handleSearch}
             className="mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
           >
             <div className="group relative">
-              <div className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-[#8b7aaa]">
+              <div className="absolute top-1/2 left-6 -translate-y-1/2 text-gray-400 transition-colors group-focus-within:text-[#8b7aaa]">
                 <svg
-                  className="h-6 w-6"
+                  className="h-7 w-7"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -68,18 +50,18 @@ export default function Home() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for cards..."
-                className="w-full rounded-xl border-2 border-[#443a5c] bg-[#2d2640] py-5 pr-4 pl-14 text-lg text-white placeholder-gray-500 shadow-lg transition-all hover:shadow-[#8b7aaa]/10 focus:border-[#8b7aaa] focus:ring-4 focus:ring-[#8b7aaa]/20 focus:outline-none"
+                placeholder="Search decks, cards and users..."
+                className="w-full rounded-xl border-2 border-[#443a5c] bg-[#2d2640] py-6 pr-6 pl-16 text-lg text-white placeholder-gray-500 shadow-xl transition-all hover:shadow-[#8b7aaa]/20 focus:border-[#8b7aaa] focus:shadow-lg focus:ring-4 focus:shadow-[#8b7aaa]/30 focus:ring-[#8b7aaa]/20 focus:outline-none"
               />
             </div>
           </motion.form>
 
           {/* Quick Action Buttons */}
           <motion.div
-            className="mb-12 flex flex-wrap justify-center gap-3"
+            className="mb-8 flex flex-wrap justify-center gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             {[
               { href: '/cards', icon: '🔍', label: 'ADVANCED SEARCH' },
@@ -106,28 +88,9 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link href={item.href}>
-                  <Button
-                    variant="secondary"
-                    size="md"
-                    className="group relative overflow-hidden border-[#443a5c] bg-[#2d2640] text-white shadow-lg transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#3a3050] hover:shadow-xl hover:shadow-[#8b7aaa]/30"
-                  >
-                    {/* Shimmer effect on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8b7aaa]/20 to-transparent"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.6 }}
-                    />
-
-                    {/* Icon with scale animation */}
-                    <motion.span
-                      className="inline-block"
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {item.icon}
-                    </motion.span>
-                    <span className="relative z-10 ml-2">{item.label}</span>
+                  <Button variant="brand" size="md">
+                    <span className="inline-block">{item.icon}</span>
+                    <span className="ml-2">{item.label}</span>
                   </Button>
                 </Link>
               </motion.div>
@@ -244,7 +207,7 @@ export default function Home() {
       </section>
 
       {/* Recent Decks Section */}
-      <section className="mt-8 border-t border-[#2d2640] px-4 py-16">
+      <section className="border-t border-[#2d2640] px-4 py-8">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -255,24 +218,26 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white md:text-3xl">
               Recent Decks
             </h2>
-            <Link
-              href="/decks"
-              className="group flex items-center gap-1 text-sm font-medium text-[#8b7aaa] transition-colors hover:text-[#a89ec7] md:text-base"
-            >
-              View all
-              <svg
-                className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <Link href="/decks">
+              <Button
+                variant="link"
+                className="group flex items-center gap-1 text-[#8b7aaa] hover:text-[#a89ec7]"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+                View all
+                <svg
+                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Button>
             </Link>
           </motion.div>
 
@@ -363,9 +328,7 @@ export default function Home() {
                 Be the first to create and share a deck!
               </p>
               <Link href="/decks">
-                <Button className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white hover:from-[#a89ec7] hover:to-[#8b7aaa]">
-                  Create Your First Deck
-                </Button>
+                <Button variant="brand">Create Your First Deck</Button>
               </Link>
             </motion.div>
           )}

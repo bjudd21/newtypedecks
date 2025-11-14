@@ -332,9 +332,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           {/* Sign Up Button */}
           <Button
             type="submit"
-            variant="default"
+            variant="critical"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg hover:from-[#a89ec7] hover:to-[#8b7aaa] hover:shadow-[#8b7aaa]/30"
+            className="w-full"
           >
             {isLoading ? 'Creating Account...' : 'Create Account'}
           </Button>

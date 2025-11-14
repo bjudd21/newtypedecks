@@ -77,3 +77,5 @@ export type {
 
 export { AdvancedSort } from './AdvancedSort';
 export type { AdvancedSortProps, SortOption, ActiveSort } from './AdvancedSort';
+
+export { ThemeToggle } from './ThemeToggle';

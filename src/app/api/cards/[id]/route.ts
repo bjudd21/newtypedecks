@@ -1,6 +1,7 @@
 // Individual card API endpoints
 import { NextRequest, NextResponse } from 'next/server';
 import { CardService } from '@/lib/services/cardService';
+import { requireAdmin } from '@/middleware/adminAuth';
 
 interface RouteParams {
   params: Promise<{
@@ -56,6 +57,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // PUT /api/cards/[id] - Update a specific card (admin only)
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
+    // Check admin authentication
+    const authError = await requireAdmin();
+    if (authError) {
+      return authError;
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -71,9 +78,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         { status: 400 }
       );
     }
-
-    // TODO: Add authentication and authorization checks for admin users
-    // For now, allow card updates without authentication (development only)
 
     // Check if card exists first
     const existingCard = await CardService.getCardById(id, false);
@@ -135,6 +139,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 // DELETE /api/cards/[id] - Delete a specific card (admin only)
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
+    // Check admin authentication
+    const authError = await requireAdmin();
+    if (authError) {
+      return authError;
+    }
+
     const { id } = await params;
 
     // Validate ID format (UUID)
@@ -149,9 +159,6 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
         { status: 400 }
       );
     }
-
-    // TODO: Add authentication and authorization checks for admin users
-    // For now, allow card deletion without authentication (development only)
 
     // Check if card exists first
     const existingCard = await CardService.getCardById(id, false);

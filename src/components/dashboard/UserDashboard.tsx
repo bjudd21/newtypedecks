@@ -190,9 +190,9 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 </p>
               </div>
               <Button
-                variant="outline"
+                variant="brandOutline"
                 onClick={() => router.push('/profile')}
-                className="w-full border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
+                className="w-full"
               >
                 EDIT PROFILE
               </Button>
@@ -216,12 +216,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 <p className="mb-3 text-sm text-gray-400">
                   Control who can see your decks and collection.
                 </p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-                >
+                <Button variant="brandOutline" size="sm" disabled>
                   COMING SOON
                 </Button>
               </div>
@@ -231,12 +226,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
                 <p className="mb-3 text-sm text-gray-400">
                   Download your decks and collection data.
                 </p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  className="border-[#8b7aaa] bg-[#2d2640] text-[#8b7aaa]"
-                >
+                <Button variant="brandOutline" size="sm" disabled>
                   COMING SOON
                 </Button>
               </div>

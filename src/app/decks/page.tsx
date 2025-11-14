@@ -166,15 +166,14 @@ function MyDecksManager() {
           </p>
           <div className="flex justify-center gap-3">
             <Button
+              variant="brand"
               onClick={() => (window.location.href = '/decks')}
-              className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg hover:from-[#a89ec7] hover:to-[#8b7aaa] hover:shadow-[#8b7aaa]/30"
             >
               Build New Deck
             </Button>
             <Button
-              variant="outline"
+              variant="brandOutline"
               onClick={() => (window.location.href = '/dashboard')}
-              className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
             >
               View Dashboard
             </Button>

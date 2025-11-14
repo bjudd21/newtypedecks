@@ -75,16 +75,6 @@ interface EnvironmentConfig {
   TEST_DATABASE_URL?: string;
   TEST_REDIS_URL?: string;
 
-  // Data Import
-  ENABLE_DATA_IMPORT: boolean;
-  IMPORT_SOURCE_URL: string;
-  IMPORT_API_KEY?: string;
-  IMPORT_RATE_LIMIT_MS: number;
-  IMPORT_BATCH_SIZE: number;
-  IMPORT_MAX_RETRIES: number;
-  IMPORT_SCHEDULE_ENABLED: boolean;
-  IMPORT_SCHEDULE_CRON: string;
-
   // Docker
   COMPOSE_PROJECT_NAME: string;
   DOCKER_NETWORK: string;
@@ -270,16 +260,6 @@ export const env: EnvironmentConfig = {
   // Testing
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
   TEST_REDIS_URL: process.env.TEST_REDIS_URL,
-
-  // Data Import
-  ENABLE_DATA_IMPORT: getEnvBoolean('ENABLE_DATA_IMPORT', false),
-  IMPORT_SOURCE_URL: getEnvVar('IMPORT_SOURCE_URL', 'https://gundam-gcg.com'),
-  IMPORT_API_KEY: process.env.IMPORT_API_KEY,
-  IMPORT_RATE_LIMIT_MS: getEnvNumber('IMPORT_RATE_LIMIT_MS', 1000),
-  IMPORT_BATCH_SIZE: getEnvNumber('IMPORT_BATCH_SIZE', 50),
-  IMPORT_MAX_RETRIES: getEnvNumber('IMPORT_MAX_RETRIES', 3),
-  IMPORT_SCHEDULE_ENABLED: getEnvBoolean('IMPORT_SCHEDULE_ENABLED', false),
-  IMPORT_SCHEDULE_CRON: getEnvVar('IMPORT_SCHEDULE_CRON', '0 2 * * *'), // Daily at 2 AM
 
   // Docker
   COMPOSE_PROJECT_NAME: getEnvVar('COMPOSE_PROJECT_NAME', 'gundam-card-game'),

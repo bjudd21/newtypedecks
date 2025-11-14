@@ -7,29 +7,43 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-tech font-medium uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-tech font-medium uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f0d15] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
+        // Cyan/Blue - Primary brand actions (tech-focused)
         default:
-          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
+          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white focus-visible:ring-cyan-400',
         primary:
-          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg hover:shadow-cyan-400/50 hover:shadow-xl',
-        destructive:
-          'bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg hover:shadow-red-400/50 hover:shadow-xl',
+          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white focus-visible:ring-cyan-400',
+        critical:
+          'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-400/60 hover:shadow-cyan-400/80 focus-visible:ring-cyan-400',
         outline:
-          'border border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40',
+          'border border-cyan-400 bg-transparent text-cyan-400 hover:bg-cyan-400 hover:text-black focus-visible:ring-cyan-400',
+
+        // Purple - Theme/brand decorative elements
+        brand:
+          'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white focus-visible:ring-[#8b7aaa]',
+        brandOutline:
+          'border border-[#8b7aaa] bg-transparent text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white focus-visible:ring-[#8b7aaa]',
+
+        // Other variants
+        destructive:
+          'bg-gradient-to-r from-red-500 to-red-700 text-white focus-visible:ring-red-400',
         secondary:
-          'bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-lg hover:shadow-gray-400/30',
-        ghost: 'text-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300',
-        link: 'text-cyan-400 underline-offset-4 hover:underline hover:text-cyan-300',
+          'bg-gradient-to-r from-gray-700 to-gray-800 text-white focus-visible:ring-gray-400',
+        ghost:
+          'text-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 focus-visible:ring-cyan-400',
+        link: 'text-cyan-400 underline-offset-4 hover:underline hover:text-cyan-300 focus-visible:ring-cyan-400',
+
+        // Special effects (keep existing)
         cyber:
-          'relative overflow-hidden bg-gradient-to-r from-cyan-400 to-purple-600 text-black border-2 border-cyan-400 shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 hover:border-green-400',
-        neon: 'relative overflow-hidden bg-transparent text-green-400 border-2 border-green-400 hover:bg-green-400 hover:text-black shadow-lg shadow-green-400/50 hover:shadow-green-400/80',
+          'relative overflow-hidden bg-gradient-to-r from-cyan-400 to-purple-600 text-black border-2 border-cyan-400 shadow-lg shadow-cyan-400/50 hover:shadow-cyan-400/80 hover:border-green-400 focus-visible:ring-cyan-400',
+        neon: 'relative overflow-hidden bg-transparent text-green-400 border-2 border-green-400 hover:bg-green-400 hover:text-black shadow-lg shadow-green-400/50 hover:shadow-green-400/80 focus-visible:ring-green-400',
         plasma:
-          'relative overflow-hidden bg-gradient-to-r from-purple-600 to-orange-500 text-white border-2 border-purple-600 shadow-lg shadow-purple-400/50 hover:shadow-purple-400/80 hover:border-orange-400',
+          'relative overflow-hidden bg-gradient-to-r from-purple-600 to-orange-500 text-white border-2 border-purple-600 shadow-lg shadow-purple-400/50 hover:shadow-purple-400/80 hover:border-orange-400 focus-visible:ring-purple-400',
         hologram:
-          'relative overflow-hidden bg-transparent text-cyan-400 border border-cyan-400/50 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/20',
+          'relative overflow-hidden bg-transparent text-cyan-400 border border-cyan-400/50 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/20 focus-visible:ring-cyan-400',
       },
       size: {
         default: 'h-11 px-6 py-3',
@@ -39,10 +53,82 @@ const buttonVariants = cva(
         xl: 'h-14 rounded-lg px-10 text-lg',
         icon: 'h-11 w-11',
       },
+      emphasis: {
+        high: 'shadow-2xl',
+        normal: 'shadow-lg',
+        low: '',
+      },
     },
+    compoundVariants: [
+      // Cyan variants with emphasis
+      {
+        variant: ['default', 'primary'],
+        emphasis: 'high',
+        class: 'shadow-cyan-400/60 hover:shadow-cyan-400/80',
+      },
+      {
+        variant: ['default', 'primary'],
+        emphasis: 'normal',
+        class: 'shadow-cyan-400/30 hover:shadow-cyan-400/50',
+      },
+      {
+        variant: 'outline',
+        emphasis: 'high',
+        class: 'shadow-xl shadow-cyan-400/40 hover:shadow-cyan-400/60',
+      },
+      {
+        variant: 'outline',
+        emphasis: 'normal',
+        class: 'shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/40',
+      },
+      // Purple/Brand variants with emphasis
+      {
+        variant: 'brand',
+        emphasis: 'high',
+        class: 'shadow-[#8b7aaa]/60 hover:shadow-[#8b7aaa]/80',
+      },
+      {
+        variant: 'brand',
+        emphasis: 'normal',
+        class: 'shadow-[#8b7aaa]/30 hover:shadow-[#8b7aaa]/50',
+      },
+      {
+        variant: 'brandOutline',
+        emphasis: 'high',
+        class: 'shadow-xl shadow-[#8b7aaa]/40 hover:shadow-[#8b7aaa]/60',
+      },
+      {
+        variant: 'brandOutline',
+        emphasis: 'normal',
+        class: 'shadow-lg shadow-[#8b7aaa]/20 hover:shadow-[#8b7aaa]/40',
+      },
+      // Destructive variants with emphasis
+      {
+        variant: 'destructive',
+        emphasis: 'high',
+        class: 'shadow-red-400/60 hover:shadow-red-400/80',
+      },
+      {
+        variant: 'destructive',
+        emphasis: 'normal',
+        class: 'shadow-red-400/30 hover:shadow-red-400/50',
+      },
+      // Secondary with emphasis
+      {
+        variant: 'secondary',
+        emphasis: 'high',
+        class: 'shadow-gray-400/40',
+      },
+      {
+        variant: 'secondary',
+        emphasis: 'normal',
+        class: 'shadow-gray-400/30',
+      },
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      emphasis: 'normal',
     },
   }
 );

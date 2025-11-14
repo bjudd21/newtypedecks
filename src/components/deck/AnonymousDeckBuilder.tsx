@@ -852,31 +852,31 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
           </Button>
 
           {/* Export Options Dropdown */}
-          <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border bg-white shadow-lg group-hover:block">
+          <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-lg group-hover:block">
             <div className="py-1">
               <button
                 onClick={() => handleExport('json')}
                 disabled={uniqueCards === 0}
-                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+                className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
               >
                 📄 JSON Format
-                <div className="text-xs text-gray-500">Complete deck data</div>
+                <div className="text-xs text-gray-400">Complete deck data</div>
               </button>
               <button
                 onClick={() => handleExport('text')}
                 disabled={uniqueCards === 0}
-                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+                className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
               >
                 📝 Text Format
-                <div className="text-xs text-gray-500">Human readable</div>
+                <div className="text-xs text-gray-400">Human readable</div>
               </button>
               <button
                 onClick={() => handleExport('csv')}
                 disabled={uniqueCards === 0}
-                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:opacity-50"
+                className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
               >
                 📊 CSV Format
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-gray-400">
                   Spreadsheet compatible
                 </div>
               </button>
@@ -906,15 +906,13 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
 
       {/* Share Modal */}
       {showShareModal && (
-        <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
-          <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+        <div className="bg-opacity-75 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
+          <div className="w-full max-w-md rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-6 shadow-2xl">
             <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Share Deck
-              </h3>
+              <h3 className="text-lg font-semibold text-white">Share Deck</h3>
               <button
                 onClick={handleCloseShareModal}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 transition-colors hover:text-white"
               >
                 <svg
                   className="h-6 w-6"
@@ -934,10 +932,10 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
 
             {shareError ? (
               <div className="mb-4">
-                <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+                <div className="rounded-lg border border-red-900/50 bg-red-950/30 p-4">
                   <div className="flex items-start">
                     <svg
-                      className="mt-0.5 mr-2 h-5 w-5 text-red-600"
+                      className="mt-0.5 mr-2 h-5 w-5 text-red-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -950,10 +948,10 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
                       />
                     </svg>
                     <div>
-                      <h4 className="text-sm font-medium text-red-800">
+                      <h4 className="text-sm font-medium text-red-300">
                         Cannot Share Deck
                       </h4>
-                      <p className="mt-1 text-sm text-red-700">{shareError}</p>
+                      <p className="mt-1 text-sm text-red-400">{shareError}</p>
                     </div>
                   </div>
                 </div>
@@ -966,17 +964,17 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
             ) : (
               <div>
                 <div className="mb-4">
-                  <p className="mb-3 text-sm text-gray-600">
+                  <p className="mb-3 text-sm text-gray-300">
                     Share your deck with this temporary URL. The link contains
                     your complete deck data and can be opened by anyone.
                   </p>
-                  <div className="rounded-lg border bg-gray-50 p-3">
+                  <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-3">
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
                         value={shareURL}
                         readOnly
-                        className="flex-1 border-none bg-transparent text-sm text-gray-700 outline-none"
+                        className="flex-1 border-none bg-transparent text-sm text-gray-200 outline-none"
                       />
                       <Button
                         onClick={handleCopyShareURL}

@@ -7,8 +7,6 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { getNavItemProps } from '@/lib/utils/accessibility';
 
-// Force fresh render - purple theme
-
 const navigation = [
   { name: 'Cards', href: '/cards', description: 'Browse card database' },
   { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
@@ -24,7 +22,7 @@ export function Navbar() {
 
   return (
     <nav
-      className="hidden space-x-6 md:flex"
+      className="hidden items-center gap-8 md:flex"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -39,57 +37,36 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.3,
-              delay: index * 0.1,
-              type: 'spring',
-              stiffness: 260,
-              damping: 20,
+              delay: index * 0.05,
             }}
-            whileHover={{
-              scale: 1.05,
-              transition: { duration: 0.2, type: 'spring', stiffness: 300 },
-            }}
-            whileTap={{ scale: 0.95 }}
           >
             <Link
               href={item.href}
               className={cn(
-                'group relative block overflow-hidden rounded-full px-4 py-2 transition-all duration-300 ease-in-out',
-                'flex items-center justify-center',
-                'focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625] focus:outline-none',
-                isActive
-                  ? 'border border-[#8b7aaa] bg-[#6b5a8a] font-medium text-white shadow-lg shadow-[#6b5a8a]/30'
-                  : 'border border-[#443a5c] bg-[#2d2640] text-gray-300 hover:border-[#6b5a8a] hover:bg-[#3a3050] hover:text-white hover:shadow-lg hover:shadow-[#6b5a8a]/20'
+                'group relative pb-1 text-base font-medium transition-colors duration-200',
+                'focus:ring-2 focus:ring-[#8b7aaa] focus:ring-offset-2 focus:ring-offset-[#0f0d15] focus:outline-none',
+                isActive ? 'text-white' : 'text-gray-300 hover:text-[#8b7aaa]'
               )}
               {...navProps}
             >
-              {/* Animated background on hover */}
-              {!isActive && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-[#8b7aaa]/10 via-[#a89ec7]/20 to-[#8b7aaa]/10"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '100%' }}
-                  transition={{ duration: 0.6 }}
-                />
-              )}
+              <span className="relative">
+                {item.name}
+                {isActive && <span className="sr-only"> (current page)</span>}
+              </span>
 
-              {/* Active indicator */}
+              {/* Active underline indicator */}
               {isActive && (
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-[#6b5a8a] via-[#8b7aaa] to-[#6b5a8a]"
-                  animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  style={{ backgroundSize: '200% 100%' }}
+                  layoutId="activeNav"
+                  className="absolute right-0 bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#6b5a8a] via-[#8b7aaa] to-[#6b5a8a]"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
 
-              <span className="relative z-10">{item.name}</span>
-              {isActive && <span className="sr-only"> (current page)</span>}
+              {/* Hover underline */}
+              {!isActive && (
+                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#8b7aaa] transition-all duration-300 group-hover:w-full" />
+              )}
             </Link>
           </motion.div>
         );

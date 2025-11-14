@@ -25,6 +25,42 @@ const initialState: DeckState = {
   isEditing: false,
 };
 
+// Helper function to serialize dates to strings for Redux
+const serializeDeck = (deck: DeckWithCards | null): DeckWithCards | null => {
+  if (!deck) return null;
+
+  return {
+    ...deck,
+    createdAt:
+      deck.createdAt instanceof Date
+        ? deck.createdAt.toISOString()
+        : deck.createdAt,
+    updatedAt:
+      deck.updatedAt instanceof Date
+        ? deck.updatedAt.toISOString()
+        : deck.updatedAt,
+    cards: deck.cards.map((deckCard) => ({
+      ...deckCard,
+      card: serializeCard(deckCard.card),
+    })),
+  } as DeckWithCards;
+};
+
+// Helper function to serialize card dates
+const serializeCard = (card: CardWithRelations): CardWithRelations => {
+  return {
+    ...card,
+    createdAt:
+      card.createdAt instanceof Date
+        ? card.createdAt.toISOString()
+        : card.createdAt,
+    updatedAt:
+      card.updatedAt instanceof Date
+        ? card.updatedAt.toISOString()
+        : card.updatedAt,
+  } as CardWithRelations;
+};
+
 // Async thunks (will be implemented when APIs are ready)
 // For now, we'll use simple actions without async thunks to avoid TypeScript issues
 
@@ -34,7 +70,7 @@ const deckSlice = createSlice({
   initialState,
   reducers: {
     setCurrentDeck: (state, action: PayloadAction<DeckWithCards | null>) => {
-      state.currentDeck = action.payload;
+      state.currentDeck = serializeDeck(action.payload);
     },
     setIsEditing: (state, action: PayloadAction<boolean>) => {
       state.isEditing = action.payload;
@@ -65,7 +101,7 @@ const deckSlice = createSlice({
             cardId: action.payload.card.id,
             quantity: action.payload.quantity,
             category: action.payload.category || null,
-            card: action.payload.card,
+            card: serializeCard(action.payload.card),
           });
         }
       }

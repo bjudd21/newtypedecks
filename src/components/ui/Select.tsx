@@ -38,9 +38,12 @@ const Select: React.FC<SelectProps> = ({
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const selectedOption = options.find((option) => option.value === value);
+  // Safeguard against undefined options
+  const safeOptions = options || [];
 
-  const filteredOptions = options.filter((option) =>
+  const selectedOption = safeOptions.find((option) => option.value === value);
+
+  const filteredOptions = safeOptions.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -136,8 +139,8 @@ const Select: React.FC<SelectProps> = ({
         </button>
 
         {isOpen && (
-          <div className="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#2d2640] py-1 text-base shadow-lg ring-1 ring-[#443a5c] focus:outline-none sm:text-sm">
-            {options.length > 10 && (
+          <div className="ring-opacity-5 absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#2d2640] py-1 text-base shadow-lg ring-1 ring-[#443a5c] focus:outline-none sm:text-sm">
+            {safeOptions.length > 10 && (
               <div className="px-3 py-2">
                 <input
                   ref={inputRef}

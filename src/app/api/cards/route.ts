@@ -1,6 +1,7 @@
 // Cards API endpoints
 import { NextRequest, NextResponse } from 'next/server';
 import { CardService } from '@/lib/services/cardService';
+import { requireAdmin } from '@/middleware/adminAuth';
 import type { CardSearchFilters, CardSearchOptions } from '@/lib/types';
 
 // GET /api/cards - Get all cards with pagination and filtering
@@ -135,10 +136,13 @@ export async function GET(request: NextRequest) {
 // POST /api/cards - Create a new card (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    // Check admin authentication
+    const authError = await requireAdmin();
+    if (authError) {
+      return authError;
+    }
 
-    // TODO: Add authentication and authorization checks for admin users
-    // For now, allow card creation without authentication (development only)
+    const body = await request.json();
 
     // Create card using CardService
     const card = await CardService.createCard(body);
