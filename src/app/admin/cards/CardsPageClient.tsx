@@ -213,7 +213,7 @@ export function CardsPageClient() {
             onSuccess={handleModalSuccess}
             itemType="card"
             itemName={selectedCard.name}
-            itemId={selectedCard.id}
+            _itemId={selectedCard.id}
             apiEndpoint={`/api/cards/${selectedCard.id}`}
           />
         </>

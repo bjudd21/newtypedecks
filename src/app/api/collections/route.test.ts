@@ -87,29 +87,33 @@ describe('User Collections API Routes', () => {
     });
 
     describe('Collection Auto-Creation', () => {
-      it('should create collection if it does not exist', async () => {
+      it('should return empty collection if it does not exist', async () => {
         (prisma.collection.findUnique as jest.Mock).mockResolvedValue(null);
-        (prisma.collection.create as jest.Mock).mockResolvedValue({
-          id: mockCollectionId,
-          userId: mockUserId,
-        });
-        (prisma.collectionCard.findMany as jest.Mock).mockResolvedValue([]);
-        (prisma.collectionCard.count as jest.Mock).mockResolvedValue(0);
-        (prisma.collectionCard.aggregate as jest.Mock).mockResolvedValue({
-          _sum: { quantity: 0 },
-          _count: { id: 0 },
-        });
-        (prisma.card.count as jest.Mock).mockResolvedValue(100);
 
         const request = new NextRequest(
           'http://localhost:3000/api/collections'
         );
         const response = await GET(request);
+        const data = await response.json();
 
         expect(response.status).toBe(200);
-        expect(prisma.collection.create).toHaveBeenCalledWith({
-          data: { userId: mockUserId },
+        expect(data.collection).toMatchObject({
+          userId: mockUserId,
+          cards: [],
+          statistics: {
+            totalCards: 0,
+            uniqueCards: 0,
+            completionPercentage: 0,
+          },
+          pagination: {
+            page: 1,
+            limit: 20,
+            total: 0,
+            pages: 0,
+          },
         });
+        // Collection is not created in DB, just returned as empty structure
+        expect(prisma.collection.create).not.toHaveBeenCalled();
       });
     });
 

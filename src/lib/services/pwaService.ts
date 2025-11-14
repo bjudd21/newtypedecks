@@ -105,7 +105,7 @@ class PWAService {
     try {
       // Only register service worker in production or if sw.js exists
       if (process.env.NODE_ENV !== 'production') {
-        console.log('Service Worker registration skipped in development');
+        console.warn('Service Worker registration skipped in development');
         return;
       }
 
@@ -113,7 +113,7 @@ class PWAService {
         scope: '/',
       });
 
-      console.log('Service Worker registered successfully');
+      console.warn('Service Worker registered successfully');
       this.emit('serviceWorkerRegistered', true);
 
       // Listen for service worker updates

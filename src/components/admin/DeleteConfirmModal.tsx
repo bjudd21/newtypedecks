@@ -11,7 +11,7 @@ interface DeleteConfirmModalProps {
   onSuccess: () => void;
   itemType: 'card' | 'user';
   itemName: string;
-  itemId: string;
+  _itemId: string;
   apiEndpoint: string;
 }
 
@@ -28,7 +28,7 @@ export function DeleteConfirmModal({
   onSuccess,
   itemType,
   itemName,
-  itemId,
+  _itemId,
   apiEndpoint,
 }: DeleteConfirmModalProps) {
   const [isDeleting, setIsDeleting] = useState(false);

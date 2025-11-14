@@ -239,7 +239,7 @@ export function UsersPageClient() {
             onSuccess={handleModalSuccess}
             itemType="user"
             itemName={selectedUser.email}
-            itemId={selectedUser.id}
+            _itemId={selectedUser.id}
             apiEndpoint={`/api/admin/users/${selectedUser.id}`}
           />
         </>

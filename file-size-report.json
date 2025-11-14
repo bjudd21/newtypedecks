@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-14T17:32:19.231Z",
+  "timestamp": "2025-11-14T19:54:50.862Z",
   "summary": {
     "passed": 223,
     "warnings": 49,
@@ -68,7 +68,7 @@
       "lines": 524,
       "limit": 500,
       "percentage": 104.80000000000001,
-      "size": 14462,
+      "size": 14464,
       "status": "warning"
     },
     {
@@ -201,10 +201,10 @@
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 728,
+      "lines": 732,
       "limit": 500,
-      "percentage": 145.6,
-      "size": 23057,
+      "percentage": 146.4,
+      "size": 22992,
       "status": "warning"
     },
     {
@@ -1788,7 +1788,7 @@
       "lines": 161,
       "limit": 500,
       "percentage": 32.2,
-      "size": 4401,
+      "size": 4403,
       "status": "passed"
     },
     {
@@ -2065,10 +2065,10 @@
     },
     {
       "file": "src/app/admin/users/UsersPageClient.tsx",
-      "lines": 247,
+      "lines": 250,
       "limit": 500,
-      "percentage": 49.4,
-      "size": 6903,
+      "percentage": 50,
+      "size": 6950,
       "status": "passed"
     },
     {
@@ -2084,7 +2084,7 @@
       "lines": 224,
       "limit": 500,
       "percentage": 44.800000000000004,
-      "size": 6302,
+      "size": 6303,
       "status": "passed"
     },
     {
@@ -2137,10 +2137,10 @@
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 728,
+      "lines": 732,
       "limit": 1000,
-      "percentage": 72.8,
-      "size": 23057,
+      "percentage": 73.2,
+      "size": 22992,
       "status": "passed"
     },
     {
