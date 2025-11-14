@@ -43,7 +43,7 @@ const serializeDeck = (deck: DeckWithCards | null): DeckWithCards | null => {
       ...deckCard,
       card: serializeCard(deckCard.card),
     })),
-  } as DeckWithCards;
+  } as unknown as DeckWithCards;
 };
 
 // Helper function to serialize card dates
@@ -58,7 +58,7 @@ const serializeCard = (card: CardWithRelations): CardWithRelations => {
       card.updatedAt instanceof Date
         ? card.updatedAt.toISOString()
         : card.updatedAt,
-  } as CardWithRelations;
+  } as unknown as CardWithRelations;
 };
 
 // Async thunks (will be implemented when APIs are ready)

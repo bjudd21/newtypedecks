@@ -5,7 +5,7 @@
  */
 
 import { prisma } from '@/lib/database';
-import { UserRole } from '@prisma/client';
+import { Prisma, UserRole } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 export interface UserListOptions {
@@ -84,7 +84,7 @@ export class UserService {
     const skip = (page - 1) * limit;
 
     // Build where clause
-    const where: unknown = {
+    const where: Prisma.UserWhereInput = {
       ...(search && {
         OR: [
           { email: { contains: search, mode: 'insensitive' } },
@@ -133,9 +133,9 @@ export class UserService {
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
       activity: {
-        deckCount: user._count.decks,
-        collectionCount: user._count.collections,
-        submissionCount: user._count.submissions,
+        deckCount: (user as any)._count.decks,
+        collectionCount: (user as any)._count.collections,
+        submissionCount: (user as any)._count.submissions,
       },
     }));
 

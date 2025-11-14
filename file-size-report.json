@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-14T04:48:00.128Z",
+  "timestamp": "2025-11-14T04:55:43.272Z",
   "summary": {
     "passed": 223,
     "warnings": 49,
@@ -28,7 +28,7 @@
       "lines": 403,
       "limit": 500,
       "percentage": 80.60000000000001,
-      "size": 9108,
+      "size": 9157,
       "status": "warning"
     },
     {
@@ -436,7 +436,7 @@
       "lines": 142,
       "limit": 500,
       "percentage": 28.4,
-      "size": 3924,
+      "size": 3946,
       "status": "passed"
     },
     {
@@ -1809,10 +1809,10 @@
     },
     {
       "file": "src/components/admin/users/UserEditModal.tsx",
-      "lines": 235,
+      "lines": 237,
       "limit": 500,
-      "percentage": 47,
-      "size": 6145,
+      "percentage": 47.4,
+      "size": 6172,
       "status": "passed"
     },
     {
