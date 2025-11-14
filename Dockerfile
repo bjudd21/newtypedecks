@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image
 
 # Base Node.js image with Alpine Linux for smaller size
-FROM node:18-alpine AS base
+FROM node:25-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
