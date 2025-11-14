@@ -31,7 +31,10 @@ interface UserStatistics {
   };
   verified: number;
   unverified: number;
-  recentSignups: number;
+  recentSignups: {
+    last7Days: number;
+    last30Days: number;
+  };
 }
 
 interface PaginationData {

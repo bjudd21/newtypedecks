@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-14T04:55:43.272Z",
+  "timestamp": "2025-11-14T17:32:19.231Z",
   "summary": {
     "passed": 223,
     "warnings": 49,
@@ -1801,10 +1801,10 @@
     },
     {
       "file": "src/components/admin/users/UserStatsCard.tsx",
-      "lines": 155,
+      "lines": 158,
       "limit": 500,
-      "percentage": 31,
-      "size": 5337,
+      "percentage": 31.6,
+      "size": 5394,
       "status": "passed"
     },
     {

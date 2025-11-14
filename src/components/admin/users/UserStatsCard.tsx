@@ -10,7 +10,10 @@ interface UserStatistics {
   };
   verified: number;
   unverified: number;
-  recentSignups: number;
+  recentSignups: {
+    last7Days: number;
+    last30Days: number;
+  };
 }
 
 interface UserStatsCardProps {
@@ -145,7 +148,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
             <span className="text-sm text-gray-300">New (30 days)</span>
           </div>
           <span className="text-sm font-medium text-white">
-            {stats.recentSignups}
+            {stats.recentSignups.last30Days}
           </span>
         </div>
       </div>
