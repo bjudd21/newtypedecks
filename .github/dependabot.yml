@@ -1,0 +1,163 @@
+# Dependabot configuration for automated dependency updates
+# Documentation: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Enable version updates for npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+
+    # Limit number of open PRs
+    open-pull-requests-limit: 5
+
+    # Auto-merge patch updates for known safe packages
+    # (requires GitHub repo settings to allow auto-merge)
+    target-branch: "main"
+
+    # Grouping strategy for updates
+    groups:
+      # Group all patch updates together
+      patch-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+
+      # Group Next.js related packages
+      nextjs-ecosystem:
+        patterns:
+          - "next"
+          - "next-*"
+          - "eslint-config-next"
+          - "@next/*"
+        update-types:
+          - "minor"
+
+      # Group React ecosystem
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+        update-types:
+          - "minor"
+          - "patch"
+
+      # Group testing libraries
+      testing-libraries:
+        patterns:
+          - "jest"
+          - "jest-*"
+          - "@testing-library/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+      # Group TypeScript and types
+      typescript-types:
+        patterns:
+          - "typescript"
+          - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+    # Labels to add to PRs
+    labels:
+      - "dependencies"
+      - "automated"
+
+    # Assignees for dependency PRs (optional)
+    # assignees:
+    #   - "your-github-username"
+
+    # Reviewers for dependency PRs (optional)
+    # reviewers:
+    #   - "your-github-username"
+
+    # Commit message preferences
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+
+    # Allow both direct and indirect dependencies
+    versioning-strategy: auto
+
+    # Ignore specific dependencies or versions
+    ignore:
+      # Ignore major version updates for these packages
+      # (we'll update these manually after planning)
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "prisma"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "@prisma/client"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "next-auth"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "jest"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "jest-environment-jsdom"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "redis"
+        update-types: ["version-update:semver-major"]
+
+      - dependency-name: "husky"
+        update-types: ["version-update:semver-major"]
+
+      # Ignore updates to @types/node major versions
+      # (we'll update when upgrading Node.js runtime)
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+    # Allow Dependabot to access private registries (if needed)
+    # registries:
+    #   - npm-github
+
+  # Enable security updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+    open-pull-requests-limit: 3
+
+  # Enable Docker updates (if using Dockerfile)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "chore"
+    open-pull-requests-limit: 3
+
+# Note: After enabling Dependabot, you may want to configure:
+# 1. Branch protection rules to require CI checks before merging
+# 2. Auto-merge for patch updates (Settings > Code security > Dependabot)
+# 3. Security alerts and updates (Settings > Security > Dependabot)

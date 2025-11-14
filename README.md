@@ -4,6 +4,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
 [![Next.js Version](https://img.shields.io/badge/next.js-15.5.3-black)](https://nextjs.org)
+[![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-success)](docs/DEPENDENCIES.md)
+[![Security](https://img.shields.io/badge/security-0%20vulnerabilities-success)](docs/DEPENDENCIES.md)
 
 A comprehensive website for the Gundam Card Game, combining card database functionality with deck building and collection management features. Built with Next.js 15, React 19, and TypeScript for a modern, type-safe development experience.
 
