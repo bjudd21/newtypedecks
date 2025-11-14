@@ -21,7 +21,7 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 - 🎴 **Drag-and-Drop Interface** - Intuitive deck construction with visual feedback
 - ✅ **Real-Time Validation** - Instant deck legality checking with detailed error messages
 - 📈 **Deck Analytics** - Cost curves, type distribution, and meta-game insights
-- 📋 **Multiple Export Formats** - JSON, Text, CSV, and MTG Arena compatible formats
+- 📋 **Multiple Export Formats** - JSON, Text, CSV, and other standard formats
 - 🔄 **Version History** - Track deck changes and restore previous versions
 - ⭐ **Favorites System** - Save and organize your favorite decks
 - 📑 **Deck Templates** - Create and share deck templates with the community
@@ -45,9 +45,9 @@ A comprehensive website for the Gundam Card Game, combining card database functi
 
 ### Administration
 
-- 🛠️ **Admin Panel** - Manage card submissions and user content
-- 📝 **Card Submissions** - Community-driven card database updates
-- 🔍 **Submission Review** - Review and approve community contributions
+- 🛠️ **Admin Panel** - Manage users and card database
+- 👥 **User Management** - Admin and moderator user controls
+- 🎴 **Card Management** - Add, edit, and organize card database
 
 ## 🚀 Quick Start
 
@@ -571,4 +571,4 @@ This website is a fan-made project created to support the Gundam Card Game commu
 
 **Built with ❤️ by the Gundam Card Game community**
 
-_Version 0.1.0 - Last Updated: November 2025_
+_Version 0.1.0 - Last Updated: January 2025_
