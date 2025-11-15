@@ -3,11 +3,11 @@
 [![Build Status](https://github.com/bjudd21/newtypedecks/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/bjudd21/newtypedecks/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
-[![Next.js Version](https://img.shields.io/badge/next.js-15.5.3-black)](https://nextjs.org)
+[![Next.js Version](https://img.shields.io/badge/next.js-16.0.3-black)](https://nextjs.org)
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-success)](docs/DEPENDENCIES.md)
 [![Security](https://img.shields.io/badge/security-0%20vulnerabilities-success)](docs/DEPENDENCIES.md)
 
-A comprehensive website for the Gundam Card Game, combining card database functionality with deck building and collection management features. Built with Next.js 15, React 19, and TypeScript for a modern, type-safe development experience.
+A comprehensive website for the Gundam Card Game, combining card database functionality with deck building and collection management features. Built with Next.js 16, React 19, and TypeScript for a modern, type-safe development experience.
 
 ## ✨ Features
 
@@ -214,9 +214,11 @@ newtypedecks/
 
 ## 🛠️ Technology Stack
 
+> **Note**: For the most up-to-date version information, see [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md).
+
 ### Frontend
 
-- **Next.js 15.5.3** - React framework with App Router
+- **Next.js 16.0.3** - React framework with App Router
 - **React 19.2.0** - UI library with latest features
 - **TypeScript 5.9.3** - Type safety and developer experience
 - **Tailwind CSS 4.1.17** - Utility-first CSS framework
@@ -226,23 +228,23 @@ newtypedecks/
 ### Backend
 
 - **Next.js API Routes** - Serverless API endpoints
-- **Prisma 5.7.1** - Type-safe database ORM
+- **Prisma 6.19.0** - Type-safe database ORM
 - **PostgreSQL** - Primary relational database
-- **Redis 4.6.12** - Caching and session storage
+- **Redis 5.9.0** - Caching and session storage
 - **NextAuth 4.24.13** - Authentication solution
 
 ### Development
 
 - **Docker** - Containerized development environment
 - **ESLint 9.39.1** - Code linting with strict rules
-- **Prettier 3.1.1** - Opinionated code formatting
-- **Jest 29.7.0** - Testing framework
-- **React Testing Library 16.0.0** - Component testing
-- **Husky 8.0.3** - Git hooks for quality checks
+- **Prettier 3.6.2** - Opinionated code formatting
+- **Jest 30.2.0** - Testing framework
+- **React Testing Library 16.3.0** - Component testing
+- **Husky 9.1.7** - Git hooks for quality checks
 
 ### File Storage & Processing
 
-- **Sharp 0.33.1** - High-performance image processing
+- **Sharp 0.34.5** - High-performance image processing
 - **Local storage** - Development file storage
 - **Cloud storage ready** - Compatible with Vercel Blob, Cloudinary, AWS S3
 

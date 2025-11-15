@@ -60,7 +60,7 @@ Your Gundam Card Game application is a **full-stack** web application, meaning i
 
 Think of building a web application like building a house. You need different materials and tools:
 
-#### 1. **Next.js 15** - The Foundation
+#### 1. **Next.js 16** - The Foundation
 
 - **What it is:** A framework (blueprint) for building web applications
 - **Why it matters:** Handles routing (which page to show), server logic, and optimization automatically
@@ -283,7 +283,7 @@ gundam-card-game/
 
 ```
 src/
-├── 📁 app/                          # Pages and API routes (Next.js 15 App Router)
+├── 📁 app/                          # Pages and API routes (Next.js 16 App Router)
 │   ├── 📄 layout.tsx                # Wraps every page (header, footer, providers)
 │   ├── 📄 page.tsx                  # Homepage (/)
 │   ├── 📁 cards/                    # Card browsing pages
@@ -485,7 +485,7 @@ function SaveButton() {
 - Runs in the user's browser
 - Uses React components
 - Has access to browser APIs (localStorage, cookies)
-- Can be "client" or "server" components in Next.js 15
+- Can be "client" or "server" components in Next.js 16
 
 #### Backend (Server-Side)
 
@@ -636,7 +636,7 @@ export function Button({ children, onClick, variant = 'primary' }: ButtonProps) 
 </Button>
 ```
 
-#### Server vs Client Components (Next.js 15)
+#### Server vs Client Components (Next.js 16)
 
 **Server Components** (default):
 
