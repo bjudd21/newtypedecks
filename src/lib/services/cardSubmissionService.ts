@@ -23,6 +23,9 @@ import type {
   SubmissionPriority,
 } from '@/lib/types/submission';
 import type { CreateCardData } from '@/lib/types/card';
+import { validateSubmissionData } from './cardSubmissionService/validation';
+import { transformSubmissionToCardData } from './cardSubmissionService/transformers';
+import { calculateAverageReviewTime } from './cardSubmissionService/statistics';
 
 export class CardSubmissionService {
   /**
@@ -33,7 +36,7 @@ export class CardSubmissionService {
     submittedBy?: string
   ): Promise<CardSubmissionWithRelations> {
     // Validate submission data
-    const validation = this.validateSubmissionData(data);
+    const validation = validateSubmissionData(data);
     if (!validation.isValid) {
       throw new Error(`Validation failed: ${validation.errors.join(', ')}`);
     }
@@ -262,7 +265,7 @@ export class CardSubmissionService {
     }
 
     // Transform submission to card data
-    const cardData = await this.transformSubmissionToCardData(submission);
+    const cardData = await transformSubmissionToCardData(submission);
 
     // Create the card
     const card = await CardService.createCard(cardData);
@@ -392,7 +395,7 @@ export class CardSubmissionService {
       }),
 
       // Average review time
-      this.calculateAverageReviewTime(),
+      calculateAverageReviewTime(),
     ]);
 
     const byStatus = statusCounts.reduce(
@@ -493,206 +496,5 @@ export class CardSubmissionService {
    * Private helper methods
    */
 
-  /**
-   * Validate submission data
-   */
-  private static validateSubmissionData(
-    data: CreateSubmissionData
-  ): SubmissionValidationResult {
-    const errors: string[] = [];
-    const warnings: string[] = [];
 
-    // Required fields
-    if (!data.name || data.name.trim().length === 0) {
-      errors.push('Card name is required');
-    }
-
-    if (!data.setNumber || data.setNumber.trim().length === 0) {
-      errors.push('Set number is required');
-    }
-
-    // Length validation
-    if (data.name && data.name.length > 200) {
-      errors.push('Card name is too long (maximum 200 characters)');
-    }
-
-    if (data.description && data.description.length > 2000) {
-      warnings.push('Description is very long (over 2000 characters)');
-    }
-
-    // Numeric validation
-    if (data.level !== undefined && (data.level < 0 || data.level > 10)) {
-      errors.push('Level must be between 0 and 10');
-    }
-
-    if (data.cost !== undefined && (data.cost < 0 || data.cost > 20)) {
-      errors.push('Cost must be between 0 and 20');
-    }
-
-    // Email validation for anonymous submissions
-    if (data.submitterEmail && !this.isValidEmail(data.submitterEmail)) {
-      errors.push('Invalid email format');
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      warnings,
-    };
-  }
-
-  /**
-   * Transform submission to card data
-   */
-  private static async transformSubmissionToCardData(
-    submission: CardSubmissionWithRelations
-  ): Promise<CreateCardData> {
-    // Ensure we have required references
-    let typeId = submission.typeId;
-    let rarityId = submission.rarityId;
-    let setId = submission.setId;
-
-    // Create missing references if needed
-    if (!typeId) {
-      typeId = await this.findOrCreateCardType('Unit'); // Default type
-    }
-
-    if (!rarityId) {
-      rarityId = await this.findOrCreateRarity('Common'); // Default rarity
-    }
-
-    if (!setId) {
-      setId = await this.findOrCreateSet(
-        submission.setName || 'Community Submissions',
-        submission.setCode || 'CS'
-      );
-    }
-
-    return {
-      name: submission.name,
-      typeId,
-      rarityId,
-      setId,
-      setNumber: submission.setNumber,
-      imageUrl: submission.imageUrl || '',
-      imageUrlSmall: undefined,
-      imageUrlLarge: undefined,
-      description: submission.description ?? undefined,
-      officialText: submission.officialText ?? undefined,
-      level: submission.level ?? undefined,
-      cost: submission.cost ?? undefined,
-      clashPoints: submission.clashPoints ?? undefined,
-      price: submission.price ?? undefined,
-      hitPoints: submission.hitPoints ?? undefined,
-      attackPoints: submission.attackPoints ?? undefined,
-      faction: submission.faction ?? undefined,
-      pilot: submission.pilot ?? undefined,
-      model: submission.model ?? undefined,
-      series: submission.series ?? undefined,
-      nation: submission.nation ?? undefined,
-      keywords: submission.keywords,
-      tags: submission.tags,
-      abilities: submission.abilities ?? undefined,
-      isFoil: submission.isFoil,
-      isPromo: submission.isPromo,
-      isAlternate: submission.isAlternate,
-      language: submission.language,
-    };
-  }
-
-  /**
-   * Calculate average review time
-   */
-  private static async calculateAverageReviewTime(): Promise<number> {
-    const reviewedSubmissions = await prisma.cardSubmission.findMany({
-      where: {
-        status: { in: ['APPROVED', 'REJECTED'] },
-        reviewedAt: { not: null },
-      },
-      select: {
-        createdAt: true,
-        reviewedAt: true,
-      },
-      take: 100, // Last 100 reviewed submissions
-      orderBy: { reviewedAt: 'desc' },
-    });
-
-    if (reviewedSubmissions.length === 0) return 0;
-
-    const totalHours = reviewedSubmissions.reduce((sum, submission) => {
-      if (submission.reviewedAt) {
-        const diffMs =
-          submission.reviewedAt.getTime() - submission.createdAt.getTime();
-        return sum + diffMs / (1000 * 60 * 60); // Convert to hours
-      }
-      return sum;
-    }, 0);
-
-    return totalHours / reviewedSubmissions.length;
-  }
-
-  /**
-   * Helper functions
-   */
-  private static async findOrCreateCardType(name: string): Promise<string> {
-    let cardType = await prisma.cardType.findUnique({
-      where: { name },
-    });
-
-    if (!cardType) {
-      cardType = await prisma.cardType.create({
-        data: {
-          name,
-          description: `Auto-created type: ${name}`,
-        },
-      });
-    }
-
-    return cardType.id;
-  }
-
-  private static async findOrCreateRarity(name: string): Promise<string> {
-    let rarity = await prisma.rarity.findUnique({
-      where: { name },
-    });
-
-    if (!rarity) {
-      rarity = await prisma.rarity.create({
-        data: {
-          name,
-          color: '#6B7280', // Default gray
-          description: `Auto-created rarity: ${name}`,
-        },
-      });
-    }
-
-    return rarity.id;
-  }
-
-  private static async findOrCreateSet(
-    name: string,
-    code: string
-  ): Promise<string> {
-    let cardSet = await prisma.set.findUnique({
-      where: { code },
-    });
-
-    if (!cardSet) {
-      cardSet = await prisma.set.create({
-        data: {
-          name,
-          code,
-          releaseDate: new Date(),
-          description: `Auto-created set: ${name}`,
-        },
-      });
-    }
-
-    return cardSet.id;
-  }
-
-  private static isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
 }
