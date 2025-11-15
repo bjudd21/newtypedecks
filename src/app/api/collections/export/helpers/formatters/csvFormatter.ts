@@ -4,11 +4,7 @@
  * Generates CSV format exports of collection data
  */
 
-import type {
-  CollectionCardData,
-  ExportOptions,
-  ExportResult,
-} from '../types';
+import type { CollectionCardData, ExportOptions, ExportResult } from '../types';
 
 /**
  * Generate CSV export with optional metadata, conditions, and values

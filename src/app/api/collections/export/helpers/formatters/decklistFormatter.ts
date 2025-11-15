@@ -4,11 +4,7 @@
  * Generates deck list format exports compatible with deck building tools
  */
 
-import type {
-  CollectionCardData,
-  ExportOptions,
-  ExportResult,
-} from '../types';
+import type { CollectionCardData, ExportOptions, ExportResult } from '../types';
 
 /**
  * Generate deck list format export (simple quantity + card name)

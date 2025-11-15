@@ -5,11 +5,7 @@
  * In a full implementation, would use a library like 'xlsx' or 'exceljs'
  */
 
-import type {
-  CollectionCardData,
-  ExportOptions,
-  ExportResult,
-} from '../types';
+import type { CollectionCardData, ExportOptions, ExportResult } from '../types';
 import { generateCSVExport } from './csvFormatter';
 
 /**

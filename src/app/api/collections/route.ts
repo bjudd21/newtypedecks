@@ -8,7 +8,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
-import type { PrismaCardWhere } from '@/lib/types';
+import {
+  buildCardWhereClause,
+  parsePaginationParams,
+  calculateCollectionStatistics,
+  getEmptyCollectionResponse,
+  getOrCreateCollection,
+  processCardOperation,
+  type CardAction,
+} from './helpers';
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,36 +30,18 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '20');
     const search = searchParams.get('search') || '';
     const rarity = searchParams.get('rarity');
     const type = searchParams.get('type');
     const faction = searchParams.get('faction');
 
-    const skip = (page - 1) * limit;
+    const { page, limit, skip } = parsePaginationParams(
+      searchParams.get('page'),
+      searchParams.get('limit')
+    );
 
     // Build where clause for card filtering
-    const cardWhere: PrismaCardWhere = {};
-
-    if (search) {
-      cardWhere.OR = [
-        { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-      ];
-    }
-
-    if (rarity) {
-      cardWhere.rarity = { is: { name: rarity } };
-    }
-
-    if (type) {
-      cardWhere.type = { is: { name: type } };
-    }
-
-    if (faction) {
-      cardWhere.faction = faction;
-    }
+    const cardWhere = buildCardWhereClause(search, rarity, type, faction);
 
     // Get user's collection
     const userCollection = await prisma.collection.findUnique({
@@ -60,27 +50,11 @@ export async function GET(request: NextRequest) {
 
     // If no collection exists yet, return empty collection
     if (!userCollection) {
-      return NextResponse.json({
-        collection: {
-          userId: session.user.id,
-          cards: [],
-          statistics: {
-            totalCards: 0,
-            uniqueCards: 0,
-            completionPercentage: 0,
-          },
-          pagination: {
-            page,
-            limit,
-            total: 0,
-            pages: 0,
-          },
-        },
-      });
+      return NextResponse.json(getEmptyCollectionResponse(session.user.id, page, limit));
     }
 
     // Get collection cards with pagination
-    const [collectionCards, total, totalCards] = await Promise.all([
+    const [collectionCards, total] = await Promise.all([
       prisma.collectionCard.findMany({
         where: {
           collection: {
@@ -108,28 +82,10 @@ export async function GET(request: NextRequest) {
           card: cardWhere,
         },
       }),
-      prisma.card.count(),
     ]);
 
     // Calculate collection statistics
-    const userTotalCards = await prisma.collectionCard.aggregate({
-      where: {
-        collection: {
-          userId: session.user.id,
-        },
-      },
-      _sum: { quantity: true },
-      _count: { id: true },
-    });
-
-    const statistics = {
-      totalCards: userTotalCards._sum?.quantity || 0,
-      uniqueCards: userTotalCards._count?.id || 0,
-      completionPercentage:
-        totalCards > 0
-          ? Math.round(((userTotalCards._count?.id || 0) / totalCards) * 100)
-          : 0,
-    };
+    const statistics = await calculateCollectionStatistics(session.user.id);
 
     return NextResponse.json({
       collection: {
@@ -197,15 +153,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get or create user's collection
-    let userCollection = await prisma.collection.findUnique({
-      where: { userId: session.user.id },
-    });
-
-    if (!userCollection) {
-      userCollection = await prisma.collection.create({
-        data: { userId: session.user.id },
-      });
-    }
+    const userCollection = await getOrCreateCollection(session.user.id);
 
     // Check if card is already in collection
     const existingCollectionCard = await prisma.collectionCard.findUnique({
@@ -217,82 +165,30 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    let result;
+    // Process card operation
+    try {
+      const result = await processCardOperation(
+        action as CardAction,
+        userCollection.id,
+        cardId,
+        card.name,
+        parsedQuantity,
+        existingCollectionCard
+      );
 
-    if (action === 'remove' || parsedQuantity === 0) {
-      // Remove card from collection
-      if (existingCollectionCard) {
-        await prisma.collectionCard.delete({
-          where: { id: existingCollectionCard.id },
-        });
-        result = { action: 'removed', cardName: card.name };
-      } else {
+      return NextResponse.json({
+        message: `Card ${result.action} successfully`,
+        result,
+      });
+    } catch (operationError) {
+      if (operationError instanceof Error) {
         return NextResponse.json(
-          { error: 'Card not in collection' },
-          { status: 404 }
+          { error: operationError.message },
+          { status: operationError.message.includes('not in collection') ? 404 : 400 }
         );
       }
-    } else if (existingCollectionCard) {
-      // Update existing collection entry
-      const newQuantity =
-        action === 'set'
-          ? parsedQuantity
-          : existingCollectionCard.quantity + parsedQuantity;
-      const finalQuantity = Math.max(0, newQuantity);
-
-      if (finalQuantity === 0) {
-        await prisma.collectionCard.delete({
-          where: { id: existingCollectionCard.id },
-        });
-        result = { action: 'removed', cardName: card.name };
-      } else {
-        const updated = await prisma.collectionCard.update({
-          where: { id: existingCollectionCard.id },
-          data: {
-            quantity: finalQuantity,
-          },
-          include: {
-            card: {
-              include: {
-                type: true,
-                rarity: true,
-              },
-            },
-          },
-        });
-        result = { action: 'updated', collection: updated };
-      }
-    } else {
-      // Create new collection entry
-      if (parsedQuantity > 0) {
-        const newCollectionCard = await prisma.collectionCard.create({
-          data: {
-            collectionId: userCollection.id,
-            cardId,
-            quantity: parsedQuantity,
-          },
-          include: {
-            card: {
-              include: {
-                type: true,
-                rarity: true,
-              },
-            },
-          },
-        });
-        result = { action: 'added', collection: newCollectionCard };
-      } else {
-        return NextResponse.json(
-          { error: 'Quantity must be greater than 0 to add cards' },
-          { status: 400 }
-        );
-      }
+      throw operationError;
     }
-
-    return NextResponse.json({
-      message: `Card ${result.action} successfully`,
-      result,
-    });
   } catch (error) {
     console.error('Update collection error:', error);
     return NextResponse.json(

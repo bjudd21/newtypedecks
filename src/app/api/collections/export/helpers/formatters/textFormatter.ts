@@ -4,11 +4,7 @@
  * Generates simple human-readable text format exports
  */
 
-import type {
-  CollectionCardData,
-  ExportOptions,
-  ExportResult,
-} from '../types';
+import type { CollectionCardData, ExportOptions, ExportResult } from '../types';
 
 /**
  * Generate simple text list export with optional metadata
