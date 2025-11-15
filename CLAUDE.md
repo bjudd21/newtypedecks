@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a comprehensive Gundam Card Game website that combines card database functionality with deck building and collection management features. It's built with Next.js 15 and follows a mobile-first approach to serve both new players and competitive veterans.
+This is a comprehensive Gundam Card Game website that combines card database functionality with deck building and collection management features. It's built with Next.js 16 and follows a mobile-first approach to serve both new players and competitive veterans.
 
 ## Development Commands
 
@@ -76,7 +76,7 @@ npm run quality       # Run all checks including file size checks
 
 ### Technology Stack
 
-- **Frontend**: Next.js 15 with App Router, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 16 with App Router, TypeScript, Tailwind CSS
 - **State Management**: Redux Toolkit with typed hooks
 - **Backend**: Next.js API routes with Prisma ORM
 - **Database**: PostgreSQL with comprehensive card game schema
@@ -305,13 +305,16 @@ This project has comprehensive documentation organized into focused guides:
 ## Code Quality Status
 
 Last comprehensive cleanup: 2025-11-10 (Latest commits: 822f55f, b69b973, 4bf8c12)
+Latest updates: 2025-11-15 (Q2 2025 dependency updates: Prisma 6, Next.js 16, Jest 30, Redis 5)
 
 ### Current Status
 
 - ✅ **0 ESLint errors** (down from 119)
-- ⚠️ **216 ESLint warnings** (down from 816)
+- ⚠️ **228 ESLint warnings** (down from 816)
 - ✅ **TypeScript compilation: PASSING**
-- 📊 **75% total issue reduction** (848 → 216 problems)
+- ✅ **Security: 0 vulnerabilities**
+- ✅ **Tests: 193 passed, 2 skipped**
+- 📦 **Dependencies: 1028 packages** (up from 993)
 
 ### Recent Improvements
 

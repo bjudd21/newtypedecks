@@ -92,7 +92,7 @@ npm run env:secrets      # Generate secure secrets
 
 **Frontend:**
 
-- Next.js 15 with App Router
+- Next.js 16 with App Router
 - React with TypeScript
 - Redux Toolkit for state management
 - Tailwind CSS for styling

@@ -10,21 +10,21 @@ This document tracks all project dependencies, available updates, security consi
 ✅ **Security**: 0 vulnerabilities
 ✅ **Tests**: 193 passing, 2 skipped
 ✅ **Build**: Passing
-📊 **Outdated Packages**: 6 with available updates (properly deferred)
-🎉 **Recent Updates**: 4 major updates applied (2025-11-15)
+📊 **Outdated Packages**: 3 with available updates (properly deferred)
+🎉 **Recent Updates**: 7 updates applied (2025-11-15)
 
 ## Current Stable Versions
 
 ### Core Framework
 
-- **Next.js**: 15.5.3 (stable, v16.0.3 available)
+- **Next.js**: 16.0.3 (latest)
 - **React**: 19.2.0 (latest)
 - **TypeScript**: 5.9.3 (latest)
 - **Node.js**: 18.0.0+ required
 
 ### Backend & Data
 
-- **Prisma**: 5.22.0 (@prisma/client + prisma, v6.19.0 available)
+- **Prisma**: 6.19.0 (@prisma/client + prisma, latest)
 - **PostgreSQL**: Via Docker (production ready)
 - **Redis**: 5.9.0 (latest, not yet implemented - see REDIS_V5_MIGRATION.md)
 
@@ -53,41 +53,12 @@ This document tracks all project dependencies, available updates, security consi
 - **Husky**: 9.1.7 (latest)
 - **glob**: 11.0.3 (latest)
 - **Sharp**: 0.34.5 (latest)
+- **@types/node**: 24.10.1 (latest, forward-compatible with Node.js 20.x)
 - **@types/react-dom**: 19.2.3 (latest)
 
 ## Available Updates Analysis
 
 ### Major Version Updates (Breaking Changes)
-
-#### Next.js 15.5.3 → 16.0.3
-
-- **Status**: Deferred (recently released Jan 2025)
-- **Risk**: HIGH
-- **Reason to Defer**:
-  - Too new, ecosystem needs stabilization
-  - Next.js 15.5.3 is latest stable v15
-  - Continues to receive security updates
-- **Prerequisites**:
-  - Monitor for 2-3 months
-  - Review breaking changes documentation
-  - Test with current React 19 setup
-- **Timeline**: Q3 2025 (evaluate)
-
-#### Prisma 5.22.0 → 6.19.0
-
-- **Status**: Deferred (major breaking changes)
-- **Risk**: HIGH
-- **Reason to Defer**:
-  - Breaking schema changes required
-  - Generator configuration modifications
-  - Query API changes
-  - Database migration script updates needed
-- **Prerequisites**:
-  - Review Prisma v6 upgrade guide
-  - Plan dedicated migration sprint
-  - Test all database operations
-  - Backup production data before upgrade
-- **Timeline**: Q3 2025 (planned)
 
 #### NextAuth 4.24.13 → Auth.js 5.0.0
 
@@ -105,16 +76,6 @@ This document tracks all project dependencies, available updates, security consi
   - See AUTH_MIGRATION_PLAN.md
   - Dedicated security testing required
 - **Timeline**: Q4 2025 (when stable)
-
-### Minor/Patch Updates (Lower Risk)
-
-#### @types/node 20.19.25 → 24.10.1
-
-- **Status**: Deferred (runtime mismatch)
-- **Risk**: LOW-MEDIUM
-- **Reason to Defer**: Node.js runtime still on 20.x
-- **Action**: Only update when upgrading Node.js runtime
-- **Timeline**: Matches Node.js runtime upgrade
 
 ## Update Strategy & Policy
 
@@ -340,12 +301,14 @@ Before updating any dependency:
   - Better TypeScript integration and type inference
 
 **Dependencies Changed**:
+
 - Total packages: 999 (up from 993)
 - Added: 47 packages
 - Removed: 38 packages
 - Changed: 80 packages
 
 **Verification**: All checks passed
+
 - ✅ TypeScript: 0 errors
 - ✅ Tests: 193 passed, 2 skipped
 - ✅ ESLint: 0 errors
@@ -353,10 +316,196 @@ Before updating any dependency:
 - ✅ All tests pass with Jest v30
 
 **Impact**:
+
 - **Risk Level**: Medium (4 major updates)
 - **Breaking Changes**: API migrations handled
 - **Performance**: Improved (faster tests, smaller packages)
 - **Future-Proofing**: v10/v30 compatibility ensured
+
+### 2025-11-15: Prisma 6 Upgrade
+
+**Major Version Update Applied** (Database ORM upgrade):
+
+- ✅ **Prisma**: 5.22.0 → 6.19.0 (major)
+  - **@prisma/client**: 5.22.0 → 6.19.0
+  - **prisma**: 5.22.0 → 6.19.0
+  - Zero code changes required for upgrade
+  - Schema remains fully compatible (no migration needed)
+  - NextAuth Prisma adapter (1.0.7) works perfectly with Prisma 6
+  - All database operations verified working
+
+**Verification Results**:
+
+- ✅ TypeScript: 0 errors
+- ✅ Tests: 193 passed, 2 skipped (4.5s execution)
+- ✅ ESLint: 0 errors, 228 warnings (acceptable)
+- ✅ Security: 0 vulnerabilities
+- ✅ Migration Status: Schema up to date (no migration needed)
+- ✅ Health Check: Database connected (26ms response time)
+- ✅ Card Search API: Working with complex relations
+- ✅ Authentication: NextAuth + Prisma adapter verified
+- ✅ All Pages: 200 OK (homepage, cards, decks, collection)
+
+**Dependencies Changed**:
+
+- Total packages: 1023 (up from 999)
+- Added: 24 packages
+- Changed: 7 packages
+
+**Breaking Changes**:
+
+- None encountered (Prisma 6 maintains backward compatibility for this codebase)
+- No schema changes required
+- No migration scripts needed
+- All existing queries work without modification
+
+**Why This Update**:
+Prisma 6 brings significant internal improvements:
+
+- Better performance and memory efficiency
+- Improved TypeScript type inference
+- Enhanced query optimization
+- Modernized codebase for future features
+- Latest stable version with active support
+
+**Impact**:
+
+- **Risk Level**: Low (seamless upgrade)
+- **Code Changes**: 0 (package.json only)
+- **Database Changes**: 0 (no migrations)
+- **Breaking Changes**: None
+- **Downtime**: None (zero-downtime upgrade)
+
+### 2025-11-15: Next.js 16 Upgrade
+
+**Major Version Update Applied** (Framework upgrade):
+
+- ✅ **Next.js**: 15.5.3 → 16.0.3 (major)
+  - **eslint-config-next**: 15.5.3 → 16.0.3 (matching version)
+  - Zero breaking changes for this codebase
+  - React 19.2.0 fully compatible
+  - All features working without modification
+  - Fixed images.domains deprecation warning
+
+**Code Changes**:
+
+- **next.config.ts**: Migrated from deprecated `images.domains` to `images.remotePatterns`
+  - Converted localhost, 127.0.0.1, gundam-gcg.com, cdn.gundam-gcg.com to remotePatterns format
+  - Added protocol specifications (http for local, https for production)
+  - No functionality lost, improved security configuration
+
+**Verification Results**:
+
+- ✅ TypeScript: 0 errors
+- ✅ Tests: 193 passed, 2 skipped (4.7s execution)
+- ✅ ESLint: 0 errors, 228 warnings (acceptable)
+- ✅ Security: 0 vulnerabilities
+- ✅ Dev Server: Clean startup, zero warnings
+- ✅ Production Build: Successful
+- ✅ Health Check: All systems healthy
+- ✅ API Endpoints: All working (cards, search, collections, decks)
+- ✅ All Pages: 200 OK responses
+
+**Dependencies Changed**:
+
+- Total packages: 1028 (up from 1023)
+- Added: 6 packages
+- Removed: 1 package
+- Changed: 6 packages
+
+**Breaking Changes**:
+
+- None encountered for this codebase
+- React 19 peer dependency satisfied (19.2.0 installed)
+- All App Router features working
+- Turbopack continues to work in dev mode
+
+**Configuration Updates**:
+
+- **TypeScript**: Next.js auto-updated tsconfig.json:
+  - Added '.next/dev/types/\*_/_.ts' to includes
+  - Set jsx to 'react-jsx' (React automatic runtime)
+- **Images**: Migrated to remotePatterns (more secure, more flexible)
+- **No other config changes required**
+
+**Why This Update**:
+Next.js 16 brings important improvements:
+
+- Better React 19 integration and compatibility
+- Performance improvements in Turbopack
+- Enhanced TypeScript support with auto-configuration
+- Improved image optimization with remotePatterns
+- Latest stable version with active support
+- Security improvements and bug fixes
+
+**Impact**:
+
+- **Risk Level**: Low (smooth upgrade)
+- **Code Changes**: 1 file (next.config.ts - deprecation fix)
+- **Breaking Changes**: None for this codebase
+- **Downtime**: None (zero-downtime upgrade)
+- **Performance**: Maintained (build time similar, faster dev startup)
+
+**Migration Notes**:
+
+- `images.domains` → `images.remotePatterns` migration required
+- TypeScript config automatically updated by Next.js
+- No other code changes needed
+- All React 19 features continue to work
+- Turbopack dev mode fully functional
+
+### 2025-11-15: @types/node Forward-Compatible Update
+
+**Type Definitions Update Applied**:
+
+- ✅ **@types/node**: 20.19.25 → 24.10.1
+  - Forward-compatible update for future Node.js compatibility
+  - Running on Node.js v20.19.4 runtime (stable)
+  - Zero breaking changes for current codebase
+  - No TypeScript errors introduced
+
+**Code Changes**:
+
+- None required (type definitions only)
+
+**Verification Results**:
+
+- ✅ TypeScript: 0 errors
+- ✅ Tests: 193 passed, 2 skipped (4.38s execution)
+- ✅ ESLint: 0 errors, 228 warnings (acceptable)
+- ✅ Security: 0 vulnerabilities
+- ✅ Dev Server: All systems healthy
+- ✅ API Endpoints: All working
+
+**Dependencies Changed**:
+
+- Total packages: 1028 (unchanged)
+- Changed: 2 packages (@types/node + internal dependency)
+
+**Why This Update**:
+Forward-compatible type definitions for Node.js:
+
+- Provides types for newer Node.js APIs
+- Enables better IDE autocomplete and type checking
+- Prepares codebase for future Node.js upgrades
+- No runtime impact (type definitions only)
+- Commonly used pattern in TypeScript projects
+
+**Compatibility Notes**:
+
+- Node.js runtime: v20.19.4 (no upgrade required)
+- @types/node v24 includes types for Node.js 24 APIs
+- Using newer type definitions with older runtime is safe and common
+- Only affects compile-time type checking, not runtime behavior
+- All Node.js 20 APIs continue to work as expected
+
+**Impact**:
+
+- **Risk Level**: Minimal (type definitions only)
+- **Code Changes**: None
+- **Runtime Changes**: None
+- **Breaking Changes**: None
+- **Performance**: No impact (compile-time only)
 
 ---
 

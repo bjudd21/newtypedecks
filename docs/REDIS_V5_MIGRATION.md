@@ -15,28 +15,31 @@ Redis v5 introduces breaking API changes that require code modifications when im
 ### 1. Connection API Changes
 
 **Redis v4 (Old)**:
+
 ```typescript
 import { createClient } from 'redis';
 
 const client = createClient({
-  url: process.env.REDIS_URL
+  url: process.env.REDIS_URL,
 });
 
 await client.connect();
 ```
 
 **Redis v5 (New)**:
+
 ```typescript
 import { createClient } from 'redis';
 
 const client = await createClient({
-  url: process.env.REDIS_URL
+  url: process.env.REDIS_URL,
 })
-  .on('error', err => console.error('Redis Client Error', err))
+  .on('error', (err) => console.error('Redis Client Error', err))
   .connect();
 ```
 
 **Key differences**:
+
 - `createClient()` is now async-aware with better promise handling
 - Connection errors should be handled with `.on('error')` event listener
 - `connect()` returns a promise and can be chained
@@ -44,6 +47,7 @@ const client = await createClient({
 ### 2. Command Execution Changes
 
 **Redis v4 (Old)**:
+
 ```typescript
 // Commands returned promises directly
 await client.set('key', 'value');
@@ -51,20 +55,18 @@ const value = await client.get('key');
 ```
 
 **Redis v5 (New)**:
+
 ```typescript
 // Commands still return promises but with improved typing
 await client.set('key', 'value');
 const value = await client.get('key'); // Better TypeScript inference
 
 // New command chaining support
-await client
-  .multi()
-  .set('key1', 'value1')
-  .set('key2', 'value2')
-  .exec();
+await client.multi().set('key1', 'value1').set('key2', 'value2').exec();
 ```
 
 **Key differences**:
+
 - Improved TypeScript type definitions
 - Better promise chain support
 - Enhanced multi/transaction handling
@@ -72,6 +74,7 @@ await client
 ### 3. Pub/Sub API Changes
 
 **Redis v4 (Old)**:
+
 ```typescript
 const subscriber = client.duplicate();
 await subscriber.connect();
@@ -84,6 +87,7 @@ await subscriber.subscribe('channel');
 ```
 
 **Redis v5 (New)**:
+
 ```typescript
 const subscriber = client.duplicate();
 
@@ -99,6 +103,7 @@ await subscriber.unsubscribe('channel');
 ```
 
 **Key differences**:
+
 - Message callback parameter order changed: `(message, channel)` instead of `(channel, message)`
 - Subscription commands now return promises
 - Better support for pattern subscriptions
@@ -106,6 +111,7 @@ await subscriber.unsubscribe('channel');
 ### 4. Disconnect/Quit Changes
 
 **Redis v4 (Old)**:
+
 ```typescript
 await client.quit();
 // or
@@ -113,6 +119,7 @@ await client.disconnect();
 ```
 
 **Redis v5 (New)**:
+
 ```typescript
 // quit() is now the recommended way
 await client.quit();
@@ -123,6 +130,7 @@ await client.quit();
 ```
 
 **Key differences**:
+
 - `quit()` is now the primary method for graceful shutdown
 - Better handling of pending commands during shutdown
 
@@ -179,11 +187,7 @@ const SESSION_TTL = 60 * 60 * 24 * 7; // 7 days
 
 export async function storeSession(sessionId: string, data: object) {
   const client = await getRedisClient();
-  await client.setEx(
-    `session:${sessionId}`,
-    SESSION_TTL,
-    JSON.stringify(data)
-  );
+  await client.setEx(`session:${sessionId}`, SESSION_TTL, JSON.stringify(data));
 }
 
 export async function getSession(sessionId: string) {
@@ -293,7 +297,7 @@ describe('Redis Client', () => {
     const value1 = await client.get('test:expire');
     expect(value1).toBe('expires-soon');
 
-    await new Promise(resolve => setTimeout(resolve, 1100));
+    await new Promise((resolve) => setTimeout(resolve, 1100));
 
     const value2 = await client.get('test:expire');
     expect(value2).toBeNull();
@@ -305,7 +309,11 @@ describe('Redis Client', () => {
 
 ```typescript
 // __tests__/lib/services/sessionService.test.ts
-import { storeSession, getSession, deleteSession } from '@/lib/services/sessionService';
+import {
+  storeSession,
+  getSession,
+  deleteSession,
+} from '@/lib/services/sessionService';
 import { disconnectRedis } from '@/lib/database/redis';
 
 describe('Session Service', () => {

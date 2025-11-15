@@ -732,7 +732,7 @@ npm run docker:dev
 npm run dev
 
 # Should see:
-# ▲ Next.js 15.x
+# ▲ Next.js 16.x
 # - Local: http://localhost:3000
 ```
 

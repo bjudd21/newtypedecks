@@ -11,6 +11,7 @@ NextAuth v4 is being rebranded and rewritten as Auth.js v5. This is a major brea
 ## Current Status
 
 ### What We Have (NextAuth v4.24.13)
+
 - **Package**: `next-auth@4.24.13`
 - **Adapter**: `@next-auth/prisma-adapter@1.0.7`
 - **Status**: Stable, receiving security updates
@@ -18,6 +19,7 @@ NextAuth v4 is being rebranded and rewritten as Auth.js v5. This is a major brea
 - **API Routes**: `/src/app/api/auth/[...nextauth]/route.ts`
 
 ### What's Coming (Auth.js v5)
+
 - **Package**: `next-auth@5.0.0-beta.30` (beta as of Nov 2025)
 - **New Name**: "Auth.js" (rebranding from NextAuth)
 - **Adapter**: `@auth/prisma-adapter` (new package structure)
@@ -29,6 +31,7 @@ NextAuth v4 is being rebranded and rewritten as Auth.js v5. This is a major brea
 We will migrate when **ALL** of the following conditions are met:
 
 ✅ **Criteria Checklist**:
+
 - [ ] Auth.js v5 stable release (not beta)
 - [ ] Stable for at least 2 weeks post-release
 - [ ] @auth/prisma-adapter stable release
@@ -42,6 +45,7 @@ We will migrate when **ALL** of the following conditions are met:
 ## Breaking Changes Overview
 
 ### 1. Package Structure
+
 ```diff
 - next-auth@4.24.13
 - @next-auth/prisma-adapter@1.0.7
@@ -50,7 +54,9 @@ We will migrate when **ALL** of the following conditions are met:
 ```
 
 ### 2. Configuration Changes
+
 #### Before (v4)
+
 ```typescript
 // src/lib/auth.ts
 import NextAuth from 'next-auth';
@@ -63,6 +69,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 ```
 
 #### After (v5)
+
 ```typescript
 // src/lib/auth.ts
 import NextAuth from 'next-auth';
@@ -75,12 +82,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 ```
 
 ### 3. Session Model Changes
+
 - New session token handling
 - Different session object structure
 - Updated cookie configuration
 - Changed JWT callbacks
 
 ### 4. Middleware Changes
+
 ```typescript
 // middleware.ts - v5 has different API
 export { auth as middleware } from '@/lib/auth';
@@ -91,6 +100,7 @@ export const config = {
 ```
 
 ### 5. Provider Configuration
+
 - OAuth provider setup changed
 - Credentials provider API updated
 - Email provider modifications
@@ -98,6 +108,7 @@ export const config = {
 ## Affected Files Inventory
 
 ### Core Authentication (High Priority)
+
 ```
 src/lib/auth.ts                               # Main auth configuration
 src/lib/auth-utils.ts                         # Auth utility functions
@@ -106,6 +117,7 @@ src/app/api/auth/[...nextauth]/route.ts      # Auth API handler
 ```
 
 ### Auth API Routes (High Priority)
+
 ```
 src/app/api/auth/login/route.ts              # Login endpoint
 src/app/api/auth/logout/route.ts             # Logout endpoint
@@ -121,6 +133,7 @@ src/app/api/auth/me/route.ts                 # Current user endpoint
 ```
 
 ### Auth UI Components (Medium Priority)
+
 ```
 src/components/auth/AuthProvider.tsx         # Context provider
 src/components/auth/AuthStatus.tsx           # Auth status display
@@ -133,6 +146,7 @@ src/components/auth/EmailVerificationBanner.tsx  # Verification banner
 ```
 
 ### Auth Pages (Medium Priority)
+
 ```
 src/app/auth/signin/page.tsx                 # Sign in page
 src/app/auth/signup/page.tsx                 # Sign up page
@@ -146,18 +160,21 @@ src/app/auth/verify-email/EmailVerificationClient.tsx  # Verification handler
 ```
 
 ### Auth Hooks & State (Low Priority)
+
 ```
 src/hooks/useAuth.ts                         # Auth hook
 src/store/slices/authSlice.ts                # Redux auth slice
 ```
 
 ### Admin Routes (Low Priority - use existing auth)
+
 ```
 src/middleware/adminAuth.ts                  # Admin middleware
 src/app/admin/*/page.tsx                     # Admin pages
 ```
 
 ### Database Schema (Critical)
+
 ```
 prisma/schema.prisma                         # Check if schema changes needed
 ```
@@ -167,6 +184,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Phase 1: Pre-Migration (1-2 weeks)
 
 #### Week 1: Research & Documentation
+
 - [ ] Review Auth.js v5 official migration guide
 - [ ] Document all breaking changes
 - [ ] Test Auth.js v5 in isolated project
@@ -174,6 +192,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Create test cases for auth flows
 
 #### Week 2: Environment Setup
+
 - [ ] Create feature branch: `migration/auth-js-v5`
 - [ ] Set up parallel testing environment
 - [ ] Backup production database
@@ -183,12 +202,14 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Phase 2: Core Migration (1 week)
 
 #### Day 1-2: Package Updates
+
 - [ ] Update `package.json` dependencies
 - [ ] Run `npm install`
 - [ ] Fix TypeScript errors
 - [ ] Update import statements
 
 #### Day 3-4: Auth Configuration
+
 - [ ] Update `src/lib/auth.ts` configuration
 - [ ] Update session configuration
 - [ ] Update JWT callbacks
@@ -196,6 +217,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Update middleware.ts
 
 #### Day 5: API Routes
+
 - [ ] Update auth API handler
 - [ ] Update custom auth routes
 - [ ] Fix route handlers
@@ -203,6 +225,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Phase 3: Component Updates (3-5 days)
 
 #### Day 1-2: Auth Components
+
 - [ ] Update AuthProvider
 - [ ] Update AuthStatus
 - [ ] Update AuthGuard
@@ -210,12 +233,14 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Update password reset flow
 
 #### Day 3-4: Auth Pages
+
 - [ ] Update auth pages
 - [ ] Update error handling
 - [ ] Update email verification
 - [ ] Test user flows
 
 #### Day 5: Hooks & State
+
 - [ ] Update useAuth hook
 - [ ] Update authSlice
 - [ ] Test state management
@@ -223,6 +248,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Phase 4: Testing (1 week)
 
 #### Integration Testing
+
 - [ ] Test sign up flow (email/password)
 - [ ] Test sign in flow (email/password)
 - [ ] Test OAuth flow (if implemented)
@@ -233,6 +259,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Test admin authentication
 
 #### Edge Cases
+
 - [ ] Test concurrent sessions
 - [ ] Test session expiration
 - [ ] Test token refresh
@@ -242,6 +269,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Test CSRF protection
 
 #### Security Testing
+
 - [ ] Verify CSRF protection
 - [ ] Test XSS vulnerability
 - [ ] Test session hijacking protection
@@ -252,6 +280,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Phase 5: Deployment (1 week)
 
 #### Staging Deployment
+
 - [ ] Deploy to staging environment
 - [ ] Run automated tests
 - [ ] Manual QA testing
@@ -260,6 +289,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Monitor error logs
 
 #### Production Rollout
+
 - [ ] Deploy to production (off-peak hours)
 - [ ] Monitor error rates
 - [ ] Monitor authentication success rates
@@ -281,6 +311,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 ### Auth Flows to Test
 
 **User Registration**
+
 - [ ] Email/password signup
 - [ ] Duplicate email handling
 - [ ] Email verification sent
@@ -289,6 +320,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] XSS input sanitization
 
 **User Login**
+
 - [ ] Email/password login
 - [ ] Remember me checkbox
 - [ ] Incorrect password handling
@@ -297,6 +329,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Session created correctly
 
 **Password Reset**
+
 - [ ] Request reset email
 - [ ] Reset link sent to email
 - [ ] Reset link works
@@ -305,6 +338,7 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Login with new password
 
 **Session Management**
+
 - [ ] Session persists across pages
 - [ ] Session expires correctly
 - [ ] Logout clears session
@@ -312,12 +346,14 @@ prisma/schema.prisma                         # Check if schema changes needed
 - [ ] Session token refresh
 
 **Protected Routes**
+
 - [ ] Unauthenticated redirect to login
 - [ ] Authenticated access granted
 - [ ] Admin-only pages protected
 - [ ] Middleware protection working
 
 **Error Handling**
+
 - [ ] Network error handling
 - [ ] Invalid token handling
 - [ ] Expired session handling
@@ -327,12 +363,14 @@ prisma/schema.prisma                         # Check if schema changes needed
 ## Risk Assessment
 
 ### High Risk Areas
+
 1. **Session Token Changes**: Could log out all users
 2. **Database Schema Changes**: Could break existing sessions
 3. **Middleware Changes**: Could break route protection
 4. **OAuth Integration**: If using OAuth, providers need reconfiguration
 
 ### Mitigation Strategies
+
 1. **Gradual Rollout**: Deploy to small percentage of users first
 2. **Feature Flags**: Use feature flags to toggle v4/v5
 3. **Rollback Plan**: Test rollback procedure thoroughly

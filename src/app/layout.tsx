@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ReduxProvider } from '@/store/Provider';
@@ -15,6 +15,15 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#6b5a8a',
+};
+
 export const metadata: Metadata = {
   title: 'Newtype Decks - Gundam Card Game Database',
   description:
@@ -22,14 +31,6 @@ export const metadata: Metadata = {
   keywords: ['gundam', 'card game', 'database', 'deck building', 'collection'],
   authors: [{ name: 'Gundam Card Game Community' }],
   manifest: '/manifest.json',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover',
-  },
-  themeColor: '#6b5a8a',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
