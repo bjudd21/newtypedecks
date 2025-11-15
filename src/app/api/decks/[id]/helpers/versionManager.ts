@@ -74,7 +74,10 @@ export async function updateDeckCards(
         deckId,
         cardId: (cardObj.cardId ||
           (cardObj.card as Record<string, unknown> | undefined)?.id) as string,
-        quantity: Math.max(1, Math.min(4, parseInt(String(cardObj.quantity || 1)))),
+        quantity: Math.max(
+          1,
+          Math.min(4, parseInt(String(cardObj.quantity || 1)))
+        ),
         category: (cardObj.category as string) || 'main',
       };
     }),

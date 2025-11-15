@@ -495,6 +495,4 @@ export class CardSubmissionService {
   /**
    * Private helper methods
    */
-
-
 }

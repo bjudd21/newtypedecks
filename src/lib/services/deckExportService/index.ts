@@ -12,7 +12,12 @@ export type {
 } from './types';
 
 import type { ExportableDeck, ExportOptions, ImportResult } from './types';
-import { enrichDeckWithMetadata, generateFilename, getMimeType, downloadFile } from './utils';
+import {
+  enrichDeckWithMetadata,
+  generateFilename,
+  getMimeType,
+  downloadFile,
+} from './utils';
 import {
   exportToJSON,
   exportToText,
@@ -20,11 +25,7 @@ import {
   exportToMTGAFormat,
   exportToCockatriceFormat,
 } from './exporters';
-import {
-  importFromJSON,
-  importFromText,
-  importFromCSV,
-} from './importers';
+import { importFromJSON, importFromText, importFromCSV } from './importers';
 
 export class DeckExportService {
   private static instance: DeckExportService;

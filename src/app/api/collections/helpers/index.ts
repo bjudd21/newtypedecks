@@ -5,10 +5,7 @@
  */
 
 // Query builders
-export {
-  buildCardWhereClause,
-  parsePaginationParams,
-} from './queryBuilders';
+export { buildCardWhereClause, parsePaginationParams } from './queryBuilders';
 
 // Statistics
 export {

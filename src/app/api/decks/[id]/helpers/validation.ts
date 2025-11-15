@@ -12,7 +12,9 @@ export function validateDeckName(name?: string): string | null {
   return null;
 }
 
-export async function validateDeckCards(cards: unknown[]): Promise<string | null> {
+export async function validateDeckCards(
+  cards: unknown[]
+): Promise<string | null> {
   if (cards.length === 0) {
     return 'Deck must contain at least one card';
   }

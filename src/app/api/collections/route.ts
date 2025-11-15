@@ -50,7 +50,9 @@ export async function GET(request: NextRequest) {
 
     // If no collection exists yet, return empty collection
     if (!userCollection) {
-      return NextResponse.json(getEmptyCollectionResponse(session.user.id, page, limit));
+      return NextResponse.json(
+        getEmptyCollectionResponse(session.user.id, page, limit)
+      );
     }
 
     // Get collection cards with pagination
@@ -184,7 +186,11 @@ export async function POST(request: NextRequest) {
       if (operationError instanceof Error) {
         return NextResponse.json(
           { error: operationError.message },
-          { status: operationError.message.includes('not in collection') ? 404 : 400 }
+          {
+            status: operationError.message.includes('not in collection')
+              ? 404
+              : 400,
+          }
         );
       }
       throw operationError;

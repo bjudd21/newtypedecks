@@ -7,7 +7,10 @@ import type { DeckCard, ExportOptions } from '../types';
 /**
  * Sort cards based on options
  */
-export function sortCards(cards: DeckCard[], options: ExportOptions): DeckCard[] {
+export function sortCards(
+  cards: DeckCard[],
+  options: ExportOptions
+): DeckCard[] {
   const sortBy = options.sortBy || 'name';
   const sortOrder = options.sortOrder || 'asc';
 

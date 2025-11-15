@@ -8,7 +8,10 @@ import { sortCards } from '../utils';
 /**
  * Export to CSV format
  */
-export function exportToCSV(deck: ExportableDeck, options: ExportOptions): string {
+export function exportToCSV(
+  deck: ExportableDeck,
+  options: ExportOptions
+): string {
   const headers = [
     'Quantity',
     'Name',

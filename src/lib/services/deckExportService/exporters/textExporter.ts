@@ -8,7 +8,10 @@ import { sortCards } from '../utils';
 /**
  * Export to human-readable text format
  */
-export function exportToText(deck: ExportableDeck, options: ExportOptions): string {
+export function exportToText(
+  deck: ExportableDeck,
+  options: ExportOptions
+): string {
   let output = `# ${deck.name}\n`;
 
   if (deck.description) {

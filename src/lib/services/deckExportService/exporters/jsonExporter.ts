@@ -8,7 +8,10 @@ import { sortCards } from '../utils';
 /**
  * Export to JSON format
  */
-export function exportToJSON(deck: ExportableDeck, options: ExportOptions): string {
+export function exportToJSON(
+  deck: ExportableDeck,
+  options: ExportOptions
+): string {
   const exportData = {
     name: deck.name,
     description: deck.description,
