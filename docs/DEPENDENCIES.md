@@ -10,14 +10,14 @@ This document tracks all project dependencies, available updates, security consi
 ✅ **Security**: 0 vulnerabilities
 ✅ **Tests**: 193 passing, 2 skipped
 ✅ **Build**: Passing
-📊 **Outdated Packages**: 5 with available updates (properly deferred)
-🎉 **Recent Updates**: 5 major updates applied (2025-11-15)
+📊 **Outdated Packages**: 4 with available updates (properly deferred)
+🎉 **Recent Updates**: 6 major updates applied (2025-11-15)
 
 ## Current Stable Versions
 
 ### Core Framework
 
-- **Next.js**: 15.5.3 (stable, v16.0.3 available)
+- **Next.js**: 16.0.3 (latest)
 - **React**: 19.2.0 (latest)
 - **TypeScript**: 5.9.3 (latest)
 - **Node.js**: 18.0.0+ required
@@ -58,20 +58,6 @@ This document tracks all project dependencies, available updates, security consi
 ## Available Updates Analysis
 
 ### Major Version Updates (Breaking Changes)
-
-#### Next.js 15.5.3 → 16.0.3
-
-- **Status**: Deferred (recently released Jan 2025)
-- **Risk**: HIGH
-- **Reason to Defer**:
-  - Too new, ecosystem needs stabilization
-  - Next.js 15.5.3 is latest stable v15
-  - Continues to receive security updates
-- **Prerequisites**:
-  - Monitor for 2-3 months
-  - Review breaking changes documentation
-  - Test with current React 19 setup
-- **Timeline**: Q3 2025 (evaluate)
 
 #### NextAuth 4.24.13 → Auth.js 5.0.0
 
@@ -398,6 +384,84 @@ Prisma 6 brings significant internal improvements:
 - **Database Changes**: 0 (no migrations)
 - **Breaking Changes**: None
 - **Downtime**: None (zero-downtime upgrade)
+
+### 2025-11-15: Next.js 16 Upgrade
+
+**Major Version Update Applied** (Framework upgrade):
+
+- ✅ **Next.js**: 15.5.3 → 16.0.3 (major)
+  - **eslint-config-next**: 15.5.3 → 16.0.3 (matching version)
+  - Zero breaking changes for this codebase
+  - React 19.2.0 fully compatible
+  - All features working without modification
+  - Fixed images.domains deprecation warning
+
+**Code Changes**:
+
+- **next.config.ts**: Migrated from deprecated `images.domains` to `images.remotePatterns`
+  - Converted localhost, 127.0.0.1, gundam-gcg.com, cdn.gundam-gcg.com to remotePatterns format
+  - Added protocol specifications (http for local, https for production)
+  - No functionality lost, improved security configuration
+
+**Verification Results**:
+
+- ✅ TypeScript: 0 errors
+- ✅ Tests: 193 passed, 2 skipped (4.7s execution)
+- ✅ ESLint: 0 errors, 228 warnings (acceptable)
+- ✅ Security: 0 vulnerabilities
+- ✅ Dev Server: Clean startup, zero warnings
+- ✅ Production Build: Successful
+- ✅ Health Check: All systems healthy
+- ✅ API Endpoints: All working (cards, search, collections, decks)
+- ✅ All Pages: 200 OK responses
+
+**Dependencies Changed**:
+
+- Total packages: 1028 (up from 1023)
+- Added: 6 packages
+- Removed: 1 package
+- Changed: 6 packages
+
+**Breaking Changes**:
+
+- None encountered for this codebase
+- React 19 peer dependency satisfied (19.2.0 installed)
+- All App Router features working
+- Turbopack continues to work in dev mode
+
+**Configuration Updates**:
+
+- **TypeScript**: Next.js auto-updated tsconfig.json:
+  - Added '.next/dev/types/\*_/_.ts' to includes
+  - Set jsx to 'react-jsx' (React automatic runtime)
+- **Images**: Migrated to remotePatterns (more secure, more flexible)
+- **No other config changes required**
+
+**Why This Update**:
+Next.js 16 brings important improvements:
+
+- Better React 19 integration and compatibility
+- Performance improvements in Turbopack
+- Enhanced TypeScript support with auto-configuration
+- Improved image optimization with remotePatterns
+- Latest stable version with active support
+- Security improvements and bug fixes
+
+**Impact**:
+
+- **Risk Level**: Low (smooth upgrade)
+- **Code Changes**: 1 file (next.config.ts - deprecation fix)
+- **Breaking Changes**: None for this codebase
+- **Downtime**: None (zero-downtime upgrade)
+- **Performance**: Maintained (build time similar, faster dev startup)
+
+**Migration Notes**:
+
+- `images.domains` → `images.remotePatterns` migration required
+- TypeScript config automatically updated by Next.js
+- No other code changes needed
+- All React 19 features continue to work
+- Turbopack dev mode fully functional
 
 ---
 

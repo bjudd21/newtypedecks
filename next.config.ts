@@ -6,10 +6,27 @@ const nextConfig: NextConfig = {
 
   // Image optimization configuration
   images: {
-    // Local and production domains
-    domains: ['localhost', '127.0.0.1', 'gundam-gcg.com', 'cdn.gundam-gcg.com'],
-    // CDN domains for external providers
+    // CDN domains for external providers and local development
     remotePatterns: [
+      // Local development
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+      },
+      // Production domains
+      {
+        protocol: 'https',
+        hostname: 'gundam-gcg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.gundam-gcg.com',
+      },
+      // External CDN providers
       {
         protocol: 'https',
         hostname: '**.cloudinary.com',
@@ -21,10 +38,6 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '**.cloudflare.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.gundam-gcg.com',
       },
     ],
     // Supported formats (in order of preference)
