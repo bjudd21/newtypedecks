@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-15T18:44:40.923Z",
+  "timestamp": "2025-11-15T18:52:55.303Z",
   "summary": {
     "passed": 279,
-    "warnings": 47,
+    "warnings": 46,
     "errors": 0,
-    "total": 326
+    "total": 325
   },
   "files": [
     {
@@ -29,14 +29,6 @@
       "limit": 500,
       "percentage": 80.60000000000001,
       "size": 9157,
-      "status": "warning"
-    },
-    {
-      "file": "src/lib/services/tournamentPrepService.ts",
-      "lines": 792,
-      "limit": 500,
-      "percentage": 158.4,
-      "size": 20772,
       "status": "warning"
     },
     {
