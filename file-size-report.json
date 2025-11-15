@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-15T07:14:57.297Z",
+  "timestamp": "2025-11-15T08:12:07.362Z",
   "summary": {
-    "passed": 223,
+    "passed": 228,
     "warnings": 49,
     "errors": 0,
-    "total": 272
+    "total": 277
   },
   "files": [
     {
@@ -1081,10 +1081,50 @@
     },
     {
       "file": "src/app/api/cards/search/route.ts",
-      "lines": 327,
+      "lines": 118,
       "limit": 500,
-      "percentage": 65.4,
-      "size": 9564,
+      "percentage": 23.599999999999998,
+      "size": 3088,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/helpers/searchValidation.ts",
+      "lines": 57,
+      "limit": 500,
+      "percentage": 11.4,
+      "size": 1394,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/helpers/searchMetadata.ts",
+      "lines": 31,
+      "limit": 500,
+      "percentage": 6.2,
+      "size": 861,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/helpers/index.ts",
+      "lines": 21,
+      "limit": 500,
+      "percentage": 4.2,
+      "size": 493,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/helpers/filterSanitizers.ts",
+      "lines": 140,
+      "limit": 500,
+      "percentage": 28.000000000000004,
+      "size": 4478,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/cards/search/helpers/errorHandlers.ts",
+      "lines": 45,
+      "limit": 500,
+      "percentage": 9,
+      "size": 1127,
       "status": "passed"
     },
     {
