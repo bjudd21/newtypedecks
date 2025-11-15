@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
+const { globSync } = require('glob');
 
 // Configuration
 const CONFIG = {
@@ -101,7 +101,7 @@ function checkFileSizes() {
 
   // Check each pattern
   Object.entries(CONFIG.limits).forEach(([pattern, limit]) => {
-    const files = glob.sync(pattern, { ignore: CONFIG.ignore });
+    const files = globSync(pattern, { ignore: CONFIG.ignore });
 
     files.forEach((filePath) => {
       const lineCount = getFileLineCount(filePath);
