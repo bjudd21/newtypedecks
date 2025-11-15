@@ -273,8 +273,8 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         const response = await PUT(request, createMockRequest());
         const data = await response.json();
 
-        expect(response.status).toBe(403);
-        expect(data.error).toBe('Access denied');
+        expect(response.status).toBe(404);
+        expect(data.error).toBe('Deck not found or access denied');
       });
 
       it('should return 404 for non-existent deck', async () => {
@@ -291,7 +291,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         const data = await response.json();
 
         expect(response.status).toBe(404);
-        expect(data.error).toBe('Deck not found');
+        expect(data.error).toBe('Deck not found or access denied');
       });
     });
 
@@ -613,8 +613,8 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         const response = await DELETE(request, createMockRequest());
         const data = await response.json();
 
-        expect(response.status).toBe(403);
-        expect(data.error).toBe('Access denied');
+        expect(response.status).toBe(404);
+        expect(data.error).toBe('Deck not found or access denied');
       });
 
       it('should return 404 for non-existent deck', async () => {
@@ -628,7 +628,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         const data = await response.json();
 
         expect(response.status).toBe(404);
-        expect(data.error).toBe('Deck not found');
+        expect(data.error).toBe('Deck not found or access denied');
       });
     });
 
