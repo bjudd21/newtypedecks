@@ -10,47 +10,26 @@ import {
   updateCardQuantityInCurrentDeck,
   setIsEditing,
 } from '@/store/slices/deckSlice';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Badge,
-} from '@/components/ui';
-import { useAuth, useDecks, useCollection } from '@/hooks';
-import { DeckCardSearch } from './DeckCardSearch';
-import { DraggableCard } from './DraggableCard';
-import { DeckDropZone } from './DeckDropZone';
-import { DeckValidator } from './DeckValidator';
-import { DeckVersionHistory } from './DeckVersionHistory';
-import { DeckTemplateCreator } from './DeckTemplateCreator';
+import { useAuth, useDecks } from '@/hooks';
 import { DeckHeader } from './DeckHeader';
 import { DeckActions } from './DeckActions';
 import { DeckStats } from './DeckStats';
-import { DeckAnalyticsDisplay } from '@/components/analytics';
+import { DeckValidator } from './DeckValidator';
 import { deckExporter } from '@/lib/services/deckExportService';
 import { calculateDeckStats, groupCardsByType } from '@/lib/utils/deckCalculations';
 import type { CardWithRelations } from '@/lib/types/card';
+import {
+  createNewDeck,
+  useCollectionQuantities,
+  SearchPanel,
+  DeckContentPanel,
+  DeckStatusIndicator,
+  ConditionalSections,
+} from './DeckBuilder/';
 
 interface DeckBuilderProps {
   className?: string;
 }
-
-// Helper: Create a new empty deck
-const createNewDeck = (isAuthenticated: boolean, userId?: string) => ({
-  id: `temp-${Date.now()}`,
-  name: 'New Deck',
-  description: '',
-  isPublic: false,
-  userId: isAuthenticated ? userId || 'authenticated' : 'anonymous',
-  currentVersion: 1,
-  versionName: null,
-  isTemplate: false,
-  templateSource: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  cards: [],
-});
 
 export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const dispatch = useDispatch();
@@ -65,7 +44,6 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
     isLoading: deckLoading,
     clearError,
   } = useDecks();
-  const { getCardQuantities } = useCollection();
 
   const [deckName, setDeckName] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
@@ -76,9 +54,12 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const [showVersionHistory, setShowVersionHistory] = useState(false);
   const [showTemplateCreator, setShowTemplateCreator] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
-  const [collectionQuantities, setCollectionQuantities] = useState<
-    Record<string, number>
-  >({});
+
+  // Use custom hook for collection quantities
+  const collectionQuantities = useCollectionQuantities(
+    isAuthenticated,
+    currentDeck
+  );
 
   // Initialize a new deck
   useEffect(() => {
@@ -96,18 +77,6 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
       }
     }
   }, [currentDeck, dispatch, isAuthenticated, user]);
-
-  // Fetch collection quantities when deck changes (for authenticated users only)
-  useEffect(() => {
-    if (isAuthenticated && currentDeck && currentDeck.cards.length > 0) {
-      const cardIds = currentDeck.cards.map((deckCard) => deckCard.card.id);
-      getCardQuantities(cardIds).then((quantities) => {
-        setCollectionQuantities(quantities);
-      });
-    } else {
-      setCollectionQuantities({});
-    }
-  }, [currentDeck, isAuthenticated, getCardQuantities]);
 
   // Handle card selection from search
   const handleCardSelect = useCallback(
@@ -294,7 +263,12 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
     : { totalCards: 0, uniqueCards: 0, totalCost: 0 };
 
   // Group cards by type using utility
-  const cardsByType = currentDeck ? groupCardsByType(currentDeck.cards) : {};
+  const cardsByType = currentDeck
+    ? (groupCardsByType(currentDeck.cards) as Record<
+        string,
+        (typeof currentDeck.cards)[number][]
+      >)
+    : {};
 
   return (
     <div className={className}>
@@ -331,104 +305,24 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Card Search Panel */}
         <div className="xl:col-span-1">
-          <Card className="border-[#443a5c] bg-[#2d2640]">
-            <CardHeader>
-              <CardTitle className="text-[#a89ec7]">ADD CARDS</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <DeckCardSearch
-                  onCardSelect={handleCardSelect}
-                  onSearchResults={handleSearchResults}
-                  placeholder="Search cards to add to deck..."
-                  showFilters={false}
-                  limit={10}
-                />
-                <div className="text-sm text-gray-400">
-                  Click or drag cards to add them to your deck. Cards will be
-                  added to the main deck by default.
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Deck Validation */}
-          <div className="mt-6">
-            <DeckValidator
-              cards={
-                currentDeck?.cards.map((deckCard) => ({
-                  card: deckCard.card,
-                  quantity: deckCard.quantity,
-                  category: deckCard.category || 'main',
-                })) || []
-              }
-              showDetails={false}
-              onlyErrors={true}
-            />
-          </div>
+          <SearchPanel
+            onCardSelect={handleCardSelect}
+            onSearchResults={handleSearchResults}
+            deckCards={currentDeck?.cards || []}
+          />
         </div>
 
         {/* Deck Contents Panel */}
         <div className="xl:col-span-2">
-          <Card className="border-[#443a5c] bg-[#2d2640]">
-            <CardHeader>
-              <CardTitle className="text-[#a89ec7]">
-                DECK CONTENTS ({totalCards} CARDS)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <DeckDropZone
-                onCardDrop={handleCardDrop}
-                title="Main Deck"
-                description="Drag cards here or use search to add them"
-                minHeight={400}
-                className="max-h-96 overflow-y-auto"
-              >
-                <div className="space-y-4">
-                  {uniqueCards === 0
-                    ? null
-                    : Object.entries(cardsByType).map(([typeName, cards]) => (
-                        <div key={typeName} className="space-y-2">
-                          <div className="sticky top-0 flex items-center gap-2 bg-[#2d2640] py-1">
-                            <Badge variant="secondary" className="text-xs">
-                              {typeName}
-                            </Badge>
-                            <span className="text-sm text-gray-400">
-                              (
-                              {cards.reduce(
-                                (sum, card) => sum + card.quantity,
-                                0
-                              )}{' '}
-                              cards)
-                            </span>
-                          </div>
-
-                          {cards.map((deckCard) => (
-                            <DraggableCard
-                              key={deckCard.cardId}
-                              card={deckCard.card}
-                              quantity={deckCard.quantity}
-                              onQuantityChange={(newQuantity) =>
-                                handleQuantityChange(
-                                  deckCard.cardId,
-                                  newQuantity
-                                )
-                              }
-                              onRemove={() =>
-                                handleQuantityChange(deckCard.cardId, 0)
-                              }
-                              isEditing={isEditing}
-                              ownedQuantity={
-                                collectionQuantities[deckCard.card.id] || 0
-                              }
-                            />
-                          ))}
-                        </div>
-                      ))}
-                </div>
-              </DeckDropZone>
-            </CardContent>
-          </Card>
+          <DeckContentPanel
+            totalCards={totalCards}
+            uniqueCards={uniqueCards}
+            cardsByType={cardsByType}
+            isEditing={isEditing}
+            collectionQuantities={collectionQuantities}
+            onCardDrop={handleCardDrop}
+            onQuantityChange={handleQuantityChange}
+          />
         </div>
       </div>
 
@@ -464,81 +358,35 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
         onExport={handleExport}
       />
 
-      {/* Version History Section */}
-      {showVersionHistory && isAuthenticated && savedDeckId && (
-        <div className="mt-6">
-          <DeckVersionHistory
-            deckId={savedDeckId}
-            currentVersion={currentDeck?.currentVersion}
-            onVersionRestore={() => {
-              // Refresh the page to show restored deck
-              window.location.reload();
-            }}
-            onVersionDelete={() => {
-              // Version deleted, refresh might be needed
-              console.warn('Version deleted');
-            }}
-          />
-        </div>
-      )}
-
-      {/* Template Creator Section */}
-      {showTemplateCreator && isAuthenticated && savedDeckId && (
-        <div className="mt-6">
-          <DeckTemplateCreator
-            deckId={savedDeckId}
-            deckName={deckName}
-            deckDescription={deckDescription}
-            cardCount={totalCards}
-            onTemplateCreated={(templateId) => {
-              console.warn('Template created:', templateId);
-              setShowTemplateCreator(false);
-            }}
-          />
-        </div>
-      )}
-
-      {/* Deck Analytics Section */}
-      {showAnalytics && currentDeck && currentDeck.cards.length > 0 && (
-        <div className="mt-6">
-          <DeckAnalyticsDisplay
-            deckCards={currentDeck.cards.map((deckCard) => ({
-              card: deckCard.card,
-              quantity: deckCard.quantity,
-              category:
-                (deckCard.category as 'main' | 'side' | 'extra' | undefined) ||
-                'main',
-            }))}
-            deckName={deckName}
-            onAnalysisUpdate={(analytics) => {
-              // Could store analytics in state for other uses
-              console.warn('Deck analytics updated:', analytics);
-            }}
-          />
-        </div>
-      )}
+      {/* Conditional Sections: Version History, Template Creator, Analytics */}
+      <ConditionalSections
+        showVersionHistory={showVersionHistory}
+        showTemplateCreator={showTemplateCreator}
+        showAnalytics={showAnalytics}
+        isAuthenticated={isAuthenticated}
+        savedDeckId={savedDeckId}
+        currentDeck={currentDeck}
+        deckName={deckName}
+        deckDescription={deckDescription}
+        totalCards={totalCards}
+        currentVersion={currentDeck?.currentVersion}
+        onTemplateCreated={(templateId) => {
+          console.warn('Template created:', templateId);
+          setShowTemplateCreator(false);
+        }}
+        onAnalysisUpdate={(analytics) => {
+          console.warn('Deck analytics updated:', analytics);
+        }}
+      />
 
       {/* Deck Status Indicator */}
-      {isAuthenticated && (
-        <div className="mt-4 text-sm text-gray-600">
-          {savedDeckId ? (
-            <span className="flex items-center gap-1">
-              ✅ <strong>{deckName}</strong> is saved to your collection
-              {currentDeck?.currentVersion && (
-                <Badge variant="secondary" className="ml-2 text-xs">
-                  v{currentDeck.currentVersion}
-                </Badge>
-              )}
-            </span>
-          ) : uniqueCards > 0 ? (
-            <span className="flex items-center gap-1">
-              ⚠️ <strong>{deckName}</strong> has unsaved changes
-            </span>
-          ) : (
-            <span>Start adding cards to build your deck</span>
-          )}
-        </div>
-      )}
+      <DeckStatusIndicator
+        isAuthenticated={isAuthenticated}
+        savedDeckId={savedDeckId}
+        deckName={deckName}
+        uniqueCards={uniqueCards}
+        currentVersion={currentDeck?.currentVersion}
+      />
     </div>
   );
 };
