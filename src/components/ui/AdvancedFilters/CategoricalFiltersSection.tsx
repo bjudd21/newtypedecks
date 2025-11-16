@@ -6,7 +6,10 @@
 'use client';
 
 import React from 'react';
-import type { AdvancedFilterOptions, AdvancedFiltersProps } from '../AdvancedFilters';
+import type {
+  AdvancedFilterOptions,
+  AdvancedFiltersProps,
+} from '../AdvancedFilters';
 
 interface CategoricalFiltersSectionProps {
   filters: AdvancedFilterOptions['categoricalFilters'];
@@ -106,10 +109,7 @@ export const CategoricalFiltersSection: React.FC<
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
               {referenceData.factions.map((faction) => (
-                <label
-                  key={faction.name}
-                  className="flex items-center text-sm"
-                >
+                <label key={faction.name} className="flex items-center text-sm">
                   <input
                     type="checkbox"
                     checked={filters.factions?.includes(faction.name) || false}
@@ -177,10 +177,7 @@ export const CategoricalFiltersSection: React.FC<
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
               {referenceData.series.map((series) => (
-                <label
-                  key={series.name}
-                  className="flex items-center text-sm"
-                >
+                <label key={series.name} className="flex items-center text-sm">
                   <input
                     type="checkbox"
                     checked={filters.series?.includes(series.name) || false}

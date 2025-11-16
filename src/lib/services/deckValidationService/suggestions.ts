@@ -35,9 +35,7 @@ export function generateSuggestions(
       '👍 Good deck structure with room for minor improvements.'
     );
   } else if (validationSummary.score >= 50) {
-    suggestions.push(
-      '📝 Deck needs some adjustments to improve consistency.'
-    );
+    suggestions.push('📝 Deck needs some adjustments to improve consistency.');
   } else {
     suggestions.push(
       '🔧 Deck needs significant improvements to meet tournament standards.'

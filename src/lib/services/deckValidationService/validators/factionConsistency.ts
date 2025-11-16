@@ -16,8 +16,7 @@ export function validateFactionConsistency(
 
   for (const deckCard of cards) {
     const faction = deckCard.card.faction || 'Neutral';
-    factionCounts[faction] =
-      (factionCounts[faction] || 0) + deckCard.quantity;
+    factionCounts[faction] = (factionCounts[faction] || 0) + deckCard.quantity;
     totalCards += deckCard.quantity;
   }
 

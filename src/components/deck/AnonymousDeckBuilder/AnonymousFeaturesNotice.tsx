@@ -46,8 +46,8 @@ export const AnonymousFeaturesNotice: React.FC = () => {
       <div className="mt-4 border-t border-[#443a5c] pt-4">
         <p className="text-sm text-gray-300">
           <strong className="text-[#a89ec7]">Want more?</strong> Sign in to save
-          decks permanently, share them with others, and access your deck collection
-          from any device!
+          decks permanently, share them with others, and access your deck
+          collection from any device!
         </p>
       </div>
     </motion.div>

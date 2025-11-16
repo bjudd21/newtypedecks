@@ -23,8 +23,7 @@ export function validateLevelDistribution(
   const levels = Object.keys(levelCounts).map(Number).sort();
   const hasMultipleLevels = levels.length >= 3;
   const hasLowLevelCards = levelCounts[0] || levelCounts[1] || 0;
-  const isBalanced =
-    hasMultipleLevels && hasLowLevelCards >= totalCards * 0.3;
+  const isBalanced = hasMultipleLevels && hasLowLevelCards >= totalCards * 0.3;
 
   const distribution = levels
     .map(

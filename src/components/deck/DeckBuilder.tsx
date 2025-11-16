@@ -16,7 +16,10 @@ import { DeckActions } from './DeckActions';
 import { DeckStats } from './DeckStats';
 import { DeckValidator } from './DeckValidator';
 import { deckExporter } from '@/lib/services/deckExportService';
-import { calculateDeckStats, groupCardsByType } from '@/lib/utils/deckCalculations';
+import {
+  calculateDeckStats,
+  groupCardsByType,
+} from '@/lib/utils/deckCalculations';
 import type { CardWithRelations } from '@/lib/types/card';
 import {
   createNewDeck,

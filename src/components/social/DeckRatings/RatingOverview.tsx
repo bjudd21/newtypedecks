@@ -38,7 +38,8 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
       <div className="space-y-2">
         {[5, 4, 3, 2, 1].map((star) => {
           const count = ratingBreakdown[star] || 0;
-          const percentage = totalRatings > 0 ? (count / totalRatings) * 100 : 0;
+          const percentage =
+            totalRatings > 0 ? (count / totalRatings) * 100 : 0;
 
           return (
             <div key={star} className="flex items-center gap-3">

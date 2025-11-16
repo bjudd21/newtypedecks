@@ -72,7 +72,11 @@ interface SortControlsProps {
   onChange: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
 }
 
-export function SortControls({ sortBy, sortOrder, onChange }: SortControlsProps) {
+export function SortControls({
+  sortBy,
+  sortOrder,
+  onChange,
+}: SortControlsProps) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-sm text-gray-600">Sort by:</span>
@@ -411,7 +415,7 @@ interface CardDetailModalProps {
 
 export function CardDetailModal({ card, onClose }: CardDetailModalProps) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
       <Card className="max-h-[90vh] w-full max-w-2xl overflow-y-auto">
         <CardHeader>
           <div className="flex items-center justify-between">

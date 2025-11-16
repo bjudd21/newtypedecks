@@ -84,8 +84,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
             )}
           </div>
           <p className="mt-1 text-sm text-gray-400">
-            Added:{' '}
-            {new Date(collectionCard.addedAt).toLocaleDateString()}
+            Added: {new Date(collectionCard.addedAt).toLocaleDateString()}
           </p>
         </div>
       </div>
@@ -107,9 +106,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-400">
-                Condition
-              </label>
+              <label className="block text-xs text-gray-400">Condition</label>
               <Select
                 value={editCondition}
                 onChange={onConditionChange}
@@ -133,11 +130,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
               >
                 ✓
               </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={onCancelEdit}
-              >
+              <Button size="sm" variant="outline" onClick={onCancelEdit}>
                 ✕
               </Button>
             </div>

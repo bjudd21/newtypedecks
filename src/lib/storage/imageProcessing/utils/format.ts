@@ -5,7 +5,9 @@
 /**
  * Determine optimal output format based on input format
  */
-export function determineOptimalFormat(inputFormat: string): 'jpeg' | 'png' | 'webp' {
+export function determineOptimalFormat(
+  inputFormat: string
+): 'jpeg' | 'png' | 'webp' {
   switch (inputFormat.toLowerCase()) {
     case 'png':
       return 'png'; // Preserve PNG for images with transparency

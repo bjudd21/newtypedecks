@@ -130,8 +130,8 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
                   </h4>
                   <p className="mt-1 text-xs text-gray-300">
                     This URL contains your deck data and works without an
-                    account. For permanent sharing and deck libraries, sign in to
-                    save decks to your account.
+                    account. For permanent sharing and deck libraries, sign in
+                    to save decks to your account.
                   </p>
                 </div>
               </div>

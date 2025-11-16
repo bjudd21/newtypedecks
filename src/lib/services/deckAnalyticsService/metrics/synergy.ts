@@ -14,9 +14,7 @@ export function calculateSynergyScore(deckCards: DeckCard[]): number {
 
   // Faction synergy: higher score for consistent faction choices
   const factionEntries = Object.values(factionDist);
-  const dominantFaction = Math.max(
-    ...factionEntries.map((f) => f.percentage)
-  );
+  const dominantFaction = Math.max(...factionEntries.map((f) => f.percentage));
   const factionSynergy = dominantFaction >= 60 ? 0.8 : dominantFaction / 100;
 
   // Type synergy: bonus for good type distribution

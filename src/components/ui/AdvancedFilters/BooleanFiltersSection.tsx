@@ -33,9 +33,7 @@ export const BooleanFiltersSection: React.FC<BooleanFiltersSectionProps> = ({
           <label key={bool.key} className="flex items-center text-sm">
             <input
               type="checkbox"
-              checked={
-                filters[bool.key as keyof typeof filters] || false
-              }
+              checked={filters[bool.key as keyof typeof filters] || false}
               onChange={(e) =>
                 onFilterChange(bool.key, e.target.checked || undefined)
               }

@@ -34,7 +34,8 @@ export function buildWhereClause(
   // Boolean filters
   if (filters.isFoil !== undefined) where.isFoil = filters.isFoil;
   if (filters.isPromo !== undefined) where.isPromo = filters.isPromo;
-  if (filters.isAlternate !== undefined) where.isAlternate = filters.isAlternate;
+  if (filters.isAlternate !== undefined)
+    where.isAlternate = filters.isAlternate;
 
   // Range filters (use indexes)
   addRangeFilter(where, 'level', filters.levelMin, filters.levelMax);
@@ -46,7 +47,12 @@ export function buildWhereClause(
     filters.clashPointsMax
   );
   addRangeFilter(where, 'price', filters.priceMin, filters.priceMax);
-  addRangeFilter(where, 'hitPoints', filters.hitPointsMin, filters.hitPointsMax);
+  addRangeFilter(
+    where,
+    'hitPoints',
+    filters.hitPointsMin,
+    filters.hitPointsMax
+  );
   addRangeFilter(
     where,
     'attackPoints',

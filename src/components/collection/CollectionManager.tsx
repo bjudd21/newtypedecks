@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { useAuth, useCollection } from '@/hooks';
 import { CollectionImporter } from './CollectionImporter';
 import { AdvancedImporter } from './AdvancedImporter';
@@ -172,7 +167,9 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
   return (
     <div className={className}>
       {/* Collection Statistics */}
-      {collection && <CollectionStatistics statistics={collection.statistics} />}
+      {collection && (
+        <CollectionStatistics statistics={collection.statistics} />
+      )}
 
       {/* Tab Navigation */}
       <TabNavigation currentTab={currentTab} onTabChange={setCurrentTab} />
@@ -181,7 +178,10 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
       {currentTab === 'view' && (
         <>
           {/* Filters */}
-          <CollectionFilters filters={filters} onFilterChange={handleFilterChange} />
+          <CollectionFilters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+          />
 
           {/* Error Display */}
           {error && (
@@ -236,7 +236,9 @@ export const CollectionManager: React.FC<CollectionManagerProps> = ({
                 <CollectionPagination
                   currentPage={filters.page}
                   totalPages={collection.pagination.pages}
-                  onPageChange={(page: number) => handleFilterChange('page', page)}
+                  onPageChange={(page: number) =>
+                    handleFilterChange('page', page)
+                  }
                 />
               )}
             </CardContent>

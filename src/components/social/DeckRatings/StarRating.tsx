@@ -24,7 +24,9 @@ export const StarRating: React.FC<StarRatingProps> = ({
         <span
           key={star}
           onClick={
-            interactive && onRatingChange ? () => onRatingChange(star) : undefined
+            interactive && onRatingChange
+              ? () => onRatingChange(star)
+              : undefined
           }
           className={`${interactive ? 'cursor-pointer' : ''} ${
             star <= rating ? 'text-yellow-400' : 'text-gray-300'

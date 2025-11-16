@@ -27,7 +27,10 @@ import { useOfflineSync } from '@/hooks/useOfflineSync';
 import { useAnonymousDeckStorage } from '@/hooks/useAnonymousDeckStorage';
 import { useDeckSharing } from '@/hooks/useDeckSharing';
 import { useDeckExport } from '@/hooks/useDeckExport';
-import { calculateDeckStats, groupCardsByType } from '@/lib/utils/deckCalculations';
+import {
+  calculateDeckStats,
+  groupCardsByType,
+} from '@/lib/utils/deckCalculations';
 import type { CardWithRelations } from '@/lib/types/card';
 import type { DeckCard } from '@prisma/client';
 

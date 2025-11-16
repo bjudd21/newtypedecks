@@ -6,7 +6,6 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
-import { MetaGameInsights } from '@/components/analytics';
 
 export const metadata: Metadata = {
   title: 'Meta-Game Analytics | Gundam Card Game',
@@ -64,9 +63,6 @@ export default function AnalyticsPage() {
           </Card>
         </div>
       </div>
-
-      {/* Meta-Game Insights Component */}
-      <MetaGameInsights />
 
       {/* Additional Info */}
       <Card className="mt-8">

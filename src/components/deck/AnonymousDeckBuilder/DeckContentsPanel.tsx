@@ -4,7 +4,13 @@
  */
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@/components/ui';
 import { DeckDropZone } from '../DeckDropZone';
 import { EmptyDeckState } from './EmptyDeckState';
 import { DeckCardsList } from './DeckCardsList';

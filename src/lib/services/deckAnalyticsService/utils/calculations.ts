@@ -18,7 +18,5 @@ export function calculateTotalCost(deckCards: DeckCard[]): number {
 export function calculateAverageCost(deckCards: DeckCard[]): number {
   const totalCost = calculateTotalCost(deckCards);
   const totalCards = calculateTotalCards(deckCards);
-  return totalCards > 0
-    ? Math.round((totalCost / totalCards) * 100) / 100
-    : 0;
+  return totalCards > 0 ? Math.round((totalCost / totalCards) * 100) / 100 : 0;
 }

@@ -5,7 +5,10 @@
 import type { OfflineDeck, OfflineCollectionUpdate } from '../types';
 import type { EventEmitter } from '../events/eventEmitter';
 import { removeOfflineData } from '../offline/indexedDB';
-import { getOfflineDecks, getOfflineCollectionUpdates } from '../offline/operations';
+import {
+  getOfflineDecks,
+  getOfflineCollectionUpdates,
+} from '../offline/operations';
 
 export async function syncDeck(
   deck: OfflineDeck,

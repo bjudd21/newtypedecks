@@ -85,8 +85,11 @@ export const ConditionalSections: React.FC<ConditionalSectionsProps> = ({
                 card: deckCard.card,
                 quantity: deckCard.quantity,
                 category:
-                  (deckCard.category as 'main' | 'side' | 'extra' | undefined) ||
-                  'main',
+                  (deckCard.category as
+                    | 'main'
+                    | 'side'
+                    | 'extra'
+                    | undefined) || 'main',
               })
             )}
             deckName={deckName}

@@ -19,8 +19,7 @@ export function updateUserBehavior(
     // Update existing behavior
     existingBehavior.totalSearches++;
     existingBehavior.avgResponseTime =
-      (existingBehavior.avgResponseTime *
-        (existingBehavior.totalSearches - 1) +
+      (existingBehavior.avgResponseTime * (existingBehavior.totalSearches - 1) +
         event.responseTime) /
       existingBehavior.totalSearches;
 

@@ -11,7 +11,11 @@ import type { AdvancedFilterOptions } from '../AdvancedFilters';
 
 interface RangeFiltersSectionProps {
   filters: AdvancedFilterOptions['rangeFilters'];
-  onRangeChange: (key: string, type: 'min' | 'max', value: number | undefined) => void;
+  onRangeChange: (
+    key: string,
+    type: 'min' | 'max',
+    value: number | undefined
+  ) => void;
 }
 
 export const RangeFiltersSection: React.FC<RangeFiltersSectionProps> = ({
@@ -42,7 +46,8 @@ export const RangeFiltersSection: React.FC<RangeFiltersSectionProps> = ({
                 min="0"
                 max={range.max}
                 value={
-                  filters[range.key as keyof typeof filters]?.min?.toString() || ''
+                  filters[range.key as keyof typeof filters]?.min?.toString() ||
+                  ''
                 }
                 onChange={(e) =>
                   onRangeChange(
@@ -60,7 +65,8 @@ export const RangeFiltersSection: React.FC<RangeFiltersSectionProps> = ({
                 min="0"
                 max={range.max}
                 value={
-                  filters[range.key as keyof typeof filters]?.max?.toString() || ''
+                  filters[range.key as keyof typeof filters]?.max?.toString() ||
+                  ''
                 }
                 onChange={(e) =>
                   onRangeChange(

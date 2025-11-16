@@ -6,7 +6,10 @@ import type { QueryPerformanceMetrics, MaintenanceResult } from '../types';
 
 export async function performMaintenance(
   queryMetrics: QueryPerformanceMetrics[]
-): Promise<{ result: MaintenanceResult; updatedMetrics: QueryPerformanceMetrics[] }> {
+): Promise<{
+  result: MaintenanceResult;
+  updatedMetrics: QueryPerformanceMetrics[];
+}> {
   const tasksPerformed: string[] = [];
   const errors: string[] = [];
 

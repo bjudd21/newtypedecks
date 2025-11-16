@@ -6,7 +6,14 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Input, Select } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Select,
+} from '@/components/ui';
 
 interface CollectionFiltersProps {
   filters: {

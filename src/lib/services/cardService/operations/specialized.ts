@@ -3,7 +3,11 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import type { CardWithRelations, CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+  CardSearchOptions,
+} from '@/lib/types/card';
 import { searchCards } from './search';
 
 /**

@@ -66,32 +66,36 @@ export const RatingCard: React.FC<RatingCardProps> = ({
                 )}
               </div>
 
-              {isAuthenticated && currentUserId && rating.userId !== currentUserId && (
-                <div className="flex items-center gap-2">
-                  <Button
-                    onClick={() => onVoteHelpful(rating.id, true)}
-                    variant="outline"
-                    size="sm"
-                    className={`h-7 text-xs ${
-                      rating.isHelpful === true
-                        ? 'bg-green-50 text-green-700'
-                        : ''
-                    }`}
-                  >
-                    👍 Helpful
-                  </Button>
-                  <Button
-                    onClick={() => onVoteHelpful(rating.id, false)}
-                    variant="outline"
-                    size="sm"
-                    className={`h-7 text-xs ${
-                      rating.isHelpful === false ? 'bg-red-50 text-red-700' : ''
-                    }`}
-                  >
-                    👎 Not Helpful
-                  </Button>
-                </div>
-              )}
+              {isAuthenticated &&
+                currentUserId &&
+                rating.userId !== currentUserId && (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => onVoteHelpful(rating.id, true)}
+                      variant="outline"
+                      size="sm"
+                      className={`h-7 text-xs ${
+                        rating.isHelpful === true
+                          ? 'bg-green-50 text-green-700'
+                          : ''
+                      }`}
+                    >
+                      👍 Helpful
+                    </Button>
+                    <Button
+                      onClick={() => onVoteHelpful(rating.id, false)}
+                      variant="outline"
+                      size="sm"
+                      className={`h-7 text-xs ${
+                        rating.isHelpful === false
+                          ? 'bg-red-50 text-red-700'
+                          : ''
+                      }`}
+                    >
+                      👎 Not Helpful
+                    </Button>
+                  </div>
+                )}
             </div>
           </div>
         </div>

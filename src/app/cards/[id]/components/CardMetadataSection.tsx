@@ -44,7 +44,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
         <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <label className="font-medium text-gray-300">Card ID</label>
-            <div className="mt-1 break-all font-mono text-xs text-gray-400">
+            <div className="mt-1 font-mono text-xs break-all text-gray-400">
               {card.id}
             </div>
           </div>

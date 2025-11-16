@@ -22,9 +22,9 @@ export const useRatings = ({
   const [error, setError] = useState<string | null>(null);
   const [averageRating, setAverageRating] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0);
-  const [ratingBreakdown, setRatingBreakdown] = useState<Record<number, number>>(
-    {}
-  );
+  const [ratingBreakdown, setRatingBreakdown] = useState<
+    Record<number, number>
+  >({});
   const [userRating, setUserRating] = useState<DeckRating | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);

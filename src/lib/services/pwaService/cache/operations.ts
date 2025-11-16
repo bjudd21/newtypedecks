@@ -18,10 +18,9 @@ export async function getCacheSize(
       }
     };
 
-    navigator.serviceWorker.controller.postMessage(
-      { type: 'GET_CACHE_SIZE' },
-      [messageChannel.port2]
-    );
+    navigator.serviceWorker.controller.postMessage({ type: 'GET_CACHE_SIZE' }, [
+      messageChannel.port2,
+    ]);
   });
 }
 

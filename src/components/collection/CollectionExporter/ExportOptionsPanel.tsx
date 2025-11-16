@@ -69,7 +69,10 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
               }
               className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
             />
-            <label htmlFor="includeConditions" className="text-sm text-gray-400">
+            <label
+              htmlFor="includeConditions"
+              className="text-sm text-gray-400"
+            >
               Include card conditions
             </label>
           </div>

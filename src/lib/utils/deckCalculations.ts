@@ -13,7 +13,10 @@ interface DeckCard {
 }
 
 export function calculateDeckStats(cards: DeckCard[]) {
-  const totalCards = cards.reduce((sum, deckCard) => sum + deckCard.quantity, 0);
+  const totalCards = cards.reduce(
+    (sum, deckCard) => sum + deckCard.quantity,
+    0
+  );
   const uniqueCards = cards.length;
   const totalCost = cards.reduce(
     (sum, deckCard) => sum + (deckCard.card.cost ?? 0) * deckCard.quantity,

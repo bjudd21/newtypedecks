@@ -63,10 +63,7 @@ export const DeckActions: React.FC<DeckActionsProps> = ({
       </Button>
     )}
 
-    <ExportDropdown
-      uniqueCards={uniqueCards}
-      onExport={onExport}
-    />
+    <ExportDropdown uniqueCards={uniqueCards} onExport={onExport} />
 
     {!isAuthenticated && (
       <Button

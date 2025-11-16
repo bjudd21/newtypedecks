@@ -63,7 +63,10 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
         type="number"
         value={formData.cost?.toString() || ''}
         onChange={(e) =>
-          onChange('cost', e.target.value ? parseInt(e.target.value) : undefined)
+          onChange(
+            'cost',
+            e.target.value ? parseInt(e.target.value) : undefined
+          )
         }
         placeholder="0-20"
         min={0}

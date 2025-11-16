@@ -29,7 +29,10 @@ export const DeckNameEditor: React.FC<DeckNameEditorProps> = ({
           className="text-lg font-semibold"
         />
       </div>
-      <Button onClick={onEditToggle} variant={isEditing ? 'default' : 'outline'}>
+      <Button
+        onClick={onEditToggle}
+        variant={isEditing ? 'default' : 'outline'}
+      >
         {isEditing ? 'Done Editing' : 'Edit Deck'}
       </Button>
     </div>

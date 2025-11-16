@@ -4,11 +4,7 @@
  * Handles client-side image caching, preloading, and performance optimization
  */
 
-import type {
-  CacheConfig,
-  CachedImage,
-  ImageCacheStats,
-} from './types';
+import type { CacheConfig, CachedImage, ImageCacheStats } from './types';
 import { MemoryCache } from './storage/memoryCache';
 import { IndexedDBCache } from './storage/indexedDB';
 import { fetchFromNetwork } from './network/fetcher';
@@ -41,10 +37,8 @@ export class ImageCacheService {
     this.statsTracker = new StatsTracker();
 
     if (typeof window !== 'undefined') {
-      initializeCache(
-        this.config,
-        this.indexedDBCache,
-        () => this.setupCleanup()
+      initializeCache(this.config, this.indexedDBCache, () =>
+        this.setupCleanup()
       );
     }
   }
@@ -192,11 +186,8 @@ export class ImageCacheService {
   }
 
   private setupCleanup(): void {
-    setupCleanupTasks(
-      this.config,
-      this.memoryCache,
-      this.indexedDBCache,
-      () => cleanupMemory(this.memoryCache)
+    setupCleanupTasks(this.config, this.memoryCache, this.indexedDBCache, () =>
+      cleanupMemory(this.memoryCache)
     );
   }
 }

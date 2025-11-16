@@ -20,7 +20,9 @@ export async function showInstallPrompt(
   }
 }
 
-export function isInstallable(deferredPrompt: PWAInstallPrompt | null): boolean {
+export function isInstallable(
+  deferredPrompt: PWAInstallPrompt | null
+): boolean {
   return deferredPrompt !== null;
 }
 
