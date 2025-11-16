@@ -15,10 +15,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  Button,
-  Input,
   Badge,
-  Select,
 } from '@/components/ui';
 import { useAuth, useDecks, useCollection } from '@/hooks';
 import { DeckCardSearch } from './DeckCardSearch';
@@ -27,9 +24,12 @@ import { DeckDropZone } from './DeckDropZone';
 import { DeckValidator } from './DeckValidator';
 import { DeckVersionHistory } from './DeckVersionHistory';
 import { DeckTemplateCreator } from './DeckTemplateCreator';
-import { FavoriteButton } from './FavoriteButton';
+import { DeckHeader } from './DeckHeader';
+import { DeckActions } from './DeckActions';
+import { DeckStats } from './DeckStats';
 import { DeckAnalyticsDisplay } from '@/components/analytics';
 import { deckExporter } from '@/lib/services/deckExportService';
+import { calculateDeckStats, groupCardsByType } from '@/lib/utils/deckCalculations';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface DeckBuilderProps {
@@ -51,356 +51,6 @@ const createNewDeck = (isAuthenticated: boolean, userId?: string) => ({
   updatedAt: new Date(),
   cards: [],
 });
-
-// Type for deck cards
-type DeckCard = {
-  cardId: string;
-  card: CardWithRelations;
-  quantity: number;
-  category: string | null;
-};
-
-// Helper: Calculate deck statistics
-const calculateDeckStats = (cards: DeckCard[] | undefined) => {
-  const totalCards =
-    cards?.reduce(
-      (sum: number, deckCard: DeckCard) => sum + deckCard.quantity,
-      0
-    ) || 0;
-  const uniqueCards = cards?.length || 0;
-  const totalCost =
-    cards?.reduce(
-      (sum: number, deckCard: DeckCard) =>
-        sum + (deckCard.card.cost || 0) * deckCard.quantity,
-      0
-    ) || 0;
-
-  return { totalCards, uniqueCards, totalCost };
-};
-
-// Helper: Group cards by type
-const groupCardsByType = (cards: DeckCard[] | undefined) => {
-  return (
-    cards?.reduce(
-      (acc: Record<string, DeckCard[]>, deckCard: DeckCard) => {
-        const type = deckCard.card.type?.name || 'Unknown';
-        if (!acc[type]) {
-          acc[type] = [];
-        }
-        acc[type].push(deckCard);
-        return acc;
-      },
-      {} as Record<string, DeckCard[]>
-    ) || {}
-  );
-};
-
-// Deck Statistics Component
-interface DeckStatsProps {
-  totalCards: number;
-  uniqueCards: number;
-  totalCost: number;
-}
-
-const DeckStats: React.FC<DeckStatsProps> = ({
-  totalCards,
-  uniqueCards,
-  totalCost,
-}) => (
-  <div className="grid grid-cols-3 gap-4">
-    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
-      <div className="text-2xl font-bold text-white">{totalCards}</div>
-      <div className="text-sm text-gray-400">Total Cards</div>
-    </div>
-    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
-      <div className="text-2xl font-bold text-white">{uniqueCards}</div>
-      <div className="text-sm text-gray-400">Unique Cards</div>
-    </div>
-    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640] p-3 text-center">
-      <div className="text-2xl font-bold text-white">{totalCost}</div>
-      <div className="text-sm text-gray-400">Total Cost</div>
-    </div>
-  </div>
-);
-
-// Deck Settings Component
-interface DeckSettingsProps {
-  deckDescription: string;
-  setDeckDescription: (value: string) => void;
-  deckFormat: string;
-  setDeckFormat: (value: string) => void;
-  isPublic: boolean;
-  setIsPublic: (value: boolean) => void;
-}
-
-const DeckSettings: React.FC<DeckSettingsProps> = ({
-  deckDescription,
-  setDeckDescription,
-  deckFormat,
-  setDeckFormat,
-  isPublic,
-  setIsPublic,
-}) => (
-  <div className="grid grid-cols-1 gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4 md:grid-cols-3">
-    <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
-        Description
-      </label>
-      <Input
-        value={deckDescription}
-        onChange={(e) => setDeckDescription(e.target.value)}
-        placeholder="Deck description (optional)"
-        className="text-sm"
-      />
-    </div>
-    <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
-        Format
-      </label>
-      <Select
-        value={deckFormat}
-        onChange={setDeckFormat}
-        options={[
-          { value: 'Standard', label: 'Standard' },
-          { value: 'Advanced', label: 'Advanced' },
-          { value: 'Casual', label: 'Casual' },
-          { value: 'Custom', label: 'Custom' },
-        ]}
-      />
-    </div>
-    <div className="flex items-center space-x-2 pt-6">
-      <input
-        type="checkbox"
-        id="isPublic"
-        checked={isPublic}
-        onChange={(e) => setIsPublic(e.target.checked)}
-        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
-      />
-      <label htmlFor="isPublic" className="text-sm text-gray-400">
-        Make deck public
-      </label>
-    </div>
-  </div>
-);
-
-// Deck Header Component
-interface DeckHeaderProps {
-  deckName: string;
-  onDeckNameChange: (name: string) => void;
-  isEditing: boolean;
-  onToggleEditing: () => void;
-  isAuthenticated: boolean;
-  savedDeckId: string | null;
-  showVersionHistory: boolean;
-  onToggleVersionHistory: () => void;
-  deckDescription: string;
-  setDeckDescription: (value: string) => void;
-  deckFormat: string;
-  setDeckFormat: (value: string) => void;
-  isPublic: boolean;
-  setIsPublic: (value: boolean) => void;
-  deckError: string | null;
-}
-
-const DeckHeader: React.FC<DeckHeaderProps> = ({
-  deckName,
-  onDeckNameChange,
-  isEditing,
-  onToggleEditing,
-  isAuthenticated,
-  savedDeckId,
-  showVersionHistory,
-  onToggleVersionHistory,
-  deckDescription,
-  setDeckDescription,
-  deckFormat,
-  setDeckFormat,
-  isPublic,
-  setIsPublic,
-  deckError,
-}) => (
-  <div className="mb-4 space-y-4">
-    <div className="flex items-center gap-4">
-      <div className="flex-1">
-        <Input
-          value={deckName}
-          onChange={(e) => onDeckNameChange(e.target.value)}
-          placeholder="Enter deck name..."
-          className="text-lg font-semibold"
-        />
-      </div>
-      <Button
-        onClick={onToggleEditing}
-        variant={isEditing ? 'default' : 'outline'}
-      >
-        {isEditing ? 'Done Editing' : 'Edit Deck'}
-      </Button>
-
-      {isAuthenticated && savedDeckId && (
-        <>
-          <Button
-            onClick={onToggleVersionHistory}
-            variant={showVersionHistory ? 'default' : 'outline'}
-          >
-            {showVersionHistory ? 'Hide History' : 'Version History'}
-          </Button>
-          <FavoriteButton
-            deckId={savedDeckId}
-            deckName={deckName}
-            size="md"
-            variant="button"
-          />
-        </>
-      )}
-    </div>
-
-    {isAuthenticated && (
-      <DeckSettings
-        deckDescription={deckDescription}
-        setDeckDescription={setDeckDescription}
-        deckFormat={deckFormat}
-        setDeckFormat={setDeckFormat}
-        isPublic={isPublic}
-        setIsPublic={setIsPublic}
-      />
-    )}
-
-    {deckError && (
-      <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400">
-        {deckError}
-      </div>
-    )}
-  </div>
-);
-
-// Deck Actions Component
-interface DeckActionsProps {
-  onNewDeck: () => void;
-  isAuthenticated: boolean;
-  uniqueCards: number;
-  deckLoading: boolean;
-  savedDeckId: string | null;
-  onSaveDeck: () => void;
-  showTemplateCreator: boolean;
-  onToggleTemplateCreator: () => void;
-  showAnalytics: boolean;
-  onToggleAnalytics: () => void;
-  onExport: (format: 'json' | 'text' | 'csv' | 'mtga') => void;
-}
-
-const DeckActions: React.FC<DeckActionsProps> = ({
-  onNewDeck,
-  isAuthenticated,
-  uniqueCards,
-  deckLoading,
-  savedDeckId,
-  onSaveDeck,
-  showTemplateCreator,
-  onToggleTemplateCreator,
-  showAnalytics,
-  onToggleAnalytics,
-  onExport,
-}) => (
-  <div className="mt-6 flex flex-wrap gap-4">
-    <Button variant="outline" onClick={onNewDeck}>
-      New Deck
-    </Button>
-
-    {isAuthenticated && (
-      <Button
-        variant="default"
-        disabled={uniqueCards === 0 || deckLoading}
-        onClick={onSaveDeck}
-      >
-        {deckLoading ? 'Saving...' : savedDeckId ? 'Update Deck' : 'Save Deck'}
-      </Button>
-    )}
-
-    {isAuthenticated && savedDeckId && uniqueCards > 0 && (
-      <Button variant="outline" onClick={onToggleTemplateCreator}>
-        {showTemplateCreator ? 'Hide Template Creator' : 'Create Template'}
-      </Button>
-    )}
-
-    {uniqueCards > 0 && (
-      <Button variant="outline" onClick={onToggleAnalytics}>
-        {showAnalytics ? 'Hide Analytics' : '📊 Deck Analytics'}
-      </Button>
-    )}
-
-    <ExportDropdown onExport={onExport} disabled={uniqueCards === 0} />
-
-    {!isAuthenticated && (
-      <Button
-        variant="outline"
-        onClick={() => {
-          console.warn('Sign in to save and share your decks!');
-        }}
-      >
-        💾 Sign in to Save
-      </Button>
-    )}
-  </div>
-);
-
-// Export Dropdown Component
-interface ExportDropdownProps {
-  onExport: (format: 'json' | 'text' | 'csv' | 'mtga') => void;
-  disabled: boolean;
-}
-
-const ExportDropdown: React.FC<ExportDropdownProps> = ({
-  onExport,
-  disabled,
-}) => (
-  <div className="group relative">
-    <Button
-      variant="outline"
-      disabled={disabled}
-      onClick={() => onExport('json')}
-    >
-      Export Deck
-      <span className="ml-1 text-xs">▼</span>
-    </Button>
-
-    <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-lg group-hover:block">
-      <div className="py-1">
-        <button
-          onClick={() => onExport('json')}
-          disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
-        >
-          📄 JSON Format
-          <div className="text-xs text-gray-400">Complete deck data</div>
-        </button>
-        <button
-          onClick={() => onExport('text')}
-          disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
-        >
-          📝 Text Format
-          <div className="text-xs text-gray-400">Human readable</div>
-        </button>
-        <button
-          onClick={() => onExport('csv')}
-          disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
-        >
-          📊 CSV Format
-          <div className="text-xs text-gray-400">Spreadsheet compatible</div>
-        </button>
-        <button
-          onClick={() => onExport('mtga')}
-          disabled={disabled}
-          className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
-        >
-          🎮 MTG Arena Format
-          <div className="text-xs text-gray-400">Other deck builders</div>
-        </button>
-      </div>
-    </div>
-  </div>
-);
 
 export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
   const dispatch = useDispatch();
@@ -638,13 +288,13 @@ export const DeckBuilder: React.FC<DeckBuilderProps> = ({ className }) => {
     [currentDeck, deckName]
   );
 
-  // Calculate deck statistics using helper
-  const { totalCards, uniqueCards, totalCost } = calculateDeckStats(
-    currentDeck?.cards
-  );
+  // Calculate deck statistics using utility
+  const { totalCards, uniqueCards, totalCost } = currentDeck
+    ? calculateDeckStats(currentDeck.cards)
+    : { totalCards: 0, uniqueCards: 0, totalCost: 0 };
 
-  // Group cards by type using helper
-  const cardsByType = groupCardsByType(currentDeck?.cards);
+  // Group cards by type using utility
+  const cardsByType = currentDeck ? groupCardsByType(currentDeck.cards) : {};
 
   return (
     <div className={className}>

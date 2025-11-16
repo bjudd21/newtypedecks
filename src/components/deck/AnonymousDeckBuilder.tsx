@@ -177,7 +177,7 @@ export const AnonymousDeckBuilder: React.FC<AnonymousDeckBuilderProps> = ({
 
   // Handle deck export
   const handleExportClick = useCallback(
-    (format: 'json' | 'text' | 'csv') => {
+    (format: 'json' | 'text' | 'csv' | 'mtga') => {
       exportDeck(currentDeck, deckName, format);
     },
     [currentDeck, deckName, exportDeck]

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui';
 
 interface ExportDropdownProps {
   uniqueCards: number;
-  onExport: (format: 'json' | 'text' | 'csv') => void;
+  onExport: (format: 'json' | 'text' | 'csv' | 'mtga') => void;
 }
 
 export const ExportDropdown: React.FC<ExportDropdownProps> = ({
@@ -54,6 +54,14 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
           >
             📊 CSV Format
             <div className="text-xs text-gray-400">Spreadsheet compatible</div>
+          </button>
+          <button
+            onClick={() => onExport('mtga')}
+            disabled={uniqueCards === 0}
+            className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
+          >
+            🎮 MTG Arena Format
+            <div className="text-xs text-gray-400">Other deck builders</div>
           </button>
         </div>
       </div>
