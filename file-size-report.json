@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-16T05:12:25.299Z",
+  "timestamp": "2025-11-16T05:21:27.061Z",
   "summary": {
-    "passed": 479,
-    "warnings": 26,
+    "passed": 495,
+    "warnings": 25,
     "errors": 0,
-    "total": 505
+    "total": 520
   },
   "files": [
     {
@@ -205,14 +205,6 @@
       "limit": 500,
       "percentage": 109.4,
       "size": 16297,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient.tsx",
-      "lines": 624,
-      "limit": 500,
-      "percentage": 124.8,
-      "size": 18373,
       "status": "warning"
     },
     {
@@ -1577,10 +1569,10 @@
     },
     {
       "file": "src/components/social/UserProfile/index.ts",
-      "lines": 15,
+      "lines": 19,
       "limit": 500,
-      "percentage": 3,
-      "size": 532,
+      "percentage": 3.8,
+      "size": 539,
       "status": "passed"
     },
     {
@@ -1829,6 +1821,14 @@
       "limit": 500,
       "percentage": 7.199999999999999,
       "size": 1032,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/index.ts",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 793,
       "status": "passed"
     },
     {
@@ -2681,10 +2681,10 @@
     },
     {
       "file": "src/components/social/UserProfile/OverviewTab.tsx",
-      "lines": 124,
+      "lines": 132,
       "limit": 500,
-      "percentage": 24.8,
-      "size": 4608,
+      "percentage": 26.400000000000002,
+      "size": 4651,
       "status": "passed"
     },
     {
@@ -3808,6 +3808,14 @@
       "status": "passed"
     },
     {
+      "file": "src/app/cards/[id]/CardDetailClient.tsx",
+      "lines": 110,
+      "limit": 500,
+      "percentage": 22,
+      "size": 3154,
+      "status": "passed"
+    },
+    {
       "file": "src/app/cards/[id]/components/CardMetadataSection.tsx",
       "lines": 114,
       "limit": 500,
@@ -3821,6 +3829,118 @@
       "limit": 500,
       "percentage": 30.4,
       "size": 4280,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/SpecialAbilities.tsx",
+      "lines": 53,
+      "limit": 500,
+      "percentage": 10.6,
+      "size": 1624,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/RulingsSection.tsx",
+      "lines": 96,
+      "limit": 500,
+      "percentage": 19.2,
+      "size": 2923,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/RulingsFilterControls.tsx",
+      "lines": 65,
+      "limit": 500,
+      "percentage": 13,
+      "size": 2031,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/RulingItem.tsx",
+      "lines": 58,
+      "limit": 500,
+      "percentage": 11.600000000000001,
+      "size": 1565,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/OfficialText.tsx",
+      "lines": 35,
+      "limit": 500,
+      "percentage": 7.000000000000001,
+      "size": 1108,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/NotFoundState.tsx",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 1314,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/Keywords.tsx",
+      "lines": 22,
+      "limit": 500,
+      "percentage": 4.3999999999999995,
+      "size": 614,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/ErrorState.tsx",
+      "lines": 39,
+      "limit": 500,
+      "percentage": 7.8,
+      "size": 1218,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardImageSection.tsx",
+      "lines": 26,
+      "limit": 500,
+      "percentage": 5.2,
+      "size": 780,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardHeaderInfo.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 496,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardDetailSkeleton.tsx",
+      "lines": 50,
+      "limit": 500,
+      "percentage": 10,
+      "size": 1531,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardDescription.tsx",
+      "lines": 16,
+      "limit": 500,
+      "percentage": 3.2,
+      "size": 455,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardBreadcrumb.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 469,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/[id]/CardDetailClient/CardActions.tsx",
+      "lines": 18,
+      "limit": 500,
+      "percentage": 3.5999999999999996,
+      "size": 416,
       "status": "passed"
     },
     {
