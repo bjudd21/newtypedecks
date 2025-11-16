@@ -10,18 +10,14 @@ import {
   Select,
 } from '@/components/ui';
 import type { PreviewCard } from '@/lib/types';
-
-interface ImportResult {
-  success: number;
-  failed: number;
-  skipped: number;
-  errors: string[];
-  imported: Array<{
-    cardName: string;
-    quantity: number;
-    action: 'added' | 'updated';
-  }>;
-}
+import {
+  ImportPreviewList,
+  ImportResultDisplay,
+  ImportGuidelinesInfo,
+  getFormatDescription,
+  getFormatExample,
+  type ImportResult,
+} from './CollectionImporter/';
 
 interface CollectionImporterProps {
   onImportComplete?: (result: ImportResult) => void;
@@ -217,36 +213,6 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
     }
   }, [importData, selectedFormat, updateBehavior, onImportComplete]);
 
-  const getFormatDescription = (format: string) => {
-    switch (format) {
-      case 'csv':
-        return 'CSV/TSV format with columns: Card Name, Quantity, Set Name (optional), Set Number (optional)';
-      case 'json':
-        return 'JSON array with objects containing cardName/name, quantity/count, and optional setName/set';
-      case 'decklist':
-        return 'Simple deck list format: "3 Lightning Bolt" or "1x Storm Crow" (one per line)';
-      case 'mtga':
-        return 'MTG Arena export format: "3 Lightning Bolt (M21) 168"';
-      default:
-        return '';
-    }
-  };
-
-  const getFormatExample = (format: string) => {
-    switch (format) {
-      case 'csv':
-        return "RX-78-2 Gundam,2,Mobile Suit Gundam,MSG-001\nChar's Zaku II,1,Mobile Suit Gundam,MSG-002";
-      case 'json':
-        return '[{"cardName":"RX-78-2 Gundam","quantity":2,"setName":"Mobile Suit Gundam"},{"cardName":"Char\'s Zaku II","quantity":1}]';
-      case 'decklist':
-        return "2 RX-78-2 Gundam\n1 Char's Zaku II\n3x Nu Gundam";
-      case 'mtga':
-        return "2 RX-78-2 Gundam (MSG) 001\n1 Char's Zaku II (MSG) 002";
-      default:
-        return '';
-    }
-  };
-
   return (
     <div className={className}>
       <Card className="border-[#443a5c] bg-[#2d2640]">
@@ -324,34 +290,7 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
             </div>
 
             {/* Preview */}
-            {previewCards.length > 0 && (
-              <div>
-                <div className="mb-2 text-sm font-medium text-gray-400">
-                  Preview (first 5 cards)
-                </div>
-                <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3">
-                  {previewCards.map((card, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-4 py-1 text-sm"
-                    >
-                      <span className="w-8 text-center font-mono">
-                        {card.quantity}x
-                      </span>
-                      <span className="flex-1 text-white">{card.cardName}</span>
-                      {card.setName && (
-                        <span className="text-xs text-gray-400">
-                          ({card.setName})
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                  <div className="mt-2 text-xs text-gray-400">
-                    Ready to import {previewCards.length} card types
-                  </div>
-                </div>
-              </div>
-            )}
+            <ImportPreviewList cards={previewCards} />
 
             {/* Error Display */}
             {error && (
@@ -386,94 +325,10 @@ export const CollectionImporter: React.FC<CollectionImporterProps> = ({
             </div>
 
             {/* Import Result */}
-            {importResult && (
-              <div className="rounded border border-green-900/50 bg-green-950/30 p-4">
-                <div className="mb-2 font-medium text-green-400">
-                  Import Complete!
-                </div>
-                <div className="mb-3 grid grid-cols-3 gap-4 text-sm">
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-green-400">
-                      {importResult.success}
-                    </div>
-                    <div className="text-gray-400">Successful</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-yellow-400">
-                      {importResult.skipped}
-                    </div>
-                    <div className="text-gray-400">Skipped</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-red-400">
-                      {importResult.failed}
-                    </div>
-                    <div className="text-gray-400">Failed</div>
-                  </div>
-                </div>
-
-                {importResult.errors.length > 0 && (
-                  <details className="mt-3">
-                    <summary className="cursor-pointer text-sm font-medium text-red-400">
-                      View Errors ({importResult.errors.length})
-                    </summary>
-                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-red-950/50 p-2 text-xs text-red-400">
-                      {importResult.errors.map((error, index) => (
-                        <div key={index}>• {error}</div>
-                      ))}
-                    </div>
-                  </details>
-                )}
-
-                {importResult.imported.length > 0 && (
-                  <details className="mt-3">
-                    <summary className="cursor-pointer text-sm font-medium text-green-400">
-                      View Imported Cards ({importResult.imported.length})
-                    </summary>
-                    <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-950/50 p-2 text-xs">
-                      {importResult.imported.slice(0, 10).map((item, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <span className="w-6 text-white">
-                            {item.quantity}x
-                          </span>
-                          <span className="flex-1 text-white">
-                            {item.cardName}
-                          </span>
-                          <span
-                            className={`rounded px-1 text-xs ${
-                              item.action === 'added'
-                                ? 'bg-[#8b7aaa]/30 text-[#8b7aaa]'
-                                : 'bg-orange-900/30 text-orange-400'
-                            }`}
-                          >
-                            {item.action}
-                          </span>
-                        </div>
-                      ))}
-                      {importResult.imported.length > 10 && (
-                        <div className="mt-1 text-gray-400">
-                          ... and {importResult.imported.length - 10} more
-                        </div>
-                      )}
-                    </div>
-                  </details>
-                )}
-              </div>
-            )}
+            {importResult && <ImportResultDisplay result={importResult} />}
 
             {/* Format Guidelines */}
-            <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-xs text-gray-400">
-              <div className="mb-2 font-medium text-white">
-                Import Guidelines:
-              </div>
-              <ul className="space-y-1">
-                <li>• Maximum 1000 cards per import</li>
-                <li>• Cards are matched by name, set number, or card ID</li>
-                <li>• Unmatched cards will be skipped with error details</li>
-                <li>• CSV files should use commas or tabs as separators</li>
-                <li>• JSON format should be an array of card objects</li>
-              </ul>
-            </div>
+            <ImportGuidelinesInfo />
           </div>
         </CardContent>
       </Card>
