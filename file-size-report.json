@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-16T05:21:27.061Z",
+  "timestamp": "2025-11-16T05:30:12.923Z",
   "summary": {
-    "passed": 495,
-    "warnings": 25,
+    "passed": 507,
+    "warnings": 24,
     "errors": 0,
-    "total": 520
+    "total": 531
   },
   "files": [
     {
@@ -197,14 +197,6 @@
       "limit": 500,
       "percentage": 100,
       "size": 17332,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents.tsx",
-      "lines": 547,
-      "limit": 500,
-      "percentage": 109.4,
-      "size": 16297,
       "status": "warning"
     },
     {
@@ -1813,6 +1805,22 @@
       "limit": 500,
       "percentage": 3.8,
       "size": 534,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/types.ts",
+      "lines": 6,
+      "limit": 500,
+      "percentage": 1.2,
+      "size": 106,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/index.ts",
+      "lines": 16,
+      "limit": 500,
+      "percentage": 3.2,
+      "size": 647,
       "status": "passed"
     },
     {
@@ -3800,6 +3808,86 @@
       "status": "passed"
     },
     {
+      "file": "src/app/cards/components/CardsPageComponents.tsx",
+      "lines": 21,
+      "limit": 500,
+      "percentage": 4.2,
+      "size": 444,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/WelcomeMessage.tsx",
+      "lines": 43,
+      "limit": 500,
+      "percentage": 8.6,
+      "size": 1336,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/TraditionalPaginationResults.tsx",
+      "lines": 97,
+      "limit": 500,
+      "percentage": 19.400000000000002,
+      "size": 2570,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/SortControls.tsx",
+      "lines": 36,
+      "limit": 500,
+      "percentage": 7.199999999999999,
+      "size": 1128,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/ResultsSection.tsx",
+      "lines": 101,
+      "limit": 500,
+      "percentage": 20.200000000000003,
+      "size": 2910,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/ResultsHeader.tsx",
+      "lines": 48,
+      "limit": 500,
+      "percentage": 9.6,
+      "size": 1341,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/PaginationModeSelector.tsx",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 1173,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/NoResultsState.tsx",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 1276,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/InfiniteScrollResults.tsx",
+      "lines": 75,
+      "limit": 500,
+      "percentage": 15,
+      "size": 2476,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/cards/components/CardsPageComponents/CardDetailModal.tsx",
+      "lines": 45,
+      "limit": 500,
+      "percentage": 9,
+      "size": 1416,
+      "status": "passed"
+    },
+    {
       "file": "src/app/cards/[id]/page.tsx",
       "lines": 23,
       "limit": 500,
@@ -3881,10 +3969,10 @@
     },
     {
       "file": "src/app/cards/[id]/CardDetailClient/Keywords.tsx",
-      "lines": 22,
+      "lines": 28,
       "limit": 500,
-      "percentage": 4.3999999999999995,
-      "size": 614,
+      "percentage": 5.6000000000000005,
+      "size": 625,
       "status": "passed"
     },
     {
