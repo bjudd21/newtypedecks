@@ -373,8 +373,9 @@ When ready to continue code quality improvements:
    - ✅ All refactored components now <15 complexity
 
 4. **Split Large Service Files** (Priority: Low) - NOT STARTED
-   - Target: Files >500 lines (tournamentPrepService.ts: 741, cardSubmissionService.ts: 668, cardService.ts: 568)
+   - Target: Files >500 lines (socialService.ts: 647, cardSubmissionService.ts: 498)
    - Strategy: Extract related functionality into separate modules, create feature-based sub-services
    - Impact: ~12 warnings resolved, improved maintainability
+   - Note: tournamentPrepService.ts was never implemented (only existed in planning docs)
 
 **Note:** The codebase is in excellent shape for production use. All high-priority improvements are complete. Remaining warnings represent legitimate business logic complexity.
