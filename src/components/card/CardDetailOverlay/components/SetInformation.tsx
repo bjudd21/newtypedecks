@@ -1,0 +1,40 @@
+/**
+ * Card set information section
+ */
+
+import React from 'react';
+import type { CardWithRelations } from '@/lib/types/card';
+
+interface SetInformationProps {
+  card: CardWithRelations;
+}
+
+export const SetInformation: React.FC<SetInformationProps> = ({ card }) => {
+  if (!card.series && !card.set?.name) return null;
+
+  return (
+    <div className="rounded-lg border border-gray-700 bg-gray-800 p-3">
+      <h3 className="mb-1.5 text-sm font-semibold text-white">
+        Set Information
+      </h3>
+      {card.series && (
+        <div className="mb-1 text-sm">
+          <span className="text-gray-400">Series: </span>
+          <span className="text-white">{card.series}</span>
+        </div>
+      )}
+      {card.set?.name && (
+        <div className="mb-1 text-sm">
+          <span className="text-gray-400">Set: </span>
+          <span className="text-white">{card.set.name}</span>
+        </div>
+      )}
+      {card.setNumber && (
+        <div className="text-sm">
+          <span className="text-gray-400">Card Number: </span>
+          <span className="text-white">{card.setNumber}</span>
+        </div>
+      )}
+    </div>
+  );
+};
