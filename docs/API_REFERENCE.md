@@ -837,20 +837,7 @@ model Set {
 
 #### Faction
 
-Faction-based card organization.
-
-```prisma
-model Faction {
-  id          String @id @default(cuid())
-  name        String @unique
-  description String?
-  color       String? // Hex color for UI
-  imageUrl    String?
-
-  // Relationships
-  cards Card[]
-}
-```
+**Note:** Faction and Series are stored as String fields directly in the Card model, not as separate relational tables. This simplified approach was chosen for easier card management and querying.
 
 **Common Factions:**
 
@@ -861,23 +848,6 @@ model Faction {
 - Crossbone Vanguard
 - ZAFT
 - Orb Union
-
-#### Series
-
-Gundam series organization.
-
-```prisma
-model Series {
-  id          String @id @default(cuid())
-  name        String @unique
-  code        String @unique // e.g., "UC", "CE", "AD"
-  description String?
-  imageUrl    String?
-
-  // Relationships
-  cards Card[]
-}
-```
 
 **Common Series:**
 
@@ -943,6 +913,113 @@ model DeckCard {
 - Quantity tracking for multiple copies
 - Optional categorization (e.g., "Main", "Side", "Extra")
 - Cascade deletion when deck is removed
+
+#### DeckVersion
+
+Deck version history tracking for rollback and comparison.
+
+```prisma
+model DeckVersion {
+  id          String   @id @default(cuid())
+  deckId      String
+  version     Int      // Version number (1, 2, 3, etc.)
+  name        String   // Deck name at this version
+  description String?  // Deck description at this version
+  versionName String?  // Optional name for this version
+  isPublic    Boolean  @default(false)
+
+  // Version metadata
+  changeNote  String?  // Notes about what changed
+  createdBy   String   // User who created this version
+  createdAt   DateTime @default(now())
+
+  // Relations
+  deck  Deck              @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  cards DeckVersionCard[]
+}
+```
+
+**Features:**
+
+- Automatic version numbering
+- Change tracking with notes
+- Snapshot of deck state at each version
+- Rollback capability
+
+#### DeckVersionCard
+
+Cards within a specific deck version.
+
+```prisma
+model DeckVersionCard {
+  id        String @id @default(cuid())
+  versionId String
+  cardId    String
+  quantity  Int
+  category  String?
+
+  // Relations
+  version DeckVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  card    Card        @relation(fields: [cardId], references: [id])
+
+  @@unique([versionId, cardId])
+}
+```
+
+**Features:**
+
+- Complete snapshot of cards at version time
+- Preserves deck state even if cards change
+- Cascade deletion with version
+
+#### UserFavoriteDeck
+
+User's favorited/bookmarked decks.
+
+```prisma
+model UserFavoriteDeck {
+  id        String   @id @default(cuid())
+  userId    String
+  deckId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, deckId])
+}
+```
+
+**Features:**
+
+- Users can favorite public decks
+- Quick access to preferred decks
+- Unique constraint prevents duplicate favorites
+
+#### DeckTemplateUsage
+
+Tracks when users create decks from templates.
+
+```prisma
+model DeckTemplateUsage {
+  id            String   @id @default(cuid())
+  templateId    String   // The deck used as template
+  createdDeckId String?  // The new deck created
+  userId        String   // User who used template
+  createdAt     DateTime @default(now())
+
+  // Relations
+  template Deck @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  user     User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+```
+
+**Features:**
+
+- Template popularity tracking
+- User engagement metrics
+- Template attribution
 
 ### Collection Management Models
 
@@ -1556,13 +1633,14 @@ describe('Cards API', () => {
 });
 ```
 
-#### Postman Collection
+#### API Testing
 
-A Postman collection is available for API testing:
+For API testing, you can use:
 
-- Import `docs/postman/Gundam-Card-Game-API.postman_collection.json`
-- Set environment variables for different environments
-- Use the collection for manual testing and documentation
+- **curl** - Command-line testing with examples provided in this document
+- **Postman/Insomnia** - Import endpoints manually from this documentation
+- **Next.js API routes** - Built-in testing via browser or fetch calls
+- **Jest tests** - Automated test suite in `src/app/api/**/*.test.ts`
 
 ---
 

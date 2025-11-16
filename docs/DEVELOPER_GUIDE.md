@@ -144,8 +144,10 @@ src/
 └── hooks/               # Custom React hooks
 
 prisma/
-├── schema.prisma        # Database schema
-└── seed.ts             # Database seed script
+└── schema.prisma        # Database schema
+
+scripts/
+└── seed-database.js     # Database seed script
 ```
 
 ### Request Flow

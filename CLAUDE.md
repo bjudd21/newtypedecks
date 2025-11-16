@@ -80,7 +80,7 @@ npm run quality       # Run all checks including file size checks
 - **State Management**: Redux Toolkit with typed hooks
 - **Backend**: Next.js API routes with Prisma ORM
 - **Database**: PostgreSQL with comprehensive card game schema
-- **Caching**: Redis for sessions and performance
+- **Caching**: Redis 5.9.0 (installed, not yet implemented - see DEPENDENCIES.md)
 - **Testing**: Jest with React Testing Library
 - **Development**: Docker Compose for local services
 

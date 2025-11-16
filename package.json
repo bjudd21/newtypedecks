@@ -47,7 +47,6 @@
     "deploy:docker": "docker-compose -f docker-compose.prod.yml up -d",
     "deploy:k8s": "kubectl apply -f k8s/",
     "health": "curl http://localhost:3000/api/health",
-    "backup": "scripts/deployment/backup.sh",
     "logs": "docker-compose -f docker-compose.prod.yml logs -f",
     "prepare": "husky"
   },

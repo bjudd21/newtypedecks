@@ -230,7 +230,7 @@ newtypedecks/
 - **Next.js API Routes** - Serverless API endpoints
 - **Prisma 6.19.0** - Type-safe database ORM
 - **PostgreSQL** - Primary relational database
-- **Redis 5.9.0** - Caching and session storage
+- **Redis 5.9.0** - Installed (not yet implemented - see docs/DEPENDENCIES.md)
 - **NextAuth 4.24.13** - Authentication solution
 
 ### Development
@@ -250,7 +250,7 @@ newtypedecks/
 
 ### Monitoring & Analytics
 
-- **Sentry 10.24.0** - Error tracking and performance monitoring
+- **Sentry 10.25.0** - Error tracking and performance monitoring
 - **Web Vitals 5.1.0** - Real user monitoring metrics
 
 ## 🗄️ Database Schema

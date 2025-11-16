@@ -178,28 +178,33 @@ kubectl apply -f k8s/secret.yaml
 
 ### 2. Deploy Database (if using in-cluster)
 
-```bash
-# Apply PostgreSQL deployment
-kubectl apply -f k8s/postgres.yaml
+**Note:** Database deployment files (postgres.yaml, redis.yaml) are not included in the repository. You'll need to create these based on your cluster requirements or use managed database services.
 
-# Apply Redis deployment
-kubectl apply -f k8s/redis.yaml
-```
+For managed services, update the ConfigMap with external connection strings.
 
 ### 3. Deploy Application
 
-```bash
-# Apply persistent volume claims
-kubectl apply -f k8s/pvc.yaml
+**Note:** The k8s directory contains minimal deployment files. Available files:
 
-# Deploy application
+- `k8s/namespace.yaml` - Namespace configuration ✓
+- `k8s/configmap.yaml` - Environment configuration ✓
+- `k8s/secret.yaml` - Sensitive data ✓
+- `k8s/deployment.yaml` - Application deployment ✓
+
+**Missing files to create for production:**
+
+- PVC for persistent storage
+- Service for load balancing
+- Ingress for external access
+
+```bash
+# Deploy with existing files
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/secret.yaml
 kubectl apply -f k8s/deployment.yaml
 
-# Expose service
-kubectl apply -f k8s/service.yaml
-
-# Configure ingress
-kubectl apply -f k8s/ingress.yaml
+# Create additional resources as needed for your environment
 ```
 
 ### 4. Verify Deployment
@@ -315,10 +320,11 @@ Response includes:
 
 1. **Prometheus + Grafana**
 
-   ```bash
-   # Add monitoring stack
-   docker-compose -f docker-compose.monitoring.yml up -d
-   ```
+   **Note:** Monitoring docker-compose file not included. Create `docker-compose.monitoring.yml` with Prometheus and Grafana services, or use managed monitoring solutions like:
+   - Vercel Analytics (for Vercel deployments)
+   - DataDog
+   - New Relic
+   - AWS CloudWatch
 
 2. **Application Metrics**
    - Add Prometheus client to Next.js
@@ -334,9 +340,11 @@ Response includes:
 
 ### Database Backup
 
+**Note:** Create a backup script at `scripts/deployment/backup.sh` with the following:
+
 ```bash
-# Automated backup script
 #!/bin/bash
+# Example automated backup script
 BACKUP_DIR="/backups/$(date +%Y%m%d_%H%M%S)"
 mkdir -p $BACKUP_DIR
 
@@ -345,6 +353,13 @@ docker-compose exec -T db pg_dump -U postgres gundam_gcg > $BACKUP_DIR/database.
 
 # Uploads backup
 cp -r ./uploads $BACKUP_DIR/uploads
+```
+
+Then schedule with cron:
+
+```bash
+# Add to crontab for daily backups at 2 AM
+0 2 * * * /path/to/scripts/deployment/backup.sh
 ```
 
 ### Restore Process

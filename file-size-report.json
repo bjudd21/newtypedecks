@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-16T05:44:46.020Z",
+  "timestamp": "2025-11-16T06:12:12.687Z",
   "summary": {
     "passed": 517,
     "warnings": 23,
@@ -3417,10 +3417,10 @@
     },
     {
       "file": "src/components/collection/AdvancedImporter/StepIndicator.tsx",
-      "lines": 38,
+      "lines": 41,
       "limit": 500,
-      "percentage": 7.6,
-      "size": 1140,
+      "percentage": 8.200000000000001,
+      "size": 1175,
       "status": "passed"
     },
     {
