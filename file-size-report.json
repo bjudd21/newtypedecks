@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-11-16T06:12:12.687Z",
+  "timestamp": "2025-11-16T06:24:22.513Z",
   "summary": {
-    "passed": 517,
-    "warnings": 23,
+    "passed": 531,
+    "warnings": 22,
     "errors": 0,
-    "total": 540
+    "total": 553
   },
   "files": [
     {
@@ -165,14 +165,6 @@
       "limit": 500,
       "percentage": 84.8,
       "size": 13479,
-      "status": "warning"
-    },
-    {
-      "file": "src/components/auth/SignUpForm.tsx",
-      "lines": 431,
-      "limit": 500,
-      "percentage": 86.2,
-      "size": 15651,
       "status": "warning"
     },
     {
@@ -1789,6 +1781,54 @@
       "limit": 500,
       "percentage": 2.6,
       "size": 448,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/types.ts",
+      "lines": 24,
+      "limit": 500,
+      "percentage": 4.8,
+      "size": 387,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/index.ts",
+      "lines": 6,
+      "limit": 500,
+      "percentage": 1.2,
+      "size": 247,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/icons/index.ts",
+      "lines": 3,
+      "limit": 500,
+      "percentage": 0.6,
+      "size": 80,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/hooks/useSignUpForm.ts",
+      "lines": 129,
+      "limit": 500,
+      "percentage": 25.8,
+      "size": 3554,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/hooks/useOAuthHandlers.ts",
+      "lines": 43,
+      "limit": 500,
+      "percentage": 8.6,
+      "size": 1086,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/hooks/index.ts",
+      "lines": 3,
+      "limit": 500,
+      "percentage": 0.6,
+      "size": 104,
       "status": "passed"
     },
     {
@@ -3576,6 +3616,14 @@
       "status": "passed"
     },
     {
+      "file": "src/components/auth/SignUpForm.tsx",
+      "lines": 14,
+      "limit": 500,
+      "percentage": 2.8000000000000003,
+      "size": 616,
+      "status": "passed"
+    },
+    {
       "file": "src/components/auth/SignInForm.tsx",
       "lines": 319,
       "limit": 500,
@@ -3629,6 +3677,62 @@
       "limit": 500,
       "percentage": 24.8,
       "size": 2767,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/SignUpFormFields.tsx",
+      "lines": 97,
+      "limit": 500,
+      "percentage": 19.400000000000002,
+      "size": 2594,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/SignUpForm.tsx",
+      "lines": 113,
+      "limit": 500,
+      "percentage": 22.6,
+      "size": 3386,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/PasswordRequirements.tsx",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 607,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/PasswordInputWithToggle.tsx",
+      "lines": 58,
+      "limit": 500,
+      "percentage": 11.600000000000001,
+      "size": 1338,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/OAuthButtons.tsx",
+      "lines": 98,
+      "limit": 500,
+      "percentage": 19.6,
+      "size": 3967,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/icons/EyeOffIcon.tsx",
+      "lines": 30,
+      "limit": 500,
+      "percentage": 6,
+      "size": 679,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/auth/SignUpForm/icons/EyeIcon.tsx",
+      "lines": 34,
+      "limit": 500,
+      "percentage": 6.800000000000001,
+      "size": 755,
       "status": "passed"
     },
     {
