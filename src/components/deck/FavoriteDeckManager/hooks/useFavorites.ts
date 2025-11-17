@@ -2,7 +2,7 @@
  * Custom hook for fetching and managing favorite decks
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { FavoriteDeck } from '../types';
 
 export function useFavorites(searchQuery: string, currentPage: number) {
@@ -12,7 +12,7 @@ export function useFavorites(searchQuery: string, currentPage: number) {
   const [totalPages, setTotalPages] = useState(1);
 
   // Fetch user's favorite decks
-  const fetchFavorites = async () => {
+  const fetchFavorites = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -42,11 +42,11 @@ export function useFavorites(searchQuery: string, currentPage: number) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage, searchQuery]);
 
   useEffect(() => {
     fetchFavorites();
-  }, [currentPage, searchQuery]);
+  }, [fetchFavorites]);
 
   return {
     favorites,

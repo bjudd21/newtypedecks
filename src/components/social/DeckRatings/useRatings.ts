@@ -3,7 +3,7 @@
  * Manages ratings data loading and state
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { socialService, type DeckRating } from '@/lib/services/socialService';
 
 interface UseRatingsOptions {
@@ -29,11 +29,7 @@ export const useRatings = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    loadRatings();
-  }, [deckId]);
-
-  const loadRatings = async (page = 1) => {
+  const loadRatings = useCallback(async (page = 1) => {
     setIsLoading(true);
     setError(null);
 
@@ -62,7 +58,11 @@ export const useRatings = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [deckId, isAuthenticated, userId]);
+
+  useEffect(() => {
+    loadRatings();
+  }, [loadRatings]);
 
   const loadMoreRatings = () => {
     if (!isLoading && hasMore) {

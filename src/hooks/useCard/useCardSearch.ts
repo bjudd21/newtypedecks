@@ -131,7 +131,7 @@ export function useCardSearch(initialFilters: CardSearchFilters = {}) {
   // Initial search effect
   useEffect(() => {
     searchCards();
-  }, []); // Only run once on mount
+  }, [searchCards]); // Only run once on mount (searchCards is stable due to useCallback)
 
   return {
     // State

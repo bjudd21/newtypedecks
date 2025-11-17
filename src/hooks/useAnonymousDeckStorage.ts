@@ -62,7 +62,7 @@ export function useAnonymousDeckStorage(
     dispatch(setCurrentDeck(newDeck));
     saveToLocalStorage(newDeck);
     return newDeck;
-  }, [dispatch]);
+  }, [dispatch, saveToLocalStorage]);
 
   // Save deck to localStorage and optionally to offline storage
   const saveToLocalStorage = useCallback(

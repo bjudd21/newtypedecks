@@ -42,7 +42,12 @@ export function useDeckCalculations({ currentDeck }: UseDeckCalculationsOptions)
     }
     // groupCardsByType expects the deck card format from deckCalculations.ts
     // but we need to return the format expected by DeckContentPanel
-    return groupCardsByType(currentDeck.cards as unknown as DeckCard[]) as unknown as Record<string, (PrismaDeckCard & { card: CardWithRelations })[]>;
+    const cards = currentDeck.cards as unknown as DeckCard[];
+    const grouped = groupCardsByType(cards);
+    return grouped as unknown as Record<
+      string,
+      (PrismaDeckCard & { card: CardWithRelations })[]
+    >;
   }, [currentDeck]);
 
   return {

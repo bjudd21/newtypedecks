@@ -96,6 +96,8 @@ export function useSearchHandlers({
       highlightedIndex,
       setHighlightedIndex,
       closeDropdown,
+      onChange,
+      onSuggestionSelect,
     ]
   );
 

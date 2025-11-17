@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   socialService,
   type UserProfile as UserProfileType,
@@ -38,11 +38,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     'overview' | 'decks' | 'activity' | 'badges'
   >('overview');
 
-  useEffect(() => {
-    loadUserProfile();
-  }, [userId]);
-
-  const loadUserProfile = async () => {
+  const loadUserProfile = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -59,7 +55,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [userId]);
+
+  useEffect(() => {
+    loadUserProfile();
+  }, [loadUserProfile]);
 
   const handleFollowToggle = async () => {
     if (!currentUser || !profile) return;

@@ -110,6 +110,8 @@ export function useImageSetup({
     deviceOptimized,
     preload,
     onError,
+    cacheService,
+    cdnService,
   ]);
 
   return {
