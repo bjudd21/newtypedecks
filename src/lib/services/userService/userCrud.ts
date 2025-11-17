@@ -5,8 +5,13 @@
 
 import { prisma } from '@/lib/database';
 import type { UserRole } from '@prisma/client';
-import bcrypt from 'bcryptjs';
 import type { UserWithActivity, UpdateUserData } from './types';
+import { validateEmailUniqueness } from './helpers/validation';
+import { hashPasswordIfProvided } from './helpers/password';
+import {
+  userSelectWithActivity,
+  transformToUserWithActivity,
+} from './helpers/transformers';
 
 /**
  * Get single user by ID with activity statistics
@@ -14,44 +19,14 @@ import type { UserWithActivity, UpdateUserData } from './types';
 export async function getUserById(id: string): Promise<UserWithActivity | null> {
   const user = await prisma.user.findUnique({
     where: { id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      image: true,
-      role: true,
-      emailVerified: true,
-      createdAt: true,
-      updatedAt: true,
-      _count: {
-        select: {
-          decks: true,
-          collections: true,
-          submissions: true,
-        },
-      },
-    },
+    select: userSelectWithActivity,
   });
 
   if (!user) {
     return null;
   }
 
-  return {
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    image: user.image,
-    role: user.role,
-    emailVerified: user.emailVerified,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt,
-    activity: {
-      deckCount: user._count.decks,
-      collectionCount: user._count.collections,
-      submissionCount: user._count.submissions,
-    },
-  };
+  return transformToUserWithActivity(user);
 }
 
 /**
@@ -63,23 +38,11 @@ export async function updateUser(
 ): Promise<UserWithActivity> {
   // Validate email uniqueness if email is being updated
   if (data.email) {
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        email: data.email,
-        NOT: { id },
-      },
-    });
-
-    if (existingUser) {
-      throw new Error('Email already in use by another user');
-    }
+    await validateEmailUniqueness(data.email, id);
   }
 
   // Hash password if provided
-  let hashedPassword: string | undefined;
-  if (data.password) {
-    hashedPassword = await bcrypt.hash(data.password, 10);
-  }
+  const hashedPassword = await hashPasswordIfProvided(data.password);
 
   // Update user
   const updatedUser = await prisma.user.update({
@@ -90,40 +53,10 @@ export async function updateUser(
       ...(data.role && { role: data.role }),
       ...(hashedPassword && { password: hashedPassword }),
     },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      image: true,
-      role: true,
-      emailVerified: true,
-      createdAt: true,
-      updatedAt: true,
-      _count: {
-        select: {
-          decks: true,
-          collections: true,
-          submissions: true,
-        },
-      },
-    },
+    select: userSelectWithActivity,
   });
 
-  return {
-    id: updatedUser.id,
-    email: updatedUser.email,
-    name: updatedUser.name,
-    image: updatedUser.image,
-    role: updatedUser.role,
-    emailVerified: updatedUser.emailVerified,
-    createdAt: updatedUser.createdAt,
-    updatedAt: updatedUser.updatedAt,
-    activity: {
-      deckCount: updatedUser._count.decks,
-      collectionCount: updatedUser._count.collections,
-      submissionCount: updatedUser._count.submissions,
-    },
-  };
+  return transformToUserWithActivity(updatedUser);
 }
 
 /**
