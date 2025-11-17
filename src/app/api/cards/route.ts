@@ -2,122 +2,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CardService } from '@/lib/services/cardService';
 import { requireAdmin } from '@/middleware/adminAuth';
-import type { CardSearchFilters, CardSearchOptions } from '@/lib/types';
+import {
+  parsePaginationParams,
+  parseSortParams,
+  parseFilterParams,
+  buildSearchOptions,
+  formatCardsResponse,
+} from './helpers';
 
 // GET /api/cards - Get all cards with pagination and filtering
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
 
-    // Parse pagination parameters
-    const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
-    const limit = Math.min(
-      100,
-      Math.max(1, parseInt(searchParams.get('limit') || '20'))
-    );
-
-    // Parse sorting parameters
-    const sortBy = searchParams.get('sortBy') || 'name';
-    const sortOrder = (searchParams.get('sortOrder') || 'asc') as
-      | 'asc'
-      | 'desc';
-
-    // Parse filter parameters
-    const filters: CardSearchFilters = {};
-
-    // Text filters
-    const search = searchParams.get('search')?.trim();
-    if (search) {
-      filters.name = search; // Simple name search for GET endpoint
-    }
-
-    // Category filters
-    const type = searchParams.get('type')?.trim();
-    if (type) filters.typeId = type;
-
-    const rarity = searchParams.get('rarity')?.trim();
-    if (rarity) filters.rarityId = rarity;
-
-    const set = searchParams.get('set')?.trim();
-    if (set) filters.setId = set;
-
-    const faction = searchParams.get('faction')?.trim();
-    if (faction) filters.faction = faction;
-
-    const series = searchParams.get('series')?.trim();
-    if (series) filters.series = series;
-
-    // Numeric filters
-    const levelMin = searchParams.get('levelMin');
-    if (levelMin && !isNaN(Number(levelMin))) {
-      filters.levelMin = parseInt(levelMin);
-    }
-
-    const levelMax = searchParams.get('levelMax');
-    if (levelMax && !isNaN(Number(levelMax))) {
-      filters.levelMax = parseInt(levelMax);
-    }
-
-    const costMin = searchParams.get('costMin');
-    if (costMin && !isNaN(Number(costMin))) {
-      filters.costMin = parseInt(costMin);
-    }
-
-    const costMax = searchParams.get('costMax');
-    if (costMax && !isNaN(Number(costMax))) {
-      filters.costMax = parseInt(costMax);
-    }
+    // Parse all parameters using helper functions
+    const { page, limit } = parsePaginationParams(searchParams);
+    const { sortBy, sortOrder } = parseSortParams(searchParams);
+    const filters = parseFilterParams(searchParams);
 
     // Build search options
-    const validSortFields = [
-      'name',
-      'level',
-      'cost',
-      'clashPoints',
-      'price',
-      'hitPoints',
-      'attackPoints',
-      'setNumber',
-      'createdAt',
-    ] as const;
-    type ValidSortField = (typeof validSortFields)[number];
-    const options: CardSearchOptions = {
-      page,
-      limit,
-      sortBy: validSortFields.includes(sortBy as ValidSortField)
-        ? (sortBy as ValidSortField)
-        : 'name',
-      sortOrder,
-      includeRelations: true,
-    };
+    const options = buildSearchOptions(page, limit, sortBy, sortOrder);
 
     // Execute search using CardService
     const result = await CardService.searchCards(filters, options);
 
     // Format response to match expected API structure
-    const response = {
-      cards: result.cards,
-      pagination: {
-        page: result.page,
-        limit: result.limit,
-        total: result.total,
-        totalPages: result.totalPages,
-        hasNext: result.page < result.totalPages,
-        hasPrev: result.page > 1,
-      },
-      filters: {
-        search: search || undefined,
-        type: type || undefined,
-        rarity: rarity || undefined,
-        set: set || undefined,
-        faction: faction || undefined,
-        series: series || undefined,
-        levelMin: filters.levelMin,
-        levelMax: filters.levelMax,
-        costMin: filters.costMin,
-        costMax: filters.costMax,
-      },
-    };
+    const response = formatCardsResponse(result, searchParams, filters);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

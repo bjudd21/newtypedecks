@@ -43,27 +43,6 @@ export function useAnonymousDeckStorage(
   const dispatch = useDispatch();
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
-  // Initialize a new anonymous deck
-  const initializeNewDeck = useCallback(() => {
-    const newDeck: DeckData = {
-      id: `anonymous-${Date.now()}`,
-      name: 'My Anonymous Deck',
-      description: 'Built without an account',
-      isPublic: false,
-      userId: 'anonymous',
-      currentVersion: 1,
-      versionName: null,
-      isTemplate: false,
-      templateSource: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      cards: [],
-    };
-    dispatch(setCurrentDeck(newDeck));
-    saveToLocalStorage(newDeck);
-    return newDeck;
-  }, [dispatch, saveToLocalStorage]);
-
   // Save deck to localStorage and optionally to offline storage
   const saveToLocalStorage = useCallback(
     async (deck: DeckData | null, saveOffline = false) => {
@@ -102,6 +81,27 @@ export function useAnonymousDeckStorage(
     },
     [isOnline, setSaveStatus, loadPendingSyncCount]
   );
+
+  // Initialize a new anonymous deck
+  const initializeNewDeck = useCallback(() => {
+    const newDeck: DeckData = {
+      id: `anonymous-${Date.now()}`,
+      name: 'My Anonymous Deck',
+      description: 'Built without an account',
+      isPublic: false,
+      userId: 'anonymous',
+      currentVersion: 1,
+      versionName: null,
+      isTemplate: false,
+      templateSource: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      cards: [],
+    };
+    dispatch(setCurrentDeck(newDeck));
+    saveToLocalStorage(newDeck);
+    return newDeck;
+  }, [dispatch, saveToLocalStorage]);
 
   // Load deck from URL encoded data
   const loadDeckFromURL = useCallback(
