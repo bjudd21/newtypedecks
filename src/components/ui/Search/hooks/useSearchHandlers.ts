@@ -3,7 +3,7 @@
  */
 
 import { useCallback, RefObject } from 'react';
-import { KEYBOARD_CODES } from '@/lib/utils/accessibility';
+import { handleSearchKeyboardNavigation } from './keyboardHandlers';
 import type { SearchSuggestion } from '../types';
 
 interface UseSearchHandlersOptions {
@@ -65,49 +65,29 @@ export function useSearchHandlers({
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (!isOpen || filteredSuggestions.length === 0) {
-        if (event.key === KEYBOARD_CODES.ENTER && onSearch) {
-          onSearch(value);
-        }
-        return;
-      }
-
-      switch (event.key) {
-        case KEYBOARD_CODES.ARROW_DOWN:
-          event.preventDefault();
-          setHighlightedIndex((prev) =>
-            prev < filteredSuggestions.length - 1 ? prev + 1 : prev
-          );
-          break;
-        case KEYBOARD_CODES.ARROW_UP:
-          event.preventDefault();
-          setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : -1));
-          break;
-        case KEYBOARD_CODES.ENTER:
-          event.preventDefault();
-          if (
-            highlightedIndex >= 0 &&
-            highlightedIndex < filteredSuggestions.length
-          ) {
-            handleSuggestionSelect(filteredSuggestions[highlightedIndex]);
-          } else if (onSearch) {
-            onSearch(value);
-          }
-          break;
-        case KEYBOARD_CODES.ESCAPE:
-          closeDropdown();
-          break;
-      }
+      handleSearchKeyboardNavigation(
+        event,
+        isOpen,
+        filteredSuggestions,
+        highlightedIndex,
+        {
+          onSearch,
+          setHighlightedIndex,
+          handleSuggestionSelect,
+          closeDropdown,
+        },
+        value
+      );
     },
     [
       isOpen,
       filteredSuggestions,
-      onSearch,
-      value,
       highlightedIndex,
+      onSearch,
       setHighlightedIndex,
-      closeDropdown,
       handleSuggestionSelect,
+      closeDropdown,
+      value,
     ]
   );
 
