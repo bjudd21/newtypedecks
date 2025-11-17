@@ -3,20 +3,22 @@
  * Maintains backward compatibility while delegating to focused service modules
  */
 
+import * as profileService from './profileService';
 import * as commentsService from './commentsService';
 import * as ratingsService from './ratingsService';
+import * as interactionsService from './interactionsService';
+import * as activityService from './activityService';
+import * as notificationsService from './notificationsService';
+import * as communityService from './communityService';
 import type {
   UserProfile,
   DeckComment,
   DeckRating,
   SocialDeckData,
-  Follow,
   Notification,
   ActivityFeed,
   CommunityStats,
   UserBadge,
-  UserSocialPreferences,
-  UserStatistics,
 } from './types';
 
 class SocialService {
@@ -25,52 +27,14 @@ class SocialService {
   // ====================
 
   async getUserProfile(userId: string): Promise<UserProfile | null> {
-    return {
-      id: userId,
-      username: 'placeholder_user',
-      displayName: 'Placeholder User',
-      bio: 'Passionate Gundam Card Game player and deck builder',
-      joinDate: new Date('2024-01-15'),
-      lastActive: new Date(),
-      isVerified: false,
-      preferences: {
-        showRealName: true,
-        showLocation: true,
-        showDecks: true,
-        showCollection: false,
-        allowDirectMessages: true,
-        emailNotifications: {
-          comments: true,
-          ratings: true,
-          follows: true,
-          deckLikes: false,
-        },
-      } as UserSocialPreferences,
-      statistics: {
-        totalDecks: 12,
-        publicDecks: 8,
-        deckLikes: 145,
-        commentsGiven: 89,
-        commentsReceived: 67,
-        averageRating: 4.2,
-        totalRatings: 23,
-        followers: 34,
-        following: 56,
-        favoriteArchetype: 'Midrange Value',
-      } as UserStatistics,
-      badges: [],
-    };
+    return profileService.getUserProfile(userId);
   }
 
   async updateUserProfile(
     userId: string,
     updates: Partial<UserProfile>
   ): Promise<UserProfile> {
-    const currentProfile = await this.getUserProfile(userId);
-    if (!currentProfile) {
-      throw new Error('User not found');
-    }
-    return { ...currentProfile, ...updates };
+    return profileService.updateUserProfile(userId, updates);
   }
 
   // ====================
@@ -143,23 +107,17 @@ class SocialService {
   // ====================
 
   async toggleDeckLike(
-    _deckId: string,
-    _userId: string
+    deckId: string,
+    userId: string
   ): Promise<{ isLiked: boolean; likeCount: number }> {
-    return {
-      isLiked: true,
-      likeCount: 42,
-    };
+    return interactionsService.toggleDeckLike(deckId, userId);
   }
 
   async toggleUserFollow(
-    _followingId: string,
-    _followerId: string
+    followingId: string,
+    followerId: string
   ): Promise<{ isFollowing: boolean; followerCount: number }> {
-    return {
-      isFollowing: true,
-      followerCount: 35,
-    };
+    return interactionsService.toggleUserFollow(followingId, followerId);
   }
 
   // ====================
@@ -167,19 +125,19 @@ class SocialService {
   // ====================
 
   async getUserActivityFeed(
-    _userId: string,
-    _page = 1,
-    _limit = 20
+    userId: string,
+    page = 1,
+    limit = 20
   ): Promise<ActivityFeed[]> {
-    return [];
+    return activityService.getUserActivityFeed(userId, page, limit);
   }
 
   async getFollowingFeed(
-    _userId: string,
-    _page = 1,
-    _limit = 20
+    userId: string,
+    page = 1,
+    limit = 20
   ): Promise<ActivityFeed[]> {
-    return [];
+    return activityService.getFollowingFeed(userId, page, limit);
   }
 
   // ====================
@@ -187,27 +145,23 @@ class SocialService {
   // ====================
 
   async getUserNotifications(
-    _userId: string,
-    _page = 1,
-    _limit = 20
+    userId: string,
+    page = 1,
+    limit = 20
   ): Promise<{
     notifications: Notification[];
     totalCount: number;
     unreadCount: number;
   }> {
-    return {
-      notifications: [],
-      totalCount: 0,
-      unreadCount: 0,
-    };
+    return notificationsService.getUserNotifications(userId, page, limit);
   }
 
-  async markNotificationRead(_notificationId: string): Promise<void> {
-    // Implementation
+  async markNotificationRead(notificationId: string): Promise<void> {
+    return notificationsService.markNotificationRead(notificationId);
   }
 
-  async markAllNotificationsRead(_userId: string): Promise<void> {
-    // Implementation
+  async markAllNotificationsRead(userId: string): Promise<void> {
+    return notificationsService.markAllNotificationsRead(userId);
   }
 
   // ====================
@@ -215,41 +169,31 @@ class SocialService {
   // ====================
 
   async getCommunityStats(): Promise<CommunityStats> {
-    return {
-      totalUsers: 15234,
-      activeUsers: 8456,
-      totalDecks: 45678,
-      publicDecks: 12345,
-      totalComments: 23456,
-      totalRatings: 8901,
-      averageRating: 4.2,
-      topArchetypes: [],
-      recentActivity: [],
-    };
+    return communityService.getCommunityStats();
   }
 
-  async searchUsers(_query: string, _limit = 10): Promise<UserProfile[]> {
-    return [];
+  async searchUsers(query: string, limit = 10): Promise<UserProfile[]> {
+    return communityService.searchUsers(query, limit);
   }
 
   async getPopularDecks(
-    _timeframe: 'day' | 'week' | 'month' | 'all' = 'week',
-    _limit = 10
+    timeframe: 'day' | 'week' | 'month' | 'all' = 'week',
+    limit = 10
   ): Promise<SocialDeckData[]> {
-    return [];
+    return communityService.getPopularDecks(timeframe, limit);
   }
 
   async reportContent(
-    _contentType: string,
-    _contentId: string,
-    _userId: string,
-    _reason: string
+    contentType: string,
+    contentId: string,
+    userId: string,
+    reason: string
   ): Promise<void> {
-    // Implementation
+    return communityService.reportContent(contentType, contentId, userId, reason);
   }
 
-  async getUserBadges(_userId: string): Promise<UserBadge[]> {
-    return [];
+  async getUserBadges(userId: string): Promise<UserBadge[]> {
+    return communityService.getUserBadges(userId);
   }
 }
 
