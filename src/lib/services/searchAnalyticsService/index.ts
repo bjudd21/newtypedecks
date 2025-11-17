@@ -14,14 +14,17 @@ import type {
   SearchSuggestion,
 } from './types';
 import type { CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
-import { generateEventId } from './utils';
-import { updateSearchPatterns, updateUserBehavior } from './processors';
+import {
+  trackSearch as recordSearch,
+  type EventTrackingContext,
+} from './eventTracking';
 import {
   getPopularSearches,
   getSearchTrends,
   getPerformanceMetrics,
 } from './analytics';
 import { generateSearchSuggestions } from './suggestions';
+import { startPeriodicProcessing } from './lifecycle';
 
 export type {
   SearchEvent,
@@ -54,7 +57,7 @@ export class SearchAnalyticsService {
     }
 
     // Start periodic data processing
-    this.startPeriodicProcessing();
+    startPeriodicProcessing(this.config, this.getContext());
   }
 
   public static getInstance(
@@ -64,6 +67,15 @@ export class SearchAnalyticsService {
       SearchAnalyticsService.instance = new SearchAnalyticsService(config);
     }
     return SearchAnalyticsService.instance;
+  }
+
+  private getContext(): EventTrackingContext {
+    return {
+      events: this.events,
+      patterns: this.patterns,
+      userBehaviors: this.userBehaviors,
+      config: this.config,
+    };
   }
 
   /**
@@ -82,46 +94,14 @@ export class SearchAnalyticsService {
       referer?: string;
     } = {}
   ): Promise<void> {
-    if (!this.config.enableRealTimeTracking) {
-      return;
-    }
-
-    const event: SearchEvent = {
-      id: generateEventId(),
-      timestamp: new Date(),
-      sessionId: context.sessionId,
-      userId: context.userId,
+    return recordSearch(
       filters,
       options,
       resultCount,
       responseTime,
-      source: context.source || 'manual',
-      userAgent: context.userAgent,
-      referer: context.referer,
-    };
-
-    this.events.push(event);
-
-    // Process the event for patterns and behavior tracking
-    await this.processEvent(event);
-
-    // Clean old events
-    this.cleanOldEvents();
-  }
-
-  /**
-   * Process a search event for analytics
-   */
-  private async processEvent(event: SearchEvent): Promise<void> {
-    // Update search patterns
-    if (this.config.enableTrendAnalysis) {
-      updateSearchPatterns(event, this.patterns);
-    }
-
-    // Update user behavior
-    if (this.config.enableUserBehaviorTracking && event.userId) {
-      updateUserBehavior(event, this.userBehaviors);
-    }
+      this.getContext(),
+      context
+    );
   }
 
   /**
@@ -167,32 +147,6 @@ export class SearchAnalyticsService {
       this.userBehaviors,
       userId,
       currentFilters
-    );
-  }
-
-  /**
-   * Clean old events based on retention policy
-   */
-  private cleanOldEvents(): void {
-    if (this.events.length > 10000) {
-      const cutoff = new Date(
-        Date.now() - this.config.dataRetentionDays * 24 * 60 * 60 * 1000
-      );
-      this.events = this.events.filter((event) => event.timestamp >= cutoff);
-    }
-  }
-
-  /**
-   * Start periodic data processing
-   */
-  private startPeriodicProcessing(): void {
-    // Process analytics data periodically
-    setInterval(
-      () => {
-        this.cleanOldEvents();
-        // Could add more periodic processing here
-      },
-      this.config.aggregationInterval * 60 * 1000
     );
   }
 }
