@@ -2,16 +2,13 @@
  * CSV Export Format
  */
 
-import type { ExportableDeck, ExportOptions } from '../types';
+import type { ExportableDeck, ExportOptions, DeckCard } from '../types';
 import { sortCards } from '../utils';
 
 /**
- * Export to CSV format
+ * Build CSV headers
  */
-export function exportToCSV(
-  deck: ExportableDeck,
-  options: ExportOptions
-): string {
+function buildCSVHeaders(): string {
   const headers = [
     'Quantity',
     'Name',
@@ -25,27 +22,52 @@ export function exportToCSV(
     'Model',
     'Category',
   ];
+  return headers.join(',') + '\n';
+}
 
-  let csv = headers.join(',') + '\n';
+/**
+ * Escape CSV value (handle quotes and nulls)
+ */
+function escapeCSVValue(value: string | null | undefined): string {
+  if (!value) {
+    return '';
+  }
+  return `"${value.replace(/"/g, '""')}"`;
+}
+
+/**
+ * Build a CSV row for a deck card
+ */
+function buildCardRow(deckCard: DeckCard): string {
+  const row = [
+    deckCard.quantity,
+    escapeCSVValue(deckCard.card.name),
+    escapeCSVValue(deckCard.card.set?.name),
+    escapeCSVValue(deckCard.card.setNumber),
+    deckCard.card.cost || '',
+    escapeCSVValue(deckCard.card.type?.name),
+    escapeCSVValue(deckCard.card.rarity?.name),
+    escapeCSVValue(deckCard.card.faction),
+    escapeCSVValue(deckCard.card.pilot),
+    escapeCSVValue(deckCard.card.model),
+    escapeCSVValue(deckCard.category || 'main'),
+  ];
+
+  return row.join(',') + '\n';
+}
+
+/**
+ * Export to CSV format
+ */
+export function exportToCSV(
+  deck: ExportableDeck,
+  options: ExportOptions
+): string {
+  let csv = buildCSVHeaders();
 
   const sortedCards = sortCards(deck.cards, options);
-
   for (const deckCard of sortedCards) {
-    const row = [
-      deckCard.quantity,
-      `"${deckCard.card.name.replace(/"/g, '""')}"`,
-      `"${deckCard.card.set?.name?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.card.setNumber || ''}"`,
-      deckCard.card.cost || '',
-      `"${deckCard.card.type?.name?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.card.rarity?.name?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.card.faction?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.card.pilot?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.card.model?.replace(/"/g, '""') || ''}"`,
-      `"${deckCard.category || 'main'}"`,
-    ];
-
-    csv += row.join(',') + '\n';
+    csv += buildCardRow(deckCard);
   }
 
   return csv;
