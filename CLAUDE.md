@@ -305,12 +305,12 @@ This project has comprehensive documentation organized into focused guides:
 ## Code Quality Status
 
 Last comprehensive cleanup: 2025-11-10 (Latest commits: 822f55f, b69b973, 4bf8c12)
-Latest updates: 2025-11-17 (ESLint warning reduction: Phase 1 & 2 - Commits: e11c791, 0689ff5)
+Latest updates: 2025-11-17 (ESLint warning reduction & refactoring - Commits: 92c1586, d56bbe1)
 
 ### Current Status
 
 - ✅ **0 ESLint errors** (down from 119)
-- ⚠️ **136 ESLint warnings** (down from 228 → 816 originally)
+- ⚠️ **131 ESLint warnings** (down from 136 → 228 → 816 originally)
 - ✅ **TypeScript compilation: PASSING**
 - ✅ **Security: 0 vulnerabilities**
 - ✅ **Tests: 193 passed, 2 skipped**
@@ -364,18 +364,38 @@ Latest updates: 2025-11-17 (ESLint warning reduction: Phase 1 & 2 - Commits: e11
 
 **Result:** 228 → 136 warnings (92 warnings fixed, 40% reduction)
 
-### Remaining Issues (136 warnings)
+**Phase 5: Conservative Quick Wins (Commits: 92c1586, d56bbe1 - 2025-11-17)**
+
+1. **Statistics & Export Helpers (5 warnings fixed)** - Extracted helper functions to reduce complexity
+   - **CardUtils statistics**: complexity 26 → 3, statements 41 → 4
+     - Extracted `calculateCategoryDistributions()`, `accumulateNumericField()`, `calculateAverage()`, `calculateNumericAverages()`
+   - **Text Exporter**: complexity 24 → 3, statements 43 → 7
+     - Extracted `buildDeckHeader()`, `buildStatsSection()`, `formatCardLine()`, `buildGroupedByType()`, `buildSimpleList()`, `buildFooter()`
+   - **CSV Exporter**: complexity 20 → 3
+     - Extracted `buildCSVHeaders()`, `escapeCSVValue()`, `buildCardRow()`
+
+2. **useDecks Hook Modularization** - Improved code organization (warning remains but structure improved)
+   - Split 255-line hook into 3 files: main hook (172 lines), types (59 lines), API utilities (113 lines)
+   - Extracted 7 interfaces to `useDecks/types.ts`
+   - Extracted 6 API functions to `useDecks/api.ts` (apiCreateDeck, apiUpdateDeck, apiDeleteDeck, apiGetDeck, apiGetUserDecks, buildQueryParams)
+   - Better separation of concerns: hook handles state/auth, API handles fetch logic
+   - All API utilities now independently testable
+
+**Result:** 136 → 131 warnings (5 warnings fixed, 4% additional reduction)
+
+### Remaining Issues (131 warnings)
 
 These are legitimate complexity issues acceptable for production:
 
 - **102 warnings** - Long functions (>100 lines) with complex business logic (page components, admin forms)
-- **29 warnings** - High cyclomatic complexity (>15) in API routes and service files
+- **24 warnings** - High cyclomatic complexity (>15) in API routes and service files (reduced from 29)
 - **5 warnings** - Other minor style issues (max-statements, max-lines, etc.)
 
 **Breakdown by Category:**
 - Most warnings are for page-level components (homepage: 435 lines, demo: 267 lines, etc.)
 - Admin forms and modals with many fields (CardForm: 159 lines, CardFormModal: 123 lines)
 - Complex business logic that can't be easily simplified (BasicInformation complexity: 22)
+- Large hooks with comprehensive CRUD operations (useDecks: 142 lines function body)
 
 ### Next Steps for Further Improvement
 
