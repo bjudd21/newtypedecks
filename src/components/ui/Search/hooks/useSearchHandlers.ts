@@ -52,6 +52,17 @@ export function useSearchHandlers({
     [onChange, triggerSearch, showSuggestions, suggestions.length, setIsOpen]
   );
 
+  const handleSuggestionSelect = useCallback(
+    (suggestion: SearchSuggestion) => {
+      onChange(suggestion.value);
+      if (onSuggestionSelect) {
+        onSuggestionSelect(suggestion);
+      }
+      closeDropdown();
+    },
+    [onChange, onSuggestionSelect, closeDropdown]
+  );
+
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (!isOpen || filteredSuggestions.length === 0) {
@@ -96,20 +107,8 @@ export function useSearchHandlers({
       highlightedIndex,
       setHighlightedIndex,
       closeDropdown,
-      onChange,
-      onSuggestionSelect,
+      handleSuggestionSelect,
     ]
-  );
-
-  const handleSuggestionSelect = useCallback(
-    (suggestion: SearchSuggestion) => {
-      onChange(suggestion.value);
-      if (onSuggestionSelect) {
-        onSuggestionSelect(suggestion);
-      }
-      closeDropdown();
-    },
-    [onChange, onSuggestionSelect, closeDropdown]
   );
 
   const handleInputFocus = useCallback(() => {
