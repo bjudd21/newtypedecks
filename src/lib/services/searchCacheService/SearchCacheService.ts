@@ -9,9 +9,17 @@ import type {
   CardSearchResult,
 } from '@/lib/types/card';
 import type { CacheEntry, CacheStats, CacheConfig } from './types';
-import { generateCacheKey } from './cacheKeyGenerator';
-import { estimateSize, isEntryValid } from './cacheUtils';
+import { getCachedResult } from './operations/get';
+import { setCachedResult } from './operations/set';
+import { cleanupExpiredEntries, clearAllEntries } from './operations/cleanup';
+import { invalidateByFilters } from './operations/invalidate';
 import { calculateStats } from './cacheStats';
+import {
+  startPeriodicCleanup,
+  stopPeriodicCleanup,
+  preloadPopularSearches,
+  type LifecycleManager,
+} from './lifecycle';
 
 export class SearchCacheService {
   private static instance: SearchCacheService;
@@ -31,7 +39,7 @@ export class SearchCacheService {
     cleanupInterval: 30 * 1000, // 30 seconds
   };
 
-  private cleanupTimer?: NodeJS.Timeout;
+  private lifecycle: LifecycleManager = {};
 
   private constructor(config?: Partial<CacheConfig>) {
     if (config) {
@@ -39,7 +47,7 @@ export class SearchCacheService {
     }
 
     // Start periodic cleanup
-    this.startPeriodicCleanup();
+    startPeriodicCleanup(this.config, this.getCleanupContext(), this.lifecycle);
   }
 
   public static getInstance(config?: Partial<CacheConfig>): SearchCacheService {
@@ -49,6 +57,21 @@ export class SearchCacheService {
     return SearchCacheService.instance;
   }
 
+  private getContext() {
+    return {
+      cache: this.cache,
+      stats: this.stats,
+      config: this.config,
+    };
+  }
+
+  private getCleanupContext() {
+    return {
+      cache: this.cache,
+      stats: this.stats,
+    };
+  }
+
   /**
    * Get cached search result
    */
@@ -56,34 +79,7 @@ export class SearchCacheService {
     filters: CardSearchFilters,
     options: CardSearchOptions
   ): Promise<CardSearchResult | null> {
-    const startTime = Date.now();
-    const key = generateCacheKey(filters, options);
-    const entry = this.cache.get(key);
-
-    if (!entry || !isEntryValid(entry)) {
-      this.stats.totalMisses++;
-      if (entry) {
-        // Remove expired entry
-        this.cache.delete(key);
-        this.stats.totalSize -= entry.size;
-      }
-      return null;
-    }
-
-    // Update access statistics
-    entry.accessCount++;
-    entry.lastAccessed = Date.now();
-    this.stats.totalHits++;
-
-    const responseTime = Date.now() - startTime;
-    this.stats.responseTimes.push(responseTime);
-
-    // Keep response times array at reasonable size
-    if (this.stats.responseTimes.length > 1000) {
-      this.stats.responseTimes = this.stats.responseTimes.slice(-500);
-    }
-
-    return entry.result;
+    return getCachedResult(filters, options, this.getContext());
   }
 
   /**
@@ -95,97 +91,21 @@ export class SearchCacheService {
     result: CardSearchResult,
     customTTL?: number
   ): Promise<void> {
-    const key = generateCacheKey(filters, options);
-    const size = estimateSize(result);
-    const ttl = customTTL || this.config.defaultTTL;
-
-    // Check if we need to evict entries
-    await this.ensureCapacity(size);
-
-    const entry: CacheEntry = {
-      result: { ...result }, // Clone to prevent mutations
-      timestamp: Date.now(),
-      accessCount: 1,
-      lastAccessed: Date.now(),
-      ttl,
-      size,
-    };
-
-    // Remove existing entry if it exists
-    const existingEntry = this.cache.get(key);
-    if (existingEntry) {
-      this.stats.totalSize -= existingEntry.size;
-    }
-
-    this.cache.set(key, entry);
-    this.stats.totalSize += size;
-  }
-
-  /**
-   * Ensure cache capacity by evicting entries if needed
-   */
-  private async ensureCapacity(newEntrySize: number): Promise<void> {
-    // Check size limit
-    while (
-      this.stats.totalSize + newEntrySize > this.config.maxSize &&
-      this.cache.size > 0
-    ) {
-      await this.evictLRUEntry();
-    }
-
-    // Check entry count limit
-    while (this.cache.size >= this.config.maxEntries) {
-      await this.evictLRUEntry();
-    }
-  }
-
-  /**
-   * Evict least recently used entry
-   */
-  private async evictLRUEntry(): Promise<void> {
-    let oldestKey = '';
-    let oldestTime = Date.now();
-
-    for (const [key, entry] of this.cache.entries()) {
-      if (entry.lastAccessed < oldestTime) {
-        oldestTime = entry.lastAccessed;
-        oldestKey = key;
-      }
-    }
-
-    if (oldestKey) {
-      const entry = this.cache.get(oldestKey)!;
-      this.cache.delete(oldestKey);
-      this.stats.totalSize -= entry.size;
-    }
+    return setCachedResult(filters, options, result, customTTL, this.getContext());
   }
 
   /**
    * Clear expired entries
    */
   async cleanup(): Promise<number> {
-    let removedCount = 0;
-
-    for (const [key, entry] of this.cache.entries()) {
-      if (!isEntryValid(entry)) {
-        this.cache.delete(key);
-        this.stats.totalSize -= entry.size;
-        removedCount++;
-      }
-    }
-
-    return removedCount;
+    return cleanupExpiredEntries(this.getCleanupContext());
   }
 
   /**
    * Clear all cached entries
    */
   async clear(): Promise<void> {
-    this.cache.clear();
-    this.stats.totalSize = 0;
-    this.stats.totalHits = 0;
-    this.stats.totalMisses = 0;
-    this.stats.responseTimes = [];
+    return clearAllEntries(this.getCleanupContext());
   }
 
   /**
@@ -194,31 +114,7 @@ export class SearchCacheService {
   async invalidateByFilters(
     filters: Partial<CardSearchFilters>
   ): Promise<number> {
-    let removedCount = 0;
-
-    for (const [key, entry] of this.cache.entries()) {
-      const keyObj = JSON.parse(key);
-      const entryFilters = keyObj.f as CardSearchFilters;
-
-      // Check if any filter matches
-      let shouldInvalidate = false;
-      for (const [filterKey, filterValue] of Object.entries(filters)) {
-        if (
-          entryFilters[filterKey as keyof CardSearchFilters] === filterValue
-        ) {
-          shouldInvalidate = true;
-          break;
-        }
-      }
-
-      if (shouldInvalidate) {
-        this.cache.delete(key);
-        this.stats.totalSize -= entry.size;
-        removedCount++;
-      }
-    }
-
-    return removedCount;
+    return invalidateByFilters(filters, this.getContext());
   }
 
   /**
@@ -229,47 +125,17 @@ export class SearchCacheService {
   }
 
   /**
-   * Start periodic cleanup
-   */
-  private startPeriodicCleanup(): void {
-    if (this.cleanupTimer) {
-      clearInterval(this.cleanupTimer);
-    }
-
-    this.cleanupTimer = setInterval(async () => {
-      try {
-        await this.cleanup();
-      } catch (error) {
-        console.error('Cache cleanup error:', error);
-      }
-    }, this.config.cleanupInterval);
-  }
-
-  /**
    * Stop periodic cleanup
    */
   stopCleanup(): void {
-    if (this.cleanupTimer) {
-      clearInterval(this.cleanupTimer);
-      this.cleanupTimer = undefined;
-    }
+    stopPeriodicCleanup(this.lifecycle);
   }
 
   /**
    * Preload frequently accessed searches
    */
   async preloadPopularSearches(): Promise<void> {
-    // This would typically be implemented with actual popular search data
-    const popularSearches = [
-      { filters: { faction: 'Earth Federation' }, options: { limit: 20 } },
-      { filters: { faction: 'Zeon' }, options: { limit: 20 } },
-      { filters: { series: 'UC' }, options: { limit: 20 } },
-      { filters: { typeId: 'unit' }, options: { limit: 20 } },
-    ];
-
-    // Note: In a real implementation, you would call the actual search service
-    // This is just a placeholder to show the concept
-    console.warn('Preloading popular searches:', popularSearches.length);
+    return preloadPopularSearches();
   }
 }
 
