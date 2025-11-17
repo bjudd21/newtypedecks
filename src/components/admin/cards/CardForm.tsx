@@ -12,8 +12,9 @@ import {
   FormActions,
   LoadingSpinner,
   useReferenceData,
+  type CardFormData,
+  type CardFormProps,
 } from './CardForm/';
-import type { CardFormData, CardFormProps } from './CardForm/';
 
 export function CardForm({
   initialData,

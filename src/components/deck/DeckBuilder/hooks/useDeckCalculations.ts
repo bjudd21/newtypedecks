@@ -7,8 +7,7 @@ import {
   calculateDeckStats,
   groupCardsByType,
 } from '@/lib/utils/deckCalculations';
-import type { Deck } from '@prisma/client';
-import type { DeckCard as PrismaDeckCard } from '@prisma/client';
+import type { Deck, DeckCard as PrismaDeckCard } from '@prisma/client';
 import type { CardWithRelations } from '@/lib/types/card';
 
 // Local DeckCard type matching deckCalculations.ts

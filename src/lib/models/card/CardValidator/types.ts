@@ -2,7 +2,6 @@
  * CardValidator type definitions
  */
 
-import type { CardLanguage } from '../../../types/card';
 import { CARD_CONSTANTS } from '../../../types/card';
 
 export type CardFaction = (typeof CARD_CONSTANTS.SUPPORTED_FACTIONS)[number];

@@ -6,7 +6,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface CheckboxOption {
+interface _CheckboxOption {
   key: string;
   label: string;
   checked: boolean;

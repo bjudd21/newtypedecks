@@ -2,8 +2,7 @@
  * Language validation
  */
 
-import type { CreateCardData, CardLanguage } from '../../../../types/card';
-import { CARD_CONSTANTS } from '../../../../types/card';
+import { CARD_CONSTANTS, type CreateCardData, type CardLanguage } from '../../../../types/card';
 import type { ValidationResult } from '../types';
 
 /**

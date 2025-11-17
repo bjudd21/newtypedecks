@@ -2,8 +2,7 @@
  * Faction validation
  */
 
-import type { CreateCardData } from '../../../../types/card';
-import { CARD_CONSTANTS } from '../../../../types/card';
+import { CARD_CONSTANTS, type CreateCardData } from '../../../../types/card';
 import type { ValidationResult, CardFaction } from '../types';
 
 /**

@@ -2,8 +2,7 @@
  * Required fields validation
  */
 
-import type { CreateCardData } from '../../../../types/card';
-import { CARD_VALIDATION_SCHEMAS } from '../../../../types/card';
+import { CARD_VALIDATION_SCHEMAS, type CreateCardData } from '../../../../types/card';
 import type { ValidationResult } from '../types';
 
 /**

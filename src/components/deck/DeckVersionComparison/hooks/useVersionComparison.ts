@@ -4,7 +4,7 @@
 
 import { useMemo } from 'react';
 import { calculateChanges } from '../utils';
-import type { DeckVersion, CardChange } from '../types';
+import type { DeckVersion } from '../types';
 
 export function useVersionComparison(versionA: DeckVersion, versionB: DeckVersion) {
   const changes = useMemo(

@@ -38,7 +38,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   } = useSignUpForm(callbackUrl);
 
   const { isOAuthLoading, handleGoogleSignUp, handleDiscordSignUp } =
-    useOAuthHandlers(callbackUrl, (newErrors) => {
+    useOAuthHandlers(callbackUrl, (_newErrors) => {
       // Note: This is a bit of a workaround since we can't directly access setErrors from the hook
       // In a real implementation, you might want to refactor this
     });

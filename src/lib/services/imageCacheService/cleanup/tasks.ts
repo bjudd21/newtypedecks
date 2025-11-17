@@ -36,7 +36,7 @@ export async function cleanupExpiredItems(
   const now = Date.now();
 
   // Cleanup memory cache
-  for (const [url, item] of memoryCache.entries()) {
+  for (const [_url, item] of memoryCache.entries()) {
     if (now - item.timestamp > config.maxAge) {
       memoryCache.entries(); // This will delete expired items via the get method
     }

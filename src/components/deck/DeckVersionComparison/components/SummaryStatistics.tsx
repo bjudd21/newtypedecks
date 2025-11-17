@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import type { CardChange } from '../types';
 
 interface SummaryStatisticsProps {
   addedCount: number;

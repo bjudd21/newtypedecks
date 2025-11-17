@@ -2,7 +2,7 @@
  * Deck Comparison
  */
 
-import type { DeckCard, DeckAnalytics } from '../types';
+import type { DeckAnalytics } from '../types';
 
 export function compareDecks(
   analytics1: DeckAnalytics,

@@ -2,7 +2,6 @@
  * Deck Version Management
  */
 
-import { prisma } from '@/lib/database';
 import type { Prisma } from '@prisma/client';
 
 export async function createDeckVersion(

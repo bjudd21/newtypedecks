@@ -87,8 +87,8 @@ export function CardsPageContent() {
 
   // Computed values
   const {
-    currentCards,
-    currentLoading,
+    currentCards: _currentCards,
+    currentLoading: _currentLoading,
     currentTotal,
     showResults,
     showNoResults,
