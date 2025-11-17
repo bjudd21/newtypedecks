@@ -13,9 +13,7 @@ import type {
   CardSearchFilters,
   CardSearchOptions,
   CardSearchResult,
-  CardSortField,
 } from '@/lib/types/card';
-import { CardModel, CardValidator, CardUtils } from '@/lib/models/card';
 import {
   createCard,
   updateCard,
@@ -34,6 +32,7 @@ import {
   getCardsBySet,
   bulkImportCards,
 } from './operations';
+import { CardHelpers } from './helpers';
 
 // Initialize Prisma client
 let prisma: PrismaClient;
@@ -224,54 +223,6 @@ export class CardService {
   }
 }
 
-/**
- * Helper functions for common card operations
- */
-export const CardHelpers = {
-  /**
-   * Format card display name
-   */
-  formatDisplayName: (card: CardWithRelations) =>
-    new CardModel(card).getDisplayName(),
-
-  /**
-   * Get card power level
-   */
-  getPowerLevel: (card: CardWithRelations) =>
-    new CardModel(card).getPowerLevel(),
-
-  /**
-   * Check if card matches filters
-   */
-  matchesFilters: (card: CardWithRelations, filters: CardSearchFilters) =>
-    new CardModel(card).matchesFilters(filters),
-
-  /**
-   * Get sortable value for card
-   */
-  getSortableValue: (card: CardWithRelations, field: string) =>
-    new CardModel(card).getSortableValue(field as CardSortField),
-
-  /**
-   * Validate card data
-   */
-  validateCard: CardValidator.validateCreateData,
-
-  /**
-   * Generate card tags
-   */
-  generateTags: CardUtils.generateCardTags,
-
-  /**
-   * Extract keywords from text
-   */
-  extractKeywords: CardUtils.extractKeywordsFromText,
-
-  /**
-   * Create image info
-   */
-  createImageInfo: CardUtils.createImageInfo,
-};
-
-// Export the service for use in other modules
+// Export helpers and service
+export { CardHelpers };
 export default CardService;
