@@ -41,10 +41,7 @@ export function createHelpers(performanceMonitor: PerformanceMonitor) {
     },
 
     // Performance decorator
-    measurePerformance(
-      type: PerformanceEntry['type'],
-      operationName?: string
-    ) {
+    measurePerformance(type: PerformanceEntry['type'], operationName?: string) {
       return function <T extends (...args: unknown[]) => unknown>(
         target: unknown,
         propertyName: string,

@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing table sorting with nested properties
  */

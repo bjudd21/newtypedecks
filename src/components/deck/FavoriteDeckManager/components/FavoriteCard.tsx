@@ -35,7 +35,9 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
               </Badge>
             )}
             {favorite.deck.templateSource && (
-              <Badge className={getSourceBadgeColor(favorite.deck.templateSource)}>
+              <Badge
+                className={getSourceBadgeColor(favorite.deck.templateSource)}
+              >
                 {favorite.deck.templateSource}
               </Badge>
             )}
@@ -93,7 +95,11 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
       )}
 
       <div className="flex items-center gap-2">
-        <Button onClick={() => onClick(favorite.deck.id)} variant="default" size="sm">
+        <Button
+          onClick={() => onClick(favorite.deck.id)}
+          variant="default"
+          size="sm"
+        >
           View Deck
         </Button>
 

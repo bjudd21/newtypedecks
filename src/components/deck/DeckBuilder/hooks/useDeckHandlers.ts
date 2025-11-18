@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for deck builder event handlers
  */
@@ -42,18 +43,21 @@ interface UseDeckHandlersOptions {
       category?: string;
     }[];
   }) => Promise<unknown>;
-  updateDeck: (id: string, data: {
-    name?: string;
-    description?: string;
-    format?: string;
-    isPublic?: boolean;
-    cards?: {
-      cardId: string;
-      card: CardWithRelations;
-      quantity: number;
-      category?: string;
-    }[];
-  }) => Promise<unknown>;
+  updateDeck: (
+    id: string,
+    data: {
+      name?: string;
+      description?: string;
+      format?: string;
+      isPublic?: boolean;
+      cards?: {
+        cardId: string;
+        card: CardWithRelations;
+        quantity: number;
+        category?: string;
+      }[];
+    }
+  ) => Promise<unknown>;
   clearError: () => void;
 }
 
@@ -180,7 +184,11 @@ export function useDeckHandlers({
         }
       } else {
         // Create new deck
-        const newDeck = await createDeck(deckData) as { id: string; name: string; description: string | null } | null;
+        const newDeck = (await createDeck(deckData)) as {
+          id: string;
+          name: string;
+          description: string | null;
+        } | null;
         if (newDeck && currentDeck) {
           setSavedDeckId(newDeck.id);
           // Update current deck with saved ID

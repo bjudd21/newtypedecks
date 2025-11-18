@@ -90,6 +90,8 @@ function cleanOldEvents(context: EventTrackingContext): void {
     const cutoff = new Date(
       Date.now() - context.config.dataRetentionDays * 24 * 60 * 60 * 1000
     );
-    context.events = context.events.filter((event) => event.timestamp >= cutoff);
+    context.events = context.events.filter(
+      (event) => event.timestamp >= cutoff
+    );
   }
 }

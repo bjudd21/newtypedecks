@@ -78,7 +78,10 @@ export const ZoomModal: React.FC<ZoomModalProps> = ({
 
           {/* Image info overlay */}
           <div className="absolute right-0 bottom-0 left-0 rounded-b-lg bg-gradient-to-t from-black to-transparent p-4">
-            <h3 id="zoom-modal-title" className="text-lg font-semibold text-white">
+            <h3
+              id="zoom-modal-title"
+              className="text-lg font-semibold text-white"
+            >
               {cardName}
             </h3>
             <p id="zoom-modal-description" className="text-sm text-gray-300">

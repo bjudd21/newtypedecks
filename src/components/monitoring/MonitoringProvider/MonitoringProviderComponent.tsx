@@ -14,10 +14,7 @@ import { useGlobalErrorHandling } from './hooks/useGlobalErrorHandling';
 import { useScriptsLoaded } from './hooks/useScriptsLoaded';
 import { GoogleAnalyticsScript } from './components/GoogleAnalyticsScript';
 import { MixpanelScript } from './components/MixpanelScript';
-import type {
-  MonitoringContextType,
-  MonitoringProviderProps,
-} from './types';
+import type { MonitoringContextType, MonitoringProviderProps } from './types';
 
 const MonitoringContext = createContext<MonitoringContextType | undefined>(
   undefined

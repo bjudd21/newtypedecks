@@ -2,7 +2,10 @@
  * Text-based filter matching
  */
 
-import type { CardWithRelations, CardSearchFilters } from '../../../../types/card';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+} from '../../../../types/card';
 
 /**
  * Check if card matches text search filter

@@ -10,11 +10,7 @@ export { UserTableComponent as UserTable } from './UserTable/UserTableComponent'
 export { UserTableComponent as default } from './UserTable/UserTableComponent';
 
 // Type exports
-export type {
-  User,
-  UserTableProps,
-  SortOrder,
-} from './UserTable/types';
+export type { User, UserTableProps, SortOrder } from './UserTable/types';
 
 // Utility exports
 export { getRoleBadgeVariant, formatDate } from './UserTable/utils';

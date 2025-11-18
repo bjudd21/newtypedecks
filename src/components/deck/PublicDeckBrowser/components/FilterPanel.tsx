@@ -3,7 +3,14 @@
  */
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Input, Select } from '@/components/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Input,
+  Select,
+} from '@/components/ui';
 import type { DeckFilters } from '../types';
 
 interface FilterPanelProps {

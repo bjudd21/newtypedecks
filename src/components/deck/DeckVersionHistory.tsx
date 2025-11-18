@@ -14,5 +14,8 @@ export { EmptyState } from './DeckVersionHistory/components/EmptyState';
 export { VersionStats } from './DeckVersionHistory/components/VersionStats';
 export { VersionCardGrid } from './DeckVersionHistory/components/VersionCardGrid';
 export { VersionListItem } from './DeckVersionHistory/components/VersionListItem';
-export type { DeckVersion, DeckVersionHistoryProps } from './DeckVersionHistory/types';
+export type {
+  DeckVersion,
+  DeckVersionHistoryProps,
+} from './DeckVersionHistory/types';
 export { DeckVersionHistory as default } from './DeckVersionHistory/DeckVersionHistory';

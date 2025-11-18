@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for card editing operations
  */
@@ -64,12 +65,7 @@ export function useCardEditing({
       }
       setEditingCard(null);
     },
-    [
-      updateCollection,
-      removeFromCollection,
-      loadCollection,
-      setEditingCard,
-    ]
+    [updateCollection, removeFromCollection, loadCollection, setEditingCard]
   );
 
   return {

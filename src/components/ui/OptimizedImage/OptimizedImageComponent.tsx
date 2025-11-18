@@ -57,7 +57,9 @@ export const OptimizedImageComponent: React.FC<OptimizedImageProps> = ({
     onLoad?.();
   };
 
-  const handleError = (_event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleError = (
+    _event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) => {
     const error = new Error('Failed to load image');
     setLoading(false);
     onError?.(error);

@@ -27,7 +27,9 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
   }[change.type];
 
   return (
-    <div className={`flex items-center gap-3 rounded border p-2 ${borderColor}`}>
+    <div
+      className={`flex items-center gap-3 rounded border p-2 ${borderColor}`}
+    >
       <Image
         src={change.card.imageUrl}
         alt={change.card.name}
@@ -37,7 +39,9 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
         style={{ width: imageSize, height: imageSize }}
       />
       <div className="flex-1">
-        <div className={`font-medium ${change.type === 'unchanged' ? 'text-sm text-gray-700' : ''}`}>
+        <div
+          className={`font-medium ${change.type === 'unchanged' ? 'text-sm text-gray-700' : ''}`}
+        >
           {change.card.name}
         </div>
         {change.type !== 'unchanged' && (

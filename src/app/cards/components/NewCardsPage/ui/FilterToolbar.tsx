@@ -1,3 +1,4 @@
+'use client';
 /**
  * Filter toolbar component with colors, types, and action buttons
  */

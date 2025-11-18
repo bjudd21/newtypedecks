@@ -420,6 +420,7 @@ These are legitimate complexity issues in service/API layers that could benefit 
 - **~5 warnings** - Other minor style issues (max-statements, max-lines for files)
 
 **Breakdown by Category:**
+
 - Service files with complex business logic (cardSubmissionService, deckValidationService, etc.)
 - API routes with comprehensive request handling (cards/route.ts, decks/route.ts, etc.)
 - Utility functions with nested conditionals (imageProcessing, queryBuilder, validators)

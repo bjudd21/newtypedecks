@@ -24,7 +24,10 @@ export async function getCommunityStats(): Promise<CommunityStats> {
   };
 }
 
-export async function searchUsers(_query: string, _limit = 10): Promise<UserProfile[]> {
+export async function searchUsers(
+  _query: string,
+  _limit = 10
+): Promise<UserProfile[]> {
   return [];
 }
 

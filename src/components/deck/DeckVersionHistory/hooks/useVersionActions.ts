@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for version actions (restore, delete, create)
  */

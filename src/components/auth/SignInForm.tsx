@@ -10,11 +10,7 @@ export { SignInFormComponent as SignInForm } from './SignInForm/SignInFormCompon
 export { SignInFormComponent as default } from './SignInForm/SignInFormComponent';
 
 // Type exports
-export type {
-  SignInFormProps,
-  FormData,
-  FormErrors,
-} from './SignInForm/types';
+export type { SignInFormProps, FormData, FormErrors } from './SignInForm/types';
 
 // Hook exports
 export { useFormState } from './SignInForm/hooks/useFormState';

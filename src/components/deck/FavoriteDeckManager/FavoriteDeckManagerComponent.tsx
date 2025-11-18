@@ -5,7 +5,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Input, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Badge,
+} from '@/components/ui';
 import { useFavorites } from './hooks/useFavorites';
 import { useFavoriteActions } from './hooks/useFavoriteActions';
 import { LoadingState } from './components/LoadingState';
@@ -14,24 +21,21 @@ import { FavoriteCard } from './components/FavoriteCard';
 import { PaginationControls } from './components/PaginationControls';
 import type { FavoriteDeckManagerProps } from './types';
 
-export const FavoriteDeckManagerComponent: React.FC<FavoriteDeckManagerProps> = ({
-  onDeckSelect,
-  onRemoveFavorite,
-  className,
-}) => {
+export const FavoriteDeckManagerComponent: React.FC<
+  FavoriteDeckManagerProps
+> = ({ onDeckSelect, onRemoveFavorite, className }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { favorites, setFavorites, isLoading, error, totalPages } = useFavorites(
-    searchQuery,
-    currentPage
-  );
+  const { favorites, setFavorites, isLoading, error, totalPages } =
+    useFavorites(searchQuery, currentPage);
 
-  const { removingId, handleRemoveFavorite, handleDeckClick } = useFavoriteActions({
-    setFavorites,
-    onDeckSelect,
-    onRemoveFavorite,
-  });
+  const { removingId, handleRemoveFavorite, handleDeckClick } =
+    useFavoriteActions({
+      setFavorites,
+      onDeckSelect,
+      onRemoveFavorite,
+    });
 
   if (isLoading && favorites.length === 0) {
     return <LoadingState className={className} />;

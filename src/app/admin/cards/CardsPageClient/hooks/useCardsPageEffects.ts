@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for admin cards page effects
  */
@@ -10,7 +11,9 @@ interface UseCardsPageEffectsOptions {
   debouncedSearch: string;
   currentPage: number;
   setDebouncedSearch: (search: string) => void;
-  setPagination: (pagination: PaginationData | ((prev: PaginationData) => PaginationData)) => void;
+  setPagination: (
+    pagination: PaginationData | ((prev: PaginationData) => PaginationData)
+  ) => void;
   loadCards: (page: number, searchQuery: string) => void;
 }
 

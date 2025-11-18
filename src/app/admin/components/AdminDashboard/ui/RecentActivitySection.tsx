@@ -17,9 +17,7 @@ export const RecentActivitySection: React.FC<RecentActivitySectionProps> = ({
 }) => {
   return (
     <div className="overflow-hidden rounded-lg border border-[#443a5c] bg-[#2d2640]/60 p-6 backdrop-blur-md">
-      <h3 className="mb-4 text-lg font-semibold text-white">
-        Recent Activity
-      </h3>
+      <h3 className="mb-4 text-lg font-semibold text-white">Recent Activity</h3>
       {isLoading ? (
         <div className="flex h-32 items-center justify-center">
           <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#8b7aaa] border-t-transparent" />

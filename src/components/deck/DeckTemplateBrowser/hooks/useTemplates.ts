@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing template browsing state and API calls
  */
@@ -125,7 +126,9 @@ export function useTemplates(
     } catch (err) {
       console.error('Error creating deck from template:', err);
       console.warn(
-        err instanceof Error ? err.message : 'Failed to create deck from template'
+        err instanceof Error
+          ? err.message
+          : 'Failed to create deck from template'
       );
     } finally {
       setIsCreating(false);

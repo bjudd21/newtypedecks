@@ -3,7 +3,10 @@
  */
 
 import type { CacheConfig } from './types';
-import { cleanupExpiredEntries, type CleanupContext } from './operations/cleanup';
+import {
+  cleanupExpiredEntries,
+  type CleanupContext,
+} from './operations/cleanup';
 
 export interface LifecycleManager {
   cleanupTimer?: NodeJS.Timeout;

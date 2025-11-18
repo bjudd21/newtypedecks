@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for generating quick action items
  */

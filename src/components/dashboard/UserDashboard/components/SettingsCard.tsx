@@ -3,15 +3,19 @@
  */
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+} from '@/components/ui';
 
 export const SettingsCard: React.FC = () => {
   return (
     <Card className="border-[#443a5c] bg-[#2d2640]">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">
-          SETTINGS & PREFERENCES
-        </CardTitle>
+        <CardTitle className="text-[#a89ec7]">SETTINGS & PREFERENCES</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

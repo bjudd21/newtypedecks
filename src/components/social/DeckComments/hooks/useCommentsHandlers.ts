@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for comments event handlers
  */
@@ -12,7 +13,9 @@ interface UseCommentsHandlersOptions {
   currentPage: number;
   hasMore: boolean;
   isLoading: boolean;
-  setComments: (comments: DeckComment[] | ((prev: DeckComment[]) => DeckComment[])) => void;
+  setComments: (
+    comments: DeckComment[] | ((prev: DeckComment[]) => DeckComment[])
+  ) => void;
   setIsLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   setTotalComments: (total: number | ((prev: number) => number)) => void;
@@ -56,12 +59,22 @@ export function useCommentsHandlers({
         setHasMore(result.comments.length === 20);
         setCurrentPage(page);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load comments');
+        setError(
+          err instanceof Error ? err.message : 'Failed to load comments'
+        );
       } finally {
         setIsLoading(false);
       }
     },
-    [deckId, setComments, setIsLoading, setError, setTotalComments, setHasMore, setCurrentPage]
+    [
+      deckId,
+      setComments,
+      setIsLoading,
+      setError,
+      setTotalComments,
+      setHasMore,
+      setCurrentPage,
+    ]
   );
 
   const loadMoreComments = useCallback(() => {
@@ -107,7 +120,15 @@ export function useCommentsHandlers({
         console.error('Failed to post comment:', error);
       }
     },
-    [isAuthenticated, userId, deckId, setComments, setTotalComments, setReplyingTo, setShowCommentForm]
+    [
+      isAuthenticated,
+      userId,
+      deckId,
+      setComments,
+      setTotalComments,
+      setReplyingTo,
+      setShowCommentForm,
+    ]
   );
 
   const handleCommentLike = useCallback(

@@ -62,10 +62,7 @@ export const PWAStatusComponent: React.FC<PWAStatusProps> = ({
       <CardContent>
         <div className="space-y-4">
           {/* Connection Status */}
-          <StatusItem
-            icon={pwaState.isOnline ? '🌐' : '📡'}
-            label="Connection"
-          >
+          <StatusItem icon={pwaState.isOnline ? '🌐' : '📡'} label="Connection">
             <Badge variant={pwaState.isOnline ? 'primary' : 'outline'}>
               {pwaState.isOnline ? 'Online' : 'Offline'}
             </Badge>

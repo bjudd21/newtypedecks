@@ -189,7 +189,12 @@ class SocialService {
     userId: string,
     reason: string
   ): Promise<void> {
-    return communityService.reportContent(contentType, contentId, userId, reason);
+    return communityService.reportContent(
+      contentType,
+      contentId,
+      userId,
+      reason
+    );
   }
 
   async getUserBadges(userId: string): Promise<UserBadge[]> {

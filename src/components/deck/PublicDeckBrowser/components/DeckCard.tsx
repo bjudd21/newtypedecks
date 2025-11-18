@@ -3,7 +3,14 @@
  */
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Button,
+  Badge,
+} from '@/components/ui';
 import { DeckStatistics } from './DeckStatistics';
 import { CardPreview } from './CardPreview';
 import type { PublicDeck } from '../types';

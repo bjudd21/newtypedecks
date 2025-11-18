@@ -16,7 +16,9 @@ import {
 /**
  * Get single user by ID with activity statistics
  */
-export async function getUserById(id: string): Promise<UserWithActivity | null> {
+export async function getUserById(
+  id: string
+): Promise<UserWithActivity | null> {
   const user = await prisma.user.findUnique({
     where: { id },
     select: userSelectWithActivity,

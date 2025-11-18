@@ -1,3 +1,4 @@
+'use client';
 /**
  * Dropdown menu with animated menu items
  */

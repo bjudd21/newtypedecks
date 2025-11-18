@@ -29,36 +29,41 @@ export const useRatings = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const loadRatings = useCallback(async (page = 1) => {
-    setIsLoading(true);
-    setError(null);
+  const loadRatings = useCallback(
+    async (page = 1) => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      const result = await socialService.getDeckRatings(deckId, page, 10);
+      try {
+        const result = await socialService.getDeckRatings(deckId, page, 10);
 
-      if (page === 1) {
-        setRatings(result.ratings);
-      } else {
-        setRatings((prev) => [...prev, ...result.ratings]);
+        if (page === 1) {
+          setRatings(result.ratings);
+        } else {
+          setRatings((prev) => [...prev, ...result.ratings]);
+        }
+
+        setAverageRating(result.averageRating);
+        setTotalRatings(result.totalCount);
+        setRatingBreakdown(result.ratingBreakdown);
+        setHasMore(result.ratings.length === 10);
+        setCurrentPage(page);
+
+        // Check if current user has rated this deck
+        if (isAuthenticated && userId) {
+          const existingRating = result.ratings.find(
+            (r) => r.userId === userId
+          );
+          setUserRating(existingRating || null);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load ratings');
+      } finally {
+        setIsLoading(false);
       }
-
-      setAverageRating(result.averageRating);
-      setTotalRatings(result.totalCount);
-      setRatingBreakdown(result.ratingBreakdown);
-      setHasMore(result.ratings.length === 10);
-      setCurrentPage(page);
-
-      // Check if current user has rated this deck
-      if (isAuthenticated && userId) {
-        const existingRating = result.ratings.find((r) => r.userId === userId);
-        setUserRating(existingRating || null);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load ratings');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [deckId, isAuthenticated, userId]);
+    },
+    [deckId, isAuthenticated, userId]
+  );
 
   useEffect(() => {
     loadRatings();

@@ -46,9 +46,7 @@ export function generateCloudinaryUrl(
 
   if (quality) {
     const qualityValue =
-      typeof quality === 'string' && quality === 'auto'
-        ? 'auto:good'
-        : quality;
+      typeof quality === 'string' && quality === 'auto' ? 'auto:good' : quality;
     transformations.push(`q_${qualityValue}`);
   }
 

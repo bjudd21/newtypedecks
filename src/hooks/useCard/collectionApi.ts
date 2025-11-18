@@ -16,9 +16,7 @@ export async function apiAddToCollection(
   });
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to add card to collection: ${response.statusText}`
-    );
+    throw new Error(`Failed to add card to collection: ${response.statusText}`);
   }
 
   return await response.json();

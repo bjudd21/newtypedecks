@@ -10,5 +10,8 @@ export type {
   CacheConfig,
 } from './searchCacheService/types';
 
-export { SearchCacheService, searchCache } from './searchCacheService/SearchCacheService';
+export {
+  SearchCacheService,
+  searchCache,
+} from './searchCacheService/SearchCacheService';
 export { searchCache as default } from './searchCacheService/SearchCacheService';

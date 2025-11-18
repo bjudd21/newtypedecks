@@ -8,7 +8,11 @@
  */
 
 // Export types
-export type { UseMonitoringOptions, MonitoringHookResult, ReactErrorInfo } from './useMonitoring/types';
+export type {
+  UseMonitoringOptions,
+  MonitoringHookResult,
+  ReactErrorInfo,
+} from './useMonitoring/types';
 
 // Export hooks
 export { useMonitoring } from './useMonitoring/useBaseMonitoring';

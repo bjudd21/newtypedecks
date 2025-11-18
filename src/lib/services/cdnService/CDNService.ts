@@ -97,8 +97,13 @@ export class CDNService {
     return createResponsiveImageSet(
       imagePath,
       sizes,
-      (path: string, options: { width?: number; format?: 'auto' | 'webp' | 'avif' | 'jpeg' | 'png' }) =>
-        this.generateImageUrl(path, options as ImageUrlOptions)
+      (
+        path: string,
+        options: {
+          width?: number;
+          format?: 'auto' | 'webp' | 'avif' | 'jpeg' | 'png';
+        }
+      ) => this.generateImageUrl(path, options as ImageUrlOptions)
     );
   }
 

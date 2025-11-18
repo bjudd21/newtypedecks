@@ -39,9 +39,7 @@ export const VersionCardGrid: React.FC<VersionCardGridProps> = ({
                 {versionCard.card.type.name} • {versionCard.card.rarity.name}
               </div>
             </div>
-            <div className="text-xs text-gray-600">
-              x{versionCard.quantity}
-            </div>
+            <div className="text-xs text-gray-600">x{versionCard.quantity}</div>
           </div>
         ))}
       </div>

@@ -25,4 +25,7 @@ export { FilterHeader } from './AdvancedFilters/components/FilterHeader';
 export { FilterContent } from './AdvancedFilters/components/FilterContent';
 
 // Re-export utils
-export { getActiveFilterCount, createEmptyFilters } from './AdvancedFilters/utils';
+export {
+  getActiveFilterCount,
+  createEmptyFilters,
+} from './AdvancedFilters/utils';

@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for cards page event handlers
  */
@@ -10,7 +11,10 @@ interface UseCardsHandlersOptions {
   paginationMode: PaginationMode;
   setActiveFilters: (filters: CardSearchFilters) => void;
   setSelectedCard: (card: CardWithRelations | null) => void;
-  setSortOptions: (options: { sortBy: string; sortOrder: 'asc' | 'desc' }) => void;
+  setSortOptions: (options: {
+    sortBy: string;
+    sortOrder: 'asc' | 'desc';
+  }) => void;
   setCurrentPage: (page: number) => void;
   setPaginationMode: (mode: PaginationMode) => void;
   resetInfinite: () => void;

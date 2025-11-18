@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing deck analytics state and computation
  */

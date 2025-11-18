@@ -9,11 +9,7 @@ import { useAuth, useCollection } from '@/hooks';
 import { CollectionImporter } from '../CollectionImporter';
 import { AdvancedImporter } from '../AdvancedImporter';
 import { CollectionExporter } from '../CollectionExporter';
-import {
-  CollectionStatistics,
-  TabNavigation,
-  CollectionFilters,
-} from './';
+import { CollectionStatistics, TabNavigation, CollectionFilters } from './';
 import { useCollectionState } from './hooks/useCollectionState';
 import { useCollectionLoader } from './hooks/useCollectionLoader';
 import { useFilterManagement } from './hooks/useFilterManagement';

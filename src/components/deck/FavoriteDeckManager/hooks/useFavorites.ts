@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for fetching and managing favorite decks
  */

@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for computed values based on pagination mode
  */

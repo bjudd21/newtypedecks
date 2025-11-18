@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for sign up form state and validation
  */

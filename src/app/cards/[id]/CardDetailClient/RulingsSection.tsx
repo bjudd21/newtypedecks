@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui';
 import { RulingsFilterControls } from './RulingsFilterControls';

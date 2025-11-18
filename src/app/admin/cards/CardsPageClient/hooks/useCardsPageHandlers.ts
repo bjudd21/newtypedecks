@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for admin cards page event handlers
  */
@@ -10,7 +11,9 @@ interface UseCardsPageHandlersOptions {
   currentPage: number;
   debouncedSearch: string;
   setCards: (cards: Card[]) => void;
-  setPagination: (pagination: PaginationData | ((prev: PaginationData) => PaginationData)) => void;
+  setPagination: (
+    pagination: PaginationData | ((prev: PaginationData) => PaginationData)
+  ) => void;
   setIsLoading: (loading: boolean) => void;
   setSelectedCard: (card: Card | undefined) => void;
   setIsCreateModalOpen: (open: boolean) => void;

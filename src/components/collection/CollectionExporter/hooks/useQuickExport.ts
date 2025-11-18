@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for quick export (GET method with direct download)
  */

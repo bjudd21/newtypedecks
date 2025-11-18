@@ -51,8 +51,7 @@ export function parseDecklistPreview(data: string): PreviewCardData[] {
   return deckLines
     .slice(0, 5)
     .filter(
-      (line) =>
-        line.trim() && !line.startsWith('//') && !line.startsWith('#')
+      (line) => line.trim() && !line.startsWith('//') && !line.startsWith('#')
     )
     .map((line) => {
       const match = line.match(/^(\d+)x?\s+(.+)$/);
@@ -70,9 +69,7 @@ export function parseDecklistPreview(data: string): PreviewCardData[] {
 /**
  * Validate preview card data
  */
-export function isValidPreviewCard(
-  card: unknown
-): card is PreviewCardData {
+export function isValidPreviewCard(card: unknown): card is PreviewCardData {
   return Boolean(
     card &&
       typeof card === 'object' &&

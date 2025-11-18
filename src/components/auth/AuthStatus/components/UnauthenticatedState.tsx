@@ -1,3 +1,4 @@
+'use client';
 /**
  * Unauthenticated state component with login/register buttons
  */

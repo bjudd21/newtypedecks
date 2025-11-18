@@ -91,7 +91,13 @@ export class SearchCacheService {
     result: CardSearchResult,
     customTTL?: number
   ): Promise<void> {
-    return setCachedResult(filters, options, result, customTTL, this.getContext());
+    return setCachedResult(
+      filters,
+      options,
+      result,
+      customTTL,
+      this.getContext()
+    );
   }
 
   /**

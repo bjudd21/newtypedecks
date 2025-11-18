@@ -13,7 +13,10 @@ import type {
 // Import all modules
 import * as core from './core';
 import * as typeChecks from './typeChecks';
-import { matchesTextFilter, matchesBooleanFilters } from './filtering/textFilters';
+import {
+  matchesTextFilter,
+  matchesBooleanFilters,
+} from './filtering/textFilters';
 import { matchesExactFilters } from './filtering/idFilters';
 import {
   matchesLevelRangeFilter,
@@ -23,7 +26,10 @@ import {
   matchesHitPointsRangeFilter,
   matchesAttackPointsRangeFilter,
 } from './filtering/rangeFilters';
-import { matchesKeywordsFilter, matchesTagsFilter } from './filtering/arrayFilters';
+import {
+  matchesKeywordsFilter,
+  matchesTagsFilter,
+} from './filtering/arrayFilters';
 import { getSortableValue as getSortableValueFn } from './sorting';
 import { toObject as toObjectFn } from './serialization';
 

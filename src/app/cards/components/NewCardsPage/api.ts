@@ -2,10 +2,7 @@
  * API utilities for cards page
  */
 
-import type {
-  CardSearchFilters,
-  CardSearchOptions,
-} from '@/lib/types/card';
+import type { CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
 
 export async function fetchCards(
   filters: CardSearchFilters,

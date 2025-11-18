@@ -22,10 +22,7 @@ export function generateImageUrls(imageFile: string) {
   const uploadsDir = path.join(process.cwd(), UPLOADS_DIR);
 
   const relativeOriginal = path.relative(uploadsDir, imageFile);
-  const relativeThumbnail = path.join(
-    'thumbnails',
-    `${baseName}-thumb${ext}`
-  );
+  const relativeThumbnail = path.join('thumbnails', `${baseName}-thumb${ext}`);
   const relativeLarge = path.join('large', `${baseName}-large${ext}`);
 
   return {

@@ -3,7 +3,13 @@
  */
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Badge,
+} from '@/components/ui';
 import type { PWAState, OfflineDeck } from '@/lib/services/pwaService';
 
 interface OfflineDataCardProps {
@@ -32,15 +38,15 @@ export const OfflineDataCard: React.FC<OfflineDataCardProps> = ({
           <div className="py-6 text-center">
             <div className="mb-2 text-gray-600">No offline data</div>
             <div className="text-sm text-gray-500">
-              Data you create while offline will appear here and sync when you&apos;re
-              back online
+              Data you create while offline will appear here and sync when
+              you&apos;re back online
             </div>
           </div>
         ) : (
           <div className="space-y-3">
             <div className="mb-3 text-sm text-gray-600">
-              The following data is stored offline and will sync when you&apos;re
-              online:
+              The following data is stored offline and will sync when
+              you&apos;re online:
             </div>
             {offlineDecks.map((deck) => (
               <div
@@ -71,7 +77,8 @@ export const OfflineDataCard: React.FC<OfflineDataCardProps> = ({
                   📡 Currently Offline
                 </div>
                 <div className="text-sm text-orange-700">
-                  Data will automatically sync when you reconnect to the internet
+                  Data will automatically sync when you reconnect to the
+                  internet
                 </div>
               </div>
             )}

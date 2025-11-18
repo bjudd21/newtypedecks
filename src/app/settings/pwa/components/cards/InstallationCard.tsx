@@ -3,7 +3,14 @@
  */
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  Badge,
+} from '@/components/ui';
 import type { PWAState } from '@/lib/services/pwaService';
 
 interface InstallationCardProps {
@@ -29,19 +36,26 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
           {pwaState.isInstalled ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Badge variant="primary" className="bg-green-100 text-green-800">
+                <Badge
+                  variant="primary"
+                  className="bg-green-100 text-green-800"
+                >
                   ✓ Installed
                 </Badge>
-                <span className="text-gray-700">App is installed and running</span>
+                <span className="text-gray-700">
+                  App is installed and running
+                </span>
               </div>
             </div>
           ) : pwaState.isInstallable ? (
             <div className="flex items-center justify-between">
               <div>
-                <div className="mb-1 font-medium text-gray-900">Install as App</div>
+                <div className="mb-1 font-medium text-gray-900">
+                  Install as App
+                </div>
                 <div className="text-sm text-gray-600">
-                  Install the Gundam Card Game Database as a native app for better
-                  performance and offline access
+                  Install the Gundam Card Game Database as a native app for
+                  better performance and offline access
                 </div>
               </div>
               <Button
@@ -54,9 +68,12 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
             </div>
           ) : (
             <div className="py-4 text-center">
-              <div className="mb-2 text-gray-600">App installation not available</div>
+              <div className="mb-2 text-gray-600">
+                App installation not available
+              </div>
               <div className="text-sm text-gray-500">
-                Try using a supported browser or check if the app is already installed
+                Try using a supported browser or check if the app is already
+                installed
               </div>
             </div>
           )}
@@ -65,10 +82,12 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
             <div className="rounded-lg border border-green-200 bg-green-50 p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="mb-1 font-medium text-green-900">Update Available</div>
+                  <div className="mb-1 font-medium text-green-900">
+                    Update Available
+                  </div>
                   <div className="text-sm text-green-700">
-                    A new version of the app is available with improvements and bug
-                    fixes
+                    A new version of the app is available with improvements and
+                    bug fixes
                   </div>
                 </div>
                 <Button

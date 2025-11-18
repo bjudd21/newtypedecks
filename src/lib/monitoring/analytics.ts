@@ -23,11 +23,7 @@ export {
 } from './analytics/index';
 
 // Export tracking functions
-export {
-  trackWebVitals,
-  trackSession,
-  initAnalytics,
-} from './analytics/index';
+export { trackWebVitals, trackSession, initAnalytics } from './analytics/index';
 
 // Default export
 export { default } from './analytics/index';

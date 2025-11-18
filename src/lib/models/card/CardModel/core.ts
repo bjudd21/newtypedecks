@@ -17,9 +17,7 @@ export function getDisplayName(card: CardWithRelations): string {
  */
 export function getPowerLevel(card: CardWithRelations): number {
   return (
-    (card.clashPoints || 0) +
-    (card.attackPoints || 0) +
-    (card.hitPoints || 0)
+    (card.clashPoints || 0) + (card.attackPoints || 0) + (card.hitPoints || 0)
   );
 }
 

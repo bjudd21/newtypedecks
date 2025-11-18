@@ -2,7 +2,10 @@
  * Array-based filter matching (keywords, tags)
  */
 
-import type { CardWithRelations, CardSearchFilters } from '../../../../types/card';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+} from '../../../../types/card';
 
 /**
  * Check if card matches keywords filter

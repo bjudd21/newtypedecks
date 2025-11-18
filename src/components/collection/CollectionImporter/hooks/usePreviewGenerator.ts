@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for generating import data previews
  */

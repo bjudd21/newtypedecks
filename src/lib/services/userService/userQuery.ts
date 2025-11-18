@@ -74,9 +74,12 @@ export async function getAllUsers(
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     activity: {
-      deckCount: (user as unknown as { _count: { decks: number } })._count.decks,
-      collectionCount: (user as unknown as { _count: { collections: number } })._count.collections,
-      submissionCount: (user as unknown as { _count: { submissions: number } })._count.submissions,
+      deckCount: (user as unknown as { _count: { decks: number } })._count
+        .decks,
+      collectionCount: (user as unknown as { _count: { collections: number } })
+        ._count.collections,
+      submissionCount: (user as unknown as { _count: { submissions: number } })
+        ._count.submissions,
     },
   }));
 

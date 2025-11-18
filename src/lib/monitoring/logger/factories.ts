@@ -16,7 +16,10 @@ export function createRequestLogger(
 }
 
 // Component-specific logger creator
-export function createComponentLogger(logger: Logger, component: string): Logger {
+export function createComponentLogger(
+  logger: Logger,
+  component: string
+): Logger {
   return logger.child({ component });
 }
 

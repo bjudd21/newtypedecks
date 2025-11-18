@@ -2,10 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CardSubmissionService } from '@/lib/services/cardSubmissionService';
 import type { CreateSubmissionData } from '@/lib/types/submission';
-import {
-  parseSubmissionFilters,
-  parseSubmissionOptions,
-} from './helpers';
+import { parseSubmissionFilters, parseSubmissionOptions } from './helpers';
 
 // GET /api/submissions - Search submissions with filters
 export async function GET(request: NextRequest) {

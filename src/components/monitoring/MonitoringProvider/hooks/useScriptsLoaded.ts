@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for tracking script loading state
  */

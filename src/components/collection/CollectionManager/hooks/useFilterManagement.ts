@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing collection filters
  */
@@ -7,7 +8,9 @@ import type { CollectionFilters } from '../types';
 
 interface UseFilterManagementOptions {
   setFilters: (
-    filters: CollectionFilters | ((prev: CollectionFilters) => CollectionFilters)
+    filters:
+      | CollectionFilters
+      | ((prev: CollectionFilters) => CollectionFilters)
   ) => void;
 }
 

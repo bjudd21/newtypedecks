@@ -2,7 +2,10 @@
  * Type definitions for DeckAnalyticsDisplay components
  */
 
-import type { DeckAnalytics, DeckCard } from '@/lib/services/deckAnalyticsService';
+import type {
+  DeckAnalytics,
+  DeckCard,
+} from '@/lib/services/deckAnalyticsService';
 
 export interface DeckAnalyticsDisplayProps {
   deckCards: DeckCard[];
@@ -11,6 +14,10 @@ export interface DeckAnalyticsDisplayProps {
   onAnalysisUpdate?: (analytics: DeckAnalytics) => void;
 }
 
-export type TabType = 'overview' | 'distributions' | 'suggestions' | 'improvements';
+export type TabType =
+  | 'overview'
+  | 'distributions'
+  | 'suggestions'
+  | 'improvements';
 
 export { DeckAnalytics, DeckCard };

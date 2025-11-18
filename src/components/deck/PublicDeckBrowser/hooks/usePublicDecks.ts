@@ -1,14 +1,11 @@
+'use client';
 /**
  * Hook for managing public deck browsing state and API calls
  */
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import type {
-  PublicDeck,
-  DeckFilters,
-  PaginationState,
-} from '../types';
+import type { PublicDeck, DeckFilters, PaginationState } from '../types';
 
 export function usePublicDecks() {
   const router = useRouter();

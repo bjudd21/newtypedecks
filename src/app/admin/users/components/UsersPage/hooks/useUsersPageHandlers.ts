@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for users page event handlers
  */
@@ -97,7 +98,13 @@ export function useUsersPageHandlers({
   const handleModalSuccess = useCallback(() => {
     loadUsers(pagination.currentPage, debouncedSearch, roleFilter);
     loadStats();
-  }, [loadUsers, loadStats, pagination.currentPage, debouncedSearch, roleFilter]);
+  }, [
+    loadUsers,
+    loadStats,
+    pagination.currentPage,
+    debouncedSearch,
+    roleFilter,
+  ]);
 
   return {
     loadStats,

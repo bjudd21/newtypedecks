@@ -2,7 +2,11 @@
  * Language validation
  */
 
-import { CARD_CONSTANTS, type CreateCardData, type CardLanguage } from '../../../../types/card';
+import {
+  CARD_CONSTANTS,
+  type CreateCardData,
+  type CardLanguage,
+} from '../../../../types/card';
 import type { ValidationResult } from '../types';
 
 /**
@@ -13,9 +17,7 @@ export function validateLanguage(data: CreateCardData): ValidationResult {
 
   if (
     data.language &&
-    !CARD_CONSTANTS.SUPPORTED_LANGUAGES.includes(
-      data.language as CardLanguage
-    )
+    !CARD_CONSTANTS.SUPPORTED_LANGUAGES.includes(data.language as CardLanguage)
   ) {
     errors.push(`Language "${data.language}" is not supported`);
   }

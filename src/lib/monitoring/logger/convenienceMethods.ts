@@ -60,20 +60,16 @@ export function createConvenienceMethods(
       context?: Partial<LogEntry>
     ) {
       const level: LogLevel = success ? 'info' : 'warn';
-      return log(
-        level,
-        `Auth ${action} ${success ? 'succeeded' : 'failed'}`,
-        {
-          ...context,
-          userId,
-          action: 'authentication',
-          context: {
-            authAction: action,
-            success,
-            ...context?.context,
-          },
-        }
-      );
+      return log(level, `Auth ${action} ${success ? 'succeeded' : 'failed'}`, {
+        ...context,
+        userId,
+        action: 'authentication',
+        context: {
+          authAction: action,
+          success,
+          ...context?.context,
+        },
+      });
     },
 
     userActionLog(

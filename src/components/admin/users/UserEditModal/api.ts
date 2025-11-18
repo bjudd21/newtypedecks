@@ -30,8 +30,6 @@ export async function updateUser(
   const result = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      result.error || result.message || 'Failed to update user'
-    );
+    throw new Error(result.error || result.message || 'Failed to update user');
   }
 }

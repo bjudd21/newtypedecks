@@ -4,7 +4,11 @@
  */
 
 // Core types
-export type { EmailOptions, EmailVerificationData, PasswordResetData } from './emailService/types';
+export type {
+  EmailOptions,
+  EmailVerificationData,
+  PasswordResetData,
+} from './emailService/types';
 
 // Core sender
 export { sendEmail } from './emailService/sender';

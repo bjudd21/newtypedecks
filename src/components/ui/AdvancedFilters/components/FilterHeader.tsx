@@ -34,11 +34,7 @@ export const FilterHeader: React.FC<FilterHeaderProps> = ({
             Clear All
           </Button>
         )}
-        <Button
-          onClick={onToggleExpand}
-          variant="outline"
-          size="sm"
-        >
+        <Button onClick={onToggleExpand} variant="outline" size="sm">
           {isExpanded ? 'Collapse' : 'Expand'}
         </Button>
       </div>

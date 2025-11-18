@@ -9,7 +9,11 @@ export { CollectionImporterComponent as CollectionImporter } from './CollectionI
 export { CollectionImporterComponent as default } from './CollectionImporter/CollectionImporterComponent';
 
 // Re-export types
-export type { CollectionImporterProps, ImportFormat, UpdateBehavior } from './CollectionImporter/types';
+export type {
+  CollectionImporterProps,
+  ImportFormat,
+  UpdateBehavior,
+} from './CollectionImporter/types';
 
 // Re-export hooks
 export { useImportState } from './CollectionImporter/hooks/useImportState';

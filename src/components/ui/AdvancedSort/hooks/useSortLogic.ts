@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for sort management logic
  */
@@ -19,7 +20,9 @@ export function useSortLogic({
   const addSort = useCallback(
     (field: string, order: 'asc' | 'desc') => {
       // Check if this field is already being sorted
-      const existingIndex = activeSorts.findIndex((sort) => sort.field === field);
+      const existingIndex = activeSorts.findIndex(
+        (sort) => sort.field === field
+      );
 
       if (existingIndex >= 0) {
         // Update existing sort

@@ -22,8 +22,7 @@ export function getActiveFilterCount(filters: AdvancedFilterOptions): number {
 
   // Count range filters
   Object.values(filters.rangeFilters).forEach((range) => {
-    if (range && (range.min !== undefined || range.max !== undefined))
-      count++;
+    if (range && (range.min !== undefined || range.max !== undefined)) count++;
   });
 
   // Count boolean filters

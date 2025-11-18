@@ -38,15 +38,20 @@ export const DeckVersionHistory: React.FC<DeckVersionHistoryProps> = ({
     handleVersionSelect,
   } = useVersionHistory(deckId);
 
-  const { isRestoring, isDeleting, handleRestore, handleDelete, handleCreateVersion } =
-    useVersionActions({
-      deckId,
-      onVersionRestore,
-      onVersionDelete,
-      setVersions,
-      setSelectedVersion,
-      setError,
-    });
+  const {
+    isRestoring,
+    isDeleting,
+    handleRestore,
+    handleDelete,
+    handleCreateVersion,
+  } = useVersionActions({
+    deckId,
+    onVersionRestore,
+    onVersionDelete,
+    setVersions,
+    setSelectedVersion,
+    setError,
+  });
 
   if (isLoading) {
     return <LoadingState className={className} />;

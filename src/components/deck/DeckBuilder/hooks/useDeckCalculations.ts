@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for deck statistics calculations
  */
@@ -26,7 +27,9 @@ interface UseDeckCalculationsOptions {
   currentDeck: DeckWithCards | null;
 }
 
-export function useDeckCalculations({ currentDeck }: UseDeckCalculationsOptions) {
+export function useDeckCalculations({
+  currentDeck,
+}: UseDeckCalculationsOptions) {
   // Calculate deck statistics
   const stats = useMemo(() => {
     if (!currentDeck) {

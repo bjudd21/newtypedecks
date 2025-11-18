@@ -38,8 +38,13 @@ export const SearchComponent: React.FC<SearchProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   // State
-  const { isOpen, setIsOpen, highlightedIndex, setHighlightedIndex, closeDropdown } =
-    useSearchState();
+  const {
+    isOpen,
+    setIsOpen,
+    highlightedIndex,
+    setHighlightedIndex,
+    closeDropdown,
+  } = useSearchState();
 
   // IDs for accessibility
   const { inputId, listboxId, labelId, errorId } = useSearchIds();

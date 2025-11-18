@@ -9,7 +9,11 @@ export { DeckValidatorComponent as DeckValidator } from './DeckValidator/DeckVal
 export { DeckValidatorComponent as default } from './DeckValidator/DeckValidatorComponent';
 
 // Re-export types
-export type { DeckCard, DeckValidatorProps, SeverityDisplay } from './DeckValidator/types';
+export type {
+  DeckCard,
+  DeckValidatorProps,
+  SeverityDisplay,
+} from './DeckValidator/types';
 
 // Re-export hooks
 export { useValidation } from './DeckValidator/hooks/useValidation';

@@ -34,10 +34,7 @@ export const TableRow: React.FC<TableRowProps> = ({
         </div>
       </td>
       <td className="px-4 py-3">
-        <Badge
-          variant={getRoleBadgeVariant(user.role)}
-          className="text-xs"
-        >
+        <Badge variant={getRoleBadgeVariant(user.role)} className="text-xs">
           {user.role}
         </Badge>
       </td>
@@ -48,7 +45,9 @@ export const TableRow: React.FC<TableRowProps> = ({
         <ActivityStats activity={user.activity} />
       </td>
       <td className="px-4 py-3">
-        <div className="text-sm text-gray-400">{formatDate(user.createdAt)}</div>
+        <div className="text-sm text-gray-400">
+          {formatDate(user.createdAt)}
+        </div>
       </td>
       <td className="px-4 py-3">
         <div className="flex justify-end gap-2">

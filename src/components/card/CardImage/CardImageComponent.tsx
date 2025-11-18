@@ -58,7 +58,12 @@ export const CardImageComponent: React.FC<CardImageProps> = ({
 
   // Image URLs
   const sizeConfig = SIZE_CONFIGS[size];
-  const selectedImageUrl = getImageUrl(size, imageUrl, imageUrlSmall, imageUrlLarge);
+  const selectedImageUrl = getImageUrl(
+    size,
+    imageUrl,
+    imageUrlSmall,
+    imageUrlLarge
+  );
   const zoomImageUrl = getZoomImageUrl(imageUrl, imageUrlSmall, imageUrlLarge);
 
   // Generate accessibility props for card image

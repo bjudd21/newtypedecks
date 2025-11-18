@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for template creator state management
  */

@@ -2,13 +2,18 @@
  * Text fields validation
  */
 
-import { CARD_VALIDATION_SCHEMAS, type CreateCardData } from '../../../../types/card';
+import {
+  CARD_VALIDATION_SCHEMAS,
+  type CreateCardData,
+} from '../../../../types/card';
 import type { ValidationResult } from '../types';
 
 /**
  * Validate text field lengths
  */
-export function validateTextFieldLengths(data: CreateCardData): ValidationResult {
+export function validateTextFieldLengths(
+  data: CreateCardData
+): ValidationResult {
   const errors: string[] = [];
 
   if (

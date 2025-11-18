@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing filter operations
  */
@@ -18,11 +19,7 @@ export function useFilterManagement({
    * Update a filter in a specific section
    */
   const updateFilters = useCallback(
-    (
-      section: keyof AdvancedFilterOptions,
-      key: string,
-      value: unknown
-    ) => {
+    (section: keyof AdvancedFilterOptions, key: string, value: unknown) => {
       const newFilters = {
         ...filters,
         [section]: {
@@ -52,11 +49,7 @@ export function useFilterManagement({
    * Add a value to an array filter
    */
   const addArrayFilter = useCallback(
-    (
-      section: keyof AdvancedFilterOptions,
-      key: string,
-      value: string
-    ) => {
+    (section: keyof AdvancedFilterOptions, key: string, value: string) => {
       const current = (filters[section] as Record<string, string[]>)[key] || [];
       if (!current.includes(value)) {
         updateFilters(section, key, [...current, value]);
@@ -69,11 +62,7 @@ export function useFilterManagement({
    * Remove a value from an array filter
    */
   const removeArrayFilter = useCallback(
-    (
-      section: keyof AdvancedFilterOptions,
-      key: string,
-      value: string
-    ) => {
+    (section: keyof AdvancedFilterOptions, key: string, value: string) => {
       const current = (filters[section] as Record<string, string[]>)[key] || [];
       updateFilters(
         section,

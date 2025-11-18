@@ -1,3 +1,4 @@
+'use client';
 /**
  * Form validation utilities
  */

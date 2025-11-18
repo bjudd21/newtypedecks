@@ -11,9 +11,10 @@ interface UpdateBehaviorSelectorProps {
   onUpdateBehaviorChange: (behavior: UpdateBehavior) => void;
 }
 
-export const UpdateBehaviorSelector: React.FC<
-  UpdateBehaviorSelectorProps
-> = ({ updateBehavior, onUpdateBehaviorChange }) => {
+export const UpdateBehaviorSelector: React.FC<UpdateBehaviorSelectorProps> = ({
+  updateBehavior,
+  onUpdateBehaviorChange,
+}) => {
   return (
     <div>
       <label className="mb-2 block text-sm font-medium text-gray-400">
@@ -21,7 +22,9 @@ export const UpdateBehaviorSelector: React.FC<
       </label>
       <Select
         value={updateBehavior}
-        onChange={(value: string) => onUpdateBehaviorChange(value as UpdateBehavior)}
+        onChange={(value: string) =>
+          onUpdateBehaviorChange(value as UpdateBehavior)
+        }
         options={[
           { value: 'add', label: 'Add to existing quantities' },
           { value: 'replace', label: 'Replace existing quantities' },

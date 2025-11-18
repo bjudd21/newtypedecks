@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for card event handlers
  */
@@ -63,7 +64,16 @@ export function useCardHandlers({
         setLoading(false);
       }
     },
-    [searchQuery, currentPage, sortBy, sortOrder, setLoading, setCards, setTotalResults, setTotalPages]
+    [
+      searchQuery,
+      currentPage,
+      sortBy,
+      sortOrder,
+      setLoading,
+      setCards,
+      setTotalResults,
+      setTotalPages,
+    ]
   );
 
   const handleRandomCard = useCallback(async () => {

@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for managing version comparison state
  */
@@ -6,7 +7,10 @@ import { useMemo } from 'react';
 import { calculateChanges } from '../utils';
 import type { DeckVersion } from '../types';
 
-export function useVersionComparison(versionA: DeckVersion, versionB: DeckVersion) {
+export function useVersionComparison(
+  versionA: DeckVersion,
+  versionB: DeckVersion
+) {
   const changes = useMemo(
     () => calculateChanges(versionA, versionB),
     [versionA, versionB]

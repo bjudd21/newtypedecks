@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for detecting when element enters viewport using IntersectionObserver
  */
@@ -13,7 +14,12 @@ interface UseIntersectionObserverOptions {
 
 export function useIntersectionObserver(
   ref: RefObject<HTMLElement | null>,
-  { onIntersect, enabled, threshold = 200, scrollableTarget }: UseIntersectionObserverOptions
+  {
+    onIntersect,
+    enabled,
+    threshold = 200,
+    scrollableTarget,
+  }: UseIntersectionObserverOptions
 ) {
   useEffect(() => {
     if (!ref.current || !enabled) {

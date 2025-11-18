@@ -28,9 +28,7 @@ export async function invalidateByFilters(
     // Check if any filter matches
     let shouldInvalidate = false;
     for (const [filterKey, filterValue] of Object.entries(filters)) {
-      if (
-        entryFilters[filterKey as keyof CardSearchFilters] === filterValue
-      ) {
+      if (entryFilters[filterKey as keyof CardSearchFilters] === filterValue) {
         shouldInvalidate = true;
         break;
       }

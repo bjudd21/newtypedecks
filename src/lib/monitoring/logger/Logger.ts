@@ -24,7 +24,9 @@ export class Logger {
   public apiLog: ReturnType<typeof createConvenienceMethods>['apiLog'];
   public dbLog: ReturnType<typeof createConvenienceMethods>['dbLog'];
   public authLog: ReturnType<typeof createConvenienceMethods>['authLog'];
-  public userActionLog: ReturnType<typeof createConvenienceMethods>['userActionLog'];
+  public userActionLog: ReturnType<
+    typeof createConvenienceMethods
+  >['userActionLog'];
   public performanceLog: ReturnType<
     typeof createConvenienceMethods
   >['performanceLog'];
@@ -40,9 +42,7 @@ export class Logger {
     };
 
     // Bind convenience methods
-    const convenienceMethods = createConvenienceMethods(
-      this.log.bind(this)
-    );
+    const convenienceMethods = createConvenienceMethods(this.log.bind(this));
     this.apiLog = convenienceMethods.apiLog;
     this.dbLog = convenienceMethods.dbLog;
     this.authLog = convenienceMethods.authLog;

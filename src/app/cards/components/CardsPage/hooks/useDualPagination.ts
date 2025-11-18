@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for dual pagination logic (infinite + traditional)
  */
@@ -15,7 +16,9 @@ import { fetchCardsPage } from '../api';
 interface UseDualPaginationOptions {
   activeFilters: CardSearchFilters;
   sortOptions: { sortBy: string; sortOrder: 'asc' | 'desc' };
-  setTraditionalCards: React.Dispatch<React.SetStateAction<CardWithRelations[]>>;
+  setTraditionalCards: React.Dispatch<
+    React.SetStateAction<CardWithRelations[]>
+  >;
   setTraditionalLoading: (loading: boolean) => void;
   setTraditionalError: (error: string | null) => void;
   setTotalPages: (pages: number) => void;

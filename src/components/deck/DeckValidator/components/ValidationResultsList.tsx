@@ -42,7 +42,9 @@ export const ValidationResultsList: React.FC<ValidationResultsListProps> = ({
                 <div className="text-sm font-semibold">{result.rule.name}</div>
                 <div className="mt-1 text-sm">{result.message}</div>
                 {result.details && (
-                  <div className="mt-2 text-xs opacity-75">{result.details}</div>
+                  <div className="mt-2 text-xs opacity-75">
+                    {result.details}
+                  </div>
                 )}
               </div>
               <Badge

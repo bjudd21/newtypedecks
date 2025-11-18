@@ -20,7 +20,10 @@ export function generateResponsiveImageSet(
   ],
   generateImageUrl: (
     path: string,
-    options: { width?: number; format?: 'auto' | 'webp' | 'avif' | 'jpeg' | 'png' }
+    options: {
+      width?: number;
+      format?: 'auto' | 'webp' | 'avif' | 'jpeg' | 'png';
+    }
   ) => string
 ): ResponsiveImageSet {
   // Generate srcSet for different sizes
@@ -68,8 +71,12 @@ export function generateProcessedImageUrls(
   large: ResponsiveImageSet;
 } {
   return {
-    original: generateResponsiveSet(relativizePath(processedImage.original.path)),
-    thumbnail: generateResponsiveSet(relativizePath(processedImage.thumbnail.path)),
+    original: generateResponsiveSet(
+      relativizePath(processedImage.original.path)
+    ),
+    thumbnail: generateResponsiveSet(
+      relativizePath(processedImage.thumbnail.path)
+    ),
     large: generateResponsiveSet(relativizePath(processedImage.large.path)),
   };
 }

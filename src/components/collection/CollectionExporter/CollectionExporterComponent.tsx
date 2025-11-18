@@ -5,12 +5,7 @@
 'use client';
 
 import React from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import {
   CollectionStatsCard,
   FormatSelectionGrid,
@@ -26,9 +21,11 @@ import { ExportActions } from './components/ExportActions';
 import { EXPORT_FORMATS } from './constants';
 import type { CollectionExporterProps } from './types';
 
-export const CollectionExporterComponent: React.FC<
-  CollectionExporterProps
-> = ({ collectionStats, onExportComplete, className }) => {
+export const CollectionExporterComponent: React.FC<CollectionExporterProps> = ({
+  collectionStats,
+  onExportComplete,
+  className,
+}) => {
   // State management
   const {
     selectedFormat,

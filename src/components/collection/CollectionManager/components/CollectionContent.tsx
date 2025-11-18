@@ -7,7 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { CollectionCardItem, CollectionPagination } from '../';
 import { LoadingState } from './LoadingState';
 import { EmptyState } from './EmptyState';
-import type { CollectionData, CollectionCard, CollectionFilters } from '../types';
+import type {
+  CollectionData,
+  CollectionCard,
+  CollectionFilters,
+} from '../types';
 
 interface CollectionContentProps {
   collection: CollectionData | null;

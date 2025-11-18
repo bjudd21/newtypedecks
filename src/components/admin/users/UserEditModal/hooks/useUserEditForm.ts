@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for user edit form state and handlers
  */
@@ -11,7 +12,10 @@ interface UseUserEditFormOptions {
   user: User;
   onSuccess: () => void;
   onClose: () => void;
-  addToast: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addToast: (
+    type: 'success' | 'error' | 'warning' | 'info',
+    message: string
+  ) => void;
 }
 
 export function useUserEditForm({

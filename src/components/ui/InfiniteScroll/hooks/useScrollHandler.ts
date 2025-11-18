@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for handling scroll-based loading in custom scroll containers
  */

@@ -139,7 +139,12 @@ const eslintConfig = [
 
   // Config file overrides
   {
-    files: ['**/*.config.js', '**/*.config.mjs', '**/*.config.ts', 'jest.setup.js'],
+    files: [
+      '**/*.config.js',
+      '**/*.config.mjs',
+      '**/*.config.ts',
+      'jest.setup.js',
+    ],
     languageOptions: {
       parserOptions: {
         project: false, // Don't use TypeScript project parsing for config files

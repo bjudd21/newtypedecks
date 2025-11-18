@@ -15,7 +15,10 @@ import {
   createComponentLogger as createComponentLoggerFn,
   createDomainLoggers,
 } from './factories';
-import { logPerformance as logPerformanceFn, logErrors as logErrorsFn } from './decorators';
+import {
+  logPerformance as logPerformanceFn,
+  logErrors as logErrorsFn,
+} from './decorators';
 
 // Create default logger instance
 export const logger = new Logger();

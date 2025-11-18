@@ -15,9 +15,7 @@ export function validateSeries(data: CreateCardData): ValidationResult {
     data.series &&
     !CARD_CONSTANTS.SUPPORTED_SERIES.includes(data.series as CardSeries)
   ) {
-    warnings.push(
-      `Series "${data.series}" is not in the standard series list`
-    );
+    warnings.push(`Series "${data.series}" is not in the standard series list`);
   }
 
   return { errors: [], warnings };

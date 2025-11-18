@@ -8,9 +8,7 @@ interface VerifiedBadgeProps {
   isVerified: boolean;
 }
 
-export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
-  isVerified,
-}) => {
+export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({ isVerified }) => {
   if (isVerified) {
     return (
       <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-500/20">

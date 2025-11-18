@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for setting up optimized images with CDN and caching
  */

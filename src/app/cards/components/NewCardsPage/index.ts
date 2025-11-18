@@ -19,7 +19,10 @@ export { fetchCards, fetchRandomCard } from './api';
 export { useCardsState } from './hooks/useCardsState';
 export { useFilters } from './hooks/useFilters';
 export { useCardHandlers } from './hooks/useCardHandlers';
-export { useURLInitialization, useFilterEffects } from './hooks/useURLInitialization';
+export {
+  useURLInitialization,
+  useFilterEffects,
+} from './hooks/useURLInitialization';
 
 // UI Components
 export { FilterToolbar } from './ui/FilterToolbar';

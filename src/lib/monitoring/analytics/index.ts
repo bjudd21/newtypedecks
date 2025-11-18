@@ -3,11 +3,7 @@
  */
 
 // Export types
-export type {
-  AnalyticsEvent,
-  PerformanceMetric,
-  UserMetric,
-} from './types';
+export type { AnalyticsEvent, PerformanceMetric, UserMetric } from './types';
 
 // Export classes
 export { AnalyticsProvider } from './AnalyticsProvider';

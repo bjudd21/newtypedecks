@@ -10,7 +10,11 @@ export { CollectionManagerComponent as default } from './CollectionManagerCompon
 export * from './types';
 
 // Constants
-export { CARD_CONDITIONS, DEFAULT_FILTERS, DEFAULT_CONDITION } from './constants';
+export {
+  CARD_CONDITIONS,
+  DEFAULT_FILTERS,
+  DEFAULT_CONDITION,
+} from './constants';
 
 // Hooks
 export { useCollectionState } from './hooks/useCollectionState';

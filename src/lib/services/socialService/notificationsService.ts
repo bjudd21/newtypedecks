@@ -21,7 +21,9 @@ export async function getUserNotifications(
   };
 }
 
-export async function markNotificationRead(_notificationId: string): Promise<void> {
+export async function markNotificationRead(
+  _notificationId: string
+): Promise<void> {
   // Implementation
 }
 

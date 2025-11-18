@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for prefetching images
  */

@@ -3,7 +3,13 @@
  */
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Badge } from '@/components/ui';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Badge,
+} from '@/components/ui';
 import { severityColors, severityIcons } from '../utils';
 import type { DeckAnalytics } from '../types';
 

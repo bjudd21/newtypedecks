@@ -10,7 +10,11 @@
 'use client';
 
 // Export types
-export type { CollectionCard, Collection, CollectionOptions } from './useCollection/types';
+export type {
+  CollectionCard,
+  Collection,
+  CollectionOptions,
+} from './useCollection/types';
 
 // Export main hook
 export { useCollection } from './useCollection/useCollectionHook';

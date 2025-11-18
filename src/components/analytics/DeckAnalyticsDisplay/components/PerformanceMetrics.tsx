@@ -50,9 +50,7 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({
             >
               {analytics.synergyScore}%
             </div>
-            <div className="mt-1 text-xs text-gray-600">
-              Card interactions
-            </div>
+            <div className="mt-1 text-xs text-gray-600">Card interactions</div>
           </div>
         </div>
       </CardContent>

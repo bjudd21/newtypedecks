@@ -14,7 +14,10 @@ import { PaginationBar } from '@/components/card/PaginationBar';
 import { useCardsState } from './hooks/useCardsState';
 import { useFilters } from './hooks/useFilters';
 import { useCardHandlers } from './hooks/useCardHandlers';
-import { useURLInitialization, useFilterEffects } from './hooks/useURLInitialization';
+import {
+  useURLInitialization,
+  useFilterEffects,
+} from './hooks/useURLInitialization';
 import { FilterToolbar } from './ui/FilterToolbar';
 import { SortControls } from './ui/SortControls';
 import { ViewToggle } from './ui/ViewToggle';
@@ -54,19 +57,23 @@ export function NewCardsPageContent() {
   } = useFilters();
 
   // Event handlers
-  const { handleSearch, handleRandomCard, handleCardClick, handleSearchSubmit } =
-    useCardHandlers({
-      searchQuery,
-      currentPage,
-      sortBy,
-      sortOrder,
-      setLoading,
-      setCards,
-      setTotalResults,
-      setTotalPages,
-      setSelectedCard,
-      setCurrentPage,
-    });
+  const {
+    handleSearch,
+    handleRandomCard,
+    handleCardClick,
+    handleSearchSubmit,
+  } = useCardHandlers({
+    searchQuery,
+    currentPage,
+    sortBy,
+    sortOrder,
+    setLoading,
+    setCards,
+    setTotalResults,
+    setTotalPages,
+    setSelectedCard,
+    setCurrentPage,
+  });
 
   // URL initialization
   useURLInitialization({
@@ -129,7 +136,11 @@ export function NewCardsPageContent() {
       />
 
       <div className="pb-6">
-        <CardGrid cards={cards} onCardClick={handleCardClick} loading={loading} />
+        <CardGrid
+          cards={cards}
+          onCardClick={handleCardClick}
+          loading={loading}
+        />
       </div>
 
       <PaginationBar

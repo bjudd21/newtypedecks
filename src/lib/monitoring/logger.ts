@@ -15,10 +15,7 @@ export { Logger } from './logger/Logger';
 export { logger } from './logger/index';
 
 // Export factory functions
-export {
-  createRequestLogger,
-  createComponentLogger,
-} from './logger/index';
+export { createRequestLogger, createComponentLogger } from './logger/index';
 
 // Export decorators
 export { logPerformance, logErrors } from './logger/index';

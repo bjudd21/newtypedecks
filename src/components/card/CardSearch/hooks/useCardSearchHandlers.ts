@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for card search event handlers
  */
@@ -37,7 +38,10 @@ export function useCardSearchHandlers({
     async (query: string) => {
       try {
         setIsLoading(true);
-        const cardSuggestions = await fetchCardSuggestions(query, maxSuggestions);
+        const cardSuggestions = await fetchCardSuggestions(
+          query,
+          maxSuggestions
+        );
         setSuggestions(cardSuggestions);
       } finally {
         setIsLoading(false);

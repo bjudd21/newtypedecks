@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hook for handling format and data changes
  */

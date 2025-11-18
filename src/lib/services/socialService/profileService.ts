@@ -3,9 +3,15 @@
  * Handles user profile operations
  */
 
-import type { UserProfile, UserSocialPreferences, UserStatistics } from './types';
+import type {
+  UserProfile,
+  UserSocialPreferences,
+  UserStatistics,
+} from './types';
 
-export async function getUserProfile(userId: string): Promise<UserProfile | null> {
+export async function getUserProfile(
+  userId: string
+): Promise<UserProfile | null> {
   return {
     id: userId,
     username: 'placeholder_user',

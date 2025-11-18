@@ -33,9 +33,7 @@ export function generateCardTags(card: CardWithRelations): string[] {
 
   // Add power level tags
   const powerLevel =
-    (card.clashPoints || 0) +
-    (card.attackPoints || 0) +
-    (card.hitPoints || 0);
+    (card.clashPoints || 0) + (card.attackPoints || 0) + (card.hitPoints || 0);
   if (powerLevel >= 1000) tags.push('High Power');
   else if (powerLevel >= 500) tags.push('Medium Power');
   else tags.push('Low Power');

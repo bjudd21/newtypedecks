@@ -1,3 +1,4 @@
+'use client';
 /**
  * Custom hook for drag event handlers
  */

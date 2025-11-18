@@ -2,7 +2,10 @@
  * Numeric range filter matching
  */
 
-import type { CardWithRelations, CardSearchFilters } from '../../../../types/card';
+import type {
+  CardWithRelations,
+  CardSearchFilters,
+} from '../../../../types/card';
 
 /**
  * Check if card matches level range filter
@@ -11,15 +14,9 @@ export function matchesLevelRangeFilter(
   card: CardWithRelations,
   filters: CardSearchFilters
 ): boolean {
-  if (
-    filters.levelMin !== undefined &&
-    (card.level || 0) < filters.levelMin
-  )
+  if (filters.levelMin !== undefined && (card.level || 0) < filters.levelMin)
     return false;
-  if (
-    filters.levelMax !== undefined &&
-    (card.level || 0) > filters.levelMax
-  )
+  if (filters.levelMax !== undefined && (card.level || 0) > filters.levelMax)
     return false;
   return true;
 }
@@ -31,15 +28,9 @@ export function matchesCostRangeFilter(
   card: CardWithRelations,
   filters: CardSearchFilters
 ): boolean {
-  if (
-    filters.costMin !== undefined &&
-    (card.cost || 0) < filters.costMin
-  )
+  if (filters.costMin !== undefined && (card.cost || 0) < filters.costMin)
     return false;
-  if (
-    filters.costMax !== undefined &&
-    (card.cost || 0) > filters.costMax
-  )
+  if (filters.costMax !== undefined && (card.cost || 0) > filters.costMax)
     return false;
   return true;
 }
@@ -71,15 +62,9 @@ export function matchesPriceRangeFilter(
   card: CardWithRelations,
   filters: CardSearchFilters
 ): boolean {
-  if (
-    filters.priceMin !== undefined &&
-    (card.price || 0) < filters.priceMin
-  )
+  if (filters.priceMin !== undefined && (card.price || 0) < filters.priceMin)
     return false;
-  if (
-    filters.priceMax !== undefined &&
-    (card.price || 0) > filters.priceMax
-  )
+  if (filters.priceMax !== undefined && (card.price || 0) > filters.priceMax)
     return false;
   return true;
 }

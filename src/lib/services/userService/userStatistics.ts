@@ -64,7 +64,9 @@ export async function getUserStatistics(): Promise<UserStatistics> {
 /**
  * Get user activity details
  */
-export async function getUserActivity(id: string): Promise<UserActivity | null> {
+export async function getUserActivity(
+  id: string
+): Promise<UserActivity | null> {
   const user = await prisma.user.findUnique({
     where: { id },
     select: {

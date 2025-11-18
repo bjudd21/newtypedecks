@@ -18,8 +18,7 @@ export const DangerZone: React.FC<DangerZoneProps> = ({
     <div className="rounded-lg border border-red-900/50 bg-red-950/30 p-4">
       <h3 className="mb-2 font-medium text-red-400">Danger Zone</h3>
       <p className="mb-3 text-sm text-red-300/70">
-        Once you delete your account, there is no going back. Please be
-        certain.
+        Once you delete your account, there is no going back. Please be certain.
       </p>
       <Button
         variant="outline"
