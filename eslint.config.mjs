@@ -168,6 +168,54 @@ const eslintConfig = [
     },
   },
 
+  // Legal and marketing content pages - legitimate long-form content
+  {
+    files: [
+      '**/TermsOfService.tsx',
+      '**/PrivacyNotice.tsx',
+      '**/CookieNotice.tsx',
+      '**/LegalComplianceFooter.tsx',
+      '**/BandaiNamcoAttribution.tsx',
+      '**/NonAffiliationStatement.tsx',
+      'src/app/page.tsx',
+      'src/app/demo/page.tsx',
+      'src/app/offline/page.tsx',
+    ],
+    rules: {
+      // These files contain legitimate long-form content
+      'max-lines-per-function': 'off',
+      'max-statements': 'off',
+    },
+  },
+
+  // Page components, forms, and complex UI - raised thresholds
+  {
+    files: [
+      // Page-level components
+      '**/*Page.tsx',
+      '**/*Page.ts',
+      '**/layout.tsx',
+
+      // Complex forms
+      '**/*Form.tsx',
+      '**/*Modal.tsx',
+
+      // Complex interactive components
+      '**/DeckBuilder*.tsx',
+      '**/CollectionManager*.tsx',
+      '**/InfiniteScroll*.tsx',
+      '**/DraggableCard*.tsx',
+      '**/AdvancedFilters*.tsx',
+      '**/CardSearch*.tsx',
+    ],
+    rules: {
+      // Raised thresholds for legitimate UI complexity
+      'max-lines-per-function': ['warn', 150],
+      complexity: ['warn', 25],
+      'max-statements': ['warn', 50],
+    },
+  },
+
   // Ignore patterns
   {
     ignores: [
