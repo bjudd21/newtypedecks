@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Account information card component
  */
