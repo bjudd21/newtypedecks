@@ -217,8 +217,7 @@ newtypedecks/
 │   ├── ARCHITECTURE.md      # System architecture and runtime
 │   ├── API_REFERENCE.md     # API endpoints and database schema
 │   ├── DEVELOPER_GUIDE.md   # Development workflow and standards
-│   ├── DEPLOYMENT.md        # Production deployment guide
-│   └── BEGINNERS_GUIDE.md   # Getting started guide
+│   └── DEPLOYMENT.md        # Production deployment guide
 ├── prisma/                  # Database schema and migrations
 ├── public/                  # Static assets
 ├── scripts/                 # Utility scripts
@@ -231,7 +230,8 @@ newtypedecks/
 │   │   ├── auth/           # Authentication pages
 │   │   ├── profile/        # User profile pages
 │   │   ├── analytics/      # Analytics dashboard
-│   │   └── admin/          # Admin panel
+│   │   ├── admin/          # Admin panel
+│   │   └── settings/       # User settings and PWA configuration
 │   ├── components/         # React components
 │   │   ├── ui/            # Reusable UI components
 │   │   ├── navigation/    # Navigation components
@@ -342,11 +342,11 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-secret-key-here"
 
 # Email (for verification)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="your-email@gmail.com"
-SMTP_PASSWORD="your-app-password"
-SMTP_FROM="noreply@gundamcardgame.com"
+EMAIL_SERVER_HOST="smtp.gmail.com"
+EMAIL_SERVER_PORT="587"
+EMAIL_SERVER_USER="your-email@gmail.com"
+EMAIL_SERVER_PASSWORD="your-app-password"
+EMAIL_FROM="noreply@gundamcardgame.com"
 
 # Sentry (optional)
 NEXT_PUBLIC_SENTRY_DSN="your-sentry-dsn"
@@ -452,14 +452,13 @@ Comprehensive documentation organized by topic:
 - **[API Reference](docs/API_REFERENCE.md)** - Complete API endpoints and database schema
 - **[Developer Guide](docs/DEVELOPER_GUIDE.md)** - Development workflow, coding standards, and best practices
 - **[Deployment Guide](docs/DEPLOYMENT.md)** - Production deployment on various platforms
-- **[Beginners Guide](docs/BEGINNERS_GUIDE.md)** - Getting started guide for new developers
 
 ### Quick Links
 
 - **Setup Issues?** Check [Developer Guide - Troubleshooting](docs/DEVELOPER_GUIDE.md)
 - **API Questions?** See [API Reference](docs/API_REFERENCE.md)
 - **Deployment Help?** Review [Deployment Guide](docs/DEPLOYMENT.md)
-- **New to the Project?** Start with [Beginners Guide](docs/BEGINNERS_GUIDE.md)
+- **New to the Project?** Start with [Developer Guide](docs/DEVELOPER_GUIDE.md)
 
 ## 🐛 Troubleshooting
 
