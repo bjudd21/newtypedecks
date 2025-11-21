@@ -1,4 +1,4 @@
-# Gundam Card Game Database
+# Newtype Decks
 
 [![Build Status](https://github.com/bjudd21/newtypedecks/actions/workflows/quality-checks.yml/badge.svg)](https://github.com/bjudd21/newtypedecks/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -10,7 +10,7 @@
 [![TypeScript](https://img.shields.io/badge/typescript-0%20errors-success)](https://www.typescriptlang.org)
 [![Tests](https://img.shields.io/badge/tests-193%20passed-success)](package.json)
 
-A comprehensive website for the Gundam Card Game, combining card database functionality with deck building and collection management features. Built with Next.js 16, React 19, and TypeScript for a modern, type-safe development experience.
+A comprehensive deck building and collection management platform for the Gundam Card Game. Built with Next.js 16, React 19, and TypeScript for a modern, type-safe development experience.
 
 ## ✨ Features
 
@@ -346,7 +346,7 @@ EMAIL_SERVER_HOST="smtp.gmail.com"
 EMAIL_SERVER_PORT="587"
 EMAIL_SERVER_USER="your-email@gmail.com"
 EMAIL_SERVER_PASSWORD="your-app-password"
-EMAIL_FROM="noreply@gundamcardgame.com"
+EMAIL_FROM="noreply@newtypedecks.com"
 
 # Sentry (optional)
 NEXT_PUBLIC_SENTRY_DSN="your-sentry-dsn"
@@ -624,6 +624,6 @@ This website is a fan-made project created to support the Gundam Card Game commu
 
 ---
 
-**Built with ❤️ by the Gundam Card Game community**
+**Built with ❤️ by the Newtype Decks community**
 
 _Version 0.1.0 - Last Updated: November 2025_

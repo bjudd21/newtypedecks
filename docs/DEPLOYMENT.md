@@ -1,6 +1,6 @@
 # Production Deployment Guide
 
-> Complete guide for deploying the Gundam Card Game website to production environments.
+> Complete guide for deploying the Newtype Decks to production environments.
 
 ---
 

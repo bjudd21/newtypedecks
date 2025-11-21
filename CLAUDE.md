@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a comprehensive Gundam Card Game website that combines card database functionality with deck building and collection management features. It's built with Next.js 16 and follows a mobile-first approach to serve both new players and competitive veterans.
+This is Newtype Decks, a comprehensive deck building and collection management platform for the Gundam Card Game. It's built with Next.js 16 and follows a mobile-first approach to serve both new players and competitive veterans.
 
 ## Development Commands
 

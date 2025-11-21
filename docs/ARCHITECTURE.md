@@ -1,6 +1,6 @@
 # Architecture - How This Website Actually Works
 
-> A junior developer's guide to understanding the Gundam Card Game website's runtime architecture
+> A junior developer's guide to understanding the Newtype Decks's runtime architecture
 
 ---
 

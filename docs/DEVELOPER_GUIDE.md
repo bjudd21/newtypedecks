@@ -1,6 +1,6 @@
 # Developer Guide
 
-> Complete development workflow, environment setup, component library, and code quality standards for the Gundam Card Game website.
+> Complete development workflow, environment setup, component library, and code quality standards for the Newtype Decks.
 
 ---
 
@@ -699,7 +699,7 @@ export async function GET(request: NextRequest) {
 
 1. **Create project in [Google Cloud Console](https://console.cloud.google.com/)**
 2. **Configure OAuth consent screen:**
-   - App name: "Gundam Card Game"
+   - App name: "Newtype Decks"
    - Scopes: `email`, `profile`
    - Authorized domains: Your domain
 3. **Create credentials:**
