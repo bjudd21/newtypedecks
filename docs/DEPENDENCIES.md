@@ -26,7 +26,7 @@ This document tracks all project dependencies, available updates, security consi
 
 - **Prisma**: 6.19.0 (@prisma/client + prisma, latest)
 - **PostgreSQL**: Via Docker (production ready)
-- **Redis**: 5.9.0 (latest, not yet implemented - see REDIS_V5_MIGRATION.md)
+- **Redis**: 5.9.0 (latest, not yet implemented - see Future Migration Plans below)
 
 ### Authentication
 
@@ -73,7 +73,7 @@ This document tracks all project dependencies, available updates, security consi
 - **Prerequisites**:
   - Wait for stable v5 release + 2 weeks
   - Review Auth.js migration guide
-  - See AUTH_MIGRATION_PLAN.md
+  - See Future Migration Plans below
   - Dedicated security testing required
 - **Timeline**: Q4 2025 (when stable)
 
@@ -223,6 +223,42 @@ Before updating any dependency:
 
 - Current: npm
 - Consider: pnpm for faster installs (optional)
+
+### Future Migration Plans
+
+Detailed migration plans for upcoming major updates are archived in `/docs/migrations/`. Below are brief summaries:
+
+#### Auth.js v5 Migration (Planned Q4 2025)
+
+**Status**: Waiting for stable release (currently beta 5.0.0-beta.30)
+**Current**: NextAuth 4.24.13
+**Target**: Auth.js 5.x
+
+**Key Changes**:
+- Complete API rewrite with new `@auth/*` package structure
+- Updated authentication flow and session handling
+- New adapter patterns (incompatible with current adapter)
+- Enhanced TypeScript support
+
+**Timeline**: Q4 2025 or when stable release + 2 weeks
+
+**Reference**: See `/docs/migrations/AUTH_MIGRATION_PLAN.md` for detailed planning
+
+#### Redis Implementation & v5 Patterns
+
+**Status**: Redis installed but not yet implemented in codebase
+**Current**: redis@5.9.0 (package installed, zero usage)
+**Purpose**: Future caching layer when needed
+
+**Key v5 Patterns** (when implementing Redis):
+- Modern async-aware `createClient()` API
+- Updated pub/sub signature changes
+- Enhanced TypeScript support
+- Better connection lifecycle management
+
+**Timeline**: TBD - implement Redis caching first, then use v5 patterns
+
+**Reference**: See `/docs/migrations/REDIS_V5_MIGRATION.md` for v5-compatible implementation patterns
 
 ### Monitoring
 

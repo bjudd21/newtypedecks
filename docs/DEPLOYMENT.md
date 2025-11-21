@@ -91,39 +91,48 @@ docker-compose exec app npx prisma migrate deploy
 
 ## Environment Configuration
 
-### 1. Copy Production Environment Template
+> **Note**: For complete environment variable documentation, see [Developer Guide - Environment Configuration](DEVELOPER_GUIDE.md#environment-configuration). This section covers production-specific setup only.
+
+### Production Environment Setup
+
+**1. Copy production template:**
 
 ```bash
 cp .env.production .env
 ```
 
-### 2. Configure Required Environment Variables
+**2. Configure production-specific variables:**
 
-Edit `.env` with your production values:
+At minimum, update these for production:
 
 ```bash
-# Database
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+
+# Database - Use managed service or production PostgreSQL
 DATABASE_URL="postgresql://username:password@hostname:5432/database_name"
 
-# Authentication
+# Authentication - Generate secure secrets
 NEXTAUTH_URL="https://your-domain.com"
-NEXTAUTH_SECRET="your-very-long-random-secret-key-here"
+NEXTAUTH_SECRET="[generate with: openssl rand -base64 32]"
 
-# Email
-SMTP_HOST="smtp.your-provider.com"
-SMTP_USER="your-email@your-domain.com"
-SMTP_PASS="your-email-password"
+# Email - Production SMTP credentials
+EMAIL_SERVER_HOST="smtp.your-provider.com"
+EMAIL_SERVER_USER="your-email@your-domain.com"
+EMAIL_SERVER_PASSWORD="your-email-password"
+EMAIL_FROM="noreply@your-domain.com"
 ```
 
-### 3. Generate Secure Secrets
+**3. Production-specific considerations:**
 
-```bash
-# Generate NextAuth secret
-openssl rand -base64 32
+- Use managed database services (AWS RDS, Google Cloud SQL, etc.)
+- Enable SSL/TLS for database connections
+- Use environment-specific secrets (never reuse dev secrets)
+- Configure production email provider (SendGrid, AWS SES, etc.)
+- Set appropriate CORS origins and rate limits
+- Enable monitoring with Sentry and analytics
 
-# Generate Redis password
-openssl rand -base64 24
-```
+For all environment variables and OAuth configuration, see [Developer Guide - Environment Configuration](DEVELOPER_GUIDE.md#environment-configuration).
 
 ## Docker Deployment
 

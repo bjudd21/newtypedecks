@@ -88,87 +88,28 @@ npm run env:secrets      # Generate secure secrets
 
 ## Architecture Overview
 
+> **Note**: For comprehensive architecture documentation including request flow, service interactions, and how the system works at runtime, see [Architecture Guide](ARCHITECTURE.md). This section provides a quick reference only.
+
 ### Technology Stack
 
-**Frontend:**
+- **Frontend**: Next.js 16, React 19, TypeScript, Redux Toolkit, Tailwind CSS
+- **Backend**: Next.js API routes, Prisma 6, PostgreSQL, Redis
+- **Testing**: Jest 30, React Testing Library
+- **Dev Tools**: Docker Compose, ESLint, Prettier, Husky
 
-- Next.js 16 with App Router
-- React with TypeScript
-- Redux Toolkit for state management
-- Tailwind CSS for styling
-
-**Backend:**
-
-- Next.js API routes
-- Prisma ORM
-- PostgreSQL database
-- Redis for caching/sessions
-
-**Development:**
-
-- Jest & React Testing Library
-- Docker Compose
-- ESLint & Prettier
-- Husky for Git hooks
-
-### File Organization
+### Quick Directory Reference
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── api/               # API routes (backend)
-│   │   ├── cards/         # Card CRUD operations
-│   │   ├── decks/         # Deck management
-│   │   ├── collections/   # Collection tracking
-│   │   └── auth/          # Authentication
-│   ├── cards/             # Card pages
-│   ├── decks/             # Deck builder pages
-│   ├── collection/        # Collection management
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   ├── layout/           # Layout components
-│   ├── navigation/       # Navigation components
-│   ├── card/             # Card-specific components
-│   ├── deck/             # Deck-specific components
-│   └── auth/             # Authentication components
-├── lib/                  # Utility libraries
-│   ├── api/             # API utilities
-│   ├── config/          # Configuration
-│   ├── database/        # Database client
-│   ├── storage/         # File storage
-│   ├── types/           # Type definitions
-│   └── utils/           # General utilities
-├── store/               # Redux store
-│   └── slices/          # Redux slices
-└── hooks/               # Custom React hooks
+├── app/                 # Next.js App Router (pages & API routes)
+├── components/          # React components (ui/, layout/, navigation/, etc.)
+├── lib/                 # Utilities (api/, config/, database/, storage/, utils/)
+└── store/              # Redux store and slices
 
-prisma/
-└── schema.prisma        # Database schema
-
-scripts/
-└── seed-database.js     # Database seed script
+prisma/schema.prisma    # Database schema
 ```
 
-### Request Flow
-
-**Page Request:**
-
-```
-Browser → Next.js → Page Component → Prisma → PostgreSQL → Back to User
-```
-
-**API Request:**
-
-```
-Browser → Next.js API Route → Validation → Prisma → PostgreSQL → JSON Response
-```
-
-**Authentication:**
-
-```
-User Login → NextAuth → Check Database → Create Session → Store in Redis → Return Cookie
-```
+For complete file organization and runtime architecture, see [Architecture Guide](ARCHITECTURE.md).
 
 ---
 
