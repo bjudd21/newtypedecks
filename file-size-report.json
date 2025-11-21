@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-18T15:01:19.800Z",
+  "timestamp": "2025-11-21T11:12:26.151Z",
   "summary": {
-    "passed": 1140,
-    "warnings": 8,
+    "passed": 1141,
+    "warnings": 7,
     "errors": 0,
     "total": 1148
   },
@@ -61,14 +61,6 @@
       "limit": 500,
       "percentage": 105,
       "size": 14764,
-      "status": "warning"
-    },
-    {
-      "file": "src/app/page.tsx",
-      "lines": 445,
-      "limit": 500,
-      "percentage": 89,
-      "size": 18240,
       "status": "warning"
     },
     {
@@ -8429,6 +8421,14 @@
       "limit": 500,
       "percentage": 17,
       "size": 2296,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "lines": 355,
+      "limit": 500,
+      "percentage": 71,
+      "size": 14635,
       "status": "passed"
     },
     {
