@@ -13,6 +13,7 @@ These documents are planning artifacts created in preparation for major version 
 ## Current Archived Plans
 
 ### AUTH_MIGRATION_PLAN.md
+
 **Status**: Waiting for Auth.js v5 stable release
 **Current Version**: NextAuth 4.24.13
 **Target Version**: Auth.js v5.x (still in beta as of 2025-11-15)
@@ -20,6 +21,7 @@ These documents are planning artifacts created in preparation for major version 
 **Why Archived**: Auth.js v5 is still in beta and not recommended for production use
 
 ### REDIS_V5_MIGRATION.md
+
 **Status**: Waiting for Redis implementation in codebase
 **Current Version**: redis@5.9.0 (package installed)
 **Target Version**: Already on v5, but Redis is not yet implemented in the application
@@ -29,11 +31,13 @@ These documents are planning artifacts created in preparation for major version 
 ## When to Reference These Plans
 
 ### Auth Migration
+
 - When Auth.js v5 reaches stable release
 - When reviewing authentication modernization
 - Before implementing v5-specific features
 
 ### Redis Migration
+
 - When implementing Redis caching for the first time
 - As reference for v5-compatible patterns
 - For understanding breaking changes from v4

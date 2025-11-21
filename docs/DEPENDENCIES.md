@@ -235,6 +235,7 @@ Detailed migration plans for upcoming major updates are archived in `/docs/migra
 **Target**: Auth.js 5.x
 
 **Key Changes**:
+
 - Complete API rewrite with new `@auth/*` package structure
 - Updated authentication flow and session handling
 - New adapter patterns (incompatible with current adapter)
@@ -251,6 +252,7 @@ Detailed migration plans for upcoming major updates are archived in `/docs/migra
 **Purpose**: Future caching layer when needed
 
 **Key v5 Patterns** (when implementing Redis):
+
 - Modern async-aware `createClient()` API
 - Updated pub/sub signature changes
 - Enhanced TypeScript support
