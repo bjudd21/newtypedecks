@@ -4,7 +4,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is Newtype Decks, a comprehensive deck building and collection management platform for the Gundam Card Game. It's built with Next.js 16 and follows a mobile-first approach to serve both new players and competitive veterans.
+This is Newtype Decks, a **multi-TCG platform** for card database browsing, deck building, and collection management. Originally built for the Gundam Card Game, it now supports multiple trading card games via a **Game Definition System** where each TCG is a database record + JSON config that drives the entire app.
+
+**Currently supported games:** Gundam Card Game, One Piece TCG (in progress).
+
+**Source of truth for the pivot:** `prd-multi-tcg-addendum.md`
+
+## Multi-TCG Architecture
+
+### Game Definition System
+
+Every game is a `Game` database record with a `config` JSONB column containing a `GameConfig` object. This config drives: card schema, deck validation rules, filter options, legal disclaimers, branding — everything. Adding a new game is a config + seed operation, not a code change.
+
+**Key files:**
+- `src/lib/types/game.ts` — TypeScript types: `Game`, `GameConfig`, `CardSchema`, `DeckRules`, `DeckZone`
+- `src/lib/config/games/gundam.ts` — Gundam game config (captures all formerly hardcoded values)
+- `src/lib/config/games/onepiece.ts` — One Piece TCG game config
+- `src/contexts/GameContext.tsx` — React context: `useGame()` hook for accessing game in components
+- `src/lib/database/games.ts` — DB utilities: `getGameBySlug()`, `getAllActiveGames()`, `resolveGameId()`
+- `src/app/[gameSlug]/layout.tsx` — Server layout that loads game and wraps children in `GameProvider`
+- `scripts/seed-games.js` — Idempotent game seeder
+
+### URL Structure
+
+Game-scoped pages live under `/[gameSlug]/`:
+```
+/                           → Landing page (game selector)
+/[gameSlug]/                → Game home page
+/[gameSlug]/cards           → Card database
+/[gameSlug]/decks           → Public deck browser
+/[gameSlug]/decks/create    → Deck builder
+/[gameSlug]/collection      → Collection tracker
+```
+
+Non-game pages stay at root: `/auth/*`, `/dashboard`, `/profile`, `/admin/*`, `/settings/*`
+
+### Card Data Model
+
+Universal fields (name, cost, level, type, etc.) are standard Prisma columns. **Game-specific fields** go in `Card.gameAttributes` (JSONB column). Each game's `GameConfig.cardSchema.customFields` defines what's in that JSONB:
+- Gundam: `{ faction, pilot, model, series }`
+- One Piece: `{ color, power, counter, life, attribute, trait }`
+
+**DEPRECATED columns:** `faction`, `pilot`, `model`, `series`, `nation` on Card are kept for backward compatibility during migration. All new code must read from `gameAttributes` instead.
+
+### Deck Visibility
+
+Three-tier system (replaces boolean `isPublic`):
+- **DRAFT** — save anytime, no validation, only visible to owner
+- **PRIVATE** — must pass deck rules, shareable by link
+- **PUBLIC** — must pass deck rules, visible in deck library
+
+### When Working on Game-Scoped Features
+
+1. Always use `useGame()` to get game context — never hardcode game names or rules
+2. Card filters, types, rarities come from `config.cardSchema` and `config.cardTypes`
+3. Deck rules come from `config.deckRules`
+4. Legal/copyright text comes from `config.legalDisclaimer`, `config.copyrightNotice`
+5. All API queries for cards/decks/collections must filter by `gameId`
+6. Export filenames use `game.slug`, not hardcoded 'gundam'
 
 ## Development Commands
 
@@ -30,12 +87,14 @@ npm run start         # Start production server
 ### Database Operations
 
 ```bash
-npm run db:generate   # Generate Prisma client
-npm run db:push       # Push schema changes to database
-npm run db:migrate    # Run database migrations
-npm run db:reset      # Reset database (destructive)
-npm run db:seed       # Seed database with sample data
-npm run db:studio     # Open Prisma Studio
+npm run db:generate       # Generate Prisma client
+npm run db:push           # Push schema changes to database
+npm run db:migrate        # Run database migrations (dev)
+npm run db:migrate:deploy # Deploy migrations (production/Vercel)
+npm run db:reset          # Reset database (destructive)
+npm run db:seed           # Seed database with card data
+npm run db:seed:games     # Seed game records (Gundam, One Piece)
+npm run db:studio         # Open Prisma Studio
 ```
 
 ### Code Quality
@@ -79,31 +138,42 @@ npm run quality       # Run all checks including file size checks
 - **Frontend**: Next.js 16 with App Router, TypeScript, Tailwind CSS
 - **State Management**: Redux Toolkit with typed hooks
 - **Backend**: Next.js API routes with Prisma ORM
-- **Database**: PostgreSQL with comprehensive card game schema
+- **Database**: PostgreSQL (Neon Postgres for Vercel, Docker for local)
 - **Caching**: Redis 5.9.0 (installed, not yet implemented - see DEPENDENCIES.md)
 - **Testing**: Jest with React Testing Library
-- **Development**: Docker Compose for local services
+- **Deployment**: Vercel (primary), Docker/k8s (secondary)
+- **Local Dev**: Docker Compose for PostgreSQL/Redis
 
 ### Directory Structure
 
 ```
 src/
 ├── app/                    # Next.js App Router
-│   ├── api/               # API routes (cards, decks, collections, auth)
-│   ├── cards/             # Card-related pages
-│   ├── decks/             # Deck building pages
-│   └── collection/        # Collection management pages
+│   ├── [gameSlug]/        # Game-scoped pages (cards, decks, collection per game)
+│   │   ├── layout.tsx     # Loads game context, wraps in GameProvider
+│   │   └── page.tsx       # Game home page
+│   ├── api/               # API routes
+│   │   ├── games/         # Game list + detail endpoints
+│   │   ├── cards/         # Card database operations
+│   │   ├── decks/         # Deck management
+│   │   └── collections/   # Collection tracking
+│   ├── auth/              # Authentication pages (not game-scoped)
+│   ├── dashboard/         # Cross-game user dashboard
+│   └── admin/             # Admin panel
 ├── components/            # React components
 │   ├── ui/               # Reusable UI components (Button, Card, Modal, etc.)
 │   ├── navigation/       # Navigation components (Navbar, Breadcrumb)
-│   └── layout/           # Layout components
+│   └── layout/           # Layout components (legal footers, attribution)
+├── contexts/             # React contexts
+│   └── GameContext.tsx    # Game context provider + useGame() hook
 ├── lib/                  # Utility libraries
-│   ├── api/             # API utilities and validation
-│   ├── config/          # Environment configuration
-│   ├── database/        # Database utilities
-│   ├── storage/         # File storage and image processing
-│   ├── types/           # TypeScript type definitions
-│   └── utils/           # General utilities
+│   ├── config/           # Environment config + game configs
+│   │   └── games/        # Per-game config files (gundam.ts, onepiece.ts)
+│   ├── database/         # Database utilities + game resolution
+│   ├── storage/          # File storage and image processing
+│   ├── types/            # TypeScript types (card.ts, game.ts, collection.ts)
+│   ├── services/         # Business logic services
+│   └── utils/            # General utilities
 └── store/               # Redux store configuration
     └── slices/          # Redux slices (auth, cards, decks, collections, ui)
 ```
@@ -112,11 +182,13 @@ src/
 
 The Prisma schema includes comprehensive models for:
 
+- **Games**: Multi-TCG game definitions with JSON config (cardSchema, deckRules, branding)
 - **Users**: Authentication and user management
-- **Cards**: Complete Gundam Card Game data model with official attributes
-- **Decks**: User-created deck builds with card relationships
-- **Collections**: Personal card collection tracking
-- **Card Types/Rarities/Sets**: Card categorization and metadata
+- **Cards**: Universal fields + `gameAttributes` JSONB for per-game data, scoped by `gameId`
+- **Decks**: User-created deck builds with visibility tiers (Draft/Private/Public), social metrics, deck codes
+- **Collections**: Personal card collection tracking, scoped per-game per-user
+- **Card Types/Rarities/Sets**: Card categorization, all scoped by `gameId`
+- **DeckLikes**: Social metric tracking for deck library
 - **Card Rulings**: Official rulings and clarifications
 
 ### Key Features
@@ -167,11 +239,14 @@ Redux Toolkit store with five main slices:
 
 RESTful API using Next.js API routes:
 
-- `/api/cards` - Card database operations
-- `/api/decks` - Deck management
-- `/api/collections` - Collection tracking
+- `/api/games` - Game list and detail endpoints
+- `/api/cards` - Card database operations (scoped by gameId)
+- `/api/decks` - Deck management (scoped by gameId)
+- `/api/collections` - Collection tracking (scoped by gameId)
 - `/api/auth` - User authentication
 - `/api/upload` - File upload handling
+
+**All game-scoped API routes must filter by gameId.** Use `resolveGameId(slug)` from `@/lib/database` to convert a game slug to an ID.
 
 ### Image Processing
 
@@ -186,17 +261,30 @@ Sharp-based image processing with multiple size variants:
 
 ### Required Environment Variables
 
-- `DATABASE_URL` - PostgreSQL connection string
-- `REDIS_URL` - Redis connection string
+- `DATABASE_URL` - PostgreSQL connection string (pooled for Vercel/Neon)
+- `DIRECT_DATABASE_URL` - Direct PostgreSQL connection (for migrations, bypasses pooler)
 - `NEXTAUTH_URL` - Authentication base URL
 - `NEXTAUTH_SECRET` - JWT secret key
+
+### Optional Environment Variables
+
+- `REDIS_URL` - Redis connection string (not yet implemented)
+- `VERCEL_BLOB_READ_WRITE_TOKEN` - For Vercel Blob file storage
+- See `.env.vercel.example` for complete reference
 
 ### Development Setup
 
 1. Run `npm run setup:full` for complete environment setup
 2. Docker services (PostgreSQL, Redis) start automatically
 3. Database migrations and seeding included
-4. Local file storage configured in `uploads/` directory
+4. Run `npm run db:seed:games` to seed game records
+5. Local file storage configured in `uploads/` directory
+
+### Deployment
+
+- **Vercel**: See `docs/VERCEL_DEPLOYMENT.md` for full guide
+- **Docker**: Uncomment `output: 'standalone'` in `next.config.ts`
+- **Config**: `vercel.json` for region, function timeouts, headers
 
 ## Component Library
 
@@ -240,7 +328,12 @@ Key components include:
 
 ## Legal and Compliance
 
-This project includes proper attribution and disclaimers for Bandai Namco Entertainment copyrighted material. All card images and game content are used under fair use for educational and community purposes.
+Each game has its own copyright and legal notices stored in `GameConfig`:
+- `config.legalDisclaimer` — full disclaimer text
+- `config.copyrightNotice` — short copyright line
+- `config.nonAffiliationStatement` — non-affiliation text
+
+**Never hardcode game-specific legal text.** Always read from the game config via `useGame()` or the API.
 
 ## Development Workflow
 
@@ -292,7 +385,13 @@ This project has comprehensive documentation organized into focused guides:
 
 ### For Deployment
 
-- **[docs/DEPLOYMENT.md](/docs/DEPLOYMENT.md)** - Production deployment guide
+- **[docs/DEPLOYMENT.md](/docs/DEPLOYMENT.md)** - Production deployment guide (Docker, K8s)
+- **[docs/VERCEL_DEPLOYMENT.md](/docs/VERCEL_DEPLOYMENT.md)** - Vercel + Neon Postgres deployment
+
+### For Planning
+
+- **[prd-multi-tcg-addendum.md](/prd-multi-tcg-addendum.md)** - Multi-TCG platform PRD with competitive analysis
+- **[prd-gundam-card-game-website.md](/prd-gundam-card-game-website.md)** - Original PRD (still valid for non-game-specific features)
   - Quick deployment checklist
   - Platform-specific guides (Vercel, Docker, Kubernetes)
   - SSL/TLS configuration
