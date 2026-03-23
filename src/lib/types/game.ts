@@ -50,6 +50,24 @@ export interface GameConfig {
   keywords?: string[];
 }
 
+/**
+ * Runtime validation for GameConfig JSONB from the database.
+ * Throws if the config is structurally invalid; returns typed config if valid.
+ */
+export function validateGameConfig(config: unknown): GameConfig {
+  if (typeof config !== 'object' || config === null) {
+    throw new Error('GameConfig must be an object');
+  }
+  const c = config as Record<string, unknown>;
+  if (!c.cardSchema || typeof c.cardSchema !== 'object') {
+    throw new Error('GameConfig.cardSchema is required');
+  }
+  if (!c.deckRules || typeof c.deckRules !== 'object') {
+    throw new Error('GameConfig.deckRules is required');
+  }
+  return config as GameConfig;
+}
+
 /** Game record with strongly-typed config (augments the Prisma Game type). */
 export interface GameWithConfig {
   id: string;

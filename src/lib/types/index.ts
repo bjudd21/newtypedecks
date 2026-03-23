@@ -7,6 +7,9 @@ export * from './card';
 // Export all collection-related types
 export * from './collection';
 
+// Export game definition system types
+export * from './game';
+
 // Re-export Prisma types for convenience
 export type {
   User,

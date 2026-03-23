@@ -11,8 +11,14 @@
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 
-// Routes (relative to a gameSlug prefix) that require authentication
-const AUTH_REQUIRED_SEGMENTS = ['collection', 'favorites'];
+// Routes (relative to a gameSlug prefix) that require authentication.
+// Matches /[gameSlug]/<segment> and /[gameSlug]/<segment>/**
+const AUTH_REQUIRED_SEGMENTS = [
+  'collection',
+  'favorites',
+  'decks/create',
+  'decks/edit',
+];
 
 export default withAuth(
   () => {
@@ -24,9 +30,11 @@ export default withAuth(
         const { pathname } = req.nextUrl;
 
         // Match /[gameSlug]/<protected-segment> or /[gameSlug]/<segment>/**
-        const isProtected = AUTH_REQUIRED_SEGMENTS.some((segment) =>
-          new RegExp(`^/[^/]+/${segment}(/|$)`).test(pathname)
-        );
+        const isProtected = AUTH_REQUIRED_SEGMENTS.some((segment) => {
+          // Escape slashes in the segment for use in a regex
+          const escaped = segment.replace('/', '\\/');
+          return new RegExp(`^/[^/]+/${escaped}(/|$)`).test(pathname);
+        });
 
         if (isProtected) return !!token;
 
