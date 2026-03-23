@@ -158,6 +158,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
             uniqueCards={uniqueCards}
             cardsByType={cardsByType}
             isEditing={isEditing}
+            isAuthenticated={isAuthenticated}
             collectionQuantities={collectionQuantities}
             onCardDrop={handleCardDrop}
             onQuantityChange={handleQuantityChange}

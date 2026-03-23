@@ -17,12 +17,16 @@ interface CardListTextProps {
   cardsByType: Record<string, DeckCardWithCard[]>;
   isEditing: boolean;
   onQuantityChange: (cardId: string, quantity: number) => void;
+  collectionQuantities?: Record<string, number>;
+  showOwnership?: boolean;
 }
 
 export const CardListText: React.FC<CardListTextProps> = ({
   cardsByType,
   isEditing,
   onQuantityChange,
+  collectionQuantities = {},
+  showOwnership = false,
 }) => (
   <div className="space-y-3">
     {Object.entries(cardsByType).map(([typeName, cards]) => (
@@ -64,6 +68,23 @@ export const CardListText: React.FC<CardListTextProps> = ({
               <span className="min-w-0 flex-1 truncate text-white">
                 {dc.card.name}
               </span>
+              {showOwnership &&
+                (() => {
+                  const owned = collectionQuantities[dc.card.id] ?? 0;
+                  if (owned >= dc.quantity)
+                    return (
+                      <span className="shrink-0 text-xs text-green-400">✓</span>
+                    );
+                  if (owned > 0)
+                    return (
+                      <span className="shrink-0 text-xs text-yellow-400">
+                        {owned}/{dc.quantity}
+                      </span>
+                    );
+                  return (
+                    <span className="shrink-0 text-xs text-red-400">✗</span>
+                  );
+                })()}
               <span className="hidden shrink-0 text-xs text-gray-500 sm:block">
                 {dc.card.type?.name ?? '—'}
               </span>

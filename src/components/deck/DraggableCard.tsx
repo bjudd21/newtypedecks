@@ -14,6 +14,7 @@ interface DraggableCardProps {
   isEditing: boolean;
   className?: string;
   ownedQuantity?: number;
+  showOwnership?: boolean;
 }
 
 interface DragData {
@@ -30,6 +31,7 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   isEditing,
   className = '',
   ownedQuantity = 0,
+  showOwnership = false,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -149,11 +151,20 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
           {card.set?.name} #{card.setNumber}
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
-          {ownedQuantity > 0 && (
-            <span className="ml-2 inline-flex items-center rounded border border-green-500/30 bg-green-500/20 px-2 py-0.5 text-xs font-medium text-green-300">
-              Owned: {ownedQuantity}
-            </span>
-          )}
+          {showOwnership &&
+            (ownedQuantity >= quantity ? (
+              <span className="ml-2 inline-flex items-center rounded border border-green-500/30 bg-green-500/20 px-1.5 py-0.5 text-xs font-medium text-green-300">
+                ✓ {ownedQuantity}
+              </span>
+            ) : ownedQuantity > 0 ? (
+              <span className="ml-2 inline-flex items-center rounded border border-yellow-500/30 bg-yellow-500/20 px-1.5 py-0.5 text-xs font-medium text-yellow-300">
+                {ownedQuantity}/{quantity}
+              </span>
+            ) : (
+              <span className="ml-2 inline-flex items-center rounded border border-red-500/30 bg-red-500/20 px-1.5 py-0.5 text-xs font-medium text-red-400">
+                Need {quantity}
+              </span>
+            ))}
         </div>
       </div>
 

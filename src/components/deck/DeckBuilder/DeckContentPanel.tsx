@@ -4,8 +4,9 @@
  * Auto-managed zones (e.g. DON!!) render as static counters, not drop targets.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { CollectionSummaryBar } from './CollectionSummaryBar';
 import { DeckDropZone } from '../DeckDropZone';
 import { CardListByType } from './CardListByType';
 import { CardListText } from './CardListText';
@@ -24,6 +25,7 @@ interface DeckContentPanelProps {
   uniqueCards: number;
   cardsByType: Record<string, DeckCardWithCard[]>;
   isEditing: boolean;
+  isAuthenticated: boolean;
   collectionQuantities: Record<string, number>;
   onCardDrop: (cardId: string, action: 'move' | 'copy') => void;
   onQuantityChange: (cardId: string, quantity: number) => void;
@@ -53,12 +55,14 @@ function CardListView({
   collectionQuantities,
   onQuantityChange,
   viewMode,
+  showOwnership,
 }: {
   cardsByType: Record<string, DeckCardWithCard[]>;
   isEditing: boolean;
   collectionQuantities: Record<string, number>;
   onQuantityChange: (cardId: string, quantity: number) => void;
   viewMode: ViewMode;
+  showOwnership: boolean;
 }) {
   if (viewMode === 'text') {
     return (
@@ -66,6 +70,8 @@ function CardListView({
         cardsByType={cardsByType}
         isEditing={isEditing}
         onQuantityChange={onQuantityChange}
+        collectionQuantities={collectionQuantities}
+        showOwnership={showOwnership}
       />
     );
   }
@@ -75,6 +81,8 @@ function CardListView({
         cardsByType={cardsByType}
         isEditing={isEditing}
         onQuantityChange={onQuantityChange}
+        collectionQuantities={collectionQuantities}
+        showOwnership={showOwnership}
       />
     );
   }
@@ -84,6 +92,7 @@ function CardListView({
       isEditing={isEditing}
       collectionQuantities={collectionQuantities}
       onQuantityChange={onQuantityChange}
+      showOwnership={showOwnership}
     />
   );
 }
@@ -93,6 +102,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   uniqueCards,
   cardsByType,
   isEditing,
+  isAuthenticated,
   collectionQuantities,
   onCardDrop,
   onQuantityChange,
@@ -101,20 +111,46 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   viewMode = 'image',
   onViewModeChange,
 }) => {
+  const [showOwnership, setShowOwnership] = useState(false);
   const zones = deckRules?.zones ?? [];
   const useZoneLayout = zones.length > 0 && deckCards != null;
+  // All cards as a flat list for the summary bar
+  const allDeckCards = deckCards ?? Object.values(cardsByType).flat();
 
   return (
     <Card className="border-[#443a5c] bg-[#2d2640]">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <CardTitle className="text-[#a89ec7]">
             DECK CONTENTS ({totalCards} CARDS)
           </CardTitle>
-          {onViewModeChange && (
-            <ViewModeToggle viewMode={viewMode} onChange={onViewModeChange} />
-          )}
+          <div className="flex items-center gap-2">
+            {isAuthenticated && (
+              <button
+                onClick={() => setShowOwnership((v) => !v)}
+                title="Toggle collection ownership display"
+                className={`rounded border px-2 py-1 text-xs transition-colors ${
+                  showOwnership
+                    ? 'border-green-500/50 bg-green-500/10 text-green-400'
+                    : 'border-[#443a5c] text-gray-500 hover:text-gray-300'
+                }`}
+              >
+                Collection
+              </button>
+            )}
+            {onViewModeChange && (
+              <ViewModeToggle viewMode={viewMode} onChange={onViewModeChange} />
+            )}
+          </div>
         </div>
+        {showOwnership && allDeckCards.length > 0 && (
+          <div className="mt-2">
+            <CollectionSummaryBar
+              deckCards={allDeckCards}
+              collectionQuantities={collectionQuantities}
+            />
+          </div>
+        )}
       </CardHeader>
       <CardContent className="space-y-4">
         {useZoneLayout ? (
@@ -176,6 +212,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                       collectionQuantities={collectionQuantities}
                       onQuantityChange={onQuantityChange}
                       viewMode={viewMode}
+                      showOwnership={showOwnership}
                     />
                   )}
                 </DeckDropZone>
@@ -197,6 +234,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                 collectionQuantities={collectionQuantities}
                 onQuantityChange={onQuantityChange}
                 viewMode={viewMode}
+                showOwnership={showOwnership}
               />
             )}
           </DeckDropZone>

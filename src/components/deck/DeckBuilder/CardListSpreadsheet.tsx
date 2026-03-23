@@ -21,6 +21,8 @@ interface CardListSpreadsheetProps {
   cardsByType: Record<string, DeckCardWithCard[]>;
   isEditing: boolean;
   onQuantityChange: (cardId: string, quantity: number) => void;
+  collectionQuantities?: Record<string, number>;
+  showOwnership?: boolean;
 }
 
 function SortIndicator({
@@ -43,6 +45,8 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
   cardsByType,
   isEditing,
   onQuantityChange,
+  collectionQuantities = {},
+  showOwnership = false,
 }) => {
   const [sortKey, setSortKey] = useState<SortKey>('type');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
@@ -136,6 +140,9 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
               Rarity
               <SortIndicator col="rarity" sortKey={sortKey} sortDir={sortDir} />
             </th>
+            {showOwnership && (
+              <th className={`${thClass} w-14 text-center`}>Own</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -183,6 +190,27 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
               <td className="hidden px-2 py-1 text-gray-400 md:table-cell">
                 {dc.card.rarity?.name ?? '—'}
               </td>
+              {showOwnership &&
+                (() => {
+                  const owned = collectionQuantities[dc.card.id] ?? 0;
+                  if (owned >= dc.quantity)
+                    return (
+                      <td className="px-2 py-1 text-center text-xs text-green-400">
+                        ✓ {owned}
+                      </td>
+                    );
+                  if (owned > 0)
+                    return (
+                      <td className="px-2 py-1 text-center text-xs text-yellow-400">
+                        {owned}/{dc.quantity}
+                      </td>
+                    );
+                  return (
+                    <td className="px-2 py-1 text-center text-xs text-red-400">
+                      ✗
+                    </td>
+                  );
+                })()}
             </tr>
           ))}
         </tbody>
