@@ -139,13 +139,13 @@ export const CategoriesSection: React.FC<StatsSectionProps> = ({
         label="Faction"
         value={formData.faction || ''}
         onChange={(e) => onChange('faction', e.target.value)}
-        placeholder="e.g., Earth Federation"
+        placeholder="e.g., Alliance, Empire..."
       />
       <Input
         label="Series"
         value={formData.series || ''}
         onChange={(e) => onChange('series', e.target.value)}
-        placeholder="e.g., UC, CE, AD"
+        placeholder="e.g., Series 1, Arc 2..."
       />
       <Input
         label="Pilot"

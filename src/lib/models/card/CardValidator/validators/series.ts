@@ -2,21 +2,21 @@
  * Series validation
  */
 
-import { CARD_CONSTANTS, type CreateCardData } from '../../../../types/card';
-import type { ValidationResult, CardSeries } from '../types';
+import type { CreateCardData } from '../../../../types/card';
+import type { ValidationResult } from '../types';
 
 /**
  * Validate series attribute
+ * Series values are game-specific free-text; only check non-empty string.
  */
 export function validateSeries(data: CreateCardData): ValidationResult {
-  const warnings: string[] = [];
+  const errors: string[] = [];
 
-  if (
-    data.series &&
-    !CARD_CONSTANTS.SUPPORTED_SERIES.includes(data.series as CardSeries)
-  ) {
-    warnings.push(`Series "${data.series}" is not in the standard series list`);
+  if (data.series !== undefined && data.series !== null) {
+    if (typeof data.series !== 'string' || data.series.trim().length === 0) {
+      errors.push('Series must be a non-empty string when provided');
+    }
   }
 
-  return { errors: [], warnings };
+  return { errors, warnings: [] };
 }

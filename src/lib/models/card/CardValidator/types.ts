@@ -2,10 +2,9 @@
  * CardValidator type definitions
  */
 
-import { CARD_CONSTANTS } from '../../../types/card';
-
-export type CardFaction = (typeof CARD_CONSTANTS.SUPPORTED_FACTIONS)[number];
-export type CardSeries = (typeof CARD_CONSTANTS.SUPPORTED_SERIES)[number];
+// Faction and series are game-specific free-text fields; no fixed enum.
+export type CardFaction = string;
+export type CardSeries = string;
 
 export type ValidationResult = {
   errors: string[];

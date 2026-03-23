@@ -356,18 +356,8 @@ export const CARD_CONSTANTS = {
     'operation',
     'generation',
   ] as const,
-  SUPPORTED_FACTIONS: [
-    'Earth Federation',
-    'Principality of Zeon',
-    'AEUG',
-    'Titans',
-    'Crossbone Vanguard',
-    'ZAFT',
-    'Orb Union',
-    'Celestial Being',
-    'A-LAWS',
-  ] as const,
-  SUPPORTED_SERIES: ['UC', 'CE', 'AD', 'AC', 'FC', 'AG', 'PD'] as const,
+  // Faction and series values are game-specific — stored in gameAttributes JSONB
+  // and defined per-game via GameConfig.cardSchema.customFields. No hardcoded list.
 } as const;
 
 // Validation schemas (for runtime validation)
