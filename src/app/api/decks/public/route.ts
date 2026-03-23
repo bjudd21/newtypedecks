@@ -1,12 +1,32 @@
 /**
  * Public Decks API
  *
- * Handles browsing of public decks
+ * Handles browsing of public decks with social metrics.
+ * Sort options: trending (default), updatedAt, createdAt, likeCount, viewCount
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
 import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
+
+const VALID_SORT_KEYS = [
+  'updatedAt',
+  'createdAt',
+  'likeCount',
+  'viewCount',
+] as const;
+type ValidSortKey = (typeof VALID_SORT_KEYS)[number];
+
+function trendingScore(
+  likeCount: number,
+  viewCount: number,
+  createdAt: Date
+): number {
+  const ageHours = Math.max((Date.now() - createdAt.getTime()) / 3_600_000, 1);
+  return (likeCount * 10 + viewCount) / Math.pow(ageHours, 1.5);
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,18 +34,22 @@ export async function GET(request: NextRequest) {
     if (gameResult instanceof NextResponse) return gameResult;
     const { gameId } = gameResult;
 
+    const session = await getServerSession(authOptions);
+
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
     const search = searchParams.get('search') || '';
-    const sortBy = searchParams.get('sortBy') || 'updatedAt';
-    const sortOrder = searchParams.get('sortOrder') || 'desc';
+    const sortBy = searchParams.get('sortBy') || 'trending';
+    const sortOrder = (searchParams.get('sortOrder') || 'desc') as
+      | 'asc'
+      | 'desc';
 
     const skip = (page - 1) * limit;
+    const isTrending = sortBy === 'trending';
 
-    // Build where clause for public decks only
     const where: Record<string, unknown> = {
-      isPublic: true,
+      visibility: 'PUBLIC',
       gameId,
     };
 
@@ -36,40 +60,64 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    // Get public decks
-    const [decks, total] = await Promise.all([
+    const validKey = VALID_SORT_KEYS.includes(sortBy as ValidSortKey)
+      ? (sortBy as ValidSortKey)
+      : 'updatedAt';
+
+    const dbOrderBy = isTrending
+      ? ({ createdAt: 'desc' } as const)
+      : ({ [validKey]: sortOrder } as Record<string, string>);
+
+    // For trending, fetch a larger batch to rank across more results
+    const fetchLimit = isTrending ? Math.min(200, limit * 15) : limit;
+    const fetchSkip = isTrending ? 0 : skip;
+
+    const [rawDecks, total] = await Promise.all([
       prisma.deck.findMany({
         where,
         include: {
           user: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-            },
+            select: { id: true, name: true },
           },
           cards: {
             include: {
               card: {
-                include: {
-                  type: true,
-                  rarity: true,
-                },
+                include: { type: true, rarity: true },
               },
             },
           },
-          _count: {
-            select: { cards: true },
-          },
+          _count: { select: { cards: true } },
         },
-        orderBy: { [sortBy]: sortOrder },
-        skip,
-        take: limit,
+        orderBy: dbOrderBy,
+        skip: fetchSkip,
+        take: fetchLimit,
       }),
       prisma.deck.count({ where }),
     ]);
 
-    // Calculate deck statistics and remove sensitive data
+    // Apply trending sort and paginate in memory
+    let decks = rawDecks;
+    if (isTrending) {
+      decks = [...rawDecks]
+        .sort(
+          (a, b) =>
+            trendingScore(b.likeCount, b.viewCount, b.createdAt) -
+            trendingScore(a.likeCount, a.viewCount, a.createdAt)
+        )
+        .slice(skip, skip + limit);
+    }
+
+    // Look up which decks the current user has liked
+    const likedDeckIdSet = new Set<string>();
+    if (session?.user?.id) {
+      const deckIds = decks.map((d) => d.id);
+      const liked = await prisma.deckLike.findMany({
+        where: { userId: session.user.id, deckId: { in: deckIds } },
+        select: { deckId: true },
+      });
+      liked.forEach((l) => likedDeckIdSet.add(l.deckId));
+    }
+
     const publicDecks = decks.map((deck) => {
       const totalCards = deck.cards.reduce((sum, dc) => sum + dc.quantity, 0);
       const uniqueCards = deck.cards.length;
@@ -87,9 +135,11 @@ export async function GET(request: NextRequest) {
         description: deck.description,
         createdAt: deck.createdAt,
         updatedAt: deck.updatedAt,
+        viewCount: deck.viewCount,
+        likeCount: deck.likeCount,
+        isLikedByUser: likedDeckIdSet.has(deck.id),
         author: {
-          name: deck.user.name || 'Anonymous',
-          // Don't expose email addresses publicly
+          name: deck.user?.name || 'Anonymous',
         },
         statistics: {
           totalCards,
@@ -101,7 +151,6 @@ export async function GET(request: NextRequest) {
               : 0,
           colors,
         },
-        // Don't expose full card list in browse view for performance
         cardPreview: deck.cards.slice(0, 3).map((dc) => ({
           card: {
             id: dc.card.id,

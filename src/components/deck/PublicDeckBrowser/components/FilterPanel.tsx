@@ -47,9 +47,11 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
               value={filters.sortBy}
               onChange={(value: string) => onFilterChange('sortBy', value)}
               options={[
+                { value: 'trending', label: 'Trending' },
+                { value: 'likeCount', label: 'Most Liked' },
+                { value: 'viewCount', label: 'Most Viewed' },
                 { value: 'updatedAt', label: 'Recently Updated' },
                 { value: 'createdAt', label: 'Recently Created' },
-                { value: 'name', label: 'Name' },
               ]}
             />
           </div>

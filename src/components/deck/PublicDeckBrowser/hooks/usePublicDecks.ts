@@ -4,11 +4,13 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import type { PublicDeck, DeckFilters, PaginationState } from '../types';
 
 export function usePublicDecks() {
   const router = useRouter();
+  const params = useParams<{ gameSlug: string }>();
+  const gameSlug = params?.gameSlug ?? '';
   const [decks, setDecks] = useState<PublicDeck[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,7 @@ export function usePublicDecks() {
 
   const [filters, setFilters] = useState<DeckFilters>({
     search: '',
-    sortBy: 'updatedAt',
+    sortBy: 'trending',
     sortOrder: 'desc',
   });
 
@@ -70,10 +72,53 @@ export function usePublicDecks() {
 
   const handleViewDeck = useCallback(
     (deckId: string) => {
-      router.push(`/decks/${deckId}`);
+      // Increment view count once per session
+      const sessionKey = `viewed-${deckId}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        sessionStorage.setItem(sessionKey, '1');
+        fetch(`/api/decks/${deckId}/view`, { method: 'POST' }).catch(
+          () => undefined
+        );
+      }
+      router.push(`/${gameSlug}/decks/${deckId}`);
     },
-    [router]
+    [router, gameSlug]
   );
+
+  const handleLikeDeck = useCallback(async (deckId: string) => {
+    // Optimistic update
+    setDecks((prev) =>
+      prev.map((d) =>
+        d.id === deckId
+          ? {
+              ...d,
+              isLikedByUser: !d.isLikedByUser,
+              likeCount: d.isLikedByUser ? d.likeCount - 1 : d.likeCount + 1,
+            }
+          : d
+      )
+    );
+
+    try {
+      const response = await fetch(`/api/decks/${deckId}/like`, {
+        method: 'POST',
+      });
+      if (!response.ok) throw new Error('Like failed');
+    } catch {
+      // Revert optimistic update on error
+      setDecks((prev) =>
+        prev.map((d) =>
+          d.id === deckId
+            ? {
+                ...d,
+                isLikedByUser: !d.isLikedByUser,
+                likeCount: d.isLikedByUser ? d.likeCount - 1 : d.likeCount + 1,
+              }
+            : d
+        )
+      );
+    }
+  }, []);
 
   const handleCopyDeck = useCallback(
     async (deck: PublicDeck) => {
@@ -91,20 +136,19 @@ export function usePublicDecks() {
         const deckData = {
           name: `${deck.name} (Copy)`,
           description: deck.description || '',
-          format: deck.format,
           cards: fullDeck.cards || [],
         };
 
         localStorage.setItem('importDeck', JSON.stringify(deckData));
 
         // Navigate to deck builder
-        router.push('/decks/builder?import=true');
+        router.push(`/${gameSlug}/decks/create?import=true`);
       } catch (error) {
         console.error('Error copying deck:', error);
         console.warn('Failed to copy deck');
       }
     },
-    [router]
+    [router, gameSlug]
   );
 
   return {
@@ -116,6 +160,7 @@ export function usePublicDecks() {
     handleFilterChange,
     handlePageChange,
     handleViewDeck,
+    handleLikeDeck,
     handleCopyDeck,
   };
 }

@@ -8,9 +8,11 @@ export interface PublicDeck {
   id: string;
   name: string;
   description?: string;
-  format: string;
   createdAt: string;
   updatedAt: string;
+  viewCount: number;
+  likeCount: number;
+  isLikedByUser: boolean;
   author: {
     name: string;
   };

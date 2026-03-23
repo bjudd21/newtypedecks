@@ -19,12 +19,14 @@ interface DeckCardProps {
   deck: PublicDeck;
   onViewDeck: (deckId: string) => void;
   onCopyDeck: (deck: PublicDeck) => void;
+  onLikeDeck: (deckId: string) => void;
 }
 
 export const DeckCard: React.FC<DeckCardProps> = ({
   deck,
   onViewDeck,
   onCopyDeck,
+  onLikeDeck,
 }) => {
   return (
     <Card className="transition-shadow hover:shadow-lg">
@@ -34,9 +36,6 @@ export const DeckCard: React.FC<DeckCardProps> = ({
             <CardTitle className="text-lg">{deck.name}</CardTitle>
             <p className="text-sm text-gray-600">by {deck.author.name}</p>
           </div>
-          <Badge variant="secondary" className="text-xs">
-            {deck.format}
-          </Badge>
         </div>
       </CardHeader>
       <CardContent>
@@ -88,11 +87,20 @@ export const DeckCard: React.FC<DeckCardProps> = ({
           >
             Copy
           </Button>
+          <Button
+            variant={deck.isLikedByUser ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => onLikeDeck(deck.id)}
+            title={deck.isLikedByUser ? 'Unlike' : 'Like'}
+          >
+            {deck.isLikedByUser ? '♥' : '♡'} {deck.likeCount}
+          </Button>
         </div>
 
         {/* Metadata */}
-        <div className="mt-3 text-center text-xs text-gray-500">
-          Updated {new Date(deck.updatedAt).toLocaleDateString()}
+        <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+          <span>👁 {deck.viewCount}</span>
+          <span>Updated {new Date(deck.updatedAt).toLocaleDateString()}</span>
         </div>
       </CardContent>
     </Card>
