@@ -21,13 +21,13 @@ export function getFormatDescription(format: string): string {
 export function getFormatExample(format: string): string {
   switch (format) {
     case 'csv':
-      return "RX-78-2 Gundam,2,Mobile Suit Gundam,MSG-001\nChar's Zaku II,1,Mobile Suit Gundam,MSG-002";
+      return 'Card Alpha,2,Base Set,BS-001\nCard Beta,1,Base Set,BS-002';
     case 'json':
-      return '[{"cardName":"RX-78-2 Gundam","quantity":2,"setName":"Mobile Suit Gundam"},{"cardName":"Char\'s Zaku II","quantity":1}]';
+      return '[{"cardName":"Card Alpha","quantity":2,"setName":"Base Set"},{"cardName":"Card Beta","quantity":1}]';
     case 'decklist':
-      return "2 RX-78-2 Gundam\n1 Char's Zaku II\n3x Nu Gundam";
+      return '2 Card Alpha\n1 Card Beta\n3x Card Gamma';
     case 'mtga':
-      return "2 RX-78-2 Gundam (MSG) 001\n1 Char's Zaku II (MSG) 002";
+      return '2 Card Alpha (BS) 001\n1 Card Beta (BS) 002';
     default:
       return '';
   }

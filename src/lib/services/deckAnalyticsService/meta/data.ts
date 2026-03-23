@@ -11,15 +11,16 @@ export async function getMetaGameData(): Promise<MetaGameData> {
     popularCards: [],
     popularArchetypes: [
       {
-        name: 'Federation Control',
-        description: 'Control-based deck focusing on Earth Federation units',
+        name: 'Control',
+        description:
+          'Control-based deck focusing on defense and resource advantage',
         usageRate: 15.2,
         winRate: 58.3,
         keyCards: [],
       },
       {
-        name: 'Zeon Aggro',
-        description: 'Fast aggressive deck using Zeon mobile suits',
+        name: 'Aggro',
+        description: 'Fast aggressive deck with low-cost offensive units',
         usageRate: 18.7,
         winRate: 52.1,
         keyCards: [],

@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { CardSearchFilters } from '@/lib/types/card';
+import { useGame } from '@/contexts/GameContext';
 import { FilterSelect } from './FilterSelect';
 import { RangeFilter } from './RangeFilter';
 import { SpecialTypesFilter } from './SpecialTypesFilter';
@@ -43,6 +44,11 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
   onFilterChange,
   onClearFilters,
 }) => {
+  const game = useGame();
+  const customFields = game.config.cardSchema.customFields;
+  const factionField = customFields.find((f) => f.key === 'faction');
+  const seriesField = customFields.find((f) => f.key === 'series');
+
   return (
     <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
       {isLoadingReference && (
@@ -104,36 +110,41 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
           disabled={isLoadingReference}
         />
 
-        {/* Faction filter */}
-        <FilterSelect
-          label="Faction"
-          value={filters.faction}
-          options={[
-            { value: 'Earth Federation', label: 'Earth Federation' },
-            { value: 'Zeon', label: 'Zeon' },
-            { value: 'AEUG', label: 'AEUG' },
-            { value: 'Titans', label: 'Titans' },
-            { value: 'Celestial Being', label: 'Celestial Being' },
-            { value: 'A-Laws', label: 'A-Laws' },
-          ]}
-          onChange={(value) => onFilterChange('faction', value)}
-          placeholder="All Factions"
-        />
+        {/* Faction filter — only rendered when game config includes a faction custom field */}
+        {factionField && (
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              {factionField.label}
+            </label>
+            <input
+              type="text"
+              value={filters.faction ?? ''}
+              onChange={(e) =>
+                onFilterChange('faction', e.target.value || undefined)
+              }
+              placeholder={`Filter by ${factionField.label.toLowerCase()}...`}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+        )}
 
-        {/* Series filter */}
-        <FilterSelect
-          label="Series"
-          value={filters.series}
-          options={[
-            { value: 'UC', label: 'Universal Century' },
-            { value: 'CE', label: 'Cosmic Era' },
-            { value: 'AD', label: 'Anno Domini' },
-            { value: 'AG', label: 'Advanced Generation' },
-            { value: 'PD', label: 'Post Disaster' },
-          ]}
-          onChange={(value) => onFilterChange('series', value)}
-          placeholder="All Series"
-        />
+        {/* Series filter — only rendered when game config includes a series custom field */}
+        {seriesField && (
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              {seriesField.label}
+            </label>
+            <input
+              type="text"
+              value={filters.series ?? ''}
+              onChange={(e) =>
+                onFilterChange('series', e.target.value || undefined)
+              }
+              placeholder={`Filter by ${seriesField.label.toLowerCase()}...`}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+        )}
 
         {/* Level range */}
         <RangeFilter

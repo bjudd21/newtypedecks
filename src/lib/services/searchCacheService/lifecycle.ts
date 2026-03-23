@@ -48,11 +48,10 @@ export function stopPeriodicCleanup(manager: LifecycleManager): void {
  */
 export async function preloadPopularSearches(): Promise<void> {
   // This would typically be implemented with actual popular search data
+  // Preloads are generic and game-agnostic; game-specific queries are not hardcoded here
   const popularSearches = [
-    { filters: { faction: 'Earth Federation' }, options: { limit: 20 } },
-    { filters: { faction: 'Zeon' }, options: { limit: 20 } },
-    { filters: { series: 'UC' }, options: { limit: 20 } },
     { filters: { typeId: 'unit' }, options: { limit: 20 } },
+    { filters: { typeId: 'command' }, options: { limit: 20 } },
   ];
 
   // Note: In a real implementation, you would call the actual search service

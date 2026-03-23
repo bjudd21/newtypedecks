@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 import type { ExportRecord } from '@/lib/types';
 import type { ExportFormat } from '../FormatSelectionGrid';
 import type { ExportOptions } from '../types';
+import { useGame } from '@/contexts/GameContext';
 import {
   generateExportFilename,
   generateExportParams,
@@ -30,13 +31,15 @@ export function useQuickExport({
   addToHistory,
   onExportComplete,
 }: UseQuickExportOptions) {
+  const game = useGame();
+
   const handleQuickExport = useCallback(async () => {
     try {
       setIsExporting(true);
       setError(null);
 
       const params = generateExportParams(selectedFormat, exportOptions);
-      const filename = generateExportFilename(selectedFormat);
+      const filename = generateExportFilename(selectedFormat, game.slug);
 
       // Create download link
       const downloadUrl = `/api/collections/export?${params.toString()}`;
@@ -76,6 +79,7 @@ export function useQuickExport({
     setError,
     addToHistory,
     onExportComplete,
+    game,
   ]);
 
   return { handleQuickExport };

@@ -11,7 +11,7 @@ export const IMPORT_SOURCES: ImportSource[] = [
     description: 'Comma-separated values with card data',
     icon: '📊',
     format: 'csv',
-    example: 'Card Name,Quantity,Set,Number\nRX-78-2 Gundam,2,MSG,001',
+    example: 'Card Name,Quantity,Set,Number\nCard Alpha,2,BS,001',
   },
   {
     id: 'deck_export',
@@ -19,7 +19,7 @@ export const IMPORT_SOURCES: ImportSource[] = [
     description: 'Export from other deck building tools',
     icon: '🎯',
     format: 'decklist',
-    example: "2 RX-78-2 Gundam\n1 Char's Zaku II\n3x Nu Gundam",
+    example: '2 Card Alpha\n1 Card Beta\n3x Card Gamma',
   },
   {
     id: 'collection_backup',
@@ -27,7 +27,7 @@ export const IMPORT_SOURCES: ImportSource[] = [
     description: 'JSON backup from this or other applications',
     icon: '💾',
     format: 'json',
-    example: '[{"name":"RX-78-2 Gundam","quantity":2,"set":"MSG"}]',
+    example: '[{"name":"Card Alpha","quantity":2,"set":"BS"}]',
   },
   {
     id: 'inventory_list',
@@ -35,7 +35,7 @@ export const IMPORT_SOURCES: ImportSource[] = [
     description: 'Simple text list with quantities',
     icon: '📝',
     format: 'decklist',
-    example: "2x RX-78-2 Gundam\n1x Char's Zaku II",
+    example: '2x Card Alpha\n1x Card Beta',
   },
   {
     id: 'spreadsheet',
@@ -43,6 +43,6 @@ export const IMPORT_SOURCES: ImportSource[] = [
     description: 'Tab-separated values from Excel/Sheets',
     icon: '📋',
     format: 'csv',
-    example: 'RX-78-2 Gundam\t2\tMSG\t001',
+    example: 'Card Alpha\t2\tBS\t001',
   },
 ];

@@ -14,6 +14,7 @@ import {
   Input,
   Select,
 } from '@/components/ui';
+import { useGame } from '@/contexts/GameContext';
 
 interface CollectionFiltersProps {
   filters: {
@@ -29,6 +30,11 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
   filters,
   onFilterChange,
 }) => {
+  const game = useGame();
+  const factionField = game.config.cardSchema.customFields.find(
+    (f) => f.key === 'faction'
+  );
+
   return (
     <Card className="mb-6 border-[#443a5c] bg-[#2d2640]">
       <CardHeader>
@@ -82,25 +88,18 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
             />
           </div>
 
-          <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
-              Faction
-            </label>
-            <Select
-              value={filters.faction}
-              onChange={(value: string) => onFilterChange('faction', value)}
-              options={[
-                { value: '', label: 'All Factions' },
-                { value: 'Earth Federation', label: 'Earth Federation' },
-                {
-                  value: 'Principality of Zeon',
-                  label: 'Principality of Zeon',
-                },
-                { value: 'AEUG', label: 'AEUG' },
-                { value: 'Titans', label: 'Titans' },
-              ]}
-            />
-          </div>
+          {factionField && (
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-400">
+                {factionField.label}
+              </label>
+              <Input
+                value={filters.faction}
+                onChange={(e) => onFilterChange('faction', e.target.value)}
+                placeholder={`Filter by ${factionField.label.toLowerCase()}...`}
+              />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

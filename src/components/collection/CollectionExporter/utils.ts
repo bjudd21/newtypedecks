@@ -10,10 +10,11 @@ import type { ExportOptions, ExportResult } from './types';
  */
 export function generateExportFilename(
   format: ExportFormat,
+  gameSlug: string = 'collection',
   date: Date = new Date()
 ): string {
   const dateStr = date.toISOString().split('T')[0];
-  return `gundam-collection-${format.id}-${dateStr}.${format.fileExtension}`;
+  return `${gameSlug}-collection-${format.id}-${dateStr}.${format.fileExtension}`;
 }
 
 /**
