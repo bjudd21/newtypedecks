@@ -7,7 +7,6 @@ import { useMemo } from 'react';
 import {
   deckValidator,
   type DeckValidationSummary,
-  type ValidationResult,
 } from '@/lib/services/deckValidationService';
 import { useGame } from '@/contexts/GameContext';
 import type { DeckCard } from '../types';
@@ -15,15 +14,37 @@ import type { DeckCard } from '../types';
 interface UseValidationOptions {
   cards: DeckCard[];
   onlyErrors: boolean;
+  ruleset?: 'COMPETITIVE' | 'CASUAL';
 }
 
-export function useValidation({ cards, onlyErrors }: UseValidationOptions) {
+export function useValidation({
+  cards,
+  onlyErrors,
+  ruleset = 'COMPETITIVE',
+}: UseValidationOptions) {
   const game = useGame();
 
   // Calculate validation results using game-specific deck rules
-  const validationSummary: DeckValidationSummary = useMemo(() => {
+  const rawSummary: DeckValidationSummary = useMemo(() => {
     return deckValidator.validateDeck(cards, game.config.deckRules);
   }, [cards, game.config.deckRules]);
+
+  // In casual mode, downgrade all errors to warnings so nothing blocks saving
+  const validationSummary: DeckValidationSummary = useMemo(() => {
+    if (ruleset !== 'CASUAL' || rawSummary.errors.length === 0) {
+      return rawSummary;
+    }
+    const demotedErrors = rawSummary.errors.map((r) => ({
+      ...r,
+      rule: { ...r.rule, severity: 'warning' as const },
+    }));
+    return {
+      ...rawSummary,
+      isValid: true,
+      errors: [],
+      warnings: [...demotedErrors, ...rawSummary.warnings],
+    };
+  }, [rawSummary, ruleset]);
 
   const suggestions = useMemo(() => {
     return deckValidator.getSuggestions(validationSummary);
@@ -31,19 +52,14 @@ export function useValidation({ cards, onlyErrors }: UseValidationOptions) {
 
   // Filter results based on props
   const displayResults = useMemo(() => {
-    let results: ValidationResult[] = [];
-
     if (onlyErrors) {
-      results = validationSummary.errors;
-    } else {
-      results = [
-        ...validationSummary.errors,
-        ...validationSummary.warnings,
-        ...validationSummary.info,
-      ];
+      return validationSummary.errors;
     }
-
-    return results;
+    return [
+      ...validationSummary.errors,
+      ...validationSummary.warnings,
+      ...validationSummary.info,
+    ];
   }, [validationSummary, onlyErrors]);
 
   return {

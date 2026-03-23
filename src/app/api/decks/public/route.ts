@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
     const sortOrder = (searchParams.get('sortOrder') || 'desc') as
       | 'asc'
       | 'desc';
+    const rulesetFilter = searchParams.get('ruleset') || '';
 
     const skip = (page - 1) * limit;
     const isTrending = sortBy === 'trending';
@@ -52,6 +53,10 @@ export async function GET(request: NextRequest) {
       visibility: 'PUBLIC',
       gameId,
     };
+
+    if (rulesetFilter === 'COMPETITIVE' || rulesetFilter === 'CASUAL') {
+      where.ruleset = rulesetFilter;
+    }
 
     if (search) {
       where.OR = [
@@ -133,6 +138,7 @@ export async function GET(request: NextRequest) {
         id: deck.id,
         name: deck.name,
         description: deck.description,
+        ruleset: deck.ruleset,
         createdAt: deck.createdAt,
         updatedAt: deck.updatedAt,
         viewCount: deck.viewCount,

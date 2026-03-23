@@ -25,6 +25,7 @@ export function usePublicDecks() {
     search: '',
     sortBy: 'trending',
     sortOrder: 'desc',
+    ruleset: '',
   });
 
   const loadPublicDecks = useCallback(async () => {

@@ -11,6 +11,7 @@ export const createNewDeck = (isAuthenticated: boolean, userId?: string) => ({
   userId: isAuthenticated ? userId || 'authenticated' : 'anonymous',
   gameId: null,
   visibility: 'DRAFT' as const,
+  ruleset: 'COMPETITIVE' as const,
   deckCode: null,
   viewCount: 0,
   likeCount: 0,

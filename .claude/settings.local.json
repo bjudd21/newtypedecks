@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(REPO=\"bjudd21/newtypedecks\")",
+      "Bash(gh api:*)",
+      "mcp__github__issue_write",
+      "mcp__github__list_issues",
+      "Bash(npx prisma:*)",
+      "Bash(./node_modules/.bin/prisma --version)",
+      "Bash(npm install:*)",
+      "Bash(./node_modules/.bin/prisma validate:*)",
+      "mcp__github__issue_read",
+      "mcp__github__add_issue_comment"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["shadcn"]
+}

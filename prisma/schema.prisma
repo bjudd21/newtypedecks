@@ -288,6 +288,12 @@ enum DeckVisibility {
   PUBLIC  // Must pass deck rules, visible in deck library
 }
 
+// Deck ruleset — determines whether validation errors block saving
+enum DeckRuleset {
+  COMPETITIVE // Errors block saving; strict deck rules enforced
+  CASUAL      // Errors shown as warnings only; any deck can be saved
+}
+
 // Deck model
 model Deck {
   id          String        @id @default(cuid())
@@ -298,6 +304,9 @@ model Deck {
 
   // Visibility — replaces isPublic boolean
   visibility  DeckVisibility @default(DRAFT)
+
+  // Ruleset — competitive enforces rules; casual allows anything
+  ruleset     DeckRuleset    @default(COMPETITIVE)
 
   // DEPRECATED: kept for backward compatibility during migration
   isPublic    Boolean  @default(false)

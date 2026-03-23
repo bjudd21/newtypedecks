@@ -57,6 +57,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     setDeckFormat,
     visibility,
     setVisibility,
+    ruleset,
+    setRuleset,
     savedDeckId,
     setSavedDeckId,
     showVersionHistory,
@@ -91,6 +93,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     deckDescription,
     deckFormat,
     visibility,
+    ruleset,
     savedDeckId,
     setSavedDeckId,
     setDeckCode,
@@ -162,6 +165,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
           setDeckFormat={setDeckFormat}
           visibility={visibility}
           setVisibility={setVisibility}
+          ruleset={ruleset}
+          setRuleset={setRuleset}
           deckError={deckError}
         />
 
@@ -212,6 +217,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
               category: deckCard.category || 'main',
             })) || []
           }
+          ruleset={ruleset}
           showDetails={true}
           onlyErrors={false}
         />

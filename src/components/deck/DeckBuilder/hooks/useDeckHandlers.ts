@@ -16,7 +16,12 @@ import {
 import { deckExporter } from '@/lib/services/deckExportService';
 import { createNewDeck } from '../deckFactory';
 import type { CardWithRelations } from '@/lib/types/card';
-import type { Deck, DeckCard, DeckVisibility } from '@prisma/client';
+import type {
+  Deck,
+  DeckCard,
+  DeckVisibility,
+  DeckRuleset,
+} from '@prisma/client';
 
 interface DeckWithCards extends Deck {
   cards: (DeckCard & { card: CardWithRelations })[];
@@ -28,6 +33,7 @@ interface UseDeckHandlersOptions {
   deckDescription: string;
   deckFormat: string;
   visibility: DeckVisibility;
+  ruleset: DeckRuleset;
   savedDeckId: string | null;
   setSavedDeckId: (id: string | null) => void;
   setDeckCode: (code: string | null) => void;
@@ -38,6 +44,7 @@ interface UseDeckHandlersOptions {
     description?: string;
     format?: string;
     visibility?: DeckVisibility;
+    ruleset?: DeckRuleset;
     cards: {
       cardId: string;
       card: CardWithRelations;
@@ -52,6 +59,7 @@ interface UseDeckHandlersOptions {
       description?: string;
       format?: string;
       visibility?: DeckVisibility;
+      ruleset?: DeckRuleset;
       cards?: {
         cardId: string;
         card: CardWithRelations;
@@ -69,6 +77,7 @@ export function useDeckHandlers({
   deckDescription,
   deckFormat,
   visibility,
+  ruleset,
   savedDeckId,
   setSavedDeckId,
   setDeckCode,
@@ -179,6 +188,7 @@ export function useDeckHandlers({
       description: deckDescription.trim(),
       format: deckFormat,
       visibility,
+      ruleset,
       cards: (currentDeck?.cards ?? []).map((deckCard) => ({
         cardId: deckCard.cardId || deckCard.card.id,
         card: deckCard.card,
@@ -228,6 +238,7 @@ export function useDeckHandlers({
     deckDescription,
     deckFormat,
     visibility,
+    ruleset,
     savedDeckId,
     createDeck,
     updateDeck,

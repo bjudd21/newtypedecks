@@ -21,6 +21,7 @@ interface DeckData {
   userId: string;
   gameId: string | null;
   visibility: 'DRAFT' | 'PRIVATE' | 'PUBLIC';
+  ruleset: 'COMPETITIVE' | 'CASUAL';
   deckCode: string | null;
   viewCount: number;
   likeCount: number;
@@ -97,6 +98,7 @@ export function useAnonymousDeckStorage(
       userId: 'anonymous',
       gameId: null,
       visibility: 'DRAFT',
+      ruleset: 'COMPETITIVE',
       deckCode: null,
       viewCount: 0,
       likeCount: 0,
@@ -131,6 +133,7 @@ export function useAnonymousDeckStorage(
           userId: 'anonymous',
           gameId: null,
           visibility: 'DRAFT',
+          ruleset: 'COMPETITIVE',
           deckCode: null,
           viewCount: 0,
           likeCount: 0,

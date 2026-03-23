@@ -130,7 +130,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, description, visibility, cards } = await request.json();
+    const { name, description, visibility, ruleset, cards } =
+      await request.json();
 
     // Validate input
     if (!name || !cards || !Array.isArray(cards)) {
@@ -184,6 +185,9 @@ export async function POST(request: NextRequest) {
         visibility: (['DRAFT', 'PRIVATE', 'PUBLIC'].includes(visibility)
           ? visibility
           : 'DRAFT') as 'DRAFT' | 'PRIVATE' | 'PUBLIC',
+        ruleset: (['COMPETITIVE', 'CASUAL'].includes(ruleset)
+          ? ruleset
+          : 'COMPETITIVE') as 'COMPETITIVE' | 'CASUAL',
         isPublic: visibility === 'PUBLIC',
         deckCode: generateDeckCode(game.slug),
         userId: session.user.id,

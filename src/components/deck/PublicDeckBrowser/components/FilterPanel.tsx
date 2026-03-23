@@ -28,7 +28,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
         <CardTitle>Browse Community Decks</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Search
@@ -65,6 +65,20 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
               options={[
                 { value: 'desc', label: 'Descending' },
                 { value: 'asc', label: 'Ascending' },
+              ]}
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Ruleset
+            </label>
+            <Select
+              value={filters.ruleset}
+              onChange={(value: string) => onFilterChange('ruleset', value)}
+              options={[
+                { value: '', label: 'All Rulesets' },
+                { value: 'COMPETITIVE', label: 'Competitive' },
+                { value: 'CASUAL', label: 'Casual' },
               ]}
             />
           </div>

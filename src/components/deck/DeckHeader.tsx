@@ -6,7 +6,7 @@
 'use client';
 
 import React from 'react';
-import type { DeckVisibility } from '@prisma/client';
+import type { DeckVisibility, DeckRuleset } from '@prisma/client';
 import { Input, Button } from '@/components/ui';
 import { DeckSettings } from './DeckSettings';
 import { FavoriteButton } from './FavoriteButton';
@@ -26,6 +26,8 @@ interface DeckHeaderProps {
   setDeckFormat: (value: string) => void;
   visibility: DeckVisibility;
   setVisibility: (value: DeckVisibility) => void;
+  ruleset: DeckRuleset;
+  setRuleset: (value: DeckRuleset) => void;
   deckError: string | null;
 }
 
@@ -44,6 +46,8 @@ export const DeckHeader: React.FC<DeckHeaderProps> = ({
   setDeckFormat,
   visibility,
   setVisibility,
+  ruleset,
+  setRuleset,
   deckError,
 }) => (
   <div className="mb-4 space-y-4">
@@ -89,6 +93,8 @@ export const DeckHeader: React.FC<DeckHeaderProps> = ({
         setDeckFormat={setDeckFormat}
         visibility={visibility}
         setVisibility={setVisibility}
+        ruleset={ruleset}
+        setRuleset={setRuleset}
       />
     )}
 

@@ -6,7 +6,7 @@
 'use client';
 
 import React from 'react';
-import type { DeckVisibility } from '@prisma/client';
+import type { DeckVisibility, DeckRuleset } from '@prisma/client';
 import { Input, Select } from '@/components/ui';
 
 const VISIBILITY_OPTIONS = [
@@ -22,6 +22,8 @@ interface DeckSettingsProps {
   setDeckFormat: (value: string) => void;
   visibility: DeckVisibility;
   setVisibility: (value: DeckVisibility) => void;
+  ruleset: DeckRuleset;
+  setRuleset: (value: DeckRuleset) => void;
 }
 
 export const DeckSettings: React.FC<DeckSettingsProps> = ({
@@ -31,43 +33,78 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
   setDeckFormat,
   visibility,
   setVisibility,
+  ruleset,
+  setRuleset,
 }) => (
-  <div className="grid grid-cols-1 gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4 md:grid-cols-3">
-    <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
-        Description
-      </label>
-      <Input
-        value={deckDescription}
-        onChange={(e) => setDeckDescription(e.target.value)}
-        placeholder="Deck description (optional)"
-        className="text-sm"
-      />
+  <div className="space-y-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-400">
+          Description
+        </label>
+        <Input
+          value={deckDescription}
+          onChange={(e) => setDeckDescription(e.target.value)}
+          placeholder="Deck description (optional)"
+          className="text-sm"
+        />
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-400">
+          Format
+        </label>
+        <Select
+          value={deckFormat}
+          onChange={setDeckFormat}
+          options={[
+            { value: 'Standard', label: 'Standard' },
+            { value: 'Advanced', label: 'Advanced' },
+            { value: 'Casual', label: 'Casual' },
+            { value: 'Custom', label: 'Custom' },
+          ]}
+        />
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-400">
+          Visibility
+        </label>
+        <Select
+          value={visibility}
+          onChange={(v) => setVisibility(v as DeckVisibility)}
+          options={VISIBILITY_OPTIONS}
+        />
+      </div>
     </div>
+
+    {/* Ruleset toggle */}
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
-        Format
+      <label className="mb-2 block text-sm font-medium text-gray-400">
+        Ruleset
       </label>
-      <Select
-        value={deckFormat}
-        onChange={setDeckFormat}
-        options={[
-          { value: 'Standard', label: 'Standard' },
-          { value: 'Advanced', label: 'Advanced' },
-          { value: 'Casual', label: 'Casual' },
-          { value: 'Custom', label: 'Custom' },
-        ]}
-      />
-    </div>
-    <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
-        Visibility
-      </label>
-      <Select
-        value={visibility}
-        onChange={(v) => setVisibility(v as DeckVisibility)}
-        options={VISIBILITY_OPTIONS}
-      />
+      <div className="flex gap-2">
+        <button
+          type="button"
+          onClick={() => setRuleset('COMPETITIVE')}
+          className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+            ruleset === 'COMPETITIVE'
+              ? 'border-[#8b7aaa] bg-[#8b7aaa]/30 text-white'
+              : 'border-[#443a5c] bg-transparent text-gray-400 hover:border-[#8b7aaa]/50 hover:text-gray-300'
+          }`}
+        >
+          Competitive — strict rules enforced
+        </button>
+        <button
+          type="button"
+          onClick={() => setRuleset('CASUAL')}
+          className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+            ruleset === 'CASUAL'
+              ? 'border-amber-500 bg-amber-500/20 text-amber-300'
+              : 'border-[#443a5c] bg-transparent text-gray-400 hover:border-amber-500/50 hover:text-gray-300'
+          }`}
+        >
+          Casual — warnings only, any deck saves
+        </button>
+      </div>
     </div>
   </div>
 );

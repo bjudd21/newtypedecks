@@ -15,6 +15,7 @@ export interface DeckValidatorProps {
   className?: string;
   showDetails?: boolean;
   onlyErrors?: boolean;
+  ruleset?: 'COMPETITIVE' | 'CASUAL';
 }
 
 export interface SeverityDisplay {

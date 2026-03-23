@@ -21,10 +21,12 @@ export const DeckValidatorComponent: React.FC<DeckValidatorProps> = ({
   className = '',
   showDetails = true,
   onlyErrors = false,
+  ruleset = 'COMPETITIVE',
 }) => {
   const { validationSummary, suggestions, displayResults } = useValidation({
     cards,
     onlyErrors,
+    ruleset,
   });
 
   // Empty state
@@ -56,8 +58,19 @@ export const DeckValidatorComponent: React.FC<DeckValidatorProps> = ({
           {/* Quick Stats */}
           <QuickStats cards={cards} />
 
-          {/* Tournament Ready Indicator */}
-          <TournamentReadyIndicator validationSummary={validationSummary} />
+          {/* Tournament Ready / Casual Mode Indicator */}
+          {ruleset === 'CASUAL' ? (
+            <div className="rounded-xl border border-amber-500/30 bg-amber-900/20 p-4 text-center">
+              <div className="text-sm font-bold text-amber-300">
+                Casual Mode
+              </div>
+              <div className="text-xs text-amber-400">
+                Validation issues are shown as warnings only — deck saves freely
+              </div>
+            </div>
+          ) : (
+            <TournamentReadyIndicator validationSummary={validationSummary} />
+          )}
         </div>
       </CardContent>
     </Card>

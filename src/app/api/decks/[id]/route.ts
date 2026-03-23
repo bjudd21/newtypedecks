@@ -106,7 +106,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const { name, description, isPublic, cards } = await request.json();
+    const { name, description, isPublic, ruleset, cards } =
+      await request.json();
 
     // Check ownership
     const { owned, deck } = await checkDeckOwnership(id, session.user.id);
@@ -138,12 +139,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       name?: string;
       description?: string | null;
       isPublic?: boolean;
+      ruleset?: 'COMPETITIVE' | 'CASUAL';
     }
 
     const updateData: DeckUpdateData = {};
     if (name !== undefined) updateData.name = name;
     if (description !== undefined) updateData.description = description;
     if (isPublic !== undefined) updateData.isPublic = Boolean(isPublic);
+    if (ruleset !== undefined && ['COMPETITIVE', 'CASUAL'].includes(ruleset)) {
+      updateData.ruleset = ruleset as 'COMPETITIVE' | 'CASUAL';
+    }
 
     const updatedDeck = await prisma.deck.update({
       where: { id },

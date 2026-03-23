@@ -8,6 +8,7 @@ export interface PublicDeck {
   id: string;
   name: string;
   description?: string;
+  ruleset: 'COMPETITIVE' | 'CASUAL';
   createdAt: string;
   updatedAt: string;
   viewCount: number;
@@ -42,6 +43,7 @@ export interface DeckFilters {
   search: string;
   sortBy: string;
   sortOrder: string;
+  ruleset: string;
 }
 
 export interface PaginationState {

@@ -36,6 +36,12 @@ export const DeckCard: React.FC<DeckCardProps> = ({
             <CardTitle className="text-lg">{deck.name}</CardTitle>
             <p className="text-sm text-gray-600">by {deck.author.name}</p>
           </div>
+          <Badge
+            variant="outline"
+            className={`text-xs ${deck.ruleset === 'CASUAL' ? 'border-amber-500/50 text-amber-500' : 'border-blue-500/50 text-blue-400'}`}
+          >
+            {deck.ruleset === 'CASUAL' ? 'Casual' : 'Competitive'}
+          </Badge>
         </div>
       </CardHeader>
       <CardContent>
