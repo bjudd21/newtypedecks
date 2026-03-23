@@ -6,6 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 import { CardService } from '@/lib/services/cardService';
 import type {
   CardSearchFilters,
@@ -20,6 +21,17 @@ import {
   buildSearchMetadata,
   handleSearchError,
 } from './helpers';
+
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+};
+
+const cachedCardSearch = unstable_cache(
+  (filters: CardSearchFilters, options: CardSearchOptions) =>
+    CardService.searchCards(filters, options),
+  ['cards-search'],
+  { tags: ['cards'], revalidate: 300 }
+);
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,8 +55,8 @@ export async function POST(request: NextRequest) {
     const rangeError = validateRanges(sanitizedFilters);
     if (rangeError) return rangeError;
 
-    // Execute search using CardService
-    const result: CardSearchResult = await CardService.searchCards(
+    // Execute search — cached for 5 min, invalidated on card mutations
+    const result: CardSearchResult = await cachedCardSearch(
       sanitizedFilters,
       sanitizedOptions
     );
@@ -55,7 +67,7 @@ export async function POST(request: NextRequest) {
       searchMeta: buildSearchMetadata(sanitizedFilters, sanitizedOptions),
     };
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json(response, { status: 200, headers: CACHE_HEADERS });
   } catch (error) {
     return handleSearchError(error);
   }
@@ -112,13 +124,10 @@ export async function GET(request: NextRequest) {
     // Scope to the resolved game
     filters.gameId = gameId;
 
-    // Execute search using CardService
-    const result: CardSearchResult = await CardService.searchCards(
-      filters,
-      options
-    );
+    // Execute search — cached for 5 min, invalidated on card mutations
+    const result: CardSearchResult = await cachedCardSearch(filters, options);
 
-    return NextResponse.json(result, { status: 200 });
+    return NextResponse.json(result, { status: 200, headers: CACHE_HEADERS });
   } catch (error) {
     console.error('Card search GET API error:', error);
     return NextResponse.json(

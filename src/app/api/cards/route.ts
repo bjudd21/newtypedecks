@@ -1,8 +1,13 @@
 // Cards API endpoints
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { CardService } from '@/lib/services/cardService';
 import { requireAdmin } from '@/middleware/adminAuth';
 import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
+
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+};
 import {
   parsePaginationParams,
   parseSortParams,
@@ -37,7 +42,7 @@ export async function GET(request: NextRequest) {
     // Format response to match expected API structure
     const response = formatCardsResponse(result, searchParams, filters);
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json(response, { status: 200, headers: CACHE_HEADERS });
   } catch (error) {
     console.error('Cards API GET error:', error);
 
@@ -64,6 +69,9 @@ export async function POST(request: NextRequest) {
 
     // Create card using CardService
     const card = await CardService.createCard(body);
+
+    // Invalidate card search cache so new card appears immediately
+    revalidateTag('cards', {});
 
     return NextResponse.json(
       {

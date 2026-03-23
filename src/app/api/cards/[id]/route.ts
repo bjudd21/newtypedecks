@@ -1,5 +1,6 @@
 // Individual card API endpoints
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { CardService } from '@/lib/services/cardService';
 import { requireAdmin } from '@/middleware/adminAuth';
 import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
@@ -76,6 +77,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
     // Update card using CardService
     const updatedCard = await CardService.updateCard({ id, ...body });
+
+    // Invalidate card search cache so updated data appears immediately
+    revalidateTag('cards', {});
 
     return NextResponse.json(
       {
@@ -158,6 +162,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
         { status: 409 }
       );
     }
+
+    // Invalidate card search cache so deleted card disappears immediately
+    revalidateTag('cards', {});
 
     return NextResponse.json(
       {
