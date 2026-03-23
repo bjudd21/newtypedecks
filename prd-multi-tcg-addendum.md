@@ -17,6 +17,7 @@ This is not a public "anyone can add a game" platform. It's a personal multi-gam
 ## Competitive Landscape & Design Influences
 
 ### ExBurst.dev (Primary Competitor)
+
 Solo dev, Patreon-funded. Supports 7+ TCGs (Gundam, Union Arena, One Piece, Pokemon Pocket, Cyberpunk, Naruto Mythos, Riftbound). Per-game sections with deck builder, card list, collection tracker, tournament features. URL pattern: `/{game}/deckbuilder`, `/{game}/collection`.
 
 **What to steal:** Multi-game URL routing pattern, per-game scoping of all features, the fact that one person can run this proves the model works.
@@ -24,6 +25,7 @@ Solo dev, Patreon-funded. Supports 7+ TCGs (Gundam, Union Arena, One Piece, Poke
 **What to beat:** Better UX, better mobile experience, cleaner design, faster search, more flexible architecture that doesn't require code changes per game.
 
 ### Archidekt (Feature Benchmark — MTG Only)
+
 Gold standard for deck building UX. 4,456 Patreon supporters at $2/mo. Key features worth adopting:
 
 - **Custom categories/subcategories in deck builder** — users organize cards their way, not forced into predefined zones
@@ -35,6 +37,7 @@ Gold standard for deck building UX. 4,456 Patreon supporters at $2/mo. Key featu
 - **Price integration** — real-time pricing from multiple sources (TCGPlayer, Card Kingdom, Cardmarket)
 
 ### Egman Events (Content/Meta Benchmark)
+
 Tournament archive hub covering One Piece, Digimon, Dragon Ball, Gundam, Riftbound. Key features:
 
 - **Tournament deck lists with meta breakdowns** — color/archetype distribution charts from events
@@ -44,6 +47,7 @@ Tournament archive hub covering One Piece, Digimon, Dragon Ball, Gundam, Riftbou
 **Adoption plan:** Tournament results and meta tracking are Phase 3+. The immediate value is deck building and collection, which Egman doesn't do.
 
 ### Piltover Archive (Feature Density Benchmark — Riftbound)
+
 Single-game site for Riot's Riftbound TCG. Solo/small team, Patreon-funded, 9,300+ Discord members, 4,000+ decks. Launched April 2025, already the #1 tool for its game. Key features worth adopting:
 
 - **Proxy Generator** — dedicated page to build print-ready PDF proxy sheets. Browse cards, click to add, "Add 1x all" / "Add 3x all" buttons, export PDF. Physical TCG players use this constantly for playtesting before buying cards.
@@ -60,6 +64,7 @@ Single-game site for Riot's Riftbound TCG. Solo/small team, Patreon-funded, 9,30
 **What to skip for now:** TTS export (too game-specific), foil visual effects (polish), news/blog (content management overhead).
 
 ### Moxfield (UX Benchmark — MTG Only)
+
 Cleanest deck builder UI in the market. Free with $3-5/mo premium. Key lessons:
 
 - **Speed above all** — card search must feel instant
@@ -151,10 +156,12 @@ GameConfig (stored as JSON in Game.config column) {
 ### 3. Database Schema Changes
 
 **New tables:**
+
 - `Game` — game definitions with config JSON
 - Existing tables get a `gameId` foreign key: `Card`, `Deck`, `Collection`, `Set`, `CardType`, `Rarity`, `DeckCard`, `DeckVersion`
 
 **Card model changes:**
+
 - Keep universal fields: `name`, `cost`, `level`, `type`, `rarity`, `set`, `image`, `description`, `officialText`, `abilities`
 - Add `gameId` (required FK to Game)
 - Add `gameAttributes` (JSONB) for game-specific fields — replaces hardcoded `faction`, `pilot`, `model`, `series` columns
@@ -167,6 +174,7 @@ GameConfig (stored as JSON in Game.config column) {
 ### 4. Game Context Provider
 
 A React context (`GameProvider`) wraps all `[gameSlug]` routes. It:
+
 - Loads the game config from the API (cached aggressively via ISR)
 - Provides `useGame()` hook to all components
 - Drives: card field rendering, deck validation, filter options, branding colors, legal text, export formats
@@ -183,16 +191,16 @@ const { game, config, isLoading } = useGame();
 
 The codebase has **~150 Gundam-specific references** across source files. These fall into categories:
 
-| Category | Count | Strategy |
-|---|---|---|
-| UI strings ("Gundam Card Game") | ~50 | Replace with `game.name` from context |
-| Metadata (page titles, descriptions) | ~25 | Template: `${pageTitle} \| ${game.name}` |
-| Card field references (faction, pilot) | ~20 | Render from `config.cardSchema` |
-| Validation rules (deck size, copy limits) | ~10 | Read from `config.deckRules` |
-| Legal/copyright text | ~15 | Read from `config.legalDisclaimer` |
-| Export strings ("Gundam Card Game Builder") | ~10 | Template with `game.name` |
-| Sample/placeholder data | ~15 | Make game-aware or generic |
-| Config defaults (DB name, Docker network) | ~5 | Already env vars, leave as-is |
+| Category                                    | Count | Strategy                                 |
+| ------------------------------------------- | ----- | ---------------------------------------- |
+| UI strings ("Gundam Card Game")             | ~50   | Replace with `game.name` from context    |
+| Metadata (page titles, descriptions)        | ~25   | Template: `${pageTitle} \| ${game.name}` |
+| Card field references (faction, pilot)      | ~20   | Render from `config.cardSchema`          |
+| Validation rules (deck size, copy limits)   | ~10   | Read from `config.deckRules`             |
+| Legal/copyright text                        | ~15   | Read from `config.legalDisclaimer`       |
+| Export strings ("Gundam Card Game Builder") | ~10   | Template with `game.name`                |
+| Sample/placeholder data                     | ~15   | Make game-aware or generic               |
+| Config defaults (DB name, Docker network)   | ~5    | Already env vars, leave as-is            |
 
 ### 6. Landing Page
 
@@ -203,6 +211,7 @@ The existing landing page content moves to `/gundam/` as the Gundam game home.
 ### 7. Cross-Game Dashboard
 
 The user dashboard at `/dashboard` shows a unified view:
+
 - Decks across all games, grouped by game
 - Collection stats per game
 - Recent activity across games
@@ -212,23 +221,27 @@ The user dashboard at `/dashboard` shows a unified view:
 ## Cost Optimization for Vercel
 
 ### Database (Neon Postgres)
+
 - **Free tier:** 0.5 GB storage, 190 compute hours/mo
 - **Card data is small.** A full TCG card set (500-2000 cards) is ~2-5 MB of text/JSON data. Three games fit comfortably in free tier.
 - **Images stored externally.** Card images go to Vercel Blob or Cloudinary, not the database.
 - **Connection pooling.** Already configured with pgbouncer via `DATABASE_URL` / `DIRECT_DATABASE_URL` split.
 
 ### Bandwidth (Vercel)
+
 - **Free tier:** 100 GB/mo bandwidth
 - **Use `next/image` aggressively.** Automatic WebP/AVIF conversion, responsive sizing, CDN caching. Card images are the #1 bandwidth cost.
 - **ISR for card pages.** Card detail pages are rarely-changing content — use Incremental Static Regeneration with 24h revalidation instead of SSR on every request.
 - **API route caching.** Card search results can be cached at the edge for popular queries.
 
 ### Compute (Vercel)
+
 - **Free tier:** 10s function timeout, 100K invocations/mo
 - **Card search is the hot path.** Optimize with DB indexes (already have compound indexes on card attributes) and consider edge caching for common queries.
 - **Avoid N+1 queries.** Use Prisma `include` and `select` to batch-load related data.
 
 ### Per-Game Cost Impact
+
 - Adding a new game costs ~0 in compute/bandwidth (same infrastructure).
 - Storage cost scales linearly with card data (~2-5 MB per game).
 - The JSONB approach avoids schema complexity that would add migration overhead.
@@ -238,6 +251,7 @@ The user dashboard at `/dashboard` shows a unified view:
 ## Phased Implementation
 
 ### Phase 1: Multi-Game Foundation (Milestones 1-2)
+
 - Game model + migration + seed Gundam as first game
 - Route restructure to `[gameSlug]` pattern
 - Game context provider
@@ -248,6 +262,7 @@ The user dashboard at `/dashboard` shows a unified view:
 **Exit criteria:** Existing Gundam functionality is identical, just at `/gundam/cards` instead of `/cards`. No regressions.
 
 ### Phase 2: Second Game + Schema Flexibility (Milestone 3)
+
 - Add One Piece TCG game config
 - Seed One Piece card data (initial set)
 - Validate deck builder works with different deck rules (One Piece has leaders, DON!! cards)
@@ -257,6 +272,7 @@ The user dashboard at `/dashboard` shows a unified view:
 **Exit criteria:** Can build and save a One Piece deck with proper validation. Collection is per-game scoped.
 
 ### Phase 3: UX Enhancements from Competitors (Milestone 4)
+
 - Custom categories in deck builder (Archidekt-inspired)
 - Multiple deck view modes (image grid, text, spreadsheet)
 - Collection-aware deck building (shows owned/needed cards)
@@ -264,6 +280,7 @@ The user dashboard at `/dashboard` shows a unified view:
 - ISR optimization for card pages
 
 ### Phase 3.5: Deck Builder Power Features (Milestone 4b — Piltover Archive-inspired)
+
 - **Proxy Generator** — print-ready PDF sheet builder (client-side PDF gen, zero backend cost)
 - **Sample Hand Simulator** — randomized opening hand from deck (client-side, zero cost)
 - **Deck Visibility Tiers** — Draft/Private/Public (replaces boolean isPublic)
@@ -272,6 +289,7 @@ The user dashboard at `/dashboard` shows a unified view:
 - **Ruleset Modes** — Competitive (strict) vs Casual (freeform) toggle in builder
 
 ### Phase 4: Future (Not in this scope)
+
 - Playtester/fishbowl mode
 - Tournament results tracking (Egman-inspired)
 - Price integration
@@ -283,15 +301,15 @@ The user dashboard at `/dashboard` shows a unified view:
 
 ## What This Replaces in the Original PRD
 
-| Original PRD Section | Change |
-|---|---|
-| Introduction/Overview | Now multi-TCG, not Gundam-specific |
-| Goals #1 | "most user-friendly **TCG** database" (game-agnostic) |
-| Data Management #3 | Per-game data sources, not just gundam-gcg.com |
-| Design Considerations | Per-game theming, not "Gundam-inspired aesthetic" |
-| Technical Stack | Add Vercel deployment, remove Docker as primary |
-| Legal/IP | Per-game copyright notices from game config |
-| Success Metrics | Per-game + aggregate metrics |
+| Original PRD Section  | Change                                                |
+| --------------------- | ----------------------------------------------------- |
+| Introduction/Overview | Now multi-TCG, not Gundam-specific                    |
+| Goals #1              | "most user-friendly **TCG** database" (game-agnostic) |
+| Data Management #3    | Per-game data sources, not just gundam-gcg.com        |
+| Design Considerations | Per-game theming, not "Gundam-inspired aesthetic"     |
+| Technical Stack       | Add Vercel deployment, remove Docker as primary       |
+| Legal/IP              | Per-game copyright notices from game config           |
+| Success Metrics       | Per-game + aggregate metrics                          |
 
 All other sections (auth, security, code quality, PWA, mobile, testing, etc.) remain unchanged — they're already game-agnostic infrastructure.
 

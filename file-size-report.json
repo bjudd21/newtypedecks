@@ -1,50 +1,50 @@
 {
-  "timestamp": "2025-11-21T15:37:15.515Z",
+  "timestamp": "2026-03-23T13:10:12.198Z",
   "summary": {
-    "passed": 1141,
+    "passed": 1144,
     "warnings": 7,
     "errors": 0,
-    "total": 1148
+    "total": 1151
   },
   "files": [
     {
       "file": "src/lib/types/card.ts",
-      "lines": 400,
+      "lines": 401,
       "limit": 500,
-      "percentage": 80,
-      "size": 8304,
+      "percentage": 80.2,
+      "size": 8323,
       "status": "warning"
     },
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 642,
+      "lines": 645,
       "limit": 500,
-      "percentage": 128.4,
-      "size": 19909,
+      "percentage": 129,
+      "size": 20100,
       "status": "warning"
     },
     {
       "file": "src/app/api/decks/[id]/route.test.ts",
-      "lines": 678,
+      "lines": 681,
       "limit": 500,
-      "percentage": 135.60000000000002,
-      "size": 21129,
+      "percentage": 136.20000000000002,
+      "size": 21268,
       "status": "warning"
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 732,
+      "lines": 735,
       "limit": 500,
-      "percentage": 146.4,
-      "size": 22992,
+      "percentage": 147,
+      "size": 23150,
       "status": "warning"
     },
     {
       "file": "src/app/api/cards/search/route.test.ts",
-      "lines": 424,
+      "lines": 429,
       "limit": 500,
-      "percentage": 84.8,
-      "size": 11305,
+      "percentage": 85.8,
+      "size": 11469,
       "status": "warning"
     },
     {
@@ -273,10 +273,10 @@
     },
     {
       "file": "src/lib/types/submission.ts",
-      "lines": 248,
+      "lines": 252,
       "limit": 500,
-      "percentage": 49.6,
-      "size": 5071,
+      "percentage": 50.4,
+      "size": 5126,
       "status": "passed"
     },
     {
@@ -285,6 +285,14 @@
       "limit": 500,
       "percentage": 29.4,
       "size": 2825,
+      "status": "passed"
+    },
+    {
+      "file": "src/lib/types/game.ts",
+      "lines": 73,
+      "limit": 500,
+      "percentage": 14.6,
+      "size": 1608,
       "status": "passed"
     },
     {
@@ -1625,10 +1633,10 @@
     },
     {
       "file": "src/lib/services/databaseOptimizationService/queryBuilder/filters.ts",
-      "lines": 87,
+      "lines": 90,
       "limit": 500,
-      "percentage": 17.4,
-      "size": 2434,
+      "percentage": 18,
+      "size": 2533,
       "status": "passed"
     },
     {
@@ -1753,10 +1761,10 @@
     },
     {
       "file": "src/lib/services/cardSubmissionService/searchOperations.ts",
-      "lines": 112,
+      "lines": 114,
       "limit": 500,
-      "percentage": 22.400000000000002,
-      "size": 2416,
+      "percentage": 22.8,
+      "size": 2470,
       "status": "passed"
     },
     {
@@ -1828,7 +1836,7 @@
       "lines": 130,
       "limit": 500,
       "percentage": 26,
-      "size": 3142,
+      "size": 3140,
       "status": "passed"
     },
     {
@@ -2600,6 +2608,14 @@
       "status": "passed"
     },
     {
+      "file": "src/lib/database/games.ts",
+      "lines": 34,
+      "limit": 500,
+      "percentage": 6.800000000000001,
+      "size": 1111,
+      "status": "passed"
+    },
+    {
       "file": "src/lib/config/oauth.ts",
       "lines": 66,
       "limit": 500,
@@ -2793,10 +2809,10 @@
     },
     {
       "file": "src/hooks/useAnonymousDeckStorage.ts",
-      "lines": 192,
+      "lines": 207,
       "limit": 500,
-      "percentage": 38.4,
-      "size": 5743,
+      "percentage": 41.4,
+      "size": 6121,
       "status": "passed"
     },
     {
@@ -3761,10 +3777,10 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/deckFactory.ts",
-      "lines": 20,
+      "lines": 25,
       "limit": 500,
-      "percentage": 4,
-      "size": 473,
+      "percentage": 5,
+      "size": 571,
       "status": "passed"
     },
     {
@@ -4737,10 +4753,10 @@
     },
     {
       "file": "src/app/api/submissions/route.ts",
-      "lines": 82,
+      "lines": 92,
       "limit": 500,
-      "percentage": 16.400000000000002,
-      "size": 2401,
+      "percentage": 18.4,
+      "size": 2862,
       "status": "passed"
     },
     {
@@ -4777,34 +4793,34 @@
     },
     {
       "file": "src/app/api/reference/route.ts",
-      "lines": 72,
+      "lines": 80,
       "limit": 500,
-      "percentage": 14.399999999999999,
-      "size": 1685,
+      "percentage": 16,
+      "size": 2063,
       "status": "passed"
     },
     {
       "file": "src/app/api/reference/types/route.ts",
-      "lines": 38,
+      "lines": 44,
       "limit": 500,
-      "percentage": 7.6,
-      "size": 823,
+      "percentage": 8.799999999999999,
+      "size": 1135,
       "status": "passed"
     },
     {
       "file": "src/app/api/reference/sets/route.ts",
-      "lines": 41,
+      "lines": 47,
       "limit": 500,
-      "percentage": 8.200000000000001,
-      "size": 914,
+      "percentage": 9.4,
+      "size": 1226,
       "status": "passed"
     },
     {
       "file": "src/app/api/reference/rarities/route.ts",
-      "lines": 39,
+      "lines": 45,
       "limit": 500,
-      "percentage": 7.8,
-      "size": 869,
+      "percentage": 9,
+      "size": 1181,
       "status": "passed"
     },
     {
@@ -4857,18 +4873,18 @@
     },
     {
       "file": "src/app/api/decks/route.ts",
-      "lines": 219,
+      "lines": 230,
       "limit": 500,
-      "percentage": 43.8,
-      "size": 5545,
+      "percentage": 46,
+      "size": 6007,
       "status": "passed"
     },
     {
       "file": "src/app/api/decks/public/route.ts",
-      "lines": 128,
+      "lines": 134,
       "limit": 500,
-      "percentage": 25.6,
-      "size": 3360,
+      "percentage": 26.8,
+      "size": 3604,
       "status": "passed"
     },
     {
@@ -4937,18 +4953,18 @@
     },
     {
       "file": "src/app/api/collections/route.ts",
-      "lines": 206,
+      "lines": 217,
       "limit": 500,
-      "percentage": 41.199999999999996,
-      "size": 5126,
+      "percentage": 43.4,
+      "size": 5640,
       "status": "passed"
     },
     {
       "file": "src/app/api/collections/import/route.ts",
-      "lines": 101,
+      "lines": 106,
       "limit": 500,
-      "percentage": 20.200000000000003,
-      "size": 2466,
+      "percentage": 21.2,
+      "size": 2731,
       "status": "passed"
     },
     {
@@ -5025,10 +5041,10 @@
     },
     {
       "file": "src/app/api/collections/helpers/statistics.ts",
-      "lines": 76,
+      "lines": 79,
       "limit": 500,
-      "percentage": 15.2,
-      "size": 1633,
+      "percentage": 15.8,
+      "size": 1758,
       "status": "passed"
     },
     {
@@ -5049,18 +5065,18 @@
     },
     {
       "file": "src/app/api/collections/helpers/cardOperations.ts",
-      "lines": 161,
+      "lines": 162,
       "limit": 500,
-      "percentage": 32.2,
-      "size": 3965,
+      "percentage": 32.4,
+      "size": 4086,
       "status": "passed"
     },
     {
       "file": "src/app/api/collections/export/route.ts",
-      "lines": 177,
+      "lines": 187,
       "limit": 500,
-      "percentage": 35.4,
-      "size": 4752,
+      "percentage": 37.4,
+      "size": 5254,
       "status": "passed"
     },
     {
@@ -5145,10 +5161,10 @@
     },
     {
       "file": "src/app/api/cards/route.ts",
-      "lines": 101,
+      "lines": 109,
       "limit": 500,
-      "percentage": 20.200000000000003,
-      "size": 2784,
+      "percentage": 21.8,
+      "size": 3091,
       "status": "passed"
     },
     {
@@ -5161,10 +5177,10 @@
     },
     {
       "file": "src/app/api/cards/search/route.ts",
-      "lines": 118,
+      "lines": 133,
       "limit": 500,
-      "percentage": 23.599999999999998,
-      "size": 3088,
+      "percentage": 26.6,
+      "size": 3616,
       "status": "passed"
     },
     {
@@ -5209,10 +5225,10 @@
     },
     {
       "file": "src/app/api/cards/[id]/route.ts",
-      "lines": 221,
+      "lines": 195,
       "limit": 500,
-      "percentage": 44.2,
-      "size": 5598,
+      "percentage": 39,
+      "size": 5289,
       "status": "passed"
     },
     {
@@ -5325,6 +5341,14 @@
       "limit": 500,
       "percentage": 14.2,
       "size": 1707,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/_lib/resolveGame.ts",
+      "lines": 40,
+      "limit": 500,
+      "percentage": 8,
+      "size": 1077,
       "status": "passed"
     },
     {
@@ -9129,34 +9153,34 @@
     },
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 642,
+      "lines": 645,
       "limit": 1000,
-      "percentage": 64.2,
-      "size": 19909,
+      "percentage": 64.5,
+      "size": 20100,
       "status": "passed"
     },
     {
       "file": "src/app/api/decks/[id]/route.test.ts",
-      "lines": 678,
+      "lines": 681,
       "limit": 1000,
-      "percentage": 67.80000000000001,
-      "size": 21129,
+      "percentage": 68.10000000000001,
+      "size": 21268,
       "status": "passed"
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 732,
+      "lines": 735,
       "limit": 1000,
-      "percentage": 73.2,
-      "size": 22992,
+      "percentage": 73.5,
+      "size": 23150,
       "status": "passed"
     },
     {
       "file": "src/app/api/cards/search/route.test.ts",
-      "lines": 424,
+      "lines": 429,
       "limit": 1000,
-      "percentage": 42.4,
-      "size": 11305,
+      "percentage": 42.9,
+      "size": 11469,
       "status": "passed"
     },
     {

@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CardService } from '@/lib/services/cardService';
 import { requireAdmin } from '@/middleware/adminAuth';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import {
   parsePaginationParams,
   parseSortParams,
@@ -10,15 +11,22 @@ import {
   formatCardsResponse,
 } from './helpers';
 
-// GET /api/cards - Get all cards with pagination and filtering
+// GET /api/cards?gameSlug=... - Get all cards with pagination and filtering
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
 
     // Parse all parameters using helper functions
     const { page, limit } = parsePaginationParams(searchParams);
     const { sortBy, sortOrder } = parseSortParams(searchParams);
     const filters = parseFilterParams(searchParams);
+
+    // Scope to the resolved game
+    filters.gameId = gameId;
 
     // Build search options
     const options = buildSearchOptions(page, limit, sortBy, sortOrder);

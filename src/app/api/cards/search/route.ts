@@ -12,6 +12,7 @@ import type {
   CardSearchOptions,
   CardSearchResult,
 } from '@/lib/types/card';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import {
   sanitizeAllFilters,
   sanitizeSearchOptions,
@@ -22,11 +23,18 @@ import {
 
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const body = await request.json();
     const { filters = {}, options = {} } = body;
 
     // Sanitize all filters using helper functions
     const sanitizedFilters: CardSearchFilters = sanitizeAllFilters(filters);
+
+    // Scope to the resolved game
+    sanitizedFilters.gameId = gameId;
 
     // Sanitize search options
     const sanitizedOptions = sanitizeSearchOptions(options);
@@ -55,6 +63,10 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
 
     // Parse query parameters for basic GET support
@@ -96,6 +108,9 @@ export async function GET(request: NextRequest) {
       sortOrder,
       includeRelations: true,
     };
+
+    // Scope to the resolved game
+    filters.gameId = gameId;
 
     // Execute search using CardService
     const result: CardSearchResult = await CardService.searchCards(

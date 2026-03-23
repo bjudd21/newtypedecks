@@ -59,6 +59,7 @@ export interface UpdateCardData extends Partial<CreateCardData> {
 
 // Card search and filtering interfaces
 export interface CardSearchFilters {
+  gameId?: string;
   name?: string;
   typeId?: string;
   rarityId?: string;

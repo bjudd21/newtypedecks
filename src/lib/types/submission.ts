@@ -57,6 +57,9 @@ export interface CreateSubmissionData {
   name: string;
   setNumber: string;
 
+  // Game scope
+  gameId?: string;
+
   // Optional card data
   level?: number;
   cost?: number;
@@ -158,6 +161,7 @@ export interface SubmissionReviewData {
 
 // Submission search filters
 export interface SubmissionSearchFilters {
+  gameId?: string;
   status?: SubmissionStatus[];
   priority?: SubmissionPriority[];
   submittedBy?: string;

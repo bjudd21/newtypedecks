@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CardService } from '@/lib/services/cardService';
 import { requireAdmin } from '@/middleware/adminAuth';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 interface RouteParams {
   params: Promise<{
@@ -9,28 +10,19 @@ interface RouteParams {
   }>;
 }
 
-// GET /api/cards/[id] - Get a specific card by ID
+// GET /api/cards/[id]?gameSlug=... - Get a specific card by ID
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    const { id } = await params;
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
 
-    // Validate ID format (UUID)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(id)) {
-      return NextResponse.json(
-        {
-          error: 'Invalid card ID',
-          message: 'Card ID must be a valid UUID',
-        },
-        { status: 400 }
-      );
-    }
+    const { id } = await params;
 
     // Get card by ID using CardService
     const card = await CardService.getCardById(id, true);
 
-    if (!card) {
+    if (!card || card.gameId !== gameId) {
       return NextResponse.json(
         {
           error: 'Card not found',
@@ -54,9 +46,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// PUT /api/cards/[id] - Update a specific card (admin only)
+// PUT /api/cards/[id]?gameSlug=... - Update a specific card (admin only)
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     // Check admin authentication
     const authError = await requireAdmin();
     if (authError) {
@@ -66,22 +62,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const { id } = await params;
     const body = await request.json();
 
-    // Validate ID format (UUID)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(id)) {
-      return NextResponse.json(
-        {
-          error: 'Invalid card ID',
-          message: 'Card ID must be a valid UUID',
-        },
-        { status: 400 }
-      );
-    }
-
-    // Check if card exists first
+    // Check if card exists and belongs to the requested game
     const existingCard = await CardService.getCardById(id, false);
-    if (!existingCard) {
+    if (!existingCard || existingCard.gameId !== gameId) {
       return NextResponse.json(
         {
           error: 'Card not found',
@@ -136,9 +119,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// DELETE /api/cards/[id] - Delete a specific card (admin only)
+// DELETE /api/cards/[id]?gameSlug=... - Delete a specific card (admin only)
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     // Check admin authentication
     const authError = await requireAdmin();
     if (authError) {
@@ -147,22 +134,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     const { id } = await params;
 
-    // Validate ID format (UUID)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(id)) {
-      return NextResponse.json(
-        {
-          error: 'Invalid card ID',
-          message: 'Card ID must be a valid UUID',
-        },
-        { status: 400 }
-      );
-    }
-
-    // Check if card exists first
+    // Check if card exists and belongs to the requested game
     const existingCard = await CardService.getCardById(id, false);
-    if (!existingCard) {
+    if (!existingCard || existingCard.gameId !== gameId) {
       return NextResponse.json(
         {
           error: 'Card not found',

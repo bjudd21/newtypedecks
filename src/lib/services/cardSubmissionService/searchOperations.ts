@@ -30,6 +30,8 @@ export async function searchSubmissions(
   // Build where clause
   const where: Record<string, unknown> = {};
 
+  if (filters.gameId) where.gameId = filters.gameId;
+
   if (filters.status && filters.status.length > 0) {
     where.status = { in: filters.status };
   }

@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import {
   generateExportData,
   buildCollectionWhereClause,
@@ -16,6 +17,10 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -26,6 +31,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url);
+    const gameSlug = searchParams.get('gameSlug')!;
     const format = searchParams.get('format') || 'json';
     const includeMetadata = searchParams.get('includeMetadata') === 'true';
     const includeConditions = searchParams.get('includeConditions') === 'true';
@@ -35,9 +41,9 @@ export async function GET(request: NextRequest) {
     // Build where clause for collection cards based on filters
     const cardsWhereClause = buildCollectionWhereClause(filterBy);
 
-    // Get collection with cards
+    // Get collection with cards scoped to this game
     const userCollection = await prisma.collection.findFirst({
-      where: { userId: session.user.id },
+      where: { userId: session.user.id, gameId },
       include: {
         cards: {
           where: cardsWhereClause,
@@ -78,7 +84,7 @@ export async function GET(request: NextRequest) {
     );
 
     // Set appropriate headers for download
-    const filename = `gundam-collection-${format}-${new Date().toISOString().split('T')[0]}.${format === 'csv' ? 'csv' : 'json'}`;
+    const filename = `${gameSlug}-collection-${format}-${new Date().toISOString().split('T')[0]}.${format === 'csv' ? 'csv' : 'json'}`;
 
     return new NextResponse(exportData.content, {
       status: 200,
@@ -99,6 +105,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -115,9 +125,9 @@ export async function POST(request: NextRequest) {
       exportName,
     } = await request.json();
 
-    // Get user's collection
+    // Get user's collection scoped to this game
     const userCollection = await prisma.collection.findFirst({
-      where: { userId: session.user.id },
+      where: { userId: session.user.id, gameId },
       include: {
         cards: {
           where: options.onlyOwned ? { quantity: { gt: 0 } } : {},

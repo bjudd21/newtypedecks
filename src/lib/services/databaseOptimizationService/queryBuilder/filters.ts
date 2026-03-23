@@ -11,6 +11,9 @@ export function buildWhereClause(
 ): Record<string, unknown> {
   const where: Record<string, unknown> = {};
 
+  // Game scope — always set when provided
+  if (filters.gameId) where.gameId = filters.gameId;
+
   // Text search filters (case-insensitive)
   if (filters.name) {
     where.name = { contains: filters.name, mode: 'insensitive' };

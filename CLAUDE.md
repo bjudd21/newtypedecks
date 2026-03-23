@@ -17,6 +17,7 @@ This is Newtype Decks, a **multi-TCG platform** for card database browsing, deck
 Every game is a `Game` database record with a `config` JSONB column containing a `GameConfig` object. This config drives: card schema, deck validation rules, filter options, legal disclaimers, branding — everything. Adding a new game is a config + seed operation, not a code change.
 
 **Key files:**
+
 - `src/lib/types/game.ts` — TypeScript types: `Game`, `GameConfig`, `CardSchema`, `DeckRules`, `DeckZone`
 - `src/lib/config/games/gundam.ts` — Gundam game config (captures all formerly hardcoded values)
 - `src/lib/config/games/onepiece.ts` — One Piece TCG game config
@@ -28,6 +29,7 @@ Every game is a `Game` database record with a `config` JSONB column containing a
 ### URL Structure
 
 Game-scoped pages live under `/[gameSlug]/`:
+
 ```
 /                           → Landing page (game selector)
 /[gameSlug]/                → Game home page
@@ -42,6 +44,7 @@ Non-game pages stay at root: `/auth/*`, `/dashboard`, `/profile`, `/admin/*`, `/
 ### Card Data Model
 
 Universal fields (name, cost, level, type, etc.) are standard Prisma columns. **Game-specific fields** go in `Card.gameAttributes` (JSONB column). Each game's `GameConfig.cardSchema.customFields` defines what's in that JSONB:
+
 - Gundam: `{ faction, pilot, model, series }`
 - One Piece: `{ color, power, counter, life, attribute, trait }`
 
@@ -50,6 +53,7 @@ Universal fields (name, cost, level, type, etc.) are standard Prisma columns. **
 ### Deck Visibility
 
 Three-tier system (replaces boolean `isPublic`):
+
 - **DRAFT** — save anytime, no validation, only visible to owner
 - **PRIVATE** — must pass deck rules, shareable by link
 - **PUBLIC** — must pass deck rules, visible in deck library
@@ -329,6 +333,7 @@ Key components include:
 ## Legal and Compliance
 
 Each game has its own copyright and legal notices stored in `GameConfig`:
+
 - `config.legalDisclaimer` — full disclaimer text
 - `config.copyrightNotice` — short copyright line
 - `config.nonAffiliationStatement` — non-affiliation text

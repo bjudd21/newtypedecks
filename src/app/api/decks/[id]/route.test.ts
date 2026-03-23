@@ -10,6 +10,11 @@ import { getServerSession } from 'next-auth/next';
 import { prisma } from '@/lib/database';
 
 // Mock dependencies
+jest.mock('@/app/api/_lib/resolveGame', () => ({
+  resolveGameFromRequest: jest
+    .fn()
+    .mockResolvedValue({ gameId: 'game-gundam-id' }),
+}));
 jest.mock('next-auth/next');
 jest.mock('@/lib/database', () => ({
   prisma: {

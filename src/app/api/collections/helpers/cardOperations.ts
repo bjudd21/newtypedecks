@@ -15,18 +15,19 @@ export interface CardOperationResult {
 }
 
 /**
- * Get or create a user's collection
+ * Get or create a user's collection for a specific game
  * @param userId - User ID
- * @returns User's collection
+ * @param gameId - Game ID to scope the collection
+ * @returns User's collection for the given game
  */
-export async function getOrCreateCollection(userId: string) {
+export async function getOrCreateCollection(userId: string, gameId: string) {
   let userCollection = await prisma.collection.findFirst({
-    where: { userId },
+    where: { userId, gameId },
   });
 
   if (!userCollection) {
     userCollection = await prisma.collection.create({
-      data: { userId },
+      data: { userId, gameId },
     });
   }
 

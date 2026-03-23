@@ -10,6 +10,11 @@ import { getServerSession } from 'next-auth/next';
 import { prisma } from '@/lib/database';
 
 // Mock dependencies
+jest.mock('@/app/api/_lib/resolveGame', () => ({
+  resolveGameFromRequest: jest
+    .fn()
+    .mockResolvedValue({ gameId: 'game-gundam-id' }),
+}));
 jest.mock('next-auth/next');
 jest.mock('@/lib/database', () => ({
   prisma: {
@@ -406,7 +411,7 @@ describe('Deck API Routes', () => {
         await POST(request);
 
         expect(prisma.card.findMany).toHaveBeenCalledWith({
-          where: { id: { in: ['card-1', 'card-2'] } },
+          where: { id: { in: ['card-1', 'card-2'] }, gameId: 'game-gundam-id' },
           select: { id: true },
         });
       });
@@ -446,7 +451,7 @@ describe('Deck API Routes', () => {
         await POST(request);
 
         expect(prisma.card.findMany).toHaveBeenCalledWith({
-          where: { id: { in: ['card-1'] } },
+          where: { id: { in: ['card-1'] }, gameId: 'game-gundam-id' },
           select: { id: true },
         });
       });

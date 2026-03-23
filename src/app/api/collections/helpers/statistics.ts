@@ -13,24 +13,27 @@ export interface CollectionStatistics {
 }
 
 /**
- * Calculate collection statistics for a user
+ * Calculate collection statistics for a user scoped to a game
  * @param userId - User ID
+ * @param gameId - Game ID to scope the statistics
  * @returns Collection statistics including total cards, unique cards, and completion percentage
  */
 export async function calculateCollectionStatistics(
-  userId: string
+  userId: string,
+  gameId: string
 ): Promise<CollectionStatistics> {
   const [userStats, totalCards] = await Promise.all([
     prisma.collectionCard.aggregate({
       where: {
         collection: {
           userId,
+          gameId,
         },
       },
       _sum: { quantity: true },
       _count: { id: true },
     }),
-    prisma.card.count(),
+    prisma.card.count({ where: { gameId } }),
   ]);
 
   return {

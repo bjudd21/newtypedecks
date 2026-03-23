@@ -6,9 +6,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
@@ -21,6 +26,7 @@ export async function GET(request: NextRequest) {
     // Build where clause for public decks only
     const where: Record<string, unknown> = {
       isPublic: true,
+      gameId,
     };
 
     if (search) {

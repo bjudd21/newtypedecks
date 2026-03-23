@@ -2,15 +2,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CardSubmissionService } from '@/lib/services/cardSubmissionService';
 import type { CreateSubmissionData } from '@/lib/types/submission';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import { parseSubmissionFilters, parseSubmissionOptions } from './helpers';
 
-// GET /api/submissions - Search submissions with filters
+// GET /api/submissions?gameSlug=... - Search submissions with filters
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
 
     // Parse filters and options using helper functions
     const filters = parseSubmissionFilters(searchParams);
+    filters.gameId = gameId;
     const options = parseSubmissionOptions(searchParams);
 
     // Execute search
@@ -33,11 +39,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/submissions - Create a new submission
+// POST /api/submissions?gameSlug=... - Create a new submission
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const body = await request.json();
-    const submissionData: CreateSubmissionData = body;
+    const submissionData: CreateSubmissionData = { ...body, gameId };
 
     // TODO: Get user ID from authentication
     // For now, this endpoint supports anonymous submissions

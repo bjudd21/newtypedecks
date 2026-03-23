@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import {
   buildCardWhereClause,
   parsePaginationParams,
@@ -20,6 +21,10 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -43,9 +48,9 @@ export async function GET(request: NextRequest) {
     // Build where clause for card filtering
     const cardWhere = buildCardWhereClause(search, rarity, type, faction);
 
-    // Get user's collection
+    // Get user's collection scoped to this game
     const userCollection = await prisma.collection.findFirst({
-      where: { userId: session.user.id },
+      where: { userId: session.user.id, gameId },
     });
 
     // If no collection exists yet, return empty collection
@@ -61,6 +66,7 @@ export async function GET(request: NextRequest) {
         where: {
           collection: {
             userId: session.user.id,
+            gameId,
           },
           card: cardWhere,
         },
@@ -80,14 +86,18 @@ export async function GET(request: NextRequest) {
         where: {
           collection: {
             userId: session.user.id,
+            gameId,
           },
           card: cardWhere,
         },
       }),
     ]);
 
-    // Calculate collection statistics
-    const statistics = await calculateCollectionStatistics(session.user.id);
+    // Calculate collection statistics scoped to this game
+    const statistics = await calculateCollectionStatistics(
+      session.user.id,
+      gameId
+    );
 
     return NextResponse.json({
       collection: {
@@ -118,6 +128,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -154,8 +168,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Card not found' }, { status: 404 });
     }
 
-    // Get or create user's collection
-    const userCollection = await getOrCreateCollection(session.user.id);
+    // Get or create user's collection scoped to this game
+    const userCollection = await getOrCreateCollection(session.user.id, gameId);
 
     // Check if card is already in collection
     const existingCollectionCard = await prisma.collectionCard.findUnique({

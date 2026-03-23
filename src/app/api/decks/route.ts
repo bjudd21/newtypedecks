@@ -8,9 +8,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -31,6 +36,7 @@ export async function GET(request: NextRequest) {
     // Build where clause
     const where: Record<string, unknown> = {
       userId: session.user.id,
+      gameId,
     };
 
     if (isPublic !== undefined) {
@@ -109,6 +115,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -142,7 +152,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate cards exist
+    // Validate cards exist and belong to the requested game
     const cardIds = cards
       .map((c: unknown) => {
         const cardObj = c as Record<string, unknown>;
@@ -153,7 +163,7 @@ export async function POST(request: NextRequest) {
       })
       .filter(Boolean);
     const existingCards = await prisma.card.findMany({
-      where: { id: { in: cardIds as string[] } },
+      where: { id: { in: cardIds as string[] }, gameId },
       select: { id: true },
     });
 
@@ -171,6 +181,7 @@ export async function POST(request: NextRequest) {
         description: description || '',
         isPublic: Boolean(isPublic),
         userId: session.user.id,
+        gameId,
         cards: {
           create: cards.map((card: unknown) => {
             const cardObj = card as Record<string, unknown>;

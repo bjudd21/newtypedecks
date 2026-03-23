@@ -112,6 +112,10 @@ UPDATE rarities
   SET "gameId" = (SELECT id FROM games WHERE slug = 'gundam')
   WHERE "gameId" IS NULL;
 
+UPDATE card_submissions
+  SET "gameId" = (SELECT id FROM games WHERE slug = 'gundam')
+  WHERE "gameId" IS NULL;
+
 -- -------------------------------------------------------------------------
 -- 3. Migrate Gundam card attributes to gameAttributes JSONB
 --    Strips null values so the JSONB stays clean.

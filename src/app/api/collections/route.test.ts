@@ -10,11 +10,16 @@ import { getServerSession } from 'next-auth/next';
 import { prisma } from '@/lib/database';
 
 // Mock dependencies
+jest.mock('@/app/api/_lib/resolveGame', () => ({
+  resolveGameFromRequest: jest
+    .fn()
+    .mockResolvedValue({ gameId: 'game-gundam-id' }),
+}));
 jest.mock('next-auth/next');
 jest.mock('@/lib/database', () => ({
   prisma: {
     collection: {
-      findUnique: jest.fn(),
+      findFirst: jest.fn(),
       create: jest.fn(),
     },
     collectionCard: {
@@ -65,7 +70,7 @@ describe('User Collections API Routes', () => {
 
   describe('GET /api/collections - List User Collection', () => {
     beforeEach(() => {
-      (prisma.collection.findUnique as jest.Mock).mockResolvedValue({
+      (prisma.collection.findFirst as jest.Mock).mockResolvedValue({
         id: mockCollectionId,
         userId: mockUserId,
       });
@@ -88,7 +93,7 @@ describe('User Collections API Routes', () => {
 
     describe('Collection Auto-Creation', () => {
       it('should return empty collection if it does not exist', async () => {
-        (prisma.collection.findUnique as jest.Mock).mockResolvedValue(null);
+        (prisma.collection.findFirst as jest.Mock).mockResolvedValue(null);
 
         const request = new NextRequest(
           'http://localhost:3000/api/collections'
@@ -318,7 +323,7 @@ describe('User Collections API Routes', () => {
 
     describe('Error Handling', () => {
       it('should handle database errors gracefully', async () => {
-        (prisma.collection.findUnique as jest.Mock).mockRejectedValue(
+        (prisma.collection.findFirst as jest.Mock).mockRejectedValue(
           new Error('Database error')
         );
 
@@ -341,7 +346,7 @@ describe('User Collections API Routes', () => {
     };
 
     beforeEach(() => {
-      (prisma.collection.findUnique as jest.Mock).mockResolvedValue(
+      (prisma.collection.findFirst as jest.Mock).mockResolvedValue(
         mockCollection
       );
       (prisma.card.findUnique as jest.Mock).mockResolvedValue(mockCard);
@@ -663,7 +668,7 @@ describe('User Collections API Routes', () => {
 
     describe('Collection Auto-Creation', () => {
       it('should create collection if it does not exist', async () => {
-        (prisma.collection.findUnique as jest.Mock).mockResolvedValue(null);
+        (prisma.collection.findFirst as jest.Mock).mockResolvedValue(null);
         (prisma.collection.create as jest.Mock).mockResolvedValue(
           mockCollection
         );
@@ -687,7 +692,7 @@ describe('User Collections API Routes', () => {
 
         expect(response.status).toBe(200);
         expect(prisma.collection.create).toHaveBeenCalledWith({
-          data: { userId: mockUserId },
+          data: { userId: mockUserId, gameId: 'game-gundam-id' },
         });
       });
     });
@@ -709,7 +714,7 @@ describe('User Collections API Routes', () => {
       });
 
       it('should handle database errors gracefully', async () => {
-        (prisma.collection.findUnique as jest.Mock).mockRejectedValue(
+        (prisma.collection.findFirst as jest.Mock).mockRejectedValue(
           new Error('Database error')
         );
 

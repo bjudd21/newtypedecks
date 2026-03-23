@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 import {
   parseImportData,
   processImportCards,
@@ -16,6 +17,10 @@ import {
 
 export async function POST(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -62,14 +67,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get or create user collection
+    // Get or create user collection scoped to this game
     let userCollection = await prisma.collection.findFirst({
-      where: { userId: session.user.id },
+      where: { userId: session.user.id, gameId },
     });
 
     if (!userCollection) {
       userCollection = await prisma.collection.create({
-        data: { userId: session.user.id },
+        data: { userId: session.user.id, gameId },
       });
     }
 

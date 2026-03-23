@@ -36,6 +36,7 @@ model Game {
   sets        Set[]
   cardTypes   CardType[]
   rarities    Rarity[]
+  submissions CardSubmission[]
 
   @@map("games")
 }
@@ -469,6 +470,7 @@ model CardRuling {
 // Card submission model for manual uploads (previews, leaks, community submissions)
 model CardSubmission {
   id            String   @id @default(cuid())
+  gameId        String?  // FK to Game (nullable during migration backfill)
 
   // Submission metadata
   submittedBy   String?  // User ID if authenticated, null for anonymous
@@ -535,11 +537,13 @@ model CardSubmission {
   updatedAt    DateTime @updatedAt
 
   // Relations
+  game         Game?    @relation(fields: [gameId], references: [id], onDelete: SetNull)
   user         User?    @relation(fields: [submittedBy], references: [id])
   reviewer     User?    @relation("ReviewedSubmissions", fields: [reviewedBy], references: [id])
   publishedCard Card?   @relation(fields: [publishedCardId], references: [id])
 
   // Single field indexes
+  @@index([gameId])
   @@index([status])
   @@index([priority])
   @@index([createdAt])

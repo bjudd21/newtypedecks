@@ -8,6 +8,13 @@ import { NextRequest } from 'next/server';
 import { POST, GET } from './route';
 import { CardService } from '@/lib/services/cardService';
 
+// Mock game resolution
+jest.mock('@/app/api/_lib/resolveGame', () => ({
+  resolveGameFromRequest: jest
+    .fn()
+    .mockResolvedValue({ gameId: 'game-gundam-id' }),
+}));
+
 // Mock CardService
 jest.mock('@/lib/services/cardService', () => ({
   CardService: {
