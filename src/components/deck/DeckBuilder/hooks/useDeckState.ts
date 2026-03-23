@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCurrentDeck } from '@/store/slices/deckSlice';
 import { createNewDeck } from '../deckFactory';
-import type { Deck, DeckCard } from '@prisma/client';
+import type { Deck, DeckCard, DeckVisibility } from '@prisma/client';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface DeckWithCards extends Deck {
@@ -31,7 +31,7 @@ export function useDeckState({
   const [deckName, setDeckName] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
   const [deckFormat, setDeckFormat] = useState('Standard');
-  const [isPublic, setIsPublic] = useState(false);
+  const [visibility, setVisibility] = useState<DeckVisibility>('DRAFT');
   const [savedDeckId, setSavedDeckId] = useState<string | null>(null);
 
   // UI state
@@ -52,6 +52,7 @@ export function useDeckState({
     } else {
       setDeckName(currentDeck.name);
       setDeckDescription(currentDeck.description || '');
+      setVisibility(currentDeck.visibility ?? 'DRAFT');
       // Check if this is a saved deck
       if (!currentDeck.id.startsWith('temp-')) {
         setSavedDeckId(currentDeck.id);
@@ -67,8 +68,8 @@ export function useDeckState({
     setDeckDescription,
     deckFormat,
     setDeckFormat,
-    isPublic,
-    setIsPublic,
+    visibility,
+    setVisibility,
     savedDeckId,
     setSavedDeckId,
 

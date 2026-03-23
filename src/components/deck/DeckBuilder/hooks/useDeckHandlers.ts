@@ -16,7 +16,7 @@ import {
 import { deckExporter } from '@/lib/services/deckExportService';
 import { createNewDeck } from '../deckFactory';
 import type { CardWithRelations } from '@/lib/types/card';
-import type { Deck, DeckCard } from '@prisma/client';
+import type { Deck, DeckCard, DeckVisibility } from '@prisma/client';
 
 interface DeckWithCards extends Deck {
   cards: (DeckCard & { card: CardWithRelations })[];
@@ -27,7 +27,7 @@ interface UseDeckHandlersOptions {
   deckName: string;
   deckDescription: string;
   deckFormat: string;
-  isPublic: boolean;
+  visibility: DeckVisibility;
   savedDeckId: string | null;
   setSavedDeckId: (id: string | null) => void;
   isAuthenticated: boolean;
@@ -36,7 +36,7 @@ interface UseDeckHandlersOptions {
     name: string;
     description?: string;
     format?: string;
-    isPublic?: boolean;
+    visibility?: DeckVisibility;
     cards: {
       cardId: string;
       card: CardWithRelations;
@@ -50,7 +50,7 @@ interface UseDeckHandlersOptions {
       name?: string;
       description?: string;
       format?: string;
-      isPublic?: boolean;
+      visibility?: DeckVisibility;
       cards?: {
         cardId: string;
         card: CardWithRelations;
@@ -67,7 +67,7 @@ export function useDeckHandlers({
   deckName,
   deckDescription,
   deckFormat,
-  isPublic,
+  visibility,
   savedDeckId,
   setSavedDeckId,
   isAuthenticated,
@@ -161,8 +161,12 @@ export function useDeckHandlers({
       return;
     }
 
-    if (!currentDeck || currentDeck.cards.length === 0) {
-      console.warn('Cannot save an empty deck!');
+    // Non-draft decks must have at least one card
+    if (
+      visibility !== 'DRAFT' &&
+      (!currentDeck || currentDeck.cards.length === 0)
+    ) {
+      console.warn('Cannot save an empty deck as Private or Public!');
       return;
     }
 
@@ -172,8 +176,8 @@ export function useDeckHandlers({
       name: deckName.trim() || 'Untitled Deck',
       description: deckDescription.trim(),
       format: deckFormat,
-      isPublic,
-      cards: currentDeck.cards.map((deckCard) => ({
+      visibility,
+      cards: (currentDeck?.cards ?? []).map((deckCard) => ({
         cardId: deckCard.cardId || deckCard.card.id,
         card: deckCard.card,
         quantity: deckCard.quantity,
@@ -219,7 +223,7 @@ export function useDeckHandlers({
     deckName,
     deckDescription,
     deckFormat,
-    isPublic,
+    visibility,
     savedDeckId,
     createDeck,
     updateDeck,

@@ -6,15 +6,22 @@
 'use client';
 
 import React from 'react';
+import type { DeckVisibility } from '@prisma/client';
 import { Input, Select } from '@/components/ui';
+
+const VISIBILITY_OPTIONS = [
+  { value: 'DRAFT', label: 'Draft — save anytime, only visible to you' },
+  { value: 'PRIVATE', label: 'Private — shareable by link, valid decks only' },
+  { value: 'PUBLIC', label: 'Public — visible in deck library' },
+];
 
 interface DeckSettingsProps {
   deckDescription: string;
   setDeckDescription: (value: string) => void;
   deckFormat: string;
   setDeckFormat: (value: string) => void;
-  isPublic: boolean;
-  setIsPublic: (value: boolean) => void;
+  visibility: DeckVisibility;
+  setVisibility: (value: DeckVisibility) => void;
 }
 
 export const DeckSettings: React.FC<DeckSettingsProps> = ({
@@ -22,8 +29,8 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
   setDeckDescription,
   deckFormat,
   setDeckFormat,
-  isPublic,
-  setIsPublic,
+  visibility,
+  setVisibility,
 }) => (
   <div className="grid grid-cols-1 gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4 md:grid-cols-3">
     <div>
@@ -52,17 +59,15 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
         ]}
       />
     </div>
-    <div className="flex items-center space-x-2 pt-6">
-      <input
-        type="checkbox"
-        id="isPublic"
-        checked={isPublic}
-        onChange={(e) => setIsPublic(e.target.checked)}
-        className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
-      />
-      <label htmlFor="isPublic" className="text-sm text-gray-400">
-        Make deck public
+    <div>
+      <label className="mb-1 block text-sm font-medium text-gray-400">
+        Visibility
       </label>
+      <Select
+        value={visibility}
+        onChange={(v) => setVisibility(v as DeckVisibility)}
+        options={VISIBILITY_OPTIONS}
+      />
     </div>
   </div>
 );

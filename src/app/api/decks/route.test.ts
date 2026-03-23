@@ -163,7 +163,7 @@ describe('Deck API Routes', () => {
         expect(prisma.deck.findMany).toHaveBeenCalledWith(
           expect.objectContaining({
             where: expect.objectContaining({
-              isPublic: true,
+              visibility: 'PUBLIC',
             }),
           })
         );
@@ -283,7 +283,7 @@ describe('Deck API Routes', () => {
     const validDeckData = {
       name: 'My Gundam Deck',
       description: 'A powerful deck',
-      isPublic: false,
+      visibility: 'DRAFT',
       cards: [
         { cardId: 'card-1', quantity: 2, category: 'main' },
         { cardId: 'card-2', quantity: 1, category: 'main' },
@@ -493,6 +493,7 @@ describe('Deck API Routes', () => {
             data: expect.objectContaining({
               name: validDeckData.name,
               description: validDeckData.description,
+              visibility: 'DRAFT',
               isPublic: false,
               userId: mockUserId,
             }),

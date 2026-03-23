@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
     const search = searchParams.get('search') || '';
-    const isPublic = searchParams.get('public') === 'true';
+    const publicOnly = searchParams.get('public') === 'true';
 
     const skip = (page - 1) * limit;
 
@@ -39,8 +39,8 @@ export async function GET(request: NextRequest) {
       gameId,
     };
 
-    if (isPublic !== undefined) {
-      where.isPublic = isPublic;
+    if (publicOnly) {
+      where.visibility = 'PUBLIC';
     }
 
     if (search) {
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, description, isPublic, cards } = await request.json();
+    const { name, description, visibility, cards } = await request.json();
 
     // Validate input
     if (!name || !cards || !Array.isArray(cards)) {
@@ -180,7 +180,10 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         description: description || '',
-        isPublic: Boolean(isPublic),
+        visibility: (['DRAFT', 'PRIVATE', 'PUBLIC'].includes(visibility)
+          ? visibility
+          : 'DRAFT') as 'DRAFT' | 'PRIVATE' | 'PUBLIC',
+        isPublic: visibility === 'PUBLIC',
         userId: session.user.id,
         gameId,
         cards: {

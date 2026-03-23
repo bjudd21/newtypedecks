@@ -54,8 +54,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     setDeckDescription,
     deckFormat,
     setDeckFormat,
-    isPublic,
-    setIsPublic,
+    visibility,
+    setVisibility,
     savedDeckId,
     setSavedDeckId,
     showVersionHistory,
@@ -85,7 +85,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     deckName,
     deckDescription,
     deckFormat,
-    isPublic,
+    visibility,
     savedDeckId,
     setSavedDeckId,
     isAuthenticated,
@@ -125,8 +125,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
           setDeckDescription={setDeckDescription}
           deckFormat={deckFormat}
           setDeckFormat={setDeckFormat}
-          isPublic={isPublic}
-          setIsPublic={setIsPublic}
+          visibility={visibility}
+          setVisibility={setVisibility}
           deckError={deckError}
         />
 
