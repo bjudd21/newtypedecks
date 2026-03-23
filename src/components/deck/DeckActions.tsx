@@ -6,8 +6,17 @@
 'use client';
 
 import React from 'react';
+import type { CardWithRelations } from '@/lib/types/card';
 import { Button } from '@/components/ui';
 import { ExportDropdown } from './ExportDropdown';
+import { ImportCodePanel } from './DeckBuilder/ImportCodePanel';
+
+interface ImportedCard {
+  cardId: string;
+  card: CardWithRelations;
+  quantity: number;
+  category: string;
+}
 
 interface DeckActionsProps {
   onNewDeck: () => void;
@@ -23,6 +32,7 @@ interface DeckActionsProps {
   showHandSimulator: boolean;
   onToggleHandSimulator: () => void;
   onExport: (format: 'json' | 'text' | 'csv' | 'mtga') => void;
+  onImportByCode: (cards: ImportedCard[], deckName: string) => void;
 }
 
 export const DeckActions: React.FC<DeckActionsProps> = ({
@@ -39,6 +49,7 @@ export const DeckActions: React.FC<DeckActionsProps> = ({
   showHandSimulator,
   onToggleHandSimulator,
   onExport,
+  onImportByCode,
 }) => (
   <div className="mt-6 flex flex-wrap gap-4">
     <Button variant="outline" onClick={onNewDeck}>
@@ -85,5 +96,7 @@ export const DeckActions: React.FC<DeckActionsProps> = ({
         💾 Sign in to Save
       </Button>
     )}
+
+    <ImportCodePanel onImport={onImportByCode} />
   </div>
 );

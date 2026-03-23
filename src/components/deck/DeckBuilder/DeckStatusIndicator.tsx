@@ -1,9 +1,11 @@
 /**
  * DeckStatusIndicator Component
- * Displays the save status and version of the current deck
+ * Displays save status, version, and a copy-code button when a deck code exists.
  */
 
-import React from 'react';
+'use client';
+
+import React, { useState, useCallback } from 'react';
 import { Badge } from '@/components/ui';
 
 interface DeckStatusIndicatorProps {
@@ -12,6 +14,7 @@ interface DeckStatusIndicatorProps {
   deckName: string;
   uniqueCards: number;
   currentVersion?: number;
+  deckCode?: string | null;
 }
 
 export const DeckStatusIndicator: React.FC<DeckStatusIndicatorProps> = ({
@@ -20,22 +23,55 @@ export const DeckStatusIndicator: React.FC<DeckStatusIndicatorProps> = ({
   deckName,
   uniqueCards,
   currentVersion,
+  deckCode,
 }) => {
-  if (!isAuthenticated) {
-    return null;
-  }
+  const [codeCopied, setCodeCopied] = useState(false);
+
+  const handleCopyCode = useCallback(async () => {
+    if (!deckCode) return;
+    try {
+      await navigator.clipboard.writeText(deckCode);
+    } catch {
+      // Fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = deckCode;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    setCodeCopied(true);
+    setTimeout(() => setCodeCopied(false), 2000);
+  }, [deckCode]);
+
+  if (!isAuthenticated) return null;
 
   return (
-    <div className="mt-4 text-sm text-gray-600">
+    <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-600">
       {savedDeckId ? (
-        <span className="flex items-center gap-1">
-          ✅ <strong>{deckName}</strong> is saved to your collection
-          {currentVersion && (
-            <Badge variant="secondary" className="ml-2 text-xs">
-              v{currentVersion}
-            </Badge>
+        <>
+          <span className="flex items-center gap-1">
+            ✅ <strong>{deckName}</strong> is saved to your collection
+            {currentVersion && (
+              <Badge variant="secondary" className="ml-2 text-xs">
+                v{currentVersion}
+              </Badge>
+            )}
+          </span>
+
+          {deckCode && (
+            <button
+              onClick={handleCopyCode}
+              className="flex items-center gap-1.5 rounded border border-[#443a5c] bg-[#1a1625]/50 px-2 py-0.5 font-mono text-xs text-[#a89ec7] transition-colors hover:border-[#8b7aaa] hover:text-[#c8b8f0]"
+              title="Copy deck code for sharing"
+            >
+              <span>{deckCode}</span>
+              <span className="text-[#8b7aaa]">
+                {codeCopied ? '✓ Copied' : '📋'}
+              </span>
+            </button>
           )}
-        </span>
+        </>
       ) : uniqueCards > 0 ? (
         <span className="flex items-center gap-1">
           ⚠️ <strong>{deckName}</strong> has unsaved changes

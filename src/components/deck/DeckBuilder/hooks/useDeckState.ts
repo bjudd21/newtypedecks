@@ -33,6 +33,7 @@ export function useDeckState({
   const [deckFormat, setDeckFormat] = useState('Standard');
   const [visibility, setVisibility] = useState<DeckVisibility>('DRAFT');
   const [savedDeckId, setSavedDeckId] = useState<string | null>(null);
+  const [deckCode, setDeckCode] = useState<string | null>(null);
 
   // UI state
   const [showVersionHistory, setShowVersionHistory] = useState(false);
@@ -57,6 +58,7 @@ export function useDeckState({
       // Check if this is a saved deck
       if (!currentDeck.id.startsWith('temp-')) {
         setSavedDeckId(currentDeck.id);
+        setDeckCode(currentDeck.deckCode ?? null);
       }
     }
   }, [currentDeck, dispatch, isAuthenticated, userId]);
@@ -73,6 +75,8 @@ export function useDeckState({
     setVisibility,
     savedDeckId,
     setSavedDeckId,
+    deckCode,
+    setDeckCode,
 
     // UI toggles
     showVersionHistory,

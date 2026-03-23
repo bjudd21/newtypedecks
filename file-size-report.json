@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-03-23T19:16:58.899Z",
+  "timestamp": "2026-03-23T19:41:55.460Z",
   "summary": {
-    "passed": 1161,
+    "passed": 1162,
     "warnings": 6,
     "errors": 0,
-    "total": 1167
+    "total": 1168
   },
   "files": [
     {
@@ -289,10 +289,10 @@
     },
     {
       "file": "src/lib/types/game.ts",
-      "lines": 97,
+      "lines": 99,
       "limit": 500,
-      "percentage": 19.400000000000002,
-      "size": 2536,
+      "percentage": 19.8,
+      "size": 2632,
       "status": "passed"
     },
     {
@@ -3801,10 +3801,10 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/index.ts",
-      "lines": 28,
+      "lines": 29,
       "limit": 500,
-      "percentage": 5.6000000000000005,
-      "size": 1007,
+      "percentage": 5.800000000000001,
+      "size": 1056,
       "status": "passed"
     },
     {
@@ -3825,10 +3825,10 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/hooks/useDeckState.ts",
-      "lines": 89,
+      "lines": 92,
       "limit": 500,
-      "percentage": 17.8,
-      "size": 2470,
+      "percentage": 18.4,
+      "size": 2588,
       "status": "passed"
     },
     {
@@ -6625,10 +6625,10 @@
     },
     {
       "file": "src/components/deck/DeckActions.tsx",
-      "lines": 80,
+      "lines": 90,
       "limit": 500,
-      "percentage": 16,
-      "size": 1985,
+      "percentage": 18,
+      "size": 2289,
       "status": "passed"
     },
     {
@@ -7096,6 +7096,14 @@
       "status": "passed"
     },
     {
+      "file": "src/components/deck/DeckBuilder/HandSimulator.tsx",
+      "lines": 165,
+      "limit": 500,
+      "percentage": 33,
+      "size": 5574,
+      "status": "passed"
+    },
+    {
       "file": "src/components/deck/DeckBuilder/DeckStatusIndicator.tsx",
       "lines": 49,
       "limit": 500,
@@ -7113,18 +7121,18 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/DeckBuilderComponent.tsx",
-      "lines": 239,
+      "lines": 245,
       "limit": 500,
-      "percentage": 47.8,
-      "size": 6752,
+      "percentage": 49,
+      "size": 7038,
       "status": "passed"
     },
     {
       "file": "src/components/deck/DeckBuilder/ConditionalSections.tsx",
-      "lines": 103,
+      "lines": 115,
       "limit": 500,
-      "percentage": 20.599999999999998,
-      "size": 2999,
+      "percentage": 23,
+      "size": 3379,
       "status": "passed"
     },
     {

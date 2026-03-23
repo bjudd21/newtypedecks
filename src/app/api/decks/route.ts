@@ -9,6 +9,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
 import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
+import { generateDeckCode } from '@/lib/utils/deckCode';
 
 export async function GET(request: NextRequest) {
   try {
@@ -184,6 +185,7 @@ export async function POST(request: NextRequest) {
           ? visibility
           : 'DRAFT') as 'DRAFT' | 'PRIVATE' | 'PUBLIC',
         isPublic: visibility === 'PUBLIC',
+        deckCode: generateDeckCode(game.slug),
         userId: session.user.id,
         gameId,
         cards: {

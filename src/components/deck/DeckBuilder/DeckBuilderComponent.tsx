@@ -4,10 +4,10 @@
 
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { setIsEditing } from '@/store/slices/deckSlice';
+import { setIsEditing, setCurrentDeck } from '@/store/slices/deckSlice';
 import { useAuth, useDecks } from '@/hooks';
 import { useGame } from '@/contexts/GameContext';
 import { DeckHeader } from '../DeckHeader';
@@ -67,6 +67,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     setShowAnalytics,
     showHandSimulator,
     setShowHandSimulator,
+    deckCode,
+    setDeckCode,
   } = useDeckState({
     currentDeck,
     isAuthenticated,
@@ -91,6 +93,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     visibility,
     savedDeckId,
     setSavedDeckId,
+    setDeckCode,
     isAuthenticated,
     userId: user?.id,
     createDeck,
@@ -102,6 +105,33 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     useDeckCalculations({ currentDeck });
 
   const { viewMode, setViewMode } = useViewMode();
+
+  const handleImportByCode = useCallback(
+    (
+      cards: {
+        cardId: string;
+        card: unknown;
+        quantity: number;
+        category: string;
+      }[],
+      deckName: string
+    ) => {
+      if (currentDeck) {
+        dispatch(
+          setCurrentDeck({
+            ...currentDeck,
+            id: `temp-${Date.now()}`,
+            name: deckName,
+            cards: cards as typeof currentDeck.cards,
+          })
+        );
+        setDeckName(deckName);
+        setSavedDeckId(null);
+        setDeckCode(null);
+      }
+    },
+    [currentDeck, dispatch, setDeckName, setSavedDeckId, setDeckCode]
+  );
 
   const collectionQuantities = useCollectionQuantities(
     isAuthenticated,
@@ -204,6 +234,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
         showHandSimulator={showHandSimulator}
         onToggleHandSimulator={() => setShowHandSimulator(!showHandSimulator)}
         onExport={handleExport}
+        onImportByCode={handleImportByCode}
       />
 
       {/* Conditional Sections: Version History, Template Creator, Analytics */}
@@ -236,6 +267,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
         deckName={deckName}
         uniqueCards={uniqueCards}
         currentVersion={currentDeck?.currentVersion}
+        deckCode={deckCode}
       />
     </div>
   );

@@ -17,6 +17,7 @@ export interface Deck {
   description?: string;
   format?: string;
   isPublic: boolean;
+  deckCode?: string | null;
   cards: DeckCard[];
   cardCount?: number;
   uniqueCards?: number;

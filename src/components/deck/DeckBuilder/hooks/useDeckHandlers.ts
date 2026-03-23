@@ -30,6 +30,7 @@ interface UseDeckHandlersOptions {
   visibility: DeckVisibility;
   savedDeckId: string | null;
   setSavedDeckId: (id: string | null) => void;
+  setDeckCode: (code: string | null) => void;
   isAuthenticated: boolean;
   userId?: string;
   createDeck: (data: {
@@ -70,6 +71,7 @@ export function useDeckHandlers({
   visibility,
   savedDeckId,
   setSavedDeckId,
+  setDeckCode,
   isAuthenticated,
   userId,
   createDeck,
@@ -198,9 +200,11 @@ export function useDeckHandlers({
           id: string;
           name: string;
           description: string | null;
+          deckCode?: string | null;
         } | null;
         if (newDeck && currentDeck) {
           setSavedDeckId(newDeck.id);
+          setDeckCode(newDeck.deckCode ?? null);
           // Update current deck with saved ID
           dispatch(
             setCurrentDeck({
@@ -230,6 +234,7 @@ export function useDeckHandlers({
     clearError,
     dispatch,
     setSavedDeckId,
+    setDeckCode,
     userId,
   ]);
 
