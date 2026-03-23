@@ -8,6 +8,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { DeckDropZone } from '../DeckDropZone';
 import { CardListByType } from './CardListByType';
+import { CardListText } from './CardListText';
+import { CardListSpreadsheet } from './CardListSpreadsheet';
+import { ViewModeToggle, type ViewMode } from './ViewModeToggle';
 import type { DeckCard } from '@prisma/client';
 import type { CardWithRelations } from '@/lib/types/card';
 import type { DeckRules } from '@/lib/types/game';
@@ -26,6 +29,8 @@ interface DeckContentPanelProps {
   onQuantityChange: (cardId: string, quantity: number) => void;
   deckCards?: DeckCardWithCard[];
   deckRules?: DeckRules;
+  viewMode?: ViewMode;
+  onViewModeChange?: (mode: ViewMode) => void;
 }
 
 /** Group a flat card list by card type name for use in CardListByType. */
@@ -41,6 +46,48 @@ function groupByType(
   return groups;
 }
 
+/** Render the appropriate card-list view based on viewMode. */
+function CardListView({
+  cardsByType,
+  isEditing,
+  collectionQuantities,
+  onQuantityChange,
+  viewMode,
+}: {
+  cardsByType: Record<string, DeckCardWithCard[]>;
+  isEditing: boolean;
+  collectionQuantities: Record<string, number>;
+  onQuantityChange: (cardId: string, quantity: number) => void;
+  viewMode: ViewMode;
+}) {
+  if (viewMode === 'text') {
+    return (
+      <CardListText
+        cardsByType={cardsByType}
+        isEditing={isEditing}
+        onQuantityChange={onQuantityChange}
+      />
+    );
+  }
+  if (viewMode === 'spreadsheet') {
+    return (
+      <CardListSpreadsheet
+        cardsByType={cardsByType}
+        isEditing={isEditing}
+        onQuantityChange={onQuantityChange}
+      />
+    );
+  }
+  return (
+    <CardListByType
+      cardsByType={cardsByType}
+      isEditing={isEditing}
+      collectionQuantities={collectionQuantities}
+      onQuantityChange={onQuantityChange}
+    />
+  );
+}
+
 export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   totalCards,
   uniqueCards,
@@ -51,6 +98,8 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   onQuantityChange,
   deckCards,
   deckRules,
+  viewMode = 'image',
+  onViewModeChange,
 }) => {
   const zones = deckRules?.zones ?? [];
   const useZoneLayout = zones.length > 0 && deckCards != null;
@@ -58,9 +107,14 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   return (
     <Card className="border-[#443a5c] bg-[#2d2640]">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">
-          DECK CONTENTS ({totalCards} CARDS)
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-[#a89ec7]">
+            DECK CONTENTS ({totalCards} CARDS)
+          </CardTitle>
+          {onViewModeChange && (
+            <ViewModeToggle viewMode={viewMode} onChange={onViewModeChange} />
+          )}
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {useZoneLayout ? (
@@ -116,11 +170,12 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                   }
                 >
                   {zoneCards.length === 0 ? null : (
-                    <CardListByType
+                    <CardListView
                       cardsByType={groupByType(zoneCards)}
                       isEditing={isEditing}
                       collectionQuantities={collectionQuantities}
                       onQuantityChange={onQuantityChange}
+                      viewMode={viewMode}
                     />
                   )}
                 </DeckDropZone>
@@ -136,11 +191,12 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
             className="max-h-96 overflow-y-auto"
           >
             {uniqueCards === 0 ? null : (
-              <CardListByType
+              <CardListView
                 cardsByType={cardsByType}
                 isEditing={isEditing}
                 collectionQuantities={collectionQuantities}
                 onQuantityChange={onQuantityChange}
+                viewMode={viewMode}
               />
             )}
           </DeckDropZone>

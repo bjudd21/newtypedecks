@@ -24,6 +24,7 @@ import {
 import { useDeckState } from './hooks/useDeckState';
 import { useDeckHandlers } from './hooks/useDeckHandlers';
 import { useDeckCalculations } from './hooks/useDeckCalculations';
+import { useViewMode } from './hooks/useViewMode';
 
 interface DeckBuilderProps {
   className?: string;
@@ -98,6 +99,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
   const { totalCards, uniqueCards, totalCost, cardsByType } =
     useDeckCalculations({ currentDeck });
 
+  const { viewMode, setViewMode } = useViewMode();
+
   const collectionQuantities = useCollectionQuantities(
     isAuthenticated,
     currentDeck
@@ -160,6 +163,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
             onQuantityChange={handleQuantityChange}
             deckCards={currentDeck?.cards || []}
             deckRules={game?.config?.deckRules}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
           />
         </div>
       </div>

@@ -17,6 +17,10 @@ export { createNewDeck } from './deckFactory';
 
 // UI Components
 export { CardListByType } from './CardListByType';
+export { CardListText } from './CardListText';
+export { CardListSpreadsheet } from './CardListSpreadsheet';
+export { ViewModeToggle } from './ViewModeToggle';
+export type { ViewMode } from './ViewModeToggle';
 export { SearchPanel } from './SearchPanel';
 export { DeckContentPanel } from './DeckContentPanel';
 export { DeckStatusIndicator } from './DeckStatusIndicator';
