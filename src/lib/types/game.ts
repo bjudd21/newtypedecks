@@ -15,7 +15,9 @@ export interface CardSchemaField {
 export interface CardSchemaCustomField {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'boolean';
+  type: 'text' | 'number' | 'boolean' | 'select';
+  /** Valid options for select-type fields (e.g. One Piece colors, attributes) */
+  options?: string[];
 }
 
 export interface CardSchema {
