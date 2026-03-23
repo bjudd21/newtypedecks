@@ -20,6 +20,8 @@ interface DeckActionsProps {
   onToggleTemplateCreator: () => void;
   showAnalytics: boolean;
   onToggleAnalytics: () => void;
+  showHandSimulator: boolean;
+  onToggleHandSimulator: () => void;
   onExport: (format: 'json' | 'text' | 'csv' | 'mtga') => void;
 }
 
@@ -34,6 +36,8 @@ export const DeckActions: React.FC<DeckActionsProps> = ({
   onToggleTemplateCreator,
   showAnalytics,
   onToggleAnalytics,
+  showHandSimulator,
+  onToggleHandSimulator,
   onExport,
 }) => (
   <div className="mt-6 flex flex-wrap gap-4">
@@ -60,6 +64,12 @@ export const DeckActions: React.FC<DeckActionsProps> = ({
     {uniqueCards > 0 && (
       <Button variant="outline" onClick={onToggleAnalytics}>
         {showAnalytics ? 'Hide Analytics' : '📊 Deck Analytics'}
+      </Button>
+    )}
+
+    {uniqueCards > 0 && (
+      <Button variant="outline" onClick={onToggleHandSimulator}>
+        {showHandSimulator ? 'Hide Hand Simulator' : '🃏 Hand Simulator'}
       </Button>
     )}
 

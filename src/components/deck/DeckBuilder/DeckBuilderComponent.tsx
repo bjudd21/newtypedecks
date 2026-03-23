@@ -65,6 +65,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     setShowTemplateCreator,
     showAnalytics,
     setShowAnalytics,
+    showHandSimulator,
+    setShowHandSimulator,
   } = useDeckState({
     currentDeck,
     isAuthenticated,
@@ -199,6 +201,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
         }
         showAnalytics={showAnalytics}
         onToggleAnalytics={() => setShowAnalytics(!showAnalytics)}
+        showHandSimulator={showHandSimulator}
+        onToggleHandSimulator={() => setShowHandSimulator(!showHandSimulator)}
         onExport={handleExport}
       />
 
@@ -207,6 +211,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
         showVersionHistory={showVersionHistory}
         showTemplateCreator={showTemplateCreator}
         showAnalytics={showAnalytics}
+        showHandSimulator={showHandSimulator}
+        handSize={game?.config?.deckRules?.startingHandSize ?? 5}
         isAuthenticated={isAuthenticated}
         savedDeckId={savedDeckId}
         currentDeck={currentDeck}

@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-03-23T15:48:08.748Z",
+  "timestamp": "2026-03-23T19:16:58.899Z",
   "summary": {
-    "passed": 1156,
+    "passed": 1161,
     "warnings": 6,
     "errors": 0,
-    "total": 1162
+    "total": 1167
   },
   "files": [
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 649,
+      "lines": 650,
       "limit": 500,
-      "percentage": 129.8,
-      "size": 20203,
+      "percentage": 130,
+      "size": 20248,
       "status": "warning"
     },
     {
@@ -2633,10 +2633,10 @@
     },
     {
       "file": "src/lib/database/dashboard.ts",
-      "lines": 94,
+      "lines": 97,
       "limit": 500,
-      "percentage": 18.8,
-      "size": 2462,
+      "percentage": 19.400000000000002,
+      "size": 2480,
       "status": "passed"
     },
     {
@@ -3801,10 +3801,10 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/index.ts",
-      "lines": 24,
+      "lines": 28,
       "limit": 500,
-      "percentage": 4.8,
-      "size": 798,
+      "percentage": 5.6000000000000005,
+      "size": 1007,
       "status": "passed"
     },
     {
@@ -3816,19 +3816,27 @@
       "status": "passed"
     },
     {
-      "file": "src/components/deck/DeckBuilder/hooks/useDeckState.ts",
-      "lines": 88,
+      "file": "src/components/deck/DeckBuilder/hooks/useViewMode.ts",
+      "lines": 29,
       "limit": 500,
-      "percentage": 17.599999999999998,
-      "size": 2372,
+      "percentage": 5.800000000000001,
+      "size": 752,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckBuilder/hooks/useDeckState.ts",
+      "lines": 89,
+      "limit": 500,
+      "percentage": 17.8,
+      "size": 2470,
       "status": "passed"
     },
     {
       "file": "src/components/deck/DeckBuilder/hooks/useDeckHandlers.ts",
-      "lines": 280,
+      "lines": 284,
       "limit": 500,
-      "percentage": 56.00000000000001,
-      "size": 7237,
+      "percentage": 56.8,
+      "size": 7413,
       "status": "passed"
     },
     {
@@ -4777,10 +4785,10 @@
     },
     {
       "file": "src/app/api/decks/route.ts",
-      "lines": 234,
+      "lines": 237,
       "limit": 500,
-      "percentage": 46.800000000000004,
-      "size": 6156,
+      "percentage": 47.4,
+      "size": 6308,
       "status": "passed"
     },
     {
@@ -6513,10 +6521,10 @@
     },
     {
       "file": "src/components/deck/DraggableCard.tsx",
-      "lines": 218,
+      "lines": 229,
       "limit": 500,
-      "percentage": 43.6,
-      "size": 7405,
+      "percentage": 45.800000000000004,
+      "size": 8000,
       "status": "passed"
     },
     {
@@ -6577,18 +6585,18 @@
     },
     {
       "file": "src/components/deck/DeckSettings.tsx",
-      "lines": 69,
+      "lines": 74,
       "limit": 500,
-      "percentage": 13.8,
-      "size": 1883,
+      "percentage": 14.799999999999999,
+      "size": 2088,
       "status": "passed"
     },
     {
       "file": "src/components/deck/DeckHeader.tsx",
-      "lines": 101,
+      "lines": 102,
       "limit": 500,
-      "percentage": 20.200000000000003,
-      "size": 2546,
+      "percentage": 20.4,
+      "size": 2630,
       "status": "passed"
     },
     {
@@ -7072,6 +7080,14 @@
       "status": "passed"
     },
     {
+      "file": "src/components/deck/DeckBuilder/ViewModeToggle.tsx",
+      "lines": 44,
+      "limit": 500,
+      "percentage": 8.799999999999999,
+      "size": 1092,
+      "status": "passed"
+    },
+    {
       "file": "src/components/deck/DeckBuilder/SearchPanel.tsx",
       "lines": 66,
       "limit": 500,
@@ -7089,18 +7105,18 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/DeckContentPanel.tsx",
-      "lines": 152,
+      "lines": 246,
       "limit": 500,
-      "percentage": 30.4,
-      "size": 5102,
+      "percentage": 49.2,
+      "size": 8197,
       "status": "passed"
     },
     {
       "file": "src/components/deck/DeckBuilder/DeckBuilderComponent.tsx",
-      "lines": 233,
+      "lines": 239,
       "limit": 500,
-      "percentage": 46.6,
-      "size": 6514,
+      "percentage": 47.8,
+      "size": 6752,
       "status": "passed"
     },
     {
@@ -7112,11 +7128,35 @@
       "status": "passed"
     },
     {
-      "file": "src/components/deck/DeckBuilder/CardListByType.tsx",
-      "lines": 60,
+      "file": "src/components/deck/DeckBuilder/CollectionSummaryBar.tsx",
+      "lines": 101,
       "limit": 500,
-      "percentage": 12,
-      "size": 1839,
+      "percentage": 20.200000000000003,
+      "size": 3066,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckBuilder/CardListText.tsx",
+      "lines": 103,
+      "limit": 500,
+      "percentage": 20.599999999999998,
+      "size": 3672,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckBuilder/CardListSpreadsheet.tsx",
+      "lines": 221,
+      "limit": 500,
+      "percentage": 44.2,
+      "size": 7249,
+      "status": "passed"
+    },
+    {
+      "file": "src/components/deck/DeckBuilder/CardListByType.tsx",
+      "lines": 63,
+      "limit": 500,
+      "percentage": 12.6,
+      "size": 1935,
       "status": "passed"
     },
     {
@@ -7193,10 +7233,10 @@
     },
     {
       "file": "src/components/dashboard/UserDashboard/UserDashboardComponent.tsx",
-      "lines": 51,
+      "lines": 69,
       "limit": 500,
-      "percentage": 10.2,
-      "size": 1718,
+      "percentage": 13.8,
+      "size": 1810,
       "status": "passed"
     },
     {
@@ -8857,18 +8897,18 @@
     },
     {
       "file": "src/app/[gameSlug]/page.tsx",
-      "lines": 68,
+      "lines": 70,
       "limit": 500,
-      "percentage": 13.600000000000001,
-      "size": 2054,
+      "percentage": 14.000000000000002,
+      "size": 2087,
       "status": "passed"
     },
     {
       "file": "src/app/[gameSlug]/layout.tsx",
-      "lines": 26,
+      "lines": 28,
       "limit": 500,
-      "percentage": 5.2,
-      "size": 669,
+      "percentage": 5.6000000000000005,
+      "size": 702,
       "status": "passed"
     },
     {
@@ -9057,18 +9097,18 @@
     },
     {
       "file": "src/app/[gameSlug]/cards/[id]/page.tsx",
-      "lines": 23,
+      "lines": 35,
       "limit": 500,
-      "percentage": 4.6,
-      "size": 522,
+      "percentage": 7.000000000000001,
+      "size": 872,
       "status": "passed"
     },
     {
       "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient.tsx",
-      "lines": 110,
+      "lines": 116,
       "limit": 500,
-      "percentage": 22,
-      "size": 3154,
+      "percentage": 23.200000000000003,
+      "size": 3267,
       "status": "passed"
     },
     {
@@ -9241,10 +9281,10 @@
     },
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 649,
+      "lines": 650,
       "limit": 1000,
-      "percentage": 64.9,
-      "size": 20203,
+      "percentage": 65,
+      "size": 20248,
       "status": "passed"
     },
     {

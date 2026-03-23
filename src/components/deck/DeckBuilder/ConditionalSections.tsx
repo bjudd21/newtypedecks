@@ -7,6 +7,7 @@ import React from 'react';
 import { DeckVersionHistory } from '../DeckVersionHistory';
 import { DeckTemplateCreator } from '../DeckTemplateCreator';
 import { DeckAnalyticsDisplay } from '@/components/analytics';
+import { HandSimulator } from './HandSimulator';
 import type { Deck, DeckCard } from '@prisma/client';
 import type { CardWithRelations } from '@/lib/types/card';
 
@@ -18,6 +19,8 @@ interface ConditionalSectionsProps {
   showVersionHistory: boolean;
   showTemplateCreator: boolean;
   showAnalytics: boolean;
+  showHandSimulator: boolean;
+  handSize: number;
   isAuthenticated: boolean;
   savedDeckId: string | null;
   currentDeck: DeckWithCards | null;
@@ -33,6 +36,8 @@ export const ConditionalSections: React.FC<ConditionalSectionsProps> = ({
   showVersionHistory,
   showTemplateCreator,
   showAnalytics,
+  showHandSimulator,
+  handSize,
   isAuthenticated,
   savedDeckId,
   currentDeck,
@@ -73,6 +78,13 @@ export const ConditionalSections: React.FC<ConditionalSectionsProps> = ({
             cardCount={totalCards}
             onTemplateCreated={onTemplateCreated}
           />
+        </div>
+      )}
+
+      {/* Hand Simulator Section */}
+      {showHandSimulator && currentDeck && currentDeck.cards.length > 0 && (
+        <div className="mt-6">
+          <HandSimulator deckCards={currentDeck.cards} handSize={handSize} />
         </div>
       )}
 

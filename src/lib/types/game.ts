@@ -39,6 +39,8 @@ export interface DeckRules {
   minDeckSize: number;
   maxDeckSize: number;
   maxCopiesPerCard: number;
+  /** Number of cards drawn for an opening hand. Defaults to 5. */
+  startingHandSize?: number;
   zones: DeckZone[];
   specialRules: string[];
 }

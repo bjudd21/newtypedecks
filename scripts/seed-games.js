@@ -48,6 +48,7 @@ const games = [
         minDeckSize: 50,
         maxDeckSize: 50,
         maxCopiesPerCard: 3,
+        startingHandSize: 5,
         zones: [{ key: 'main', label: 'Main Deck', required: true }],
         specialRules: [],
       },
@@ -112,6 +113,7 @@ const games = [
         minDeckSize: 50,
         maxDeckSize: 50,
         maxCopiesPerCard: 4,
+        startingHandSize: 5,
         zones: [
           { key: 'leader', label: 'Leader', required: true, maxSize: 1 },
           {

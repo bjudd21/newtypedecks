@@ -25,3 +25,4 @@ export { SearchPanel } from './SearchPanel';
 export { DeckContentPanel } from './DeckContentPanel';
 export { DeckStatusIndicator } from './DeckStatusIndicator';
 export { ConditionalSections } from './ConditionalSections';
+export { HandSimulator } from './HandSimulator';

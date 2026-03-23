@@ -38,6 +38,7 @@ export function useDeckState({
   const [showVersionHistory, setShowVersionHistory] = useState(false);
   const [showTemplateCreator, setShowTemplateCreator] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showHandSimulator, setShowHandSimulator] = useState(false);
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
@@ -80,6 +81,8 @@ export function useDeckState({
     setShowTemplateCreator,
     showAnalytics,
     setShowAnalytics,
+    showHandSimulator,
+    setShowHandSimulator,
 
     // Search
     searchQuery,
