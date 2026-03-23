@@ -6,19 +6,18 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { getNavItemProps } from '@/lib/utils/accessibility';
-
-const navigation = [
-  { name: 'Cards', href: '/cards', description: 'Browse card database' },
-  { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
-  {
-    name: 'Collection',
-    href: '/collection',
-    description: 'Manage your card collection',
-  },
-];
+import {
+  getGameSlugFromPath,
+  buildGameNavItems,
+  PLATFORM_NAV_ITEMS,
+} from './gameRouting';
 
 export function Navbar() {
   const pathname = usePathname();
+  const gameSlug = getGameSlugFromPath(pathname);
+  const navigation = gameSlug
+    ? buildGameNavItems(gameSlug)
+    : PLATFORM_NAV_ITEMS;
 
   return (
     <nav
@@ -27,7 +26,8 @@ export function Navbar() {
       aria-label="Main navigation"
     >
       {navigation.map((item, index) => {
-        const isActive = pathname === item.href;
+        const isActive =
+          item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
         const navProps = getNavItemProps(item.href, isActive, item.description);
 
         return (
@@ -71,6 +71,37 @@ export function Navbar() {
           </motion.div>
         );
       })}
+
+      {/* Switch Game link — only shown when inside a game context */}
+      {gameSlug && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.15 }}
+        >
+          <Link
+            href="/"
+            className="group flex items-center gap-1 pb-1 text-sm font-medium text-gray-500 transition-colors duration-200 hover:text-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa] focus:ring-offset-2 focus:ring-offset-[#0f0d15] focus:outline-none"
+            aria-label="Switch game"
+          >
+            <svg
+              className="h-3.5 w-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+              />
+            </svg>
+            Switch
+          </Link>
+        </motion.div>
+      )}
     </nav>
   );
 }

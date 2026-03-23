@@ -4,7 +4,7 @@ import './globals.css';
 import { ReduxProvider } from '@/store/Provider';
 import { AuthProvider } from '@/components/auth/AuthProvider';
 import { AuthStatus } from '@/components/auth/AuthStatus';
-import { Navbar, MobileMenu } from '@/components/navigation';
+import { Navbar, MobileMenu, GameBreadcrumb } from '@/components/navigation';
 import { LegalComplianceFooter } from '@/components/layout';
 import { PWAStatus } from '@/components/pwa';
 import Script from 'next/script';
@@ -160,12 +160,15 @@ export default function RootLayout({
               <header className="sticky top-0 z-50 border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm">
                 <div className="container mx-auto px-4 py-4">
                   <div className="flex items-center justify-between">
-                    <Link
-                      href="/"
-                      className="cursor-pointer text-2xl font-bold text-white transition-colors duration-200 hover:text-[#8b7aaa]"
-                    >
-                      Newtype Decks
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href="/"
+                        className="cursor-pointer text-2xl font-bold text-white transition-colors duration-200 hover:text-[#8b7aaa]"
+                      >
+                        Newtype Decks
+                      </Link>
+                      <GameBreadcrumb />
+                    </div>
                     <div className="hidden items-center space-x-6 md:flex">
                       <Navbar />
                       <div className="flex items-center gap-4">

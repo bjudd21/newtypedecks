@@ -11,20 +11,19 @@ import {
   KEYBOARD_CODES,
   trapFocus,
 } from '@/lib/utils/accessibility';
-
-const navigation = [
-  { name: 'Cards', href: '/cards', description: 'Browse card database' },
-  { name: 'Decks', href: '/decks', description: 'Build and manage decks' },
-  {
-    name: 'Collection',
-    href: '/collection',
-    description: 'Manage your card collection',
-  },
-];
+import {
+  getGameSlugFromPath,
+  buildGameNavItems,
+  PLATFORM_NAV_ITEMS,
+} from './gameRouting';
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const gameSlug = getGameSlugFromPath(pathname);
+  const navigation = gameSlug
+    ? buildGameNavItems(gameSlug)
+    : PLATFORM_NAV_ITEMS;
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -130,7 +129,10 @@ export function MobileMenu() {
             aria-label="Mobile navigation"
           >
             {navigation.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(item.href);
               const navProps = getNavItemProps(
                 item.href,
                 isActive,
@@ -149,7 +151,6 @@ export function MobileMenu() {
                     ) {
                       e.preventDefault();
                       closeMenu();
-                      // Navigate programmatically if needed
                     }
                   }}
                   className={cn(
@@ -167,6 +168,31 @@ export function MobileMenu() {
                 </Link>
               );
             })}
+
+            {/* Switch Game — only shown when inside a game context */}
+            {gameSlug && (
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="flex items-center gap-2 rounded-lg border border-[#2d2640] px-4 py-2.5 text-sm text-gray-500 transition-all duration-300 hover:border-[#443a5c] hover:text-[#8b7aaa] focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625] focus:outline-none"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+                  />
+                </svg>
+                Switch Game
+              </Link>
+            )}
           </nav>
         </div>
       )}

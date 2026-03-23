@@ -33,3 +33,23 @@ export async function getAllActiveGames(): Promise<GameWithConfig[]> {
   });
   return games as unknown as GameWithConfig[];
 }
+
+/** Fetch all active games with card and deck counts (for landing page). */
+export async function getAllActiveGamesWithCounts(): Promise<
+  Array<GameWithConfig & { cardCount: number; deckCount: number }>
+> {
+  const games = await prisma.game.findMany({
+    where: { isActive: true },
+    orderBy: { sortOrder: 'asc' },
+    include: {
+      _count: {
+        select: { cards: true, decks: true },
+      },
+    },
+  });
+  return games.map((g) => ({
+    ...(g as unknown as GameWithConfig),
+    cardCount: g._count.cards,
+    deckCount: g._count.decks,
+  }));
+}
