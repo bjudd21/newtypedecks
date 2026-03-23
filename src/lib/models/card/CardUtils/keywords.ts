@@ -2,34 +2,40 @@
  * Card keyword extraction utilities
  */
 
+// Default keywords for Gundam Card Game (used when no game config is available)
+const GUNDAM_DEFAULT_KEYWORDS = [
+  'Pilot',
+  'Mobile Suit',
+  'Battleship',
+  'Support',
+  'Command',
+  'Newtype',
+  'Cyber',
+  'Generation',
+  'Strike',
+  'Quick',
+  'Rush',
+  'Shield',
+  'Armor',
+  'Beam',
+  'Physical',
+  'Range',
+  'Close',
+  'Long',
+  'All Range',
+];
+
 /**
- * Extract keywords from card text
+ * Extract keywords from card text.
+ * Pass game config keywords via the optional parameter to support multiple TCGs.
  */
-export function extractKeywordsFromText(text: string): string[] {
+export function extractKeywordsFromText(
+  text: string,
+  gameKeywords?: string[]
+): string[] {
   if (!text) return [];
 
-  // Common Gundam Card Game keywords
-  const commonKeywords = [
-    'Pilot',
-    'Mobile Suit',
-    'Battleship',
-    'Support',
-    'Command',
-    'Newtype',
-    'Cyber',
-    'Generation',
-    'Strike',
-    'Quick',
-    'Rush',
-    'Shield',
-    'Armor',
-    'Beam',
-    'Physical',
-    'Range',
-    'Close',
-    'Long',
-    'All Range',
-  ];
+  const commonKeywords = gameKeywords ?? GUNDAM_DEFAULT_KEYWORDS;
 
   const foundKeywords: string[] = [];
   const lowerText = text.toLowerCase();

@@ -3,4 +3,4 @@
  */
 
 export const DEFAULT_EMAIL_FROM =
-  process.env.EMAIL_FROM || '"Gundam Card Game" <noreply@gundam-card-game.com>';
+  process.env.EMAIL_FROM || '"Newtype Decks" <noreply@newtypedecks.com>';

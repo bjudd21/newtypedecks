@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-23T13:38:18.231Z",
+  "timestamp": "2026-03-23T14:15:18.750Z",
   "summary": {
     "passed": 1148,
     "warnings": 7,
@@ -65,10 +65,10 @@
     },
     {
       "file": "src/middleware.ts",
-      "lines": 46,
+      "lines": 54,
       "limit": 500,
-      "percentage": 9.2,
-      "size": 1344,
+      "percentage": 10.8,
+      "size": 1560,
       "status": "passed"
     },
     {
@@ -289,18 +289,18 @@
     },
     {
       "file": "src/lib/types/index.ts",
-      "lines": 147,
+      "lines": 150,
       "limit": 500,
-      "percentage": 29.4,
-      "size": 2825,
+      "percentage": 30,
+      "size": 2889,
       "status": "passed"
     },
     {
       "file": "src/lib/types/game.ts",
-      "lines": 73,
+      "lines": 91,
       "limit": 500,
-      "percentage": 14.6,
-      "size": 1608,
+      "percentage": 18.2,
+      "size": 2256,
       "status": "passed"
     },
     {
@@ -764,7 +764,7 @@
       "lines": 62,
       "limit": 500,
       "percentage": 12.4,
-      "size": 1426,
+      "size": 1413,
       "status": "passed"
     },
     {
@@ -1236,7 +1236,7 @@
       "lines": 7,
       "limit": 500,
       "percentage": 1.4000000000000001,
-      "size": 151,
+      "size": 144,
       "status": "passed"
     },
     {
@@ -1244,7 +1244,7 @@
       "lines": 64,
       "limit": 500,
       "percentage": 12.8,
-      "size": 1716,
+      "size": 1694,
       "status": "passed"
     },
     {
@@ -1252,7 +1252,7 @@
       "lines": 63,
       "limit": 500,
       "percentage": 12.6,
-      "size": 1884,
+      "size": 1868,
       "status": "passed"
     },
     {
@@ -1260,7 +1260,7 @@
       "lines": 60,
       "limit": 500,
       "percentage": 12,
-      "size": 1740,
+      "size": 1724,
       "status": "passed"
     },
     {
@@ -1297,10 +1297,10 @@
     },
     {
       "file": "src/lib/services/deckValidationService/index.ts",
-      "lines": 125,
+      "lines": 130,
       "limit": 500,
-      "percentage": 25,
-      "size": 3098,
+      "percentage": 26,
+      "size": 3315,
       "status": "passed"
     },
     {
@@ -1337,10 +1337,10 @@
     },
     {
       "file": "src/lib/services/deckValidationService/validators/deckSize.ts",
-      "lines": 57,
+      "lines": 66,
       "limit": 500,
-      "percentage": 11.4,
-      "size": 1343,
+      "percentage": 13.200000000000001,
+      "size": 1708,
       "status": "passed"
     },
     {
@@ -1353,18 +1353,18 @@
     },
     {
       "file": "src/lib/services/deckValidationService/validators/cardLimits.ts",
-      "lines": 80,
+      "lines": 85,
       "limit": 500,
-      "percentage": 16,
-      "size": 1970,
+      "percentage": 17,
+      "size": 2164,
       "status": "passed"
     },
     {
       "file": "src/lib/services/deckExportService/types.ts",
-      "lines": 43,
+      "lines": 45,
       "limit": 500,
-      "percentage": 8.6,
-      "size": 867,
+      "percentage": 9,
+      "size": 952,
       "status": "passed"
     },
     {
@@ -1452,7 +1452,7 @@
       "lines": 138,
       "limit": 500,
       "percentage": 27.6,
-      "size": 3158,
+      "size": 3200,
       "status": "passed"
     },
     {
@@ -1468,7 +1468,7 @@
       "lines": 39,
       "limit": 500,
       "percentage": 7.8,
-      "size": 1040,
+      "size": 1053,
       "status": "passed"
     },
     {
@@ -2497,10 +2497,10 @@
     },
     {
       "file": "src/lib/models/card/CardUtils/keywords.ts",
-      "lines": 45,
+      "lines": 51,
       "limit": 500,
-      "percentage": 9,
-      "size": 814,
+      "percentage": 10.2,
+      "size": 1005,
       "status": "passed"
     },
     {
@@ -2516,7 +2516,7 @@
       "lines": 24,
       "limit": 500,
       "percentage": 4.8,
-      "size": 483,
+      "size": 476,
       "status": "passed"
     },
     {
@@ -2641,10 +2641,10 @@
     },
     {
       "file": "src/lib/config/environment.ts",
-      "lines": 309,
+      "lines": 306,
       "limit": 500,
-      "percentage": 61.8,
-      "size": 8519,
+      "percentage": 61.199999999999996,
+      "size": 8495,
       "status": "passed"
     },
     {
@@ -2785,10 +2785,10 @@
     },
     {
       "file": "src/hooks/useDeckExport.ts",
-      "lines": 72,
+      "lines": 75,
       "limit": 500,
-      "percentage": 14.399999999999999,
-      "size": 1785,
+      "percentage": 15,
+      "size": 1890,
       "status": "passed"
     },
     {
@@ -3665,10 +3665,10 @@
     },
     {
       "file": "src/components/deck/DeckValidator/hooks/useValidation.ts",
-      "lines": 52,
+      "lines": 55,
       "limit": 500,
-      "percentage": 10.4,
-      "size": 1186,
+      "percentage": 11,
+      "size": 1340,
       "status": "passed"
     },
     {
@@ -3801,10 +3801,10 @@
     },
     {
       "file": "src/components/deck/DeckBuilder/hooks/useDeckHandlers.ts",
-      "lines": 273,
+      "lines": 276,
       "limit": 500,
-      "percentage": 54.6,
-      "size": 6813,
+      "percentage": 55.2,
+      "size": 6920,
       "status": "passed"
     },
     {
@@ -4953,18 +4953,18 @@
     },
     {
       "file": "src/app/api/collections/export/route.ts",
-      "lines": 187,
+      "lines": 189,
       "limit": 500,
-      "percentage": 37.4,
-      "size": 5254,
+      "percentage": 37.8,
+      "size": 5310,
       "status": "passed"
     },
     {
       "file": "src/app/api/collections/export/helpers/types.ts",
-      "lines": 84,
+      "lines": 86,
       "limit": 500,
-      "percentage": 16.8,
-      "size": 1677,
+      "percentage": 17.2,
+      "size": 1752,
       "status": "passed"
     },
     {
@@ -4988,7 +4988,7 @@
       "lines": 49,
       "limit": 500,
       "percentage": 9.8,
-      "size": 1308,
+      "size": 1326,
       "status": "passed"
     },
     {
@@ -5020,7 +5020,7 @@
       "lines": 34,
       "limit": 500,
       "percentage": 6.800000000000001,
-      "size": 928,
+      "size": 947,
       "status": "passed"
     },
     {
@@ -5228,7 +5228,7 @@
       "lines": 40,
       "limit": 500,
       "percentage": 8,
-      "size": 1077,
+      "size": 1131,
       "status": "passed"
     },
     {
@@ -6124,7 +6124,7 @@
       "lines": 152,
       "limit": 500,
       "percentage": 30.4,
-      "size": 4543,
+      "size": 4536,
       "status": "passed"
     },
     {
@@ -6148,7 +6148,7 @@
       "lines": 112,
       "limit": 500,
       "percentage": 22.400000000000002,
-      "size": 3342,
+      "size": 3326,
       "status": "passed"
     },
     {
@@ -6385,26 +6385,26 @@
     },
     {
       "file": "src/components/layout/NonAffiliationStatement.tsx",
-      "lines": 150,
+      "lines": 159,
       "limit": 500,
-      "percentage": 30,
-      "size": 4958,
+      "percentage": 31.8,
+      "size": 5136,
       "status": "passed"
     },
     {
       "file": "src/components/layout/LegalComplianceFooter.tsx",
-      "lines": 281,
+      "lines": 305,
       "limit": 500,
-      "percentage": 56.2,
-      "size": 10533,
+      "percentage": 61,
+      "size": 11237,
       "status": "passed"
     },
     {
       "file": "src/components/layout/CopyrightDisclaimer.tsx",
-      "lines": 101,
+      "lines": 106,
       "limit": 500,
-      "percentage": 20.200000000000003,
-      "size": 3401,
+      "percentage": 21.2,
+      "size": 3518,
       "status": "passed"
     },
     {
@@ -6417,10 +6417,10 @@
     },
     {
       "file": "src/components/layout/BandaiNamcoAttribution.tsx",
-      "lines": 245,
+      "lines": 252,
       "limit": 500,
-      "percentage": 49,
-      "size": 6529,
+      "percentage": 50.4,
+      "size": 6757,
       "status": "passed"
     },
     {
@@ -6529,10 +6529,10 @@
     },
     {
       "file": "src/components/deck/DeckShare.tsx",
-      "lines": 160,
+      "lines": 163,
       "limit": 500,
-      "percentage": 32,
-      "size": 4594,
+      "percentage": 32.6,
+      "size": 4692,
       "status": "passed"
     },
     {
@@ -7161,10 +7161,10 @@
     },
     {
       "file": "src/components/dashboard/UserDashboard/components/WelcomeSection.tsx",
-      "lines": 24,
+      "lines": 21,
       "limit": 500,
-      "percentage": 4.8,
-      "size": 625,
+      "percentage": 4.2,
+      "size": 560,
       "status": "passed"
     },
     {
@@ -7612,7 +7612,7 @@
       "lines": 157,
       "limit": 500,
       "percentage": 31.4,
-      "size": 5429,
+      "size": 5426,
       "status": "passed"
     },
     {
@@ -8468,7 +8468,7 @@
       "lines": 355,
       "limit": 500,
       "percentage": 71,
-      "size": 14635,
+      "size": 14622,
       "status": "passed"
     },
     {
@@ -8476,7 +8476,7 @@
       "lines": 258,
       "limit": 500,
       "percentage": 51.6,
-      "size": 8770,
+      "size": 8663,
       "status": "passed"
     },
     {
@@ -8532,7 +8532,7 @@
       "lines": 109,
       "limit": 500,
       "percentage": 21.8,
-      "size": 3322,
+      "size": 3306,
       "status": "passed"
     },
     {
@@ -8556,7 +8556,7 @@
       "lines": 31,
       "limit": 500,
       "percentage": 6.2,
-      "size": 997,
+      "size": 994,
       "status": "passed"
     },
     {
@@ -8588,7 +8588,7 @@
       "lines": 24,
       "limit": 500,
       "percentage": 4.8,
-      "size": 641,
+      "size": 635,
       "status": "passed"
     },
     {
@@ -8604,7 +8604,7 @@
       "lines": 30,
       "limit": 500,
       "percentage": 6,
-      "size": 860,
+      "size": 854,
       "status": "passed"
     },
     {
@@ -8620,7 +8620,7 @@
       "lines": 62,
       "limit": 500,
       "percentage": 12.4,
-      "size": 2051,
+      "size": 2045,
       "status": "passed"
     },
     {
@@ -8628,7 +8628,7 @@
       "lines": 65,
       "limit": 500,
       "percentage": 13,
-      "size": 2160,
+      "size": 2154,
       "status": "passed"
     },
     {
@@ -8636,7 +8636,7 @@
       "lines": 30,
       "limit": 500,
       "percentage": 6,
-      "size": 841,
+      "size": 835,
       "status": "passed"
     },
     {
@@ -8660,7 +8660,7 @@
       "lines": 31,
       "limit": 500,
       "percentage": 6.2,
-      "size": 875,
+      "size": 872,
       "status": "passed"
     },
     {
@@ -8684,7 +8684,7 @@
       "lines": 35,
       "limit": 500,
       "percentage": 7.000000000000001,
-      "size": 1131,
+      "size": 1113,
       "status": "passed"
     },
     {
@@ -8716,7 +8716,7 @@
       "lines": 54,
       "limit": 500,
       "percentage": 10.8,
-      "size": 1618,
+      "size": 1615,
       "status": "passed"
     },
     {
@@ -8817,26 +8817,26 @@
     },
     {
       "file": "src/app/[gameSlug]/templates/page.tsx",
-      "lines": 121,
+      "lines": 122,
       "limit": 500,
-      "percentage": 24.2,
-      "size": 4640,
+      "percentage": 24.4,
+      "size": 4699,
       "status": "passed"
     },
     {
       "file": "src/app/[gameSlug]/favorites/page.tsx",
-      "lines": 145,
+      "lines": 152,
       "limit": 500,
-      "percentage": 28.999999999999996,
-      "size": 5136,
+      "percentage": 30.4,
+      "size": 5348,
       "status": "passed"
     },
     {
       "file": "src/app/[gameSlug]/decks/page.tsx",
-      "lines": 188,
+      "lines": 190,
       "limit": 500,
-      "percentage": 37.6,
-      "size": 6495,
+      "percentage": 38,
+      "size": 6566,
       "status": "passed"
     },
     {
@@ -8849,10 +8849,10 @@
     },
     {
       "file": "src/app/[gameSlug]/collection/page.tsx",
-      "lines": 28,
+      "lines": 42,
       "limit": 500,
-      "percentage": 5.6000000000000005,
-      "size": 764,
+      "percentage": 8.4,
+      "size": 1241,
       "status": "passed"
     },
     {
@@ -9145,10 +9145,10 @@
     },
     {
       "file": "src/app/[gameSlug]/analytics/page.tsx",
-      "lines": 126,
+      "lines": 136,
       "limit": 500,
-      "percentage": 25.2,
-      "size": 4551,
+      "percentage": 27.200000000000003,
+      "size": 4969,
       "status": "passed"
     },
     {

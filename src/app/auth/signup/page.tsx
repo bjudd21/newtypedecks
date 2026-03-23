@@ -56,6 +56,6 @@ function getErrorMessage(error: string): string {
 }
 
 export const metadata = {
-  title: 'Sign Up | Gundam Card Game',
-  description: 'Create your Gundam Card Game account',
+  title: 'Sign Up | Newtype Decks',
+  description: 'Create your Newtype Decks account',
 };

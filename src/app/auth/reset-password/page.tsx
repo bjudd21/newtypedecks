@@ -7,8 +7,8 @@ import { Suspense } from 'react';
 import { ResetPasswordClient } from './ResetPasswordClient';
 
 export const metadata: Metadata = {
-  title: 'Reset Password | Gundam Card Game',
-  description: 'Set a new password for your Gundam Card Game account',
+  title: 'Reset Password | Newtype Decks',
+  description: 'Set a new password for your Newtype Decks account',
 };
 
 export default function ResetPasswordPage() {

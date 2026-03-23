@@ -181,10 +181,7 @@ export const env: EnvironmentConfig = {
     'NEXT_PUBLIC_APP_URL',
     'http://localhost:3000'
   ),
-  NEXT_PUBLIC_APP_NAME: getEnvVar(
-    'NEXT_PUBLIC_APP_NAME',
-    'Gundam Card Game Database'
-  ),
+  NEXT_PUBLIC_APP_NAME: getEnvVar('NEXT_PUBLIC_APP_NAME', 'Newtype Decks'),
 
   // Database
   DATABASE_URL: getEnvVar('DATABASE_URL'),

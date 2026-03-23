@@ -5,6 +5,7 @@
 
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useGame } from '@/contexts/GameContext';
 import {
   setCurrentDeck,
   addCardToCurrentDeck,
@@ -76,6 +77,7 @@ export function useDeckHandlers({
   clearError,
 }: UseDeckHandlersOptions) {
   const dispatch = useDispatch();
+  const game = useGame();
 
   // Store search results for drag-and-drop
   const [searchResults, setSearchResults] = useState<CardWithRelations[]>([]);
@@ -230,7 +232,7 @@ export function useDeckHandlers({
 
       const exportableDeck = {
         name: deckName,
-        description: 'Exported from Gundam Card Game Builder',
+        description: `Exported from ${game.name} Builder`,
         cards: currentDeck.cards.map((deckCard) => ({
           card: deckCard.card,
           quantity: deckCard.quantity,
@@ -246,6 +248,7 @@ export function useDeckHandlers({
         groupByType: format === 'text',
         sortBy: 'name' as const,
         sortOrder: 'asc' as const,
+        gameName: game.name,
       };
 
       try {
@@ -255,7 +258,7 @@ export function useDeckHandlers({
         console.warn('Export failed. Please try again.');
       }
     },
-    [currentDeck, deckName]
+    [currentDeck, deckName, game]
   );
 
   return {

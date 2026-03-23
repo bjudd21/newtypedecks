@@ -16,6 +16,8 @@ interface DeckShareProps {
   isPublic: boolean;
   onVisibilityChange?: (isPublic: boolean) => void;
   className?: string;
+  /** Game name for share text (e.g. from useGame().name) */
+  gameName?: string;
 }
 
 export const DeckShare: React.FC<DeckShareProps> = ({
@@ -24,6 +26,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
   isPublic,
   onVisibilityChange,
   className,
+  gameName = 'Card Game',
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -58,7 +61,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
     if (navigator.share) {
       navigator.share({
         title: deckName,
-        text: `Check out my Gundam Card Game deck: ${deckName}`,
+        text: `Check out my ${gameName} deck: ${deckName}`,
         url: shareUrl,
       });
     } else {
@@ -126,7 +129,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
             <Button
               variant="outline"
               onClick={() => {
-                const text = `Check out my Gundam Card Game deck: ${deckName}\n${shareUrl}`;
+                const text = `Check out my ${gameName} deck: ${deckName}\n${shareUrl}`;
                 const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
                 window.open(twitterUrl, '_blank');
               }}

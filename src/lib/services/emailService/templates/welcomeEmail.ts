@@ -11,7 +11,7 @@ export async function sendWelcomeEmail(
   email: string,
   username: string
 ): Promise<boolean> {
-  const subject = 'Welcome to Gundam Card Game!';
+  const subject = 'Welcome to Newtype Decks!';
   const text = `
 Welcome ${username}!
 
@@ -25,12 +25,12 @@ You can now:
 Start building your deck: ${process.env.NEXTAUTH_URL}/decks
 
 Best regards,
-Gundam Card Game Team
+Newtype Decks
   `.trim();
 
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <h2 style="color: #28a745;">Welcome to Gundam Card Game!</h2>
+      <h2 style="color: #28a745;">Welcome to Newtype Decks!</h2>
       <p>Welcome ${username}!</p>
       <p>Your email has been verified and your account is now active.</p>
       <h3 style="color: #333;">You can now:</h3>
@@ -49,7 +49,7 @@ Gundam Card Game Team
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="color: #666; font-size: 12px;">
         Best regards,<br>
-        Gundam Card Game Team
+        Newtype Decks
       </p>
     </div>
   `;

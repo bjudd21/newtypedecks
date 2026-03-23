@@ -344,7 +344,7 @@ export default function Home() {
               Bandai Namco Entertainment.
             </p>
             <p className="text-xs text-gray-700">
-              Made with ❤️ for the Gundam Card Game community
+              Made with ❤️ for the TCG community
             </p>
           </div>
         </div>

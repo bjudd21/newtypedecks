@@ -9,6 +9,7 @@ import {
   type DeckValidationSummary,
   type ValidationResult,
 } from '@/lib/services/deckValidationService';
+import { useGame } from '@/contexts/GameContext';
 import type { DeckCard } from '../types';
 
 interface UseValidationOptions {
@@ -17,10 +18,12 @@ interface UseValidationOptions {
 }
 
 export function useValidation({ cards, onlyErrors }: UseValidationOptions) {
-  // Calculate validation results
+  const game = useGame();
+
+  // Calculate validation results using game-specific deck rules
   const validationSummary: DeckValidationSummary = useMemo(() => {
-    return deckValidator.validateDeck(cards);
-  }, [cards]);
+    return deckValidator.validateDeck(cards, game.config.deckRules);
+  }, [cards, game.config.deckRules]);
 
   const suggestions = useMemo(() => {
     return deckValidator.getSuggestions(validationSummary);

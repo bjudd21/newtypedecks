@@ -7,8 +7,8 @@ import { Suspense } from 'react';
 import { EmailVerificationClient } from './EmailVerificationClient';
 
 export const metadata: Metadata = {
-  title: 'Verify Email | Gundam Card Game',
-  description: 'Verify your email address for Gundam Card Game',
+  title: 'Verify Email | Newtype Decks',
+  description: 'Verify your email address for Newtype Decks',
 };
 
 export default function VerifyEmailPage() {

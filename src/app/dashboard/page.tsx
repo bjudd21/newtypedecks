@@ -18,6 +18,6 @@ export default async function DashboardPage() {
 }
 
 export const metadata = {
-  title: 'Dashboard | Gundam Card Game',
-  description: 'Your personal Gundam Card Game dashboard',
+  title: 'Dashboard | Newtype Decks',
+  description: 'Your personal Newtype Decks dashboard',
 };

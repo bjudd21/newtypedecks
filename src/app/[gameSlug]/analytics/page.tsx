@@ -4,25 +4,35 @@
  */
 
 import React from 'react';
-import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
+import { getGameBySlug } from '@/lib/database/games';
 
-export const metadata: Metadata = {
-  title: 'Meta-Game Analytics | Gundam Card Game',
-  description:
-    'Explore meta-game trends, popular cards, and competitive deck analytics for the Gundam Card Game',
-  keywords: [
-    'gundam',
-    'card game',
-    'meta',
-    'analytics',
-    'statistics',
-    'competitive',
-    'deck analysis',
-  ],
-};
+interface AnalyticsPageProps {
+  params: Promise<{ gameSlug: string }>;
+}
 
-export default function AnalyticsPage() {
+export async function generateMetadata({ params }: AnalyticsPageProps) {
+  const { gameSlug } = await params;
+  const game = await getGameBySlug(gameSlug);
+  const gameName = game?.name ?? 'Card Game';
+  return {
+    title: `Meta-Game Analytics | ${gameName}`,
+    description: `Explore meta-game trends, popular cards, and competitive deck analytics for ${gameName}`,
+    keywords: [
+      'card game',
+      'meta',
+      'analytics',
+      'statistics',
+      'competitive',
+      'deck analysis',
+    ],
+  };
+}
+
+export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
+  const { gameSlug } = await params;
+  const game = await getGameBySlug(gameSlug);
+  const gameName = game?.name ?? 'Card Game';
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8">
       {/* Page Header */}
@@ -32,7 +42,7 @@ export default function AnalyticsPage() {
         </h1>
         <p className="mb-6 text-lg text-gray-600">
           Explore competitive trends, popular strategies, and statistical
-          insights from the Gundam Card Game community.
+          insights from the {gameName} community.
         </p>
 
         {/* Key Stats */}
@@ -74,7 +84,7 @@ export default function AnalyticsPage() {
             <p className="mb-4">
               Our meta-game analytics system continuously analyzes thousands of
               competitive decks to provide real-time insights into the current
-              state of the Gundam Card Game competitive scene.
+              state of the {gameName} competitive scene.
             </p>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

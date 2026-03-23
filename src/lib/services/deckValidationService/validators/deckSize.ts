@@ -3,6 +3,11 @@
  */
 
 import type { DeckCard, ValidationRule, ValidationResult } from '../types';
+import type { DeckRules } from '@/lib/types/game';
+
+// Fallback defaults for when no game config is provided
+const DEFAULT_MIN_DECK_SIZE = 50;
+const DEFAULT_MAX_DECK_SIZE = 60;
 
 /**
  * Calculate total cards in deck
@@ -16,20 +21,22 @@ function getTotalCards(cards: DeckCard[]): number {
  */
 export function validateMinDeckSize(
   rule: ValidationRule,
-  cards: DeckCard[]
+  cards: DeckCard[],
+  deckRules?: DeckRules
 ): ValidationResult {
+  const min = deckRules?.minDeckSize ?? DEFAULT_MIN_DECK_SIZE;
   const totalCards = getTotalCards(cards);
-  const isValid = totalCards >= 50;
+  const isValid = totalCards >= min;
 
   return {
     rule,
     isValid,
     message: isValid
       ? `Deck size: ${totalCards} cards (valid)`
-      : `Deck size: ${totalCards} cards (minimum 50 required)`,
+      : `Deck size: ${totalCards} cards (minimum ${min} required)`,
     details: isValid
       ? undefined
-      : `Add ${50 - totalCards} more cards to reach minimum deck size`,
+      : `Add ${min - totalCards} more cards to reach minimum deck size`,
   };
 }
 
@@ -38,19 +45,21 @@ export function validateMinDeckSize(
  */
 export function validateMaxDeckSize(
   rule: ValidationRule,
-  cards: DeckCard[]
+  cards: DeckCard[],
+  deckRules?: DeckRules
 ): ValidationResult {
+  const max = deckRules?.maxDeckSize ?? DEFAULT_MAX_DECK_SIZE;
   const totalCards = getTotalCards(cards);
-  const isValid = totalCards <= 60;
+  const isValid = totalCards <= max;
 
   return {
     rule,
     isValid,
     message: isValid
       ? `Deck size: ${totalCards} cards (recommended)`
-      : `Deck size: ${totalCards} cards (consider reducing to 60 or fewer)`,
+      : `Deck size: ${totalCards} cards (consider reducing to ${max} or fewer)`,
     details: isValid
       ? undefined
-      : `Large decks can reduce consistency. Consider removing ${totalCards - 60} cards.`,
+      : `Large decks can reduce consistency. Consider removing ${totalCards - max} cards.`,
   };
 }

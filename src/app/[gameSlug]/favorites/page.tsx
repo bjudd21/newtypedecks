@@ -3,20 +3,28 @@
  */
 
 import React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { FavoriteDeckManager } from '@/components/deck';
+import { getGameBySlug } from '@/lib/database/games';
 
-export const metadata: Metadata = {
-  title: 'Favorite Decks | Gundam Card Game',
-  description:
-    'Manage your collection of favorite decks from the Gundam Card Game community. Keep track of decks you love and want to reference later.',
-  keywords:
-    'gundam card game, favorite decks, saved decks, deck collection, bookmarks',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ gameSlug: string }>;
+}) {
+  const { gameSlug } = await params;
+  const game = await getGameBySlug(gameSlug);
+  const gameName = game?.name ?? 'Card Game';
+  return {
+    title: `Favorite Decks | ${gameName}`,
+    description: `Manage your collection of favorite decks from the ${gameName} community. Keep track of decks you love and want to reference later.`,
+    keywords:
+      'card game, favorite decks, saved decks, deck collection, bookmarks',
+  };
+}
 
 interface FavoritesPageProps {
   params: Promise<{ gameSlug: string }>;

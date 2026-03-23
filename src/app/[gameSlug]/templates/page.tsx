@@ -7,10 +7,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useGame } from '@/contexts/GameContext';
 import { DeckTemplateBrowser } from '@/components/deck';
 
 export default function TemplatesPage() {
   const { gameSlug } = useParams<{ gameSlug: string }>();
+  const game = useGame();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -22,9 +24,8 @@ export default function TemplatesPage() {
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-gray-600">
             Discover proven deck strategies and competitive builds from the
-            Gundam Card Game community. Use these templates as starting points
-            for your own deck creations or learn from successful tournament
-            builds.
+            {game.name} community. Use these templates as starting points for
+            your own deck creations or learn from successful tournament builds.
           </p>
         </div>
 

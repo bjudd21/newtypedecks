@@ -19,7 +19,7 @@ export default function AdminDashboardContent() {
       <div>
         <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
         <p className="mt-2 text-gray-300">
-          Manage the Gundam Card Game database and community contributions.
+          Manage the Newtype Decks database and community contributions.
         </p>
       </div>
 

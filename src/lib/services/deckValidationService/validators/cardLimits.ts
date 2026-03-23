@@ -3,18 +3,23 @@
  */
 
 import type { DeckCard, ValidationRule, ValidationResult } from '../types';
+import type { DeckRules } from '@/lib/types/game';
+
+const DEFAULT_MAX_COPIES = 4;
 
 /**
  * Card copy limit validation
  */
 export function validateCardLimit(
   rule: ValidationRule,
-  cards: DeckCard[]
+  cards: DeckCard[],
+  deckRules?: DeckRules
 ): ValidationResult {
+  const maxCopies = deckRules?.maxCopiesPerCard ?? DEFAULT_MAX_COPIES;
   const violations: string[] = [];
 
   for (const deckCard of cards) {
-    if (deckCard.quantity > 4) {
+    if (deckCard.quantity > maxCopies) {
       violations.push(`${deckCard.card.name} (${deckCard.quantity} copies)`);
     }
   }
@@ -32,7 +37,7 @@ export function validateCardLimit(
       : `Cards with too many copies: ${violations.join(', ')}`,
     affectedCards: isValid
       ? undefined
-      : cards.filter((c) => c.quantity > 4).map((c) => c.card.id),
+      : cards.filter((c) => c.quantity > maxCopies).map((c) => c.card.id),
   };
 }
 

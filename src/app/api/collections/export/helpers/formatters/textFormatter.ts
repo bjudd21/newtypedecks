@@ -16,7 +16,7 @@ export function generateTextExport(
   const lines: string[] = [];
 
   if (options.includeMetadata) {
-    lines.push('# Gundam Card Game Collection Export');
+    lines.push(`# ${options.gameName ?? 'Card Game'} Collection Export`);
     lines.push(`# Exported on: ${new Date().toISOString()}`);
     lines.push(
       `# Total Cards: ${collectionCards.reduce((sum, cc) => sum + cc.quantity, 0)}`

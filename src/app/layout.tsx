@@ -25,11 +25,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Newtype Decks - Gundam Card Game Database',
+  title: 'Newtype Decks',
   description:
-    'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
+    'Newtype Decks: A multi-TCG deck building and card database platform',
   keywords: ['gundam', 'card game', 'database', 'deck building', 'collection'],
-  authors: [{ name: 'Gundam Card Game Community' }],
+  authors: [{ name: 'Newtype Decks Community' }],
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -89,9 +89,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Newtype Decks - Gundam Card Game Database',
+    title: 'Newtype Decks',
     description:
-      'Newtype Decks: A comprehensive database and deck building platform for the Gundam Card Game',
+      'Newtype Decks: A multi-TCG deck building and card database platform',
     type: 'website',
     locale: 'en_US',
   },

@@ -55,7 +55,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
           <h1 className="mb-4 text-5xl font-bold md:text-6xl">
             <span className="text-white">Search</span>{' '}
             <span className="text-gradient">is a powerful</span>{' '}
-            <span className="text-neon">Gundam Card Game</span>{' '}
+            <span className="text-neon">Card Database</span>{' '}
             <span className="text-gradient">card search</span>
           </h1>
         </div>

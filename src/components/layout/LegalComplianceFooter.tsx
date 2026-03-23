@@ -4,7 +4,7 @@
  * Legal Compliance Footer Component
  *
  * Comprehensive footer containing all legal notices, copyright information,
- * and compliance statements required for the Gundam Card Game website
+ * and compliance statements for the platform
  */
 
 import React, { useState } from 'react';
@@ -15,25 +15,37 @@ interface LegalComplianceFooterProps {
   className?: string;
   variant?: 'full' | 'compact' | 'minimal';
   showExpandableDetails?: boolean;
+  /** Game name (e.g. from game.name). Falls back to generic text. */
+  gameName?: string | null;
+  /** Publisher name (e.g. from game.copyrightHolder). Falls back to generic text. */
+  publisher?: string | null;
 }
 
 export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
   className = '',
   variant = 'full',
   showExpandableDetails = true,
+  gameName,
+  publisher,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const currentYear = new Date().getFullYear();
+  const publisherName = publisher ?? 'Bandai Namco Entertainment Inc.';
+  const gameLabel = gameName ?? 'Card Game';
 
   if (variant === 'minimal') {
     return (
       <footer className={`bg-gray-900 py-4 text-white ${className}`}>
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <CopyrightDisclaimer variant="compact" className="text-gray-300" />
+            <CopyrightDisclaimer
+              variant="compact"
+              className="text-gray-300"
+              gameName={gameName}
+              publisher={publisher}
+            />
             <div className="mt-2 text-xs text-gray-400">
-              This is an unofficial fan site not affiliated with Bandai Namco
-              Entertainment Inc.
+              This is an unofficial fan site not affiliated with {publisherName}
             </div>
           </div>
         </div>
@@ -50,7 +62,12 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               <h4 className="mb-3 font-semibold text-white">
                 Legal Information
               </h4>
-              <CopyrightDisclaimer variant="footer" className="text-gray-300" />
+              <CopyrightDisclaimer
+                variant="footer"
+                className="text-gray-300"
+                gameName={gameName}
+                publisher={publisher}
+              />
             </div>
             <div>
               <h4 className="mb-3 font-semibold text-white">
@@ -60,14 +77,15 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                 variant="footer"
                 className="text-gray-300"
                 showIcon={false}
+                gameName={gameName}
+                publisher={publisher}
               />
             </div>
           </div>
           <div className="mt-6 border-t border-gray-600 pt-6 text-center">
             <p className="text-sm text-gray-400">
-              © {currentYear} Gundam Card Game Community Website. Built by
-              fans, for fans. Not affiliated with Bandai Namco Entertainment
-              Inc.
+              © {currentYear} {gameLabel} Community Website. Built by fans, for
+              fans. Not affiliated with {publisherName}
             </p>
           </div>
         </div>
@@ -85,15 +103,15 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
             {/* Website Information */}
             <div>
               <h3 className="mb-4 text-lg font-semibold">
-                Gundam Card Game Database
+                {gameLabel} Database
               </h3>
               <p className="mb-4 text-sm text-gray-300">
-                An unofficial community resource for Gundam Card Game players.
-                Build decks, manage collections, and connect with fellow pilots.
+                An unofficial community resource for {gameLabel} players. Build
+                decks, manage collections, and connect with fellow pilots.
               </p>
               <div className="space-y-2">
                 <p className="text-xs text-gray-400">
-                  <strong>Purpose:</strong> Educational & Community
+                  <strong>Purpose:</strong> Educational &amp; Community
                 </p>
                 <p className="text-xs text-gray-400">
                   <strong>Status:</strong> Independent Fan Project
@@ -111,11 +129,11 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               <div className="space-y-3 text-sm text-gray-300">
                 <div className="flex items-start space-x-2">
                   <span className="mt-1 text-red-400">⚠️</span>
-                  <p>Not affiliated with Bandai Namco Entertainment Inc.</p>
+                  <p>Not affiliated with {publisherName}</p>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="mt-1 text-blue-400">©️</span>
-                  <p>All card content owned by Bandai Namco Entertainment</p>
+                  <p>All card content owned by {publisherName}</p>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="mt-1 text-green-400">📚</span>
@@ -126,7 +144,9 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
             {/* Legal Links & Resources */}
             <div>
-              <h4 className="text-md mb-4 font-semibold">Legal & Resources</h4>
+              <h4 className="text-md mb-4 font-semibold">
+                Legal &amp; Resources
+              </h4>
               <div className="space-y-3">
                 <div>
                   <h5 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
@@ -163,7 +183,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                     rel="noopener noreferrer"
                     className="block text-sm text-blue-400 transition-colors hover:text-blue-300"
                   >
-                    → Bandai Namco Entertainment
+                    → {publisherName}
                   </a>
                   <p className="mt-1 text-xs text-gray-400">
                     For official rules and tournaments
@@ -209,6 +229,8 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   <CopyrightDisclaimer
                     variant="full"
                     className="border-gray-600 bg-gray-800"
+                    gameName={gameName}
+                    publisher={publisher}
                   />
                 </div>
 
@@ -219,6 +241,8 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   <NonAffiliationStatement
                     variant="inline"
                     className="border-gray-600 bg-gray-800"
+                    gameName={gameName}
+                    publisher={publisher}
                   />
                 </div>
 
@@ -264,8 +288,8 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
         <div className="border-t border-gray-700 py-4">
           <div className="flex flex-col items-center justify-between text-xs text-gray-400 md:flex-row">
             <div>
-              © {currentYear} Community-built Gundam Card Game Database. Not
-              affiliated with Bandai Namco Entertainment Inc.
+              © {currentYear} Community-built {gameLabel} Database. Not
+              affiliated with {publisherName}
             </div>
             <div className="mt-2 md:mt-0">
               Built with ❤️ by the community, for the community

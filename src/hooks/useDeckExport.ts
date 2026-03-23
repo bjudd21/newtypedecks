@@ -5,6 +5,7 @@
 
 import { useCallback } from 'react';
 import { deckExporter } from '@/lib/services/deckExportService';
+import { useGame } from '@/contexts/GameContext';
 import type { CardWithRelations } from '@/lib/types/card';
 
 interface ExportableDeck {
@@ -21,6 +22,7 @@ interface ExportableDeck {
 type ExportFormat = 'json' | 'text' | 'csv' | 'mtga';
 
 export function useDeckExport() {
+  const game = useGame();
   const handleExport = useCallback(
     (
       currentDeck: {
@@ -37,7 +39,7 @@ export function useDeckExport() {
 
       const exportableDeck: ExportableDeck = {
         name: deckName,
-        description: 'Anonymous deck from Gundam Card Game Builder',
+        description: `Anonymous deck from ${game.name} Builder`,
         cards: currentDeck.cards.map((deckCard) => ({
           card: deckCard.card,
           quantity: deckCard.quantity,
@@ -53,6 +55,7 @@ export function useDeckExport() {
         groupByType: format === 'text',
         sortBy: 'name' as const,
         sortOrder: 'asc' as const,
+        gameName: game.name,
       };
 
       try {
@@ -64,7 +67,7 @@ export function useDeckExport() {
         );
       }
     },
-    []
+    [game]
   );
 
   return { handleExport };

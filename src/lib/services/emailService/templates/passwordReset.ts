@@ -24,7 +24,7 @@ This link will expire in 1 hour.
 If you didn't request a password reset, you can safely ignore this email.
 
 Best regards,
-Gundam Card Game Team
+Newtype Decks
   `.trim();
 
   const html = `
@@ -48,7 +48,7 @@ Gundam Card Game Team
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="color: #666; font-size: 12px;">
         Best regards,<br>
-        Gundam Card Game Team
+        Newtype Decks
       </p>
     </div>
   `;

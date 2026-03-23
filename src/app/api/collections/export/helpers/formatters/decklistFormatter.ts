@@ -15,7 +15,7 @@ export function generateDeckListExport(
 ): ExportResult {
   const lines: string[] = [];
 
-  lines.push('// Gundam Card Game Collection');
+  lines.push(`// ${_options.gameName ?? 'Card Game'} Collection`);
   lines.push(`// Exported: ${new Date().toLocaleDateString()}`);
   lines.push('// Format: Quantity Card Name');
   lines.push('');

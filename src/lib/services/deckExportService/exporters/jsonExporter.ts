@@ -16,7 +16,7 @@ export function exportToJSON(
     name: deck.name,
     description: deck.description,
     createdAt: deck.createdAt.toISOString(),
-    format: 'Gundam Card Game',
+    format: options.gameName ?? 'Card Game',
     ...(options.includeMetadata && { metadata: deck.metadata }),
     cards: sortCards(deck.cards, options).map((deckCard) => ({
       id: deckCard.card.id,

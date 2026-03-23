@@ -12,6 +12,10 @@ interface BandaiNamcoAttributionProps {
   variant?: 'inline' | 'overlay' | 'watermark' | 'footer' | 'tooltip' | 'badge';
   content?: 'image' | 'card' | 'game-content' | 'general' | 'custom';
   customText?: string;
+  /** Override the publisher name (e.g. from game.copyrightHolder) */
+  publisher?: string | null;
+  /** Override the game name (e.g. from game.name) */
+  gameName?: string | null;
   position?:
     | 'top-left'
     | 'top-right'
@@ -28,12 +32,15 @@ export const BandaiNamcoAttribution: React.FC<BandaiNamcoAttributionProps> = ({
   variant = 'inline',
   content = 'general',
   customText,
+  publisher,
+  gameName,
   position = 'bottom-right',
   size = 'sm',
   opacity = 0.8,
   showYear = true,
 }) => {
   const currentYear = new Date().getFullYear();
+  const publisherName = publisher ?? 'Bandai Namco Entertainment Inc.';
 
   // Generate attribution text based on content type
   const getAttributionText = () => {
@@ -41,14 +48,14 @@ export const BandaiNamcoAttribution: React.FC<BandaiNamcoAttributionProps> = ({
 
     switch (content) {
       case 'image':
-        return `© ${showYear ? currentYear : ''} Bandai Namco Entertainment Inc.`;
+        return `© ${showYear ? currentYear : ''} ${publisherName}`;
       case 'card':
-        return `Card image © ${showYear ? currentYear : ''} Bandai Namco Entertainment Inc.`;
+        return `Card image © ${showYear ? currentYear : ''} ${publisherName}`;
       case 'game-content':
-        return `Gundam Card Game © ${showYear ? currentYear : ''} Bandai Namco Entertainment Inc.`;
+        return `${gameName ?? 'Card Game'} © ${showYear ? currentYear : ''} ${publisherName}`;
       case 'general':
       default:
-        return `© ${showYear ? currentYear : ''} Bandai Namco Entertainment Inc. All rights reserved.`;
+        return `© ${showYear ? currentYear : ''} ${publisherName} All rights reserved.`;
     }
   };
 

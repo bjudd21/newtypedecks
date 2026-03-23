@@ -6,6 +6,7 @@
 
 import { useState, Suspense } from 'react';
 import { useParams } from 'next/navigation';
+import { useGame } from '@/contexts/GameContext';
 import { motion } from 'framer-motion';
 import { Card, CardContent, Button } from '@/components/ui';
 import {
@@ -20,6 +21,7 @@ type TabType = 'builder' | 'community' | 'my-decks';
 
 export default function DecksPage() {
   const { gameSlug } = useParams<{ gameSlug: string }>();
+  const game = useGame();
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('builder');
 
@@ -61,7 +63,7 @@ export default function DecksPage() {
               Deck Management
             </h1>
             <p className="text-gray-400">
-              Build, manage, and discover Gundam Card Game decks
+              Build, manage, and discover {game.name} decks
             </p>
           </motion.div>
 

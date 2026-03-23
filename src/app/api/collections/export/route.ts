@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   try {
     const gameResult = await resolveGameFromRequest(request);
     if (gameResult instanceof NextResponse) return gameResult;
-    const { gameId } = gameResult;
+    const { gameId, gameName } = gameResult;
 
     const session = await getServerSession(authOptions);
 
@@ -80,6 +80,7 @@ export async function GET(request: NextRequest) {
         includeConditions,
         includeValues,
         userId: session.user.id,
+        gameName,
       }
     );
 
@@ -107,7 +108,7 @@ export async function POST(request: NextRequest) {
   try {
     const gameResult = await resolveGameFromRequest(request);
     if (gameResult instanceof NextResponse) return gameResult;
-    const { gameId } = gameResult;
+    const { gameId, gameName } = gameResult;
 
     const session = await getServerSession(authOptions);
 
@@ -165,6 +166,7 @@ export async function POST(request: NextRequest) {
         customFields,
         exportName,
         userId: session.user.id,
+        gameName,
       }
     );
 

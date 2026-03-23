@@ -16,7 +16,7 @@ export async function getUserProfile(
     id: userId,
     username: 'placeholder_user',
     displayName: 'Placeholder User',
-    bio: 'Passionate Gundam Card Game player and deck builder',
+    bio: 'Passionate TCG player and deck builder',
     joinDate: new Date('2024-01-15'),
     lastActive: new Date(),
     isVerified: false,

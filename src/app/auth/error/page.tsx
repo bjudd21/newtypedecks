@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 import { AuthErrorClient } from './AuthErrorClient';
 
 export const metadata: Metadata = {
-  title: 'Authentication Error | Gundam Card Game',
+  title: 'Authentication Error | Newtype Decks',
   description: 'Authentication error page',
 };
 

@@ -2,7 +2,7 @@
  * Non-Affiliation Statement Component
  *
  * Clearly states that this website is not officially associated with
- * Bandai Namco Entertainment and clarifies the fan-made nature of the site
+ * the game publisher and clarifies the fan-made nature of the site
  */
 
 import React from 'react';
@@ -11,11 +11,24 @@ interface NonAffiliationStatementProps {
   className?: string;
   variant?: 'banner' | 'inline' | 'footer' | 'modal';
   showIcon?: boolean;
+  /** Publisher name (e.g. from game.copyrightHolder). Falls back to generic text. */
+  publisher?: string | null;
+  /** Game name (e.g. from game.name). Falls back to generic text. */
+  gameName?: string | null;
 }
 
 export const NonAffiliationStatement: React.FC<
   NonAffiliationStatementProps
-> = ({ className = '', variant = 'inline', showIcon = true }) => {
+> = ({
+  className = '',
+  variant = 'inline',
+  showIcon = true,
+  publisher,
+  gameName,
+}) => {
+  const publisherName = publisher ?? 'Bandai Namco Entertainment Inc.';
+  const gameLabel = gameName ?? 'Card Game';
+
   const Icon = ({ className: iconClass = '' }) => (
     <svg
       className={`h-5 w-5 ${iconClass}`}
@@ -47,9 +60,9 @@ export const NonAffiliationStatement: React.FC<
               <strong className="font-medium">
                 Unofficial Fan Site Notice:
               </strong>{' '}
-              This website is not affiliated with, endorsed by, or sponsored by
-              Bandai Namco Entertainment Inc. This is an independent fan-created
-              resource for the Gundam Card Game community.
+              This website is not affiliated with, endorsed by, or sponsored by{' '}
+              {publisherName}. This is an independent fan-created resource for
+              the {gameLabel} community.
             </p>
           </div>
         </div>
@@ -73,20 +86,16 @@ export const NonAffiliationStatement: React.FC<
             <div className="space-y-3 text-sm text-gray-700">
               <p>
                 This website is{' '}
-                <strong>
-                  not an official Bandai Namco Entertainment product
-                </strong>
-                . We are an independent, fan-created resource developed by and
-                for the Gundam Card Game community.
+                <strong>not an official {publisherName} product</strong>. We are
+                an independent, fan-created resource developed by and for the{' '}
+                {gameLabel} community.
               </p>
               <p>
                 <strong>We are not:</strong>
               </p>
               <ul className="ml-4 list-inside list-disc space-y-1">
-                <li>Affiliated with Bandai Namco Entertainment Inc.</li>
-                <li>
-                  Endorsed or sponsored by Bandai Namco Entertainment Inc.
-                </li>
+                <li>Affiliated with {publisherName}</li>
+                <li>Endorsed or sponsored by {publisherName}</li>
                 <li>An official source for game rules or card information</li>
                 <li>
                   Responsible for official game support or customer service
@@ -109,9 +118,9 @@ export const NonAffiliationStatement: React.FC<
       <div className={`text-xs text-gray-500 ${className}`}>
         <p>
           <strong>Disclaimer:</strong> This is an unofficial fan website. We are
-          not affiliated with, endorsed by, or sponsored by Bandai Namco
-          Entertainment Inc. This site is created and maintained by fans for
-          educational and community purposes.
+          not affiliated with, endorsed by, or sponsored by {publisherName}.
+          This site is created and maintained by fans for educational and
+          community purposes.
         </p>
       </div>
     );
@@ -133,13 +142,13 @@ export const NonAffiliationStatement: React.FC<
         </p>
         <p>
           This website is not affiliated with, endorsed by, or sponsored by{' '}
-          <strong>Bandai Namco Entertainment Inc.</strong> We are an
-          independent, fan-created resource for the Gundam Card Game community,
-          developed for educational and community-building purposes.
+          <strong>{publisherName}</strong>. We are an independent, fan-created
+          resource for the {gameLabel} community, developed for educational and
+          community-building purposes.
         </p>
         <p className="mt-2 text-xs text-gray-600">
           For official game information, rules, and support, please visit the
-          official Bandai Namco Entertainment website.
+          official {publisherName} website.
         </p>
       </div>
     </div>

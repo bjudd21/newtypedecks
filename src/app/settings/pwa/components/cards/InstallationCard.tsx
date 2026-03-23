@@ -54,8 +54,8 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
                   Install as App
                 </div>
                 <div className="text-sm text-gray-600">
-                  Install the Gundam Card Game Database as a native app for
-                  better performance and offline access
+                  Install Newtype Decks as a native app for better performance
+                  and offline access
                 </div>
               </div>
               <Button

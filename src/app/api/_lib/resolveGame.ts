@@ -8,16 +8,16 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { resolveGameId } from '@/lib/database/games';
+import { getGameBySlug } from '@/lib/database/games';
 
 /**
  * Extract and validate the gameSlug query parameter, then resolve it to a gameId.
  *
- * Returns { gameId } on success, or a NextResponse (400 or 404) on failure.
+ * Returns { gameId, gameName } on success, or a NextResponse (400 or 404) on failure.
  */
 export async function resolveGameFromRequest(
   request: NextRequest
-): Promise<{ gameId: string } | NextResponse> {
+): Promise<{ gameId: string; gameName: string } | NextResponse> {
   const gameSlug = request.nextUrl.searchParams.get('gameSlug');
 
   if (!gameSlug) {
@@ -27,13 +27,13 @@ export async function resolveGameFromRequest(
     );
   }
 
-  const gameId = await resolveGameId(gameSlug);
-  if (!gameId) {
+  const game = await getGameBySlug(gameSlug);
+  if (!game) {
     return NextResponse.json(
       { error: `Game '${gameSlug}' not found` },
       { status: 404 }
     );
   }
 
-  return { gameId };
+  return { gameId: game.id, gameName: game.name };
 }

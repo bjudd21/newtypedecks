@@ -82,7 +82,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
 
           <div className="min-w-0 flex-1">
             <h3 className="mb-1 font-semibold text-blue-900">
-              Install Gundam Card Game App
+              Install Newtype Decks
             </h3>
             <p className="mb-3 text-sm text-blue-700">
               Get faster access, offline support, and a native app experience.

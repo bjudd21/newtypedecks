@@ -10,6 +10,7 @@ import type {
   ValidationResult,
   DeckValidationSummary,
 } from './types';
+import type { DeckRules } from '@/lib/types/game';
 import { VALIDATION_RULES } from './rules';
 import {
   validateMinDeckSize,
@@ -44,14 +45,17 @@ export class DeckValidationService {
   }
 
   /**
-   * Validate a complete deck
+   * Validate a complete deck against the provided rules (or Gundam defaults if omitted).
    */
-  validateDeck(cards: DeckCard[]): DeckValidationSummary {
+  validateDeck(
+    cards: DeckCard[],
+    deckRules?: DeckRules
+  ): DeckValidationSummary {
     const results: ValidationResult[] = [];
 
     // Run all validation rules
     for (const rule of VALIDATION_RULES) {
-      const result = this.validateRule(rule, cards);
+      const result = this.validateRule(rule, cards, deckRules);
       results.push(result);
     }
 
@@ -84,15 +88,16 @@ export class DeckValidationService {
    */
   private validateRule(
     rule: ValidationRule,
-    cards: DeckCard[]
+    cards: DeckCard[],
+    deckRules?: DeckRules
   ): ValidationResult {
     switch (rule.id) {
       case 'deck-size-min':
-        return validateMinDeckSize(rule, cards);
+        return validateMinDeckSize(rule, cards, deckRules);
       case 'deck-size-max':
-        return validateMaxDeckSize(rule, cards);
+        return validateMaxDeckSize(rule, cards, deckRules);
       case 'card-limit':
-        return validateCardLimit(rule, cards);
+        return validateCardLimit(rule, cards, deckRules);
       case 'legendary-limit':
         return validateLegendaryLimit(rule, cards);
       case 'cost-distribution':

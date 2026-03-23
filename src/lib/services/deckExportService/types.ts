@@ -32,6 +32,8 @@ export interface ExportOptions {
   groupByType?: boolean;
   sortBy?: 'name' | 'cost' | 'type' | 'quantity';
   sortOrder?: 'asc' | 'desc';
+  /** Game name for export attribution (e.g. from game.name) */
+  gameName?: string;
 }
 
 export interface ImportResult {

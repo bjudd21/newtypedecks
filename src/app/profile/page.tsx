@@ -25,6 +25,6 @@ export default async function ProfilePage() {
 }
 
 export const metadata = {
-  title: 'Profile Settings | Gundam Card Game',
+  title: 'Profile Settings | Newtype Decks',
   description: 'Manage your profile settings and preferences',
 };

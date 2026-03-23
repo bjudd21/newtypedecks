@@ -31,6 +31,8 @@ export interface ExportOptions {
   customFields?: string[];
   exportName?: string;
   onlyOwned?: boolean;
+  /** Game name for export headers and attribution */
+  gameName?: string;
 }
 
 export interface ExportSetInfo {

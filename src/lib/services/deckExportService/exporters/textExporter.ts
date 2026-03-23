@@ -107,9 +107,9 @@ function buildSimpleList(deck: ExportableDeck, options: ExportOptions): string {
 /**
  * Build export footer
  */
-function buildFooter(): string {
+function buildFooter(gameName: string): string {
   const date = new Date().toLocaleDateString();
-  return `\n---\nExported from Gundam Card Game Builder on ${date}\n`;
+  return `\n---\nExported from ${gameName} Builder on ${date}\n`;
 }
 
 /**
@@ -131,7 +131,7 @@ export function exportToText(
     output += buildSimpleList(deck, options);
   }
 
-  output += buildFooter();
+  output += buildFooter(options.gameName ?? 'Card Game');
 
   return output;
 }

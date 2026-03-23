@@ -17,7 +17,7 @@ export function createImageInfo(
     smallUrl,
     largeUrl,
     thumbnailUrl: smallUrl, // Use small as thumbnail
-    altText: 'Gundam Card Game card image',
+    altText: 'Card Game card image',
     format: originalUrl.split('.').pop()?.toLowerCase() || 'unknown',
   };
 }
