@@ -6,11 +6,19 @@
 import { useState } from 'react';
 import type { Card, PaginationData } from '../types';
 
+interface SimpleGame {
+  id: string;
+  slug: string;
+  name: string;
+}
+
 export function useCardsPageState() {
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [games, setGames] = useState<SimpleGame[]>([]);
+  const [selectedGameSlug, setSelectedGameSlug] = useState<string>('');
   const [pagination, setPagination] = useState<PaginationData>({
     currentPage: 1,
     totalPages: 1,
@@ -33,6 +41,10 @@ export function useCardsPageState() {
     setSearch,
     debouncedSearch,
     setDebouncedSearch,
+    games,
+    setGames,
+    selectedGameSlug,
+    setSelectedGameSlug,
     pagination,
     setPagination,
     isCreateModalOpen,

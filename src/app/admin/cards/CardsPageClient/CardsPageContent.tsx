@@ -25,6 +25,10 @@ export function CardsPageContent() {
     setSearch,
     debouncedSearch,
     setDebouncedSearch,
+    games,
+    setGames,
+    selectedGameSlug,
+    setSelectedGameSlug,
     pagination,
     setPagination,
     isCreateModalOpen,
@@ -48,6 +52,7 @@ export function CardsPageContent() {
   } = useCardsPageHandlers({
     currentPage: pagination.currentPage,
     debouncedSearch,
+    selectedGameSlug,
     setCards,
     setPagination,
     setIsLoading,
@@ -55,6 +60,8 @@ export function CardsPageContent() {
     setIsCreateModalOpen,
     setIsEditModalOpen,
     setIsDeleteModalOpen,
+    setGames,
+    setSelectedGameSlug,
   });
 
   // Effects
@@ -72,6 +79,9 @@ export function CardsPageContent() {
       {/* Header */}
       <CardsPageHeader
         totalCount={pagination.totalCount}
+        games={games}
+        selectedGameSlug={selectedGameSlug}
+        onGameChange={setSelectedGameSlug}
         onCreateClick={handleCreateClick}
       />
 

@@ -41,6 +41,14 @@ export default function AdminDashboardContent() {
           actionLabel="Manage Users"
         />
 
+        <QuickActionCard
+          href="/admin/games"
+          icon="🎮"
+          title="Game Management"
+          description="Add new TCGs, edit game configs, and manage active games."
+          actionLabel="Manage Games"
+        />
+
         <SystemStatusCard />
 
         <QuickStatsCard stats={stats} isLoading={isLoading} />

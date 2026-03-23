@@ -12,12 +12,15 @@ interface LoadCardsResponse {
 
 export async function loadCards(
   page: number,
-  searchQuery: string
+  searchQuery: string,
+  gameSlug: string
 ): Promise<{ cards: Card[]; pagination: PaginationData } | null> {
+  if (!gameSlug) return null;
   try {
     const params = new URLSearchParams({
       page: page.toString(),
       limit: '20',
+      gameSlug,
     });
 
     if (searchQuery) {
