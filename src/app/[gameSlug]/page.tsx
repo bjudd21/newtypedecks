@@ -35,6 +35,11 @@ export default async function GameHomePage({ params }: GameHomePageProps) {
       label: 'My Collection',
       description: 'Track your card collection',
     },
+    {
+      href: `/${gameSlug}/proxies`,
+      label: 'Proxy Generator',
+      description: 'Print proxy cards',
+    },
   ];
 
   return (

@@ -53,6 +53,11 @@ export function buildGameNavItems(gameSlug: string) {
       href: `/${gameSlug}/collection`,
       description: 'Manage your card collection',
     },
+    {
+      name: 'Proxies',
+      href: `/${gameSlug}/proxies`,
+      description: 'Print proxy cards',
+    },
   ];
 }
 
