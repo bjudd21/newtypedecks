@@ -2,6 +2,10 @@
  * UserDashboard types
  */
 
+import type { DashboardData } from '@/lib/database/dashboard';
+
+export type { DashboardData };
+
 export interface User {
   id: string;
   name?: string | null;
@@ -12,6 +16,7 @@ export interface User {
 
 export interface UserDashboardProps {
   user: User;
+  dashboardData: DashboardData;
 }
 
 export interface QuickAction {
