@@ -28,11 +28,17 @@ import {
 
 interface CardDetailClientProps {
   cardId: string;
+  initialCard?: CardWithRelations;
 }
 
-export function CardDetailClient({ cardId }: CardDetailClientProps) {
-  const [card, setCard] = useState<CardWithRelations | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export function CardDetailClient({
+  cardId,
+  initialCard,
+}: CardDetailClientProps) {
+  const [card, setCard] = useState<CardWithRelations | null>(
+    initialCard ?? null
+  );
+  const [isLoading, setIsLoading] = useState(!initialCard);
   const [error, setError] = useState<string | null>(null);
   const [rulingsFilter, setRulingsFilter] = useState<
     'all' | 'official' | 'community'
@@ -63,10 +69,10 @@ export function CardDetailClient({ cardId }: CardDetailClientProps) {
       }
     };
 
-    if (cardId) {
+    if (cardId && !initialCard) {
       fetchCard();
     }
-  }, [cardId]);
+  }, [cardId, initialCard]);
 
   if (isLoading) return <CardDetailSkeleton />;
   if (error) return <ErrorState error={error} />;

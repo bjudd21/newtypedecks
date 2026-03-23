@@ -7,6 +7,8 @@ import { notFound } from 'next/navigation';
 import { getGameBySlug } from '@/lib/database/games';
 import { GameProvider } from '@/contexts/GameContext';
 
+export const revalidate = 3600;
+
 interface GameLayoutProps {
   children: React.ReactNode;
   params: Promise<{ gameSlug: string }>;

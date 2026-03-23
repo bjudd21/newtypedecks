@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { getGameBySlug } from '@/lib/database/games';
 import { notFound } from 'next/navigation';
 
+export const revalidate = 3600;
+
 interface GameHomePageProps {
   params: Promise<{ gameSlug: string }>;
 }
