@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,6 +21,10 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -27,13 +32,15 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    // Build where clause
+    // Build where clause — scope favorites to authenticated user + game
     const where: Record<string, unknown> = {
       userId: session.user.id,
+      deck: { gameId },
     };
 
     if (search) {
       where.deck = {
+        gameId,
         OR: [
           { name: { contains: search, mode: 'insensitive' } },
           { description: { contains: search, mode: 'insensitive' } },

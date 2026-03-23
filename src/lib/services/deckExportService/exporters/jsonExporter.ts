@@ -2,8 +2,22 @@
  * JSON Export Format
  */
 
-import type { ExportableDeck, ExportOptions } from '../types';
+import type { ExportableDeck, ExportOptions, DeckCard } from '../types';
 import { sortCards } from '../utils';
+
+/**
+ * Read a string field from a card's gameAttributes JSONB.
+ * Returns undefined if absent or not a string.
+ */
+function getGameAttr(
+  attrs: DeckCard['card']['gameAttributes'],
+  field: string
+): string | undefined {
+  if (!attrs || typeof attrs !== 'object' || Array.isArray(attrs))
+    return undefined;
+  const value = (attrs as Record<string, unknown>)[field];
+  return typeof value === 'string' ? value : undefined;
+}
 
 /**
  * Export to JSON format
@@ -28,9 +42,9 @@ export function exportToJSON(
       cost: deckCard.card.cost,
       type: deckCard.card.type?.name,
       rarity: deckCard.card.rarity?.name,
-      faction: deckCard.card.faction,
-      pilot: deckCard.card.pilot,
-      model: deckCard.card.model,
+      faction: getGameAttr(deckCard.card.gameAttributes, 'faction'),
+      pilot: getGameAttr(deckCard.card.gameAttributes, 'pilot'),
+      model: getGameAttr(deckCard.card.gameAttributes, 'model'),
     })),
   };
 

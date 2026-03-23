@@ -2,6 +2,9 @@
  * Query Builders for Collections API
  *
  * Utilities for building Prisma query parameters
+ *
+ * Note: `faction` is a game-specific field stored in `gameAttributes` JSONB,
+ * not a flat column on Card. The filter uses a Prisma JSON path query.
  */
 
 import type { PrismaCardWhere } from '@/lib/types';
@@ -38,7 +41,11 @@ export function buildCardWhereClause(
   }
 
   if (faction) {
-    cardWhere.faction = faction;
+    // faction lives in gameAttributes JSONB, not as a flat column on Card
+    cardWhere.gameAttributes = {
+      path: ['faction'],
+      equals: faction,
+    };
   }
 
   return cardWhere;

@@ -131,7 +131,17 @@ export async function GET(request: NextRequest) {
         0
       );
       const colors = [
-        ...new Set(deck.cards.map((dc) => dc.card.faction).filter(Boolean)),
+        ...new Set(
+          deck.cards
+            .map((dc) => {
+              const attrs = dc.card.gameAttributes as Record<
+                string,
+                unknown
+              > | null;
+              return (attrs?.faction as string | undefined) ?? undefined;
+            })
+            .filter(Boolean)
+        ),
       ];
 
       return {

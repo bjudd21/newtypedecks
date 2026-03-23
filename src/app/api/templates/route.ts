@@ -8,9 +8,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 export async function GET(request: NextRequest) {
   try {
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
@@ -20,8 +25,9 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    // Build where clause
+    // Build where clause — scope templates to the requested game
     const where: Record<string, unknown> = {
+      gameId,
       isTemplate: true,
       visibility: 'PUBLIC', // Only show public templates
     };
@@ -179,7 +185,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create template deck
+    // Create template deck — inherit the source deck's game
     const template = await prisma.deck.create({
       data: {
         name: templateName?.trim() || `${deck.name} (Template)`,
@@ -188,6 +194,7 @@ export async function POST(request: NextRequest) {
         visibility: 'PUBLIC',
         isTemplate: true,
         templateSource: templateSource?.trim() || 'Community',
+        gameId: deck.gameId,
         userId: session.user.id,
         cards: {
           create: deck.cards.map((deckCard) => ({

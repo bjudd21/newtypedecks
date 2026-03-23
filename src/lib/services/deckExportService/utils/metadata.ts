@@ -18,7 +18,13 @@ export function enrichDeckWithMetadata(deck: ExportableDeck): ExportableDeck {
   const factions = Array.from(
     new Set(
       deck.cards
-        .map((deckCard) => deckCard.card.faction)
+        .map((deckCard) => {
+          const attrs = deckCard.card.gameAttributes;
+          if (!attrs || typeof attrs !== 'object' || Array.isArray(attrs))
+            return undefined;
+          const value = (attrs as Record<string, unknown>).faction;
+          return typeof value === 'string' ? value : undefined;
+        })
         .filter((faction): faction is string => Boolean(faction))
     )
   );

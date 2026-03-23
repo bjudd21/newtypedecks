@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -24,13 +25,18 @@ export async function POST(request: NextRequest, context: RouteContext) {
       );
     }
 
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const { id: templateId } = await context.params;
     const { name, description, modifications } = await request.json();
 
-    // Validate template exists and is public template
+    // Validate template exists, is public, and belongs to the requested game
     const template = await prisma.deck.findUnique({
       where: {
         id: templateId,
+        gameId,
         isTemplate: true,
         visibility: 'PUBLIC',
       },
@@ -50,7 +56,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
       );
     }
 
-    // Create new deck from template
+    // Create new deck from template — inherit the template's game
     const newDeck = await prisma.deck.create({
       data: {
         name: name?.trim() || `${template.name} Copy`,
@@ -58,6 +64,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
           description?.trim() || `Based on ${template.name} template`,
         visibility: 'DRAFT', // New decks start as draft
         isTemplate: false,
+        gameId,
         userId: session.user.id,
         cards: {
           create: template.cards.map((templateCard) => ({

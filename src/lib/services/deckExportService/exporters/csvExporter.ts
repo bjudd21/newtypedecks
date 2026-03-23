@@ -6,6 +6,19 @@ import type { ExportableDeck, ExportOptions, DeckCard } from '../types';
 import { sortCards } from '../utils';
 
 /**
+ * Read a string field from a card's gameAttributes JSONB.
+ * Returns null (for escapeCSVValue compatibility) if absent or not a string.
+ */
+function getGameAttr(
+  attrs: DeckCard['card']['gameAttributes'],
+  field: string
+): string | null {
+  if (!attrs || typeof attrs !== 'object' || Array.isArray(attrs)) return null;
+  const value = (attrs as Record<string, unknown>)[field];
+  return typeof value === 'string' ? value : null;
+}
+
+/**
  * Build CSV headers
  */
 function buildCSVHeaders(): string {
@@ -47,9 +60,9 @@ function buildCardRow(deckCard: DeckCard): string {
     deckCard.card.cost || '',
     escapeCSVValue(deckCard.card.type?.name),
     escapeCSVValue(deckCard.card.rarity?.name),
-    escapeCSVValue(deckCard.card.faction),
-    escapeCSVValue(deckCard.card.pilot),
-    escapeCSVValue(deckCard.card.model),
+    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'faction')),
+    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'pilot')),
+    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'model')),
     escapeCSVValue(deckCard.category || 'main'),
   ];
 

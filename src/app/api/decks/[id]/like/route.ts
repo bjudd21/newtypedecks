@@ -28,6 +28,15 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
 
   const userId = session.user.id;
 
+  // Verify the deck exists before toggling like — prevents acting on phantom IDs
+  const deck = await prisma.deck.findUnique({
+    where: { id },
+    select: { id: true },
+  });
+  if (!deck) {
+    return NextResponse.json({ error: 'Deck not found' }, { status: 404 });
+  }
+
   const existing = await prisma.deckLike.findUnique({
     where: { deckId_userId: { deckId: id, userId } },
   });
