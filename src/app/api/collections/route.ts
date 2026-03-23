@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     const cardWhere = buildCardWhereClause(search, rarity, type, faction);
 
     // Get user's collection
-    const userCollection = await prisma.collection.findUnique({
+    const userCollection = await prisma.collection.findFirst({
       where: { userId: session.user.id },
     });
 

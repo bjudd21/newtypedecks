@@ -69,7 +69,7 @@ export async function transformSubmissionToCardData(
  * Find or create card type
  */
 async function findOrCreateCardType(name: string): Promise<string> {
-  let cardType = await prisma.cardType.findUnique({
+  let cardType = await prisma.cardType.findFirst({
     where: { name },
   });
 
@@ -89,7 +89,7 @@ async function findOrCreateCardType(name: string): Promise<string> {
  * Find or create rarity
  */
 async function findOrCreateRarity(name: string): Promise<string> {
-  let rarity = await prisma.rarity.findUnique({
+  let rarity = await prisma.rarity.findFirst({
     where: { name },
   });
 

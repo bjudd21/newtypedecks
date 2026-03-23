@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     const cardsWhereClause = buildCollectionWhereClause(filterBy);
 
     // Get collection with cards
-    const userCollection = await prisma.collection.findUnique({
+    const userCollection = await prisma.collection.findFirst({
       where: { userId: session.user.id },
       include: {
         cards: {
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
     } = await request.json();
 
     // Get user's collection
-    const userCollection = await prisma.collection.findUnique({
+    const userCollection = await prisma.collection.findFirst({
       where: { userId: session.user.id },
       include: {
         cards: {

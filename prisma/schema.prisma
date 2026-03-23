@@ -1,5 +1,4 @@
-// Gundam Card Game Database Schema
-// This schema defines the data models for the Gundam Card Game website
+// Newtype Decks — Multi-TCG Platform Database Schema
 
 generator client {
   provider = "prisma-client-js"
@@ -8,6 +7,37 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// Game model — each TCG is a database record with a JSON config driving the entire app
+model Game {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  shortName       String?
+  publisher       String?
+  copyrightHolder String?
+  logoUrl         String?
+  iconUrl         String?
+  bannerUrl       String?
+  primaryColor    String?
+  secondaryColor  String?
+  accentColor     String?
+  config          Json     // GameConfig JSONB: cardSchema, deckRules, branding, legal
+  isActive        Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  cards       Card[]
+  decks       Deck[]
+  collections Collection[]
+  sets        Set[]
+  cardTypes   CardType[]
+  rarities    Rarity[]
+
+  @@map("games")
 }
 
 // User model for authentication and user management
@@ -38,6 +68,7 @@ model User {
   reviewedSubmissions CardSubmission[] @relation("ReviewedSubmissions")
   favoriteDecks       UserFavoriteDeck[]
   templateUsage       DeckTemplateUsage[]
+  deckLikes           DeckLike[]
 
   @@map("users")
 }
@@ -91,89 +122,108 @@ enum UserRole {
   MODERATOR
 }
 
-// Card type model - Based on official Gundam Card Game rules
+// Card type model
 model CardType {
-  id          String @id @default(cuid())
-  name        String @unique
+  id          String  @id @default(cuid())
+  gameId      String? // FK to Game (nullable during migration backfill)
+  name        String
   description String?
-  category    String? // "Unit", "Character", "Command", "Operation", "Generation"
+  category    String?
 
   // Relations
+  game  Game? @relation(fields: [gameId], references: [id])
   cards Card[]
 
+  @@index([gameId])
   @@map("card_types")
 }
 
 // Rarity model
 model Rarity {
-  id          String @id @default(cuid())
-  name        String @unique
+  id          String  @id @default(cuid())
+  gameId      String? // FK to Game (nullable during migration backfill)
+  name        String
   color       String
   description String?
 
   // Relations
+  game  Game? @relation(fields: [gameId], references: [id])
   cards Card[]
 
+  @@index([gameId])
   @@map("rarities")
 }
 
 // Set model
 model Set {
   id          String    @id @default(cuid())
-  name        String    @unique
+  gameId      String?   // FK to Game (nullable during migration backfill)
+  name        String
   code        String    @unique
   releaseDate DateTime
   description String?
   imageUrl    String?
 
   // Relations
+  game  Game? @relation(fields: [gameId], references: [id])
   cards Card[]
 
+  @@index([gameId])
   @@map("sets")
 }
 
 // Main Card model
 model Card {
-  id           String   @id @default(cuid())
-  name         String
-  level        Int?
-  cost         Int?
-  typeId       String
-  rarityId     String
-  setId        String
-  setNumber    String
-  imageUrl     String
+  id            String   @id @default(cuid())
+  gameId        String?  // FK to Game (nullable during migration backfill)
+  name          String
+  level         Int?
+  cost          Int?
+  typeId        String
+  rarityId      String
+  setId         String
+  setNumber     String
+  imageUrl      String
   imageUrlSmall String?
   imageUrlLarge String?
-  description  String?
-  officialText String?
-  
-  // Official Gundam Card Game attributes
-  clashPoints  Int?     // Clash Points (CP) - battle strength
-  price        Int?     // Price - cost to play the card
-  hitPoints    Int?     // Hit Points (HP) - unit durability (for Unit cards)
-  attackPoints Int?     // Attack Points (AP) - damage dealt (for Unit cards)
-  faction      String?  // Faction/Group (Earth Federation, Zeon, etc.)
-  pilot        String?  // Pilot name for mobile suits
-  model        String?  // Mobile suit model number
-  series       String?  // Anime series (UC, CE, AD, etc.)
-  nation       String?  // Nation/Country affiliation
-  
+  description   String?
+  officialText  String?
+
+  // Game-specific attributes stored in JSONB — replaces the deprecated columns below
+  // Gundam: { faction, pilot, model, series, nation }
+  // One Piece: { color, power, counter, life, attribute, trait }
+  gameAttributes Json?
+
+  // Universal numeric stats
+  clashPoints  Int?
+  price        Int?
+  hitPoints    Int?
+  attackPoints Int?
+
+  // DEPRECATED: Gundam-specific columns kept for backward compatibility during migration.
+  // All new code must read from gameAttributes instead.
+  faction      String?
+  pilot        String?
+  model        String?
+  series       String?
+  nation       String?
+
   // Card mechanics
   abilities    String?  // Special abilities (JSON string)
   keywords     String[] // Searchable keywords
   tags         String[] // Categorization tags
-  
+
   // Metadata
   isFoil       Boolean  @default(false)
   isPromo      Boolean  @default(false)
   isAlternate  Boolean  @default(false)
   language     String   @default("en")
-  
+
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   // Relations
+  game         Game?    @relation(fields: [gameId], references: [id])
   type         CardType @relation(fields: [typeId], references: [id])
   rarity       Rarity   @relation(fields: [rarityId], references: [id])
   set          Set      @relation(fields: [setId], references: [id])
@@ -185,6 +235,7 @@ model Card {
 
   @@unique([setId, setNumber])
   // Single field indexes for basic searches
+  @@index([gameId])
   @@index([name])
   @@index([pilot])
   @@index([model])
@@ -229,33 +280,77 @@ model Card {
   @@map("cards")
 }
 
+// Deck visibility tiers — replaces boolean isPublic
+enum DeckVisibility {
+  DRAFT   // Save anytime, no validation, only visible to owner
+  PRIVATE // Must pass deck rules, shareable by link
+  PUBLIC  // Must pass deck rules, visible in deck library
+}
+
 // Deck model
 model Deck {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
+  gameId      String?       // FK to Game (nullable during migration backfill)
   name        String
   description String?
-  isPublic    Boolean  @default(false)
   userId      String
+
+  // Visibility — replaces isPublic boolean
+  visibility  DeckVisibility @default(DRAFT)
+
+  // DEPRECATED: kept for backward compatibility during migration
+  isPublic    Boolean  @default(false)
+
+  // Sharing
+  deckCode    String?  @unique // Compact encoded string for Discord/chat sharing
+
+  // Social metrics
+  viewCount   Int      @default(0)
+  likeCount   Int      @default(0)
 
   // Versioning
   currentVersion Int     @default(1)
   versionName    String? // Optional name for the current version
 
   // Templates and Favorites
-  isTemplate     Boolean  @default(false) // Whether this deck can be used as a template
-  templateSource String?  // Source attribution for templates ("Official", "Community", etc.)
+  isTemplate     Boolean  @default(false)
+  templateSource String?
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
+  game          Game?               @relation(fields: [gameId], references: [id])
   user          User                @relation(fields: [userId], references: [id])
   cards         DeckCard[]
   versions      DeckVersion[]
-  favoritedBy   UserFavoriteDeck[]  // Users who favorited this deck
-  templateUsage DeckTemplateUsage[] // Tracks usage of this deck as template
+  favoritedBy   UserFavoriteDeck[]
+  templateUsage DeckTemplateUsage[]
+  likes         DeckLike[]
 
+  @@index([gameId])
+  @@index([userId])
+  @@index([visibility])
+  @@index([viewCount])
+  @@index([likeCount])
   @@map("decks")
+}
+
+// DeckLike — tracks individual user likes for social metrics
+model DeckLike {
+  id        String   @id @default(cuid())
+  deckId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  // Relations
+  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([deckId, userId])
+  @@index([deckId])
+  @@index([userId])
+  @@map("deck_likes")
 }
 
 // Deck Version model for revision history
@@ -321,15 +416,18 @@ model DeckCard {
 // Collection model
 model Collection {
   id        String   @id @default(cuid())
+  gameId    String?  // FK to Game (nullable during migration backfill)
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
+  game  Game?            @relation(fields: [gameId], references: [id])
   user  User             @relation(fields: [userId], references: [id])
   cards CollectionCard[]
 
-  @@unique([userId])
+  @@index([userId])
+  @@index([gameId])
   @@map("collections")
 }
 

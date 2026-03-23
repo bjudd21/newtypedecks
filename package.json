@@ -28,6 +28,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:reset": "prisma migrate reset",
     "db:seed": "node scripts/seed-database.js",
+    "db:seed:games": "node scripts/seed-games.js",
     "db:studio": "prisma studio",
     "clean": "rm -rf .next node_modules/.cache",
     "clean:all": "rm -rf .next node_modules/.cache uploads/*",

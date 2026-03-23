@@ -20,7 +20,7 @@ export interface CardOperationResult {
  * @returns User's collection
  */
 export async function getOrCreateCollection(userId: string) {
-  let userCollection = await prisma.collection.findUnique({
+  let userCollection = await prisma.collection.findFirst({
     where: { userId },
   });
 

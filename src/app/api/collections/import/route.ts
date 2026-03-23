@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get or create user collection
-    let userCollection = await prisma.collection.findUnique({
+    let userCollection = await prisma.collection.findFirst({
       where: { userId: session.user.id },
     });
 

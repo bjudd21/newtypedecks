@@ -19,6 +19,11 @@ interface DeckData {
   description: string | null;
   isPublic: boolean;
   userId: string;
+  gameId: string | null;
+  visibility: 'DRAFT' | 'PRIVATE' | 'PUBLIC';
+  deckCode: string | null;
+  viewCount: number;
+  likeCount: number;
   currentVersion: number;
   versionName: string | null;
   isTemplate: boolean;
@@ -90,6 +95,11 @@ export function useAnonymousDeckStorage(
       description: 'Built without an account',
       isPublic: false,
       userId: 'anonymous',
+      gameId: null,
+      visibility: 'DRAFT',
+      deckCode: null,
+      viewCount: 0,
+      likeCount: 0,
       currentVersion: 1,
       versionName: null,
       isTemplate: false,
@@ -119,6 +129,11 @@ export function useAnonymousDeckStorage(
           description: deckData.description || 'Loaded from shared URL',
           isPublic: false,
           userId: 'anonymous',
+          gameId: null,
+          visibility: 'DRAFT',
+          deckCode: null,
+          viewCount: 0,
+          likeCount: 0,
           currentVersion: 1,
           versionName: null,
           isTemplate: false,
