@@ -18,12 +18,18 @@ export const metadata: Metadata = {
     'gundam card game, favorite decks, saved decks, deck collection, bookmarks',
 };
 
-export default async function FavoritesPage() {
+interface FavoritesPageProps {
+  params: Promise<{ gameSlug: string }>;
+}
+
+export default async function FavoritesPage({ params }: FavoritesPageProps) {
+  const { gameSlug } = await params;
+
   // Check authentication
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
-    redirect('/auth/signin?callbackUrl=/favorites');
+    redirect(`/auth/signin?callbackUrl=/${gameSlug}/favorites`);
   }
 
   return (
@@ -44,7 +50,7 @@ export default async function FavoritesPage() {
         <FavoriteDeckManager
           onDeckSelect={(deckId) => {
             // Redirect to deck detail page
-            window.location.href = `/decks/${deckId}`;
+            window.location.href = `/${gameSlug}/decks/${deckId}`;
           }}
           onRemoveFavorite={() => {
             // Refresh handled by component
@@ -63,7 +69,7 @@ export default async function FavoritesPage() {
               to your collection.
             </p>
             <a
-              href="/templates"
+              href={`/${gameSlug}/templates`}
               className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800"
             >
               Browse Templates →
@@ -79,7 +85,7 @@ export default async function FavoritesPage() {
               with the community.
             </p>
             <Link
-              href="/decks"
+              href={`/${gameSlug}/decks`}
               className="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800"
             >
               Deck Builder →
@@ -94,7 +100,7 @@ export default async function FavoritesPage() {
               Explore public decks shared by other players in the community.
             </p>
             <Link
-              href="/decks?filter=public"
+              href={`/${gameSlug}/decks?filter=public`}
               className="inline-flex items-center text-sm font-medium text-purple-700 hover:text-purple-800"
             >
               Community Decks →

@@ -5,6 +5,7 @@
  */
 
 import { useState, Suspense } from 'react';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Card, CardContent, Button } from '@/components/ui';
 import {
@@ -18,6 +19,7 @@ import { ReduxProvider } from '@/store/Provider';
 type TabType = 'builder' | 'community' | 'my-decks';
 
 export default function DecksPage() {
+  const { gameSlug } = useParams<{ gameSlug: string }>();
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('builder');
 
@@ -129,7 +131,7 @@ export default function DecksPage() {
               {activeTab === 'community' && <PublicDeckBrowser />}
 
               {activeTab === 'my-decks' && isAuthenticated && (
-                <MyDecksManager />
+                <MyDecksManager gameSlug={gameSlug} />
               )}
             </motion.div>
           </Suspense>
@@ -140,7 +142,7 @@ export default function DecksPage() {
 }
 
 // Simple My Decks component (placeholder for now)
-function MyDecksManager() {
+function MyDecksManager({ gameSlug }: { gameSlug: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -167,7 +169,7 @@ function MyDecksManager() {
           <div className="flex justify-center gap-3">
             <Button
               variant="brand"
-              onClick={() => (window.location.href = '/decks')}
+              onClick={() => (window.location.href = `/${gameSlug}/decks`)}
             >
               Build New Deck
             </Button>

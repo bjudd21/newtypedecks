@@ -6,9 +6,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { DeckTemplateBrowser } from '@/components/deck';
 
 export default function TemplatesPage() {
+  const { gameSlug } = useParams<{ gameSlug: string }>();
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-6xl">
@@ -29,7 +32,7 @@ export default function TemplatesPage() {
         <DeckTemplateBrowser
           onCreateFromTemplate={(_templateId) => {
             // Redirect to deck builder with new deck
-            window.location.href = '/decks';
+            window.location.href = `/${gameSlug}/decks`;
           }}
         />
 
@@ -98,13 +101,13 @@ export default function TemplatesPage() {
           </p>
           <div className="space-x-4">
             <Link
-              href="/decks"
+              href={`/${gameSlug}/decks`}
               className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
             >
               Go to Deck Builder
             </Link>
             <Link
-              href="/favorites"
+              href={`/${gameSlug}/favorites`}
               className="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-50"
             >
               View My Favorites

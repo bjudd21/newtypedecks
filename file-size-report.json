@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-03-23T13:10:12.198Z",
+  "timestamp": "2026-03-23T13:38:18.231Z",
   "summary": {
-    "passed": 1144,
+    "passed": 1148,
     "warnings": 7,
     "errors": 0,
-    "total": 1151
+    "total": 1155
   },
   "files": [
     {
@@ -17,34 +17,34 @@
     },
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 645,
+      "lines": 647,
       "limit": 500,
-      "percentage": 129,
-      "size": 20100,
+      "percentage": 129.4,
+      "size": 20110,
       "status": "warning"
     },
     {
       "file": "src/app/api/decks/[id]/route.test.ts",
-      "lines": 681,
+      "lines": 683,
       "limit": 500,
-      "percentage": 136.20000000000002,
-      "size": 21268,
+      "percentage": 136.60000000000002,
+      "size": 21278,
       "status": "warning"
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 735,
+      "lines": 737,
       "limit": 500,
-      "percentage": 147,
-      "size": 23150,
+      "percentage": 147.4,
+      "size": 23160,
       "status": "warning"
     },
     {
       "file": "src/app/api/cards/search/route.test.ts",
-      "lines": 429,
+      "lines": 431,
       "limit": 500,
-      "percentage": 85.8,
-      "size": 11469,
+      "percentage": 86.2,
+      "size": 11479,
       "status": "warning"
     },
     {
@@ -62,6 +62,14 @@
       "percentage": 105,
       "size": 14764,
       "status": "warning"
+    },
+    {
+      "file": "src/middleware.ts",
+      "lines": 46,
+      "limit": 500,
+      "percentage": 9.2,
+      "size": 1344,
+      "status": "passed"
     },
     {
       "file": "src/types/global.d.ts",
@@ -2609,10 +2617,10 @@
     },
     {
       "file": "src/lib/database/games.ts",
-      "lines": 34,
+      "lines": 36,
       "limit": 500,
-      "percentage": 6.800000000000001,
-      "size": 1111,
+      "percentage": 7.199999999999999,
+      "size": 1115,
       "status": "passed"
     },
     {
@@ -4584,134 +4592,6 @@
       "status": "passed"
     },
     {
-      "file": "src/app/cards/components/NewCardsPage/index.ts",
-      "lines": 31,
-      "limit": 500,
-      "percentage": 6.2,
-      "size": 800,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/api.ts",
-      "lines": 31,
-      "limit": 500,
-      "percentage": 6.2,
-      "size": 701,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/hooks/useURLInitialization.ts",
-      "lines": 56,
-      "limit": 500,
-      "percentage": 11.200000000000001,
-      "size": 1410,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/hooks/useFilters.ts",
-      "lines": 40,
-      "limit": 500,
-      "percentage": 8,
-      "size": 996,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/hooks/useCardsState.ts",
-      "lines": 43,
-      "limit": 500,
-      "percentage": 8.6,
-      "size": 1082,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/hooks/useCardHandlers.ts",
-      "lines": 114,
-      "limit": 500,
-      "percentage": 22.8,
-      "size": 2581,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/types.ts",
-      "lines": 6,
-      "limit": 500,
-      "percentage": 1.2,
-      "size": 106,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/index.ts",
-      "lines": 16,
-      "limit": 500,
-      "percentage": 3.2,
-      "size": 647,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/index.ts",
-      "lines": 22,
-      "limit": 500,
-      "percentage": 4.3999999999999995,
-      "size": 621,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/api.ts",
-      "lines": 29,
-      "limit": 500,
-      "percentage": 5.800000000000001,
-      "size": 567,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/hooks/usePaginationState.ts",
-      "lines": 58,
-      "limit": 500,
-      "percentage": 11.600000000000001,
-      "size": 1575,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/hooks/useDualPagination.ts",
-      "lines": 140,
-      "limit": 500,
-      "percentage": 28.000000000000004,
-      "size": 3532,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/hooks/useComputedValues.ts",
-      "lines": 75,
-      "limit": 500,
-      "percentage": 15,
-      "size": 2072,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/hooks/useCardsHandlers.ts",
-      "lines": 113,
-      "limit": 500,
-      "percentage": 22.6,
-      "size": 2754,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/utils/parseAbilities.ts",
-      "lines": 36,
-      "limit": 500,
-      "percentage": 7.199999999999999,
-      "size": 1032,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/index.ts",
-      "lines": 20,
-      "limit": 500,
-      "percentage": 4,
-      "size": 793,
-      "status": "passed"
-    },
-    {
       "file": "src/app/api/user/profile/route.ts",
       "lines": 170,
       "limit": 500,
@@ -4953,10 +4833,10 @@
     },
     {
       "file": "src/app/api/collections/route.ts",
-      "lines": 217,
+      "lines": 220,
       "limit": 500,
-      "percentage": 43.4,
-      "size": 5640,
+      "percentage": 44,
+      "size": 5658,
       "status": "passed"
     },
     {
@@ -5488,6 +5368,134 @@
       "status": "passed"
     },
     {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/index.ts",
+      "lines": 31,
+      "limit": 500,
+      "percentage": 6.2,
+      "size": 800,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/api.ts",
+      "lines": 31,
+      "limit": 500,
+      "percentage": 6.2,
+      "size": 701,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/hooks/useURLInitialization.ts",
+      "lines": 56,
+      "limit": 500,
+      "percentage": 11.200000000000001,
+      "size": 1410,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/hooks/useFilters.ts",
+      "lines": 40,
+      "limit": 500,
+      "percentage": 8,
+      "size": 996,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/hooks/useCardsState.ts",
+      "lines": 43,
+      "limit": 500,
+      "percentage": 8.6,
+      "size": 1082,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/hooks/useCardHandlers.ts",
+      "lines": 114,
+      "limit": 500,
+      "percentage": 22.8,
+      "size": 2581,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/types.ts",
+      "lines": 6,
+      "limit": 500,
+      "percentage": 1.2,
+      "size": 106,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/index.ts",
+      "lines": 16,
+      "limit": 500,
+      "percentage": 3.2,
+      "size": 647,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/index.ts",
+      "lines": 22,
+      "limit": 500,
+      "percentage": 4.3999999999999995,
+      "size": 621,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/api.ts",
+      "lines": 29,
+      "limit": 500,
+      "percentage": 5.800000000000001,
+      "size": 567,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/hooks/usePaginationState.ts",
+      "lines": 58,
+      "limit": 500,
+      "percentage": 11.600000000000001,
+      "size": 1575,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/hooks/useDualPagination.ts",
+      "lines": 140,
+      "limit": 500,
+      "percentage": 28.000000000000004,
+      "size": 3532,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/hooks/useComputedValues.ts",
+      "lines": 75,
+      "limit": 500,
+      "percentage": 15,
+      "size": 2072,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/hooks/useCardsHandlers.ts",
+      "lines": 113,
+      "limit": 500,
+      "percentage": 22.6,
+      "size": 2754,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/utils/parseAbilities.ts",
+      "lines": 36,
+      "limit": 500,
+      "percentage": 7.199999999999999,
+      "size": 1032,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/index.ts",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 793,
+      "status": "passed"
+    },
+    {
       "file": "src/store/Provider.tsx",
       "lines": 14,
       "limit": 500,
@@ -5501,6 +5509,14 @@
       "limit": 500,
       "percentage": 30,
       "size": 3817,
+      "status": "passed"
+    },
+    {
+      "file": "src/contexts/GameContext.tsx",
+      "lines": 29,
+      "limit": 500,
+      "percentage": 5.800000000000001,
+      "size": 800,
       "status": "passed"
     },
     {
@@ -8472,14 +8488,6 @@
       "status": "passed"
     },
     {
-      "file": "src/app/templates/page.tsx",
-      "lines": 118,
-      "limit": 500,
-      "percentage": 23.599999999999998,
-      "size": 4496,
-      "status": "passed"
-    },
-    {
       "file": "src/app/settings/pwa/page.tsx",
       "lines": 11,
       "limit": 500,
@@ -8568,35 +8576,11 @@
       "status": "passed"
     },
     {
-      "file": "src/app/favorites/page.tsx",
-      "lines": 139,
-      "limit": 500,
-      "percentage": 27.800000000000004,
-      "size": 4927,
-      "status": "passed"
-    },
-    {
       "file": "src/app/demo/page.tsx",
       "lines": 283,
       "limit": 500,
       "percentage": 56.599999999999994,
       "size": 9718,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/decks/page.tsx",
-      "lines": 186,
-      "limit": 500,
-      "percentage": 37.2,
-      "size": 6326,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/decks/[id]/page.tsx",
-      "lines": 133,
-      "limit": 500,
-      "percentage": 26.6,
-      "size": 4611,
       "status": "passed"
     },
     {
@@ -8613,302 +8597,6 @@
       "limit": 500,
       "percentage": 5.4,
       "size": 611,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/collection/page.tsx",
-      "lines": 28,
-      "limit": 500,
-      "percentage": 5.6000000000000005,
-      "size": 764,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/page.tsx",
-      "lines": 42,
-      "limit": 500,
-      "percentage": 8.4,
-      "size": 1411,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/NewCardsPageClient.tsx",
-      "lines": 9,
-      "limit": 500,
-      "percentage": 1.7999999999999998,
-      "size": 292,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/CardsPageClient.tsx",
-      "lines": 9,
-      "limit": 500,
-      "percentage": 1.7999999999999998,
-      "size": 277,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents.tsx",
-      "lines": 21,
-      "limit": 500,
-      "percentage": 4.2,
-      "size": 444,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/NewCardsPageContent.tsx",
-      "lines": 163,
-      "limit": 500,
-      "percentage": 32.6,
-      "size": 3883,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/ui/ViewToggle.tsx",
-      "lines": 41,
-      "limit": 500,
-      "percentage": 8.200000000000001,
-      "size": 1397,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/ui/SortControls.tsx",
-      "lines": 50,
-      "limit": 500,
-      "percentage": 10,
-      "size": 1623,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/NewCardsPage/ui/FilterToolbar.tsx",
-      "lines": 63,
-      "limit": 500,
-      "percentage": 12.6,
-      "size": 1760,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/WelcomeMessage.tsx",
-      "lines": 43,
-      "limit": 500,
-      "percentage": 8.6,
-      "size": 1336,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/TraditionalPaginationResults.tsx",
-      "lines": 97,
-      "limit": 500,
-      "percentage": 19.400000000000002,
-      "size": 2570,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/SortControls.tsx",
-      "lines": 36,
-      "limit": 500,
-      "percentage": 7.199999999999999,
-      "size": 1128,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/ResultsSection.tsx",
-      "lines": 101,
-      "limit": 500,
-      "percentage": 20.200000000000003,
-      "size": 2910,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/ResultsHeader.tsx",
-      "lines": 48,
-      "limit": 500,
-      "percentage": 9.6,
-      "size": 1341,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/PaginationModeSelector.tsx",
-      "lines": 41,
-      "limit": 500,
-      "percentage": 8.200000000000001,
-      "size": 1173,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/NoResultsState.tsx",
-      "lines": 42,
-      "limit": 500,
-      "percentage": 8.4,
-      "size": 1276,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/InfiniteScrollResults.tsx",
-      "lines": 75,
-      "limit": 500,
-      "percentage": 15,
-      "size": 2476,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPageComponents/CardDetailModal.tsx",
-      "lines": 45,
-      "limit": 500,
-      "percentage": 9,
-      "size": 1416,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/components/CardsPage/CardsPageContent.tsx",
-      "lines": 156,
-      "limit": 500,
-      "percentage": 31.2,
-      "size": 3833,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/page.tsx",
-      "lines": 23,
-      "limit": 500,
-      "percentage": 4.6,
-      "size": 522,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient.tsx",
-      "lines": 110,
-      "limit": 500,
-      "percentage": 22,
-      "size": 3154,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/components/CardMetadataSection.tsx",
-      "lines": 114,
-      "limit": 500,
-      "percentage": 22.8,
-      "size": 3367,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/components/BasicInformation.tsx",
-      "lines": 152,
-      "limit": 500,
-      "percentage": 30.4,
-      "size": 4280,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/SpecialAbilities.tsx",
-      "lines": 53,
-      "limit": 500,
-      "percentage": 10.6,
-      "size": 1624,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/RulingsSection.tsx",
-      "lines": 98,
-      "limit": 500,
-      "percentage": 19.6,
-      "size": 2938,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/RulingsFilterControls.tsx",
-      "lines": 65,
-      "limit": 500,
-      "percentage": 13,
-      "size": 2031,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/RulingItem.tsx",
-      "lines": 58,
-      "limit": 500,
-      "percentage": 11.600000000000001,
-      "size": 1565,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/OfficialText.tsx",
-      "lines": 35,
-      "limit": 500,
-      "percentage": 7.000000000000001,
-      "size": 1108,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/NotFoundState.tsx",
-      "lines": 41,
-      "limit": 500,
-      "percentage": 8.200000000000001,
-      "size": 1314,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/Keywords.tsx",
-      "lines": 28,
-      "limit": 500,
-      "percentage": 5.6000000000000005,
-      "size": 625,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/ErrorState.tsx",
-      "lines": 39,
-      "limit": 500,
-      "percentage": 7.8,
-      "size": 1218,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardImageSection.tsx",
-      "lines": 26,
-      "limit": 500,
-      "percentage": 5.2,
-      "size": 780,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardHeaderInfo.tsx",
-      "lines": 17,
-      "limit": 500,
-      "percentage": 3.4000000000000004,
-      "size": 496,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardDetailSkeleton.tsx",
-      "lines": 50,
-      "limit": 500,
-      "percentage": 10,
-      "size": 1531,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardDescription.tsx",
-      "lines": 16,
-      "limit": 500,
-      "percentage": 3.2,
-      "size": 455,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardBreadcrumb.tsx",
-      "lines": 17,
-      "limit": 500,
-      "percentage": 3.4000000000000004,
-      "size": 469,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/cards/[id]/CardDetailClient/CardActions.tsx",
-      "lines": 18,
-      "limit": 500,
-      "percentage": 3.5999999999999996,
-      "size": 416,
       "status": "passed"
     },
     {
@@ -8981,14 +8669,6 @@
       "limit": 500,
       "percentage": 31,
       "size": 4942,
-      "status": "passed"
-    },
-    {
-      "file": "src/app/analytics/page.tsx",
-      "lines": 126,
-      "limit": 500,
-      "percentage": 25.2,
-      "size": 4551,
       "status": "passed"
     },
     {
@@ -9120,6 +8800,358 @@
       "status": "passed"
     },
     {
+      "file": "src/app/[gameSlug]/page.tsx",
+      "lines": 68,
+      "limit": 500,
+      "percentage": 13.600000000000001,
+      "size": 2054,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/layout.tsx",
+      "lines": 26,
+      "limit": 500,
+      "percentage": 5.2,
+      "size": 669,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/templates/page.tsx",
+      "lines": 121,
+      "limit": 500,
+      "percentage": 24.2,
+      "size": 4640,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/favorites/page.tsx",
+      "lines": 145,
+      "limit": 500,
+      "percentage": 28.999999999999996,
+      "size": 5136,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/decks/page.tsx",
+      "lines": 188,
+      "limit": 500,
+      "percentage": 37.6,
+      "size": 6495,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/decks/[id]/page.tsx",
+      "lines": 133,
+      "limit": 500,
+      "percentage": 26.6,
+      "size": 4611,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/collection/page.tsx",
+      "lines": 28,
+      "limit": 500,
+      "percentage": 5.6000000000000005,
+      "size": 764,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/page.tsx",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 1411,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/NewCardsPageClient.tsx",
+      "lines": 9,
+      "limit": 500,
+      "percentage": 1.7999999999999998,
+      "size": 292,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/CardsPageClient.tsx",
+      "lines": 9,
+      "limit": 500,
+      "percentage": 1.7999999999999998,
+      "size": 277,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents.tsx",
+      "lines": 21,
+      "limit": 500,
+      "percentage": 4.2,
+      "size": 444,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/NewCardsPageContent.tsx",
+      "lines": 163,
+      "limit": 500,
+      "percentage": 32.6,
+      "size": 3883,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/ui/ViewToggle.tsx",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 1397,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/ui/SortControls.tsx",
+      "lines": 50,
+      "limit": 500,
+      "percentage": 10,
+      "size": 1623,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/NewCardsPage/ui/FilterToolbar.tsx",
+      "lines": 63,
+      "limit": 500,
+      "percentage": 12.6,
+      "size": 1760,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/WelcomeMessage.tsx",
+      "lines": 43,
+      "limit": 500,
+      "percentage": 8.6,
+      "size": 1336,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/TraditionalPaginationResults.tsx",
+      "lines": 97,
+      "limit": 500,
+      "percentage": 19.400000000000002,
+      "size": 2570,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/SortControls.tsx",
+      "lines": 36,
+      "limit": 500,
+      "percentage": 7.199999999999999,
+      "size": 1128,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/ResultsSection.tsx",
+      "lines": 101,
+      "limit": 500,
+      "percentage": 20.200000000000003,
+      "size": 2910,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/ResultsHeader.tsx",
+      "lines": 48,
+      "limit": 500,
+      "percentage": 9.6,
+      "size": 1341,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/PaginationModeSelector.tsx",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 1173,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/NoResultsState.tsx",
+      "lines": 42,
+      "limit": 500,
+      "percentage": 8.4,
+      "size": 1276,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/InfiniteScrollResults.tsx",
+      "lines": 75,
+      "limit": 500,
+      "percentage": 15,
+      "size": 2476,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPageComponents/CardDetailModal.tsx",
+      "lines": 45,
+      "limit": 500,
+      "percentage": 9,
+      "size": 1416,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/components/CardsPage/CardsPageContent.tsx",
+      "lines": 156,
+      "limit": 500,
+      "percentage": 31.2,
+      "size": 3833,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/page.tsx",
+      "lines": 23,
+      "limit": 500,
+      "percentage": 4.6,
+      "size": 522,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient.tsx",
+      "lines": 110,
+      "limit": 500,
+      "percentage": 22,
+      "size": 3154,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/components/CardMetadataSection.tsx",
+      "lines": 114,
+      "limit": 500,
+      "percentage": 22.8,
+      "size": 3367,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/components/BasicInformation.tsx",
+      "lines": 152,
+      "limit": 500,
+      "percentage": 30.4,
+      "size": 4280,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/SpecialAbilities.tsx",
+      "lines": 53,
+      "limit": 500,
+      "percentage": 10.6,
+      "size": 1624,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/RulingsSection.tsx",
+      "lines": 98,
+      "limit": 500,
+      "percentage": 19.6,
+      "size": 2938,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/RulingsFilterControls.tsx",
+      "lines": 65,
+      "limit": 500,
+      "percentage": 13,
+      "size": 2031,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/RulingItem.tsx",
+      "lines": 58,
+      "limit": 500,
+      "percentage": 11.600000000000001,
+      "size": 1565,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/OfficialText.tsx",
+      "lines": 35,
+      "limit": 500,
+      "percentage": 7.000000000000001,
+      "size": 1108,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/NotFoundState.tsx",
+      "lines": 41,
+      "limit": 500,
+      "percentage": 8.200000000000001,
+      "size": 1314,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/Keywords.tsx",
+      "lines": 28,
+      "limit": 500,
+      "percentage": 5.6000000000000005,
+      "size": 625,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/ErrorState.tsx",
+      "lines": 39,
+      "limit": 500,
+      "percentage": 7.8,
+      "size": 1218,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardImageSection.tsx",
+      "lines": 26,
+      "limit": 500,
+      "percentage": 5.2,
+      "size": 780,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardHeaderInfo.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 496,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardDetailSkeleton.tsx",
+      "lines": 50,
+      "limit": 500,
+      "percentage": 10,
+      "size": 1531,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardDescription.tsx",
+      "lines": 16,
+      "limit": 500,
+      "percentage": 3.2,
+      "size": 455,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardBreadcrumb.tsx",
+      "lines": 17,
+      "limit": 500,
+      "percentage": 3.4000000000000004,
+      "size": 469,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/cards/[id]/CardDetailClient/CardActions.tsx",
+      "lines": 18,
+      "limit": 500,
+      "percentage": 3.5999999999999996,
+      "size": 416,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/analytics/page.tsx",
+      "lines": 126,
+      "limit": 500,
+      "percentage": 25.2,
+      "size": 4551,
+      "status": "passed"
+    },
+    {
       "file": "src/store/slices/uiSlice.test.ts",
       "lines": 167,
       "limit": 1000,
@@ -9153,34 +9185,34 @@
     },
     {
       "file": "src/app/api/decks/route.test.ts",
-      "lines": 645,
+      "lines": 647,
       "limit": 1000,
-      "percentage": 64.5,
-      "size": 20100,
+      "percentage": 64.7,
+      "size": 20110,
       "status": "passed"
     },
     {
       "file": "src/app/api/decks/[id]/route.test.ts",
-      "lines": 681,
+      "lines": 683,
       "limit": 1000,
-      "percentage": 68.10000000000001,
-      "size": 21268,
+      "percentage": 68.30000000000001,
+      "size": 21278,
       "status": "passed"
     },
     {
       "file": "src/app/api/collections/route.test.ts",
-      "lines": 735,
+      "lines": 737,
       "limit": 1000,
-      "percentage": 73.5,
-      "size": 23150,
+      "percentage": 73.7,
+      "size": 23160,
       "status": "passed"
     },
     {
       "file": "src/app/api/cards/search/route.test.ts",
-      "lines": 429,
+      "lines": 431,
       "limit": 1000,
-      "percentage": 42.9,
-      "size": 11469,
+      "percentage": 43.1,
+      "size": 11479,
       "status": "passed"
     },
     {

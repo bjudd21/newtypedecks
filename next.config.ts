@@ -101,8 +101,28 @@ const nextConfig: NextConfig = {
   }),
 
   // Redirects for SEO and user experience
+  // Old unscoped game paths redirect to /gundam/* for backward compatibility
   async redirects() {
-    return [];
+    const gameScoped = [
+      'cards',
+      'decks',
+      'collection',
+      'analytics',
+      'templates',
+      'favorites',
+    ];
+    return gameScoped.flatMap((path) => [
+      {
+        source: `/${path}`,
+        destination: `/gundam/${path}`,
+        permanent: false,
+      },
+      {
+        source: `/${path}/:rest*`,
+        destination: `/gundam/${path}/:rest*`,
+        permanent: false,
+      },
+    ]);
   },
 
   // Performance monitoring
