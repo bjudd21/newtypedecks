@@ -7,17 +7,20 @@ import { prisma } from '@/lib/database';
 export async function checkDeckAccess(
   deckId: string,
   userId?: string
-): Promise<{ allowed: boolean; deck?: { userId: string; isPublic: boolean } }> {
+): Promise<{
+  allowed: boolean;
+  deck?: { userId: string; visibility: string };
+}> {
   const deck = await prisma.deck.findUnique({
     where: { id: deckId },
-    select: { userId: true, isPublic: true },
+    select: { userId: true, visibility: true },
   });
 
   if (!deck) {
     return { allowed: false };
   }
 
-  if (deck.isPublic || (userId && deck.userId === userId)) {
+  if (deck.visibility === 'PUBLIC' || (userId && deck.userId === userId)) {
     return { allowed: true, deck };
   }
 

@@ -1,7 +1,7 @@
 /**
  * Deck Validation Service
  *
- * Validates deck composition against Gundam Card Game rules
+ * Validates deck composition against game rules
  */
 
 import type {
@@ -46,7 +46,7 @@ export class DeckValidationService {
   }
 
   /**
-   * Validate a complete deck against the provided rules (or Gundam defaults if omitted).
+   * Validate a complete deck against the provided rules (or default rules if omitted).
    */
   validateDeck(
     cards: DeckCard[],

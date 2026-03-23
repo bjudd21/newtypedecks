@@ -165,7 +165,7 @@ export function GamesPageContent() {
               </button>
             </div>
 
-            <div className="max-h-[75vh] overflow-y-auto p-6 space-y-4">
+            <div className="max-h-[75vh] space-y-4 overflow-y-auto p-6">
               {formError && (
                 <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400">
                   {formError}
@@ -231,7 +231,7 @@ export function GamesPageContent() {
                   />
                 </div>
                 <div className="flex items-end pb-1">
-                  <label className="flex items-center gap-2 cursor-pointer">
+                  <label className="flex cursor-pointer items-center gap-2">
                     <input
                       type="checkbox"
                       checked={formData.isActive}
@@ -271,7 +271,11 @@ export function GamesPageContent() {
                 onClick={handleSubmit}
                 disabled={isSaving}
               >
-                {isSaving ? 'Saving...' : editingGame ? 'Save Changes' : 'Create Game'}
+                {isSaving
+                  ? 'Saving...'
+                  : editingGame
+                    ? 'Save Changes'
+                    : 'Create Game'}
               </Button>
             </div>
           </div>

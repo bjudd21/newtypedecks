@@ -70,7 +70,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       id: deck.id,
       name: deck.name,
       description: deck.description,
-      isPublic: deck.isPublic,
+      visibility: deck.visibility,
       userId: deck.userId,
       user: deck.user,
       cards: deck.cards.map((dc) => ({
@@ -106,7 +106,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const { name, description, isPublic, ruleset, cards } =
+    const { name, description, visibility, ruleset, cards } =
       await request.json();
 
     // Check ownership
@@ -138,14 +138,19 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     interface DeckUpdateData {
       name?: string;
       description?: string | null;
-      isPublic?: boolean;
+      visibility?: 'DRAFT' | 'PRIVATE' | 'PUBLIC';
       ruleset?: 'COMPETITIVE' | 'CASUAL';
     }
 
     const updateData: DeckUpdateData = {};
     if (name !== undefined) updateData.name = name;
     if (description !== undefined) updateData.description = description;
-    if (isPublic !== undefined) updateData.isPublic = Boolean(isPublic);
+    if (
+      visibility !== undefined &&
+      ['DRAFT', 'PRIVATE', 'PUBLIC'].includes(visibility)
+    ) {
+      updateData.visibility = visibility as 'DRAFT' | 'PRIVATE' | 'PUBLIC';
+    }
     if (ruleset !== undefined && ['COMPETITIVE', 'CASUAL'].includes(ruleset)) {
       updateData.ruleset = ruleset as 'COMPETITIVE' | 'CASUAL';
     }

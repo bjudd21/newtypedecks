@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
       id: deck.id,
       name: deck.name,
       description: deck.description,
-      isPublic: deck.isPublic,
+      visibility: deck.visibility,
       createdAt: deck.createdAt,
       updatedAt: deck.updatedAt,
       cardCount: deck.cards.reduce((sum, dc) => sum + dc.quantity, 0),

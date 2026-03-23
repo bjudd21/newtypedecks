@@ -6,9 +6,9 @@ import { Metadata } from 'next';
 import { TermsOfService } from '@/components/layout/TermsOfService';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Gundam Card Game',
+  title: 'Terms of Service | Newtype Decks',
   description:
-    'Terms of service and usage guidelines for the Gundam Card Game website',
+    'Terms of service and usage guidelines for the Newtype Decks platform',
   robots: {
     index: true,
     follow: true,

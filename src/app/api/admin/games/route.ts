@@ -97,9 +97,6 @@ export async function POST(request: NextRequest) {
       );
     }
     console.error('Admin games POST error:', error);
-    return NextResponse.json(
-      { success: false, error: msg },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }

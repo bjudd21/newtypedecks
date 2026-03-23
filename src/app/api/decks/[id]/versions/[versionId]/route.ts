@@ -191,7 +191,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
           description: deck.description,
           versionName: `Before restoring to v${versionToRestore.version}`,
           changeNote: `Automatic backup before restoring to version ${versionToRestore.version}`,
-          isPublic: deck.isPublic,
+          isPublic: deck.visibility === 'PUBLIC',
           createdBy: session.user.id,
           cards: {
             create: currentDeckCards.map((deckCard) => ({

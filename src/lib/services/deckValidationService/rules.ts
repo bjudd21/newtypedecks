@@ -5,7 +5,7 @@
 import type { ValidationRule } from './types';
 
 /**
- * Standard Gundam Card Game validation rules
+ * Standard validation rules (game-agnostic defaults)
  */
 export const VALIDATION_RULES: ValidationRule[] = [
   {

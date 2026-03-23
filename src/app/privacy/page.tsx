@@ -6,9 +6,9 @@ import { Metadata } from 'next';
 import { PrivacyNotice } from '@/components/layout/PrivacyNotice';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Gundam Card Game',
+  title: 'Privacy Policy | Newtype Decks',
   description:
-    'Privacy policy and data handling practices for the Gundam Card Game website',
+    'Privacy policy and data handling practices for the Newtype Decks platform',
   robots: {
     index: true,
     follow: true,

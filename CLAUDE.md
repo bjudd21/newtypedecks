@@ -67,6 +67,18 @@ Three-tier system (replaces boolean `isPublic`):
 5. All API queries for cards/decks/collections must filter by `gameId`
 6. Export filenames use `game.slug`, not hardcoded 'gundam'
 
+### ⚠️ Known Migration Gaps (Architect Review 2026-03-23)
+
+**CRITICAL — must be resolved before production:**
+
+1. **gameAttributes JSONB is not read by queries.** The JSONB column exists and One Piece data is written to it, but all card search/filter queries still read from deprecated flat columns (`card.faction`, `card.pilot`, etc.). One Piece card filtering is broken. All game-specific field queries must use Prisma JSON path syntax on `gameAttributes`.
+
+2. **isPublic boolean still used in 36 places.** The `DeckVisibility` enum exists but favorites, templates, and deck sub-routes still check the deprecated `isPublic` boolean. Use `visibility` enum everywhere.
+
+3. **15+ API routes missing game scoping.** Favorites, templates, deck sub-routes (`/[id]/like`, `/[id]/view`, `/[id]/versions`, `/by-code`), and some collection/submission routes don't filter by gameId.
+
+4. **middleware.ts route matchers are stale.** Auth-required route patterns don't match the `[gameSlug]` prefix. `/api/admin` is not guarded at middleware level.
+
 ## Development Commands
 
 ### Setup and Environment

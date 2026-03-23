@@ -1,4 +1,4 @@
-// Utility functions for the Gundam Card Game website
+// Utility functions for the Newtype Decks platform
 
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';

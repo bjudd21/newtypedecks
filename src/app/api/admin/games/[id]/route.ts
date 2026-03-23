@@ -46,9 +46,6 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       );
     }
     console.error('Admin game PATCH error:', error);
-    return NextResponse.json(
-      { success: false, error: msg },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }

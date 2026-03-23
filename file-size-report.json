@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-03-23T20:48:23.974Z",
+  "timestamp": "2026-03-23T22:31:36.999Z",
   "summary": {
-    "passed": 1167,
+    "passed": 1186,
     "warnings": 6,
     "errors": 0,
-    "total": 1173
+    "total": 1192
   },
   "files": [
     {
@@ -172,7 +172,7 @@
       "lines": 150,
       "limit": 500,
       "percentage": 30,
-      "size": 3969,
+      "size": 3967,
       "status": "passed"
     },
     {
@@ -1300,7 +1300,7 @@
       "lines": 76,
       "limit": 500,
       "percentage": 15.2,
-      "size": 1839,
+      "size": 1847,
       "status": "passed"
     },
     {
@@ -1308,7 +1308,7 @@
       "lines": 133,
       "limit": 500,
       "percentage": 26.6,
-      "size": 3422,
+      "size": 3408,
       "status": "passed"
     },
     {
@@ -2516,7 +2516,7 @@
       "lines": 51,
       "limit": 500,
       "percentage": 10.2,
-      "size": 1005,
+      "size": 995,
       "status": "passed"
     },
     {
@@ -3481,10 +3481,10 @@
     },
     {
       "file": "src/components/navigation/gameRouting.ts",
-      "lines": 69,
+      "lines": 74,
       "limit": 500,
-      "percentage": 13.8,
-      "size": 1654,
+      "percentage": 14.799999999999999,
+      "size": 1766,
       "status": "passed"
     },
     {
@@ -4660,7 +4660,7 @@
       "lines": 237,
       "limit": 500,
       "percentage": 47.4,
-      "size": 5968,
+      "size": 5980,
       "status": "passed"
     },
     {
@@ -4668,7 +4668,7 @@
       "lines": 181,
       "limit": 500,
       "percentage": 36.199999999999996,
-      "size": 4554,
+      "size": 4556,
       "status": "passed"
     },
     {
@@ -4780,7 +4780,7 @@
       "lines": 231,
       "limit": 500,
       "percentage": 46.2,
-      "size": 5813,
+      "size": 5835,
       "status": "passed"
     },
     {
@@ -4796,7 +4796,7 @@
       "lines": 243,
       "limit": 500,
       "percentage": 48.6,
-      "size": 6565,
+      "size": 6569,
       "status": "passed"
     },
     {
@@ -4817,10 +4817,10 @@
     },
     {
       "file": "src/app/api/decks/[id]/route.ts",
-      "lines": 234,
+      "lines": 236,
       "limit": 500,
-      "percentage": 46.800000000000004,
-      "size": 5905,
+      "percentage": 47.199999999999996,
+      "size": 6036,
       "status": "passed"
     },
     {
@@ -4836,7 +4836,7 @@
       "lines": 238,
       "limit": 500,
       "percentage": 47.599999999999994,
-      "size": 5947,
+      "size": 5962,
       "status": "passed"
     },
     {
@@ -4844,7 +4844,7 @@
       "lines": 318,
       "limit": 500,
       "percentage": 63.6,
-      "size": 8296,
+      "size": 8311,
       "status": "passed"
     },
     {
@@ -4860,7 +4860,7 @@
       "lines": 101,
       "limit": 500,
       "percentage": 20.200000000000003,
-      "size": 2243,
+      "size": 2258,
       "status": "passed"
     },
     {
@@ -4884,7 +4884,7 @@
       "lines": 42,
       "limit": 500,
       "percentage": 8.4,
-      "size": 940,
+      "size": 958,
       "status": "passed"
     },
     {
@@ -5105,10 +5105,10 @@
     },
     {
       "file": "src/app/api/cards/route.ts",
-      "lines": 109,
+      "lines": 117,
       "limit": 500,
-      "percentage": 21.8,
-      "size": 3091,
+      "percentage": 23.400000000000002,
+      "size": 3359,
       "status": "passed"
     },
     {
@@ -5121,10 +5121,10 @@
     },
     {
       "file": "src/app/api/cards/search/route.ts",
-      "lines": 133,
+      "lines": 142,
       "limit": 500,
-      "percentage": 26.6,
-      "size": 3616,
+      "percentage": 28.4,
+      "size": 4057,
       "status": "passed"
     },
     {
@@ -5169,10 +5169,10 @@
     },
     {
       "file": "src/app/api/cards/[id]/route.ts",
-      "lines": 195,
+      "lines": 202,
       "limit": 500,
-      "percentage": 39,
-      "size": 5289,
+      "percentage": 40.400000000000006,
+      "size": 5546,
       "status": "passed"
     },
     {
@@ -5288,6 +5288,22 @@
       "status": "passed"
     },
     {
+      "file": "src/app/api/admin/games/route.ts",
+      "lines": 103,
+      "limit": 500,
+      "percentage": 20.599999999999998,
+      "size": 2741,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/api/admin/games/[id]/route.ts",
+      "lines": 52,
+      "limit": 500,
+      "percentage": 10.4,
+      "size": 1658,
+      "status": "passed"
+    },
+    {
       "file": "src/app/api/_lib/resolveGame.ts",
       "lines": 43,
       "limit": 500,
@@ -5341,6 +5357,38 @@
       "limit": 500,
       "percentage": 11.4,
       "size": 1461,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient/types.ts",
+      "lines": 59,
+      "limit": 500,
+      "percentage": 11.799999999999999,
+      "size": 1110,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient/api.ts",
+      "lines": 66,
+      "limit": 500,
+      "percentage": 13.200000000000001,
+      "size": 2020,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient/hooks/useGamesPageState.ts",
+      "lines": 38,
+      "limit": 500,
+      "percentage": 7.6,
+      "size": 977,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient/hooks/useGamesPageHandlers.ts",
+      "lines": 143,
+      "limit": 500,
+      "percentage": 28.599999999999998,
+      "size": 3584,
       "status": "passed"
     },
     {
@@ -5401,26 +5449,26 @@
     },
     {
       "file": "src/app/admin/cards/CardsPageClient/api.ts",
-      "lines": 48,
+      "lines": 51,
       "limit": 500,
-      "percentage": 9.6,
-      "size": 1113,
+      "percentage": 10.2,
+      "size": 1179,
       "status": "passed"
     },
     {
       "file": "src/app/admin/cards/CardsPageClient/hooks/useCardsPageState.ts",
-      "lines": 48,
+      "lines": 60,
       "limit": 500,
-      "percentage": 9.6,
-      "size": 1220,
+      "percentage": 12,
+      "size": 1492,
       "status": "passed"
     },
     {
       "file": "src/app/admin/cards/CardsPageClient/hooks/useCardsPageHandlers.ts",
-      "lines": 93,
+      "lines": 124,
       "limit": 500,
-      "percentage": 18.6,
-      "size": 2326,
+      "percentage": 24.8,
+      "size": 3192,
       "status": "passed"
     },
     {
@@ -5429,6 +5477,54 @@
       "limit": 500,
       "percentage": 10,
       "size": 1253,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/types.ts",
+      "lines": 14,
+      "limit": 500,
+      "percentage": 2.8000000000000003,
+      "size": 269,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/index.ts",
+      "lines": 2,
+      "limit": 500,
+      "percentage": 0.4,
+      "size": 59,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/api.ts",
+      "lines": 28,
+      "limit": 500,
+      "percentage": 5.6000000000000005,
+      "size": 730,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/hooks/useProxyState.ts",
+      "lines": 102,
+      "limit": 500,
+      "percentage": 20.4,
+      "size": 2856,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/hooks/useProxySearch.ts",
+      "lines": 60,
+      "limit": 500,
+      "percentage": 12,
+      "size": 1544,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/hooks/usePDFExport.ts",
+      "lines": 151,
+      "limit": 500,
+      "percentage": 30.2,
+      "size": 4486,
       "status": "passed"
     },
     {
@@ -6436,7 +6532,7 @@
       "lines": 363,
       "limit": 500,
       "percentage": 72.6,
-      "size": 14967,
+      "size": 14933,
       "status": "passed"
     },
     {
@@ -6452,7 +6548,7 @@
       "lines": 326,
       "limit": 500,
       "percentage": 65.2,
-      "size": 12963,
+      "size": 12961,
       "status": "passed"
     },
     {
@@ -6492,7 +6588,7 @@
       "lines": 362,
       "limit": 500,
       "percentage": 72.39999999999999,
-      "size": 13424,
+      "size": 13422,
       "status": "passed"
     },
     {
@@ -8628,7 +8724,7 @@
       "lines": 27,
       "limit": 500,
       "percentage": 5.4,
-      "size": 623,
+      "size": 618,
       "status": "passed"
     },
     {
@@ -8708,7 +8804,7 @@
       "lines": 27,
       "limit": 500,
       "percentage": 5.4,
-      "size": 623,
+      "size": 618,
       "status": "passed"
     },
     {
@@ -8740,7 +8836,7 @@
       "lines": 27,
       "limit": 500,
       "percentage": 5.4,
-      "size": 611,
+      "size": 606,
       "status": "passed"
     },
     {
@@ -8856,11 +8952,35 @@
       "status": "passed"
     },
     {
-      "file": "src/app/admin/components/AdminDashboard/AdminDashboardContent.tsx",
-      "lines": 54,
+      "file": "src/app/admin/games/page.tsx",
+      "lines": 25,
       "limit": 500,
-      "percentage": 10.8,
-      "size": 1615,
+      "percentage": 5,
+      "size": 663,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient.tsx",
+      "lines": 7,
+      "limit": 500,
+      "percentage": 1.4000000000000001,
+      "size": 219,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/games/GamesPageClient/GamesPageContent.tsx",
+      "lines": 289,
+      "limit": 500,
+      "percentage": 57.8,
+      "size": 10540,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/admin/components/AdminDashboard/AdminDashboardContent.tsx",
+      "lines": 62,
+      "limit": 500,
+      "percentage": 12.4,
+      "size": 1857,
       "status": "passed"
     },
     {
@@ -8913,10 +9033,10 @@
     },
     {
       "file": "src/app/admin/cards/CardsPageClient/CardsPageContent.tsx",
-      "lines": 116,
+      "lines": 126,
       "limit": 500,
-      "percentage": 23.200000000000003,
-      "size": 2890,
+      "percentage": 25.2,
+      "size": 3132,
       "status": "passed"
     },
     {
@@ -8937,18 +9057,18 @@
     },
     {
       "file": "src/app/admin/cards/CardsPageClient/ui/CardsPageHeader.tsx",
-      "lines": 31,
+      "lines": 61,
       "limit": 500,
-      "percentage": 6.2,
-      "size": 735,
+      "percentage": 12.2,
+      "size": 1603,
       "status": "passed"
     },
     {
       "file": "src/app/[gameSlug]/page.tsx",
-      "lines": 70,
+      "lines": 75,
       "limit": 500,
-      "percentage": 14.000000000000002,
-      "size": 2087,
+      "percentage": 15,
+      "size": 2208,
       "status": "passed"
     },
     {
@@ -8965,6 +9085,38 @@
       "limit": 500,
       "percentage": 24.4,
       "size": 4699,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/page.tsx",
+      "lines": 20,
+      "limit": 500,
+      "percentage": 4,
+      "size": 473,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/ProxiesPageContent.tsx",
+      "lines": 100,
+      "limit": 500,
+      "percentage": 20,
+      "size": 3030,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/ui/ProxySheetPanel.tsx",
+      "lines": 142,
+      "limit": 500,
+      "percentage": 28.4,
+      "size": 4787,
+      "status": "passed"
+    },
+    {
+      "file": "src/app/[gameSlug]/proxies/ProxiesPageClient/ui/ProxySearchPanel.tsx",
+      "lines": 165,
+      "limit": 500,
+      "percentage": 33,
+      "size": 5404,
       "status": "passed"
     },
     {

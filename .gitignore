@@ -44,3 +44,4 @@ next-env.d.ts
 /uploads/*
 !/uploads/.gitkeep
 !/uploads/**/.gitkeep
+.claude/worktrees/

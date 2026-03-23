@@ -34,7 +34,7 @@ export async function createDeckVersion(
       description: currentDeck.description,
       versionName: `Version ${nextVersion}`,
       changeNote: 'Automatic version created before deck update',
-      isPublic: currentDeck.isPublic,
+      isPublic: currentDeck.visibility === 'PUBLIC',
       createdBy: userId,
       cards: {
         create: currentDeck.cards.map((deckCard) => ({

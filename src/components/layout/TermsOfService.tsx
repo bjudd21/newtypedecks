@@ -2,7 +2,7 @@
  * Terms of Service Component
  *
  * Displays terms of service and usage guidelines
- * for the Gundam Card Game website
+ * for the Newtype Decks platform
  */
 
 import React from 'react';
@@ -80,9 +80,9 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 </p>
               </div>
               <p className="text-gray-700">
-                Welcome to the Gundam Card Game Database, a community-driven
-                resource for players and fans. These terms govern your use of
-                our website and services.
+                Welcome to Newtype Decks, a community-driven resource for
+                players and fans. These terms govern your use of our website and
+                services.
               </p>
             </section>
 
@@ -157,7 +157,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <div className="space-y-4">
                 <div className="rounded-lg border border-gray-200 p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
-                    🎮 Gundam Card Game Content
+                    🎮 Game Content
                   </h4>
                   <p className="mb-2 text-sm text-gray-700">
                     All card images, game rules, and official content are owned
@@ -340,8 +340,8 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               educational and personal use. Commercial use is prohibited.
             </p>
             <p>
-              <strong>Content:</strong> All Gundam Card Game content is owned by
-              Bandai Namco Entertainment and used under fair use provisions.
+              <strong>Content:</strong> All game-specific content is owned by
+              the respective publishers and used under fair use provisions.
             </p>
             <p>
               <strong>Community:</strong> Be respectful and constructive in all

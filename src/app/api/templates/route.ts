@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     // Build where clause
     const where: Record<string, unknown> = {
       isTemplate: true,
-      isPublic: true, // Only show public templates
+      visibility: 'PUBLIC', // Only show public templates
     };
 
     if (search) {
@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
         name: templateName?.trim() || `${deck.name} (Template)`,
         description:
           templateDescription?.trim() || `Template based on ${deck.name}`,
-        isPublic: true,
+        visibility: 'PUBLIC',
         isTemplate: true,
         templateSource: templateSource?.trim() || 'Community',
         userId: session.user.id,

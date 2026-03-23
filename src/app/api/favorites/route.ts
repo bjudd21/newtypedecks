@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
         id: favorite.deck.id,
         name: favorite.deck.name,
         description: favorite.deck.description,
-        isPublic: favorite.deck.isPublic,
+        visibility: favorite.deck.visibility,
         isTemplate: favorite.deck.isTemplate,
         templateSource: favorite.deck.templateSource,
         creator: favorite.deck.user,
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
       select: {
         id: true,
         name: true,
-        isPublic: true,
+        visibility: true,
         userId: true,
       },
     });
@@ -170,7 +170,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if deck is accessible (public or owned by user)
-    if (!deck.isPublic && deck.userId !== session.user.id) {
+    if (deck.visibility !== 'PUBLIC' && deck.userId !== session.user.id) {
       return NextResponse.json(
         { error: 'Cannot favorite private deck that you do not own' },
         { status: 403 }
@@ -206,7 +206,7 @@ export async function POST(request: NextRequest) {
             id: true,
             name: true,
             description: true,
-            isPublic: true,
+            visibility: true,
             isTemplate: true,
           },
         },

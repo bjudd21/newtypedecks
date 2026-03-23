@@ -10,7 +10,9 @@
       "Bash(npm install:*)",
       "Bash(./node_modules/.bin/prisma validate:*)",
       "mcp__github__issue_read",
-      "mcp__github__add_issue_comment"
+      "mcp__github__add_issue_comment",
+      "Bash(git push:*)",
+      "Bash(gh issue:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

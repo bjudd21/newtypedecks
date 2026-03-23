@@ -2,7 +2,7 @@
  * Privacy Notice Component
  *
  * Displays privacy information and data handling practices
- * for user data in the Gundam Card Game website
+ * for user data in the Newtype Decks platform
  */
 
 import React from 'react';

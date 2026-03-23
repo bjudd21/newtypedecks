@@ -6,9 +6,9 @@ import { Metadata } from 'next';
 import { CookieNotice } from '@/components/layout/CookieNotice';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | Gundam Card Game',
+  title: 'Cookie Policy | Newtype Decks',
   description:
-    'Cookie policy and usage information for the Gundam Card Game website',
+    'Cookie policy and usage information for the Newtype Decks platform',
   robots: {
     index: true,
     follow: true,

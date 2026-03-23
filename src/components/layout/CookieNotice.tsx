@@ -4,7 +4,7 @@
  * Cookie Notice Component
  *
  * Displays cookie usage information and consent management
- * for the Gundam Card Game website
+ * for the Newtype Decks platform
  */
 
 import React, { useState, useEffect } from 'react';

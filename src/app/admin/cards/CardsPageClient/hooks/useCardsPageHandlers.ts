@@ -50,13 +50,11 @@ export function useCardsPageHandlers({
       .then((r) => r.json())
       .then((data) => {
         if (data.success && data.games.length > 0) {
-          const simplified = data.games.map(
-            (g: SimpleGame) => ({
-              id: g.id,
-              slug: g.slug,
-              name: g.name,
-            })
-          );
+          const simplified = data.games.map((g: SimpleGame) => ({
+            id: g.id,
+            slug: g.slug,
+            name: g.name,
+          }));
           setGames(simplified);
           setSelectedGameSlug(simplified[0].slug);
         }

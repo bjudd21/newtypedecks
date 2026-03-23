@@ -2,7 +2,7 @@
  * Card keyword extraction utilities
  */
 
-// Default keywords for Gundam Card Game (used when no game config is available)
+// Default keywords for Gundam (used when no game config is available)
 const GUNDAM_DEFAULT_KEYWORDS = [
   'Pilot',
   'Mobile Suit',

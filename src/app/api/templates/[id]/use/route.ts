@@ -32,7 +32,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
       where: {
         id: templateId,
         isTemplate: true,
-        isPublic: true,
+        visibility: 'PUBLIC',
       },
       include: {
         cards: {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
         name: name?.trim() || `${template.name} Copy`,
         description:
           description?.trim() || `Based on ${template.name} template`,
-        isPublic: false, // New decks are private by default
+        visibility: 'DRAFT', // New decks start as draft
         isTemplate: false,
         userId: session.user.id,
         cards: {
