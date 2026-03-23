@@ -29,6 +29,10 @@ export interface DeckZone {
   key: string;
   label: string;
   required: boolean;
+  minSize?: number;
+  maxSize?: number;
+  /** When true, this zone is auto-managed (e.g. DON!! deck) and skips card-selection validation */
+  autoManaged?: boolean;
 }
 
 export interface DeckRules {

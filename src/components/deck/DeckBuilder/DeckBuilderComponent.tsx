@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { setIsEditing } from '@/store/slices/deckSlice';
 import { useAuth, useDecks } from '@/hooks';
+import { useGame } from '@/contexts/GameContext';
 import { DeckHeader } from '../DeckHeader';
 import { DeckActions } from '../DeckActions';
 import { DeckStats } from '../DeckStats';
@@ -36,6 +37,7 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     (state: RootState) => state.decks
   );
   const { isAuthenticated, user } = useAuth();
+  const game = useGame();
   const {
     createDeck,
     updateDeck,
@@ -156,6 +158,8 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
             collectionQuantities={collectionQuantities}
             onCardDrop={handleCardDrop}
             onQuantityChange={handleQuantityChange}
+            deckCards={currentDeck?.cards || []}
+            deckRules={game?.config?.deckRules}
           />
         </div>
       </div>

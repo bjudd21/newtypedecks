@@ -11,9 +11,11 @@ import { prisma } from '@/lib/database';
 
 // Mock dependencies
 jest.mock('@/app/api/_lib/resolveGame', () => ({
-  resolveGameFromRequest: jest
-    .fn()
-    .mockResolvedValue({ gameId: 'game-gundam-id' }),
+  resolveGameFromRequest: jest.fn().mockResolvedValue({
+    gameId: 'game-gundam-id',
+    gameName: 'Gundam Card Game',
+    game: { config: { deckRules: { maxCopiesPerCard: 4 } } },
+  }),
 }));
 jest.mock('next-auth/next');
 jest.mock('@/lib/database', () => ({

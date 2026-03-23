@@ -8,3 +8,4 @@ export { validateCostDistribution } from './costDistribution';
 export { validateFactionConsistency } from './factionConsistency';
 export { validateUnitRatio } from './unitRatio';
 export { validateLevelDistribution } from './levelDistribution';
+export { validateZoneCounts } from './zoneValidation';

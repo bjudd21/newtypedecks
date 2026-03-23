@@ -82,20 +82,24 @@ export function useDeckHandlers({
   // Store search results for drag-and-drop
   const [searchResults, setSearchResults] = useState<CardWithRelations[]>([]);
 
-  // Handle card selection from search
+  // Handle card selection from search — auto-route Leaders to 'leader' zone
   const handleCardSelect = useCallback(
     (card: CardWithRelations) => {
       if (currentDeck) {
+        const zones = game?.config?.deckRules?.zones ?? [];
+        const hasLeaderZone = zones.some((z) => z.key === 'leader');
+        const isLeaderCard = card.type?.name?.toLowerCase() === 'leader';
+        const category = hasLeaderZone && isLeaderCard ? 'leader' : 'main';
         dispatch(
           addCardToCurrentDeck({
             card,
             quantity: 1,
-            category: 'main',
+            category,
           })
         );
       }
     },
-    [currentDeck, dispatch]
+    [currentDeck, dispatch, game]
   );
 
   // Handle card quantity updates

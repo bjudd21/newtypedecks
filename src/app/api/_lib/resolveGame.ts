@@ -9,15 +9,18 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getGameBySlug } from '@/lib/database/games';
+import type { GameWithConfig } from '@/lib/types/game';
 
 /**
- * Extract and validate the gameSlug query parameter, then resolve it to a gameId.
+ * Extract and validate the gameSlug query parameter, then resolve it to a game record.
  *
- * Returns { gameId, gameName } on success, or a NextResponse (400 or 404) on failure.
+ * Returns { gameId, gameName, game } on success, or a NextResponse (400 or 404) on failure.
  */
 export async function resolveGameFromRequest(
   request: NextRequest
-): Promise<{ gameId: string; gameName: string } | NextResponse> {
+): Promise<
+  { gameId: string; gameName: string; game: GameWithConfig } | NextResponse
+> {
   const gameSlug = request.nextUrl.searchParams.get('gameSlug');
 
   if (!gameSlug) {
@@ -35,5 +38,5 @@ export async function resolveGameFromRequest(
     );
   }
 
-  return { gameId: game.id, gameName: game.name };
+  return { gameId: game.id, gameName: game.name, game };
 }

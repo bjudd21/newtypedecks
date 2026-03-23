@@ -117,7 +117,8 @@ export async function POST(request: NextRequest) {
   try {
     const gameResult = await resolveGameFromRequest(request);
     if (gameResult instanceof NextResponse) return gameResult;
-    const { gameId } = gameResult;
+    const { gameId, game } = gameResult;
+    const maxCopiesPerCard = game.config.deckRules.maxCopiesPerCard ?? 4;
 
     const session = await getServerSession(authOptions);
 
@@ -191,7 +192,10 @@ export async function POST(request: NextRequest) {
                   ?.id) as string,
               quantity: Math.max(
                 1,
-                Math.min(4, parseInt(String(cardObj.quantity || 1)))
+                Math.min(
+                  maxCopiesPerCard,
+                  parseInt(String(cardObj.quantity || 1))
+                )
               ),
               category: (cardObj.category as string) || 'main',
             };

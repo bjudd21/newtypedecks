@@ -11,6 +11,18 @@ export function validateUnitRatio(
   rule: ValidationRule,
   cards: DeckCard[]
 ): ValidationResult {
+  // Skip when this game has no 'unit' card types (e.g. One Piece TCG)
+  const hasUnitType = cards.some((dc) =>
+    dc.card.type?.name?.toLowerCase().includes('unit')
+  );
+  if (!hasUnitType && cards.length > 0) {
+    return {
+      rule,
+      isValid: true,
+      message: 'Unit ratio not applicable for this game',
+    };
+  }
+
   let unitCount = 0;
   let totalCount = 0;
 

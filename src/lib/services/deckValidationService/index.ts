@@ -21,6 +21,7 @@ import {
   validateFactionConsistency,
   validateUnitRatio,
   validateLevelDistribution,
+  validateZoneCounts,
 } from './validators';
 import { calculateValidationScore } from './scoring';
 import { generateSuggestions } from './suggestions';
@@ -108,6 +109,8 @@ export class DeckValidationService {
         return validateUnitRatio(rule, cards);
       case 'level-distribution':
         return validateLevelDistribution(rule, cards);
+      case 'zone-counts':
+        return validateZoneCounts(rule, cards, deckRules);
       default:
         return {
           rule,

@@ -64,4 +64,12 @@ export const VALIDATION_RULES: ValidationRule[] = [
     category: 'balance',
     severity: 'warning',
   },
+  {
+    id: 'zone-counts',
+    name: 'Zone Card Counts',
+    description:
+      'Each deck zone must satisfy its minimum and maximum card requirements',
+    category: 'structure',
+    severity: 'error',
+  },
 ];

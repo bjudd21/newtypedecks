@@ -11,6 +11,16 @@ export function validateLevelDistribution(
   rule: ValidationRule,
   cards: DeckCard[]
 ): ValidationResult {
+  // Skip when this game doesn't use levels (e.g. One Piece TCG)
+  const hasLevelData = cards.some((dc) => dc.card.level != null);
+  if (!hasLevelData) {
+    return {
+      rule,
+      isValid: true,
+      message: 'Level distribution not applicable for this game',
+    };
+  }
+
   const levelCounts: Record<number, number> = {};
   let totalCards = 0;
 
