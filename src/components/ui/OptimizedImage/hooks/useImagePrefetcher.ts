@@ -1,14 +1,20 @@
 'use client';
 /**
- * Hook for prefetching images
+ * Hook for prefetching images during browser idle time
  */
 
 import { useEffect } from 'react';
-import { ImageCacheService } from '@/lib/services/imageCacheService';
 
 export const useImagePrefetcher = (urls: string[]) => {
   useEffect(() => {
-    const cacheService = ImageCacheService.getInstance();
-    cacheService.prefetchImages(urls);
+    if (typeof window === 'undefined') return;
+    const schedule =
+      'requestIdleCallback' in window ? requestIdleCallback : setTimeout;
+    urls.forEach((url) => {
+      schedule(() => {
+        const img = new Image();
+        img.src = url;
+      });
+    });
   }, [urls]);
 };

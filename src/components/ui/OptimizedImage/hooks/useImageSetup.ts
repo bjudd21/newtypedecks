@@ -5,7 +5,6 @@
 
 import { useState, useEffect } from 'react';
 import { CDNService, type ResponsiveImageSet } from '@/lib/services/cdnService';
-import { ImageCacheService } from '@/lib/services/imageCacheService';
 
 interface UseImageSetupOptions {
   src: string;
@@ -41,7 +40,6 @@ export function useImageSetup({
   const [error, setError] = useState<Error | null>(null);
 
   const cdnService = CDNService.getInstance();
-  const cacheService = ImageCacheService.getInstance();
 
   useEffect(() => {
     const setupImage = async () => {
@@ -73,21 +71,12 @@ export function useImageSetup({
           });
         }
 
-        // Handle caching
-        if (enableCache) {
-          const cachePriority = priority ? 'high' : 'normal';
-          const cachedUrl = await cacheService.getImage(
-            optimizedSrc,
-            cachePriority
-          );
-          setCachedSrc(cachedUrl);
-        } else {
-          setCachedSrc(optimizedSrc);
-        }
+        setCachedSrc(optimizedSrc);
 
-        // Preload if requested
+        // Preload if requested — hint the browser via Image()
         if (preload && !priority) {
-          cacheService.preloadImages([optimizedSrc]);
+          const img = new Image();
+          img.src = optimizedSrc;
         }
       } catch (err) {
         const error =
@@ -111,7 +100,6 @@ export function useImageSetup({
     deviceOptimized,
     preload,
     onError,
-    cacheService,
     cdnService,
   ]);
 

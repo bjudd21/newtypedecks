@@ -4,14 +4,15 @@
  */
 
 import { useEffect } from 'react';
-import { ImageCacheService } from '@/lib/services/imageCacheService';
 
 export const useImagePreloader = (
   urls: string[],
-  priority: 'high' | 'normal' | 'low' = 'normal'
+  _priority: 'high' | 'normal' | 'low' = 'normal'
 ) => {
   useEffect(() => {
-    const cacheService = ImageCacheService.getInstance();
-    cacheService.preloadImages(urls, priority);
-  }, [urls, priority]);
+    urls.slice(0, 10).forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, [urls]);
 };
