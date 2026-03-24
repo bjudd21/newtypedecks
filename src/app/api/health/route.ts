@@ -1,77 +1,89 @@
-// Enhanced health check API endpoint for production monitoring
+/**
+ * Health check endpoint — /api/health
+ *
+ * Public response (no auth):
+ *   { status: "ok" | "error", database: "connected" | "error", rateLimit: "..." }
+ *
+ * Verbose response (?verbose=true + HEALTH_CHECK_TOKEN or admin session):
+ *   Adds memory, uptime, version, environment, node version, db response time.
+ *
+ * Rate limiting note: the current implementation uses in-memory Maps and is
+ * not safe for multi-instance deployments (e.g. Vercel serverless). Redis-backed
+ * rate limiting is tracked in a separate issue.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/database';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 
-export async function GET(_request: NextRequest) {
+const RATE_LIMIT_NOTE = 'in-memory-only-not-production-safe';
+
+async function isVerboseAuthorized(request: NextRequest): Promise<boolean> {
+  // Bearer token check — useful for uptime monitors and CI health checks
+  const token = process.env.HEALTH_CHECK_TOKEN;
+  if (token) {
+    const authHeader = request.headers.get('Authorization');
+    if (authHeader === `Bearer ${token}`) return true;
+  }
+
+  // Admin session check
+  const session = await getServerSession(authOptions);
+  return (session?.user as { role?: string } | undefined)?.role === 'ADMIN';
+}
+
+export async function GET(request: NextRequest) {
+  let dbStatus: 'connected' | 'error' = 'connected';
+  let dbError: string | undefined;
+  let dbResponseTime: number | undefined;
+
   try {
-    // Check database connectivity
     const dbStart = Date.now();
     await prisma.$queryRaw`SELECT 1`;
-    const dbResponseTime = Date.now() - dbStart;
+    dbResponseTime = Date.now() - dbStart;
+  } catch (error) {
+    dbStatus = 'error';
+    dbError = error instanceof Error ? error.message : 'Connection failed';
+    console.error('Health check — database error:', error);
+  }
 
-    // Get system information
-    const healthData = {
-      status: 'healthy',
+  const overall = dbStatus === 'connected' ? 'ok' : 'error';
+  const statusCode = dbStatus === 'connected' ? 200 : 503;
+
+  const verbose =
+    request.nextUrl.searchParams.get('verbose') === 'true' &&
+    (await isVerboseAuthorized(request));
+
+  if (!verbose) {
+    return NextResponse.json(
+      { status: overall, database: dbStatus, rateLimit: RATE_LIMIT_NOTE },
+      { status: statusCode }
+    );
+  }
+
+  const memory = process.memoryUsage();
+  return NextResponse.json(
+    {
+      status: overall,
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV,
-      version: process.env.npm_package_version || '0.1.0',
+      version: process.env.npm_package_version ?? '0.1.0',
+      nodeVersion: process.version,
       uptime: Math.floor(process.uptime()),
+      database: {
+        status: dbStatus,
+        ...(dbResponseTime !== undefined && {
+          responseTime: `${dbResponseTime}ms`,
+        }),
+        ...(dbError && { error: dbError }),
+      },
+      rateLimit: RATE_LIMIT_NOTE,
       memory: {
-        used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
-        total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024),
+        used: Math.round(memory.heapUsed / 1024 / 1024),
+        total: Math.round(memory.heapTotal / 1024 / 1024),
         unit: 'MB',
       },
-      services: {
-        database: {
-          status: 'connected',
-          responseTime: `${dbResponseTime}ms`,
-        },
-        nextjs: {
-          status: 'running',
-          version: process.version,
-        },
-      },
-      checks: {
-        database: true,
-        memory: process.memoryUsage().heapUsed < 500 * 1024 * 1024, // Less than 500MB
-        uptime: process.uptime() > 0,
-      },
-    };
-
-    // Determine overall health status
-    const allChecksPass = Object.values(healthData.checks).every(
-      (check) => check === true
-    );
-    healthData.status = allChecksPass ? 'healthy' : 'degraded';
-
-    const statusCode = allChecksPass ? 200 : 503;
-    return NextResponse.json(healthData, { status: statusCode });
-  } catch (error) {
-    console.error('Health check failed:', error);
-
-    const errorData = {
-      status: 'unhealthy',
-      timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV,
-      error: error instanceof Error ? error.message : 'Unknown error',
-      uptime: Math.floor(process.uptime()),
-      services: {
-        database: {
-          status: 'disconnected',
-          error: error instanceof Error ? error.message : 'Connection failed',
-        },
-        nextjs: {
-          status: 'running',
-          version: process.version,
-        },
-      },
-      checks: {
-        database: false,
-        memory: true,
-        uptime: process.uptime() > 0,
-      },
-    };
-
-    return NextResponse.json(errorData, { status: 503 });
-  }
+    },
+    { status: statusCode }
+  );
 }

@@ -7,6 +7,8 @@ interface EnvironmentConfig {
 
   // Database
   DATABASE_URL: string;
+  // DIRECT_DATABASE_URL bypasses PgBouncer — required for Prisma migrations on Neon
+  DIRECT_DATABASE_URL?: string;
   DATABASE_POOL_MIN?: number;
   DATABASE_POOL_MAX?: number;
 
@@ -54,9 +56,26 @@ interface EnvironmentConfig {
 
   // Analytics
   NEXT_PUBLIC_GA_TRACKING_ID?: string;
+  GOOGLE_ANALYTICS_ID?: string;
+  MIXPANEL_TOKEN?: string;
   SENTRY_DSN?: string;
+  // NEXT_PUBLIC_SENTRY_DSN is used for both client and server (single DSN approach)
+  NEXT_PUBLIC_SENTRY_DSN?: string;
   SENTRY_ORG?: string;
   SENTRY_PROJECT?: string;
+
+  // Health check
+  // Bearer token for accessing /api/health?verbose=true without an admin session
+  HEALTH_CHECK_TOKEN?: string;
+
+  // Logging
+  LOG_LEVEL?: string;
+  LOG_ENDPOINT?: string;
+  LOG_FILE?: string;
+
+  // OAuth client-side feature flags (NEXT_PUBLIC_ makes these available in the browser)
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID?: string;
+  NEXT_PUBLIC_DISCORD_CLIENT_ID?: string;
 
   // Rate Limiting
   RATE_LIMIT_MAX: number;
@@ -153,12 +172,10 @@ function getEnvBoolean(key: string, fallback?: boolean): boolean {
  * Validate required environment variables
  */
 function validateEnvironment(): void {
-  const requiredVars = [
-    'DATABASE_URL',
-    'REDIS_URL',
-    'NEXTAUTH_URL',
-    'NEXTAUTH_SECRET',
-  ];
+  const requiredVars = ['DATABASE_URL', 'NEXTAUTH_URL', 'NEXTAUTH_SECRET'];
+
+  // REDIS_URL is installed but not yet actively used — skip requiring it until
+  // Redis-backed rate limiting / caching is implemented (tracked separately).
 
   const missing = requiredVars.filter((key) => !process.env[key]);
 
@@ -185,6 +202,7 @@ export const env: EnvironmentConfig = {
 
   // Database
   DATABASE_URL: getEnvVar('DATABASE_URL'),
+  DIRECT_DATABASE_URL: process.env.DIRECT_DATABASE_URL,
   DATABASE_POOL_MIN: getEnvNumber('DATABASE_POOL_MIN', 2),
   DATABASE_POOL_MAX: getEnvNumber('DATABASE_POOL_MAX', 10),
 
@@ -234,9 +252,24 @@ export const env: EnvironmentConfig = {
 
   // Analytics
   NEXT_PUBLIC_GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
+  GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
+  MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN,
   SENTRY_DSN: process.env.SENTRY_DSN,
+  NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   SENTRY_ORG: process.env.SENTRY_ORG,
   SENTRY_PROJECT: process.env.SENTRY_PROJECT,
+
+  // Health check
+  HEALTH_CHECK_TOKEN: process.env.HEALTH_CHECK_TOKEN,
+
+  // Logging
+  LOG_LEVEL: process.env.LOG_LEVEL,
+  LOG_ENDPOINT: process.env.LOG_ENDPOINT,
+  LOG_FILE: process.env.LOG_FILE,
+
+  // OAuth client-side feature flags
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+  NEXT_PUBLIC_DISCORD_CLIENT_ID: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID,
 
   // Rate Limiting
   RATE_LIMIT_MAX: getEnvNumber('RATE_LIMIT_MAX', 100),
@@ -259,8 +292,8 @@ export const env: EnvironmentConfig = {
   TEST_REDIS_URL: process.env.TEST_REDIS_URL,
 
   // Docker
-  COMPOSE_PROJECT_NAME: getEnvVar('COMPOSE_PROJECT_NAME', 'gundam-card-game'),
-  DOCKER_NETWORK: getEnvVar('DOCKER_NETWORK', 'gundam-network'),
+  COMPOSE_PROJECT_NAME: getEnvVar('COMPOSE_PROJECT_NAME', 'newtypedecks'),
+  DOCKER_NETWORK: getEnvVar('DOCKER_NETWORK', 'newtypedecks-network'),
 };
 
 /**

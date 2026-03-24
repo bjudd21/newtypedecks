@@ -9,6 +9,7 @@ import { LegalComplianceFooter } from '@/components/layout';
 import { PWAStatus } from '@/components/pwa';
 import Script from 'next/script';
 import Link from 'next/link';
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -209,6 +210,9 @@ export default function RootLayout({
             `,
           }}
         />
+
+        {/* Vercel Analytics */}
+        <Analytics />
 
         {/* PWA Utilities Script */}
         <Script

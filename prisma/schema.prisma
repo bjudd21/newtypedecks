@@ -5,8 +5,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl bypasses PgBouncer for Prisma migrations (required for Neon pooled connections)
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 // Game model — each TCG is a database record with a JSON config driving the entire app

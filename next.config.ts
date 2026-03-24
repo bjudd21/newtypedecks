@@ -59,24 +59,38 @@ const nextConfig: NextConfig = {
   // Compression and optimization
   compress: true,
 
-  // Security headers
+  // Security and CORS headers
   async headers() {
     return [
+      // Security headers on all routes
       {
         source: '/(.*)',
         headers: [
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'origin-when-cross-origin' },
+        ],
+      },
+      // CORS + cache headers on API routes
+      // CORS_ORIGINS defaults to * until a production domain is set.
+      // Lock down to your domain via the CORS_ORIGINS env var before going live.
+      {
+        source: '/api/(.*)',
+        headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.CORS_ORIGINS ?? '*',
           },
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
           },
           {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
           },
+          // API responses must not be cached by browsers or CDNs
+          { key: 'Cache-Control', value: 'no-store' },
         ],
       },
     ];
