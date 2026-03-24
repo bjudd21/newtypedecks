@@ -45,3 +45,4 @@ next-env.d.ts
 !/uploads/.gitkeep
 !/uploads/**/.gitkeep
 .claude/worktrees/
+file-size-report.json
