@@ -1,5 +1,9 @@
 // Individual collection card API endpoints
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/database';
+import { resolveGameFromRequest } from '@/app/api/_lib/resolveGame';
 
 interface RouteParams {
   params: Promise<{
@@ -11,31 +15,41 @@ interface RouteParams {
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { cardId } = await params;
-    const { searchParams } = new URL(request.url);
-    const _userId = searchParams.get('userId') || '';
 
-    // TODO: Implement actual database query with Prisma
-    // TODO: Add authentication and authorization checks
-    // For now, return mock response structure
-    const mockCollectionCard = {
-      id: 'sample-collection-card-id',
-      collectionId: 'sample-collection-id',
-      cardId,
-      quantity: 0,
-      card: {
-        id: cardId,
-        name: 'Sample Card',
-        // ... other card properties
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const collectionCard = await prisma.collectionCard.findFirst({
+      where: {
+        cardId,
+        collection: { userId: session.user.id, gameId },
       },
-    };
+      include: {
+        card: { include: { type: true, rarity: true } },
+      },
+    });
 
-    return NextResponse.json(mockCollectionCard, { status: 200 });
+    if (!collectionCard) {
+      return NextResponse.json(
+        { error: 'Card not in collection' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(collectionCard);
   } catch (error) {
+    console.error('Get collection card error:', error);
     return NextResponse.json(
-      {
-        error: 'Failed to fetch collection card',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
@@ -45,26 +59,62 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { cardId } = await params;
-    const body = await request.json();
 
-    // TODO: Implement collection card update with Prisma
-    // TODO: Add authentication and authorization checks
-    // TODO: Validate quantity data
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
 
-    return NextResponse.json(
-      {
-        message: 'Collection card update endpoint - not yet implemented',
-        cardId,
-        data: body,
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const { quantity } = await request.json();
+    const parsedQuantity = parseInt(quantity);
+    if (isNaN(parsedQuantity) || parsedQuantity < 0) {
+      return NextResponse.json({ error: 'Invalid quantity' }, { status: 400 });
+    }
+
+    const userCollection = await prisma.collection.findFirst({
+      where: { userId: session.user.id, gameId },
+    });
+    if (!userCollection) {
+      return NextResponse.json(
+        { error: 'Collection not found' },
+        { status: 404 }
+      );
+    }
+
+    const existing = await prisma.collectionCard.findUnique({
+      where: {
+        collectionId_cardId: { collectionId: userCollection.id, cardId },
       },
-      { status: 501 }
-    );
+    });
+    if (!existing) {
+      return NextResponse.json(
+        { error: 'Card not in collection' },
+        { status: 404 }
+      );
+    }
+
+    const updated = await prisma.collectionCard.update({
+      where: {
+        collectionId_cardId: { collectionId: userCollection.id, cardId },
+      },
+      data: { quantity: parsedQuantity },
+      include: {
+        card: { include: { type: true, rarity: true } },
+      },
+    });
+
+    return NextResponse.json(updated);
   } catch (error) {
+    console.error('Update collection card error:', error);
     return NextResponse.json(
-      {
-        error: 'Failed to update collection card',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
@@ -75,22 +125,51 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { cardId } = await params;
 
-    // TODO: Implement collection card deletion with Prisma
-    // TODO: Add authentication and authorization checks
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
 
-    return NextResponse.json(
-      {
-        message: 'Collection card deletion endpoint - not yet implemented',
-        cardId,
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const userCollection = await prisma.collection.findFirst({
+      where: { userId: session.user.id, gameId },
+    });
+    if (!userCollection) {
+      return NextResponse.json(
+        { error: 'Collection not found' },
+        { status: 404 }
+      );
+    }
+
+    const existing = await prisma.collectionCard.findUnique({
+      where: {
+        collectionId_cardId: { collectionId: userCollection.id, cardId },
       },
-      { status: 501 }
-    );
+    });
+    if (!existing) {
+      return NextResponse.json(
+        { error: 'Card not in collection' },
+        { status: 404 }
+      );
+    }
+
+    await prisma.collectionCard.delete({
+      where: {
+        collectionId_cardId: { collectionId: userCollection.id, cardId },
+      },
+    });
+
+    return NextResponse.json({ message: 'Card removed from collection' });
   } catch (error) {
+    console.error('Delete collection card error:', error);
     return NextResponse.json(
-      {
-        error: 'Failed to delete collection card',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
