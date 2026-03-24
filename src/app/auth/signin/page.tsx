@@ -53,6 +53,8 @@ function getErrorMessage(error: string): string {
       return 'There was an issue sending the email. Please try again.';
     case 'SessionRequired':
       return 'Please sign in to access this page.';
+    case 'AdminRequired':
+      return 'Admin access required. You do not have permission to view that page.';
     default:
       return 'An error occurred during sign in. Please try again.';
   }
