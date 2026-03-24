@@ -248,7 +248,7 @@ describe('User Collections API Routes', () => {
           expect.objectContaining({
             where: expect.objectContaining({
               card: expect.objectContaining({
-                faction: 'Blue',
+                gameAttributes: { path: ['faction'], equals: 'Blue' },
               }),
             }),
           })
@@ -267,7 +267,7 @@ describe('User Collections API Routes', () => {
               card: expect.objectContaining({
                 OR: expect.any(Array),
                 rarity: { is: { name: 'Rare' } },
-                faction: 'Blue',
+                gameAttributes: { path: ['faction'], equals: 'Blue' },
               }),
             }),
           })

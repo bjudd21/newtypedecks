@@ -8,6 +8,11 @@ import { NextRequest } from 'next/server';
 import { POST, GET } from './route';
 import { CardService } from '@/lib/services/cardService';
 
+// Mock next/cache to avoid "incrementalCache missing" error in test environment
+jest.mock('next/cache', () => ({
+  unstable_cache: (fn: (...args: unknown[]) => unknown) => fn,
+}));
+
 // Mock game resolution
 jest.mock('@/app/api/_lib/resolveGame', () => ({
   resolveGameFromRequest: jest

@@ -14,7 +14,7 @@ jest.mock('@/app/api/_lib/resolveGame', () => ({
   resolveGameFromRequest: jest.fn().mockResolvedValue({
     gameId: 'game-gundam-id',
     gameName: 'Gundam Card Game',
-    game: { config: { deckRules: { maxCopiesPerCard: 4 } } },
+    game: { slug: 'gundam', config: { deckRules: { maxCopiesPerCard: 4 } } },
   }),
 }));
 jest.mock('next-auth/next');
@@ -202,7 +202,7 @@ describe('Deck API Routes', () => {
                 card: {
                   id: 'card-1',
                   cost: 3,
-                  faction: 'Blue',
+                  gameAttributes: { faction: 'Blue' },
                 },
               },
               {
@@ -210,7 +210,7 @@ describe('Deck API Routes', () => {
                 card: {
                   id: 'card-2',
                   cost: 5,
-                  faction: 'Red',
+                  gameAttributes: { faction: 'Red' },
                 },
               },
             ],

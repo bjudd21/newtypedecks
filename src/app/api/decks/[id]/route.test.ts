@@ -57,7 +57,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
     id: mockDeckId,
     name: 'Test Deck',
     description: 'Test description',
-    isPublic: false,
+    visibility: 'DRAFT',
     userId: mockUserId,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -75,7 +75,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
           id: 'card-1',
           name: 'Gundam Wing',
           cost: 3,
-          faction: 'Blue',
+          gameAttributes: { faction: 'Blue' },
           type: { id: 'type-1', name: 'Unit' },
           rarity: { id: 'rarity-1', name: 'Rare' },
         },
@@ -108,7 +108,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
       });
 
       it('should allow anyone to view public deck', async () => {
-        const publicDeck = { ...mockDeck, isPublic: true };
+        const publicDeck = { ...mockDeck, visibility: 'PUBLIC' };
         (prisma.deck.findUnique as jest.Mock).mockResolvedValue(publicDeck);
         (getServerSession as jest.Mock).mockResolvedValue(null);
 
@@ -124,7 +124,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         const privateDeck = {
           ...mockDeck,
           userId: mockOtherUserId,
-          isPublic: false,
+          visibility: 'DRAFT',
         };
         (prisma.deck.findUnique as jest.Mock).mockResolvedValue(privateDeck);
 
@@ -164,7 +164,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
               card: {
                 id: 'card-1',
                 cost: 3,
-                faction: 'Blue',
+                gameAttributes: { faction: 'Blue' },
                 type: { id: 'type-1', name: 'Unit' },
                 rarity: { id: 'rarity-1', name: 'Rare' },
               },
@@ -176,7 +176,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
               card: {
                 id: 'card-2',
                 cost: 5,
-                faction: 'Red',
+                gameAttributes: { faction: 'Red' },
                 type: { id: 'type-1', name: 'Unit' },
                 rarity: { id: 'rarity-1', name: 'Rare' },
               },
@@ -421,7 +421,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
           `http://localhost:3000/api/decks/${mockDeckId}`,
           {
             method: 'PUT',
-            body: JSON.stringify({ isPublic: true }),
+            body: JSON.stringify({ visibility: 'PUBLIC' }),
           }
         );
         await PUT(request, createMockRequest());
@@ -429,7 +429,7 @@ describe('Deck API Routes - Individual Deck Operations', () => {
         expect(prisma.deck.update).toHaveBeenCalledWith(
           expect.objectContaining({
             data: expect.objectContaining({
-              isPublic: true,
+              visibility: 'PUBLIC',
             }),
           })
         );
