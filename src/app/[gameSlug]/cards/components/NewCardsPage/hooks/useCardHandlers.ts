@@ -14,6 +14,7 @@ import { fetchCards, fetchRandomCard } from '../api';
 
 interface UseCardHandlersOptions {
   searchQuery: string;
+  gameSlug: string;
   currentPage: number;
   sortBy: CardSortField;
   sortOrder: 'asc' | 'desc';
@@ -27,6 +28,7 @@ interface UseCardHandlersOptions {
 
 export function useCardHandlers({
   searchQuery,
+  gameSlug,
   currentPage,
   sortBy,
   sortOrder,
@@ -54,7 +56,7 @@ export function useCardHandlers({
           includeRelations: true,
         };
 
-        const result = await fetchCards(filters, options);
+        const result = await fetchCards(filters, options, gameSlug);
         setCards(result.cards);
         setTotalResults(result.total);
         setTotalPages(result.totalPages);
@@ -66,6 +68,7 @@ export function useCardHandlers({
     },
     [
       searchQuery,
+      gameSlug,
       currentPage,
       sortBy,
       sortOrder,

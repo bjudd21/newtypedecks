@@ -2,6 +2,8 @@
  * OAuth providers section
  */
 
+'use client';
+
 import React from 'react';
 import { Button } from '@/components/ui';
 import {

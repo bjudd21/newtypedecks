@@ -10,15 +10,19 @@ import type {
 
 export async function fetchCardsPage(
   filters: CardSearchFilters,
-  options: CardSearchOptions
+  options: CardSearchOptions,
+  gameSlug: string
 ): Promise<CardSearchResult> {
-  const response = await fetch('/api/cards/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ filters, options }),
-  });
+  const response = await fetch(
+    `/api/cards/search?gameSlug=${encodeURIComponent(gameSlug)}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ filters, options }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch cards');

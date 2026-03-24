@@ -5,6 +5,7 @@
 'use client';
 
 import React from 'react';
+import { useGame } from '@/contexts/GameContext';
 import { CardSearch } from '@/components/card/CardSearch';
 import {
   ResultsSection,
@@ -17,6 +18,8 @@ import { useCardsHandlers } from './hooks/useCardsHandlers';
 import { useComputedValues } from './hooks/useComputedValues';
 
 export function CardsPageContent() {
+  const game = useGame();
+
   // State management
   const {
     selectedCard,
@@ -54,6 +57,7 @@ export function CardsPageContent() {
     loadTraditionalPage,
   } = useDualPagination({
     activeFilters,
+    gameSlug: game.slug,
     sortOptions,
     setTraditionalCards,
     setTraditionalLoading,

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ColorFilters } from '@/components/card/ColorFilters';
 import { TypeFilters } from '@/components/card/TypeFilters';
 import { Button } from '@/components/ui';
+import { useGame } from '@/contexts/GameContext';
 
 interface FilterToolbarProps {
   selectedColors: string[];
@@ -25,17 +26,29 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
   onRandomCard,
 }) => {
   const router = useRouter();
+  const game = useGame();
+
+  const colorField = game.config.cardSchema.customFields.find(
+    (f) => f.key === 'color'
+  );
+  const gameColors = colorField?.options ?? [];
+  const gameTypes = game.config.cardTypes;
 
   return (
     <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
       <ColorFilters
         selectedColors={selectedColors}
         onToggleColor={onToggleColor}
+        colors={gameColors}
       />
 
-      <div className="h-7 w-px bg-[#443a5c]" />
+      {gameColors.length > 0 && <div className="h-7 w-px bg-[#443a5c]" />}
 
-      <TypeFilters selectedTypes={selectedTypes} onToggleType={onToggleType} />
+      <TypeFilters
+        selectedTypes={selectedTypes}
+        onToggleType={onToggleType}
+        types={gameTypes}
+      />
 
       <div className="h-7 w-px bg-[#443a5c]" />
 

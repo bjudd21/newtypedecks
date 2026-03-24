@@ -2,6 +2,8 @@
  * Password input with visibility toggle
  */
 
+'use client';
+
 import React from 'react';
 import { Input } from '@/components/ui';
 import { EyeIcon } from './icons/EyeIcon';

@@ -2,6 +2,8 @@
  * Sign up link component
  */
 
+'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
 

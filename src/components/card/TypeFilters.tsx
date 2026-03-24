@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 interface TypeFiltersProps {
   selectedTypes: string[];
   onToggleType: (type: string) => void;
+  types: string[];
 }
 
 interface TypeButtonProps {
@@ -38,13 +39,17 @@ function TypeButton({ type, isSelected, onClick }: TypeButtonProps) {
   );
 }
 
-const CARD_TYPES = ['Unit', 'Command', 'Base', 'Pilot'];
+export function TypeFilters({
+  selectedTypes,
+  onToggleType,
+  types,
+}: TypeFiltersProps) {
+  if (types.length === 0) return null;
 
-export function TypeFilters({ selectedTypes, onToggleType }: TypeFiltersProps) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="mr-1 text-xs font-medium text-gray-400">TYPE:</span>
-      {CARD_TYPES.map((type) => (
+      {types.map((type) => (
         <TypeButton
           key={type}
           type={type}

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useGame } from '@/contexts/GameContext';
 import { CardGrid } from '@/components/card/CardGrid';
 import { CardDetailOverlay } from '@/components/card/CardDetailOverlay';
 import { SearchHeader } from '@/components/card/SearchHeader';
@@ -24,6 +25,7 @@ import { ViewToggle } from './ui/ViewToggle';
 
 export function NewCardsPageContent() {
   const searchParams = useSearchParams();
+  const game = useGame();
 
   // State management
   const {
@@ -64,6 +66,7 @@ export function NewCardsPageContent() {
     handleSearchSubmit,
   } = useCardHandlers({
     searchQuery,
+    gameSlug: game.slug,
     currentPage,
     sortBy,
     sortOrder,

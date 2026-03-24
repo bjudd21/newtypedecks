@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 interface ColorFiltersProps {
   selectedColors: string[];
   onToggleColor: (color: string) => void;
+  colors: string[];
 }
 
 interface ColorButtonProps {
@@ -45,38 +46,40 @@ function ColorButton({
   );
 }
 
-const COLOR_CONFIG = [
-  { color: 'blue', className: 'bg-blue-600', title: 'Filter by Blue' },
-  { color: 'green', className: 'bg-green-600', title: 'Filter by Green' },
-  { color: 'red', className: 'bg-red-600', title: 'Filter by Red' },
-  { color: 'purple', className: 'bg-purple-600', title: 'Filter by Purple' },
-  {
-    color: 'white',
-    className: 'bg-white border border-gray-300',
-    title: 'Filter by White',
-  },
-  {
-    color: 'colorless',
-    className: 'bg-gray-400',
-    title: 'Filter by Colorless',
-  },
-];
+const COLOR_CLASS_MAP: Record<string, string> = {
+  red: 'bg-red-600',
+  blue: 'bg-blue-600',
+  green: 'bg-green-600',
+  purple: 'bg-purple-600',
+  white: 'bg-white border border-gray-300',
+  black: 'bg-gray-900 border border-gray-600',
+  yellow: 'bg-yellow-400',
+  colorless: 'bg-gray-400',
+  multi: 'bg-gradient-to-r from-red-500 via-blue-500 to-green-500',
+};
+
+function colorClass(color: string): string {
+  return COLOR_CLASS_MAP[color.toLowerCase()] ?? 'bg-gray-500';
+}
 
 export function ColorFilters({
   selectedColors,
   onToggleColor,
+  colors,
 }: ColorFiltersProps) {
+  if (colors.length === 0) return null;
+
   return (
     <div className="flex items-center gap-2">
       <span className="mr-1 text-xs font-medium text-gray-400">COLOR:</span>
-      {COLOR_CONFIG.map(({ color, className, title }) => (
+      {colors.map((color) => (
         <ColorButton
           key={color}
           color={color}
           isSelected={selectedColors.includes(color)}
           onClick={() => onToggleColor(color)}
-          className={className}
-          title={title}
+          className={colorClass(color)}
+          title={`Filter by ${color}`}
         />
       ))}
     </div>

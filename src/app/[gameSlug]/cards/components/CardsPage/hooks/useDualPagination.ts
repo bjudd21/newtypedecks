@@ -15,6 +15,7 @@ import { fetchCardsPage } from '../api';
 
 interface UseDualPaginationOptions {
   activeFilters: CardSearchFilters;
+  gameSlug: string;
   sortOptions: { sortBy: string; sortOrder: 'asc' | 'desc' };
   setTraditionalCards: React.Dispatch<
     React.SetStateAction<CardWithRelations[]>
@@ -31,6 +32,7 @@ const PAGE_SIZE = 20;
 
 export function useDualPagination({
   activeFilters,
+  gameSlug,
   sortOptions,
   setTraditionalCards,
   setTraditionalLoading,
@@ -44,13 +46,17 @@ export function useDualPagination({
   const loadCards = useCallback(
     async (page: number, pageSize: number) => {
       try {
-        const result = await fetchCardsPage(activeFilters, {
-          page,
-          limit: pageSize,
-          sortBy: sortOptions.sortBy,
-          sortOrder: sortOptions.sortOrder,
-          includeRelations: true,
-        } as CardSearchOptions);
+        const result = await fetchCardsPage(
+          activeFilters,
+          {
+            page,
+            limit: pageSize,
+            sortBy: sortOptions.sortBy,
+            sortOrder: sortOptions.sortOrder,
+            includeRelations: true,
+          } as CardSearchOptions,
+          gameSlug
+        );
 
         return {
           items: result.cards,
@@ -62,7 +68,7 @@ export function useDualPagination({
         throw error;
       }
     },
-    [activeFilters, sortOptions]
+    [activeFilters, sortOptions, gameSlug]
   );
 
   // Traditional pagination load function
@@ -74,13 +80,17 @@ export function useDualPagination({
         setTraditionalLoading(true);
         setTraditionalError(null);
 
-        const result: CardSearchResult = await fetchCardsPage(activeFilters, {
-          page,
-          limit: PAGE_SIZE,
-          sortBy: sortOptions.sortBy,
-          sortOrder: sortOptions.sortOrder,
-          includeRelations: true,
-        } as CardSearchOptions);
+        const result: CardSearchResult = await fetchCardsPage(
+          activeFilters,
+          {
+            page,
+            limit: PAGE_SIZE,
+            sortBy: sortOptions.sortBy,
+            sortOrder: sortOptions.sortOrder,
+            includeRelations: true,
+          } as CardSearchOptions,
+          gameSlug
+        );
 
         setTraditionalCards(result.cards);
         setTotalPages(result.totalPages);
@@ -97,6 +107,7 @@ export function useDualPagination({
     },
     [
       activeFilters,
+      gameSlug,
       sortOptions,
       traditionalLoading,
       setTraditionalLoading,

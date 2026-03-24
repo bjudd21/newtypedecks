@@ -6,13 +6,17 @@ import type { CardSearchFilters, CardSearchOptions } from '@/lib/types/card';
 
 export async function fetchCards(
   filters: CardSearchFilters,
-  options: CardSearchOptions
+  options: CardSearchOptions,
+  gameSlug: string
 ) {
-  const response = await fetch('/api/cards/search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ filters, options }),
-  });
+  const response = await fetch(
+    `/api/cards/search?gameSlug=${encodeURIComponent(gameSlug)}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filters, options }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error('Failed to fetch cards');

@@ -1,5 +1,3 @@
-// Newtype Decks — Multi-TCG Platform Database Schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,14 +5,12 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  // directUrl bypasses PgBouncer for Prisma migrations (required for Neon pooled connections)
   directUrl = env("DIRECT_DATABASE_URL")
 }
 
-// Game model — each TCG is a database record with a JSON config driving the entire app
 model Game {
-  id              String   @id @default(cuid())
-  slug            String   @unique
+  id              String           @id @default(cuid())
+  slug            String           @unique
   name            String
   shortName       String?
   publisher       String?
@@ -25,79 +21,69 @@ model Game {
   primaryColor    String?
   secondaryColor  String?
   accentColor     String?
-  config          Json     // GameConfig JSONB: cardSchema, deckRules, branding, legal
-  isActive        Boolean  @default(true)
-  sortOrder       Int      @default(0)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  // Relations
-  cards       Card[]
-  decks       Deck[]
-  collections Collection[]
-  sets        Set[]
-  cardTypes   CardType[]
-  rarities    Rarity[]
-  submissions CardSubmission[]
+  config          Json
+  isActive        Boolean          @default(true)
+  sortOrder       Int              @default(0)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  submissions     CardSubmission[]
+  cardTypes       CardType[]
+  cards           Card[]
+  collections     Collection[]
+  decks           Deck[]
+  rarities        Rarity[]
+  sets            Set[]
 
   @@map("games")
 }
 
-// User model for authentication and user management
 model User {
-  id                     String    @id @default(cuid())
-  email                  String    @unique
-  password               String?   // For credentials auth
-  name                   String?
-  image                  String?
-  role                   UserRole  @default(USER)
-  emailVerified          DateTime? // For NextAuth
-  passwordResetToken     String?   // Password reset token
-  passwordResetExpires   DateTime? // Password reset token expiration
-  emailVerificationToken String?   // Email verification token
-  emailVerificationExpires DateTime? // Email verification token expiration
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @updatedAt
-
-  // NextAuth relations
-  accounts Account[]
-  sessions Session[]
-
-  // Application relations
-  decks               Deck[]
-  deckVersions        DeckVersion[]
-  collections         Collection[]
-  submissions         CardSubmission[]
-  reviewedSubmissions CardSubmission[] @relation("ReviewedSubmissions")
-  favoriteDecks       UserFavoriteDeck[]
-  templateUsage       DeckTemplateUsage[]
-  deckLikes           DeckLike[]
+  id                       String              @id @default(cuid())
+  email                    String              @unique
+  name                     String?
+  image                    String?
+  role                     UserRole            @default(USER)
+  createdAt                DateTime            @default(now())
+  updatedAt                DateTime            @updatedAt
+  emailVerificationExpires DateTime?
+  emailVerificationToken   String?
+  emailVerified            DateTime?
+  password                 String?
+  passwordResetExpires     DateTime?
+  passwordResetToken       String?
+  accounts                 Account[]
+  reviewedSubmissions      CardSubmission[]    @relation("ReviewedSubmissions")
+  submissions              CardSubmission[]
+  collections              Collection[]
+  deckLikes                DeckLike[]
+  templateUsage            DeckTemplateUsage[]
+  deckVersions             DeckVersion[]
+  decks                    Deck[]
+  sessions                 Session[]
+  favoriteDecks            UserFavoriteDeck[]
 
   @@map("users")
 }
 
-// NextAuth Account model
 model Account {
   id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
 
-// NextAuth Session model
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -108,7 +94,6 @@ model Session {
   @@map("sessions")
 }
 
-// NextAuth Verification Token model
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -118,126 +103,92 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-// User roles enum
-enum UserRole {
-  USER
-  ADMIN
-  MODERATOR
-}
-
-// Card type model
 model CardType {
   id          String  @id @default(cuid())
-  gameId      String? // FK to Game (nullable during migration backfill)
   name        String
   description String?
   category    String?
-
-  // Relations
-  game  Game? @relation(fields: [gameId], references: [id])
-  cards Card[]
+  gameId      String?
+  game        Game?   @relation(fields: [gameId], references: [id])
+  cards       Card[]
 
   @@index([gameId])
   @@map("card_types")
 }
 
-// Rarity model
 model Rarity {
   id          String  @id @default(cuid())
-  gameId      String? // FK to Game (nullable during migration backfill)
   name        String
   color       String
   description String?
-
-  // Relations
-  game  Game? @relation(fields: [gameId], references: [id])
-  cards Card[]
+  gameId      String?
+  cards       Card[]
+  game        Game?   @relation(fields: [gameId], references: [id])
 
   @@index([gameId])
   @@map("rarities")
 }
 
-// Set model
 model Set {
-  id          String    @id @default(cuid())
-  gameId      String?   // FK to Game (nullable during migration backfill)
+  id          String   @id @default(cuid())
   name        String
-  code        String    @unique
+  code        String   @unique
   releaseDate DateTime
   description String?
   imageUrl    String?
-
-  // Relations
-  game  Game? @relation(fields: [gameId], references: [id])
-  cards Card[]
+  gameId      String?
+  cards       Card[]
+  game        Game?    @relation(fields: [gameId], references: [id])
 
   @@index([gameId])
   @@map("sets")
 }
 
-// Main Card model
 model Card {
-  id            String   @id @default(cuid())
-  gameId        String?  // FK to Game (nullable during migration backfill)
-  name          String
-  level         Int?
-  cost          Int?
-  typeId        String
-  rarityId      String
-  setId         String
-  setNumber     String
-  imageUrl      String
-  imageUrlSmall String?
-  imageUrlLarge String?
-  description   String?
-  officialText  String?
-
-  // Game-specific attributes stored in JSONB — replaces the deprecated columns below
-  // Gundam: { faction, pilot, model, series, nation }
-  // One Piece: { color, power, counter, life, attribute, trait }
-  gameAttributes Json?
-
-  // Universal numeric stats
-  clashPoints  Int?
-  price        Int?
-  hitPoints    Int?
-  attackPoints Int?
-
-  // DEPRECATED: Gundam-specific columns kept for backward compatibility during migration.
-  // All new code must read from gameAttributes instead.
-  faction      String?
-  pilot        String?
-  model        String?
-  series       String?
-  nation       String?
-
-  // Card mechanics
-  abilities    String?  // Special abilities (JSON string)
-  keywords     String[] // Searchable keywords
-  tags         String[] // Categorization tags
-
-  // Metadata
-  isFoil       Boolean  @default(false)
-  isPromo      Boolean  @default(false)
-  isAlternate  Boolean  @default(false)
-  language     String   @default("en")
-
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  // Relations
-  game         Game?    @relation(fields: [gameId], references: [id])
-  type         CardType @relation(fields: [typeId], references: [id])
-  rarity       Rarity   @relation(fields: [rarityId], references: [id])
-  set          Set      @relation(fields: [setId], references: [id])
-  deckCards    DeckCard[]
+  id               String            @id @default(cuid())
+  name             String
+  level            Int?
+  cost             Int?
+  typeId           String
+  rarityId         String
+  setId            String
+  setNumber        String
+  imageUrl         String
+  imageUrlSmall    String?
+  imageUrlLarge    String?
+  description      String?
+  officialText     String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  abilities        String?
+  faction          String?
+  isAlternate      Boolean           @default(false)
+  isFoil           Boolean           @default(false)
+  isPromo          Boolean           @default(false)
+  keywords         String[]
+  language         String            @default("en")
+  model            String?
+  pilot            String?
+  series           String?
+  tags             String[]
+  attackPoints     Int?
+  clashPoints      Int?
+  hitPoints        Int?
+  nation           String?
+  price            Int?
+  gameAttributes   Json?
+  gameId           String?
+  rulings          CardRuling[]
+  submissions      CardSubmission[]
+  game             Game?             @relation(fields: [gameId], references: [id])
+  rarity           Rarity            @relation(fields: [rarityId], references: [id])
+  set              Set               @relation(fields: [setId], references: [id])
+  type             CardType          @relation(fields: [typeId], references: [id])
+  collectionCards  CollectionCard[]
+  deckCards        DeckCard[]
   deckVersionCards DeckVersionCard[]
-  collectionCards CollectionCard[]
-  rulings      CardRuling[]
-  submissions  CardSubmission[]
 
   @@unique([setId, setNumber])
-  // Single field indexes for basic searches
   @@index([gameId])
   @@index([name])
   @@index([pilot])
@@ -259,8 +210,6 @@ model Card {
   @@index([language])
   @@index([createdAt])
   @@index([updatedAt])
-
-  // Composite indexes for common filter combinations
   @@index([faction, series])
   @@index([typeId, rarityId])
   @@index([setId, createdAt])
@@ -269,79 +218,41 @@ model Card {
   @@index([series, faction])
   @@index([name, faction])
   @@index([isFoil, isPromo])
-
-  // Full-text search indexes for text fields
   @@index([name, pilot, model])
-
-  // Performance indexes for sorting
   @@index([name, createdAt])
   @@index([level, name])
   @@index([cost, name])
   @@index([clashPoints, name])
   @@index([createdAt, name])
-
   @@map("cards")
 }
 
-// Deck visibility tiers — replaces boolean isPublic
-enum DeckVisibility {
-  DRAFT   // Save anytime, no validation, only visible to owner
-  PRIVATE // Must pass deck rules, shareable by link
-  PUBLIC  // Must pass deck rules, visible in deck library
-}
-
-// Deck ruleset — determines whether validation errors block saving
-enum DeckRuleset {
-  COMPETITIVE // Errors block saving; strict deck rules enforced
-  CASUAL      // Errors shown as warnings only; any deck can be saved
-}
-
-// Deck model
 model Deck {
-  id          String        @id @default(cuid())
-  gameId      String?       // FK to Game (nullable during migration backfill)
-  name        String
-  description String?
-  userId      String
-
-  // Visibility — replaces isPublic boolean
-  visibility  DeckVisibility @default(DRAFT)
-
-  // Ruleset — competitive enforces rules; casual allows anything
-  ruleset     DeckRuleset    @default(COMPETITIVE)
-
-  // DEPRECATED: kept for backward compatibility during migration
-  isPublic    Boolean  @default(false)
-
-  // Sharing
-  deckCode    String?  @unique // Compact encoded string for Discord/chat sharing
-
-  // Social metrics
-  viewCount   Int      @default(0)
-  likeCount   Int      @default(0)
-
-  // Versioning
-  currentVersion Int     @default(1)
-  versionName    String? // Optional name for the current version
-
-  // Templates and Favorites
-  isTemplate     Boolean  @default(false)
+  id             String              @id @default(cuid())
+  name           String
+  description    String?
+  isPublic       Boolean             @default(false)
+  userId         String
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  currentVersion Int                 @default(1)
+  deckCode       String?             @unique
+  gameId         String?
+  isTemplate     Boolean             @default(false)
+  likeCount      Int                 @default(0)
   templateSource String?
-
-  // User-defined organizational categories (DeckCategory[] stored as JSON)
+  versionName    String?
+  viewCount      Int                 @default(0)
+  visibility     DeckVisibility      @default(DRAFT)
+  ruleset        DeckRuleset         @default(COMPETITIVE)
   categories     Json?
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Relations
-  game          Game?               @relation(fields: [gameId], references: [id])
-  user          User                @relation(fields: [userId], references: [id])
-  cards         DeckCard[]
-  versions      DeckVersion[]
-  favoritedBy   UserFavoriteDeck[]
-  templateUsage DeckTemplateUsage[]
-  likes         DeckLike[]
+  cards          DeckCard[]
+  likes          DeckLike[]
+  templateUsage  DeckTemplateUsage[]
+  versions       DeckVersion[]
+  game           Game?               @relation(fields: [gameId], references: [id])
+  user           User                @relation(fields: [userId], references: [id])
+  favoritedBy    UserFavoriteDeck[]
 
   @@index([gameId])
   @@index([userId])
@@ -351,16 +262,13 @@ model Deck {
   @@map("decks")
 }
 
-// DeckLike — tracks individual user likes for social metrics
 model DeckLike {
   id        String   @id @default(cuid())
   deckId    String
   userId    String
   createdAt DateTime @default(now())
-
-  // Relations
-  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deck      Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([deckId, userId])
   @@index([deckId])
@@ -368,27 +276,20 @@ model DeckLike {
   @@map("deck_likes")
 }
 
-// Deck Version model for revision history
 model DeckVersion {
-  id          String   @id @default(cuid())
+  id          String            @id @default(cuid())
   deckId      String
-  version     Int      // Version number (1, 2, 3, etc.)
-  name        String   // Deck name at this version
-  description String?  // Deck description at this version
-  versionName String?  // Optional name for this version ("Initial Build", "Tournament Ready", etc.)
-  isPublic    Boolean  @default(false)
-
-  // Version metadata
-  changeNote  String?  // Notes about what changed in this version
-  createdBy   String   // User who created this version
-  createdAt   DateTime @default(now())
-
-  // Snapshot of deck cards at this version
+  version     Int
+  name        String
+  description String?
+  versionName String?
+  isPublic    Boolean           @default(false)
+  changeNote  String?
+  createdBy   String
+  createdAt   DateTime          @default(now())
   cards       DeckVersionCard[]
-
-  // Relations
-  deck        Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
-  creator     User @relation(fields: [createdBy], references: [id])
+  creator     User              @relation(fields: [createdBy], references: [id])
+  deck        Deck              @relation(fields: [deckId], references: [id], onDelete: Cascade)
 
   @@unique([deckId, version])
   @@index([deckId, version])
@@ -396,169 +297,127 @@ model DeckVersion {
   @@map("deck_versions")
 }
 
-// Deck Version Card relationship - snapshot of cards in a specific version
 model DeckVersionCard {
-  id           String @id @default(cuid())
+  id           String      @id @default(cuid())
   versionId    String
   cardId       String
   quantity     Int
   category     String?
-  userCategory String? // user-defined organizational category
-
-  // Relations
-  version   DeckVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
-  card      Card        @relation(fields: [cardId], references: [id])
+  userCategory String?
+  card         Card        @relation(fields: [cardId], references: [id])
+  version      DeckVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
 
   @@unique([versionId, cardId])
   @@map("deck_version_cards")
 }
 
-// Deck-Card relationship model
 model DeckCard {
-  id           String @id @default(cuid())
+  id           String  @id @default(cuid())
   deckId       String
   cardId       String
   quantity     Int
   category     String?
-  userCategory String? // user-defined organizational category (separate from zone assignment)
-
-  // Relations
-  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
-  card Card @relation(fields: [cardId], references: [id])
+  userCategory String?
+  card         Card    @relation(fields: [cardId], references: [id])
+  deck         Deck    @relation(fields: [deckId], references: [id], onDelete: Cascade)
 
   @@unique([deckId, cardId])
   @@map("deck_cards")
 }
 
-// Collection model
 model Collection {
-  id        String   @id @default(cuid())
-  gameId    String?  // FK to Game (nullable during migration backfill)
+  id        String           @id @default(cuid())
   userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  game  Game?            @relation(fields: [gameId], references: [id])
-  user  User             @relation(fields: [userId], references: [id])
-  cards CollectionCard[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  gameId    String?
+  cards     CollectionCard[]
+  game      Game?            @relation(fields: [gameId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([gameId])
   @@map("collections")
 }
 
-// Collection-Card relationship model
 model CollectionCard {
-  id           String @id @default(cuid())
+  id           String     @id @default(cuid())
   collectionId String
   cardId       String
   quantity     Int
-
-  // Relations
-  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-  card       Card       @relation(fields: [cardId], references: [id])
+  card         Card       @relation(fields: [cardId], references: [id])
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
 
   @@unique([collectionId, cardId])
   @@map("collection_cards")
 }
 
-// Note: Faction and Series models will be added in future iterations
-// For now, faction and series are stored as string fields in the Card model
-
-// Card ruling model for official rulings and clarifications
 model CardRuling {
-  id          String   @id @default(cuid())
-  cardId      String
-  question    String
-  answer      String
-  source      String?  // Official source (e.g., "Bandai FAQ")
-  isOfficial  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  // Relations
-  card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  cardId     String
+  question   String
+  answer     String
+  source     String?
+  isOfficial Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  card       Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
   @@map("card_rulings")
 }
 
-// Card submission model for manual uploads (previews, leaks, community submissions)
 model CardSubmission {
-  id            String   @id @default(cuid())
-  gameId        String?  // FK to Game (nullable during migration backfill)
-
-  // Submission metadata
-  submittedBy   String?  // User ID if authenticated, null for anonymous
-  submitterName String?  // Display name for anonymous submissions
-  submitterEmail String? // Contact email
-
-  // Card data (similar to Card model but as submission)
-  name         String
-  level        Int?
-  cost         Int?
-  typeId       String?  // Optional - can be created during approval
-  rarityId     String?  // Optional - can be created during approval
-  setId        String?  // Optional - can be created during approval
-  setName      String?  // Set name for new sets
-  setCode      String?  // Set code for new sets
-  setNumber    String
-
-  // Image uploads
-  imageUrl     String?  // Main card image
-  imageFile    String?  // Uploaded file path
-
-  // Card content
-  description  String?
-  officialText String?
-  abilities    String?  // JSON string of abilities
-
-  // Game attributes
-  clashPoints  Int?
-  price        Int?
-  hitPoints    Int?
-  attackPoints Int?
-  faction      String?
-  pilot        String?
-  model        String?
-  series       String?
-  nation       String?
-  keywords     String[] @default([])
-  tags         String[] @default([])
-
-  // Submission flags
-  isFoil       Boolean  @default(false)
-  isPromo      Boolean  @default(false)
-  isAlternate  Boolean  @default(false)
-  isLeak       Boolean  @default(false)    // Leaked card
-  isPreview    Boolean  @default(false)    // Official preview
-  language     String   @default("en")
-
-  // Approval workflow
-  status       SubmissionStatus @default(PENDING)
-  priority     SubmissionPriority @default(NORMAL)
-
-  // Review data
-  reviewedBy   String?  // Admin user ID who reviewed
-  reviewedAt   DateTime?
-  reviewNotes  String?  // Admin notes
-  rejectionReason String? // Reason for rejection
-
-  // Publication
-  publishedCardId String? // ID of created card if approved
+  id              String             @id @default(cuid())
+  submittedBy     String?
+  submitterName   String?
+  submitterEmail  String?
+  name            String
+  level           Int?
+  cost            Int?
+  typeId          String?
+  rarityId        String?
+  setId           String?
+  setName         String?
+  setCode         String?
+  setNumber       String
+  imageUrl        String?
+  imageFile       String?
+  description     String?
+  officialText    String?
+  abilities       String?
+  clashPoints     Int?
+  price           Int?
+  hitPoints       Int?
+  attackPoints    Int?
+  faction         String?
+  pilot           String?
+  model           String?
+  series          String?
+  nation          String?
+  keywords        String[]           @default([])
+  tags            String[]           @default([])
+  isFoil          Boolean            @default(false)
+  isPromo         Boolean            @default(false)
+  isAlternate     Boolean            @default(false)
+  isLeak          Boolean            @default(false)
+  isPreview       Boolean            @default(false)
+  language        String             @default("en")
+  status          SubmissionStatus   @default(PENDING)
+  priority        SubmissionPriority @default(NORMAL)
+  reviewedBy      String?
+  reviewedAt      DateTime?
+  reviewNotes     String?
+  rejectionReason String?
+  publishedCardId String?
   publishedAt     DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  gameId          String?
+  game            Game?              @relation(fields: [gameId], references: [id])
+  publishedCard   Card?              @relation(fields: [publishedCardId], references: [id])
+  reviewer        User?              @relation("ReviewedSubmissions", fields: [reviewedBy], references: [id])
+  user            User?              @relation(fields: [submittedBy], references: [id])
 
-  // Timestamps
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  // Relations
-  game         Game?    @relation(fields: [gameId], references: [id], onDelete: SetNull)
-  user         User?    @relation(fields: [submittedBy], references: [id])
-  reviewer     User?    @relation("ReviewedSubmissions", fields: [reviewedBy], references: [id])
-  publishedCard Card?   @relation(fields: [publishedCardId], references: [id])
-
-  // Single field indexes
   @@index([gameId])
   @@index([status])
   @@index([priority])
@@ -572,43 +431,21 @@ model CardSubmission {
   @@index([series])
   @@index([isLeak])
   @@index([isPreview])
-
-  // Composite indexes for admin queries
   @@index([status, priority])
   @@index([status, createdAt])
   @@index([priority, createdAt])
   @@index([submittedBy, status])
   @@index([reviewedBy, reviewedAt])
-
   @@map("card_submissions")
 }
 
-enum SubmissionStatus {
-  PENDING     // Awaiting review
-  APPROVED    // Approved for publication
-  REJECTED    // Rejected
-  PUBLISHED   // Published as card
-  ARCHIVED    // Archived/hidden
-}
-
-enum SubmissionPriority {
-  LOW         // Low priority
-  NORMAL      // Normal priority
-  HIGH        // High priority (leaks, official previews)
-  URGENT      // Urgent (time-sensitive)
-}
-
-// User Favorite Decks - tracks which decks users have marked as favorites
 model UserFavoriteDeck {
-  id       String @id @default(cuid())
-  userId   String
-  deckId   String
-
+  id        String   @id @default(cuid())
+  userId    String
+  deckId    String
   createdAt DateTime @default(now())
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  deck Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  deck      Deck     @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, deckId])
   @@index([userId])
@@ -616,21 +453,49 @@ model UserFavoriteDeck {
   @@map("user_favorite_decks")
 }
 
-// Deck Template Usage - tracks when templates are used to create new decks
 model DeckTemplateUsage {
-  id           String   @id @default(cuid())
-  templateId   String   // The deck that was used as a template
-  createdDeckId String? // The new deck created from this template (nullable in case deck is deleted)
-  userId       String   // User who used the template
-
-  createdAt    DateTime @default(now())
-
-  // Relations
-  template    Deck  @relation(fields: [templateId], references: [id], onDelete: Cascade)
-  user        User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String   @id @default(cuid())
+  templateId    String
+  createdDeckId String?
+  userId        String
+  createdAt     DateTime @default(now())
+  template      Deck     @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([templateId])
   @@index([userId])
   @@index([createdAt])
   @@map("deck_template_usage")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum DeckVisibility {
+  DRAFT
+  PRIVATE
+  PUBLIC
+}
+
+enum DeckRuleset {
+  COMPETITIVE
+  CASUAL
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum SubmissionPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
 }
