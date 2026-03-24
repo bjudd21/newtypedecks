@@ -28,13 +28,14 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
     >
       {/* Card Image Container */}
       <div className="relative aspect-[5/7] overflow-hidden rounded-lg border-2 border-[#443a5c] bg-[#1a1625] shadow-lg transition-all hover:border-[#6b5a8a] hover:shadow-2xl hover:shadow-[#6b5a8a]/40">
-        {card.imageUrl ? (
+        {(card.imageUrlSmall ?? card.imageUrl) ? (
           <Image
-            src={card.imageUrl}
+            src={(card.imageUrlSmall ?? card.imageUrl)!}
             alt={card.name}
             fill
+            loading="lazy"
             className="object-cover"
-            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 23vw, 18vw"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#2a1f3d] to-[#1a1625]">

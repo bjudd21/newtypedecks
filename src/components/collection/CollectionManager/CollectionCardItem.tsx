@@ -47,12 +47,18 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
   return (
     <div className="flex items-center justify-between rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 hover:bg-[#3a3050]">
       <div className="flex items-center space-x-4">
-        {collectionCard.card.imageUrl && (
+        {(collectionCard.card.imageUrlSmall ??
+          collectionCard.card.imageUrl) && (
           <Image
-            src={collectionCard.card.imageUrl}
+            src={
+              (collectionCard.card.imageUrlSmall ??
+                collectionCard.card.imageUrl)!
+            }
             alt={collectionCard.card.name}
             width={64}
             height={80}
+            loading="lazy"
+            sizes="64px"
             className="rounded object-cover"
           />
         )}

@@ -22,6 +22,8 @@ export const CardThumbnail: React.FC<CardThumbnailProps> = ({
           alt={name}
           width={48}
           height={48}
+          loading="lazy"
+          sizes="48px"
           className="h-full w-full object-cover"
         />
       ) : (

@@ -27,6 +27,8 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ cardPreview }) => {
                 alt={cardEntry.card.name}
                 width={48}
                 height={64}
+                loading="lazy"
+                sizes="48px"
                 className="h-16 w-12 rounded border object-cover"
               />
             ) : (

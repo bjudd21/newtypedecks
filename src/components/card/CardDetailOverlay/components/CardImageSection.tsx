@@ -23,6 +23,8 @@ export const CardImageSection: React.FC<CardImageSectionProps> = ({
             alt={cardName}
             width={500}
             height={700}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 500px"
             className="h-full w-full object-cover"
           />
         ) : (

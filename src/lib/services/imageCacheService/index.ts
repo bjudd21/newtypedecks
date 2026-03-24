@@ -7,7 +7,6 @@
 import type { CacheConfig, CachedImage, ImageCacheStats } from './types';
 import { MemoryCache } from './storage/memoryCache';
 import { IndexedDBCache } from './storage/indexedDB';
-import { fetchFromNetwork } from './network/fetcher';
 import { StatsTracker } from './stats/tracker';
 import { setupCleanupTasks, cleanup as cleanupMemory } from './cleanup/tasks';
 import { initializeCache } from './initialization/setup';
@@ -51,89 +50,58 @@ export class ImageCacheService {
   }
 
   /**
-   * Get cached image or fetch from network
+   * Return the image URL as-is.
+   *
+   * NOTE: The previous implementation fetched images as blobs and stored them
+   * in memory/IndexedDB, then returned blob: URLs. This bypassed next/image's
+   * server-side optimisation, CDN caching, and WebP/AVIF format negotiation —
+   * actively making image performance worse. The blob cache has been removed.
+   *
+   * TODO: Remove this entire service. Callers should rely on next/image's
+   * built-in caching (via /_next/image) and use the `priority` prop for
+   * above-the-fold images instead of manual preloading.
    */
   async getImage(
     url: string,
-    priority: 'high' | 'normal' | 'low' = 'normal'
+    _priority?: 'high' | 'normal' | 'low'
   ): Promise<string> {
     this.statsTracker.incrementRequests();
-
-    try {
-      // Check memory cache first
-      const memoryImage = this.memoryCache.get(url, this.config);
-      if (memoryImage) {
-        this.statsTracker.recordCacheHit();
-        return URL.createObjectURL(memoryImage.blob);
-      }
-
-      // Check IndexedDB cache
-      const dbImage = await this.indexedDBCache.get(url, this.config);
-      if (dbImage) {
-        // Store in memory for faster access
-        this.memoryCache.set(url, dbImage, this.config);
-        this.statsTracker.recordCacheHit();
-        return URL.createObjectURL(dbImage.blob);
-      }
-
-      // Fetch from network
-      const blob = await fetchFromNetwork(url, priority);
-      const cachedImage: CachedImage = {
-        url,
-        blob,
-        timestamp: Date.now(),
-        size: blob.size,
-        format: blob.type,
-        accessed: Date.now(),
-      };
-
-      // Cache the image
-      await this.storeImage(cachedImage);
-      this.statsTracker.recordCacheMiss();
-
-      return URL.createObjectURL(blob);
-    } catch (error) {
-      console.error('Failed to get image:', error);
-      this.statsTracker.recordCacheMiss();
-      return url; // Fallback to original URL
-    }
+    this.statsTracker.recordCacheMiss();
+    return url;
   }
 
   /**
-   * Preload critical images
+   * Hint the browser to prefetch images during idle time.
+   * Uses native Image() preloading so next/image's /_next/image pipeline
+   * handles format selection and caching — no blob conversion.
    */
   async preloadImages(
     urls: string[],
-    priority: 'high' | 'normal' | 'low' = 'high'
+    _priority: 'high' | 'normal' | 'low' = 'high'
   ): Promise<void> {
-    if (!this.config.preloadCritical) return;
+    if (!this.config.preloadCritical || typeof window === 'undefined') return;
 
-    const preloadPromises = urls.slice(0, 10).map(
-      (
-        url // Limit to 10 images
-      ) =>
-        this.getImage(url, priority).catch((error) => {
-          console.warn(`Failed to preload image ${url}:`, error);
-        })
-    );
-
-    await Promise.allSettled(preloadPromises);
+    urls.slice(0, 10).forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
   }
 
   /**
-   * Prefetch images for later use
+   * Prefetch images for later use during browser idle time.
    */
   async prefetchImages(urls: string[]): Promise<void> {
-    // Use requestIdleCallback to prefetch during idle time
-    if ('requestIdleCallback' in window) {
-      urls.forEach((url) => {
-        requestIdleCallback(() => {
-          this.getImage(url, 'low').catch(() => {
-            // Silently fail prefetch attempts
-          });
-        });
+    if (typeof window === 'undefined') return;
+
+    const schedule =
+      'requestIdleCallback' in window ? requestIdleCallback : setTimeout;
+
+    urls.forEach((url) => {
+      schedule(() => {
+        const img = new Image();
+        img.src = url;
       });
-    }
+    });
   }
 
   /**

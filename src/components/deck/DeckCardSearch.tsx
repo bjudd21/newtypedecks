@@ -51,11 +51,12 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
     >
       {/* Card Image Placeholder */}
       <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-gray-200">
-        {card.imageUrl ? (
+        {(card.imageUrlSmall ?? card.imageUrl) ? (
           <Image
-            src={card.imageUrl}
+            src={(card.imageUrlSmall ?? card.imageUrl)!}
             alt={card.name}
             fill
+            loading="lazy"
             className="object-cover"
             sizes="48px"
           />

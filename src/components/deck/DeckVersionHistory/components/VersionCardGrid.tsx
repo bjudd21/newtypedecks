@@ -24,13 +24,17 @@ export const VersionCardGrid: React.FC<VersionCardGridProps> = ({
             key={versionCard.id}
             className="flex items-center gap-2 rounded border bg-white p-2 text-sm"
           >
-            <Image
-              src={versionCard.card.imageUrl}
-              alt={versionCard.card.name}
-              width={32}
-              height={32}
-              className="h-8 w-8 rounded object-cover"
-            />
+            {versionCard.card.imageUrl && (
+              <Image
+                src={versionCard.card.imageUrl}
+                alt={versionCard.card.name}
+                width={32}
+                height={32}
+                loading="lazy"
+                sizes="32px"
+                className="h-8 w-8 rounded object-cover"
+              />
+            )}
             <div className="min-w-0 flex-1">
               <div className="truncate font-medium">
                 {versionCard.card.name}

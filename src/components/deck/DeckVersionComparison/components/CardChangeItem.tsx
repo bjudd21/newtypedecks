@@ -30,14 +30,18 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
     <div
       className={`flex items-center gap-3 rounded border p-2 ${borderColor}`}
     >
-      <Image
-        src={change.card.imageUrl}
-        alt={change.card.name}
-        width={imageSize}
-        height={imageSize}
-        className={`h-${imageSize / 4} w-${imageSize / 4} rounded object-cover ${change.type === 'removed' ? 'opacity-75' : ''}`}
-        style={{ width: imageSize, height: imageSize }}
-      />
+      {change.card.imageUrl && (
+        <Image
+          src={change.card.imageUrl}
+          alt={change.card.name}
+          width={imageSize}
+          height={imageSize}
+          loading="lazy"
+          sizes={`${imageSize}px`}
+          className={`rounded object-cover ${change.type === 'removed' ? 'opacity-75' : ''}`}
+          style={{ width: imageSize, height: imageSize }}
+        />
+      )}
       <div className="flex-1">
         <div
           className={`font-medium ${change.type === 'unchanged' ? 'text-sm text-gray-700' : ''}`}

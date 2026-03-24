@@ -41,7 +41,11 @@ const nextConfig: NextConfig = {
       },
     ],
     // Supported formats (in order of preference)
-    formats: ['image/avif', 'image/webp'],
+    // WebP first: fast to transcode, universal browser support. AVIF is a
+    // fallback for browsers that explicitly prefer it. The Sharp upload pipeline
+    // does not pre-encode AVIF, so keeping it second avoids costly on-the-fly
+    // transcoding for the majority of requests.
+    formats: ['image/webp', 'image/avif'],
     // Device breakpoints for responsive images
     deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     // Icon and small image sizes

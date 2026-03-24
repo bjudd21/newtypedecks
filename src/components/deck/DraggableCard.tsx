@@ -102,12 +102,14 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
 
       {/* Card Image Placeholder */}
       <div className="flex h-16 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050]">
-        {card.imageUrl ? (
+        {(card.imageUrlSmall ?? card.imageUrl) ? (
           <Image
-            src={card.imageUrl}
+            src={(card.imageUrlSmall ?? card.imageUrl)!}
             alt={card.name}
             width={48}
             height={64}
+            loading="lazy"
+            sizes="48px"
             className="h-full w-full object-cover"
           />
         ) : (
