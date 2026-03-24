@@ -67,17 +67,21 @@ Three-tier system (replaces boolean `isPublic`):
 5. All API queries for cards/decks/collections must filter by `gameId`
 6. Export filenames use `game.slug`, not hardcoded 'gundam'
 
-### ⚠️ Known Migration Gaps (Architect Review 2026-03-23)
+### ⚠️ Known Issues (Architect Review #2 — 2026-03-24)
 
-**CRITICAL — must be resolved before production:**
+**SECURITY — fix before production:**
 
-1. **gameAttributes JSONB is not read by queries.** The JSONB column exists and One Piece data is written to it, but all card search/filter queries still read from deprecated flat columns (`card.faction`, `card.pilot`, etc.). One Piece card filtering is broken. All game-specific field queries must use Prisma JSON path syntax on `gameAttributes`.
+1. **middleware.ts is stale.** `/api/admin` is NOT guarded at middleware level. Auth route patterns (`/decks/create`, `/collection`) don't match `[gameSlug]` prefix. Public route list doesn't account for `[gameSlug]`. This has been flagged twice and is the only deploy blocker.
 
-2. **isPublic boolean still used in 36 places.** The `DeckVisibility` enum exists but favorites, templates, and deck sub-routes still check the deprecated `isPublic` boolean. Use `visibility` enum everywhere.
+**Code debt — fix soon:**
 
-3. **15+ API routes missing game scoping.** Favorites, templates, deck sub-routes (`/[id]/like`, `/[id]/view`, `/[id]/versions`, `/by-code`), and some collection/submission routes don't filter by gameId.
+2. **DeckShare component still uses `isPublic` boolean** (10 of 22 remaining isPublic refs). Should use `visibility: DeckVisibility` enum. API routes that compute `isPublic: visibility === 'PUBLIC'` for backward compat are acceptable.
 
-4. **middleware.ts route matchers are stale.** Auth-required route patterns don't match the `[gameSlug]` prefix. `/api/admin` is not guarded at middleware level.
+3. **Import/export services map flat columns.** csvImporter and jsonImporter still set `faction`/`pilot`/`model` as flat fields instead of routing to `gameAttributes`. One Piece card imports will fail.
+
+4. **ImageCacheService is dead code.** Blob path was gutted (returns URLs as-is) but ~500 lines of unused service/storage/stats code remains. Delete the entire directory.
+
+**Resolved since last review:** ✅ gameAttributes JSONB queries (35 refs now), ✅ most API routes game-scoped, ✅ hardcoded strings (down to 1), ✅ Sentry wired, ✅ Vercel Analytics, ✅ vercel.json, ✅ health check, ✅ directUrl, ✅ .env.vercel.example
 
 ## Development Commands
 

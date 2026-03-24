@@ -2,6 +2,8 @@
  * Type definitions for FavoriteDeckManager
  */
 
+import type { DeckVisibility } from '@prisma/client';
+
 export interface FavoriteDeck {
   id: string;
   favoritedAt: string;
@@ -9,7 +11,7 @@ export interface FavoriteDeck {
     id: string;
     name: string;
     description?: string;
-    isPublic: boolean;
+    visibility: DeckVisibility;
     isTemplate: boolean;
     templateSource?: string;
     creator: {

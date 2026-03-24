@@ -2,6 +2,8 @@
  * Type definitions for social service
  */
 
+import type { DeckVisibility } from '@prisma/client';
+
 export interface UserProfile {
   id: string;
   username: string;
@@ -95,7 +97,7 @@ export interface SocialDeckData {
   authorId: string;
   authorName: string;
   authorAvatar?: string;
-  isPublic: boolean;
+  visibility: DeckVisibility;
   createdAt: Date;
   updatedAt: Date;
   tags: string[];

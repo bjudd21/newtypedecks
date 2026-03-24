@@ -209,7 +209,7 @@ export async function POST(request: NextRequest) {
         ruleset: (['COMPETITIVE', 'CASUAL'].includes(ruleset)
           ? ruleset
           : 'COMPETITIVE') as 'COMPETITIVE' | 'CASUAL',
-        isPublic: visibility === 'PUBLIC',
+        isPublic: visibility === 'PUBLIC', // backward compat: DeckVersion.isPublic mirrors deck visibility
         deckCode: generateDeckCode(game.slug),
         userId: session.user.id,
         gameId,

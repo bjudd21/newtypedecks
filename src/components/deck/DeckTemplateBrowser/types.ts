@@ -2,6 +2,8 @@
  * Type definitions for DeckTemplateBrowser components
  */
 
+import type { DeckVisibility } from '@prisma/client';
+
 export interface DeckTemplate {
   id: string;
   name: string;
@@ -27,7 +29,7 @@ export interface TemplateCustomizations {
   name?: string;
   description?: string;
   format?: string;
-  isPublic?: boolean;
+  visibility?: DeckVisibility;
   [key: string]: unknown;
 }
 

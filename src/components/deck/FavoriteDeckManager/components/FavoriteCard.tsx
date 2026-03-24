@@ -116,7 +116,11 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
         )}
 
         <div className="ml-auto text-xs text-gray-400">
-          {favorite.deck.isPublic ? 'Public' : 'Private'}
+          {favorite.deck.visibility === 'PUBLIC'
+            ? 'Public'
+            : favorite.deck.visibility === 'PRIVATE'
+              ? 'Private'
+              : 'Draft'}
         </div>
       </div>
     </div>

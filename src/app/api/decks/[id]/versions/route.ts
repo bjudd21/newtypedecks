@@ -166,7 +166,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
         description: deck.description,
         versionName: versionName?.trim() || null,
         changeNote: changeNote?.trim() || null,
-        isPublic: deck.visibility === 'PUBLIC',
+        isPublic: deck.visibility === 'PUBLIC', // backward compat: DeckVersion.isPublic mirrors deck visibility
         createdBy: session.user.id,
         cards: {
           create: deck.cards.map((deckCard) => ({
