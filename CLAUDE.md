@@ -8,7 +8,7 @@ This is Newtype Decks, a **multi-TCG platform** for card database browsing, deck
 
 **Currently supported games:** Gundam Card Game, One Piece TCG (in progress).
 
-**Source of truth for the pivot:** `prd-multi-tcg-addendum.md`
+**Source of truth for the pivot:** `docs/prd-multi-tcg-addendum.md`
 
 ## Multi-TCG Architecture
 
@@ -298,7 +298,7 @@ Sharp-based image processing with multiple size variants:
 
 ### Deployment
 
-- **Vercel**: See `docs/VERCEL_DEPLOYMENT.md` for full guide
+- **Vercel**: See `docs/DEPLOYMENT.md` for full guide
 - **Docker**: Uncomment `output: 'standalone'` in `next.config.ts`
 - **Config**: `vercel.json` for region, function timeouts, headers
 
@@ -402,13 +402,12 @@ This project has comprehensive documentation organized into focused guides:
 
 ### For Deployment
 
-- **[docs/DEPLOYMENT.md](/docs/DEPLOYMENT.md)** - Production deployment guide (Docker, K8s)
-- **[docs/VERCEL_DEPLOYMENT.md](/docs/VERCEL_DEPLOYMENT.md)** - Vercel + Neon Postgres deployment
+- **[docs/DEPLOYMENT.md](/docs/DEPLOYMENT.md)** - Production deployment guide (Docker, K8s, Vercel)
 
 ### For Planning
 
-- **[prd-multi-tcg-addendum.md](/prd-multi-tcg-addendum.md)** - Multi-TCG platform PRD with competitive analysis
-- **[prd-gundam-card-game-website.md](/prd-gundam-card-game-website.md)** - Original PRD (still valid for non-game-specific features)
+- **[docs/prd-multi-tcg-addendum.md](/docs/prd-multi-tcg-addendum.md)** - Multi-TCG platform PRD with competitive analysis
+- **[docs/prd-gundam-card-game-website.md](/docs/prd-gundam-card-game-website.md)** - Original PRD (still valid for non-game-specific features)
   - Quick deployment checklist
   - Platform-specific guides (Vercel, Docker, Kubernetes)
   - SSL/TLS configuration

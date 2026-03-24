@@ -12,7 +12,10 @@
       "mcp__github__issue_read",
       "mcp__github__add_issue_comment",
       "Bash(git push:*)",
-      "Bash(gh issue:*)"
+      "Bash(gh issue:*)",
+      "Bash(grep:*)",
+      "Bash(npx jest:*)",
+      "Bash(npm run:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
