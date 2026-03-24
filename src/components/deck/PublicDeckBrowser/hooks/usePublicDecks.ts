@@ -121,6 +121,13 @@ export function usePublicDecks() {
     }
   }, []);
 
+  const handleCompareDeck = useCallback(
+    (deckId: string) => {
+      router.push(`/${gameSlug}/decks/compare?a=${deckId}`);
+    },
+    [router, gameSlug]
+  );
+
   const handleCopyDeck = useCallback(
     async (deck: PublicDeck) => {
       try {
@@ -163,5 +170,6 @@ export function usePublicDecks() {
     handleViewDeck,
     handleLikeDeck,
     handleCopyDeck,
+    handleCompareDeck,
   };
 }

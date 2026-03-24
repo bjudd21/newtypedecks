@@ -20,6 +20,7 @@ interface DeckCardProps {
   onViewDeck: (deckId: string) => void;
   onCopyDeck: (deck: PublicDeck) => void;
   onLikeDeck: (deckId: string) => void;
+  onCompareDeck: (deckId: string) => void;
 }
 
 export const DeckCard: React.FC<DeckCardProps> = ({
@@ -27,6 +28,7 @@ export const DeckCard: React.FC<DeckCardProps> = ({
   onViewDeck,
   onCopyDeck,
   onLikeDeck,
+  onCompareDeck,
 }) => {
   return (
     <Card className="transition-shadow hover:shadow-lg">
@@ -92,6 +94,14 @@ export const DeckCard: React.FC<DeckCardProps> = ({
             className="flex-1"
           >
             Copy
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onCompareDeck(deck.id)}
+            title="Compare this deck"
+          >
+            ⚔
           </Button>
           <Button
             variant={deck.isLikedByUser ? 'default' : 'outline'}

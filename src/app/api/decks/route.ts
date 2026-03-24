@@ -19,29 +19,36 @@ export async function GET(request: NextRequest) {
 
     const session = await getServerSession(authOptions);
 
-    if (!session?.user) {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const search = searchParams.get('search') || '';
+    const publicOnly = searchParams.get('public') === 'true';
+    // allUsers=true: return PUBLIC decks from all users (no auth required)
+    const allUsers = searchParams.get('allUsers') === 'true';
+
+    // Own-deck queries require authentication; allUsers (public) do not
+    if (!allUsers && !session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
       );
     }
 
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const search = searchParams.get('search') || '';
-    const publicOnly = searchParams.get('public') === 'true';
-
     const skip = (page - 1) * limit;
 
     // Build where clause
-    const where: Record<string, unknown> = {
-      userId: session.user.id,
-      gameId,
-    };
+    const where: Record<string, unknown> = { gameId };
 
-    if (publicOnly) {
+    if (allUsers) {
+      // Only public decks visible to everyone
       where.visibility = 'PUBLIC';
+    } else {
+      // Own decks — all visibility tiers
+      where.userId = session!.user.id;
+      if (publicOnly) {
+        where.visibility = 'PUBLIC';
+      }
     }
 
     if (search) {
@@ -69,6 +76,9 @@ export async function GET(request: NextRequest) {
           _count: {
             select: { cards: true },
           },
+          user: {
+            select: { name: true },
+          },
         },
         orderBy: { updatedAt: 'desc' },
         skip,
@@ -83,6 +93,7 @@ export async function GET(request: NextRequest) {
       name: deck.name,
       description: deck.description,
       visibility: deck.visibility,
+      userName: deck.user?.name ?? null,
       createdAt: deck.createdAt,
       updatedAt: deck.updatedAt,
       cardCount: deck.cards.reduce((sum, dc) => sum + dc.quantity, 0),

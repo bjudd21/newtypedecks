@@ -28,6 +28,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
     handleViewDeck,
     handleLikeDeck,
     handleCopyDeck,
+    handleCompareDeck,
   } = usePublicDecks();
 
   return (
@@ -55,6 +56,7 @@ export const PublicDeckBrowser: React.FC<PublicDeckBrowserProps> = ({
                   onViewDeck={handleViewDeck}
                   onCopyDeck={handleCopyDeck}
                   onLikeDeck={handleLikeDeck}
+                  onCompareDeck={handleCompareDeck}
                 />
               ))}
             </div>
