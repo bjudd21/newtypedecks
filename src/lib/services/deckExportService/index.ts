@@ -12,6 +12,7 @@ export type {
 } from './types';
 
 import type { ExportableDeck, ExportOptions, ImportResult } from './types';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 import {
   enrichDeckWithMetadata,
   generateFilename,
@@ -73,17 +74,24 @@ export class DeckExportService {
   }
 
   /**
-   * Import deck from various formats
+   * Import deck from various formats.
+   *
+   * Pass `customFields` from the active game's config to route game-specific
+   * columns/properties into `card.gameAttributes` rather than deprecated flat columns.
    */
-  importDeck(content: string, format: string): ImportResult {
+  importDeck(
+    content: string,
+    format: string,
+    customFields: CardSchemaCustomField[] = []
+  ): ImportResult {
     try {
       switch (format) {
         case 'json':
-          return importFromJSON(content);
+          return importFromJSON(content, customFields);
         case 'text':
           return importFromText(content);
         case 'csv':
-          return importFromCSV(content);
+          return importFromCSV(content, customFields);
         default:
           return {
             success: false,

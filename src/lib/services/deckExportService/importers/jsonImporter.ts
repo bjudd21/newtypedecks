@@ -3,12 +3,20 @@
  */
 
 import type { CardWithRelations } from '@/lib/types/card';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 import type { ImportResult, ExportableDeck, DeckCard } from '../types';
 
 /**
- * Import from JSON format
+ * Import from JSON format.
+ *
+ * Pass `customFields` from the active game's config so that game-specific
+ * properties (e.g. One Piece's color/power/counter or Gundam's faction/pilot/model)
+ * are routed into `card.gameAttributes` instead of deprecated flat columns.
  */
-export function importFromJSON(content: string): ImportResult {
+export function importFromJSON(
+  content: string,
+  customFields: CardSchemaCustomField[] = []
+): ImportResult {
   try {
     const data = JSON.parse(content);
     const errors: string[] = [];
@@ -29,6 +37,19 @@ export function importFromJSON(content: string): ImportResult {
     // Convert imported card data back to DeckCard format
     const cards: DeckCard[] = data.cards.map((cardData: unknown) => {
       const card = cardData as Record<string, unknown>;
+
+      // Route game-specific fields into gameAttributes based on the game config.
+      // Also carry through any gameAttributes already present in the JSON.
+      const existingAttrs =
+        (card.gameAttributes as Record<string, unknown>) ?? {};
+      const derivedAttrs: Record<string, unknown> = {};
+      for (const field of customFields) {
+        if (card[field.key] !== undefined) {
+          derivedAttrs[field.key] = card[field.key];
+        }
+      }
+      const mergedAttrs = { ...existingAttrs, ...derivedAttrs };
+
       return {
         card: {
           id: card.id,
@@ -38,9 +59,8 @@ export function importFromJSON(content: string): ImportResult {
           type: card.type ? { name: card.type as string } : null,
           rarity: card.rarity ? { name: card.rarity as string } : null,
           set: card.set ? { name: card.set as string } : null,
-          faction: card.faction,
-          pilot: card.pilot,
-          model: card.model,
+          gameAttributes:
+            Object.keys(mergedAttrs).length > 0 ? mergedAttrs : null,
         } as CardWithRelations,
         quantity: card.quantity as number,
         category: card.category as string,

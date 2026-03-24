@@ -3,12 +3,20 @@
  */
 
 import type { CardWithRelations } from '@/lib/types/card';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 import type { ImportResult, ExportableDeck, DeckCard } from '../types';
 
 /**
- * Import from CSV format
+ * Import from CSV format.
+ *
+ * Pass `customFields` from the active game's config so that game-specific
+ * column headers (e.g. One Piece's color/power/counter or Gundam's faction/pilot/model)
+ * are routed into `card.gameAttributes` instead of deprecated flat columns.
  */
-export function importFromCSV(content: string): ImportResult {
+export function importFromCSV(
+  content: string,
+  customFields: CardSchemaCustomField[] = []
+): ImportResult {
   const errors: string[] = [];
   const warnings: string[] = [];
 
@@ -49,6 +57,16 @@ export function importFromCSV(content: string): ImportResult {
       continue;
     }
 
+    // Route game-specific columns into gameAttributes based on the game config.
+    const gameAttributes: Record<string, unknown> = {};
+    for (const field of customFields) {
+      const val = row[field.key];
+      if (val !== undefined && val !== '') {
+        gameAttributes[field.key] =
+          field.type === 'number' ? parseFloat(val) : val;
+      }
+    }
+
     const rowObj = row as Record<string, unknown>;
     cards.push({
       card: {
@@ -62,9 +80,8 @@ export function importFromCSV(content: string): ImportResult {
         type: rowObj.type ? { name: rowObj.type as string } : null,
         rarity: rowObj.rarity ? { name: rowObj.rarity as string } : null,
         set: rowObj.set ? { name: rowObj.set as string } : null,
-        faction: rowObj.faction as string | null,
-        pilot: rowObj.pilot as string | null,
-        model: rowObj.model as string | null,
+        gameAttributes:
+          Object.keys(gameAttributes).length > 0 ? gameAttributes : null,
       } as CardWithRelations,
       quantity,
       category: row.category || 'main',

@@ -33,9 +33,24 @@ export function patternToReadableQuery(
   const parts: string[] = [];
 
   if (filters.name) parts.push(`"${filters.name}"`);
-  if (filters.faction) parts.push(`Faction: ${filters.faction}`);
-  if (filters.series) parts.push(`Series: ${filters.series}`);
-  if (filters.pilot) parts.push(`Pilot: ${filters.pilot}`);
+
+  // Game-specific string filters — derive label from key name to avoid hardcoding
+  // game-specific field names (e.g. Gundam's faction/pilot, One Piece's color/power).
+  const gameSpecificKeys = [
+    'faction',
+    'series',
+    'pilot',
+    'nation',
+    'model',
+  ] as const;
+  for (const key of gameSpecificKeys) {
+    const val = filters[key as keyof typeof filters];
+    if (val) {
+      const label = key.charAt(0).toUpperCase() + key.slice(1);
+      parts.push(`${label}: ${val}`);
+    }
+  }
+
   if (filters.levelMin || filters.levelMax) {
     const min = filters.levelMin || 0;
     const max = filters.levelMax || '∞';
