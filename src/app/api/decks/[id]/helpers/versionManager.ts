@@ -41,6 +41,7 @@ export async function createDeckVersion(
           cardId: deckCard.cardId,
           quantity: deckCard.quantity,
           category: deckCard.category,
+          userCategory: deckCard.userCategory,
         })),
       },
     },
@@ -78,6 +79,7 @@ export async function updateDeckCards(
           Math.min(4, parseInt(String(cardObj.quantity || 1)))
         ),
         category: (cardObj.category as string) || 'main',
+        userCategory: (cardObj.userCategory as string | undefined) ?? null,
       };
     }),
   });

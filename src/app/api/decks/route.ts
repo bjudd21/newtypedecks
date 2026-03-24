@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, description, visibility, ruleset, cards } =
+    const { name, description, visibility, ruleset, cards, categories } =
       await request.json();
 
     // Validate input
@@ -202,6 +202,7 @@ export async function POST(request: NextRequest) {
         deckCode: generateDeckCode(game.slug),
         userId: session.user.id,
         gameId,
+        categories: Array.isArray(categories) ? categories : undefined,
         cards: {
           create: cards.map((card: unknown) => {
             const cardObj = card as Record<string, unknown>;
@@ -217,6 +218,8 @@ export async function POST(request: NextRequest) {
                 )
               ),
               category: (cardObj.category as string) || 'main',
+              userCategory:
+                (cardObj.userCategory as string | undefined) ?? null,
             };
           }),
         },

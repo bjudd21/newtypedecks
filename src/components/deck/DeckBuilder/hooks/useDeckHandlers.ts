@@ -11,8 +11,15 @@ import {
   addCardToCurrentDeck,
   removeCardFromCurrentDeck,
   updateCardQuantityInCurrentDeck,
+  updateCardUserCategoryInCurrentDeck,
+  setDeckCategories,
   setIsEditing,
 } from '@/store/slices/deckSlice';
+import {
+  defaultCategoriesFromCardTypes,
+  parseDeckCategories,
+  type DeckCategory,
+} from '@/lib/types/deck';
 import { deckExporter } from '@/lib/services/deckExportService';
 import { createNewDeck } from '../deckFactory';
 import type { CardWithRelations } from '@/lib/types/card';
@@ -157,13 +164,14 @@ export function useDeckHandlers({
     [currentDeck, dispatch]
   );
 
-  // Handle creating a new deck
+  // Handle creating a new deck — initialize categories from card types
   const handleNewDeck = useCallback(() => {
-    const newDeck = createNewDeck(isAuthenticated, userId);
+    const cardTypes = game?.config?.cardTypes ?? [];
+    const newDeck = createNewDeck(isAuthenticated, userId, cardTypes);
     dispatch(setCurrentDeck(newDeck));
     setSavedDeckId(null);
     dispatch(setIsEditing(true));
-  }, [isAuthenticated, userId, dispatch, setSavedDeckId]);
+  }, [isAuthenticated, userId, dispatch, setSavedDeckId, game]);
 
   // Handle save deck
   const handleSaveDeck = useCallback(async () => {
@@ -183,17 +191,21 @@ export function useDeckHandlers({
 
     clearError();
 
+    const rawCategories = (currentDeck as unknown as Record<string, unknown>)
+      ?.categories;
     const deckData = {
       name: deckName.trim() || 'Untitled Deck',
       description: deckDescription.trim(),
       format: deckFormat,
       visibility,
       ruleset,
+      categories: parseDeckCategories(rawCategories),
       cards: (currentDeck?.cards ?? []).map((deckCard) => ({
         cardId: deckCard.cardId || deckCard.card.id,
         card: deckCard.card,
         quantity: deckCard.quantity,
         category: deckCard.category || 'main',
+        userCategory: deckCard.userCategory ?? null,
       })),
     };
 
@@ -285,6 +297,33 @@ export function useDeckHandlers({
     [currentDeck, deckName, game]
   );
 
+  // Reassign a card to a different user category
+  const handleUserCategoryChange = useCallback(
+    (cardId: string, userCategory: string | null) => {
+      dispatch(updateCardUserCategoryInCurrentDeck({ cardId, userCategory }));
+    },
+    [dispatch]
+  );
+
+  // Replace the full category list (add / rename / delete / reorder)
+  const handleCategoriesChange = useCallback(
+    (categories: DeckCategory[]) => {
+      dispatch(setDeckCategories(categories));
+    },
+    [dispatch]
+  );
+
+  // Initialize default categories from game cardTypes (called when entering edit mode on an existing deck with no categories)
+  const handleInitDefaultCategories = useCallback(() => {
+    const rawCategories = (currentDeck as unknown as Record<string, unknown>)
+      ?.categories;
+    const existing = parseDeckCategories(rawCategories);
+    if (existing.length === 0) {
+      const cardTypes = game?.config?.cardTypes ?? [];
+      dispatch(setDeckCategories(defaultCategoriesFromCardTypes(cardTypes)));
+    }
+  }, [currentDeck, game, dispatch]);
+
   return {
     handleCardSelect,
     handleQuantityChange,
@@ -294,6 +333,9 @@ export function useDeckHandlers({
     handleNewDeck,
     handleSaveDeck,
     handleExport,
+    handleUserCategoryChange,
+    handleCategoriesChange,
+    handleInitDefaultCategories,
     searchResults,
   };
 }

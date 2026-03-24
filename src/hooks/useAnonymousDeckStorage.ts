@@ -10,6 +10,7 @@ import { urlDeckSharingService } from '@/lib/services/urlDeckSharingService';
 import { pwaService } from '@/lib/services/pwaService';
 import type { SaveStatus } from './useOfflineSync';
 import type { CardWithRelations } from '@/lib/types/card';
+import type { JsonValue } from '@prisma/client/runtime/library';
 
 const STORAGE_KEY = 'anonymous-deck';
 
@@ -29,6 +30,7 @@ interface DeckData {
   versionName: string | null;
   isTemplate: boolean;
   templateSource: string | null;
+  categories: JsonValue | null;
   createdAt: Date;
   updatedAt: Date;
   cards: Array<{
@@ -37,6 +39,7 @@ interface DeckData {
     cardId: string;
     quantity: number;
     category: string | null;
+    userCategory: string | null;
     card: CardWithRelations;
   }>;
 }
@@ -106,6 +109,7 @@ export function useAnonymousDeckStorage(
       versionName: null,
       isTemplate: false,
       templateSource: null,
+      categories: null,
       createdAt: new Date(),
       updatedAt: new Date(),
       cards: [],
@@ -141,6 +145,7 @@ export function useAnonymousDeckStorage(
           versionName: null,
           isTemplate: false,
           templateSource: null,
+          categories: null,
           createdAt: new Date(),
           updatedAt: new Date(),
           cards: [],

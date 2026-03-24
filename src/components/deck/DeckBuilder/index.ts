@@ -17,6 +17,8 @@ export { createNewDeck } from './deckFactory';
 
 // UI Components
 export { CardListByType } from './CardListByType';
+export { CardListByCategory } from './CardListByCategory';
+export { CategoryManager } from './CategoryManager';
 export { CardListText } from './CardListText';
 export { CardListSpreadsheet } from './CardListSpreadsheet';
 export { ViewModeToggle } from './ViewModeToggle';

@@ -8,6 +8,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { setIsEditing, setCurrentDeck } from '@/store/slices/deckSlice';
+import { parseDeckCategories } from '@/lib/types/deck';
 import { useAuth, useDecks } from '@/hooks';
 import { useGame } from '@/contexts/GameContext';
 import { DeckHeader } from '../DeckHeader';
@@ -86,6 +87,9 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     handleNewDeck,
     handleSaveDeck,
     handleExport,
+    handleUserCategoryChange,
+    handleCategoriesChange,
+    handleInitDefaultCategories,
     searchResults: _searchResults,
   } = useDeckHandlers({
     currentDeck,
@@ -108,6 +112,11 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
     useDeckCalculations({ currentDeck });
 
   const { viewMode, setViewMode } = useViewMode();
+
+  // Parse deck-level categories from the current deck (Prisma Json? field)
+  const deckCategories = parseDeckCategories(
+    (currentDeck as unknown as Record<string, unknown>)?.categories
+  );
 
   const handleImportByCode = useCallback(
     (
@@ -152,7 +161,11 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
             handleDeckNameChange(name);
           }}
           isEditing={isEditing}
-          onToggleEditing={() => dispatch(setIsEditing(!isEditing))}
+          onToggleEditing={() => {
+            // When entering edit mode, initialize default categories if none exist
+            if (!isEditing) handleInitDefaultCategories();
+            dispatch(setIsEditing(!isEditing));
+          }}
           isAuthenticated={isAuthenticated}
           savedDeckId={savedDeckId}
           showVersionHistory={showVersionHistory}
@@ -203,6 +216,9 @@ export const DeckBuilderComponent: React.FC<DeckBuilderProps> = ({
             deckRules={game?.config?.deckRules}
             viewMode={viewMode}
             onViewModeChange={setViewMode}
+            categories={deckCategories}
+            onCategoriesChange={handleCategoriesChange}
+            onUserCategoryChange={handleUserCategoryChange}
           />
         </div>
       </div>

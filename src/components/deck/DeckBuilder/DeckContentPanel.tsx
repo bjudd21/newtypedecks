@@ -9,12 +9,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
 import { CollectionSummaryBar } from './CollectionSummaryBar';
 import { DeckDropZone } from '../DeckDropZone';
 import { CardListByType } from './CardListByType';
+import { CardListByCategory } from './CardListByCategory';
 import { CardListText } from './CardListText';
 import { CardListSpreadsheet } from './CardListSpreadsheet';
 import { ViewModeToggle, type ViewMode } from './ViewModeToggle';
+import { CategoryManager } from './CategoryManager';
 import type { DeckCard } from '@prisma/client';
 import type { CardWithRelations } from '@/lib/types/card';
 import type { DeckRules } from '@/lib/types/game';
+import type { DeckCategory } from '@/lib/types/deck';
 
 interface DeckCardWithCard extends DeckCard {
   card: CardWithRelations;
@@ -33,6 +36,9 @@ interface DeckContentPanelProps {
   deckRules?: DeckRules;
   viewMode?: ViewMode;
   onViewModeChange?: (mode: ViewMode) => void;
+  categories?: DeckCategory[];
+  onCategoriesChange?: (categories: DeckCategory[]) => void;
+  onUserCategoryChange?: (cardId: string, userCategory: string | null) => void;
 }
 
 /** Group a flat card list by card type name for use in CardListByType. */
@@ -48,22 +54,42 @@ function groupByType(
   return groups;
 }
 
-/** Render the appropriate card-list view based on viewMode. */
+/** Render the appropriate card-list view based on viewMode and categories. */
 function CardListView({
   cardsByType,
+  deckCardsFlat,
+  categories,
   isEditing,
   collectionQuantities,
   onQuantityChange,
+  onUserCategoryChange,
   viewMode,
   showOwnership,
 }: {
   cardsByType: Record<string, DeckCardWithCard[]>;
+  deckCardsFlat: DeckCardWithCard[];
+  categories: DeckCategory[];
   isEditing: boolean;
   collectionQuantities: Record<string, number>;
   onQuantityChange: (cardId: string, quantity: number) => void;
+  onUserCategoryChange?: (cardId: string, userCategory: string | null) => void;
   viewMode: ViewMode;
   showOwnership: boolean;
 }) {
+  // Use category grouping in image view when categories are configured
+  if (viewMode === 'image' && categories.length > 0 && onUserCategoryChange) {
+    return (
+      <CardListByCategory
+        deckCards={deckCardsFlat}
+        categories={categories}
+        isEditing={isEditing}
+        collectionQuantities={collectionQuantities}
+        onQuantityChange={onQuantityChange}
+        onUserCategoryChange={onUserCategoryChange}
+        showOwnership={showOwnership}
+      />
+    );
+  }
   if (viewMode === 'text') {
     return (
       <CardListText
@@ -110,8 +136,12 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   deckRules,
   viewMode = 'image',
   onViewModeChange,
+  categories = [],
+  onCategoriesChange,
+  onUserCategoryChange,
 }) => {
   const [showOwnership, setShowOwnership] = useState(false);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
   const zones = deckRules?.zones ?? [];
   const useZoneLayout = zones.length > 0 && deckCards != null;
   // All cards as a flat list for the summary bar
@@ -125,6 +155,19 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
             DECK CONTENTS ({totalCards} CARDS)
           </CardTitle>
           <div className="flex items-center gap-2">
+            {isEditing && onCategoriesChange && (
+              <button
+                onClick={() => setShowCategoryManager((v) => !v)}
+                title="Manage deck categories"
+                className={`rounded border px-2 py-1 text-xs transition-colors ${
+                  showCategoryManager
+                    ? 'border-[#8b7aaa]/60 bg-[#8b7aaa]/10 text-[#a89ec7]'
+                    : 'border-[#443a5c] text-gray-500 hover:text-gray-300'
+                }`}
+              >
+                Categories
+              </button>
+            )}
             {isAuthenticated && (
               <button
                 onClick={() => setShowOwnership((v) => !v)}
@@ -148,6 +191,14 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
             <CollectionSummaryBar
               deckCards={allDeckCards}
               collectionQuantities={collectionQuantities}
+            />
+          </div>
+        )}
+        {showCategoryManager && onCategoriesChange && (
+          <div className="mt-2">
+            <CategoryManager
+              categories={categories}
+              onChange={onCategoriesChange}
             />
           </div>
         )}
@@ -208,9 +259,12 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                   {zoneCards.length === 0 ? null : (
                     <CardListView
                       cardsByType={groupByType(zoneCards)}
+                      deckCardsFlat={zoneCards}
+                      categories={categories}
                       isEditing={isEditing}
                       collectionQuantities={collectionQuantities}
                       onQuantityChange={onQuantityChange}
+                      onUserCategoryChange={onUserCategoryChange}
                       viewMode={viewMode}
                       showOwnership={showOwnership}
                     />
@@ -230,9 +284,12 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
             {uniqueCards === 0 ? null : (
               <CardListView
                 cardsByType={cardsByType}
+                deckCardsFlat={allDeckCards}
+                categories={categories}
                 isEditing={isEditing}
                 collectionQuantities={collectionQuantities}
                 onQuantityChange={onQuantityChange}
+                onUserCategoryChange={onUserCategoryChange}
                 viewMode={viewMode}
                 showOwnership={showOwnership}
               />

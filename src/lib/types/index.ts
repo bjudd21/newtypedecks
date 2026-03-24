@@ -10,6 +10,9 @@ export * from './collection';
 // Export game definition system types
 export * from './game';
 
+// Export deck-level types
+export * from './deck';
+
 // Re-export Prisma types for convenience
 export type {
   User,

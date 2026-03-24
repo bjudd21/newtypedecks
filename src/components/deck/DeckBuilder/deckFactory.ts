@@ -3,7 +3,14 @@
  * Helper functions for creating new deck instances
  */
 
-export const createNewDeck = (isAuthenticated: boolean, userId?: string) => ({
+import { defaultCategoriesFromCardTypes } from '@/lib/types/deck';
+import type { Prisma } from '@prisma/client';
+
+export const createNewDeck = (
+  isAuthenticated: boolean,
+  userId?: string,
+  cardTypes?: string[]
+) => ({
   id: `temp-${Date.now()}`,
   name: 'New Deck',
   description: '',
@@ -19,6 +26,9 @@ export const createNewDeck = (isAuthenticated: boolean, userId?: string) => ({
   versionName: null,
   isTemplate: false,
   templateSource: null,
+  categories: cardTypes
+    ? (defaultCategoriesFromCardTypes(cardTypes) as unknown as Prisma.JsonValue)
+    : null,
   createdAt: new Date(),
   updatedAt: new Date(),
   cards: [],

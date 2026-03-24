@@ -101,6 +101,7 @@ const deckSlice = createSlice({
             cardId: action.payload.card.id,
             quantity: action.payload.quantity,
             category: action.payload.category || null,
+            userCategory: null,
             card: serializeCard(action.payload.card),
           });
         }
@@ -126,6 +127,28 @@ const deckSlice = createSlice({
         }
       }
     },
+    updateCardUserCategoryInCurrentDeck: (
+      state,
+      action: PayloadAction<{ cardId: string; userCategory: string | null }>
+    ) => {
+      if (state.currentDeck) {
+        const deckCard = state.currentDeck.cards.find(
+          (dc) => dc.cardId === action.payload.cardId
+        );
+        if (deckCard) {
+          deckCard.userCategory = action.payload.userCategory;
+        }
+      }
+    },
+    setDeckCategories: (
+      state,
+      action: PayloadAction<import('@/lib/types/deck').DeckCategory[]>
+    ) => {
+      if (state.currentDeck) {
+        (state.currentDeck as unknown as Record<string, unknown>).categories =
+          action.payload;
+      }
+    },
   },
   // extraReducers will be added when async thunks are implemented
 });
@@ -137,5 +160,7 @@ export const {
   addCardToCurrentDeck,
   removeCardFromCurrentDeck,
   updateCardQuantityInCurrentDeck,
+  updateCardUserCategoryInCurrentDeck,
+  setDeckCategories,
 } = deckSlice.actions;
 export default deckSlice.reducer;

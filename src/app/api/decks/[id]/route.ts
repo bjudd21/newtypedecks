@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/database';
+import type { Prisma } from '@prisma/client';
 import {
   checkDeckAccess,
   checkDeckOwnership,
@@ -73,11 +74,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       visibility: deck.visibility,
       userId: deck.userId,
       user: deck.user,
+      categories: deck.categories ?? null,
       cards: deck.cards.map((dc) => ({
         cardId: dc.cardId,
         card: dc.card,
         quantity: dc.quantity,
         category: dc.category || 'main',
+        userCategory: dc.userCategory ?? null,
       })),
       statistics,
       createdAt: deck.createdAt,
@@ -106,7 +109,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const { name, description, visibility, ruleset, cards } =
+    const { name, description, visibility, ruleset, cards, categories } =
       await request.json();
 
     // Check ownership
@@ -140,6 +143,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       description?: string | null;
       visibility?: 'DRAFT' | 'PRIVATE' | 'PUBLIC';
       ruleset?: 'COMPETITIVE' | 'CASUAL';
+      categories?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
     }
 
     const updateData: DeckUpdateData = {};
@@ -153,6 +157,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
     if (ruleset !== undefined && ['COMPETITIVE', 'CASUAL'].includes(ruleset)) {
       updateData.ruleset = ruleset as 'COMPETITIVE' | 'CASUAL';
+    }
+    if (categories !== undefined) {
+      updateData.categories = Array.isArray(categories)
+        ? (categories as Prisma.InputJsonValue)
+        : 'DbNull';
     }
 
     const updatedDeck = await prisma.deck.update({

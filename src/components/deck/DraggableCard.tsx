@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CardWithRelations } from '@/lib/types/card';
 import { Badge } from '@/components/ui';
+import type { DeckCategory } from '@/lib/types/deck';
 
 interface DraggableCardProps {
   card: CardWithRelations;
@@ -15,6 +16,9 @@ interface DraggableCardProps {
   className?: string;
   ownedQuantity?: number;
   showOwnership?: boolean;
+  userCategory?: string | null;
+  categories?: DeckCategory[];
+  onUserCategoryChange?: (userCategory: string | null) => void;
 }
 
 interface DragData {
@@ -32,6 +36,9 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
   className = '',
   ownedQuantity = 0,
   showOwnership = false,
+  userCategory = null,
+  categories,
+  onUserCategoryChange,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -148,6 +155,27 @@ export const DraggableCard: React.FC<DraggableCardProps> = ({
             </span>
           )}
         </div>
+
+        {/* Category reassignment — visible when editing and categories are configured */}
+        {isEditing &&
+          categories &&
+          categories.length > 0 &&
+          onUserCategoryChange && (
+            <div className="mt-1">
+              <select
+                value={userCategory ?? ''}
+                onChange={(e) => onUserCategoryChange(e.target.value || null)}
+                className="w-full rounded border border-[#443a5c] bg-[#1a1625] px-1 py-0.5 text-xs text-[#a89ec7] outline-none focus:border-[#8b7aaa]"
+              >
+                <option value="">Uncategorized</option>
+                {categories.map((cat) => (
+                  <option key={cat.key} value={cat.key}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
         <div className="mt-1 text-xs text-gray-500">
           {card.set?.name} #{card.setNumber}
