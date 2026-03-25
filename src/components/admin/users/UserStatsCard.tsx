@@ -55,12 +55,14 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
 
   return (
     <div className="border-border bg-card/60 rounded-lg border p-6 backdrop-blur-md">
-      <h3 className="mb-6 text-lg font-semibold text-white">User Statistics</h3>
+      <h3 className="text-foreground mb-6 text-lg font-semibold">
+        User Statistics
+      </h3>
 
       {/* Total Users */}
       <div className="mb-6">
         <div className="text-center">
-          <div className="text-4xl font-bold text-white">
+          <div className="text-foreground text-4xl font-bold">
             {stats.total.toLocaleString()}
           </div>
           <div className="text-muted-foreground mt-1 text-sm">Total Users</div>
@@ -82,7 +84,9 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
                 </Badge>
                 <span className="text-foreground text-sm">{label}</span>
               </div>
-              <span className="text-lg font-semibold text-white">{count}</span>
+              <span className="text-foreground text-lg font-semibold">
+                {count}
+              </span>
             </div>
           ))}
         </div>
@@ -107,7 +111,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
             </span>
             <span className="text-foreground text-sm">Verified</span>
           </div>
-          <span className="text-sm font-medium text-white">
+          <span className="text-foreground text-sm font-medium">
             {stats.verified}
           </span>
         </div>
@@ -129,7 +133,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
             </span>
             <span className="text-foreground text-sm">Unverified</span>
           </div>
-          <span className="text-sm font-medium text-white">
+          <span className="text-foreground text-sm font-medium">
             {stats.unverified}
           </span>
         </div>
@@ -147,7 +151,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
             </span>
             <span className="text-foreground text-sm">New (30 days)</span>
           </div>
-          <span className="text-sm font-medium text-white">
+          <span className="text-foreground text-sm font-medium">
             {stats.recentSignups.last30Days}
           </span>
         </div>

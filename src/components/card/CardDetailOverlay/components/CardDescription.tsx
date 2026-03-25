@@ -15,7 +15,9 @@ export const CardDescription: React.FC<CardDescriptionProps> = ({
 
   return (
     <div className="border-border bg-card rounded-lg border p-3">
-      <h3 className="mb-1.5 text-sm font-semibold text-white">Card Text</h3>
+      <h3 className="text-foreground mb-1.5 text-sm font-semibold">
+        Card Text
+      </h3>
       <p className="text-foreground text-sm leading-relaxed">{description}</p>
     </div>
   );

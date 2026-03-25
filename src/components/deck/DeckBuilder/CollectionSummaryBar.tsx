@@ -79,7 +79,7 @@ export const CollectionSummaryBar: React.FC<CollectionSummaryBarProps> = ({
 
       {/* Label */}
       <span className={allOwned ? 'text-green-400' : 'text-muted-foreground'}>
-        <span className={allOwned ? 'text-green-300' : 'text-white'}>
+        <span className={allOwned ? 'text-green-300' : 'text-foreground'}>
           {totalOwned}
         </span>
         /{totalNeeded} owned

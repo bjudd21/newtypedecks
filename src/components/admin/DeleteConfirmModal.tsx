@@ -123,7 +123,7 @@ export function DeleteConfirmModal({
           <div className="text-center">
             <p className="text-foreground">
               Are you sure you want to delete{' '}
-              <span className="font-semibold text-white">{itemName}</span>?
+              <span className="text-foreground font-semibold">{itemName}</span>?
             </p>
             <p className="text-muted-foreground mt-2 text-sm">
               This action cannot be undone.{' '}

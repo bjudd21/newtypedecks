@@ -65,7 +65,7 @@ export const CardListText: React.FC<CardListTextProps> = ({
                   {dc.quantity}x
                 </span>
               )}
-              <span className="min-w-0 flex-1 truncate text-white">
+              <span className="text-foreground min-w-0 flex-1 truncate">
                 {dc.card.name}
               </span>
               {showOwnership &&

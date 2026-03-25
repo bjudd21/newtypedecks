@@ -33,19 +33,21 @@ export const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
             <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Name
             </label>
-            <p className="text-white">{user.name || 'Not set'}</p>
+            <p className="text-foreground">{user.name || 'Not set'}</p>
           </div>
           <div>
             <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Email
             </label>
-            <p className="text-white">{user.email}</p>
+            <p className="text-foreground">{user.email}</p>
           </div>
           <div>
             <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Account Type
             </label>
-            <p className="text-white capitalize">{user.role.toLowerCase()}</p>
+            <p className="text-foreground capitalize">
+              {user.role.toLowerCase()}
+            </p>
           </div>
           <Button
             variant="brandOutline"

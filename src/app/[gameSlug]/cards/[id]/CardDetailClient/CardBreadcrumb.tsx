@@ -9,7 +9,7 @@ export function CardBreadcrumb({ cardName }: { cardName: string }) {
           Card Database
         </Link>
         <span>›</span>
-        <span className="text-white">{cardName}</span>
+        <span className="text-foreground">{cardName}</span>
       </div>
     </nav>
   );

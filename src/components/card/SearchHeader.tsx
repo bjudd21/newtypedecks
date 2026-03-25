@@ -25,7 +25,7 @@ export function SearchHeader({
     <div className="border-border bg-card flex items-center gap-4 rounded-lg border p-4">
       <div className="bg-primary flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full shadow-md">
         <svg
-          className="h-5 w-5 text-white"
+          className="text-foreground h-5 w-5"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -45,11 +45,11 @@ export function SearchHeader({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search cards by name, type, or ability..."
-          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-primary/30 flex-1 text-white"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-primary/30 text-foreground flex-1"
         />
         <Button
           type="submit"
-          className="bg-primary/80 hover:bg-primary px-6 text-white"
+          className="bg-primary/80 hover:bg-primary text-foreground px-6"
           disabled={loading}
         >
           {loading ? 'Searching...' : 'Search'}

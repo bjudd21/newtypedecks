@@ -67,8 +67,8 @@ export const ImportResultDisplay: React.FC<ImportResultDisplayProps> = ({
           <div className="mt-2 max-h-32 overflow-y-auto rounded bg-green-950/50 p-2 text-xs">
             {result.imported.slice(0, 10).map((item, index) => (
               <div key={index} className="flex items-center gap-2">
-                <span className="w-6 text-white">{item.quantity}x</span>
-                <span className="flex-1 text-white">{item.cardName}</span>
+                <span className="text-foreground w-6">{item.quantity}x</span>
+                <span className="text-foreground flex-1">{item.cardName}</span>
                 <span
                   className={`rounded px-1 text-xs ${
                     item.action === 'added'

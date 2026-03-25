@@ -28,7 +28,7 @@ export const SortControls: React.FC<SortControlsProps> = ({
             const [field, order] = e.target.value.split(':');
             onSortChange(field as CardSortField, order as 'asc' | 'desc');
           }}
-          className="border-border bg-card focus:border-primary focus:ring-primary/30 h-8 rounded-md px-3 text-sm text-white focus:outline-none"
+          className="border-border bg-card focus:border-primary focus:ring-primary/30 text-foreground h-8 rounded-md px-3 text-sm focus:outline-none"
         >
           <option value="name:asc">Name (A-Z)</option>
           <option value="cost:asc">Cost (Low to High)</option>
@@ -40,7 +40,7 @@ export const SortControls: React.FC<SortControlsProps> = ({
 
       {totalResults > 0 && (
         <div className="text-sm font-medium">
-          <span className="text-white">{totalResults}</span>
+          <span className="text-foreground">{totalResults}</span>
           <span className="text-muted-foreground ml-1">cards found</span>
         </div>
       )}

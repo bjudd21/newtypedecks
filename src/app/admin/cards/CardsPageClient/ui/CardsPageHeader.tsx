@@ -31,7 +31,7 @@ export const CardsPageHeader: React.FC<CardsPageHeaderProps> = ({
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-3xl font-bold text-white">Card Management</h1>
+        <h1 className="text-foreground text-3xl font-bold">Card Management</h1>
         <p className="text-muted-foreground mt-1">
           {selectedGame ? selectedGame.name : 'All Games'} —{' '}
           {totalCount.toLocaleString()} cards
@@ -42,7 +42,7 @@ export const CardsPageHeader: React.FC<CardsPageHeaderProps> = ({
           <select
             value={selectedGameSlug}
             onChange={(e) => onGameChange(e.target.value)}
-            className="border-border bg-card focus:border-primary rounded-md border px-3 py-2 text-sm text-white focus:outline-none"
+            className="border-border bg-card focus:border-primary text-foreground rounded-md border px-3 py-2 text-sm focus:outline-none"
           >
             {games.map((game) => (
               <option key={game.slug} value={game.slug}>

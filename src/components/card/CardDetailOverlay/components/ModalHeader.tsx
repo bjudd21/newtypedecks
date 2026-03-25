@@ -13,7 +13,7 @@ interface ModalHeaderProps {
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ title, onClose }) => {
   return (
     <div className="border-border bg-background flex flex-shrink-0 items-center justify-between border-b px-4 py-3">
-      <h1 className="text-xl font-bold text-white">{title}</h1>
+      <h1 className="text-foreground text-xl font-bold">{title}</h1>
       <Button
         variant="outline"
         size="sm"

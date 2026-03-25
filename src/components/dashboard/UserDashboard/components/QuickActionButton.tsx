@@ -19,7 +19,7 @@ export const QuickActionButton: React.FC<QuickActionButtonProps> = ({
     >
       <div className="mb-2 flex items-center">
         <span className="mr-3 text-xl">{action.icon}</span>
-        <h3 className="group-hover:text-primary/80 font-medium text-white transition-colors">
+        <h3 className="group-hover:text-primary/80 text-foreground font-medium transition-colors">
           {action.title}
         </h3>
       </div>

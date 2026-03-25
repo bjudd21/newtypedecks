@@ -115,7 +115,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
             />
           </svg>
         </div>
-        <div className="bg-background invisible absolute -top-2 left-1/2 z-10 -translate-x-1/2 -translate-y-full rounded-lg px-3 py-2 text-xs whitespace-nowrap text-white group-hover:visible">
+        <div className="bg-background text-foreground invisible absolute -top-2 left-1/2 z-10 -translate-x-1/2 -translate-y-full rounded-lg px-3 py-2 text-xs whitespace-nowrap group-hover:visible">
           {attributionText}
           <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
         </div>
@@ -130,7 +130,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
         style={{ opacity }}
       >
         <div
-          className={`${sizeClasses} bg-opacity-60 rounded bg-black px-2 py-1 text-white backdrop-blur-sm`}
+          className={`${sizeClasses} bg-opacity-60 text-foreground rounded bg-black px-2 py-1 backdrop-blur-sm`}
         >
           {attributionText}
         </div>

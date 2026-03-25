@@ -31,12 +31,12 @@ export function PaginationBar({
           size="sm"
           onClick={() => onPageChange(Math.max(1, currentPage - 1))}
           disabled={currentPage === 1 || loading}
-          className="border-border bg-background hover:border-primary hover:bg-primary/80 text-white disabled:cursor-not-allowed disabled:opacity-50"
+          className="border-border bg-background hover:border-primary hover:bg-primary/80 text-foreground disabled:cursor-not-allowed disabled:opacity-50"
         >
           ← Previous
         </Button>
         <div className="border-border bg-background rounded-md border px-4 py-1.5 text-sm">
-          <span className="font-medium text-white">{currentPage}</span>
+          <span className="text-foreground font-medium">{currentPage}</span>
           <span className="text-muted-foreground mx-1">/</span>
           <span className="text-muted-foreground">{totalPages}</span>
         </div>
@@ -45,7 +45,7 @@ export function PaginationBar({
           size="sm"
           onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage === totalPages || loading}
-          className="border-border bg-background hover:border-primary hover:bg-primary/80 text-white disabled:cursor-not-allowed disabled:opacity-50"
+          className="border-border bg-background hover:border-primary hover:bg-primary/80 text-foreground disabled:cursor-not-allowed disabled:opacity-50"
         >
           Next →
         </Button>

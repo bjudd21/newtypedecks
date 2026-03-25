@@ -24,7 +24,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full text-xs ${
                 step === currentStep
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : STEPS.indexOf(currentStep) > STEPS.indexOf(step)
                     ? 'bg-green-500 text-white'
                     : 'text-foreground bg-muted'

@@ -37,7 +37,7 @@ export const RatingCard: React.FC<RatingCardProps> = ({
                 className="rounded-full"
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-sm font-bold text-white">
+              <div className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-sm font-bold">
                 {rating.userName.charAt(0).toUpperCase()}
               </div>
             )}

@@ -26,7 +26,7 @@ export const ImportPreviewList: React.FC<ImportPreviewListProps> = ({
         {cards.map((card, index) => (
           <div key={index} className="flex items-center gap-4 py-1 text-sm">
             <span className="w-8 text-center font-mono">{card.quantity}x</span>
-            <span className="flex-1 text-white">{card.cardName}</span>
+            <span className="text-foreground flex-1">{card.cardName}</span>
             {card.setName && (
               <span className="text-muted-foreground text-xs">
                 ({card.setName})

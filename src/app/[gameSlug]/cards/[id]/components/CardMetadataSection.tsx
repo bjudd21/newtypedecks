@@ -51,7 +51,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
 
           <div>
             <label className="text-foreground font-medium">Language</label>
-            <div className="mt-1 text-white">
+            <div className="text-foreground mt-1">
               {card.language?.toUpperCase() || 'EN'}
             </div>
           </div>
@@ -68,7 +68,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
               <label className="text-foreground font-medium">
                 Keywords Count
               </label>
-              <div className="mt-1 text-white">
+              <div className="text-foreground mt-1">
                 {card.keywords.length} keywords
               </div>
             </div>
@@ -77,7 +77,9 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
           {card.tags && card.tags.length > 0 && (
             <div>
               <label className="text-foreground font-medium">Tags Count</label>
-              <div className="mt-1 text-white">{card.tags.length} tags</div>
+              <div className="text-foreground mt-1">
+                {card.tags.length} tags
+              </div>
             </div>
           )}
 
@@ -86,7 +88,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
               <label className="text-foreground font-medium">
                 Rulings Count
               </label>
-              <div className="mt-1 text-white">
+              <div className="text-foreground mt-1">
                 {card.rulings.length} rulings
               </div>
             </div>

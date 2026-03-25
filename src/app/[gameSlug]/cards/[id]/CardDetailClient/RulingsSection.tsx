@@ -81,7 +81,7 @@ export function RulingsSection({
                 d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-white">
+            <h3 className="text-foreground mt-2 text-sm font-medium">
               No rulings found
             </h3>
             <p className="text-muted-foreground mt-1 text-sm">

@@ -30,8 +30,8 @@ function TypeButton({ type, isSelected, onClick }: TypeButtonProps) {
       className={cn(
         'h-7 px-3 text-xs transition-all duration-300',
         isSelected
-          ? 'border-primary bg-primary/80 text-white shadow-md'
-          : 'border-border bg-background hover:border-primary hover:bg-card text-white'
+          ? 'border-primary bg-primary/80 text-foreground shadow-md'
+          : 'border-border bg-background hover:border-primary hover:bg-card text-foreground'
       )}
     >
       {type}

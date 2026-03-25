@@ -28,7 +28,9 @@ export const TableRow: React.FC<TableRowProps> = ({
       </td>
       <td className="px-4 py-3">
         <div className="max-w-xs">
-          <div className="truncate font-medium text-white">{card.name}</div>
+          <div className="text-foreground truncate font-medium">
+            {card.name}
+          </div>
           {card.setNumber && (
             <div className="text-muted-foreground text-xs">
               #{card.setNumber}

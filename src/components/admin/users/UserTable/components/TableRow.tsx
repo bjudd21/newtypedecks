@@ -29,7 +29,7 @@ export const TableRow: React.FC<TableRowProps> = ({
         </div>
       </td>
       <td className="px-4 py-3">
-        <div className="text-sm text-white">
+        <div className="text-foreground text-sm">
           {user.name || <span className="text-muted-foreground/70">—</span>}
         </div>
       </td>

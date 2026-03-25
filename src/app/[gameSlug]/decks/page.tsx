@@ -169,7 +169,7 @@ function MyDecksManager({ gameSlug }: { gameSlug: string }) {
           >
             📚
           </motion.div>
-          <h3 className="mb-4 text-2xl font-bold text-white">
+          <h3 className="text-foreground mb-4 text-2xl font-bold">
             Personal Deck Management
           </h3>
           <p className="text-muted-foreground mb-2">

@@ -18,7 +18,7 @@ const buttonVariants = cva(
 
         // ── Destructive ───────────────────────────────────────────────
         destructive:
-          'bg-destructive text-white shadow-sm hover:bg-destructive/90 active:scale-[0.98]',
+          'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 active:scale-[0.98]',
 
         // ── Outline — border only, fills on hover ─────────────────────
         outline:

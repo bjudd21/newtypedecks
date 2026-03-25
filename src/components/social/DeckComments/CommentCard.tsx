@@ -44,7 +44,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
               className="rounded-full"
             />
           ) : (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-sm font-bold text-white">
+            <div className="text-foreground flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-sm font-bold">
               {comment.userName.charAt(0).toUpperCase()}
             </div>
           )}
@@ -140,7 +140,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                         className="rounded-full"
                       />
                     ) : (
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-blue-500 text-xs font-bold text-white">
+                      <div className="text-foreground flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-blue-500 text-xs font-bold">
                         {reply.userName.charAt(0).toUpperCase()}
                       </div>
                     )}

@@ -32,7 +32,7 @@ function StatField({
         {isBadge ? (
           <Badge variant="info">{value}</Badge>
         ) : (
-          <span className="text-white">{value}</span>
+          <span className="text-foreground">{value}</span>
         )}
       </div>
     </div>
@@ -113,7 +113,7 @@ export function BasicInformation({ card }: BasicInformationProps) {
           {card.set && (
             <div className="sm:col-span-2">
               <label className="text-foreground text-sm font-medium">Set</label>
-              <div className="mt-1 text-white">
+              <div className="text-foreground mt-1">
                 {card.set.name} #{card.setNumber}
               </div>
             </div>

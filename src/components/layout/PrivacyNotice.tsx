@@ -57,7 +57,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
   if (variant === 'footer') {
     return (
       <div className={`text-foreground text-sm ${className}`}>
-        <h4 className="mb-2 font-semibold text-white">Privacy & Data</h4>
+        <h4 className="text-foreground mb-2 font-semibold">Privacy & Data</h4>
         <ul className="space-y-1 text-xs">
           <li>• Account data stored securely</li>
           <li>• No personal data shared with third parties</li>

@@ -29,7 +29,7 @@ export function SourceSelectionStep({
             <div className="mb-2 flex items-center gap-3">
               <span className="text-2xl">{source.icon}</span>
               <div>
-                <div className="font-medium text-white">{source.name}</div>
+                <div className="text-foreground font-medium">{source.name}</div>
                 <div className="text-muted-foreground text-sm">
                   {source.description}
                 </div>

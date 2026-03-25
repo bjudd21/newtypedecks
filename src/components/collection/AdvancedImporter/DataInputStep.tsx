@@ -56,7 +56,7 @@ export function DataInputStep({
           value={importData}
           onChange={(e) => onDataChange(e.target.value)}
           placeholder={`Example format:\n${selectedSource.example}`}
-          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring h-32 w-full rounded-md border px-3 py-2 font-mono text-sm text-white shadow-sm focus:ring-1 focus:outline-none"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring text-foreground h-32 w-full rounded-md border px-3 py-2 font-mono text-sm shadow-sm focus:ring-1 focus:outline-none"
           disabled={isProcessing}
         />
       </div>

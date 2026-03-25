@@ -17,7 +17,7 @@ export default function AdminDashboardContent() {
     <div className="space-y-8">
       {/* Welcome Section */}
       <div>
-        <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
+        <h1 className="text-foreground text-3xl font-bold">Admin Dashboard</h1>
         <p className="text-foreground mt-2">
           Manage the Newtype Decks database and community contributions.
         </p>

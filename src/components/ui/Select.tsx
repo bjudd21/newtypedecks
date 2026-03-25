@@ -109,7 +109,7 @@ const Select: React.FC<SelectProps> = ({
             'bg-background focus:border-primary focus:ring-ring relative w-full cursor-default rounded-md border py-2 pr-10 pl-3 text-left shadow-sm focus:ring-1 focus:outline-none sm:text-sm',
             error
               ? 'border-red-900/50 text-red-400 placeholder-red-400 focus:border-red-500 focus:ring-red-500'
-              : 'border-border placeholder:text-muted-foreground/50 text-white',
+              : 'border-border placeholder:text-muted-foreground/50 text-foreground',
             disabled && 'bg-card text-muted-foreground/70 cursor-not-allowed'
           )}
         >
@@ -151,7 +151,7 @@ const Select: React.FC<SelectProps> = ({
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search..."
-                  className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring w-full rounded-md border px-3 py-2 text-sm text-white focus:ring-1 focus:outline-none"
+                  className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring text-foreground w-full rounded-md border px-3 py-2 text-sm focus:ring-1 focus:outline-none"
                 />
               </div>
             )}
@@ -166,7 +166,7 @@ const Select: React.FC<SelectProps> = ({
                   key={option.value}
                   onClick={() => handleSelect(option)}
                   className={cn(
-                    'hover:bg-accent relative cursor-pointer px-4 py-2 text-white select-none',
+                    'hover:bg-accent text-foreground relative cursor-pointer px-4 py-2 select-none',
                     option.value === value && 'bg-primary/30 text-primary/80',
                     option.disabled &&
                       'text-muted-foreground/70 hover:bg-card cursor-not-allowed'

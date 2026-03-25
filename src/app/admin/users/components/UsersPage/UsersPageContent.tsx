@@ -81,7 +81,7 @@ export function UsersPageContent() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-white">User Management</h1>
+        <h1 className="text-foreground text-3xl font-bold">User Management</h1>
         <p className="text-muted-foreground mt-1">
           Manage user accounts and permissions (
           {pagination.totalCount.toLocaleString()} users)

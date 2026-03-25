@@ -18,7 +18,9 @@ export const BasicInformationSection: React.FC<SectionProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-white">Basic Information</h3>
+      <h3 className="text-foreground text-lg font-semibold">
+        Basic Information
+      </h3>
 
       <Input
         label="Card Name *"

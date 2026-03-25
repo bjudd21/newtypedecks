@@ -35,7 +35,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   if (variant === 'minimal') {
     return (
-      <footer className={`bg-background py-4 text-white ${className}`}>
+      <footer className={`bg-background text-foreground py-4 ${className}`}>
         <div className="container mx-auto px-4">
           <div className="text-center">
             <CopyrightDisclaimer
@@ -55,11 +55,11 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   if (variant === 'compact') {
     return (
-      <footer className={`bg-card py-6 text-white ${className}`}>
+      <footer className={`bg-card text-foreground py-6 ${className}`}>
         <div className="container mx-auto px-4">
           <div className="grid gap-6 md:grid-cols-2">
             <div>
-              <h4 className="mb-3 font-semibold text-white">
+              <h4 className="text-foreground mb-3 font-semibold">
                 Legal Information
               </h4>
               <CopyrightDisclaimer
@@ -70,7 +70,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               />
             </div>
             <div>
-              <h4 className="mb-3 font-semibold text-white">
+              <h4 className="text-foreground mb-3 font-semibold">
                 Website Disclaimer
               </h4>
               <NonAffiliationStatement
@@ -95,7 +95,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   // Full variant - comprehensive legal footer
   return (
-    <footer className={`bg-background text-white ${className}`}>
+    <footer className={`bg-background text-foreground ${className}`}>
       <div className="container mx-auto px-4">
         {/* Main footer content */}
         <div className="py-8">
@@ -223,7 +223,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
             {isExpanded && (
               <div className="space-y-6 pb-6">
                 <div>
-                  <h5 className="mb-3 font-semibold text-white">
+                  <h5 className="text-foreground mb-3 font-semibold">
                     Copyright Information
                   </h5>
                   <CopyrightDisclaimer
@@ -235,7 +235,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                 </div>
 
                 <div>
-                  <h5 className="mb-3 font-semibold text-white">
+                  <h5 className="text-foreground mb-3 font-semibold">
                     Non-Affiliation Statement
                   </h5>
                   <NonAffiliationStatement
@@ -247,7 +247,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                 </div>
 
                 <div className="border-border bg-card rounded-lg border p-4">
-                  <h5 className="mb-3 font-semibold text-white">
+                  <h5 className="text-foreground mb-3 font-semibold">
                     Fair Use Statement
                   </h5>
                   <div className="text-foreground space-y-2 text-sm">

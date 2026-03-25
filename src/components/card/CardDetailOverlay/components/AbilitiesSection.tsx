@@ -15,7 +15,9 @@ export const AbilitiesSection: React.FC<AbilitiesSectionProps> = ({
 
   return (
     <div className="border-border bg-card rounded-lg border p-3">
-      <h3 className="mb-1.5 text-sm font-semibold text-white">Abilities</h3>
+      <h3 className="text-foreground mb-1.5 text-sm font-semibold">
+        Abilities
+      </h3>
       <p className="text-foreground text-sm leading-relaxed">{abilities}</p>
     </div>
   );

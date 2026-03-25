@@ -8,7 +8,7 @@ export const ZoomIndicator: React.FC = () => {
   return (
     <div className="pointer-events-none absolute top-2 right-2 opacity-0 transition-opacity group-hover:opacity-100">
       <div
-        className="bg-opacity-50 rounded bg-black p-1 text-white"
+        className="bg-opacity-50 text-foreground rounded bg-black p-1"
         aria-hidden="true"
       >
         <svg

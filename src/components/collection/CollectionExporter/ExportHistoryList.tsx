@@ -30,7 +30,7 @@ export const ExportHistoryList: React.FC<ExportHistoryListProps> = ({
             className="border-border bg-background flex items-center justify-between rounded border p-2 text-sm"
           >
             <div className="flex-1">
-              <div className="font-medium text-white">{record.format}</div>
+              <div className="text-foreground font-medium">{record.format}</div>
               <div className="text-muted-foreground text-xs">
                 {new Date(record.date).toLocaleDateString()} • {record.filename}
                 {record.recordCount && ` • ${record.recordCount} cards`}

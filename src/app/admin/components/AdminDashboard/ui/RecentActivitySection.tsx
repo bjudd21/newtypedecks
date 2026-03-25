@@ -17,7 +17,9 @@ export const RecentActivitySection: React.FC<RecentActivitySectionProps> = ({
 }) => {
   return (
     <div className="border-border bg-card/60 overflow-hidden rounded-lg border p-6 backdrop-blur-md">
-      <h3 className="mb-4 text-lg font-semibold text-white">Recent Activity</h3>
+      <h3 className="text-foreground mb-4 text-lg font-semibold">
+        Recent Activity
+      </h3>
       {isLoading ? (
         <div className="flex h-32 items-center justify-center">
           <div className="border-primary h-6 w-6 animate-spin rounded-full border-4 border-t-transparent" />
@@ -34,7 +36,7 @@ export const RecentActivitySection: React.FC<RecentActivitySectionProps> = ({
                   🃏
                 </span>
                 <div>
-                  <div className="text-sm text-white">{activity.name}</div>
+                  <div className="text-foreground text-sm">{activity.name}</div>
                   <div className="text-muted-foreground text-xs">
                     Card created
                   </div>

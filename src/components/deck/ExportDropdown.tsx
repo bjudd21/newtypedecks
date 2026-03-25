@@ -34,7 +34,7 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
           <button
             onClick={() => onExport('json')}
             disabled={uniqueCards === 0}
-            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
+            className="hover:bg-accent text-foreground w-full px-4 py-2 text-left text-sm disabled:opacity-50"
           >
             📄 JSON Format
             <div className="text-muted-foreground text-xs">
@@ -44,7 +44,7 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
           <button
             onClick={() => onExport('text')}
             disabled={uniqueCards === 0}
-            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
+            className="hover:bg-accent text-foreground w-full px-4 py-2 text-left text-sm disabled:opacity-50"
           >
             📝 Text Format
             <div className="text-muted-foreground text-xs">Human readable</div>
@@ -52,7 +52,7 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
           <button
             onClick={() => onExport('csv')}
             disabled={uniqueCards === 0}
-            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
+            className="hover:bg-accent text-foreground w-full px-4 py-2 text-left text-sm disabled:opacity-50"
           >
             📊 CSV Format
             <div className="text-muted-foreground text-xs">
@@ -62,7 +62,7 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
           <button
             onClick={() => onExport('mtga')}
             disabled={uniqueCards === 0}
-            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
+            className="hover:bg-accent text-foreground w-full px-4 py-2 text-left text-sm disabled:opacity-50"
           >
             🎮 MTG Arena Format
             <div className="text-muted-foreground text-xs">

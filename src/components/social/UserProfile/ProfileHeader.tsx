@@ -39,7 +39,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 className="rounded-full object-cover"
               />
             ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-2xl font-bold text-white">
+              <div className="text-foreground flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-2xl font-bold">
                 {profile.displayName.charAt(0).toUpperCase()}
               </div>
             )}

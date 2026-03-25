@@ -23,7 +23,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
   if (variant === 'footer') {
     return (
       <div className={`text-foreground text-sm ${className}`}>
-        <h4 className="mb-2 font-semibold text-white">Terms of Use</h4>
+        <h4 className="text-foreground mb-2 font-semibold">Terms of Use</h4>
         <ul className="space-y-1 text-xs">
           <li>• Community-driven, educational use only</li>
           <li>• Respect intellectual property rights</li>

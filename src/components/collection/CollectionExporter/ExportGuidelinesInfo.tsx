@@ -8,7 +8,7 @@ import React from 'react';
 export const ExportGuidelinesInfo: React.FC = () => {
   return (
     <div className="border-border bg-background text-muted-foreground rounded border p-3 text-xs">
-      <div className="mb-2 font-medium text-white">Export Guidelines:</div>
+      <div className="text-foreground mb-2 font-medium">Export Guidelines:</div>
       <ul className="space-y-1">
         <li>
           • <strong>JSON:</strong> Complete backup with all data - best for

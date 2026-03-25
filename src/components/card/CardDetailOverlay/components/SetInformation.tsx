@@ -14,25 +14,25 @@ export const SetInformation: React.FC<SetInformationProps> = ({ card }) => {
 
   return (
     <div className="border-border bg-card rounded-lg border p-3">
-      <h3 className="mb-1.5 text-sm font-semibold text-white">
+      <h3 className="text-foreground mb-1.5 text-sm font-semibold">
         Set Information
       </h3>
       {card.series && (
         <div className="mb-1 text-sm">
           <span className="text-muted-foreground">Series: </span>
-          <span className="text-white">{card.series}</span>
+          <span className="text-foreground">{card.series}</span>
         </div>
       )}
       {card.set?.name && (
         <div className="mb-1 text-sm">
           <span className="text-muted-foreground">Set: </span>
-          <span className="text-white">{card.set.name}</span>
+          <span className="text-foreground">{card.set.name}</span>
         </div>
       )}
       {card.setNumber && (
         <div className="text-sm">
           <span className="text-muted-foreground">Card Number: </span>
-          <span className="text-white">{card.setNumber}</span>
+          <span className="text-foreground">{card.setNumber}</span>
         </div>
       )}
     </div>

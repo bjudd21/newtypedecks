@@ -63,7 +63,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
           />
         )}
         <div>
-          <h3 className="font-semibold text-white">
+          <h3 className="text-foreground font-semibold">
             {collectionCard.card.name}
           </h3>
           <div className="mt-1 flex items-center space-x-2">
@@ -146,7 +146,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
         ) : (
           <div className="flex items-center space-x-3">
             <div className="text-right">
-              <div className="font-semibold text-white">
+              <div className="text-foreground font-semibold">
                 {collectionCard.quantity}x
               </div>
               <div className="text-muted-foreground text-xs">

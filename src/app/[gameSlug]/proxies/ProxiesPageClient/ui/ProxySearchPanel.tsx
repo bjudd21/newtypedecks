@@ -42,7 +42,9 @@ export function ProxySearchPanel({
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-white">Card Browser</h2>
+        <h2 className="text-foreground mb-3 text-lg font-semibold">
+          Card Browser
+        </h2>
         <div className="flex gap-2">
           <input
             type="text"
@@ -50,7 +52,7 @@ export function ProxySearchPanel({
             onChange={(e) => onSearchQueryChange(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search cards by name..."
-            className="border-border bg-card placeholder:text-muted-foreground/50 focus:border-primary flex-1 rounded-md border px-3 py-2 text-sm text-white focus:outline-none"
+            className="border-border bg-card placeholder:text-muted-foreground/50 focus:border-primary text-foreground flex-1 rounded-md border px-3 py-2 text-sm focus:outline-none"
           />
           <Button
             variant="primary"
@@ -125,7 +127,7 @@ export function ProxySearchPanel({
                   )}
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="text-xl font-bold text-white">+</span>
+                    <span className="text-foreground text-xl font-bold">+</span>
                   </div>
                 </div>
                 <span className="text-foreground line-clamp-1 w-full text-center text-xs">

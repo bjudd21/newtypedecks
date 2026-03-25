@@ -53,7 +53,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
       <div className="mb-16 text-center">
         <div className="mb-8">
           <h1 className="mb-4 text-5xl font-bold md:text-6xl">
-            <span className="text-white">Search</span>{' '}
+            <span className="text-foreground">Search</span>{' '}
             <span className="text-gradient">is a powerful</span>{' '}
             <span className="text-neon">Card Database</span>{' '}
             <span className="text-gradient">card search</span>
@@ -66,7 +66,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
             <div className="cyber-border backdrop-blur-strong flex items-center rounded-lg bg-black/40 p-4">
               <div className="mr-4 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-cyan-400 to-purple-400">
                 <svg
-                  className="h-6 w-6 text-white"
+                  className="text-foreground h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for cards, mechanics, or game text..."
-                className="flex-1 border-none bg-transparent text-lg text-white placeholder-gray-400 focus:ring-0 focus:outline-none"
+                className="text-foreground flex-1 border-none bg-transparent text-lg placeholder-gray-400 focus:ring-0 focus:outline-none"
               />
               <Button type="submit" variant="cyber" className="ml-4 px-6">
                 Search
@@ -130,7 +130,7 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
           {featuredContent.map((item, index) => (
             <div key={index} className="flex items-center justify-center gap-3">
               <Badge
-                className={`${item.color} px-2 py-1 text-xs font-bold text-white`}
+                className={`${item.color} text-foreground px-2 py-1 text-xs font-bold`}
               >
                 {item.type}
               </Badge>

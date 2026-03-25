@@ -11,7 +11,7 @@ export const SystemStatusCard: React.FC = () => {
         <span className="mr-3 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-2xl shadow-lg">
           📊
         </span>
-        <h3 className="text-lg font-semibold text-white">System Status</h3>
+        <h3 className="text-foreground text-lg font-semibold">System Status</h3>
       </div>
       <p className="text-foreground mb-4">
         Monitor system health and performance metrics.

@@ -83,7 +83,9 @@ export const ProfileInformationCard: React.FC<ProfileInformationCardProps> = ({
             <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Account Role
             </label>
-            <p className="text-white capitalize">{user.role.toLowerCase()}</p>
+            <p className="text-foreground capitalize">
+              {user.role.toLowerCase()}
+            </p>
           </div>
 
           {isEditing && (

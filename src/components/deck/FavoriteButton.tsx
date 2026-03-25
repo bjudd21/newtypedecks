@@ -149,7 +149,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       size={size}
       className={`flex items-center gap-2 ${isFavorited ? 'border-red-500 bg-red-500 hover:bg-red-600' : 'hover:border-red-300 hover:text-red-600'} ${className} `}
     >
-      <span className={isFavorited ? 'text-white' : 'text-current'}>
+      <span className={isFavorited ? 'text-foreground' : 'text-current'}>
         {heartIcon}
       </span>
       {isLoading ? 'Updating...' : buttonText}

@@ -27,7 +27,7 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
           <span className="bg-primary mr-3 flex h-12 w-12 items-center justify-center rounded-lg text-2xl shadow-lg">
             {icon}
           </span>
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          <h3 className="text-foreground text-lg font-semibold">{title}</h3>
         </div>
         <p className="text-foreground">{description}</p>
         <div className="text-primary group-hover:text-primary/80 mt-4 flex items-center text-sm font-medium transition-colors">

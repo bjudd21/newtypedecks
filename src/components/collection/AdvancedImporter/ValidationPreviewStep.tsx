@@ -63,7 +63,7 @@ export function ValidationPreviewStep({
                 <Badge variant="secondary" className="text-xs">
                   {item.quantity}x
                 </Badge>
-                <span className="flex-1 text-white">{item.cardName}</span>
+                <span className="text-foreground flex-1">{item.cardName}</span>
                 {item.setName && (
                   <span className="text-muted-foreground text-xs">
                     ({item.setName})

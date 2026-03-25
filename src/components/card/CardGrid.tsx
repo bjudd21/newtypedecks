@@ -66,12 +66,12 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
         {/* Stats badges - top right */}
         <div className="absolute top-2 right-2 flex flex-col gap-1">
           {card.cost !== undefined && (
-            <div className="border-border bg-background/90 rounded-md border px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
+            <div className="border-border bg-background/90 text-foreground rounded-md border px-2 py-0.5 text-xs font-bold backdrop-blur-sm">
               {card.cost}
             </div>
           )}
           {card.level !== undefined && (
-            <div className="bg-primary/80/90 rounded-md px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
+            <div className="bg-primary/80/90 text-foreground rounded-md px-2 py-0.5 text-xs font-bold backdrop-blur-sm">
               Lv {card.level}
             </div>
           )}

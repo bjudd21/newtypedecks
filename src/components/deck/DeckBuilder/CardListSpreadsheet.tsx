@@ -151,7 +151,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
               key={dc.cardId}
               className="hover:bg-accent border-border border-b"
             >
-              <td className="px-2 py-1 text-white">{dc.card.name}</td>
+              <td className="text-foreground px-2 py-1">{dc.card.name}</td>
               <td className="px-2 py-1 text-center">
                 {isEditing ? (
                   <div className="flex items-center justify-center gap-1">

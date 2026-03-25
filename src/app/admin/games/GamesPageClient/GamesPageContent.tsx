@@ -40,7 +40,9 @@ export function GamesPageContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white">Game Management</h1>
+          <h1 className="text-foreground text-3xl font-bold">
+            Game Management
+          </h1>
           <p className="text-muted-foreground mt-1">
             Manage TCG game records and their configurations
           </p>
@@ -92,9 +94,11 @@ export function GamesPageContent() {
             </thead>
             <tbody className="divide-border/50 divide-y">
               {games.map((game) => (
-                <tr key={game.id} className="hover:bg-card bg-[#1e1a2e]">
+                <tr key={game.id} className="hover:bg-card bg-muted/30">
                   <td className="px-4 py-3">
-                    <div className="font-medium text-white">{game.name}</div>
+                    <div className="text-foreground font-medium">
+                      {game.name}
+                    </div>
                     {game.shortName && (
                       <div className="text-muted-foreground/70 text-xs">
                         {game.shortName}
@@ -156,7 +160,7 @@ export function GamesPageContent() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div className="border-border bg-background w-full max-w-2xl overflow-hidden rounded-xl border shadow-2xl">
             <div className="border-border flex items-center justify-between border-b px-6 py-4">
-              <h2 className="text-lg font-bold text-white">
+              <h2 className="text-foreground text-lg font-bold">
                 {editingGame ? `Edit — ${editingGame.name}` : 'Add New Game'}
               </h2>
               <button
@@ -258,7 +262,7 @@ export function GamesPageContent() {
                   value={formData.configJson}
                   onChange={(e) => setField('configJson', e.target.value)}
                   rows={16}
-                  className="border-border bg-card focus:border-primary w-full rounded-lg border px-3 py-2 font-mono text-xs text-gray-200 focus:outline-none"
+                  className="border-border bg-card focus:border-primary text-foreground w-full rounded-lg border px-3 py-2 font-mono text-xs focus:outline-none"
                   spellCheck={false}
                 />
               </div>

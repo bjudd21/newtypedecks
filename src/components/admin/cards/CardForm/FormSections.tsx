@@ -19,7 +19,7 @@ export const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
   onUpload,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Card Image</h3>
+    <h3 className="text-foreground text-lg font-semibold">Card Image</h3>
     <FileUpload
       onUpload={onUpload}
       accept="image/*"
@@ -42,7 +42,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
   onChange,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Stats</h3>
+    <h3 className="text-foreground text-lg font-semibold">Stats</h3>
     <div className="grid gap-4 md:grid-cols-3">
       <Input
         label="Level"
@@ -133,7 +133,7 @@ export const CategoriesSection: React.FC<StatsSectionProps> = ({
   onChange,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Categories</h3>
+    <h3 className="text-foreground text-lg font-semibold">Categories</h3>
     <div className="grid gap-4 md:grid-cols-2">
       <Input
         label="Faction"
@@ -175,7 +175,7 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
   onChange,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Card Text</h3>
+    <h3 className="text-foreground text-lg font-semibold">Card Text</h3>
     <div className="space-y-4">
       <div>
         <label className="text-foreground mb-1 block text-sm font-medium">
@@ -186,7 +186,7 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
           onChange={(e) => onChange('description', e.target.value)}
           placeholder="Enter card description..."
           rows={3}
-          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 w-full rounded-md border px-3 py-2 text-white focus:ring-2 focus:outline-none"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 text-foreground w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
         />
       </div>
       <div>
@@ -198,7 +198,7 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
           onChange={(e) => onChange('officialText', e.target.value)}
           placeholder="Enter official card text..."
           rows={3}
-          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 w-full rounded-md border px-3 py-2 text-white focus:ring-2 focus:outline-none"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 text-foreground w-full rounded-md border px-3 py-2 focus:ring-2 focus:outline-none"
         />
       </div>
     </div>
@@ -220,7 +220,7 @@ export const KeywordsTagsSection: React.FC<KeywordsTagsSectionProps> = ({
   onTagsChange,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Keywords & Tags</h3>
+    <h3 className="text-foreground text-lg font-semibold">Keywords & Tags</h3>
     <Input
       label="Keywords (comma-separated)"
       value={keywordsInput}
@@ -242,7 +242,7 @@ export const FlagsSection: React.FC<StatsSectionProps> = ({
   onChange,
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold text-white">Special Flags</h3>
+    <h3 className="text-foreground text-lg font-semibold">Special Flags</h3>
     <div className="flex gap-6">
       <label className="flex items-center gap-2">
         <input

@@ -45,7 +45,7 @@ export const FormatSelectionGrid: React.FC<FormatSelectionGridProps> = ({
             <div className="mb-2 flex items-center gap-3">
               <span className="text-2xl">{format.icon}</span>
               <div>
-                <div className="font-medium text-white">{format.name}</div>
+                <div className="text-foreground font-medium">{format.name}</div>
                 <div className="text-muted-foreground text-sm">
                   {format.description}
                 </div>

@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const variants = {
       default:
-        'border-border bg-background text-white focus:border-primary focus:ring-ring/50',
+        'border-border bg-background text-foreground focus:border-primary focus:ring-ring/50',
       cyber:
         'border-cyan-400/50 bg-background/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
       neon: 'border-green-400/50 bg-background/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',

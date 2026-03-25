@@ -31,7 +31,7 @@ export const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
         <div className="space-y-4">
           {/* Change Password */}
           <div className="border-border bg-background rounded-lg border p-4">
-            <h3 className="mb-2 font-medium text-white">Password</h3>
+            <h3 className="text-foreground mb-2 font-medium">Password</h3>
             <p className="text-muted-foreground mb-3 text-sm">
               Change your password to keep your account secure.
             </p>

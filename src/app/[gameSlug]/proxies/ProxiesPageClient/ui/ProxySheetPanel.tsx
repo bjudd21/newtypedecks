@@ -36,7 +36,7 @@ export function ProxySheetPanel({
       {/* Header + actions */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-white">Proxy Sheet</h2>
+          <h2 className="text-foreground text-lg font-semibold">Proxy Sheet</h2>
           <p className="text-muted-foreground text-xs">
             {totalCards} card{totalCards !== 1 ? 's' : ''} · {pageCount} page
             {pageCount !== 1 ? 's' : ''} · 3×3 per page
@@ -92,7 +92,7 @@ export function ProxySheetPanel({
               </div>
 
               {/* Name */}
-              <span className="min-w-0 flex-1 truncate text-sm text-white">
+              <span className="text-foreground min-w-0 flex-1 truncate text-sm">
                 {card.name}
               </span>
 
@@ -104,7 +104,7 @@ export function ProxySheetPanel({
                 >
                   −
                 </button>
-                <span className="w-5 text-center text-sm text-white">
+                <span className="text-foreground w-5 text-center text-sm">
                   {quantity}
                 </span>
                 <button

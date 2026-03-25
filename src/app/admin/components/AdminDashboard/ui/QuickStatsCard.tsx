@@ -20,7 +20,7 @@ export const QuickStatsCard: React.FC<QuickStatsCardProps> = ({
         <span className="mr-3 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 text-2xl shadow-lg">
           ⚡
         </span>
-        <h3 className="text-lg font-semibold text-white">Quick Stats</h3>
+        <h3 className="text-foreground text-lg font-semibold">Quick Stats</h3>
       </div>
       {isLoading ? (
         <div className="flex h-20 items-center justify-center">

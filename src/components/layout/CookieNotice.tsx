@@ -226,7 +226,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   {showDeclineOption && (
                     <button
                       onClick={handleDecline}
-                      className="hover:bg-secondary bg-muted rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
+                      className="hover:bg-secondary bg-muted text-foreground rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                     >
                       Essential Cookies Only
                     </button>
@@ -310,7 +310,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   // Default banner variant
   return (
     <div
-      className={`bg-background fixed right-0 bottom-0 left-0 z-50 p-4 text-white shadow-lg ${className}`}
+      className={`bg-background text-foreground fixed right-0 bottom-0 left-0 z-50 p-4 shadow-lg ${className}`}
     >
       <div className="container mx-auto">
         <div className="flex flex-col items-start justify-between space-y-4 md:flex-row md:items-center md:space-y-0">
@@ -346,7 +346,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             {showDeclineOption && (
               <button
                 onClick={handleDecline}
-                className="hover:bg-secondary bg-muted rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
+                className="hover:bg-secondary bg-muted text-foreground rounded-lg px-4 py-2 text-sm font-medium transition-colors"
               >
                 Essential Only
               </button>

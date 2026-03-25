@@ -23,16 +23,16 @@ export const CollectionStatsCard: React.FC<CollectionStatsCardProps> = ({
       </div>
       <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-3">
         <div>
-          <div className="font-semibold text-white">{totalCards}</div>
+          <div className="text-foreground font-semibold">{totalCards}</div>
           <div className="text-muted-foreground">Total Cards</div>
         </div>
         <div>
-          <div className="font-semibold text-white">{uniqueCards}</div>
+          <div className="text-foreground font-semibold">{uniqueCards}</div>
           <div className="text-muted-foreground">Unique Cards</div>
         </div>
         {totalValue && (
           <div>
-            <div className="font-semibold text-white">
+            <div className="text-foreground font-semibold">
               ${totalValue.toFixed(2)}
             </div>
             <div className="text-muted-foreground">Total Value</div>

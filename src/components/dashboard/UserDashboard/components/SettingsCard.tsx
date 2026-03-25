@@ -22,7 +22,9 @@ export const SettingsCard: React.FC = () => {
       <CardContent>
         <div className="space-y-4">
           <div className="border-border bg-background rounded-lg border p-4">
-            <h4 className="mb-2 font-medium text-white">Privacy Settings</h4>
+            <h4 className="text-foreground mb-2 font-medium">
+              Privacy Settings
+            </h4>
             <p className="text-muted-foreground mb-3 text-sm">
               Control who can see your decks and collection.
             </p>
@@ -32,7 +34,7 @@ export const SettingsCard: React.FC = () => {
           </div>
 
           <div className="border-border bg-background rounded-lg border p-4">
-            <h4 className="mb-2 font-medium text-white">Export Data</h4>
+            <h4 className="text-foreground mb-2 font-medium">Export Data</h4>
             <p className="text-muted-foreground mb-3 text-sm">
               Download your decks and collection data.
             </p>
