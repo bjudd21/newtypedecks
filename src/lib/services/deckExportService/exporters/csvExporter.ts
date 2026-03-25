@@ -3,11 +3,12 @@
  */
 
 import type { ExportableDeck, ExportOptions, DeckCard } from '../types';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 import { sortCards } from '../utils';
 
 /**
- * Read a string field from a card's gameAttributes JSONB.
- * Returns null (for escapeCSVValue compatibility) if absent or not a string.
+ * Read a field from a card's gameAttributes JSONB.
+ * Returns null (for escapeCSVValue compatibility) if absent.
  */
 function getGameAttr(
   attrs: DeckCard['card']['gameAttributes'],
@@ -15,13 +16,21 @@ function getGameAttr(
 ): string | null {
   if (!attrs || typeof attrs !== 'object' || Array.isArray(attrs)) return null;
   const value = (attrs as Record<string, unknown>)[field];
-  return typeof value === 'string' ? value : null;
+  return value != null ? String(value) : null;
 }
 
 /**
- * Build CSV headers
+ * Escape CSV value (handle quotes and nulls)
  */
-function buildCSVHeaders(): string {
+function escapeCSVValue(value: string | null | undefined): string {
+  if (!value) return '';
+  return `"${value.replace(/"/g, '""')}"`;
+}
+
+/**
+ * Build CSV headers — base columns plus one column per game-specific custom field.
+ */
+function buildCSVHeaders(customFields: CardSchemaCustomField[]): string {
   const headers = [
     'Quantity',
     'Name',
@@ -30,28 +39,19 @@ function buildCSVHeaders(): string {
     'Cost',
     'Type',
     'Rarity',
-    'Faction',
-    'Pilot',
-    'Model',
+    ...customFields.map((f) => f.label),
     'Category',
   ];
   return headers.join(',') + '\n';
 }
 
 /**
- * Escape CSV value (handle quotes and nulls)
+ * Build a CSV row — base columns followed by dynamic game-attribute columns.
  */
-function escapeCSVValue(value: string | null | undefined): string {
-  if (!value) {
-    return '';
-  }
-  return `"${value.replace(/"/g, '""')}"`;
-}
-
-/**
- * Build a CSV row for a deck card
- */
-function buildCardRow(deckCard: DeckCard): string {
+function buildCardRow(
+  deckCard: DeckCard,
+  customFields: CardSchemaCustomField[]
+): string {
   const row = [
     deckCard.quantity,
     escapeCSVValue(deckCard.card.name),
@@ -60,9 +60,9 @@ function buildCardRow(deckCard: DeckCard): string {
     deckCard.card.cost || '',
     escapeCSVValue(deckCard.card.type?.name),
     escapeCSVValue(deckCard.card.rarity?.name),
-    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'faction')),
-    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'pilot')),
-    escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, 'model')),
+    ...customFields.map((f) =>
+      escapeCSVValue(getGameAttr(deckCard.card.gameAttributes, f.key))
+    ),
     escapeCSVValue(deckCard.category || 'main'),
   ];
 
@@ -70,17 +70,20 @@ function buildCardRow(deckCard: DeckCard): string {
 }
 
 /**
- * Export to CSV format
+ * Export to CSV format.
+ * Game-specific columns are driven by options.customFields — pass the active
+ * game's config.schema.customFields for correct per-game column headers.
  */
 export function exportToCSV(
   deck: ExportableDeck,
   options: ExportOptions
 ): string {
-  let csv = buildCSVHeaders();
+  const customFields = options.customFields ?? [];
+  let csv = buildCSVHeaders(customFields);
 
   const sortedCards = sortCards(deck.cards, options);
   for (const deckCard of sortedCards) {
-    csv += buildCardRow(deckCard);
+    csv += buildCardRow(deckCard, customFields);
   }
 
   return csv;

@@ -3,6 +3,7 @@
  */
 
 import type { CardWithRelations } from '@/lib/types/card';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 
 export interface DeckCard {
   card: CardWithRelations;
@@ -34,6 +35,8 @@ export interface ExportOptions {
   sortOrder?: 'asc' | 'desc';
   /** Game name for export attribution (e.g. from game.name) */
   gameName?: string;
+  /** Game-specific custom fields — drives dynamic CSV columns and JSON keys. */
+  customFields?: CardSchemaCustomField[];
 }
 
 export interface ImportResult {

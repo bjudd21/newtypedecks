@@ -3,11 +3,12 @@
  */
 
 import type { ExportableDeck, ExportOptions, DeckCard } from '../types';
+import type { CardSchemaCustomField } from '@/lib/types/game';
 import { sortCards } from '../utils';
 
 /**
- * Read a string field from a card's gameAttributes JSONB.
- * Returns undefined if absent or not a string.
+ * Read a field from a card's gameAttributes JSONB.
+ * Returns undefined if absent.
  */
 function getGameAttr(
   attrs: DeckCard['card']['gameAttributes'],
@@ -16,7 +17,19 @@ function getGameAttr(
   if (!attrs || typeof attrs !== 'object' || Array.isArray(attrs))
     return undefined;
   const value = (attrs as Record<string, unknown>)[field];
-  return typeof value === 'string' ? value : undefined;
+  return value != null ? String(value) : undefined;
+}
+
+/**
+ * Build game-specific attribute entries from customFields.
+ */
+function buildGameAttrs(
+  attrs: DeckCard['card']['gameAttributes'],
+  customFields: CardSchemaCustomField[]
+): Record<string, string | undefined> {
+  return Object.fromEntries(
+    customFields.map((f) => [f.key, getGameAttr(attrs, f.key)])
+  );
 }
 
 /**
@@ -26,6 +39,7 @@ export function exportToJSON(
   deck: ExportableDeck,
   options: ExportOptions
 ): string {
+  const customFields = options.customFields ?? [];
   const exportData = {
     name: deck.name,
     description: deck.description,
@@ -42,9 +56,7 @@ export function exportToJSON(
       cost: deckCard.card.cost,
       type: deckCard.card.type?.name,
       rarity: deckCard.card.rarity?.name,
-      faction: getGameAttr(deckCard.card.gameAttributes, 'faction'),
-      pilot: getGameAttr(deckCard.card.gameAttributes, 'pilot'),
-      model: getGameAttr(deckCard.card.gameAttributes, 'model'),
+      ...buildGameAttrs(deckCard.card.gameAttributes, customFields),
     })),
   };
 

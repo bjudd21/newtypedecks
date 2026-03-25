@@ -56,6 +56,7 @@ export function useDeckExport() {
         sortBy: 'name' as const,
         sortOrder: 'asc' as const,
         gameName: game.name,
+        customFields: game.config.cardSchema.customFields,
       };
 
       try {
