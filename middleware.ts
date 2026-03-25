@@ -6,10 +6,15 @@ export default withAuth(
     const { pathname } = req.nextUrl;
     const token = req.nextauth.token;
 
-    // Admin-only routes
-    const adminRoutes = ['/admin'];
-    if (adminRoutes.some((route) => pathname.startsWith(route))) {
+    // Admin-only routes: frontend /admin/* and API /api/admin/*
+    if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
       if (!token || token.role !== 'ADMIN') {
+        if (pathname.startsWith('/api/')) {
+          return NextResponse.json(
+            { success: false, error: 'Forbidden' },
+            { status: 403 }
+          );
+        }
         return NextResponse.redirect(
           new URL('/auth/signin?error=AdminRequired', req.url)
         );
@@ -17,8 +22,7 @@ export default withAuth(
     }
 
     // Moderator+ routes
-    const moderatorRoutes = ['/moderation'];
-    if (moderatorRoutes.some((route) => pathname.startsWith(route))) {
+    if (pathname.startsWith('/moderation')) {
       if (!token || (token.role !== 'MODERATOR' && token.role !== 'ADMIN')) {
         return NextResponse.redirect(
           new URL('/auth/signin?error=ModeratorRequired', req.url)
@@ -26,57 +30,37 @@ export default withAuth(
       }
     }
 
-    // User-only routes (authenticated user required)
-    const authRoutes = [
-      '/dashboard',
-      '/profile',
-      '/decks/create',
-      '/decks/edit',
-      '/collection',
-      '/settings/pwa',
-      '/favorites',
-    ];
+    // Auth-required paths — top-level and under any [gameSlug] prefix.
+    // Regex patterns match /{anything}/collection, /{anything}/favorites, etc.
+    const requiresAuth =
+      pathname === '/dashboard' ||
+      pathname.startsWith('/dashboard/') ||
+      pathname === '/profile' ||
+      pathname.startsWith('/profile/') ||
+      pathname.startsWith('/settings/') ||
+      /^\/[^/]+\/collection(\/|$)/.test(pathname) ||
+      /^\/[^/]+\/favorites(\/|$)/.test(pathname) ||
+      /^\/[^/]+\/decks\/create(\/|$)/.test(pathname) ||
+      /^\/[^/]+\/decks\/edit(\/|$)/.test(pathname);
 
-    if (authRoutes.some((route) => pathname.startsWith(route))) {
-      if (!token) {
-        return NextResponse.redirect(
-          new URL(
-            `/auth/signin?callbackUrl=${encodeURIComponent(pathname)}`,
-            req.url
-          )
-        );
-      }
+    if (requiresAuth && !token) {
+      return NextResponse.redirect(
+        new URL(
+          `/auth/signin?callbackUrl=${encodeURIComponent(pathname)}`,
+          req.url
+        )
+      );
     }
 
     return NextResponse.next();
   },
   {
     callbacks: {
-      authorized: ({ token, req }) => {
-        const { pathname } = req.nextUrl;
-
-        // Allow access to public routes
-        const publicRoutes = [
-          '/',
-          '/cards',
-          '/decks',
-          '/templates',
-          '/offline',
-          '/privacy',
-          '/terms',
-          '/cookies',
-          '/auth',
-          '/api/cards',
-          '/api/public',
-        ];
-
-        if (publicRoutes.some((route) => pathname.startsWith(route))) {
-          return true;
-        }
-
-        // For protected routes, require token
-        return !!token;
-      },
+      // Allow all requests through — the main function above handles all
+      // auth and role checks. The old publicRoutes list was missing [gameSlug]
+      // prefixes (/gundam/cards, /gundam/decks, etc.) which caused it to block
+      // unauthenticated users from browsing card/deck content.
+      authorized: () => true,
     },
   }
 );
