@@ -93,7 +93,7 @@ export const CardDisplayContent: React.FC<CardDisplayProps> = ({
 
         {/* Attribution */}
         {showAttribution && (
-          <div className="mt-3 border-t border-gray-100 pt-3">
+          <div className="border-border mt-3 border-t pt-3">
             <GameContentAttribution className="text-xs" />
           </div>
         )}

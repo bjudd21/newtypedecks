@@ -35,7 +35,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   if (variant === 'minimal') {
     return (
-      <footer className={`bg-gray-900 py-4 text-white ${className}`}>
+      <footer className={`bg-background py-4 text-white ${className}`}>
         <div className="container mx-auto px-4">
           <div className="text-center">
             <CopyrightDisclaimer
@@ -55,7 +55,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   if (variant === 'compact') {
     return (
-      <footer className={`bg-gray-800 py-6 text-white ${className}`}>
+      <footer className={`bg-card py-6 text-white ${className}`}>
         <div className="container mx-auto px-4">
           <div className="grid gap-6 md:grid-cols-2">
             <div>
@@ -82,7 +82,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               />
             </div>
           </div>
-          <div className="mt-6 border-t border-gray-600 pt-6 text-center">
+          <div className="border-border mt-6 border-t pt-6 text-center">
             <p className="text-muted-foreground text-sm">
               © {currentYear} {gameLabel} Community Website. Built by fans, for
               fans. Not affiliated with {publisherName}
@@ -95,7 +95,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
   // Full variant - comprehensive legal footer
   return (
-    <footer className={`bg-gray-900 text-white ${className}`}>
+    <footer className={`bg-background text-white ${className}`}>
       <div className="container mx-auto px-4">
         {/* Main footer content */}
         <div className="py-8">
@@ -196,7 +196,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
         {/* Expandable Legal Details */}
         {showExpandableDetails && (
-          <div className="border-t border-gray-700">
+          <div className="border-border border-t">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               className="text-muted-foreground hover:text-foreground flex w-full items-center justify-between py-4 text-left text-sm transition-colors"
@@ -228,7 +228,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   </h5>
                   <CopyrightDisclaimer
                     variant="full"
-                    className="border-gray-600 bg-gray-800"
+                    className="border-border bg-card"
                     gameName={gameName}
                     publisher={publisher}
                   />
@@ -240,13 +240,13 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   </h5>
                   <NonAffiliationStatement
                     variant="inline"
-                    className="border-gray-600 bg-gray-800"
+                    className="border-border bg-card"
                     gameName={gameName}
                     publisher={publisher}
                   />
                 </div>
 
-                <div className="rounded-lg border border-gray-600 bg-gray-800 p-4">
+                <div className="border-border bg-card rounded-lg border p-4">
                   <h5 className="mb-3 font-semibold text-white">
                     Fair Use Statement
                   </h5>
@@ -285,7 +285,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
         )}
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-700 py-4">
+        <div className="border-border border-t py-4">
           <div className="text-muted-foreground flex flex-col items-center justify-between text-xs md:flex-row">
             <div>
               © {currentYear} Community-built {gameLabel} Database. Not

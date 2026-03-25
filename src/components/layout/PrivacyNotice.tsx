@@ -77,13 +77,13 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
         className={`border-border bg-card rounded-lg border p-6 shadow-sm ${className}`}
       >
         <div className="mx-auto max-w-4xl">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
+          <h2 className="text-foreground mb-6 text-2xl font-bold">
             Privacy Notice
           </h2>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Data Collection
               </h3>
               <div className="bg-accent mb-4 rounded-lg p-4">
@@ -114,7 +114,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 How We Use Your Data
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
@@ -144,7 +144,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Your Rights
               </h3>
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
@@ -172,7 +172,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Data Security
               </h3>
               <div className="space-y-3">
@@ -191,7 +191,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Encryption</p>
+                    <p className="text-foreground font-medium">Encryption</p>
                     <p className="text-muted-foreground text-sm">
                       All passwords and sensitive data are encrypted
                     </p>
@@ -212,7 +212,9 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Secure Storage</p>
+                    <p className="text-foreground font-medium">
+                      Secure Storage
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       Data stored on secure, monitored servers
                     </p>
@@ -233,7 +235,9 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Regular Backups</p>
+                    <p className="text-foreground font-medium">
+                      Regular Backups
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       Your data is backed up regularly to prevent loss
                     </p>
@@ -244,7 +248,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
 
             {showContactInfo && (
               <section>
-                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                <h3 className="text-foreground mb-4 text-lg font-semibold">
                   Contact Information
                 </h3>
                 <div className="bg-accent rounded-lg p-4">
@@ -292,7 +296,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
           </svg>
         </div>
         <div className="flex-1">
-          <h4 className="mb-2 text-sm font-medium text-gray-900">
+          <h4 className="text-foreground mb-2 text-sm font-medium">
             Privacy Information
           </h4>
           <div className="text-muted-foreground space-y-2 text-sm">

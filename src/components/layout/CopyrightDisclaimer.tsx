@@ -63,7 +63,9 @@ export const CopyrightDisclaimer: React.FC<CopyrightDisclaimerProps> = ({
     >
       <div className="space-y-3">
         <div>
-          <h4 className="mb-2 font-semibold text-gray-900">Copyright Notice</h4>
+          <h4 className="text-foreground mb-2 font-semibold">
+            Copyright Notice
+          </h4>
           <p>
             <strong>{gameLabel}</strong> and all related characters, names,
             marks, emblems, and logos are trademarks of{' '}

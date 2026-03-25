@@ -53,7 +53,7 @@ export function InstallSection({
           ) : pwaState.isInstallable ? (
             <div className="flex items-center justify-between">
               <div>
-                <div className="mb-1 font-medium text-gray-900">
+                <div className="text-foreground mb-1 font-medium">
                   Install as App
                 </div>
                 <div className="text-muted-foreground text-sm">

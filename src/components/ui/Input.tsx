@@ -36,10 +36,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       default:
         'border-border bg-background text-white focus:border-primary focus:ring-ring/50',
       cyber:
-        'border-cyan-400/50 bg-gray-900/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
-      neon: 'border-green-400/50 bg-gray-900/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',
+        'border-cyan-400/50 bg-background/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
+      neon: 'border-green-400/50 bg-background/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',
       plasma:
-        'border-purple-500/50 bg-gray-900/70 text-purple-100 focus:border-purple-500 focus:ring-purple-500/30 focus:shadow-lg focus:shadow-purple-500/20',
+        'border-purple-500/50 bg-background/70 text-purple-100 focus:border-purple-500 focus:ring-purple-500/30 focus:shadow-lg focus:shadow-purple-500/20',
     };
 
     const labelVariants = {

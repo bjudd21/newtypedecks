@@ -5,7 +5,7 @@ import { Card, CardContent, Button } from '@/components/ui';
 export function NotFoundState() {
   return (
     <div className="mx-auto max-w-4xl">
-      <Card className="border-gray-700 bg-gray-800">
+      <Card className="border-border bg-card">
         <CardContent className="py-8">
           <div className="text-center">
             <svg

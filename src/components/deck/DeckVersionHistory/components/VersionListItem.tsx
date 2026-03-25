@@ -45,7 +45,7 @@ export const VersionListItem: React.FC<VersionListItemProps> = ({
             {isCurrent && ' (Current)'}
           </Badge>
           {version.versionName && (
-            <span className="font-medium text-gray-900">
+            <span className="text-foreground font-medium">
               {version.versionName}
             </span>
           )}

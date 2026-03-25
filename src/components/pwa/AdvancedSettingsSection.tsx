@@ -62,7 +62,7 @@ export function AdvancedSettingsSection({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Service Worker</div>
+              <div className="text-foreground font-medium">Service Worker</div>
               <div className="text-muted-foreground text-sm">
                 Controls offline functionality and background sync
               </div>
@@ -85,7 +85,9 @@ export function AdvancedSettingsSection({
           </div>
 
           <div className="border-t pt-4">
-            <h4 className="mb-2 font-medium text-gray-900">Offline Features</h4>
+            <h4 className="text-foreground mb-2 font-medium">
+              Offline Features
+            </h4>
             <OfflineFeaturesList isActive={isServiceWorkerActive} />
           </div>
 

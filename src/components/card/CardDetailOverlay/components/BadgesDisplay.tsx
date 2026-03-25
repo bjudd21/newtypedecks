@@ -22,7 +22,7 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({ card }) => {
                 ? 'bg-red-600'
                 : card.rarity.name?.toLowerCase() === 'ultra rare'
                   ? 'bg-purple-600'
-                  : 'bg-gray-600'
+                  : 'bg-muted'
           }`}
         >
           {card.rarity.name}

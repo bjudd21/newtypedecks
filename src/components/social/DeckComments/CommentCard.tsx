@@ -31,7 +31,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="border-l-2 border-gray-100 pl-4">
+    <div className="border-border border-l-2 pl-4">
       <div className="flex items-start gap-3">
         {/* Avatar */}
         <div className="flex-shrink-0">
@@ -53,7 +53,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
         {/* Comment Content */}
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-2">
-            <span className="font-medium text-gray-900">
+            <span className="text-foreground font-medium">
               {comment.userName}
             </span>
             {comment.isPinned && (
@@ -148,7 +148,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
 
                   <div className="flex-1">
                     <div className="mb-1 flex items-center gap-2">
-                      <span className="text-sm font-medium text-gray-900">
+                      <span className="text-foreground text-sm font-medium">
                         {reply.userName}
                       </span>
                       {reply.isOwner && (

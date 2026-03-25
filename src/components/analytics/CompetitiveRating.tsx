@@ -74,7 +74,7 @@ export const CompetitiveRating: React.FC<CompetitiveRatingProps> = ({
 
       {/* Progress bar */}
       <div className="max-w-32 flex-1">
-        <div className="h-2 w-full rounded-full bg-gray-200">
+        <div className="bg-muted h-2 w-full rounded-full">
           <div
             className={`h-2 rounded-full transition-all duration-500 ${
               rating >= 90

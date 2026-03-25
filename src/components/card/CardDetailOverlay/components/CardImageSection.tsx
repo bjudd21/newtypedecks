@@ -16,7 +16,7 @@ export const CardImageSection: React.FC<CardImageSectionProps> = ({
 }) => {
   return (
     <div className="space-y-4">
-      <div className="aspect-[5/7] overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
+      <div className="border-border bg-card aspect-[5/7] overflow-hidden rounded-lg border">
         {imageUrl ? (
           <Image
             src={imageUrl}

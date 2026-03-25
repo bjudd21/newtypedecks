@@ -96,7 +96,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className, lines = 1 }) => {
     return (
       <div
         className={cn(
-          'animate-pulse rounded bg-gray-200',
+          'bg-muted animate-pulse rounded',
           className || 'h-4 w-full'
         )}
       />
@@ -109,7 +109,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className, lines = 1 }) => {
         <div
           key={index}
           className={cn(
-            'animate-pulse rounded bg-gray-200',
+            'bg-muted animate-pulse rounded',
             index === lines - 1 ? 'w-3/4' : 'w-full',
             className || 'h-4'
           )}

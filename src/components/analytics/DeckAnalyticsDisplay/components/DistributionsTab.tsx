@@ -29,7 +29,7 @@ export const DistributionsTab: React.FC<DistributionsTabProps> = ({
           <div className="space-y-6">
             {/* Type Distribution Details */}
             <div>
-              <h4 className="mb-3 font-semibold text-gray-900">Card Types</h4>
+              <h4 className="text-foreground mb-3 font-semibold">Card Types</h4>
               <div className="space-y-2">
                 {Object.entries(analytics.typeDistribution).map(
                   ([type, data]) => (
@@ -54,7 +54,7 @@ export const DistributionsTab: React.FC<DistributionsTabProps> = ({
 
             {/* Cost Curve Details */}
             <div>
-              <h4 className="mb-3 font-semibold text-gray-900">
+              <h4 className="text-foreground mb-3 font-semibold">
                 Cost Curve Analysis
               </h4>
               <div className="grid grid-cols-4 gap-2 md:grid-cols-8">

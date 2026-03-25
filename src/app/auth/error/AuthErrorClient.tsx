@@ -143,7 +143,7 @@ export function AuthErrorClient() {
 
       {/* Debug info in development */}
       {process.env.NODE_ENV === 'development' && (
-        <div className="mt-6 rounded bg-gray-100 p-3 text-left">
+        <div className="bg-muted mt-6 rounded p-3 text-left">
           <p className="text-muted-foreground font-mono text-xs">
             Debug: Error code &quot;{error}&quot;
           </p>

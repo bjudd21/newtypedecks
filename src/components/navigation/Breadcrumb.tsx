@@ -64,7 +64,7 @@ export function Breadcrumb() {
             </svg>
           )}
           {index === breadcrumbs.length - 1 ? (
-            <span className="font-medium text-gray-900">{item.name}</span>
+            <span className="text-foreground font-medium">{item.name}</span>
           ) : (
             <Link
               href={item.href}

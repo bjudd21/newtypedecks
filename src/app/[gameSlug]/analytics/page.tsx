@@ -37,7 +37,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
     <div className="container mx-auto max-w-7xl px-4 py-8">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="mb-4 text-3xl font-bold text-gray-900">
+        <h1 className="text-foreground mb-4 text-3xl font-bold">
           Meta-Game Analytics
         </h1>
         <p className="text-muted-foreground mb-6 text-lg">
@@ -91,7 +91,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
-                <h4 className="mb-2 font-semibold text-gray-900">
+                <h4 className="text-foreground mb-2 font-semibold">
                   Data Sources
                 </h4>
                 <ul className="space-y-1">
@@ -103,7 +103,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
               </div>
 
               <div>
-                <h4 className="mb-2 font-semibold text-gray-900">
+                <h4 className="text-foreground mb-2 font-semibold">
                   Key Metrics
                 </h4>
                 <ul className="space-y-1">

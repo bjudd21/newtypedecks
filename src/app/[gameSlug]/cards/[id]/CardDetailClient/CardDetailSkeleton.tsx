@@ -19,7 +19,7 @@ export function CardDetailSkeleton() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Image skeleton */}
         <div>
-          <Card className="border-gray-700 bg-gray-800">
+          <Card className="border-border bg-card">
             <CardContent className="p-6">
               <Skeleton className="mx-auto aspect-[3/4] w-full max-w-md" />
             </CardContent>
@@ -29,7 +29,7 @@ export function CardDetailSkeleton() {
         {/* Details skeleton */}
         <div className="space-y-6">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Card key={index} className="border-gray-700 bg-gray-800">
+            <Card key={index} className="border-border bg-card">
               <CardHeader>
                 <Skeleton className="h-6 w-32" />
               </CardHeader>

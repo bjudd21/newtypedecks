@@ -24,7 +24,9 @@
       "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/cards/page.tsx)",
       "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/decks/page.tsx)",
       "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/collection/page.tsx)",
-      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/proxies/page.tsx)"
+      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/proxies/page.tsx)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

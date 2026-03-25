@@ -129,7 +129,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           'relative rounded-lg border-2 border-dashed p-6 text-center transition-colors',
           dragActive
             ? 'border-blue-400 bg-blue-50'
-            : 'border-border hover:border-gray-400',
+            : 'border-border hover:border-border',
           disabled && 'cursor-not-allowed opacity-50',
           isUploading && 'cursor-not-allowed opacity-50'
         )}

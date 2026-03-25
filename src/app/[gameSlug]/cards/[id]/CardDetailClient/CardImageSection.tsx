@@ -6,7 +6,7 @@ import type { CardWithRelations } from '@/lib/types/card';
 export function CardImageSection({ card }: { card: CardWithRelations }) {
   return (
     <div>
-      <Card className="border-gray-700 bg-gray-800">
+      <Card className="border-border bg-card">
         <CardContent className="p-6">
           <CardImage
             name={card.name}

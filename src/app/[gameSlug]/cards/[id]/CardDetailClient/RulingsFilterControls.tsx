@@ -44,7 +44,7 @@ export function RulingsFilterControls({
           onChange={(e) =>
             onFilterChange(e.target.value as 'all' | 'official' | 'community')
           }
-          className="rounded-md border border-gray-700 bg-gray-800 px-3 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          className="border-border bg-card focus:border-primary focus:ring-primary rounded-md border px-3 py-1 text-sm text-white focus:ring-2"
         >
           <option value="all">All Rulings</option>
           <option value="official">Official Only</option>
@@ -56,7 +56,7 @@ export function RulingsFilterControls({
           placeholder="Search rulings..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="rounded-md border border-gray-700 bg-gray-800 px-3 py-1 text-sm text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          className="border-border bg-card focus:border-primary focus:ring-primary rounded-md border px-3 py-1 text-sm text-white focus:ring-2"
         />
       </div>
     </div>

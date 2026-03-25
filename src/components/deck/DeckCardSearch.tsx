@@ -50,7 +50,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
       className={`hover:bg-accent flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''} `}
     >
       {/* Card Image Placeholder */}
-      <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-gray-200">
+      <div className="bg-muted relative h-16 w-12 flex-shrink-0 overflow-hidden rounded">
         {(card.imageUrlSmall ?? card.imageUrl) ? (
           <Image
             src={(card.imageUrlSmall ?? card.imageUrl)!}
@@ -69,19 +69,19 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
 
       {/* Card Details */}
       <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium text-gray-900">
+        <div className="text-foreground truncate text-sm font-medium">
           {card.name}
         </div>
 
         <div className="text-muted-foreground mt-1 flex items-center gap-2 text-xs">
           {card.type && (
-            <span className="rounded bg-gray-100 px-2 py-0.5">
+            <span className="bg-muted rounded px-2 py-0.5">
               {card.type.name}
             </span>
           )}
 
           {card.rarity && (
-            <span className="rounded bg-gray-100 px-2 py-0.5">
+            <span className="bg-muted rounded px-2 py-0.5">
               {card.rarity.name}
             </span>
           )}

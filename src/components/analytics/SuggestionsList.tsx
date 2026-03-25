@@ -53,7 +53,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
       case 'low':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-border';
+        return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -116,7 +116,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
                     </div>
                   </div>
 
-                  <p className="mb-2 text-sm text-gray-900">
+                  <p className="text-foreground mb-2 text-sm">
                     {suggestion.reason}
                   </p>
 

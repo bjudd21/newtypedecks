@@ -17,7 +17,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
 }) => {
   return (
     <div
-      className={`text-muted-foreground/70 flex items-center justify-center bg-gray-200 ${className}`}
+      className={`text-muted-foreground/70 bg-muted flex items-center justify-center ${className}`}
       style={{ width, height }}
     >
       <span className="text-sm">Failed to load image</span>

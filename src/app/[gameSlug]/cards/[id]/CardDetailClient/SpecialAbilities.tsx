@@ -6,7 +6,7 @@ export function SpecialAbilities({ abilities }: { abilities: string }) {
   const parsedAbilities = parseAbilities(abilities);
 
   return (
-    <Card className="border-gray-700 bg-gray-800">
+    <Card className="border-border bg-card">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg

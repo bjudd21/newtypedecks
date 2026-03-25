@@ -42,7 +42,7 @@ export const CardsPageHeader: React.FC<CardsPageHeaderProps> = ({
           <select
             value={selectedGameSlug}
             onChange={(e) => onGameChange(e.target.value)}
-            className="rounded-md border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none"
+            className="border-border bg-card focus:border-primary rounded-md border px-3 py-2 text-sm text-white focus:outline-none"
           >
             {games.map((game) => (
               <option key={game.slug} value={game.slug}>

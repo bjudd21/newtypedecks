@@ -19,7 +19,7 @@ export const CardImage: React.FC<CardImageProps> = ({
   const imageSrc = imageUrlSmall || imageUrl;
 
   return (
-    <div className="h-20 w-16 overflow-hidden rounded border bg-gray-200">
+    <div className="bg-muted h-20 w-16 overflow-hidden rounded border">
       {imageSrc ? (
         <Image
           src={imageSrc}
@@ -29,7 +29,7 @@ export const CardImage: React.FC<CardImageProps> = ({
           className="h-full w-full object-cover"
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center bg-gray-100">
+        <div className="bg-muted flex h-full w-full items-center justify-center">
           <svg
             className="text-muted-foreground h-6 w-6"
             fill="none"

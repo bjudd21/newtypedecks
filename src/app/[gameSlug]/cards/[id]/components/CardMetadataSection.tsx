@@ -21,7 +21,7 @@ interface CardMetadataSectionProps {
 
 export function CardMetadataSection({ card }: CardMetadataSectionProps) {
   return (
-    <Card className="border-gray-700 bg-gray-800">
+    <Card className="border-border bg-card">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -94,7 +94,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
         </div>
 
         {card.tags && card.tags.length > 0 && (
-          <div className="mt-4 border-t border-gray-700 pt-4">
+          <div className="border-border mt-4 border-t pt-4">
             <h4 className="text-foreground mb-2 font-medium">Tags</h4>
             <div className="flex flex-wrap gap-1">
               {card.tags.map((tag, index) => (

@@ -93,14 +93,14 @@ const Modal: React.FC<ModalProps> = ({
           <div className="border-border flex items-center justify-between border-b px-6 py-4">
             <h2
               id="modal-title"
-              className="text-lg font-semibold text-gray-900"
+              className="text-foreground text-lg font-semibold"
             >
               {title}
             </h2>
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="text-muted-foreground hover:text-muted-foreground rounded-md p-1 hover:bg-gray-100"
+                className="text-muted-foreground hover:text-muted-foreground hover:bg-muted rounded-md p-1"
                 aria-label="Close modal"
               >
                 <svg

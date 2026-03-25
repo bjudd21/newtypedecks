@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui';
 
 export function OfficialText({ text }: { text: string }) {
   return (
-    <Card className="border-gray-700 bg-gray-800">
+    <Card className="border-border bg-card">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg

@@ -20,7 +20,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
   return (
     <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
       <div className="text-center">
-        <div className="mb-2 text-4xl font-bold text-gray-900">
+        <div className="text-foreground mb-2 text-4xl font-bold">
           {averageRating.toFixed(1)}
         </div>
         <div className="mb-2">
@@ -44,7 +44,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
           return (
             <div key={star} className="flex items-center gap-3">
               <span className="w-6 text-sm">{star}★</span>
-              <div className="h-2 flex-1 rounded-full bg-gray-200">
+              <div className="bg-muted h-2 flex-1 rounded-full">
                 <div
                   className="h-2 rounded-full bg-yellow-400 transition-all"
                   style={{ width: `${percentage}%` }}

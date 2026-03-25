@@ -29,9 +29,9 @@ export function TraditionalPaginationResults({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 12 }).map((_, index) => (
           <div key={index} className="animate-pulse rounded-lg border p-4">
-            <div className="mb-2 h-32 w-full rounded bg-gray-200"></div>
-            <div className="mb-1 h-4 w-3/4 rounded bg-gray-200"></div>
-            <div className="h-3 w-1/2 rounded bg-gray-200"></div>
+            <div className="bg-muted mb-2 h-32 w-full rounded"></div>
+            <div className="bg-muted mb-1 h-4 w-3/4 rounded"></div>
+            <div className="bg-muted h-3 w-1/2 rounded"></div>
           </div>
         ))}
       </div>

@@ -33,7 +33,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Service Worker</div>
+              <div className="text-foreground font-medium">Service Worker</div>
               <div className="text-muted-foreground text-sm">
                 Controls offline functionality and background sync
               </div>
@@ -60,7 +60,9 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
           </div>
 
           <div className="border-t pt-4">
-            <h4 className="mb-2 font-medium text-gray-900">Offline Features</h4>
+            <h4 className="text-foreground mb-2 font-medium">
+              Offline Features
+            </h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
                 <span

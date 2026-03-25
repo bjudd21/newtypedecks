@@ -33,7 +33,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
     >
       <div className="mb-2 flex items-start justify-between">
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-medium text-gray-900">
+          <h3 className="text-foreground truncate font-medium">
             {template.name}
           </h3>
           <div className="text-muted-foreground truncate text-sm">

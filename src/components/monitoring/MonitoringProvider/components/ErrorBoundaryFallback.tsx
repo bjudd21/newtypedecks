@@ -31,7 +31,7 @@ export const ErrorBoundaryFallback: React.FC<ErrorBoundaryFallbackProps> = ({
             </svg>
           </div>
           <div className="ml-3">
-            <h3 className="text-sm font-medium text-gray-800">
+            <h3 className="text-foreground text-sm font-medium">
               Something went wrong
             </h3>
             <div className="text-muted-foreground/70 mt-2 text-sm">

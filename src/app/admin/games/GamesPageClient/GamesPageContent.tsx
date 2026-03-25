@@ -119,7 +119,7 @@ export function GamesPageContent() {
                       className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                         game.isActive
                           ? 'bg-green-900/30 text-green-400 hover:bg-green-900/50'
-                          : 'text-muted-foreground/70 hover:bg-secondary bg-gray-800'
+                          : 'text-muted-foreground/70 hover:bg-secondary bg-card'
                       }`}
                     >
                       {game.isActive ? 'Active' : 'Inactive'}
@@ -238,7 +238,7 @@ export function GamesPageContent() {
                       type="checkbox"
                       checked={formData.isActive}
                       onChange={(e) => setField('isActive', e.target.checked)}
-                      className="h-4 w-4 rounded border-gray-600 bg-gray-800"
+                      className="border-border bg-card h-4 w-4 rounded"
                     />
                     <span className="text-muted-foreground text-sm font-medium">
                       Active (visible to users)

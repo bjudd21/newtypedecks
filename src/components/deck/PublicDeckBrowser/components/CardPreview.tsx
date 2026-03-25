@@ -32,7 +32,7 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ cardPreview }) => {
                 className="h-16 w-12 rounded border object-cover"
               />
             ) : (
-              <div className="flex h-16 w-12 items-center justify-center rounded border bg-gray-200">
+              <div className="bg-muted flex h-16 w-12 items-center justify-center rounded border">
                 <span className="text-muted-foreground/70 text-xs">
                   {cardEntry.quantity}x
                 </span>

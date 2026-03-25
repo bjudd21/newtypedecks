@@ -35,13 +35,13 @@ export function CacheManagementSection({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Cache Size</div>
+              <div className="text-foreground font-medium">Cache Size</div>
               <div className="text-muted-foreground text-sm">
                 Amount of data stored locally for offline access
               </div>
             </div>
             <div className="text-right">
-              <div className="font-medium text-gray-900">
+              <div className="text-foreground font-medium">
                 {pwaService.formatCacheSize(pwaState.cacheSize)}
               </div>
               {pwaState.cacheSize > 0 && (
@@ -61,7 +61,7 @@ export function CacheManagementSection({
           </div>
 
           <div className="border-t pt-4">
-            <h4 className="mb-2 font-medium text-gray-900">Cached Content</h4>
+            <h4 className="text-foreground mb-2 font-medium">Cached Content</h4>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Application Files</span>

@@ -62,7 +62,7 @@ export const ImprovementsTab: React.FC<ImprovementsTabProps> = ({
                         {improvement.severity}
                       </Badge>
                     </div>
-                    <h4 className="mb-1 font-medium text-gray-900">
+                    <h4 className="text-foreground mb-1 font-medium">
                       {improvement.description}
                     </h4>
                     <p className="text-muted-foreground text-sm">

@@ -19,7 +19,7 @@ export const UnchangedCardsSection: React.FC<UnchangedCardsSectionProps> = ({
 
   return (
     <details>
-      <summary className="text-muted-foreground cursor-pointer font-medium hover:text-gray-900">
+      <summary className="text-muted-foreground hover:text-foreground cursor-pointer font-medium">
         🔹 Unchanged Cards ({unchangedCards.length}) - Click to expand
       </summary>
       <div className="mt-2 space-y-2">

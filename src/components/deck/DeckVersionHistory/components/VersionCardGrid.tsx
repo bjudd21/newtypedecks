@@ -15,7 +15,7 @@ export const VersionCardGrid: React.FC<VersionCardGridProps> = ({
 }) => {
   return (
     <div className="mt-4 border-t pt-4">
-      <div className="mb-2 text-sm font-medium text-gray-900">
+      <div className="text-foreground mb-2 text-sm font-medium">
         Cards in this version:
       </div>
       <div className="grid max-h-64 grid-cols-1 gap-2 overflow-y-auto sm:grid-cols-2">

@@ -56,7 +56,7 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
       </div>
       {showModifiedQuantities ? (
         <div className="flex items-center gap-2">
-          <Badge className="border-border text-muted-foreground bg-gray-100">
+          <Badge className="border-border text-muted-foreground bg-muted">
             {change.oldQuantity}
           </Badge>
           <span className="text-muted-foreground text-sm">→</span>

@@ -14,7 +14,7 @@ export const AbilitiesSection: React.FC<AbilitiesSectionProps> = ({
   if (!abilities || abilities.length === 0) return null;
 
   return (
-    <div className="rounded-lg border border-gray-700 bg-gray-800 p-3">
+    <div className="border-border bg-card rounded-lg border p-3">
       <h3 className="mb-1.5 text-sm font-semibold text-white">Abilities</h3>
       <p className="text-foreground text-sm leading-relaxed">{abilities}</p>
     </div>

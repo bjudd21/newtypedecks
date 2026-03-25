@@ -33,7 +33,7 @@ export function CardDetailOverlayComponent({
       onKeyDown={handleKeyDown}
       tabIndex={-1}
     >
-      <div className="flex max-h-[88vh] w-full max-w-5xl flex-col overflow-hidden rounded-xl border border-gray-700 bg-gray-900 shadow-2xl">
+      <div className="border-border bg-background flex max-h-[88vh] w-full max-w-5xl flex-col overflow-hidden rounded-xl border shadow-2xl">
         <ModalHeader title={card.name} onClose={onClose} />
 
         {/* Content */}

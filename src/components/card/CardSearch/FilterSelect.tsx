@@ -38,7 +38,7 @@ export const FilterSelect: React.FC<FilterSelectProps> = ({
       <select
         value={value || ''}
         onChange={(e) => onChange(e.target.value || undefined)}
-        className="border-border block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+        className="border-border focus:border-primary block w-full rounded-md text-sm focus:ring-blue-500"
         disabled={disabled}
       >
         <option value="">{placeholder}</option>

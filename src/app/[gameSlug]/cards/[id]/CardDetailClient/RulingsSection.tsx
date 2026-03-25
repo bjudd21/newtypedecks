@@ -48,7 +48,7 @@ export function RulingsSection({
   }, [rulings, filter, search]);
 
   return (
-    <Card className="border-gray-700 bg-gray-800">
+    <Card className="border-border bg-card">
       <CardHeader>
         <RulingsFilterControls
           filter={filter}

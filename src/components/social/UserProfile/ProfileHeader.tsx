@@ -48,7 +48,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           {/* Profile Info */}
           <div className="flex-1">
             <div className="mb-2 flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-foreground text-2xl font-bold">
                 {profile.displayName}
               </h1>
               {profile.isVerified && (
@@ -84,19 +84,19 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
             {/* Stats */}
             <div className="mb-4 flex items-center gap-6">
               <div className="text-center">
-                <div className="font-bold text-gray-900">
+                <div className="text-foreground font-bold">
                   {profile.statistics.followers}
                 </div>
                 <div className="text-muted-foreground text-sm">Followers</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-gray-900">
+                <div className="text-foreground font-bold">
                   {profile.statistics.following}
                 </div>
                 <div className="text-muted-foreground text-sm">Following</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-gray-900">
+                <div className="text-foreground font-bold">
                   {profile.statistics.publicDecks}
                 </div>
                 <div className="text-muted-foreground text-sm">
@@ -104,7 +104,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 </div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-gray-900">
+                <div className="text-foreground font-bold">
                   {profile.statistics.deckLikes}
                 </div>
                 <div className="text-muted-foreground text-sm">Total Likes</div>

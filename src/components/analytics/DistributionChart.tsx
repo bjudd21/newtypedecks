@@ -84,7 +84,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
 
             {/* Visual pie representation using stacked progress */}
             <div className="relative">
-              <div className="flex h-4 overflow-hidden rounded-full bg-gray-200">
+              <div className="bg-muted flex h-4 overflow-hidden rounded-full">
                 {entries.map(([key, value], index) => {
                   const colorClass = colors[index % colors.length];
                   return (
@@ -122,7 +122,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
                       </div>
                     </div>
                     <div className="relative">
-                      <div className="h-2 w-full rounded-full bg-gray-200">
+                      <div className="bg-muted h-2 w-full rounded-full">
                         <div
                           className={`h-2 rounded-full ${colorClass}`}
                           style={{ width: `${barWidth}%` }}

@@ -19,7 +19,7 @@ export default function TemplatesPage() {
       <div className="mx-auto max-w-6xl">
         {/* Page Header */}
         <div className="mb-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900">
+          <h1 className="text-foreground mb-4 text-4xl font-bold">
             Deck Templates
           </h1>
           <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
@@ -73,7 +73,7 @@ export default function TemplatesPage() {
 
         {/* Community Guidelines */}
         <div className="border-border bg-accent mt-12 rounded-lg border p-6">
-          <h2 className="mb-4 text-lg font-medium text-gray-900">
+          <h2 className="text-foreground mb-4 text-lg font-medium">
             Community Guidelines
           </h2>
           <div className="text-muted-foreground grid grid-cols-1 gap-4 text-sm md:grid-cols-2">

@@ -45,7 +45,7 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
       <div className="mx-auto max-w-6xl">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-4 text-4xl font-bold text-gray-900">
+          <h1 className="text-foreground mb-4 text-4xl font-bold">
             Favorite Decks
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -118,7 +118,7 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
 
         {/* Tips */}
         <div className="border-border bg-accent mt-8 rounded-lg border p-6">
-          <h2 className="mb-4 text-lg font-medium text-gray-900">
+          <h2 className="text-foreground mb-4 text-lg font-medium">
             💡 Tips for Managing Favorites
           </h2>
           <div className="text-muted-foreground grid grid-cols-1 gap-4 text-sm md:grid-cols-2">

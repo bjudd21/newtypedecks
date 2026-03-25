@@ -27,7 +27,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                   ? 'bg-primary text-white'
                   : STEPS.indexOf(currentStep) > STEPS.indexOf(step)
                     ? 'bg-green-500 text-white'
-                    : 'text-foreground bg-gray-600'
+                    : 'text-foreground bg-muted'
               }`}
             >
               {index + 1}

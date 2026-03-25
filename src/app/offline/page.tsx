@@ -66,7 +66,7 @@ export default function OfflinePage() {
         <Card>
           <CardHeader className="text-center">
             <div className="mb-4">
-              <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-200">
+              <div className="bg-muted mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full">
                 <svg
                   className="text-muted-foreground h-12 w-12"
                   fill="none"
@@ -81,7 +81,7 @@ export default function OfflinePage() {
                   />
                 </svg>
               </div>
-              <CardTitle className="text-2xl font-bold text-gray-900">
+              <CardTitle className="text-foreground text-2xl font-bold">
                 You&apos;re Offline
               </CardTitle>
             </div>
@@ -118,7 +118,7 @@ export default function OfflinePage() {
 
             {/* Available Offline Content */}
             <div className="mb-6">
-              <h3 className="mb-3 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-3 text-lg font-semibold">
                 Available Offline
               </h3>
               <div className="space-y-2">
@@ -189,7 +189,7 @@ export default function OfflinePage() {
 
             {/* Tips */}
             <div className="bg-accent mt-6 rounded-lg p-4">
-              <h4 className="mb-2 font-medium text-gray-900">
+              <h4 className="text-foreground mb-2 font-medium">
                 💡 Offline Tips
               </h4>
               <ul className="text-muted-foreground space-y-1 text-sm">

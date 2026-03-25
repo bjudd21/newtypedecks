@@ -52,7 +52,7 @@ const COLOR_CLASS_MAP: Record<string, string> = {
   green: 'bg-green-600',
   purple: 'bg-purple-600',
   white: 'bg-card border border-border',
-  black: 'bg-gray-900 border border-gray-600',
+  black: 'bg-background border border-border',
   yellow: 'bg-yellow-400',
   colorless: 'bg-gray-400',
   multi: 'bg-gradient-to-r from-red-500 via-blue-500 to-green-500',

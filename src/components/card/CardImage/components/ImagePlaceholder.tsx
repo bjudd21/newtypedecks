@@ -16,7 +16,7 @@ export const ImagePlaceholder: React.FC<ImagePlaceholderProps> = ({
   }
 
   return (
-    <div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center bg-gray-100">
+    <div className="text-muted-foreground bg-muted flex h-full w-full flex-col items-center justify-center">
       <svg
         className="mb-2 h-8 w-8"
         fill="none"

@@ -7,7 +7,7 @@ import React from 'react';
 export const OfflineFeatures: React.FC = () => {
   return (
     <div className="border-t pt-4">
-      <h4 className="mb-2 font-medium text-gray-900">📱 Offline Features</h4>
+      <h4 className="text-foreground mb-2 font-medium">📱 Offline Features</h4>
       <div className="text-muted-foreground space-y-1 text-sm">
         <div className="flex items-center gap-2">
           <span className="text-green-600">✓</span>

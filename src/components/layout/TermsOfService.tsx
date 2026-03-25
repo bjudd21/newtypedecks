@@ -63,13 +63,13 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
         className={`border-border bg-card rounded-lg border p-6 shadow-sm ${className}`}
       >
         <div className="mx-auto max-w-4xl">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
+          <h2 className="text-foreground mb-6 text-2xl font-bold">
             Terms of Service
           </h2>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Acceptance of Terms
               </h3>
               <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
@@ -87,7 +87,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Website Purpose
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
@@ -119,12 +119,12 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 User Accounts
               </h3>
               <div className="space-y-4">
                 <div className="bg-accent rounded-lg p-4">
-                  <h4 className="mb-2 font-medium text-gray-900">
+                  <h4 className="text-foreground mb-2 font-medium">
                     Account Responsibilities
                   </h4>
                   <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
@@ -151,12 +151,12 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Intellectual Property
               </h3>
               <div className="space-y-4">
                 <div className="border-border rounded-lg border p-4">
-                  <h4 className="mb-2 font-medium text-gray-900">
+                  <h4 className="text-foreground mb-2 font-medium">
                     🎮 Game Content
                   </h4>
                   <p className="text-muted-foreground mb-2 text-sm">
@@ -172,7 +172,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                   </ul>
                 </div>
                 <div className="border-border rounded-lg border p-4">
-                  <h4 className="mb-2 font-medium text-gray-900">
+                  <h4 className="text-foreground mb-2 font-medium">
                     💻 Website Content
                   </h4>
                   <p className="text-muted-foreground mb-2 text-sm">
@@ -182,7 +182,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                   </p>
                 </div>
                 <div className="border-border rounded-lg border p-4">
-                  <h4 className="mb-2 font-medium text-gray-900">
+                  <h4 className="text-foreground mb-2 font-medium">
                     👤 User-Generated Content
                   </h4>
                   <p className="text-muted-foreground text-sm">
@@ -195,7 +195,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Community Guidelines
               </h3>
               <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
@@ -228,7 +228,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Disclaimers
               </h3>
               <div className="space-y-3">
@@ -243,7 +243,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                   </p>
                 </div>
                 <div className="border-border bg-accent rounded-lg border p-4">
-                  <h4 className="mb-2 font-medium text-gray-800">
+                  <h4 className="text-foreground mb-2 font-medium">
                     📝 Accuracy
                   </h4>
                   <p className="text-muted-foreground text-sm">
@@ -265,7 +265,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Changes to Terms
               </h3>
               <div className="bg-accent rounded-lg p-4">
@@ -282,7 +282,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </section>
 
             <section>
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Contact Information
               </h3>
               <div className="bg-accent rounded-lg p-4">
@@ -331,7 +331,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
           </svg>
         </div>
         <div className="flex-1">
-          <h4 className="mb-2 text-sm font-medium text-gray-900">
+          <h4 className="text-foreground mb-2 text-sm font-medium">
             Terms of Service
           </h4>
           <div className="text-muted-foreground space-y-2 text-sm">

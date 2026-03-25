@@ -42,7 +42,7 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
           onChange={(e) =>
             onMinChange(e.target.value ? parseInt(e.target.value) : undefined)
           }
-          className="border-border block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+          className="border-border focus:border-primary block w-full rounded-md text-sm focus:ring-blue-500"
         />
         <input
           type="number"
@@ -53,7 +53,7 @@ export const RangeFilter: React.FC<RangeFilterProps> = ({
           onChange={(e) =>
             onMaxChange(e.target.value ? parseInt(e.target.value) : undefined)
           }
-          className="border-border block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+          className="border-border focus:border-primary block w-full rounded-md text-sm focus:ring-blue-500"
         />
       </div>
     </div>

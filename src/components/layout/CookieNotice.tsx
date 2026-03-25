@@ -62,13 +62,13 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
         className={`border-border bg-card rounded-lg border p-6 shadow-sm ${className}`}
       >
         <div className="mx-auto max-w-4xl">
-          <h2 className="mb-6 text-2xl font-bold text-gray-900">
+          <h2 className="text-foreground mb-6 text-2xl font-bold">
             Cookie Policy
           </h2>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 What Are Cookies?
               </h3>
               <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
@@ -86,7 +86,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Types of Cookies We Use
               </h3>
               <div className="space-y-4">
@@ -169,12 +169,12 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Cookie Management
               </h3>
               <div className="space-y-4">
                 <div className="bg-accent rounded-lg p-4">
-                  <h4 className="mb-2 font-medium text-gray-900">
+                  <h4 className="text-foreground mb-2 font-medium">
                     Browser Settings
                   </h4>
                   <p className="text-muted-foreground mb-2 text-sm">
@@ -202,7 +202,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
 
             <section className="mb-8">
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Your Choices
               </h3>
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
@@ -226,7 +226,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   {showDeclineOption && (
                     <button
                       onClick={handleDecline}
-                      className="hover:bg-secondary rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors"
+                      className="hover:bg-secondary bg-muted rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
                     >
                       Essential Cookies Only
                     </button>
@@ -236,7 +236,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
 
             <section>
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+              <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Contact Information
               </h3>
               <div className="bg-accent rounded-lg p-4">
@@ -275,7 +275,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </svg>
           </div>
           <div className="flex-1">
-            <h4 className="mb-2 text-sm font-medium text-gray-900">
+            <h4 className="text-foreground mb-2 text-sm font-medium">
               Cookie Information
             </h4>
             <div className="text-muted-foreground space-y-2 text-sm">
@@ -310,7 +310,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   // Default banner variant
   return (
     <div
-      className={`fixed right-0 bottom-0 left-0 z-50 bg-gray-900 p-4 text-white shadow-lg ${className}`}
+      className={`bg-background fixed right-0 bottom-0 left-0 z-50 p-4 text-white shadow-lg ${className}`}
     >
       <div className="container mx-auto">
         <div className="flex flex-col items-start justify-between space-y-4 md:flex-row md:items-center md:space-y-0">
@@ -346,7 +346,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             {showDeclineOption && (
               <button
                 onClick={handleDecline}
-                className="hover:bg-secondary rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors"
+                className="hover:bg-secondary bg-muted rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
               >
                 Essential Only
               </button>

@@ -69,7 +69,7 @@ export function OfflineDataSection({
                   🃏
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">{deck.name}</div>
+                  <div className="text-foreground font-medium">{deck.name}</div>
                   <div className="text-muted-foreground text-sm">
                     {deck.cards.length} cards • Created{' '}
                     {deck.createdAt.toLocaleDateString()}

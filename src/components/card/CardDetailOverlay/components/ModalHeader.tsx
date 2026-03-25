@@ -12,13 +12,13 @@ interface ModalHeaderProps {
 
 export const ModalHeader: React.FC<ModalHeaderProps> = ({ title, onClose }) => {
   return (
-    <div className="flex flex-shrink-0 items-center justify-between border-b border-gray-700 bg-gray-900 px-4 py-3">
+    <div className="border-border bg-background flex flex-shrink-0 items-center justify-between border-b px-4 py-3">
       <h1 className="text-xl font-bold text-white">{title}</h1>
       <Button
         variant="outline"
         size="sm"
         onClick={onClose}
-        className="text-muted-foreground hover:text-foreground border-gray-600"
+        className="text-muted-foreground hover:text-foreground border-border"
       >
         <svg
           className="h-5 w-5"

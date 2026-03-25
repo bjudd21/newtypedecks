@@ -13,9 +13,9 @@ export const getChangeBadgeColor = (type: CardChange['type']): string => {
     case 'modified':
       return 'bg-yellow-100 text-yellow-800 border-yellow-200';
     case 'unchanged':
-      return 'bg-gray-100 text-gray-600 border-border';
+      return 'bg-muted text-gray-600 border-border';
     default:
-      return 'bg-gray-100 text-gray-600 border-border';
+      return 'bg-muted text-gray-600 border-border';
   }
 };
 

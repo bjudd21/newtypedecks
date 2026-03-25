@@ -45,7 +45,7 @@ export const RatingCard: React.FC<RatingCardProps> = ({
 
           <div className="flex-1">
             <div className="mb-1 flex items-center gap-2">
-              <span className="font-medium text-gray-900">
+              <span className="text-foreground font-medium">
                 {rating.userName}
               </span>
               <StarRating rating={rating.rating} size="text-sm" />

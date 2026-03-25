@@ -17,7 +17,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
 }) => {
   return (
     <div
-      className={`animate-pulse bg-gray-200 ${className}`}
+      className={`bg-muted animate-pulse ${className}`}
       style={{ width, height }}
     />
   );

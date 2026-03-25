@@ -75,7 +75,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           'placeholder:text-muted-foreground/50 focus:border-primary focus:ring-primary block w-full rounded-md border py-2 pr-3 pl-10 text-sm focus:ring-1 focus:outline-none',
           error
             ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
-            : 'border-border text-gray-900',
+            : 'border-border text-foreground',
           disabled && 'bg-accent text-muted-foreground/70 cursor-not-allowed'
         )}
       />

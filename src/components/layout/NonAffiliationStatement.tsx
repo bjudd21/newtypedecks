@@ -80,7 +80,7 @@ export const NonAffiliationStatement: React.FC<
             </div>
           )}
           <div className={showIcon ? 'ml-4' : ''}>
-            <h3 className="mb-3 text-lg font-medium text-gray-900">
+            <h3 className="text-foreground mb-3 text-lg font-medium">
               Independent Fan Website
             </h3>
             <div className="text-muted-foreground space-y-3 text-sm">
@@ -137,7 +137,7 @@ export const NonAffiliationStatement: React.FC<
         </div>
       )}
       <div className="text-muted-foreground text-sm">
-        <p className="mb-1 font-medium text-gray-900">
+        <p className="text-foreground mb-1 font-medium">
           Independent Fan Website
         </p>
         <p>

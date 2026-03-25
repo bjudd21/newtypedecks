@@ -23,7 +23,9 @@ export const CardHeaderSection: React.FC<CardHeaderSectionProps> = ({
   return (
     <div className="flex items-start justify-between">
       <div className="min-w-0 flex-1">
-        <h3 className="truncate text-lg font-semibold text-gray-900">{name}</h3>
+        <h3 className="text-foreground truncate text-lg font-semibold">
+          {name}
+        </h3>
         {pilot && (
           <p className="text-muted-foreground truncate text-sm">
             Pilot: {pilot}

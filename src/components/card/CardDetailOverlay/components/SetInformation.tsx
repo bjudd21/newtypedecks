@@ -13,7 +13,7 @@ export const SetInformation: React.FC<SetInformationProps> = ({ card }) => {
   if (!card.series && !card.set?.name) return null;
 
   return (
-    <div className="rounded-lg border border-gray-700 bg-gray-800 p-3">
+    <div className="border-border bg-card rounded-lg border p-3">
       <h3 className="mb-1.5 text-sm font-semibold text-white">
         Set Information
       </h3>

@@ -9,10 +9,7 @@ describe('Badge Component', () => {
     const badge = screen.getByText('Default Badge');
     expect(badge).toBeInTheDocument();
     // Check for dark theme default variant classes
-    expect(badge.parentElement).toHaveClass(
-      'bg-gray-800/50',
-      'text-foreground'
-    );
+    expect(badge.parentElement).toHaveClass('bg-card/50', 'text-foreground');
   });
 
   it('renders with different variants', () => {
@@ -100,10 +97,7 @@ describe('RarityBadge Component', () => {
     const badge = screen.getByText('Common');
     expect(badge).toBeInTheDocument();
     // Common maps to 'default' variant with dark theme
-    expect(badge.closest('div')).toHaveClass(
-      'bg-gray-800/50',
-      'text-foreground'
-    );
+    expect(badge.closest('div')).toHaveClass('bg-card/50', 'text-foreground');
   });
 
   it('renders uncommon rarity with primary variant', () => {

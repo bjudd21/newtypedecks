@@ -13,7 +13,7 @@ export const ActionButtons: React.FC = () => {
       </Button>
       <Button
         variant="outline"
-        className="text-foreground flex-1 border-gray-600"
+        className="text-foreground border-border flex-1"
       >
         Add to Collection
       </Button>

@@ -22,25 +22,25 @@ export const CardBasicStats: React.FC<CardBasicStatsProps> = ({
       {faction && (
         <div>
           <span className="text-muted-foreground font-medium">Faction:</span>
-          <span className="ml-1 text-gray-800">{faction}</span>
+          <span className="text-foreground ml-1">{faction}</span>
         </div>
       )}
       {series && (
         <div>
           <span className="text-muted-foreground font-medium">Series:</span>
-          <span className="ml-1 text-gray-800">{series}</span>
+          <span className="text-foreground ml-1">{series}</span>
         </div>
       )}
       {clashPoints !== null && clashPoints !== undefined && (
         <div>
           <span className="text-muted-foreground font-medium">CP:</span>
-          <span className="ml-1 text-gray-800">{clashPoints}</span>
+          <span className="text-foreground ml-1">{clashPoints}</span>
         </div>
       )}
       {hitPoints !== null && hitPoints !== undefined && (
         <div>
           <span className="text-muted-foreground font-medium">HP:</span>
-          <span className="ml-1 text-gray-800">{hitPoints}</span>
+          <span className="text-foreground ml-1">{hitPoints}</span>
         </div>
       )}
     </div>

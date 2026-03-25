@@ -31,7 +31,7 @@ export const SkeletonGrid: React.FC<SkeletonGridProps> = ({
     <div className={className}>
       {Array.from({ length: count }).map((_, index) => (
         <div key={`skeleton-${index}`} className="animate-pulse">
-          <div className="mb-4 h-48 rounded-lg bg-gray-200"></div>
+          <div className="bg-muted mb-4 h-48 rounded-lg"></div>
         </div>
       ))}
     </div>

@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui';
 
 export function CardDescription({ description }: { description: string }) {
   return (
-    <Card className="border-gray-700 bg-gray-800">
+    <Card className="border-border bg-card">
       <CardHeader>
         <CardTitle>Description</CardTitle>
       </CardHeader>

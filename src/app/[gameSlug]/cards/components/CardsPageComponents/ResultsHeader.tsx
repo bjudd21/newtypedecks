@@ -23,7 +23,9 @@ export function ResultsHeader({
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex items-center gap-2">
-        <h2 className="text-lg font-semibold text-gray-900">Search Results</h2>
+        <h2 className="text-foreground text-lg font-semibold">
+          Search Results
+        </h2>
         {total > 0 && (
           <span className="text-muted-foreground/70 text-sm">
             ({total.toLocaleString()} cards found)

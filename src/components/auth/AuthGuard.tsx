@@ -56,7 +56,7 @@ export function AuthGuard({
     return (
       <div className="flex min-h-[200px] items-center justify-center">
         <div className="text-center">
-          <h2 className="mb-2 text-2xl font-semibold text-gray-900">
+          <h2 className="text-foreground mb-2 text-2xl font-semibold">
             Access Denied
           </h2>
           <p className="text-muted-foreground mb-4">
