@@ -25,21 +25,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-## ⚠️ Known Issues (Architect Review #2 — 2026-03-24)
+## ⚠️ Known Issues (last updated 2026-03-25)
 
-**SECURITY — fix before production:**
+**Code debt — fix before One Piece launch:**
 
-1. **middleware.ts is stale.** `/api/admin` is NOT guarded at middleware level. Auth route patterns (`/decks/create`, `/collection`) don't match `[gameSlug]` prefix. Public route list doesn't account for `[gameSlug]`. **Only deploy blocker.**
+1. **Import/export services map flat columns.** `csvImporter` and `jsonImporter` still set `faction`/`pilot`/`model` as flat fields. One Piece imports will fail until these are updated to use `gameAttributes` JSONB.
 
-**Code debt — fix soon:**
-
-2. **DeckShare component still uses `isPublic` boolean** (10 of 22 remaining `isPublic` refs). Should use `visibility: DeckVisibility` enum.
-
-3. **Import/export services map flat columns.** `csvImporter` and `jsonImporter` still set `faction`/`pilot`/`model` as flat fields. One Piece imports will fail.
-
-4. **ImageCacheService is dead code.** Blob path was gutted but ~500 lines remain. Delete the entire directory.
-
-**Resolved since last review:** ✅ gameAttributes JSONB queries, ✅ most API routes game-scoped, ✅ hardcoded strings (down to 1), ✅ Sentry, ✅ Vercel Analytics, ✅ vercel.json, ✅ health check, ✅ directUrl, ✅ .env.vercel.example
+**Resolved since Architect Review #2 (2026-03-24):**
+✅ middleware.ts — `/api/admin` now guarded, `[gameSlug]` route patterns fixed, deploy blocker resolved
+✅ DeckShare / useDecks types — migrated to `visibility: DeckVisibility` enum
+✅ ImageCacheService — already absent from codebase
+✅ Design system — full amber rebrand, zero hardcoded purple/gray values, 500+ files updated
+✅ gameAttributes JSONB queries, ✅ most API routes game-scoped, ✅ hardcoded strings, ✅ Sentry, ✅ Vercel Analytics, ✅ vercel.json, ✅ health check, ✅ directUrl, ✅ .env.vercel.example
 
 ---
 
@@ -137,12 +134,12 @@ npm run precommit     # Run format and all checks
 
 ---
 
-## Code Quality Status (as of 2026-03-24)
+## Code Quality Status (as of 2026-03-25)
 
 - ✅ **0 ESLint errors**
-- ⚠️ **107 ESLint warnings** — legitimate complexity in service/API layers
+- ⚠️ **135 ESLint warnings** — legitimate complexity in service/API layers
 - ✅ **TypeScript: passing**
-- ✅ **Tests: 193 passed, 2 skipped**
+- ✅ **Tests: 215 passed, 0 skipped**
 - ✅ **Security: 0 vulnerabilities**
 
 Remaining warnings are in service files (`socialService.ts`, `cardSubmissionService.ts`) and API routes with complex business logic. These are tracked but not blocking.
