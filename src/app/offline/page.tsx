@@ -122,15 +122,15 @@ export default function OfflinePage() {
                 Available Offline
               </h3>
               <div className="space-y-2">
-                <div className="flex items-center gap-3 rounded-lg bg-green-50 p-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-green-100">
+                <div className="flex items-center gap-3 rounded-lg bg-green-900/20 p-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded bg-green-900/30">
                     🃏
                   </div>
                   <div>
                     <div className="font-medium text-green-900">
                       Recently Viewed Cards
                     </div>
-                    <div className="text-sm text-green-700">
+                    <div className="text-sm text-green-400">
                       Cached card data
                     </div>
                   </div>

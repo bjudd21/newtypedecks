@@ -96,7 +96,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
           {ownedQuantity > 0 && (
-            <span className="ml-2 inline-flex items-center rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+            <span className="ml-2 inline-flex items-center rounded bg-green-900/30 px-2 py-0.5 text-xs font-medium text-green-300">
               Owned: {ownedQuantity}
             </span>
           )}
@@ -105,7 +105,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
 
       {/* Add Button Indicator */}
       <div className="flex-shrink-0">
-        <div className="text-primary flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+        <div className="text-primary bg-primary/20 flex h-8 w-8 items-center justify-center rounded-full">
           <svg
             className="h-4 w-4"
             fill="none"

@@ -43,7 +43,7 @@ export const CompactView: React.FC<CompactViewProps> = ({
       {pwaState.updateAvailable && (
         <Badge
           variant="primary"
-          className="bg-green-100 text-xs text-green-800"
+          className="bg-green-900/30 text-xs text-green-300"
         >
           Update
         </Badge>

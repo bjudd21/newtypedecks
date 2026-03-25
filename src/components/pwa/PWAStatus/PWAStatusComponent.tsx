@@ -74,7 +74,7 @@ export const PWAStatusComponent: React.FC<PWAStatusProps> = ({
               {pwaState.isInstalled ? (
                 <Badge
                   variant="primary"
-                  className="bg-green-100 text-green-800"
+                  className="bg-green-900/30 text-green-300"
                 >
                   Installed
                 </Badge>

@@ -76,7 +76,7 @@ export const RatingCard: React.FC<RatingCardProps> = ({
                       size="sm"
                       className={`h-7 text-xs ${
                         rating.isHelpful === true
-                          ? 'bg-green-50 text-green-700'
+                          ? 'bg-green-900/20 text-green-400'
                           : ''
                       }`}
                     >

@@ -27,7 +27,7 @@ export const CardSpecialIndicators: React.FC<CardSpecialIndicatorsProps> = ({
       {isFoil && (
         <Badge
           variant="secondary"
-          className="bg-yellow-100 text-xs text-yellow-800"
+          className="bg-yellow-900/30 text-xs text-yellow-800"
         >
           Foil
         </Badge>
@@ -40,7 +40,7 @@ export const CardSpecialIndicators: React.FC<CardSpecialIndicatorsProps> = ({
       {isAlternate && (
         <Badge
           variant="secondary"
-          className="bg-green-100 text-xs text-green-800"
+          className="bg-green-900/30 text-xs text-green-300"
         >
           Alt Art
         </Badge>

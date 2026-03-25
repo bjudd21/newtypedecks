@@ -90,11 +90,11 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                 Types of Cookies We Use
               </h3>
               <div className="space-y-4">
-                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                  <h4 className="mb-2 font-medium text-green-800">
+                <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-4">
+                  <h4 className="mb-2 font-medium text-green-300">
                     ✅ Essential Cookies (Always Active)
                   </h4>
-                  <p className="mb-2 text-sm text-green-700">
+                  <p className="mb-2 text-sm text-green-400">
                     These cookies are necessary for the website to function
                     properly.
                   </p>

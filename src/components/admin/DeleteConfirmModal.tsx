@@ -102,7 +102,7 @@ export function DeleteConfirmModal({
         <div className="space-y-4">
           {/* Warning Icon */}
           <div className="flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-900/30">
               <svg
                 className="h-6 w-6 text-red-600"
                 fill="none"

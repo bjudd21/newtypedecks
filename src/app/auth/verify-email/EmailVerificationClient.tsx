@@ -115,7 +115,7 @@ export function EmailVerificationClient() {
     return (
       <div className="w-full max-w-md space-y-4 text-center">
         <div className="rounded-lg border border-red-500/30 bg-red-900/20 p-6">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-900/30">
             <svg
               className="h-6 w-6 text-red-400"
               fill="none"

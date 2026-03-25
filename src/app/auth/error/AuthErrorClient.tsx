@@ -90,7 +90,7 @@ export function AuthErrorClient() {
   return (
     <div className="w-full max-w-md space-y-6 text-center">
       <div className="rounded-lg border border-red-500/30 bg-red-900/20 p-6">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-900/30">
           <svg
             className="h-6 w-6 text-red-400"
             fill="none"
@@ -113,7 +113,7 @@ export function AuthErrorClient() {
         <p className="mb-4 text-red-400">{errorInfo.description}</p>
 
         {errorInfo.action && (
-          <p className="rounded bg-red-100 p-3 text-sm text-red-400">
+          <p className="rounded bg-red-900/30 p-3 text-sm text-red-400">
             {errorInfo.action}
           </p>
         )}

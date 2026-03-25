@@ -20,7 +20,7 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
   showModifiedQuantities = false,
 }) => {
   const borderColor = {
-    added: 'border-green-200 bg-green-50',
+    added: 'border-green-500/30 bg-green-900/20',
     removed: 'border-red-500/30 bg-red-900/20',
     modified: 'border-yellow-500/30 bg-yellow-900/20',
     unchanged: 'border-border bg-accent opacity-75',

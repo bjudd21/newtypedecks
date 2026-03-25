@@ -47,7 +47,7 @@ const Toast: React.FC<ToastProps> = ({
   }, [duration, handleClose]);
 
   const typeStyles = {
-    success: 'bg-green-50 border-green-200 text-green-800',
+    success: 'bg-green-900/20 border-green-500/30 text-green-300',
     error: 'bg-red-900/20 border-red-500/30 text-red-300',
     warning: 'bg-yellow-900/20 border-yellow-500/30 text-yellow-300',
     info: 'bg-accent border-border text-muted-foreground',

@@ -47,11 +47,11 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
   const getPriorityColor = (priority: DeckSuggestion['priority']) => {
     switch (priority) {
       case 'high':
-        return 'bg-red-100 text-red-300 border-red-500/30';
+        return 'bg-red-900/30 text-red-300 border-red-500/30';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-300 border-yellow-500/30';
+        return 'bg-yellow-900/30 text-yellow-300 border-yellow-500/30';
       case 'low':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-primary/20 text-muted-foreground border-primary/30';
       default:
         return 'bg-muted text-foreground border-border';
     }
@@ -121,7 +121,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
                   </p>
 
                   {suggestion.card && (
-                    <div className="mt-2 rounded border bg-blue-50 p-2">
+                    <div className="bg-primary/10 mt-2 rounded border p-2">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-medium text-blue-600">
                           Suggested Card:

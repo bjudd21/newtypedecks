@@ -38,7 +38,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
   return (
     <Card
-      className={`mb-4 ${isReply ? 'border-border bg-accent' : 'border-green-200 bg-green-50'}`}
+      className={`mb-4 ${isReply ? 'border-border bg-accent' : 'border-green-500/30 bg-green-900/20'}`}
     >
       <CardContent className="pt-4">
         <div className="space-y-3">

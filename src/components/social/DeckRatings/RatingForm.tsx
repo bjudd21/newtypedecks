@@ -49,7 +49,7 @@ export const RatingForm: React.FC<RatingFormProps> = ({
   };
 
   return (
-    <Card className="mb-6 border-green-200 bg-green-50">
+    <Card className="mb-6 border-green-500/30 bg-green-900/20">
       <CardContent className="pt-4">
         <h4 className="mb-4 font-medium text-green-900">
           {existingRating ? 'Edit Your Review' : 'Write a Review'}
@@ -57,7 +57,7 @@ export const RatingForm: React.FC<RatingFormProps> = ({
 
         {/* Star Rating */}
         <div className="mb-4">
-          <label className="mb-2 block text-sm font-medium text-green-800">
+          <label className="mb-2 block text-sm font-medium text-green-300">
             Rating *
           </label>
           <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export const RatingForm: React.FC<RatingFormProps> = ({
               ))}
             </div>
             {rating > 0 && (
-              <span className="ml-2 text-sm text-green-700">
+              <span className="ml-2 text-sm text-green-400">
                 {rating}/5 -{' '}
                 {rating === 5
                   ? 'Excellent'
@@ -94,7 +94,7 @@ export const RatingForm: React.FC<RatingFormProps> = ({
 
         {/* Written Review */}
         <div className="mb-4">
-          <label className="mb-2 block text-sm font-medium text-green-800">
+          <label className="mb-2 block text-sm font-medium text-green-300">
             Review (Optional)
           </label>
           <textarea
