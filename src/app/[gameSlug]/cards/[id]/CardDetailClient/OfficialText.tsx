@@ -24,7 +24,7 @@ export function OfficialText({ text }: { text: string }) {
       </CardHeader>
       <CardContent>
         <div className="rounded-r-md border-l-4 border-blue-400 bg-blue-900/20 p-4">
-          <div className="font-mono text-sm leading-relaxed whitespace-pre-line text-gray-200">
+          <div className="text-foreground font-mono text-sm leading-relaxed whitespace-pre-line">
             {text}
           </div>
         </div>

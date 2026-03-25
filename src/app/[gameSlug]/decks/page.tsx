@@ -100,7 +100,7 @@ export default function DecksPage() {
                   <div>
                     <div className="font-semibold">{tab.label}</div>
                     <div
-                      className={`mt-1 text-xs ${activeTab === tab.id ? 'text-gray-200' : 'text-muted-foreground/70'}`}
+                      className={`mt-1 text-xs ${activeTab === tab.id ? 'text-foreground' : 'text-muted-foreground/70'}`}
                     >
                       {tab.description}
                     </div>

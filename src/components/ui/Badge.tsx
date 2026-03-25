@@ -15,7 +15,7 @@ const badgeVariants = cva(
         primary:
           'border-cyan-400/50 bg-cyan-900/30 text-cyan-300 hover:bg-cyan-800/50 shadow-lg shadow-cyan-400/20',
         secondary:
-          'border-gray-500 bg-secondary/50 text-gray-200 hover:bg-muted/50',
+          'border-border bg-secondary/50 text-muted-foreground hover:bg-muted/50',
         outline:
           'border-cyan-400 bg-transparent text-cyan-300 hover:bg-cyan-400/10 shadow-lg shadow-cyan-400/20',
         success:

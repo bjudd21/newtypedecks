@@ -96,7 +96,7 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
                     type="text"
                     value={shareURL}
                     readOnly
-                    className="flex-1 border-none bg-transparent text-sm text-gray-200 outline-none"
+                    className="text-foreground flex-1 border-none bg-transparent text-sm outline-none"
                   />
                   <Button
                     onClick={onCopyURL}
