@@ -57,7 +57,7 @@ const Toast: React.FC<ToastProps> = ({
     success: 'text-green-400',
     error: 'text-red-400',
     warning: 'text-yellow-400',
-    info: 'text-blue-400',
+    info: 'text-primary',
   };
 
   const getIcon = () => {

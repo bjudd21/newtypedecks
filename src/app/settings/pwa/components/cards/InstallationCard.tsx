@@ -38,7 +38,7 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
               <div className="flex items-center gap-2">
                 <Badge
                   variant="primary"
-                  className="bg-green-100 text-green-800"
+                  className="bg-green-900/30 text-green-300"
                 >
                   ✓ Installed
                 </Badge>
@@ -79,13 +79,13 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
           )}
 
           {pwaState.updateAvailable && (
-            <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+            <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="mb-1 font-medium text-green-900">
+                  <div className="mb-1 font-medium text-green-300">
                     Update Available
                   </div>
-                  <div className="text-sm text-green-700">
+                  <div className="text-sm text-green-400">
                     A new version of the app is available with improvements and
                     bug fixes
                   </div>

@@ -23,7 +23,7 @@ export const CompactView: React.FC<CompactViewProps> = ({
       {pwaState.isInstalled && (
         <Badge
           variant="secondary"
-          className="text-muted-foreground bg-blue-100 text-xs"
+          className="text-muted-foreground bg-primary/20 text-xs"
         >
           📱 Installed
         </Badge>

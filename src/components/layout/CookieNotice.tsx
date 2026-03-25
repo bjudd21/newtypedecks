@@ -219,7 +219,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={handleAccept}
-                    className="bg-primary rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                    className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
                   >
                     Accept All Cookies
                   </button>
@@ -318,7 +318,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             <div className="flex items-start space-x-3">
               <div className="mt-1 flex-shrink-0">
                 <svg
-                  className="h-5 w-5 text-blue-400"
+                  className="text-primary h-5 w-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -339,7 +339,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
           <div className="flex flex-wrap gap-3">
             <button
               onClick={handleAccept}
-              className="bg-primary rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+              className="bg-primary hover:bg-primary/90 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
             >
               Accept All
             </button>

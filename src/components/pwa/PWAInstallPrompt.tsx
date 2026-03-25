@@ -75,7 +75,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+            <div className="bg-primary/20 flex h-12 w-12 items-center justify-center rounded-full">
               📱
             </div>
           </div>
@@ -122,7 +122,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
             variant="default"
             size="sm"
             disabled={isInstalling}
-            className="bg-primary hover:bg-blue-700"
+            className="bg-primary hover:bg-primary/90"
           >
             {isInstalling ? (
               <>
@@ -138,7 +138,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
             onClick={handleDismiss}
             variant="outline"
             size="sm"
-            className="text-muted-foreground border-blue-300"
+            className="text-muted-foreground border-border"
           >
             Not Now
           </Button>

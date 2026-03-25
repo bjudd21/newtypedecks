@@ -94,8 +94,8 @@ export function ForgotPasswordForm({
         )}
 
         {message && (
-          <div className="rounded-md border border-green-200 bg-green-50 p-3">
-            <p className="text-sm text-green-600">{message}</p>
+          <div className="rounded-md border border-green-500/30 bg-green-900/20 p-3">
+            <p className="text-sm text-green-400">{message}</p>
           </div>
         )}
 

@@ -70,10 +70,10 @@ export function EmailVerificationClient() {
   if (isSuccess) {
     return (
       <div className="w-full max-w-md space-y-4 text-center">
-        <div className="rounded-lg border border-green-200 bg-green-50 p-6">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+        <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-6">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-900/30">
             <svg
-              className="h-6 w-6 text-green-600"
+              className="h-6 w-6 text-green-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -87,10 +87,10 @@ export function EmailVerificationClient() {
               />
             </svg>
           </div>
-          <h1 className="mb-2 text-2xl font-bold text-green-800">
+          <h1 className="mb-2 text-2xl font-bold text-green-300">
             Email Verified!
           </h1>
-          <p className="mb-4 text-green-600">
+          <p className="mb-4 text-green-400">
             Your email address has been successfully verified. You now have
             access to all features.
           </p>

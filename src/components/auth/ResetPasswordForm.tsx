@@ -74,11 +74,11 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   if (success) {
     return (
       <div className="w-full max-w-md space-y-4 text-center">
-        <div className="rounded-lg border border-green-200 bg-green-50 p-6">
-          <h1 className="mb-2 text-2xl font-bold text-green-800">
+        <div className="rounded-lg border border-green-500/30 bg-green-900/20 p-6">
+          <h1 className="mb-2 text-2xl font-bold text-green-300">
             Password Reset Successful!
           </h1>
-          <p className="text-green-600">
+          <p className="text-green-400">
             Your password has been updated successfully. You will be redirected
             to the sign-in page in a few seconds.
           </p>

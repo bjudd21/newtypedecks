@@ -213,7 +213,7 @@ export default function OfflinePage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="text-muted-foreground border-blue-300"
+                className="text-muted-foreground border-border"
                 onClick={() => {
                   // Installation will be handled by the PWA install prompt
                   window.dispatchEvent(new CustomEvent('pwa-install-prompt'));
