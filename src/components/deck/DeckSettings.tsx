@@ -87,7 +87,7 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
           onClick={() => setRuleset('COMPETITIVE')}
           className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
             ruleset === 'COMPETITIVE'
-              ? 'border-primary bg-primary/30 text-white'
+              ? 'border-primary bg-primary/30 text-primary-foreground'
               : 'border-border text-muted-foreground hover:border-primary/50 hover:text-foreground bg-transparent'
           }`}
         >

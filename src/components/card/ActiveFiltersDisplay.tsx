@@ -36,7 +36,7 @@ export function ActiveFiltersDisplay({
       {selectedColors.map((color) => (
         <Badge
           key={color}
-          className="bg-primary/80 hover:bg-primary flex cursor-pointer items-center gap-1.5 px-2.5 py-1 text-white transition-colors duration-200"
+          className="bg-primary/80 hover:bg-primary text-primary-foreground flex cursor-pointer items-center gap-1.5 px-2.5 py-1 transition-colors duration-200"
           onClick={() => onToggleColor(color)}
         >
           <span className="capitalize">{color}</span>
@@ -47,7 +47,7 @@ export function ActiveFiltersDisplay({
       {selectedTypes.map((type) => (
         <Badge
           key={type}
-          className="bg-primary/80 hover:bg-primary flex cursor-pointer items-center gap-1.5 px-2.5 py-1 text-white transition-colors duration-200"
+          className="bg-primary/80 hover:bg-primary text-primary-foreground flex cursor-pointer items-center gap-1.5 px-2.5 py-1 transition-colors duration-200"
           onClick={() => onToggleType(type)}
         >
           {type}
