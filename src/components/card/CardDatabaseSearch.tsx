@@ -43,8 +43,8 @@ export const CardDatabaseSearch: React.FC<CardDatabaseSearchProps> = ({
   const featuredContent = [
     { name: 'Barbatos Lupus Rex', type: 'NEW', color: 'bg-red-600' },
     { name: 'Wing Gundam Zero Custom', type: 'NEW', color: 'bg-red-600' },
-    { name: 'Strike Freedom Gundam', type: 'NEW', color: 'bg-blue-600' },
-    { name: 'Nu Gundam', type: 'NEW', color: 'bg-blue-600' },
+    { name: 'Strike Freedom Gundam', type: 'NEW', color: 'bg-primary' },
+    { name: 'Nu Gundam', type: 'NEW', color: 'bg-primary' },
   ];
 
   return (

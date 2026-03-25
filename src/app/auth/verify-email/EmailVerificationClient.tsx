@@ -56,7 +56,7 @@ export function EmailVerificationClient() {
   if (isLoading) {
     return (
       <div className="w-full max-w-md space-y-4 text-center">
-        <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
+        <div className="border-primary mx-auto h-12 w-12 animate-spin rounded-full border-b-2"></div>
         <h1 className="text-foreground text-2xl font-bold">
           Verifying Email...
         </h1>

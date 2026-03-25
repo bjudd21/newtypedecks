@@ -99,7 +99,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
               onClick={() => onVisibilityChange?.(value)}
               className={`rounded-lg border p-3 text-left text-sm transition-colors ${
                 visibility === value
-                  ? 'border-blue-500 bg-blue-50 text-blue-900'
+                  ? 'border-primary bg-accent text-foreground'
                   : 'border-border bg-card text-muted-foreground hover:border-border hover:bg-accent'
               }`}
             >

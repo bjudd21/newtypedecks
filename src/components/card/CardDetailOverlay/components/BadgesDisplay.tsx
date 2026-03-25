@@ -28,7 +28,7 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({ card }) => {
           {card.rarity.name}
         </Badge>
       )}
-      {card.type && <Badge className="bg-blue-600">{card.type.name}</Badge>}
+      {card.type && <Badge className="bg-secondary">{card.type.name}</Badge>}
       {card.faction && <Badge className="bg-green-600">{card.faction}</Badge>}
     </div>
   );

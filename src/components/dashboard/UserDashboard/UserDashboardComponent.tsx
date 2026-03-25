@@ -19,7 +19,7 @@ export function UserDashboardComponent({
       title: 'Total Decks',
       value: String(totalDecks),
       icon: '🃏',
-      color: 'text-blue-400',
+      color: 'text-primary',
     },
     {
       title: 'Cards Owned',

@@ -52,7 +52,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 {profile.displayName}
               </h1>
               {profile.isVerified && (
-                <Badge variant="primary" className="bg-blue-600 text-white">
+                <Badge variant="primary" className="bg-primary text-white">
                   ✓ Verified
                 </Badge>
               )}
@@ -74,7 +74,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                   href={profile.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                 >
                   🔗 Website
                 </a>

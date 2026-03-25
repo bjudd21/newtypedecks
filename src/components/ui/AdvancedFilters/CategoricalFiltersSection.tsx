@@ -50,7 +50,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('typeIds', type.id);
                       }
                     }}
-                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+                    className="border-border text-primary focus:ring-primary mr-2 rounded"
                   />
                   <span>{type.name}</span>
                   {type.count && (
@@ -83,7 +83,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('rarityIds', rarity.id);
                       }
                     }}
-                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+                    className="border-border text-primary focus:ring-primary mr-2 rounded"
                   />
                   <div className="flex items-center gap-1">
                     <div
@@ -122,7 +122,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('factions', faction.name);
                       }
                     }}
-                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+                    className="border-border text-primary focus:ring-primary mr-2 rounded"
                   />
                   <span>{faction.name}</span>
                   {faction.count && (
@@ -155,7 +155,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('setIds', set.id);
                       }
                     }}
-                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+                    className="border-border text-primary focus:ring-primary mr-2 rounded"
                   />
                   <span>
                     {set.name} ({set.code})
@@ -190,7 +190,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('series', series.name);
                       }
                     }}
-                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+                    className="border-border text-primary focus:ring-primary mr-2 rounded"
                   />
                   <span>{series.name}</span>
                   {series.count && (

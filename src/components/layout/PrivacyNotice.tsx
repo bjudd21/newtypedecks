@@ -23,7 +23,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
   if (variant === 'banner') {
     return (
       <div
-        className={`rounded-lg border border-blue-200 bg-blue-50 p-4 ${className}`}
+        className={`border-border bg-accent rounded-lg border p-4 ${className}`}
       >
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
@@ -40,10 +40,10 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
             </svg>
           </div>
           <div className="flex-1">
-            <h3 className="text-sm font-medium text-blue-800">
+            <h3 className="text-muted-foreground text-sm font-medium">
               Privacy Information
             </h3>
-            <p className="mt-1 text-sm text-blue-700">
+            <p className="text-muted-foreground mt-1 text-sm">
               We respect your privacy. This website stores minimal data locally
               for functionality and does not share personal information with
               third parties.
@@ -147,11 +147,11 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
               <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Your Rights
               </h3>
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <p className="mb-3 text-sm text-blue-700">
+              <div className="border-border bg-accent rounded-lg border p-4">
+                <p className="text-muted-foreground mb-3 text-sm">
                   You have full control over your data:
                 </p>
-                <ul className="list-inside list-disc space-y-1 text-sm text-blue-700">
+                <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
                   <li>
                     <strong>Access:</strong> View all data we have about you
                   </li>
@@ -200,7 +200,7 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                 <div className="flex items-center space-x-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
                     <svg
-                      className="h-4 w-4 text-blue-600"
+                      className="text-primary h-4 w-4"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >

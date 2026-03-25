@@ -27,7 +27,7 @@ export const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({
       <CardContent>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-primary text-2xl font-bold">
               {analytics.totalCards}
             </div>
             <div className="text-muted-foreground text-sm">Total Cards</div>

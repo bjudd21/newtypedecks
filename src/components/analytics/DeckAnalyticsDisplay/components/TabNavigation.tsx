@@ -31,7 +31,7 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
               onClick={() => onTabChange(tab.id)}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'text-muted-foreground/70 hover:border-border hover:text-muted-foreground border-transparent'
               }`}
             >

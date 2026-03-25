@@ -42,12 +42,12 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
   if (variant === 'summary') {
     return (
       <div
-        className={`rounded-lg border border-blue-200 bg-blue-50 p-4 ${className}`}
+        className={`border-border bg-accent rounded-lg border p-4 ${className}`}
       >
-        <h4 className="mb-2 text-sm font-medium text-blue-800">
+        <h4 className="text-muted-foreground mb-2 text-sm font-medium">
           Terms Summary
         </h4>
-        <ul className="space-y-1 text-sm text-blue-700">
+        <ul className="text-muted-foreground space-y-1 text-sm">
           <li>• This is a free, community-driven educational resource</li>
           <li>• Content is for personal, non-commercial use only</li>
           <li>• Be respectful in community interactions</li>
@@ -137,11 +137,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     </li>
                   </ul>
                 </div>
-                <div className="rounded-lg bg-blue-50 p-4">
-                  <h4 className="mb-2 font-medium text-blue-900">
+                <div className="bg-accent rounded-lg p-4">
+                  <h4 className="text-foreground mb-2 font-medium">
                     Account Termination
                   </h4>
-                  <p className="text-sm text-blue-800">
+                  <p className="text-muted-foreground text-sm">
                     We reserve the right to suspend or terminate accounts that
                     violate these terms. You can delete your account at any time
                     through your account settings.
@@ -252,11 +252,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     play.
                   </p>
                 </div>
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <h4 className="mb-2 font-medium text-blue-800">
+                <div className="border-border bg-accent rounded-lg border p-4">
+                  <h4 className="text-muted-foreground mb-2 font-medium">
                     🔗 External Links
                   </h4>
-                  <p className="text-sm text-blue-700">
+                  <p className="text-muted-foreground text-sm">
                     We&apos;re not responsible for content on external websites
                     linked from our site.
                   </p>

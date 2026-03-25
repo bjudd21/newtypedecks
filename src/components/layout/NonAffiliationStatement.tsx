@@ -48,7 +48,9 @@ export const NonAffiliationStatement: React.FC<
 
   if (variant === 'banner') {
     return (
-      <div className={`border-l-4 border-blue-400 bg-blue-50 p-4 ${className}`}>
+      <div
+        className={`border-primary/70 bg-accent border-l-4 p-4 ${className}`}
+      >
         <div className="flex">
           {showIcon && (
             <div className="flex-shrink-0">
@@ -56,7 +58,7 @@ export const NonAffiliationStatement: React.FC<
             </div>
           )}
           <div className={showIcon ? 'ml-3' : ''}>
-            <p className="text-sm text-blue-700">
+            <p className="text-muted-foreground text-sm">
               <strong className="font-medium">
                 Unofficial Fan Site Notice:
               </strong>{' '}
@@ -76,7 +78,7 @@ export const NonAffiliationStatement: React.FC<
         <div className="flex items-start">
           {showIcon && (
             <div className="flex-shrink-0">
-              <Icon className="mt-1 text-blue-500" />
+              <Icon className="text-primary mt-1" />
             </div>
           )}
           <div className={showIcon ? 'ml-4' : ''}>

@@ -71,8 +71,8 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
               <h3 className="text-foreground mb-4 text-lg font-semibold">
                 What Are Cookies?
               </h3>
-              <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <p className="text-sm text-blue-700">
+              <div className="border-border bg-accent mb-4 rounded-lg border p-4">
+                <p className="text-muted-foreground text-sm">
                   Cookies are small text files stored on your device that help
                   websites remember your preferences and improve your browsing
                   experience.
@@ -115,14 +115,14 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <h4 className="mb-2 font-medium text-blue-800">
+                <div className="border-border bg-accent rounded-lg border p-4">
+                  <h4 className="text-muted-foreground mb-2 font-medium">
                     📊 Analytics Cookies (Optional)
                   </h4>
-                  <p className="mb-2 text-sm text-blue-700">
+                  <p className="text-muted-foreground mb-2 text-sm">
                     Help us understand how you use the website to improve it.
                   </p>
-                  <ul className="space-y-1 text-sm text-blue-600">
+                  <ul className="text-primary space-y-1 text-sm">
                     <li>
                       • <strong>Usage Analytics:</strong> Track page views and
                       popular features
@@ -136,7 +136,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                       patterns
                     </li>
                   </ul>
-                  <p className="mt-2 text-xs text-blue-600">
+                  <p className="text-primary mt-2 text-xs">
                     <em>
                       Note: All analytics data is anonymized and aggregated.
                     </em>
@@ -205,8 +205,8 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
               <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Your Choices
               </h3>
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                <p className="mb-4 text-sm text-blue-700">
+              <div className="border-border bg-accent rounded-lg border p-4">
+                <p className="text-muted-foreground mb-4 text-sm">
                   Current consent status:{' '}
                   <span className="font-medium">
                     {cookieConsent === 'accepted'
@@ -219,7 +219,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={handleAccept}
-                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                    className="bg-primary rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     Accept All Cookies
                   </button>
@@ -339,7 +339,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
           <div className="flex flex-wrap gap-3">
             <button
               onClick={handleAccept}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+              className="bg-primary rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
             >
               Accept All
             </button>

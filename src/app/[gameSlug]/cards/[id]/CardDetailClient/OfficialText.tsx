@@ -7,7 +7,7 @@ export function OfficialText({ text }: { text: string }) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
-            className="h-5 w-5 text-blue-600"
+            className="text-primary h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -23,7 +23,7 @@ export function OfficialText({ text }: { text: string }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-r-md border-l-4 border-blue-400 bg-blue-900/20 p-4">
+        <div className="border-primary/50 bg-primary/10 rounded-r-md border-l-4 p-4">
           <div className="text-foreground font-mono text-sm leading-relaxed whitespace-pre-line">
             {text}
           </div>

@@ -37,7 +37,7 @@ export const BooleanFiltersSection: React.FC<BooleanFiltersSectionProps> = ({
               onChange={(e) =>
                 onFilterChange(bool.key, e.target.checked || undefined)
               }
-              className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
+              className="border-border text-primary focus:ring-primary mr-2 rounded"
             />
             <span>{bool.label}</span>
           </label>

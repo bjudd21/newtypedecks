@@ -70,7 +70,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
 
   return (
     <Card
-      className={`border-blue-200 bg-gradient-to-r from-blue-50 to-purple-50 ${className}`}
+      className={`border-border bg-gradient-to-r from-blue-50 to-purple-50 ${className}`}
     >
       <CardContent className="p-4">
         <div className="flex items-start gap-4">
@@ -81,24 +81,24 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
           </div>
 
           <div className="min-w-0 flex-1">
-            <h3 className="mb-1 font-semibold text-blue-900">
+            <h3 className="text-foreground mb-1 font-semibold">
               Install Newtype Decks
             </h3>
-            <p className="mb-3 text-sm text-blue-700">
+            <p className="text-muted-foreground mb-3 text-sm">
               Get faster access, offline support, and a native app experience.
               Perfect for tournaments and on-the-go deck building!
             </p>
 
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs text-blue-600">
+              <div className="text-primary flex items-center gap-2 text-xs">
                 <span>✓</span>
                 <span>Works offline with cached decks and cards</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-blue-600">
+              <div className="text-primary flex items-center gap-2 text-xs">
                 <span>✓</span>
                 <span>Faster loading and native app feel</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-blue-600">
+              <div className="text-primary flex items-center gap-2 text-xs">
                 <span>✓</span>
                 <span>Home screen shortcut and app icon</span>
               </div>
@@ -122,7 +122,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
             variant="default"
             size="sm"
             disabled={isInstalling}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-primary hover:bg-blue-700"
           >
             {isInstalling ? (
               <>
@@ -138,7 +138,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
             onClick={handleDismiss}
             variant="outline"
             size="sm"
-            className="border-blue-300 text-blue-700"
+            className="text-muted-foreground border-blue-300"
           >
             Not Now
           </Button>

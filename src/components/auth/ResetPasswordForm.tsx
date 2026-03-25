@@ -161,7 +161,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         <button
           type="button"
           onClick={() => router.push('/auth/signin')}
-          className="text-sm text-blue-600 hover:text-blue-500 hover:underline"
+          className="text-primary hover:text-primary/80 text-sm hover:underline"
         >
           Back to Sign In
         </button>

@@ -73,7 +73,7 @@ export function CacheManagementSection({
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">User Data</span>
-                <span className="text-blue-600">📱 Local Only</span>
+                <span className="text-primary">📱 Local Only</span>
               </div>
             </div>
           </div>

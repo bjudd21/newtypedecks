@@ -32,7 +32,7 @@ export const RatingsList: React.FC<RatingsListProps> = ({
   if (isLoading && ratings.length === 0) {
     return (
       <div className="py-8 text-center">
-        <div className="mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2 border-blue-600"></div>
+        <div className="border-primary mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2"></div>
         <p className="text-muted-foreground text-sm">Loading ratings...</p>
       </div>
     );

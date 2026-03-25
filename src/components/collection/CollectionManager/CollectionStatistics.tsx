@@ -20,7 +20,7 @@ export const CollectionStatistics: React.FC<CollectionStatisticsProps> = ({
     <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
       <Card className="border-border bg-card">
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-blue-400">
+          <div className="text-primary text-2xl font-bold">
             {statistics.totalCards}
           </div>
           <div className="text-muted-foreground text-sm">Total Cards</div>

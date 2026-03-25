@@ -21,7 +21,7 @@ const Spinner: React.FC<SpinnerProps> = ({
   };
 
   const colorClasses = {
-    primary: 'text-blue-600',
+    primary: 'text-primary',
     secondary: 'text-muted-foreground',
     white: 'text-white',
     gray: 'text-muted-foreground',

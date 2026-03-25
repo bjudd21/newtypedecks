@@ -113,7 +113,7 @@ export function ForgotPasswordForm({
         <button
           type="button"
           onClick={onBackToSignIn}
-          className="text-sm text-blue-600 hover:text-blue-500 hover:underline"
+          className="text-primary hover:text-primary/80 text-sm hover:underline"
         >
           Back to Sign In
         </button>

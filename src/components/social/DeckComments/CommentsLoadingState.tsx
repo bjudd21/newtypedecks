@@ -8,7 +8,7 @@ import React from 'react';
 export const CommentsLoadingState: React.FC = () => {
   return (
     <div className="py-8 text-center">
-      <div className="mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2 border-blue-600"></div>
+      <div className="border-primary mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2"></div>
       <p className="text-muted-foreground text-sm">Loading comments...</p>
     </div>
   );

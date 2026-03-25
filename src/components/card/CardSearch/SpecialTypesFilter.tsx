@@ -38,7 +38,7 @@ export const SpecialTypesFilter: React.FC<SpecialTypesFilterProps> = ({
             type="checkbox"
             checked={isFoil || false}
             onChange={(e) => onFoilChange(e.target.checked || undefined)}
-            className="border-border rounded text-blue-600 focus:ring-blue-500"
+            className="border-border text-primary focus:ring-primary rounded"
           />
           <span className="text-muted-foreground ml-2 text-sm">Foil Cards</span>
         </label>
@@ -47,7 +47,7 @@ export const SpecialTypesFilter: React.FC<SpecialTypesFilterProps> = ({
             type="checkbox"
             checked={isPromo || false}
             onChange={(e) => onPromoChange(e.target.checked || undefined)}
-            className="border-border rounded text-blue-600 focus:ring-blue-500"
+            className="border-border text-primary focus:ring-primary rounded"
           />
           <span className="text-muted-foreground ml-2 text-sm">
             Promo Cards

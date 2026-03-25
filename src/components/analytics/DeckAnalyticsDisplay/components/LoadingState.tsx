@@ -14,7 +14,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ className }) => {
     <Card className={className}>
       <CardContent className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+          <div className="border-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2"></div>
           <p className="text-muted-foreground">Analyzing deck...</p>
         </div>
       </CardContent>
