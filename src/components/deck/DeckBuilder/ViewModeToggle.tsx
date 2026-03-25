@@ -32,7 +32,7 @@ export const ViewModeToggle: React.FC<ViewModeToggleProps> = ({
         title={title}
         className={`rounded px-2 py-1 text-xs transition-colors ${
           viewMode === key
-            ? 'bg-border text-[#c8b8f0]'
+            ? 'bg-border text-primary'
             : 'text-muted-foreground/70 hover:text-foreground'
         }`}
       >

@@ -31,7 +31,7 @@ export function UserDashboardComponent({
       title: 'Active Games',
       value: String(gameData.length),
       icon: '🎮',
-      color: 'text-purple-400',
+      color: 'text-primary',
     },
   ];
 

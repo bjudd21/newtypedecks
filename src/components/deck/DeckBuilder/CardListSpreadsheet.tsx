@@ -149,7 +149,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
           {sorted.map((dc) => (
             <tr
               key={dc.cardId}
-              className="hover:bg-accent border-b border-[#3a3050]"
+              className="hover:bg-accent border-border border-b"
             >
               <td className="px-2 py-1 text-white">{dc.card.name}</td>
               <td className="px-2 py-1 text-center">
@@ -164,7 +164,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
                     >
                       −
                     </button>
-                    <span className="w-4 text-center text-[#c8b8f0]">
+                    <span className="text-primary w-4 text-center">
                       {dc.quantity}
                     </span>
                     <button
@@ -178,7 +178,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
                     </button>
                   </div>
                 ) : (
-                  <span className="text-[#c8b8f0]">{dc.quantity}x</span>
+                  <span className="text-primary">{dc.quantity}x</span>
                 )}
               </td>
               <td className="text-muted-foreground hidden px-2 py-1 sm:table-cell">

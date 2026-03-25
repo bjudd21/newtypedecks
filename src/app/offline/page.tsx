@@ -146,15 +146,15 @@ export default function OfflinePage() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 rounded-lg bg-purple-50 p-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-purple-100">
+                <div className="bg-card flex items-center gap-3 rounded-lg p-2">
+                  <div className="bg-muted flex h-8 w-8 items-center justify-center rounded">
                     💾
                   </div>
                   <div>
-                    <div className="font-medium text-purple-900">
+                    <div className="text-foreground font-medium">
                       Collection Data
                     </div>
-                    <div className="text-sm text-purple-700">
+                    <div className="text-muted-foreground text-sm">
                       Cached collection info
                     </div>
                   </div>

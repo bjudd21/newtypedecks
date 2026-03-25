@@ -26,7 +26,7 @@ export const DeckStatistics: React.FC<DeckStatisticsProps> = ({
         <div className="text-muted-foreground text-xs">Unique</div>
       </div>
       <div>
-        <div className="font-semibold text-purple-600">{averageCost}</div>
+        <div className="text-primary font-semibold">{averageCost}</div>
         <div className="text-muted-foreground text-xs">Avg Cost</div>
       </div>
     </div>

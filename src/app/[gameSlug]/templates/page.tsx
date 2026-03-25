@@ -60,11 +60,11 @@ export default function TemplatesPage() {
             </p>
           </div>
 
-          <div className="rounded-lg border border-purple-200 bg-purple-50 p-6">
-            <div className="mb-2 text-lg font-medium text-purple-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               🔧 Customizable
             </div>
-            <p className="text-sm text-purple-700">
+            <p className="text-muted-foreground text-sm">
               Templates are starting points. Feel free to modify and adapt them
               to your preferences and local meta game.
             </p>

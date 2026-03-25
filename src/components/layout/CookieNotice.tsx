@@ -143,14 +143,14 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
-                  <h4 className="mb-2 font-medium text-purple-800">
+                <div className="border-border bg-card rounded-lg border p-4">
+                  <h4 className="text-foreground mb-2 font-medium">
                     🎯 Functional Cookies (Optional)
                   </h4>
-                  <p className="mb-2 text-sm text-purple-700">
+                  <p className="text-muted-foreground mb-2 text-sm">
                     Enhance your experience with personalized features.
                   </p>
-                  <ul className="space-y-1 text-sm text-purple-600">
+                  <ul className="text-primary space-y-1 text-sm">
                     <li>
                       • <strong>Deck Preferences:</strong> Remember your deck
                       building settings

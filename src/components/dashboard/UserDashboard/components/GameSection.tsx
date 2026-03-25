@@ -38,11 +38,13 @@ export const GameSection: React.FC<GameSectionProps> = ({ data }) => {
         {/* Stats row */}
         <div className="flex gap-6">
           <div>
-            <div className="text-2xl font-bold text-white">{deckCount}</div>
+            <div className="text-foreground text-2xl font-bold">
+              {deckCount}
+            </div>
             <div className="text-muted-foreground text-xs">Decks</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-foreground text-2xl font-bold">
               {collectionCardCount}
             </div>
             <div className="text-muted-foreground text-xs">Cards Owned</div>
@@ -59,7 +61,7 @@ export const GameSection: React.FC<GameSectionProps> = ({ data }) => {
               <Link
                 key={deck.id}
                 href={`/${slug}/decks/${deck.id}`}
-                className="hover:text-foreground flex items-center justify-between text-sm text-[#c8b8f0]"
+                className="hover:text-foreground text-primary flex items-center justify-between text-sm"
               >
                 <span className="truncate pr-2">{deck.name}</span>
                 <span className="text-muted-foreground/70 shrink-0 text-xs">
@@ -77,19 +79,19 @@ export const GameSection: React.FC<GameSectionProps> = ({ data }) => {
         <div className="flex flex-wrap gap-2 pt-1">
           <Link
             href={`/${slug}/decks/create`}
-            className="bg-border rounded px-3 py-1 text-xs text-[#c8b8f0] transition-colors hover:bg-[#5a4e7a]"
+            className="bg-border text-primary hover:bg-accent rounded px-3 py-1 text-xs transition-colors"
           >
             Build Deck
           </Link>
           <Link
             href={`/${slug}/cards`}
-            className="bg-border rounded px-3 py-1 text-xs text-[#c8b8f0] transition-colors hover:bg-[#5a4e7a]"
+            className="bg-border text-primary hover:bg-accent rounded px-3 py-1 text-xs transition-colors"
           >
             Browse Cards
           </Link>
           <Link
             href={`/${slug}/collection`}
-            className="bg-border rounded px-3 py-1 text-xs text-[#c8b8f0] transition-colors hover:bg-[#5a4e7a]"
+            className="bg-border text-primary hover:bg-accent rounded px-3 py-1 text-xs transition-colors"
           >
             Collection
           </Link>

@@ -100,16 +100,16 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
             </Link>
           </div>
 
-          <div className="rounded-lg border border-purple-200 bg-purple-50 p-6">
-            <div className="mb-2 text-lg font-medium text-purple-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               📊 Browse Community
             </div>
-            <p className="mb-4 text-sm text-purple-700">
+            <p className="text-muted-foreground mb-4 text-sm">
               Explore public decks shared by other players in the community.
             </p>
             <Link
               href={`/${gameSlug}/decks?filter=public`}
-              className="inline-flex items-center text-sm font-medium text-purple-700 hover:text-purple-800"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center text-sm font-medium"
             >
               Community Decks →
             </Link>

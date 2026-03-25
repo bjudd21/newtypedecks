@@ -39,7 +39,7 @@ export const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({
             <div className="text-muted-foreground text-sm">Unique Cards</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-primary text-2xl font-bold">
               {analytics.averageCost}
             </div>
             <div className="text-muted-foreground text-sm">Avg Cost</div>

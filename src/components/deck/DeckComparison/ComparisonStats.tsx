@@ -56,7 +56,7 @@ const MiniChart: React.FC<MiniChartProps> = ({
           <span className="max-w-[80px] truncate">{nameA}</span>
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full bg-[#5a8a6b]" />
+          <span className="inline-block h-2 w-2 rounded-full bg-green-600" />
           <span className="max-w-[80px] truncate">{nameB}</span>
         </span>
       </div>
@@ -79,7 +79,7 @@ const MiniChart: React.FC<MiniChartProps> = ({
             </div>
             <div className="bg-card h-1.5 w-full rounded-full">
               <div
-                className="h-1.5 rounded-full bg-[#5a8a6b]"
+                className="h-1.5 rounded-full bg-green-600"
                 style={{
                   width: `${(entry.countB / globalMax) * 100}%`,
                 }}

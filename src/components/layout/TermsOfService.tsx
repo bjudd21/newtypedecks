@@ -198,11 +198,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Community Guidelines
               </h3>
-              <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
-                <h4 className="mb-3 font-medium text-purple-800">
+              <div className="border-border bg-card rounded-lg border p-4">
+                <h4 className="text-foreground mb-3 font-medium">
                   Be Respectful
                 </h4>
-                <ul className="space-y-2 text-sm text-purple-700">
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li className="flex items-start space-x-2">
                     <span className="mt-0.5 text-green-500">✓</span>
                     <span>Help other players learn and improve</span>

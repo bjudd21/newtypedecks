@@ -221,9 +221,9 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
+                  <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-full">
                     <svg
-                      className="h-4 w-4 text-purple-600"
+                      className="text-primary h-4 w-4"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >

@@ -63,7 +63,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">23</div>
+              <div className="text-primary text-2xl font-bold">23</div>
               <div className="text-muted-foreground text-sm">Archetypes</div>
             </CardContent>
           </Card>

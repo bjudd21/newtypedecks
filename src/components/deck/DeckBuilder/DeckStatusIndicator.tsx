@@ -62,7 +62,7 @@ export const DeckStatusIndicator: React.FC<DeckStatusIndicatorProps> = ({
           {deckCode && (
             <button
               onClick={handleCopyCode}
-              className="border-border bg-background/50 text-primary/80 hover:border-primary flex items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-xs transition-colors hover:text-[#c8b8f0]"
+              className="border-border bg-background/50 text-primary/80 hover:border-primary hover:text-primary flex items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-xs transition-colors"
               title="Copy deck code for sharing"
             >
               <span>{deckCode}</span>

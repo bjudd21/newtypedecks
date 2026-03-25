@@ -106,7 +106,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               'absolute bottom-0 left-0 h-0.5 rounded-full',
               variant === 'cyber' && 'bg-cyan-400',
               variant === 'neon' && 'bg-green-400',
-              variant === 'plasma' && 'bg-purple-500',
+              variant === 'plasma' && 'bg-card0',
               variant === 'default' && 'bg-primary'
             )}
             initial={{ width: '0%' }}
@@ -127,7 +127,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                       'pointer-events-none absolute h-1 w-1 rounded-full',
                       variant === 'cyber' && 'bg-cyan-400',
                       variant === 'neon' && 'bg-green-400',
-                      variant === 'plasma' && 'bg-purple-500'
+                      variant === 'plasma' && 'bg-card0'
                     )}
                     initial={{
                       x: '50%',

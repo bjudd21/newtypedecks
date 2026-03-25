@@ -217,7 +217,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                     <span className="text-primary/80 text-sm font-medium">
                       {zone.label}
                     </span>
-                    <span className="bg-border rounded px-2 py-0.5 text-xs text-[#c8b8f0]">
+                    <span className="bg-border text-primary rounded px-2 py-0.5 text-xs">
                       {zone.maxSize ?? 0}/{zone.maxSize ?? 0} (auto)
                     </span>
                   </div>
@@ -243,7 +243,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                   <span className="text-primary/80 text-sm font-medium">
                     {zone.label}
                   </span>
-                  <span className="bg-border rounded px-2 py-0.5 text-xs text-[#c8b8f0]">
+                  <span className="bg-border text-primary rounded px-2 py-0.5 text-xs">
                     {sizeLabel}
                   </span>
                 </div>

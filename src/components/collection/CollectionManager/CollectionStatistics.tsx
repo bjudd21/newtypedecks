@@ -38,7 +38,7 @@ export const CollectionStatistics: React.FC<CollectionStatisticsProps> = ({
 
       <Card className="border-border bg-card">
         <CardContent className="p-4 text-center">
-          <div className="text-2xl font-bold text-purple-400">
+          <div className="text-primary text-2xl font-bold">
             {statistics.completionPercentage}%
           </div>
           <div className="text-muted-foreground text-sm">

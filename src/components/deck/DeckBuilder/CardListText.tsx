@@ -49,7 +49,7 @@ export const CardListText: React.FC<CardListTextProps> = ({
                   >
                     −
                   </button>
-                  <span className="w-4 text-center text-[#c8b8f0]">
+                  <span className="text-primary w-4 text-center">
                     {dc.quantity}
                   </span>
                   <button
@@ -61,7 +61,7 @@ export const CardListText: React.FC<CardListTextProps> = ({
                   </button>
                 </div>
               ) : (
-                <span className="w-8 shrink-0 text-right text-[#c8b8f0]">
+                <span className="text-primary w-8 shrink-0 text-right">
                   {dc.quantity}x
                 </span>
               )}

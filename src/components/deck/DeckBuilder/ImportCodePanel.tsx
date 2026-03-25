@@ -52,7 +52,7 @@ export const ImportCodePanel: React.FC<ImportCodePanelProps> = ({
   };
 
   return (
-    <div className="mt-4 flex flex-col gap-1.5 border-t border-[#3a3050] pt-4">
+    <div className="border-border mt-4 flex flex-col gap-1.5 border-t pt-4">
       <label className="text-muted-foreground/70 text-xs font-medium">
         Import by deck code
       </label>

@@ -33,10 +33,7 @@ export const CardSpecialIndicators: React.FC<CardSpecialIndicatorsProps> = ({
         </Badge>
       )}
       {isPromo && (
-        <Badge
-          variant="secondary"
-          className="bg-purple-100 text-xs text-purple-800"
-        >
+        <Badge variant="secondary" className="bg-muted text-foreground text-xs">
           Promo
         </Badge>
       )}

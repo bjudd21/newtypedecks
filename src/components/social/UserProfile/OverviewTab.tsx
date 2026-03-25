@@ -115,7 +115,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
               </div>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
+              <div className="bg-muted flex h-8 w-8 items-center justify-center rounded-full">
                 ⭐
               </div>
               <div className="flex-1">

@@ -72,9 +72,7 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
       {/* Header */}
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-sm font-semibold text-[#c8b8f0]">
-            Hand Simulator
-          </h3>
+          <h3 className="text-primary text-sm font-semibold">Hand Simulator</h3>
           <p className="text-muted-foreground/70 text-xs">
             {totalCards} card{totalCards !== 1 ? 's' : ''} · draws {handSize}
             {mulliganCount > 0 &&
@@ -88,13 +86,13 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
               <button
                 onClick={drawOne}
                 disabled={remaining.length === 0}
-                className="border-border text-muted-foreground hover:border-primary rounded border px-3 py-1 text-xs transition-colors hover:text-[#c8b8f0] disabled:cursor-not-allowed disabled:opacity-40"
+                className="border-border text-muted-foreground hover:border-primary hover:text-primary rounded border px-3 py-1 text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Draw 1
               </button>
               <button
                 onClick={() => drawHand(false)}
-                className="border-border text-muted-foreground hover:border-primary rounded border px-3 py-1 text-xs transition-colors hover:text-[#c8b8f0]"
+                className="border-border text-muted-foreground hover:border-primary hover:text-primary rounded border px-3 py-1 text-xs transition-colors"
               >
                 Mulligan
               </button>
@@ -102,7 +100,7 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
           )}
           <button
             onClick={() => drawHand(!hasHand)}
-            className="border-primary/50 bg-primary/10 hover:bg-primary/20 rounded border px-3 py-1 text-xs text-[#c8b8f0] transition-colors"
+            className="border-primary/50 bg-primary/10 hover:bg-primary/20 text-primary rounded border px-3 py-1 text-xs transition-colors"
           >
             {hasHand ? 'New Hand' : 'Draw Opening Hand'}
           </button>

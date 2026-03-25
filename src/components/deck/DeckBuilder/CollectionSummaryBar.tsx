@@ -89,7 +89,7 @@ export const CollectionSummaryBar: React.FC<CollectionSummaryBarProps> = ({
       {missingCount > 0 && (
         <button
           onClick={() => exportMissingCards(deckCards, collectionQuantities)}
-          className="border-border text-muted-foreground hover:border-primary shrink-0 rounded border px-2 py-0.5 transition-colors hover:text-[#c8b8f0]"
+          className="border-border text-muted-foreground hover:border-primary hover:text-primary shrink-0 rounded border px-2 py-0.5 transition-colors"
           title={`Export ${missingCount} missing card type(s)`}
         >
           Export missing

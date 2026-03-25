@@ -22,7 +22,7 @@ export const TableRow: React.FC<TableRowProps> = ({
   onDelete,
 }) => {
   return (
-    <tr className="transition-colors hover:bg-[#3d3450]/30">
+    <tr className="hover:bg-accent transition-colors">
       <td className="px-4 py-3">
         <CardThumbnail imageUrl={card.imageUrl} name={card.name} />
       </td>

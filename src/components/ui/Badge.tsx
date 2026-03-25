@@ -29,7 +29,7 @@ const badgeVariants = cva(
           'border-cyan-400 bg-gradient-to-r from-cyan-900/40 to-blue-900/40 text-cyan-100 hover:from-cyan-800/60 hover:to-blue-800/60 shadow-lg shadow-cyan-400/30',
         neon: 'border-green-400 bg-gradient-to-r from-green-900/40 to-emerald-900/40 text-green-100 hover:from-green-800/60 hover:to-emerald-800/60 shadow-lg shadow-green-400/30',
         plasma:
-          'border-purple-400 bg-gradient-to-r from-purple-900/40 to-pink-900/40 text-purple-100 hover:from-purple-800/60 hover:to-pink-800/60 shadow-lg shadow-purple-400/30',
+          'border-primary bg-gradient-to-r from-purple-900/40 to-pink-900/40 text-purple-100 hover:from-purple-800/60 hover:to-pink-800/60 shadow-lg shadow-purple-400/30',
         hologram:
           'border-cyan-400/30 bg-transparent text-cyan-300 hover:border-cyan-400 backdrop-blur-sm shadow-lg shadow-cyan-400/10',
       },

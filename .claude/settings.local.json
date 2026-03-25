@@ -26,7 +26,12 @@
       "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/collection/page.tsx)",
       "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/proxies/page.tsx)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(sed -n '15,35p' src/components/card/CardDetailOverlay/components/BadgesDisplay.tsx)",
+      "Bash(sed -n '20,45p' src/components/analytics/CompetitiveRating.tsx)",
+      "Bash(sed -i 's/text-purple-600/text-primary/g' src/components/deck/PublicDeckBrowser/components/DeckStatistics.tsx src/components/analytics/DeckAnalyticsDisplay/components/AnalyticsHeader.tsx)",
+      "Bash(sed -i 's/text-purple-400/text-primary/g' src/components/collection/CollectionManager/CollectionStatistics.tsx)",
+      "Bash(sed -i 's/bg-purple-100/bg-muted/g; s/text-purple-800/text-foreground/g' src/components/card/CardDisplay/CardSpecialIndicators.tsx)"
     ]
   },
   "enableAllProjectMcpServers": true,

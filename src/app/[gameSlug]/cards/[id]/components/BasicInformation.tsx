@@ -133,7 +133,7 @@ export function BasicInformation({ card }: BasicInformationProps) {
           {card.isPromo && (
             <Badge
               variant="secondary"
-              className="bg-purple-800/30 text-purple-800"
+              className="bg-primary/20 text-foreground"
             >
               Promo
             </Badge>

@@ -10,7 +10,7 @@ export function SpecialAbilities({ abilities }: { abilities: string }) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
-            className="h-5 w-5 text-purple-600"
+            className="text-primary h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -30,16 +30,16 @@ export function SpecialAbilities({ abilities }: { abilities: string }) {
           {parsedAbilities.map((ability, index) => (
             <div
               key={index}
-              className="rounded-r-md border-l-4 border-purple-400 bg-purple-900/20 p-3"
+              className="border-primary bg-primary/10 rounded-r-md border-l-4 p-3"
             >
-              <h4 className="mb-1 text-sm font-semibold text-purple-900">
+              <h4 className="text-foreground mb-1 text-sm font-semibold">
                 {ability.name}
               </h4>
-              <p className="text-sm leading-relaxed text-purple-800">
+              <p className="text-foreground text-sm leading-relaxed">
                 {ability.description}
               </p>
               {ability.cost && (
-                <p className="mt-1 text-xs text-purple-600">
+                <p className="text-primary mt-1 text-xs">
                   Cost: {ability.cost}
                 </p>
               )}
