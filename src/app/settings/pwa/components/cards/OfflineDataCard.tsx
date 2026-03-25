@@ -54,7 +54,7 @@ export const OfflineDataCard: React.FC<OfflineDataCardProps> = ({
                 className="bg-accent flex items-center justify-between rounded-lg p-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-100">
+                  <div className="bg-primary/20 flex h-8 w-8 items-center justify-center rounded">
                     🃏
                   </div>
                   <div>

@@ -105,7 +105,7 @@ export const CardSearchComponent: React.FC<CardSearchProps> = ({
             className={cn(
               'flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors',
               showFilters
-                ? 'border-blue-500 bg-blue-50 text-blue-700'
+                ? 'border-primary bg-primary/10 text-primary'
                 : 'border-border bg-card text-muted-foreground hover:bg-accent'
             )}
           >
@@ -124,7 +124,7 @@ export const CardSearchComponent: React.FC<CardSearchProps> = ({
             </svg>
             Filters
             {Object.keys(filters).length > 0 && (
-              <span className="ml-1 rounded-full bg-blue-600 px-2 py-0.5 text-xs text-white">
+              <span className="bg-primary text-primary-foreground ml-1 rounded-full px-2 py-0.5 text-xs">
                 {Object.keys(filters).length}
               </span>
             )}

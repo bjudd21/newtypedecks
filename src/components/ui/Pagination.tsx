@@ -85,7 +85,7 @@ const Pagination: React.FC<PaginationProps> = ({
       className={cn(
         'relative inline-flex items-center px-4 py-2 text-sm font-medium transition-colors duration-200',
         isActive
-          ? 'z-10 bg-blue-600 text-white'
+          ? 'bg-primary text-primary-foreground z-10'
           : 'bg-card text-muted-foreground hover:bg-accent',
         isDisabled || disabled
           ? 'cursor-not-allowed opacity-50'

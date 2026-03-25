@@ -18,7 +18,7 @@ export function PaginationModeSelector({
           onClick={() => onChange('infinite')}
           className={`px-3 py-1 text-xs font-medium transition-colors ${
             mode === 'infinite'
-              ? 'bg-blue-600 text-white'
+              ? 'bg-primary text-primary-foreground'
               : 'bg-card text-muted-foreground hover:bg-accent'
           }`}
         >
@@ -28,7 +28,7 @@ export function PaginationModeSelector({
           onClick={() => onChange('traditional')}
           className={`px-3 py-1 text-xs font-medium transition-colors ${
             mode === 'traditional'
-              ? 'bg-blue-600 text-white'
+              ? 'bg-primary text-primary-foreground'
               : 'bg-card text-muted-foreground hover:bg-accent'
           }`}
         >

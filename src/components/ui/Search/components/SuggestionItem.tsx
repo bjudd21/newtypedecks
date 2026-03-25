@@ -28,8 +28,8 @@ export const SuggestionItem: React.FC<SuggestionItemProps> = ({
       aria-selected={isHighlighted}
       onClick={() => onSelect(suggestion)}
       className={cn(
-        'relative cursor-pointer px-4 py-2 select-none hover:bg-blue-50 focus:bg-blue-50 focus:outline-none',
-        isHighlighted && 'bg-blue-100 text-blue-900'
+        'hover:bg-accent focus:bg-accent relative cursor-pointer px-4 py-2 select-none focus:outline-none',
+        isHighlighted && 'bg-accent text-foreground'
       )}
     >
       <div className="flex flex-col">

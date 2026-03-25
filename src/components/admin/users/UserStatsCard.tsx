@@ -140,9 +140,9 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20">
+            <span className="bg-primary/20 inline-flex h-5 w-5 items-center justify-center rounded-full">
               <svg
-                className="h-3 w-3 text-blue-400"
+                className="text-primary h-3 w-3"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >

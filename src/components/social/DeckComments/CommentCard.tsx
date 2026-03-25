@@ -87,7 +87,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                 size="sm"
                 className={`h-7 text-xs ${
                   comment.isLiked
-                    ? 'bg-blue-50 text-blue-600'
+                    ? 'bg-primary/10 text-primary'
                     : 'text-muted-foreground'
                 }`}
               >
@@ -173,7 +173,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                           size="sm"
                           className={`h-6 text-xs ${
                             reply.isLiked
-                              ? 'bg-blue-50 text-blue-600'
+                              ? 'bg-primary/10 text-primary'
                               : 'text-muted-foreground'
                           }`}
                         >

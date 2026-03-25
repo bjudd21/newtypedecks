@@ -135,13 +135,15 @@ export default function OfflinePage() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 rounded-lg bg-blue-50 p-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-100">
+                <div className="bg-accent flex items-center gap-3 rounded-lg p-2">
+                  <div className="bg-primary/20 flex h-8 w-8 items-center justify-center rounded">
                     📚
                   </div>
                   <div>
-                    <div className="font-medium text-blue-900">Saved Decks</div>
-                    <div className="text-sm text-blue-700">
+                    <div className="text-foreground font-medium">
+                      Saved Decks
+                    </div>
+                    <div className="text-muted-foreground text-sm">
                       Local deck storage
                     </div>
                   </div>
@@ -201,17 +203,17 @@ export default function OfflinePage() {
             </div>
 
             {/* PWA Install Prompt */}
-            <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3 text-center">
-              <div className="mb-1 font-medium text-blue-900">
+            <div className="border-border bg-accent mt-4 rounded-lg border p-3 text-center">
+              <div className="text-foreground mb-1 font-medium">
                 📱 Install App
               </div>
-              <div className="mb-2 text-sm text-blue-700">
+              <div className="text-muted-foreground mb-2 text-sm">
                 Get better offline access and app-like experience
               </div>
               <Button
                 variant="outline"
                 size="sm"
-                className="border-blue-300 text-blue-700"
+                className="text-muted-foreground border-blue-300"
                 onClick={() => {
                   // Installation will be handled by the PWA install prompt
                   window.dispatchEvent(new CustomEvent('pwa-install-prompt'));

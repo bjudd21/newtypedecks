@@ -39,22 +39,22 @@ export default function TemplatesPage() {
 
         {/* Additional Information */}
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
-            <div className="mb-2 text-lg font-medium text-blue-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               🎯 Strategic Variety
             </div>
-            <p className="text-sm text-blue-700">
+            <p className="text-muted-foreground text-sm">
               Explore different deck archetypes and strategies. From aggressive
               rush decks to control builds, find the playstyle that suits you
               best.
             </p>
           </div>
 
-          <div className="rounded-lg border border-green-200 bg-green-50 p-6">
-            <div className="mb-2 text-lg font-medium text-green-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               🏆 Tournament Proven
             </div>
-            <p className="text-sm text-green-700">
+            <p className="text-muted-foreground text-sm">
               Many templates are based on successful tournament decks and
               competitive builds. Learn from the best players in the community.
             </p>
@@ -103,7 +103,7 @@ export default function TemplatesPage() {
           <div className="space-x-4">
             <Link
               href={`/${gameSlug}/decks`}
-              className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-lg px-4 py-2 transition-colors"
             >
               Go to Deck Builder
             </Link>

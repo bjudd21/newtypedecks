@@ -149,11 +149,11 @@ export const DeckCommentsContent: React.FC<DeckCommentsProps> = ({
 
           {/* Sign In Prompt */}
           {!isAuthenticated && (
-            <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4 text-center">
-              <div className="mb-2 font-medium text-blue-900">
+            <div className="border-border bg-accent mt-6 rounded-lg border p-4 text-center">
+              <div className="text-foreground mb-2 font-medium">
                 Join the Discussion
               </div>
-              <div className="mb-3 text-sm text-blue-700">
+              <div className="text-muted-foreground mb-3 text-sm">
                 Sign in to comment, like posts, and engage with the community
               </div>
               <Button variant="default" size="sm">

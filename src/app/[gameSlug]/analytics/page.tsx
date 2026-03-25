@@ -49,7 +49,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">2,847</div>
+              <div className="text-primary text-2xl font-bold">2,847</div>
               <div className="text-muted-foreground text-sm">
                 Decks Analyzed
               </div>
@@ -115,12 +115,14 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
               </div>
             </div>
 
-            <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="border-border bg-accent mt-6 rounded-lg border p-4">
               <div className="flex items-start gap-3">
-                <div className="text-xl text-blue-600">💡</div>
+                <div className="text-primary text-xl">💡</div>
                 <div>
-                  <h4 className="mb-1 font-semibold text-blue-900">Pro Tip</h4>
-                  <p className="text-blue-800">
+                  <h4 className="text-foreground mb-1 font-semibold">
+                    Pro Tip
+                  </h4>
+                  <p className="text-muted-foreground">
                     Use the analytics data to inform your deck building
                     decisions. Look for underused cards that could give you a
                     competitive edge, or identify popular strategies to prepare

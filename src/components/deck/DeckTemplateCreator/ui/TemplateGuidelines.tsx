@@ -6,7 +6,7 @@ import React from 'react';
 
 export const TemplateGuidelines: React.FC = () => {
   return (
-    <div className="rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
+    <div className="border-border bg-accent text-muted-foreground rounded border p-3 text-sm">
       <div className="mb-2 font-medium">Template Guidelines:</div>
       <ul className="space-y-1 text-xs">
         <li>• Templates become public and can be used by anyone</li>

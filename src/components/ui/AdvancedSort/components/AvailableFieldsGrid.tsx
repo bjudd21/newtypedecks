@@ -37,7 +37,7 @@ export const AvailableFieldsGrid: React.FC<AvailableFieldsGridProps> = ({
               className={cn(
                 'rounded border p-2 transition-colors',
                 isActive
-                  ? 'border-blue-200 bg-blue-50'
+                  ? 'border-primary/30 bg-primary/10'
                   : 'bg-card hover:bg-accent'
               )}
             >

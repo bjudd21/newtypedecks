@@ -28,7 +28,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
     <div
       onClick={() => onTemplateClick(template)}
       className={`hover:bg-accent cursor-pointer rounded-lg border p-4 transition-colors ${
-        isSelected ? 'bg-blue-50 ring-2 ring-blue-500' : ''
+        isSelected ? 'bg-primary/10 ring-primary ring-2' : ''
       }`}
     >
       <div className="mb-2 flex items-start justify-between">

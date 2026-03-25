@@ -25,7 +25,7 @@ export function ResetPasswordClient() {
           </p>
           <a
             href="/auth/forgot-password"
-            className="inline-block rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-block rounded px-4 py-2 transition-colors"
           >
             Request New Reset Link
           </a>

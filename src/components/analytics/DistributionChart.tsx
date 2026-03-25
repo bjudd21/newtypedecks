@@ -26,7 +26,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
 
   // Color palette for visualization
   const colors = [
-    'bg-blue-500',
+    'bg-primary',
     'bg-green-500',
     'bg-card0',
     'bg-yellow-500',

@@ -19,22 +19,24 @@ export const UserRatingCard: React.FC<UserRatingCardProps> = ({
   onEditClick,
 }) => {
   return (
-    <Card className="mb-6 border-blue-200 bg-blue-50">
+    <Card className="border-border bg-accent mb-6">
       <CardContent className="pt-4">
         <div className="flex items-start gap-3">
-          <div className="text-xl text-blue-600">👤</div>
+          <div className="text-primary text-xl">👤</div>
           <div className="flex-1">
             <div className="mb-2 flex items-center gap-2">
-              <span className="font-medium text-blue-900">Your Review</span>
+              <span className="text-foreground font-medium">Your Review</span>
               <StarRating rating={userRating.rating} size="text-sm" />
               <Badge variant="secondary" className="text-xs">
                 {getRatingText(userRating.rating)}
               </Badge>
             </div>
             {userRating.review && (
-              <p className="mb-2 text-sm text-blue-800">{userRating.review}</p>
+              <p className="text-muted-foreground mb-2 text-sm">
+                {userRating.review}
+              </p>
             )}
-            <div className="flex items-center gap-4 text-xs text-blue-600">
+            <div className="text-primary flex items-center gap-4 text-xs">
               <span>{formatDate(userRating.createdAt)}</span>
               <Button
                 onClick={onEditClick}

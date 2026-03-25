@@ -93,7 +93,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
         <CardContent>
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+              <div className="bg-primary/20 flex h-8 w-8 items-center justify-center rounded-full">
                 🃏
               </div>
               <div className="flex-1">

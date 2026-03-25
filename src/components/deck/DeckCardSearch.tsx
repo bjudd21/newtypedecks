@@ -47,7 +47,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={onClick}
-      className={`hover:bg-accent flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''} `}
+      className={`hover:bg-accent hover:border-primary/50 flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-500/30 bg-green-900/20' : ''} `}
     >
       {/* Card Image Placeholder */}
       <div className="bg-muted relative h-16 w-12 flex-shrink-0 overflow-hidden rounded">
@@ -87,7 +87,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
           )}
 
           {card.cost !== null && card.cost !== undefined && (
-            <span className="font-medium text-blue-600">Cost: {card.cost}</span>
+            <span className="text-primary font-medium">Cost: {card.cost}</span>
           )}
         </div>
 
@@ -105,7 +105,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
 
       {/* Add Button Indicator */}
       <div className="flex-shrink-0">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+        <div className="text-primary flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
           <svg
             className="h-4 w-4"
             fill="none"

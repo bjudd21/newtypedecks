@@ -68,33 +68,33 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
 
         {/* Quick Actions */}
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6">
-            <div className="mb-2 text-lg font-medium text-blue-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               🔍 Discover More
             </div>
-            <p className="mb-4 text-sm text-blue-700">
+            <p className="text-muted-foreground mb-4 text-sm">
               Browse templates and community decks to find new favorites to add
               to your collection.
             </p>
             <a
               href={`/${gameSlug}/templates`}
-              className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center text-sm font-medium"
             >
               Browse Templates →
             </a>
           </div>
 
-          <div className="rounded-lg border border-green-200 bg-green-50 p-6">
-            <div className="mb-2 text-lg font-medium text-green-800">
+          <div className="border-border bg-card rounded-lg border p-6">
+            <div className="text-foreground mb-2 text-lg font-medium">
               🔧 Build Your Own
             </div>
-            <p className="mb-4 text-sm text-green-700">
+            <p className="text-muted-foreground mb-4 text-sm">
               Create your own decks using the deck builder. Save them and share
               with the community.
             </p>
             <Link
               href={`/${gameSlug}/decks`}
-              className="inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center text-sm font-medium"
             >
               Deck Builder →
             </Link>
