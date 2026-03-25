@@ -18,7 +18,7 @@ interface DeckData {
   id: string;
   name: string;
   description: string | null;
-  isPublic: boolean;
+  isPublic: boolean; // derived from visibility; mirrors the DB column pending full migration
   userId: string;
   gameId: string | null;
   visibility: 'DRAFT' | 'PRIVATE' | 'PUBLIC';

@@ -3,6 +3,7 @@
  */
 
 import type { CardWithRelations } from '@/lib/types/card';
+import type { DeckVisibility } from '@prisma/client';
 
 export interface DeckCard {
   cardId: string;
@@ -16,7 +17,7 @@ export interface Deck {
   name: string;
   description?: string;
   format?: string;
-  isPublic: boolean;
+  visibility: DeckVisibility;
   deckCode?: string | null;
   cards: DeckCard[];
   cardCount?: number;
@@ -38,7 +39,7 @@ export interface CreateDeckData {
   name: string;
   description?: string;
   format?: string;
-  isPublic?: boolean;
+  visibility?: DeckVisibility;
   cards: DeckCard[];
 }
 
@@ -46,7 +47,7 @@ export interface UpdateDeckData {
   name?: string;
   description?: string;
   format?: string;
-  isPublic?: boolean;
+  visibility?: DeckVisibility;
   cards?: DeckCard[];
 }
 
