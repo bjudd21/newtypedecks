@@ -18,7 +18,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
   onSort,
 }) => {
   return (
-    <thead className="border-b border-[#443a5c] bg-[#1a1625]">
+    <thead className="border-border bg-background border-b">
       <tr>
         <th className="px-4 py-3 text-left">
           <SortButton
@@ -41,16 +41,16 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-left">
           <button
             onClick={() => onSort('role')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Role
           </button>
         </th>
         <th className="px-4 py-3 text-center">
-          <span className="text-sm font-medium text-gray-300">Verified</span>
+          <span className="text-foreground text-sm font-medium">Verified</span>
         </th>
         <th className="px-4 py-3 text-center">
-          <span className="text-sm font-medium text-gray-300">Activity</span>
+          <span className="text-foreground text-sm font-medium">Activity</span>
         </th>
         <th className="px-4 py-3 text-left">
           <SortButton
@@ -62,7 +62,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
           />
         </th>
         <th className="px-4 py-3 text-right">
-          <span className="text-sm font-medium text-gray-300">Actions</span>
+          <span className="text-foreground text-sm font-medium">Actions</span>
         </th>
       </tr>
     </thead>

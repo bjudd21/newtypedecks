@@ -65,7 +65,9 @@ export const CompetitiveRating: React.FC<CompetitiveRatingProps> = ({
         <div className={sizeClasses.container}>
           <div className="font-semibold">{rating}/100</div>
           {showLabel && (
-            <div className={`text-gray-600 ${sizeClasses.rating}`}>{label}</div>
+            <div className={`text-muted-foreground ${sizeClasses.rating}`}>
+              {label}
+            </div>
           )}
         </div>
       </div>

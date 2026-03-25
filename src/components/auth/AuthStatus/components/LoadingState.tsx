@@ -13,7 +13,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
 }) => {
   return (
     <div className={`animate-pulse ${className}`}>
-      <div className="h-8 w-20 rounded bg-[#3a3050]"></div>
+      <div className="bg-accent h-8 w-20 rounded"></div>
     </div>
   );
 };

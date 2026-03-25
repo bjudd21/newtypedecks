@@ -22,8 +22,8 @@ export function SearchHeader({
   onSearchSubmit,
 }: SearchHeaderProps) {
   return (
-    <div className="flex items-center gap-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
-      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#6b5a8a] to-[#8b7aaa] shadow-lg">
+    <div className="border-border bg-card flex items-center gap-4 rounded-lg border p-4">
+      <div className="bg-primary flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full shadow-md">
         <svg
           className="h-5 w-5 text-white"
           fill="none"
@@ -45,11 +45,11 @@ export function SearchHeader({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search cards by name, type, or ability..."
-          className="flex-1 border-[#443a5c] bg-[#1a1625] text-white placeholder-gray-500 focus:border-[#6b5a8a] focus:ring-[#6b5a8a]/30"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-primary/30 flex-1 text-white"
         />
         <Button
           type="submit"
-          className="bg-[#6b5a8a] px-6 text-white hover:bg-[#8b7aaa]"
+          className="bg-primary/80 hover:bg-primary px-6 text-white"
           disabled={loading}
         >
           {loading ? 'Searching...' : 'Search'}

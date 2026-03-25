@@ -27,19 +27,19 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">Total Decks</span>
+              <span className="text-muted-foreground">Total Decks</span>
               <span className="font-medium">
                 {profile.statistics.totalDecks}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">Public Decks</span>
+              <span className="text-muted-foreground">Public Decks</span>
               <span className="font-medium">
                 {profile.statistics.publicDecks}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">Average Rating</span>
+              <span className="text-muted-foreground">Average Rating</span>
               <div className="flex items-center gap-1">
                 <span className="font-medium">
                   {profile.statistics.averageRating.toFixed(1)}
@@ -51,7 +51,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
                       className={`text-sm ${
                         star <= Math.round(profile.statistics.averageRating)
                           ? 'text-yellow-400'
-                          : 'text-gray-300'
+                          : 'text-foreground'
                       }`}
                     >
                       ★
@@ -61,20 +61,22 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">Comments Given</span>
+              <span className="text-muted-foreground">Comments Given</span>
               <span className="font-medium">
                 {profile.statistics.commentsGiven}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">Comments Received</span>
+              <span className="text-muted-foreground">Comments Received</span>
               <span className="font-medium">
                 {profile.statistics.commentsReceived}
               </span>
             </div>
             {profile.statistics.favoriteArchetype && (
               <div className="flex items-center justify-between">
-                <span className="text-gray-600">Favorite Archetype</span>
+                <span className="text-muted-foreground">
+                  Favorite Archetype
+                </span>
                 <Badge variant="secondary">
                   {profile.statistics.favoriteArchetype}
                 </Badge>
@@ -96,7 +98,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
               </div>
               <div className="flex-1">
                 <div className="font-medium">Created new deck</div>
-                <div className="text-gray-600">
+                <div className="text-muted-foreground">
                   Tournament Aggro Build • 2 hours ago
                 </div>
               </div>
@@ -107,7 +109,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
               </div>
               <div className="flex-1">
                 <div className="font-medium">Commented on deck</div>
-                <div className="text-gray-600">
+                <div className="text-muted-foreground">
                   Control Lock Meta Analysis • 1 day ago
                 </div>
               </div>
@@ -118,7 +120,7 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ profile }) => {
               </div>
               <div className="flex-1">
                 <div className="font-medium">Rated deck</div>
-                <div className="text-gray-600">
+                <div className="text-muted-foreground">
                   Midrange Value Engine • 3 days ago
                 </div>
               </div>

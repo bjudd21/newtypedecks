@@ -32,8 +32,8 @@ export function OfflineDataSection({
         </CardHeader>
         <CardContent>
           <div className="py-6 text-center">
-            <div className="mb-2 text-gray-600">No offline data</div>
-            <div className="text-sm text-gray-500">
+            <div className="text-muted-foreground mb-2">No offline data</div>
+            <div className="text-muted-foreground/70 text-sm">
               Data you create while offline will appear here and sync when
               you&apos;re back online
             </div>
@@ -55,14 +55,14 @@ export function OfflineDataSection({
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <div className="mb-3 text-sm text-gray-600">
+          <div className="text-muted-foreground mb-3 text-sm">
             The following data is stored offline and will sync when you&apos;re
             online:
           </div>
           {offlineDecks.map((deck) => (
             <div
               key={deck.id}
-              className="flex items-center justify-between rounded-lg bg-gray-50 p-3"
+              className="bg-accent flex items-center justify-between rounded-lg p-3"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded bg-blue-100">
@@ -70,7 +70,7 @@ export function OfflineDataSection({
                 </div>
                 <div>
                   <div className="font-medium text-gray-900">{deck.name}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-muted-foreground text-sm">
                     {deck.cards.length} cards • Created{' '}
                     {deck.createdAt.toLocaleDateString()}
                   </div>

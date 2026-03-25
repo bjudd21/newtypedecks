@@ -14,7 +14,9 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ className }) => {
     <div className={className}>
       <Card>
         <CardContent className="p-6 text-center">
-          <div className="text-gray-600">Loading version history...</div>
+          <div className="text-muted-foreground">
+            Loading version history...
+          </div>
         </CardContent>
       </Card>
     </div>

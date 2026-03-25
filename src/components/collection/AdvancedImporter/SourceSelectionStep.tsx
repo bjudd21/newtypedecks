@@ -16,7 +16,7 @@ export function SourceSelectionStep({
 }: SourceSelectionStepProps) {
   return (
     <div className="space-y-4">
-      <div className="mb-3 text-sm font-medium text-gray-400">
+      <div className="text-muted-foreground mb-3 text-sm font-medium">
         Choose your import source:
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -24,13 +24,13 @@ export function SourceSelectionStep({
           <div
             key={source.id}
             onClick={() => onSelectSource(source)}
-            className="cursor-pointer rounded-lg border border-[#443a5c] p-4 transition-colors hover:border-[#8b7aaa] hover:bg-[#3a3050]"
+            className="border-border hover:border-primary hover:bg-accent cursor-pointer rounded-lg border p-4 transition-colors"
           >
             <div className="mb-2 flex items-center gap-3">
               <span className="text-2xl">{source.icon}</span>
               <div>
                 <div className="font-medium text-white">{source.name}</div>
-                <div className="text-sm text-gray-400">
+                <div className="text-muted-foreground text-sm">
                   {source.description}
                 </div>
               </div>

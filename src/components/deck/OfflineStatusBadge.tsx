@@ -35,14 +35,14 @@ export const OfflineStatusBadge: React.FC<OfflineStatusBadgeProps> = ({
         <div className="flex items-center gap-2 text-sm">
           {saveStatus === 'saving' && (
             <>
-              <div className="h-3 w-3 animate-spin rounded-full border-b-2 border-[#8b7aaa]"></div>
-              <span className="text-[#8b7aaa]">Saving...</span>
+              <div className="border-primary h-3 w-3 animate-spin rounded-full border-b-2"></div>
+              <span className="text-primary">Saving...</span>
             </>
           )}
           {saveStatus === 'saved' && lastSaved && (
             <>
               <span className="text-green-400">✓</span>
-              <span className="text-gray-400">
+              <span className="text-muted-foreground">
                 Saved {lastSaved.toLocaleTimeString()}
               </span>
             </>
@@ -73,7 +73,7 @@ export const OfflineStatusBadge: React.FC<OfflineStatusBadgeProps> = ({
                   : 'bg-red-400 shadow-red-400/50'
               } animate-pulse`}
             />
-            <span className="text-xs font-medium text-gray-400">
+            <span className="text-muted-foreground text-xs font-medium">
               {isOnline ? 'Online' : 'Offline'}
             </span>
           </div>

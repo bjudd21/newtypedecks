@@ -27,7 +27,7 @@ function StatField({
 }) {
   return (
     <div>
-      <label className="text-sm font-medium text-gray-300">{label}</label>
+      <label className="text-foreground text-sm font-medium">{label}</label>
       <div className="mt-1">
         {isBadge ? (
           <Badge variant="info">{value}</Badge>
@@ -53,23 +53,25 @@ export function BasicInformation({ card }: BasicInformationProps) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {/* Type and Rarity */}
           <div>
-            <label className="text-sm font-medium text-gray-300">Type</label>
+            <label className="text-foreground text-sm font-medium">Type</label>
             <div className="mt-1">
               {card.type ? (
                 <Badge variant="secondary">{card.type.name}</Badge>
               ) : (
-                <span className="text-gray-500">Unknown</span>
+                <span className="text-muted-foreground/70">Unknown</span>
               )}
             </div>
           </div>
 
           <div>
-            <label className="text-sm font-medium text-gray-300">Rarity</label>
+            <label className="text-foreground text-sm font-medium">
+              Rarity
+            </label>
             <div className="mt-1">
               {card.rarity ? (
                 <Badge variant="info">{card.rarity.name}</Badge>
               ) : (
-                <span className="text-gray-500">Unknown</span>
+                <span className="text-muted-foreground/70">Unknown</span>
               )}
             </div>
           </div>
@@ -110,7 +112,7 @@ export function BasicInformation({ card }: BasicInformationProps) {
           {/* Set Information */}
           {card.set && (
             <div className="sm:col-span-2">
-              <label className="text-sm font-medium text-gray-300">Set</label>
+              <label className="text-foreground text-sm font-medium">Set</label>
               <div className="mt-1 text-white">
                 {card.set.name} #{card.setNumber}
               </div>

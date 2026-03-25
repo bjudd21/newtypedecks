@@ -27,7 +27,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
       onClick={handleClick}
     >
       {/* Card Image Container */}
-      <div className="relative aspect-[5/7] overflow-hidden rounded-lg border-2 border-[#443a5c] bg-[#1a1625] shadow-lg transition-all hover:border-[#6b5a8a] hover:shadow-2xl hover:shadow-[#6b5a8a]/40">
+      <div className="border-border bg-background hover:border-primary hover:shadow-primary/30 relative aspect-[5/7] overflow-hidden rounded-lg border-2 shadow-lg transition-all hover:shadow-2xl">
         {(card.imageUrlSmall ?? card.imageUrl) ? (
           <Image
             src={(card.imageUrlSmall ?? card.imageUrl)!}
@@ -38,10 +38,10 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
             sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 23vw, 18vw"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#2a1f3d] to-[#1a1625]">
+          <div className="from-card to-background flex h-full w-full items-center justify-center bg-gradient-to-br">
             <div className="p-4 text-center">
               <svg
-                className="mx-auto mb-2 h-10 w-10 text-gray-600"
+                className="text-muted-foreground mx-auto mb-2 h-10 w-10"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -53,7 +53,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
                   d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              <p className="line-clamp-2 text-xs font-medium text-gray-500">
+              <p className="text-muted-foreground/70 line-clamp-2 text-xs font-medium">
                 {card.name}
               </p>
             </div>
@@ -61,17 +61,17 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
         )}
 
         {/* Hover overlay with subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#6b5a8a]/0 to-[#6b5a8a]/0 transition-all duration-300 group-hover:from-[#6b5a8a]/20 group-hover:to-transparent/5" />
+        <div className="from-primary/0 to-primary/0 group-hover:from-primary/20 absolute inset-0 bg-gradient-to-t transition-all duration-300 group-hover:to-transparent/5" />
 
         {/* Stats badges - top right */}
         <div className="absolute top-2 right-2 flex flex-col gap-1">
           {card.cost !== undefined && (
-            <div className="rounded-md border border-[#443a5c] bg-[#1a1625]/90 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
+            <div className="border-border bg-background/90 rounded-md border px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
               {card.cost}
             </div>
           )}
           {card.level !== undefined && (
-            <div className="rounded-md bg-[#6b5a8a]/90 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
+            <div className="bg-primary/80/90 rounded-md px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm">
               Lv {card.level}
             </div>
           )}
@@ -90,7 +90,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
                       ? 'bg-red-500'
                       : card.rarity.name?.toLowerCase().includes('rare')
                         ? 'bg-yellow-500'
-                        : 'bg-gray-500'
+                        : 'bg-accent0'
               }`}
               title={card.rarity.name}
             />
@@ -100,7 +100,7 @@ const GridCard: React.FC<GridCardProps> = ({ card, onClick }) => {
 
       {/* Card ID/Number at bottom */}
       <div className="mt-2 text-center">
-        <p className="font-mono text-xs tracking-tight text-gray-500">
+        <p className="text-muted-foreground/70 font-mono text-xs tracking-tight">
           {card.setNumber || card.id}
         </p>
       </div>
@@ -121,8 +121,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
       >
         {Array.from({ length: 20 }).map((_, index) => (
           <div key={index} className="animate-pulse">
-            <div className="aspect-[5/7] rounded-lg border-2 border-[#443a5c] bg-[#2d2640]" />
-            <div className="mx-auto mt-2 h-3 w-3/4 rounded bg-[#2d2640]" />
+            <div className="border-border bg-card aspect-[5/7] rounded-lg border-2" />
+            <div className="bg-card mx-auto mt-2 h-3 w-3/4 rounded" />
           </div>
         ))}
       </div>
@@ -131,9 +131,9 @@ export const CardGrid: React.FC<CardGridProps> = ({
 
   if (cards.length === 0) {
     return (
-      <div className="py-16 text-center text-gray-400">
+      <div className="text-muted-foreground py-16 text-center">
         <svg
-          className="mx-auto mb-4 h-16 w-16 text-gray-600"
+          className="text-muted-foreground mx-auto mb-4 h-16 w-16"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -146,7 +146,7 @@ export const CardGrid: React.FC<CardGridProps> = ({
           />
         </svg>
         <p className="text-lg">No cards found</p>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="text-muted-foreground/70 mt-2 text-sm">
           Try adjusting your search or filters
         </p>
       </div>

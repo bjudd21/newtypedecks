@@ -39,7 +39,7 @@ export const DeckVersionComparison: React.FC<DeckVersionComparisonProps> = ({
 
           {/* Detailed Changes */}
           {changes.length === 0 ? (
-            <div className="py-8 text-center text-gray-600">
+            <div className="text-muted-foreground py-8 text-center">
               No changes between these versions.
             </div>
           ) : (

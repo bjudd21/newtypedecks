@@ -40,7 +40,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
         <h1 className="mb-4 text-3xl font-bold text-gray-900">
           Meta-Game Analytics
         </h1>
-        <p className="mb-6 text-lg text-gray-600">
+        <p className="text-muted-foreground mb-6 text-lg">
           Explore competitive trends, popular strategies, and statistical
           insights from the {gameName} community.
         </p>
@@ -50,25 +50,27 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">2,847</div>
-              <div className="text-sm text-gray-600">Decks Analyzed</div>
+              <div className="text-muted-foreground text-sm">
+                Decks Analyzed
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">542</div>
-              <div className="text-sm text-gray-600">Unique Cards</div>
+              <div className="text-muted-foreground text-sm">Unique Cards</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-purple-600">23</div>
-              <div className="text-sm text-gray-600">Archetypes</div>
+              <div className="text-muted-foreground text-sm">Archetypes</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">85%</div>
-              <div className="text-sm text-gray-600">Meta Health</div>
+              <div className="text-muted-foreground text-sm">Meta Health</div>
             </CardContent>
           </Card>
         </div>
@@ -80,7 +82,7 @@ export default async function AnalyticsPage({ params }: AnalyticsPageProps) {
           <CardTitle>About Meta-Game Analytics</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="prose max-w-none text-sm text-gray-600">
+          <div className="prose text-muted-foreground max-w-none text-sm">
             <p className="mb-4">
               Our meta-game analytics system continuously analyzes thousands of
               competitive decks to provide real-time insights into the current

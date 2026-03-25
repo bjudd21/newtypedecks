@@ -17,7 +17,7 @@ export function CardDetailModal({ card, onClose }: CardDetailModalProps) {
             <CardTitle>{card.name}</CardTitle>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-muted-foreground hover:text-muted-foreground"
             >
               <svg
                 className="h-6 w-6"

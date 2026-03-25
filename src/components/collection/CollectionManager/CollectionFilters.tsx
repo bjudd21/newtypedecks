@@ -36,14 +36,14 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
   );
 
   return (
-    <Card className="mb-6 border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card mb-6">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">FILTER COLLECTION</CardTitle>
+        <CardTitle className="text-primary/80">FILTER COLLECTION</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Search
             </label>
             <Input
@@ -54,7 +54,7 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Rarity
             </label>
             <Select
@@ -72,7 +72,7 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Type
             </label>
             <Select
@@ -90,7 +90,7 @@ export const CollectionFilters: React.FC<CollectionFiltersProps> = ({
 
           {factionField && (
             <div>
-              <label className="mb-1 block text-sm font-medium text-gray-400">
+              <label className="text-muted-foreground mb-1 block text-sm font-medium">
                 {factionField.label}
               </label>
               <Input

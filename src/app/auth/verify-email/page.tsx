@@ -13,12 +13,14 @@ export const metadata: Metadata = {
 
 export default function VerifyEmailPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="bg-accent flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <Suspense
         fallback={
           <div className="w-full max-w-md text-center">
             <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-gray-600">Verifying your email...</p>
+            <p className="text-muted-foreground mt-2">
+              Verifying your email...
+            </p>
           </div>
         }
       >

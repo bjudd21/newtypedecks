@@ -39,11 +39,11 @@ export const DeckContentsPanel: React.FC<DeckContentsPanelProps> = ({
   onQuantityChange,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg text-[#a89ec7]">
+        <CardTitle className="text-primary/80 flex items-center gap-2 text-lg">
           DECK CONTENTS
-          <Badge className="border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-[#a89ec7]">
+          <Badge className="border-primary/30 bg-primary/20 text-primary/80">
             {totalCards} cards
           </Badge>
         </CardTitle>

@@ -17,25 +17,25 @@ export const CollectionStatsCard: React.FC<CollectionStatsCardProps> = ({
   totalValue,
 }) => {
   return (
-    <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
-      <div className="mb-2 text-sm font-medium text-[#8b7aaa]">
+    <div className="border-border bg-background rounded-lg border p-4">
+      <div className="text-primary mb-2 text-sm font-medium">
         Collection Summary
       </div>
       <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-3">
         <div>
           <div className="font-semibold text-white">{totalCards}</div>
-          <div className="text-gray-400">Total Cards</div>
+          <div className="text-muted-foreground">Total Cards</div>
         </div>
         <div>
           <div className="font-semibold text-white">{uniqueCards}</div>
-          <div className="text-gray-400">Unique Cards</div>
+          <div className="text-muted-foreground">Unique Cards</div>
         </div>
         {totalValue && (
           <div>
             <div className="font-semibold text-white">
               ${totalValue.toFixed(2)}
             </div>
-            <div className="text-gray-400">Total Value</div>
+            <div className="text-muted-foreground">Total Value</div>
           </div>
         )}
       </div>

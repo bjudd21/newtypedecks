@@ -24,13 +24,13 @@ export const ImprovementsTab: React.FC<ImprovementsTabProps> = ({
     <Card>
       <CardHeader>
         <CardTitle>Deck Improvements</CardTitle>
-        <div className="text-sm text-gray-600">
+        <div className="text-muted-foreground text-sm">
           Recommended improvements based on competitive analysis
         </div>
       </CardHeader>
       <CardContent>
         {analytics.improvements.length === 0 ? (
-          <div className="py-8 text-center text-gray-600">
+          <div className="text-muted-foreground py-8 text-center">
             <div className="mb-2 text-4xl">🎉</div>
             <p>Your deck looks well-optimized!</p>
             <p className="text-sm">No major improvements detected.</p>
@@ -65,7 +65,7 @@ export const ImprovementsTab: React.FC<ImprovementsTabProps> = ({
                     <h4 className="mb-1 font-medium text-gray-900">
                       {improvement.description}
                     </h4>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-muted-foreground text-sm">
                       {improvement.suggestion}
                     </p>
                   </div>

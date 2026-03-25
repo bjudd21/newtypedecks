@@ -25,7 +25,7 @@ export const DragOverlay: React.FC<DragOverlayProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 z-10 flex items-center justify-center rounded-xl border-2 border-dashed border-[#8b7aaa] bg-gradient-to-br from-[#8b7aaa]/20 to-[#6b5a8a]/20 backdrop-blur-sm"
+          className="border-primary from-primary/20 to-primary/10 absolute inset-0 z-10 flex items-center justify-center rounded-xl border-2 border-dashed bg-gradient-to-br backdrop-blur-sm"
         >
           <motion.div
             className="text-center"
@@ -44,10 +44,10 @@ export const DragOverlay: React.FC<DragOverlayProps> = ({
             >
               📥
             </motion.div>
-            <div className="text-lg font-semibold text-[#a89ec7]">
+            <div className="text-primary/80 text-lg font-semibold">
               Drop {draggedCardName && `'${draggedCardName}'`} here
             </div>
-            <div className="mt-2 text-sm text-[#8b7aaa]">
+            <div className="text-primary mt-2 text-sm">
               Add to {title.toLowerCase()}
             </div>
           </motion.div>

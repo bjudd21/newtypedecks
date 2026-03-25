@@ -58,7 +58,7 @@ export function EmailVerificationClient() {
       <div className="w-full max-w-md space-y-4 text-center">
         <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
         <h1 className="text-2xl font-bold text-gray-900">Verifying Email...</h1>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Please wait while we verify your email address.
         </p>
       </div>

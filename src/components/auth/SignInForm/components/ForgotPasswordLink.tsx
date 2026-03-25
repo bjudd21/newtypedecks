@@ -21,7 +21,7 @@ export const ForgotPasswordLink: React.FC<ForgotPasswordLinkProps> = ({
       <button
         type="button"
         onClick={() => router.push('/auth/forgot-password')}
-        className="text-sm text-[#8b7aaa] hover:text-[#a89ec7] hover:underline"
+        className="text-primary hover:text-primary/80 text-sm hover:underline"
         disabled={isLoading}
       >
         Forgot password?

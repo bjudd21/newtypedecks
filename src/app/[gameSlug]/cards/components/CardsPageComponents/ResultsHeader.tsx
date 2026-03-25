@@ -25,7 +25,7 @@ export function ResultsHeader({
       <div className="flex items-center gap-2">
         <h2 className="text-lg font-semibold text-gray-900">Search Results</h2>
         {total > 0 && (
-          <span className="text-sm text-gray-500">
+          <span className="text-muted-foreground/70 text-sm">
             ({total.toLocaleString()} cards found)
           </span>
         )}

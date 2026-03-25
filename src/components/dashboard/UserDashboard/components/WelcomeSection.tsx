@@ -11,10 +11,12 @@ interface WelcomeSectionProps {
 export const WelcomeSection: React.FC<WelcomeSectionProps> = ({ userName }) => {
   return (
     <div className="mb-8">
-      <h1 className="mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-3xl font-bold text-transparent">
+      <h1 className="text-foreground mb-2 text-2xl font-semibold">
         Welcome back{userName ? `, ${userName.split(' ')[0]}` : ''}!
       </h1>
-      <p className="text-gray-400">Here&apos;s your personal dashboard.</p>
+      <p className="text-muted-foreground">
+        Here&apos;s your personal dashboard.
+      </p>
     </div>
   );
 };

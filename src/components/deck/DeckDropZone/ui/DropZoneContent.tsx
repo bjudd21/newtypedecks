@@ -17,12 +17,14 @@ export const DropZoneContent: React.FC<DropZoneContentProps> = ({
 }) => {
   return (
     <div className="p-4">
-      <div className="mb-2 text-sm font-semibold tracking-wide text-gray-400 uppercase">
+      <div className="text-muted-foreground mb-2 text-sm font-semibold tracking-wide uppercase">
         {title}
       </div>
 
       {description && (
-        <div className="mb-4 text-xs text-gray-500">{description}</div>
+        <div className="text-muted-foreground/70 mb-4 text-xs">
+          {description}
+        </div>
       )}
 
       {children}

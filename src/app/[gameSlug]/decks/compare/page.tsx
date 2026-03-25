@@ -83,13 +83,13 @@ export default async function ComparePage({
 
   return (
     <PageLayout>
-      <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
+      <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-6">
-            <h1 className="bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-3xl font-bold text-transparent">
+            <h1 className="text-foreground text-2xl font-semibold">
               Deck Comparison
             </h1>
-            <p className="mt-1 text-gray-400">
+            <p className="text-muted-foreground mt-1">
               Compare any two{' '}
               <span className="capitalize">{gameSlug.replace(/-/g, ' ')}</span>{' '}
               decks side by side

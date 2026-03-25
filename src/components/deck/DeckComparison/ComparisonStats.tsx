@@ -47,12 +47,12 @@ const MiniChart: React.FC<MiniChartProps> = ({
 
   return (
     <div className="space-y-3">
-      <div className="text-xs font-semibold tracking-wide text-[#8b7aaa] uppercase">
+      <div className="text-primary text-xs font-semibold tracking-wide uppercase">
         {title}
       </div>
-      <div className="flex items-center gap-4 text-xs text-gray-400">
+      <div className="text-muted-foreground flex items-center gap-4 text-xs">
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-2 w-2 rounded-full bg-[#8b7aaa]" />
+          <span className="bg-primary inline-block h-2 w-2 rounded-full" />
           <span className="max-w-[80px] truncate">{nameA}</span>
         </span>
         <span className="flex items-center gap-1.5">
@@ -64,20 +64,20 @@ const MiniChart: React.FC<MiniChartProps> = ({
         {entries.map((entry) => (
           <div key={entry.label} className="space-y-0.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-300">{entry.label}</span>
-              <span className="text-gray-500">
+              <span className="text-foreground">{entry.label}</span>
+              <span className="text-muted-foreground/70">
                 {entry.countA} / {entry.countB}
               </span>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-[#2d2640]">
+            <div className="bg-card h-1.5 w-full rounded-full">
               <div
-                className="h-1.5 rounded-full bg-[#8b7aaa]"
+                className="bg-primary h-1.5 rounded-full"
                 style={{
                   width: `${(entry.countA / globalMax) * 100}%`,
                 }}
               />
             </div>
-            <div className="h-1.5 w-full rounded-full bg-[#2d2640]">
+            <div className="bg-card h-1.5 w-full rounded-full">
               <div
                 className="h-1.5 rounded-full bg-[#5a8a6b]"
                 style={{
@@ -130,7 +130,7 @@ export const ComparisonStats: React.FC<ComparisonStatsProps> = ({
   }));
 
   return (
-    <div className="grid grid-cols-1 gap-6 rounded-xl border border-[#443a5c] bg-[#2d2640] p-4 sm:grid-cols-2">
+    <div className="border-border bg-card grid grid-cols-1 gap-6 rounded-xl border p-4 sm:grid-cols-2">
       <MiniChart
         title="Cost Curve"
         entries={costEntries}

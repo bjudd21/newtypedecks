@@ -20,7 +20,7 @@ export const BadgesTab: React.FC<BadgesTabProps> = ({ profile }) => {
       </CardHeader>
       <CardContent>
         {profile.badges.length === 0 ? (
-          <div className="py-8 text-center text-gray-600">
+          <div className="text-muted-foreground py-8 text-center">
             <div className="mb-2 text-4xl">🏆</div>
             <p>No badges earned yet</p>
             <p className="text-sm">Complete activities to earn badges!</p>

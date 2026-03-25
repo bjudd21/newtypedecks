@@ -102,7 +102,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
       <div className={`group relative inline-block ${className}`}>
         <div className="cursor-help">
           <svg
-            className={`h-4 w-4 text-gray-400 ${sizeClasses}`}
+            className={`text-muted-foreground h-4 w-4 ${sizeClasses}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -145,7 +145,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
         style={{ opacity: Math.min(opacity, 0.3) }}
       >
         <div
-          className={`${sizeClasses} rotate-45 font-medium text-gray-600 select-none`}
+          className={`${sizeClasses} text-muted-foreground rotate-45 font-medium select-none`}
           style={{
             textShadow: '1px 1px 2px rgba(255,255,255,0.8)',
           }}
@@ -182,7 +182,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
   if (variant === 'footer') {
     return (
       <div
-        className={`${sizeClasses} border-t border-gray-200 bg-gray-50 py-2 text-center text-gray-500 ${className}`}
+        className={`${sizeClasses} border-border bg-accent text-muted-foreground/70 border-t py-2 text-center ${className}`}
       >
         {attributionText}
       </div>
@@ -192,7 +192,7 @@ export const PublisherAttribution: React.FC<PublisherAttributionProps> = ({
   // Default inline variant
   return (
     <span
-      className={`${sizeClasses} text-gray-600 ${className}`}
+      className={`${sizeClasses} text-muted-foreground ${className}`}
       style={{ opacity }}
     >
       {attributionText}

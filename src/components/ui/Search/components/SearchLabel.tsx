@@ -21,7 +21,7 @@ export const SearchLabel: React.FC<SearchLabelProps> = ({
     <label
       id={labelId}
       htmlFor={inputId}
-      className="mb-2 block text-sm font-medium text-gray-700"
+      className="text-muted-foreground mb-2 block text-sm font-medium"
     >
       {label}
     </label>

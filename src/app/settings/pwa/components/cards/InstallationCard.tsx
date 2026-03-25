@@ -42,7 +42,7 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
                 >
                   ✓ Installed
                 </Badge>
-                <span className="text-gray-700">
+                <span className="text-muted-foreground">
                   App is installed and running
                 </span>
               </div>
@@ -53,7 +53,7 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
                 <div className="mb-1 font-medium text-gray-900">
                   Install as App
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-muted-foreground text-sm">
                   Install Newtype Decks as a native app for better performance
                   and offline access
                 </div>
@@ -68,10 +68,10 @@ export const InstallationCard: React.FC<InstallationCardProps> = ({
             </div>
           ) : (
             <div className="py-4 text-center">
-              <div className="mb-2 text-gray-600">
+              <div className="text-muted-foreground mb-2">
                 App installation not available
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-muted-foreground/70 text-sm">
                 Try using a supported browser or check if the app is already
                 installed
               </div>

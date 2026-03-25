@@ -24,7 +24,7 @@ export function ValidationPreviewStep({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-medium text-gray-400">
+        <div className="text-muted-foreground text-sm font-medium">
           Validation & Preview
         </div>
         <Button onClick={onEditData} variant="outline" size="sm">
@@ -65,7 +65,7 @@ export function ValidationPreviewStep({
                 </Badge>
                 <span className="flex-1 text-white">{item.cardName}</span>
                 {item.setName && (
-                  <span className="text-xs text-gray-400">
+                  <span className="text-muted-foreground text-xs">
                     ({item.setName})
                   </span>
                 )}
@@ -82,14 +82,14 @@ export function ValidationPreviewStep({
         <div className="flex gap-2">
           <Button
             onClick={onContinueToOptions}
-            className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+            className="bg-primary hover:bg-primary/90"
           >
             Continue to Options
           </Button>
           <Button
             onClick={onImportNow}
             variant="outline"
-            className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
+            className="border-primary text-primary hover:bg-primary hover:text-foreground"
           >
             Import Now
           </Button>

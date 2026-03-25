@@ -31,7 +31,7 @@ export const PaginationControls: React.FC<PaginationControlsProps> = ({
         Previous
       </Button>
 
-      <span className="text-sm text-gray-600">
+      <span className="text-muted-foreground text-sm">
         Page {currentPage} of {totalPages}
       </span>
 

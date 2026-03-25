@@ -13,9 +13,9 @@ export function SortControls({
 }: SortControlsProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-gray-600">Sort by:</span>
+      <span className="text-muted-foreground text-sm">Sort by:</span>
       <select
-        className="rounded border border-gray-300 px-2 py-1 text-sm"
+        className="border-border rounded border px-2 py-1 text-sm"
         value={`${sortBy}:${sortOrder}`}
         onChange={(e) => {
           const [newSortBy, newSortOrder] = e.target.value.split(':');

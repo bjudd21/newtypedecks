@@ -25,7 +25,7 @@ export const BooleanFiltersSection: React.FC<BooleanFiltersSectionProps> = ({
 
   return (
     <div>
-      <h4 className="mb-3 text-sm font-medium text-gray-700">
+      <h4 className="text-muted-foreground mb-3 text-sm font-medium">
         Special Properties
       </h4>
       <div className="flex flex-wrap gap-4">
@@ -37,7 +37,7 @@ export const BooleanFiltersSection: React.FC<BooleanFiltersSectionProps> = ({
               onChange={(e) =>
                 onFilterChange(bool.key, e.target.checked || undefined)
               }
-              className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
             />
             <span>{bool.label}</span>
           </label>

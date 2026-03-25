@@ -72,7 +72,7 @@ export const NonAffiliationStatement: React.FC<
 
   if (variant === 'modal') {
     return (
-      <div className={`rounded-lg bg-white p-6 shadow-lg ${className}`}>
+      <div className={`bg-card rounded-lg p-6 shadow-lg ${className}`}>
         <div className="flex items-start">
           {showIcon && (
             <div className="flex-shrink-0">
@@ -83,7 +83,7 @@ export const NonAffiliationStatement: React.FC<
             <h3 className="mb-3 text-lg font-medium text-gray-900">
               Independent Fan Website
             </h3>
-            <div className="space-y-3 text-sm text-gray-700">
+            <div className="text-muted-foreground space-y-3 text-sm">
               <p>
                 This website is{' '}
                 <strong>not an official {publisherName} product</strong>. We are
@@ -115,7 +115,7 @@ export const NonAffiliationStatement: React.FC<
 
   if (variant === 'footer') {
     return (
-      <div className={`text-xs text-gray-500 ${className}`}>
+      <div className={`text-muted-foreground/70 text-xs ${className}`}>
         <p>
           <strong>Disclaimer:</strong> This is an unofficial fan website. We are
           not affiliated with, endorsed by, or sponsored by {publisherName}.
@@ -129,14 +129,14 @@ export const NonAffiliationStatement: React.FC<
   // Default inline variant
   return (
     <div
-      className={`flex items-start space-x-3 rounded-lg border border-gray-200 bg-gray-50 p-4 ${className}`}
+      className={`border-border bg-accent flex items-start space-x-3 rounded-lg border p-4 ${className}`}
     >
       {showIcon && (
         <div className="mt-0.5 flex-shrink-0">
-          <Icon className="text-gray-600" />
+          <Icon className="text-muted-foreground" />
         </div>
       )}
-      <div className="text-sm text-gray-700">
+      <div className="text-muted-foreground text-sm">
         <p className="mb-1 font-medium text-gray-900">
           Independent Fan Website
         </p>
@@ -146,7 +146,7 @@ export const NonAffiliationStatement: React.FC<
           resource for the {gameLabel} community, developed for educational and
           community-building purposes.
         </p>
-        <p className="mt-2 text-xs text-gray-600">
+        <p className="text-muted-foreground mt-2 text-xs">
           For official game information, rules, and support, please visit the
           official {publisherName} website.
         </p>

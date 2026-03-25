@@ -72,11 +72,11 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         aria-autocomplete="list"
         autoComplete="off"
         className={cn(
-          'block w-full rounded-md border py-2 pr-3 pl-10 text-sm placeholder-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none',
+          'placeholder:text-muted-foreground/50 focus:border-primary focus:ring-primary block w-full rounded-md border py-2 pr-3 pl-10 text-sm focus:ring-1 focus:outline-none',
           error
             ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
-            : 'border-gray-300 text-gray-900',
-          disabled && 'cursor-not-allowed bg-gray-50 text-gray-500'
+            : 'border-border text-gray-900',
+          disabled && 'bg-accent text-muted-foreground/70 cursor-not-allowed'
         )}
       />
       {value && <ClearButton onClear={onClear} />}

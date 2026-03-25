@@ -14,14 +14,14 @@ export const UnauthenticatedView: React.FC<UnauthenticatedViewProps> = ({
 }) => {
   return (
     <div className={className}>
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardContent className="py-12 text-center">
-          <p className="mb-4 text-gray-400">
+          <p className="text-muted-foreground mb-4">
             Sign in to manage your card collection
           </p>
           <button
             onClick={() => (window.location.href = '/auth/signin')}
-            className="rounded bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] px-4 py-2 text-white hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-2"
           >
             Sign In
           </button>

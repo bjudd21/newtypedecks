@@ -32,7 +32,7 @@ export const CardsPageHeader: React.FC<CardsPageHeaderProps> = ({
     <div className="flex items-center justify-between">
       <div>
         <h1 className="text-3xl font-bold text-white">Card Management</h1>
-        <p className="mt-1 text-gray-400">
+        <p className="text-muted-foreground mt-1">
           {selectedGame ? selectedGame.name : 'All Games'} —{' '}
           {totalCount.toLocaleString()} cards
         </p>

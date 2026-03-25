@@ -12,11 +12,11 @@ interface StatCardProps {
 
 export const StatCard: React.FC<StatCardProps> = ({ stat }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="mb-1 text-sm font-medium text-gray-400">
+            <p className="text-muted-foreground mb-1 text-sm font-medium">
               {stat.title}
             </p>
             <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>

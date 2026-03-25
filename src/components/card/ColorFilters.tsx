@@ -34,10 +34,10 @@ function ColorButton({
       onClick={onClick}
       className={cn(
         'h-7 w-7 cursor-pointer rounded-md shadow-md transition-all duration-300',
-        'focus:ring-2 focus:ring-[#6b5a8a] focus:outline-none',
+        'focus:ring-primary focus:ring-2 focus:outline-none',
         isSelected
-          ? 'scale-110 ring-2 ring-[#6b5a8a] ring-offset-2 ring-offset-[#2d2640]'
-          : 'hover:scale-105 hover:ring-2 hover:ring-[#6b5a8a]/50',
+          ? 'ring-primary ring-offset-background scale-110 ring-2 ring-offset-2'
+          : 'hover:ring-primary/50 hover:scale-105 hover:ring-2',
         className
       )}
       title={title}
@@ -51,7 +51,7 @@ const COLOR_CLASS_MAP: Record<string, string> = {
   blue: 'bg-blue-600',
   green: 'bg-green-600',
   purple: 'bg-purple-600',
-  white: 'bg-white border border-gray-300',
+  white: 'bg-card border border-border',
   black: 'bg-gray-900 border border-gray-600',
   yellow: 'bg-yellow-400',
   colorless: 'bg-gray-400',
@@ -59,7 +59,7 @@ const COLOR_CLASS_MAP: Record<string, string> = {
 };
 
 function colorClass(color: string): string {
-  return COLOR_CLASS_MAP[color.toLowerCase()] ?? 'bg-gray-500';
+  return COLOR_CLASS_MAP[color.toLowerCase()] ?? 'bg-accent0';
 }
 
 export function ColorFilters({
@@ -71,7 +71,9 @@ export function ColorFilters({
 
   return (
     <div className="flex items-center gap-2">
-      <span className="mr-1 text-xs font-medium text-gray-400">COLOR:</span>
+      <span className="text-muted-foreground mr-1 text-xs font-medium">
+        COLOR:
+      </span>
       {colors.map((color) => (
         <ColorButton
           key={color}

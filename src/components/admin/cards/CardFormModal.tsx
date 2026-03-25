@@ -190,7 +190,7 @@ export function CardFormModal({
         title={mode === 'create' ? 'Create New Card' : 'Edit Card'}
         size="xl"
         closeOnOverlayClick={!isLoading}
-        className="max-h-[90vh] overflow-y-auto border border-[#443a5c] bg-[#1a1625]"
+        className="border-border bg-background max-h-[90vh] overflow-y-auto border"
       >
         <CardForm
           initialData={initialData}

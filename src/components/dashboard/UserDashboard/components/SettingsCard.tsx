@@ -13,15 +13,17 @@ import {
 
 export const SettingsCard: React.FC = () => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">SETTINGS & PREFERENCES</CardTitle>
+        <CardTitle className="text-primary/80">
+          SETTINGS & PREFERENCES
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+          <div className="border-border bg-background rounded-lg border p-4">
             <h4 className="mb-2 font-medium text-white">Privacy Settings</h4>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="text-muted-foreground mb-3 text-sm">
               Control who can see your decks and collection.
             </p>
             <Button variant="brandOutline" size="sm" disabled>
@@ -29,9 +31,9 @@ export const SettingsCard: React.FC = () => {
             </Button>
           </div>
 
-          <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+          <div className="border-border bg-background rounded-lg border p-4">
             <h4 className="mb-2 font-medium text-white">Export Data</h4>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="text-muted-foreground mb-3 text-sm">
               Download your decks and collection data.
             </p>
             <Button variant="brandOutline" size="sm" disabled>

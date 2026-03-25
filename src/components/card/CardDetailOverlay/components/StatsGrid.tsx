@@ -26,7 +26,7 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ card }) => {
           key={stat.label}
           className="rounded-lg border border-gray-700 bg-gray-800 p-2.5"
         >
-          <div className="text-xs text-gray-400">{stat.label}</div>
+          <div className="text-muted-foreground text-xs">{stat.label}</div>
           <div className="text-lg font-bold text-white">{stat.value}</div>
         </div>
       ))}

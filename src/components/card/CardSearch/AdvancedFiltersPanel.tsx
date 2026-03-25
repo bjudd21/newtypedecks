@@ -50,9 +50,9 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
   const seriesField = customFields.find((f) => f.key === 'series');
 
   return (
-    <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+    <div className="border-border bg-accent mt-4 rounded-lg border p-4">
       {isLoadingReference && (
-        <div className="mb-4 flex items-center gap-2 text-gray-600">
+        <div className="text-muted-foreground mb-4 flex items-center gap-2">
           <svg
             className="h-4 w-4 animate-spin"
             fill="none"
@@ -113,7 +113,7 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
         {/* Faction filter — only rendered when game config includes a faction custom field */}
         {factionField && (
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               {factionField.label}
             </label>
             <input
@@ -123,7 +123,7 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
                 onFilterChange('faction', e.target.value || undefined)
               }
               placeholder={`Filter by ${factionField.label.toLowerCase()}...`}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="border-border focus:border-primary focus:ring-primary w-full rounded-md border px-3 py-2 text-sm focus:ring-1 focus:outline-none"
             />
           </div>
         )}
@@ -131,7 +131,7 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
         {/* Series filter — only rendered when game config includes a series custom field */}
         {seriesField && (
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               {seriesField.label}
             </label>
             <input
@@ -141,7 +141,7 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
                 onFilterChange('series', e.target.value || undefined)
               }
               placeholder={`Filter by ${seriesField.label.toLowerCase()}...`}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="border-border focus:border-primary focus:ring-primary w-full rounded-md border px-3 py-2 text-sm focus:ring-1 focus:outline-none"
             />
           </div>
         )}
@@ -182,7 +182,7 @@ export const AdvancedFiltersPanel: React.FC<AdvancedFiltersPanelProps> = ({
         <div className="mt-4 flex justify-end">
           <button
             onClick={onClearFilters}
-            className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+            className="border-border bg-card text-muted-foreground hover:bg-accent focus:ring-primary rounded-md border px-4 py-2 text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             Clear All Filters
           </button>

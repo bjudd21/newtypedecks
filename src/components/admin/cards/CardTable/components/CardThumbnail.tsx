@@ -15,7 +15,7 @@ export const CardThumbnail: React.FC<CardThumbnailProps> = ({
   name,
 }) => {
   return (
-    <div className="h-12 w-12 overflow-hidden rounded-md bg-[#1a1625]">
+    <div className="bg-background h-12 w-12 overflow-hidden rounded-md">
       {imageUrl ? (
         <Image
           src={imageUrl}
@@ -27,7 +27,7 @@ export const CardThumbnail: React.FC<CardThumbnailProps> = ({
           className="h-full w-full object-cover"
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center text-xs text-gray-500">
+        <div className="text-muted-foreground/70 flex h-full w-full items-center justify-center text-xs">
           No Image
         </div>
       )}

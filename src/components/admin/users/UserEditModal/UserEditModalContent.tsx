@@ -46,7 +46,7 @@ export function UserEditModalContent({
         title="Edit User"
         size="md"
         closeOnOverlayClick={!isLoading}
-        className="border border-[#443a5c] bg-[#1a1625]"
+        className="border-border bg-background border"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
@@ -87,12 +87,12 @@ export function UserEditModalContent({
               error={errors.password}
               placeholder="Leave blank to keep current password"
             />
-            <p className="mt-1 text-xs text-gray-400">
+            <p className="text-muted-foreground mt-1 text-xs">
               Enter a new password only if you want to change it
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 border-t border-[#443a5c] pt-4">
+          <div className="border-border flex justify-end gap-3 border-t pt-4">
             <Button
               type="button"
               variant="secondary"
@@ -101,12 +101,7 @@ export function UserEditModalContent({
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              emphasis="high"
-              disabled={isLoading}
-            >
+            <Button type="submit" variant="primary" disabled={isLoading}>
               {isLoading ? 'Saving...' : 'Save Changes'}
             </Button>
           </div>

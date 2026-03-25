@@ -36,7 +36,7 @@ export function CacheManagementSection({
           <div className="flex items-center justify-between">
             <div>
               <div className="font-medium text-gray-900">Cache Size</div>
-              <div className="text-sm text-gray-600">
+              <div className="text-muted-foreground text-sm">
                 Amount of data stored locally for offline access
               </div>
             </div>
@@ -64,15 +64,15 @@ export function CacheManagementSection({
             <h4 className="mb-2 font-medium text-gray-900">Cached Content</h4>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">Application Files</span>
+                <span className="text-muted-foreground">Application Files</span>
                 <span className="text-green-600">✓ Cached</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">Card Database</span>
+                <span className="text-muted-foreground">Card Database</span>
                 <span className="text-green-600">✓ Partial</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">User Data</span>
+                <span className="text-muted-foreground">User Data</span>
                 <span className="text-blue-600">📱 Local Only</span>
               </div>
             </div>

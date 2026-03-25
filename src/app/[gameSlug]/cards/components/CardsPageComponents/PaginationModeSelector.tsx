@@ -12,14 +12,14 @@ export function PaginationModeSelector({
 }: PaginationModeSelectorProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-gray-600">View:</span>
-      <div className="flex overflow-hidden rounded-md border border-gray-300">
+      <span className="text-muted-foreground text-sm">View:</span>
+      <div className="border-border flex overflow-hidden rounded-md border">
         <button
           onClick={() => onChange('infinite')}
           className={`px-3 py-1 text-xs font-medium transition-colors ${
             mode === 'infinite'
               ? 'bg-blue-600 text-white'
-              : 'bg-white text-gray-700 hover:bg-gray-50'
+              : 'bg-card text-muted-foreground hover:bg-accent'
           }`}
         >
           Infinite Scroll
@@ -29,7 +29,7 @@ export function PaginationModeSelector({
           className={`px-3 py-1 text-xs font-medium transition-colors ${
             mode === 'traditional'
               ? 'bg-blue-600 text-white'
-              : 'bg-white text-gray-700 hover:bg-gray-50'
+              : 'bg-card text-muted-foreground hover:bg-accent'
           }`}
         >
           Pages

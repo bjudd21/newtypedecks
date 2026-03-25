@@ -25,7 +25,7 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
 }) => {
   return (
     <div>
-      <div className="mb-3 text-sm font-medium text-gray-400">
+      <div className="text-muted-foreground mb-3 text-sm font-medium">
         Export Options:
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -37,9 +37,12 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
               id="onlyOwned"
               checked={options.onlyOwned}
               onChange={(e) => onOptionChange('onlyOwned', e.target.checked)}
-              className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
+              className="border-border text-primary focus:ring-ring rounded"
             />
-            <label htmlFor="onlyOwned" className="text-sm text-gray-400">
+            <label
+              htmlFor="onlyOwned"
+              className="text-muted-foreground text-sm"
+            >
               Only export owned cards (quantity &gt; 0)
             </label>
           </div>
@@ -52,9 +55,12 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
               onChange={(e) =>
                 onOptionChange('includeMetadata', e.target.checked)
               }
-              className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
+              className="border-border text-primary focus:ring-ring rounded"
             />
-            <label htmlFor="includeMetadata" className="text-sm text-gray-400">
+            <label
+              htmlFor="includeMetadata"
+              className="text-muted-foreground text-sm"
+            >
               Include metadata (dates, IDs)
             </label>
           </div>
@@ -67,11 +73,11 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
               onChange={(e) =>
                 onOptionChange('includeConditions', e.target.checked)
               }
-              className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
+              className="border-border text-primary focus:ring-ring rounded"
             />
             <label
               htmlFor="includeConditions"
-              className="text-sm text-gray-400"
+              className="text-muted-foreground text-sm"
             >
               Include card conditions
             </label>
@@ -88,15 +94,18 @@ export const ExportOptionsPanel: React.FC<ExportOptionsPanelProps> = ({
               onChange={(e) =>
                 onOptionChange('includeValues', e.target.checked)
               }
-              className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
+              className="border-border text-primary focus:ring-ring rounded"
             />
-            <label htmlFor="includeValues" className="text-sm text-gray-400">
+            <label
+              htmlFor="includeValues"
+              className="text-muted-foreground text-sm"
+            >
               Include market values
             </label>
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Custom Export Name (optional)
             </label>
             <Input

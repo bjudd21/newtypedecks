@@ -108,7 +108,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
           <div className="flex-shrink-0">
             <button
               onClick={handleDismiss}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="text-muted-foreground hover:text-muted-foreground p-1"
               aria-label="Dismiss"
             >
               ✕

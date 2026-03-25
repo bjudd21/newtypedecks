@@ -68,17 +68,17 @@ export const CollectionSummaryBar: React.FC<CollectionSummaryBarProps> = ({
   const allOwned = totalOwned === totalNeeded;
 
   return (
-    <div className="flex items-center gap-3 rounded border border-[#443a5c] bg-[#1a1625]/50 px-3 py-2 text-xs">
+    <div className="border-border bg-background/50 flex items-center gap-3 rounded border px-3 py-2 text-xs">
       {/* Progress bar */}
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#443a5c]">
+      <div className="bg-border h-1.5 flex-1 overflow-hidden rounded-full">
         <div
-          className={`h-full rounded-full transition-all ${allOwned ? 'bg-green-500' : 'bg-[#8b7aaa]'}`}
+          className={`h-full rounded-full transition-all ${allOwned ? 'bg-green-500' : 'bg-primary'}`}
           style={{ width: `${pct}%` }}
         />
       </div>
 
       {/* Label */}
-      <span className={allOwned ? 'text-green-400' : 'text-gray-400'}>
+      <span className={allOwned ? 'text-green-400' : 'text-muted-foreground'}>
         <span className={allOwned ? 'text-green-300' : 'text-white'}>
           {totalOwned}
         </span>
@@ -89,7 +89,7 @@ export const CollectionSummaryBar: React.FC<CollectionSummaryBarProps> = ({
       {missingCount > 0 && (
         <button
           onClick={() => exportMissingCards(deckCards, collectionQuantities)}
-          className="shrink-0 rounded border border-[#443a5c] px-2 py-0.5 text-gray-400 transition-colors hover:border-[#8b7aaa] hover:text-[#c8b8f0]"
+          className="border-border text-muted-foreground hover:border-primary shrink-0 rounded border px-2 py-0.5 transition-colors hover:text-[#c8b8f0]"
           title={`Export ${missingCount} missing card type(s)`}
         >
           Export missing

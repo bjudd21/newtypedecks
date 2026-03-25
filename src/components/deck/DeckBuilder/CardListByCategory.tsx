@@ -65,11 +65,13 @@ export const CardListByCategory: React.FC<CardListByCategoryProps> = ({
 
         return (
           <div key={key} className="space-y-2">
-            <div className="sticky top-0 flex items-center gap-2 bg-[#2d2640] py-1">
+            <div className="bg-card sticky top-0 flex items-center gap-2 py-1">
               <Badge variant="secondary" className="text-xs">
                 {label}
               </Badge>
-              <span className="text-sm text-gray-400">({total} cards)</span>
+              <span className="text-muted-foreground text-sm">
+                ({total} cards)
+              </span>
             </div>
 
             {cards.map((deckCard) => (

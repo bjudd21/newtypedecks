@@ -118,50 +118,52 @@ export const DeckPicker: React.FC<DeckPickerProps> = ({
 
   return (
     <div ref={containerRef} className="relative min-w-0 flex-1">
-      <div className="mb-1 text-xs font-semibold tracking-wide text-gray-400 uppercase">
+      <div className="text-muted-foreground mb-1 text-xs font-semibold tracking-wide uppercase">
         {label}
       </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={isSwapping}
-        className="w-full rounded-lg border border-[#443a5c] bg-[#1a1625]/50 px-3 py-2.5 text-left transition-colors hover:border-[#8b7aaa] disabled:opacity-60"
+        className="border-border bg-background/50 hover:border-primary w-full rounded-lg border px-3 py-2.5 text-left transition-colors disabled:opacity-60"
       >
         {isSwapping ? (
-          <span className="text-sm text-gray-400">Loading…</span>
+          <span className="text-muted-foreground text-sm">Loading…</span>
         ) : value ? (
           <div>
-            <div className="truncate text-sm font-semibold text-[#a89ec7]">
+            <div className="text-primary/80 truncate text-sm font-semibold">
               {value.name}
             </div>
-            <div className="mt-0.5 text-xs text-gray-500">
+            <div className="text-muted-foreground/70 mt-0.5 text-xs">
               {value.user?.name ?? 'You'} · {totalCards} cards ·{' '}
               {value.visibility}
             </div>
           </div>
         ) : (
-          <span className="text-sm text-gray-500">Select a deck…</span>
+          <span className="text-muted-foreground/70 text-sm">
+            Select a deck…
+          </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 left-0 z-50 mt-1 rounded-lg border border-[#443a5c] bg-[#1a1625] shadow-xl">
+        <div className="border-border bg-background absolute top-full right-0 left-0 z-50 mt-1 rounded-lg border shadow-xl">
           <div className="p-2">
             <input
               ref={inputRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search deck name…"
-              className="w-full rounded border border-[#443a5c] bg-[#2d2640] px-2 py-1.5 text-sm text-[#a89ec7] placeholder-gray-600 outline-none focus:border-[#8b7aaa]"
+              className="border-border bg-card text-primary/80 focus:border-primary w-full rounded border px-2 py-1.5 text-sm placeholder-gray-600 outline-none"
             />
           </div>
           <div className="max-h-60 overflow-y-auto">
             {isLoading && (
-              <div className="py-4 text-center text-xs text-gray-500">
+              <div className="text-muted-foreground/70 py-4 text-center text-xs">
                 Searching…
               </div>
             )}
             {!isLoading && results.length === 0 && (
-              <div className="py-4 text-center text-xs text-gray-500">
+              <div className="text-muted-foreground/70 py-4 text-center text-xs">
                 No decks found
               </div>
             )}
@@ -170,13 +172,13 @@ export const DeckPicker: React.FC<DeckPickerProps> = ({
                 <button
                   key={result.id}
                   onClick={() => handleSelect(result)}
-                  className="flex w-full items-center gap-2 px-3 py-2 text-left transition-colors hover:bg-[#2d2640]"
+                  className="hover:bg-card flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
                 >
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm text-[#a89ec7]">
+                    <div className="text-primary/80 truncate text-sm">
                       {result.name}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-muted-foreground/70 text-xs">
                       {result.userName ?? 'You'} · {result.cardCount} cards ·{' '}
                       {result.visibility}
                     </div>

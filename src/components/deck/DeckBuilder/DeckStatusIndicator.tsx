@@ -47,7 +47,7 @@ export const DeckStatusIndicator: React.FC<DeckStatusIndicatorProps> = ({
   if (!isAuthenticated) return null;
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-gray-600">
+    <div className="text-muted-foreground mt-4 flex flex-wrap items-center gap-3 text-sm">
       {savedDeckId ? (
         <>
           <span className="flex items-center gap-1">
@@ -62,11 +62,11 @@ export const DeckStatusIndicator: React.FC<DeckStatusIndicatorProps> = ({
           {deckCode && (
             <button
               onClick={handleCopyCode}
-              className="flex items-center gap-1.5 rounded border border-[#443a5c] bg-[#1a1625]/50 px-2 py-0.5 font-mono text-xs text-[#a89ec7] transition-colors hover:border-[#8b7aaa] hover:text-[#c8b8f0]"
+              className="border-border bg-background/50 text-primary/80 hover:border-primary flex items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-xs transition-colors hover:text-[#c8b8f0]"
               title="Copy deck code for sharing"
             >
               <span>{deckCode}</span>
-              <span className="text-[#8b7aaa]">
+              <span className="text-primary">
                 {codeCopied ? '✓ Copied' : '📋'}
               </span>
             </button>

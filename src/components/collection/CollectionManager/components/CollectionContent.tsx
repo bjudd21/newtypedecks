@@ -45,9 +45,9 @@ export const CollectionContent: React.FC<CollectionContentProps> = ({
   onPageChange,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">
+        <CardTitle className="text-primary/80">
           MY COLLECTION
           {collection && ` (${collection.cards.length} CARDS SHOWN)`}
         </CardTitle>

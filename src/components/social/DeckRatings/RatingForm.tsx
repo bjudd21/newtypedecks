@@ -68,7 +68,7 @@ export const RatingForm: React.FC<RatingFormProps> = ({
                   type="button"
                   onClick={() => setRating(star)}
                   className={`cursor-pointer hover:text-yellow-300 ${
-                    star <= rating ? 'text-yellow-400' : 'text-gray-300'
+                    star <= rating ? 'text-yellow-400' : 'text-foreground'
                   }`}
                 >
                   ★

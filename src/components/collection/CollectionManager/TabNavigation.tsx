@@ -33,7 +33,7 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
 }) => {
   return (
     <div className="mb-6">
-      <div className="border-b border-[#443a5c]">
+      <div className="border-border border-b">
         <nav className="-mb-px flex space-x-8">
           {tabs.map((tab) => (
             <button
@@ -41,8 +41,8 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
               onClick={() => onTabChange(tab.id)}
               className={`border-b-2 px-1 py-2 text-sm font-medium ${
                 currentTab === tab.id
-                  ? 'border-[#8b7aaa] text-[#8b7aaa]'
-                  : 'border-transparent text-gray-400 hover:border-[#6b5a8a] hover:text-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'text-muted-foreground hover:border-primary hover:text-foreground border-transparent'
               }`}
             >
               {tab.icon} {tab.label}

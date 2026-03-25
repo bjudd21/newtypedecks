@@ -93,7 +93,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className={cn('relative', className)}>
       {label && (
-        <label className="mb-2 block text-sm font-medium text-gray-700">
+        <label className="text-muted-foreground mb-2 block text-sm font-medium">
           {label}
           {required && <span className="ml-1 text-red-500">*</span>}
         </label>
@@ -106,22 +106,25 @@ const Select: React.FC<SelectProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled}
           className={cn(
-            'relative w-full cursor-default rounded-md border bg-[#1a1625] py-2 pr-10 pl-3 text-left shadow-sm focus:border-[#8b7aaa] focus:ring-1 focus:ring-[#8b7aaa] focus:outline-none sm:text-sm',
+            'bg-background focus:border-primary focus:ring-ring relative w-full cursor-default rounded-md border py-2 pr-10 pl-3 text-left shadow-sm focus:ring-1 focus:outline-none sm:text-sm',
             error
               ? 'border-red-900/50 text-red-400 placeholder-red-400 focus:border-red-500 focus:ring-red-500'
-              : 'border-[#443a5c] text-white placeholder-gray-500',
-            disabled && 'cursor-not-allowed bg-[#2d2640] text-gray-500'
+              : 'border-border placeholder:text-muted-foreground/50 text-white',
+            disabled && 'bg-card text-muted-foreground/70 cursor-not-allowed'
           )}
         >
           <span
-            className={cn('block truncate', !selectedOption && 'text-gray-400')}
+            className={cn(
+              'block truncate',
+              !selectedOption && 'text-muted-foreground'
+            )}
           >
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <svg
               className={cn(
-                'h-5 w-5 text-gray-400 transition-transform duration-200',
+                'text-muted-foreground h-5 w-5 transition-transform duration-200',
                 isOpen && 'rotate-180'
               )}
               fill="none"
@@ -139,7 +142,7 @@ const Select: React.FC<SelectProps> = ({
         </button>
 
         {isOpen && (
-          <div className="ring-opacity-5 absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#2d2640] py-1 text-base shadow-lg ring-1 ring-[#443a5c] focus:outline-none sm:text-sm">
+          <div className="ring-opacity-5 bg-card ring-border absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 focus:outline-none sm:text-sm">
             {safeOptions.length > 10 && (
               <div className="px-3 py-2">
                 <input
@@ -148,13 +151,13 @@ const Select: React.FC<SelectProps> = ({
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search..."
-                  className="w-full rounded-md border border-[#443a5c] bg-[#1a1625] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#8b7aaa] focus:ring-1 focus:ring-[#8b7aaa] focus:outline-none"
+                  className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring w-full rounded-md border px-3 py-2 text-sm text-white focus:ring-1 focus:outline-none"
                 />
               </div>
             )}
 
             {filteredOptions.length === 0 ? (
-              <div className="relative cursor-default px-4 py-2 text-gray-400 select-none">
+              <div className="text-muted-foreground relative cursor-default px-4 py-2 select-none">
                 No options found.
               </div>
             ) : (
@@ -163,17 +166,17 @@ const Select: React.FC<SelectProps> = ({
                   key={option.value}
                   onClick={() => handleSelect(option)}
                   className={cn(
-                    'relative cursor-pointer px-4 py-2 text-white select-none hover:bg-[#3a3050]',
-                    option.value === value && 'bg-[#8b7aaa]/30 text-[#a89ec7]',
+                    'hover:bg-accent relative cursor-pointer px-4 py-2 text-white select-none',
+                    option.value === value && 'bg-primary/30 text-primary/80',
                     option.disabled &&
-                      'cursor-not-allowed text-gray-500 hover:bg-[#2d2640]'
+                      'text-muted-foreground/70 hover:bg-card cursor-not-allowed'
                   )}
                 >
                   <span className="block truncate font-normal">
                     {option.label}
                   </span>
                   {option.value === value && (
-                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#8b7aaa]">
+                    <span className="text-primary absolute inset-y-0 right-0 flex items-center pr-4">
                       <svg
                         className="h-5 w-5"
                         fill="currentColor"

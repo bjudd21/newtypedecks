@@ -27,39 +27,41 @@ export const DeckStats: React.FC<DeckStatsProps> = ({
       transition={{ duration: 0.5, delay: 0.3 }}
     >
       <motion.div
-        className="rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-5 text-center shadow-lg transition-all duration-300 hover:shadow-[#8b7aaa]/20"
+        className="border-border from-card to-accent hover:shadow-primary/20 rounded-xl border bg-gradient-to-br p-5 text-center shadow-lg transition-all duration-300"
         whileHover={{ scale: 1.05, y: -5 }}
       >
-        <div className="bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-3xl font-bold text-transparent">
+        <div className="text-foreground text-2xl font-semibold">
           {totalCards}
         </div>
-        <div className="mt-2 text-sm font-medium text-gray-400">
+        <div className="text-muted-foreground mt-2 text-sm font-medium">
           Total Cards
         </div>
       </motion.div>
 
       <motion.div
-        className="rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-5 text-center shadow-lg transition-all duration-300 hover:shadow-[#8b7aaa]/20"
+        className="border-border from-card to-accent hover:shadow-primary/20 rounded-xl border bg-gradient-to-br p-5 text-center shadow-lg transition-all duration-300"
         whileHover={{ scale: 1.05, y: -5 }}
         transition={{ delay: 0.05 }}
       >
-        <div className="bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-3xl font-bold text-transparent">
+        <div className="text-foreground text-2xl font-semibold">
           {uniqueCards}
         </div>
-        <div className="mt-2 text-sm font-medium text-gray-400">
+        <div className="text-muted-foreground mt-2 text-sm font-medium">
           Unique Cards
         </div>
       </motion.div>
 
       <motion.div
-        className="rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-5 text-center shadow-lg transition-all duration-300 hover:shadow-[#8b7aaa]/20"
+        className="border-border from-card to-accent hover:shadow-primary/20 rounded-xl border bg-gradient-to-br p-5 text-center shadow-lg transition-all duration-300"
         whileHover={{ scale: 1.05, y: -5 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="bg-gradient-to-r from-[#8b7aaa] to-[#a89ec7] bg-clip-text text-3xl font-bold text-transparent">
+        <div className="text-foreground text-2xl font-semibold">
           {totalCost}
         </div>
-        <div className="mt-2 text-sm font-medium text-gray-400">Total Cost</div>
+        <div className="text-muted-foreground mt-2 text-sm font-medium">
+          Total Cost
+        </div>
       </motion.div>
     </motion.div>
   );

@@ -33,7 +33,7 @@ export const RatingsList: React.FC<RatingsListProps> = ({
     return (
       <div className="py-8 text-center">
         <div className="mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-b-2 border-blue-600"></div>
-        <p className="text-sm text-gray-600">Loading ratings...</p>
+        <p className="text-muted-foreground text-sm">Loading ratings...</p>
       </div>
     );
   }
@@ -42,14 +42,14 @@ export const RatingsList: React.FC<RatingsListProps> = ({
     return (
       <div className="py-8 text-center">
         <div className="mb-4 text-red-600">⚠️</div>
-        <p className="text-gray-600">{error}</p>
+        <p className="text-muted-foreground">{error}</p>
       </div>
     );
   }
 
   if (ratings.length === 0) {
     return (
-      <div className="py-8 text-center text-gray-600">
+      <div className="text-muted-foreground py-8 text-center">
         <div className="mb-2 text-4xl">⭐</div>
         <p className="mb-2 text-lg font-medium">No Reviews Yet</p>
         <p>Be the first to rate this deck!</p>

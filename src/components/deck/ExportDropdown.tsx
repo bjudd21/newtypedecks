@@ -29,39 +29,45 @@ export const ExportDropdown: React.FC<ExportDropdownProps> = ({
       </Button>
 
       {/* Export Options Dropdown */}
-      <div className="absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-lg group-hover:block">
+      <div className="border-border bg-card absolute bottom-full left-0 z-10 mb-1 hidden min-w-48 rounded-lg border shadow-lg group-hover:block">
         <div className="py-1">
           <button
             onClick={() => onExport('json')}
             disabled={uniqueCards === 0}
-            className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
+            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
           >
             📄 JSON Format
-            <div className="text-xs text-gray-400">Complete deck data</div>
+            <div className="text-muted-foreground text-xs">
+              Complete deck data
+            </div>
           </button>
           <button
             onClick={() => onExport('text')}
             disabled={uniqueCards === 0}
-            className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
+            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
           >
             📝 Text Format
-            <div className="text-xs text-gray-400">Human readable</div>
+            <div className="text-muted-foreground text-xs">Human readable</div>
           </button>
           <button
             onClick={() => onExport('csv')}
             disabled={uniqueCards === 0}
-            className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
+            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
           >
             📊 CSV Format
-            <div className="text-xs text-gray-400">Spreadsheet compatible</div>
+            <div className="text-muted-foreground text-xs">
+              Spreadsheet compatible
+            </div>
           </button>
           <button
             onClick={() => onExport('mtga')}
             disabled={uniqueCards === 0}
-            className="w-full px-4 py-2 text-left text-sm text-white hover:bg-[#3a3050] disabled:opacity-50"
+            className="hover:bg-accent w-full px-4 py-2 text-left text-sm text-white disabled:opacity-50"
           >
             🎮 MTG Arena Format
-            <div className="text-xs text-gray-400">Other deck builders</div>
+            <div className="text-muted-foreground text-xs">
+              Other deck builders
+            </div>
           </button>
         </div>
       </div>

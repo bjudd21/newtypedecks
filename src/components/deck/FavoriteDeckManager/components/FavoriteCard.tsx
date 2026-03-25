@@ -22,7 +22,7 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
   onClick,
 }) => {
   return (
-    <div className="rounded-lg border p-4 transition-colors hover:bg-gray-50">
+    <div className="hover:bg-accent rounded-lg border p-4 transition-colors">
       <div className="mb-2 flex items-start justify-between">
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex items-center gap-2">
@@ -42,7 +42,7 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
               </Badge>
             )}
           </div>
-          <div className="text-sm text-gray-600">
+          <div className="text-muted-foreground text-sm">
             by {favorite.deck.creator.name || 'Unknown'} • Favorited{' '}
             {formatDistanceToNow(new Date(favorite.favoritedAt), {
               addSuffix: true,
@@ -62,12 +62,12 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
       </div>
 
       {favorite.deck.description && (
-        <div className="mb-3 line-clamp-2 text-sm text-gray-600">
+        <div className="text-muted-foreground mb-3 line-clamp-2 text-sm">
           {favorite.deck.description}
         </div>
       )}
 
-      <div className="mb-3 grid grid-cols-2 gap-2 text-xs text-gray-500 md:grid-cols-4">
+      <div className="text-muted-foreground/70 mb-3 grid grid-cols-2 gap-2 text-xs md:grid-cols-4">
         <div>{favorite.deck.cardCount} cards</div>
         <div>{favorite.deck.uniqueCards} unique</div>
         <div>Cost: {favorite.deck.totalCost}</div>
@@ -115,7 +115,7 @@ export const FavoriteCard: React.FC<FavoriteCardProps> = ({
           </Button>
         )}
 
-        <div className="ml-auto text-xs text-gray-400">
+        <div className="text-muted-foreground ml-auto text-xs">
           {favorite.deck.visibility === 'PUBLIC'
             ? 'Public'
             : favorite.deck.visibility === 'PRIVATE'

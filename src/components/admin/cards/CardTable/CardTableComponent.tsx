@@ -25,7 +25,7 @@ export function CardTableComponent({
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-[#443a5c] bg-[#2d2640]/60 backdrop-blur-md">
+    <div className="border-border bg-card/60 overflow-hidden rounded-lg border backdrop-blur-md">
       <div className="overflow-x-auto">
         <table className="w-full">
           <TableHeader
@@ -33,7 +33,7 @@ export function CardTableComponent({
             sortOrder={sortOrder}
             onSort={handleSort}
           />
-          <tbody className="divide-y divide-[#443a5c]">
+          <tbody className="divide-border divide-y">
             {sortedCards.map((card) => (
               <TableRow
                 key={card.id}

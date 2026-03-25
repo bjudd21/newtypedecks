@@ -23,26 +23,26 @@ export const AccountInfoCard: React.FC<AccountInfoCardProps> = ({ user }) => {
   const router = useRouter();
 
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">ACCOUNT INFORMATION</CardTitle>
+        <CardTitle className="text-primary/80">ACCOUNT INFORMATION</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Name
             </label>
             <p className="text-white">{user.name || 'Not set'}</p>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Email
             </label>
             <p className="text-white">{user.email}</p>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Account Type
             </label>
             <p className="text-white capitalize">{user.role.toLowerCase()}</p>

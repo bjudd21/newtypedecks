@@ -58,10 +58,12 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
               )}
             </div>
 
-            <p className="mb-1 text-gray-600">@{profile.username}</p>
-            {profile.bio && <p className="mb-3 text-gray-700">{profile.bio}</p>}
+            <p className="text-muted-foreground mb-1">@{profile.username}</p>
+            {profile.bio && (
+              <p className="text-muted-foreground mb-3">{profile.bio}</p>
+            )}
 
-            <div className="mb-4 flex items-center gap-4 text-sm text-gray-600">
+            <div className="text-muted-foreground mb-4 flex items-center gap-4 text-sm">
               <span>📅 Joined {formatJoinDate(profile.joinDate)}</span>
               <span>⏰ {getLastActiveText(profile.lastActive)}</span>
               {profile.location && profile.preferences.showLocation && (
@@ -85,25 +87,27 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
                 <div className="font-bold text-gray-900">
                   {profile.statistics.followers}
                 </div>
-                <div className="text-sm text-gray-600">Followers</div>
+                <div className="text-muted-foreground text-sm">Followers</div>
               </div>
               <div className="text-center">
                 <div className="font-bold text-gray-900">
                   {profile.statistics.following}
                 </div>
-                <div className="text-sm text-gray-600">Following</div>
+                <div className="text-muted-foreground text-sm">Following</div>
               </div>
               <div className="text-center">
                 <div className="font-bold text-gray-900">
                   {profile.statistics.publicDecks}
                 </div>
-                <div className="text-sm text-gray-600">Public Decks</div>
+                <div className="text-muted-foreground text-sm">
+                  Public Decks
+                </div>
               </div>
               <div className="text-center">
                 <div className="font-bold text-gray-900">
                   {profile.statistics.deckLikes}
                 </div>
-                <div className="text-sm text-gray-600">Total Likes</div>
+                <div className="text-muted-foreground text-sm">Total Likes</div>
               </div>
             </div>
 

@@ -34,9 +34,9 @@ export const AdvancedImporter: React.FC<AdvancedImporterProps> = ({
 
   return (
     <div className={className}>
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardHeader>
-          <CardTitle className="text-[#a89ec7]">
+          <CardTitle className="text-primary/80">
             ADVANCED COLLECTION IMPORT
           </CardTitle>
           <StepIndicator currentStep={currentStep} />

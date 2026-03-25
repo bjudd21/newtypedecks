@@ -1,4 +1,4 @@
-// Navigation bar component with enhanced accessibility
+// Navigation bar component
 'use client';
 
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import {
   buildGameNavItems,
   PLATFORM_NAV_ITEMS,
 } from './gameRouting';
+import { ArrowLeftRight } from 'lucide-react';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -21,7 +22,7 @@ export function Navbar() {
 
   return (
     <nav
-      className="hidden items-center gap-8 md:flex"
+      className="hidden items-center gap-6 md:flex"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -33,39 +34,36 @@ export function Navbar() {
         return (
           <motion.div
             key={item.name}
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.05,
-            }}
+            transition={{ duration: 0.2, delay: index * 0.04 }}
           >
             <Link
               href={item.href}
               className={cn(
-                'group relative pb-1 text-base font-medium transition-colors duration-200',
-                'focus:ring-2 focus:ring-[#8b7aaa] focus:ring-offset-2 focus:ring-offset-[#0f0d15] focus:outline-none',
-                isActive ? 'text-white' : 'text-gray-300 hover:text-[#8b7aaa]'
+                'group relative pb-1 text-sm font-medium transition-colors duration-150',
+                'focus:ring-ring focus:ring-offset-background focus:ring-2 focus:ring-offset-2 focus:outline-none',
+                isActive
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
               )}
               {...navProps}
             >
-              <span className="relative">
-                {item.name}
-                {isActive && <span className="sr-only"> (current page)</span>}
-              </span>
+              {item.name}
+              {isActive && <span className="sr-only"> (current page)</span>}
 
-              {/* Active underline indicator */}
+              {/* Active indicator */}
               {isActive && (
                 <motion.div
                   layoutId="activeNav"
-                  className="absolute right-0 bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#6b5a8a] via-[#8b7aaa] to-[#6b5a8a]"
+                  className="bg-primary absolute right-0 bottom-0 left-0 h-px"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
 
-              {/* Hover underline */}
+              {/* Hover indicator */}
               {!isActive && (
-                <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#8b7aaa] transition-all duration-300 group-hover:w-full" />
+                <span className="bg-border absolute bottom-0 left-0 h-px w-0 transition-all duration-200 group-hover:w-full" />
               )}
             </Link>
           </motion.div>
@@ -75,29 +73,16 @@ export function Navbar() {
       {/* Switch Game link — only shown when inside a game context */}
       {gameSlug && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
+          transition={{ duration: 0.2, delay: 0.12 }}
         >
           <Link
             href="/"
-            className="group flex items-center gap-1 pb-1 text-sm font-medium text-gray-500 transition-colors duration-200 hover:text-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa] focus:ring-offset-2 focus:ring-offset-[#0f0d15] focus:outline-none"
+            className="text-muted-foreground/60 hover:text-muted-foreground focus:ring-ring focus:ring-offset-background flex items-center gap-1.5 pb-1 text-sm transition-colors duration-150 focus:ring-2 focus:ring-offset-2 focus:outline-none"
             aria-label="Switch game"
           >
-            <svg
-              className="h-3.5 w-3.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-              />
-            </svg>
+            <ArrowLeftRight className="h-3.5 w-3.5" aria-hidden="true" />
             Switch
           </Link>
         </motion.div>

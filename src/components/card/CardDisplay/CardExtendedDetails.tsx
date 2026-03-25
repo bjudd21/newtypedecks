@@ -22,16 +22,18 @@ export const CardExtendedDetails: React.FC<CardExtendedDetailsProps> = ({
     <div className="mt-4 space-y-2">
       {officialText && (
         <div>
-          <h4 className="mb-1 text-sm font-medium text-gray-700">
+          <h4 className="text-muted-foreground mb-1 text-sm font-medium">
             Official Text:
           </h4>
-          <p className="text-sm text-gray-600">{officialText}</p>
+          <p className="text-muted-foreground text-sm">{officialText}</p>
         </div>
       )}
 
       {keywords && keywords.length > 0 && (
         <div>
-          <h4 className="mb-1 text-sm font-medium text-gray-700">Keywords:</h4>
+          <h4 className="text-muted-foreground mb-1 text-sm font-medium">
+            Keywords:
+          </h4>
           <div className="flex flex-wrap gap-1">
             {keywords.map((keyword, index) => (
               <Badge key={index} variant="default" className="text-xs">
@@ -43,7 +45,7 @@ export const CardExtendedDetails: React.FC<CardExtendedDetailsProps> = ({
       )}
 
       {set && (
-        <div className="text-xs text-gray-500">
+        <div className="text-muted-foreground/70 text-xs">
           {set.name} #{setNumber}
         </div>
       )}

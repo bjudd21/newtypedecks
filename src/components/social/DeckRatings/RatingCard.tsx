@@ -24,7 +24,7 @@ export const RatingCard: React.FC<RatingCardProps> = ({
   onVoteHelpful,
 }) => {
   return (
-    <Card className="border-gray-200">
+    <Card className="border-border">
       <CardContent className="pt-4">
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0">
@@ -55,11 +55,11 @@ export const RatingCard: React.FC<RatingCardProps> = ({
             </div>
 
             {rating.review && (
-              <p className="mb-3 text-gray-700">{rating.review}</p>
+              <p className="text-muted-foreground mb-3">{rating.review}</p>
             )}
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4 text-sm text-gray-600">
+              <div className="text-muted-foreground flex items-center gap-4 text-sm">
                 <span>{formatDate(rating.createdAt)}</span>
                 {rating.helpfulVotes > 0 && (
                   <span>{rating.helpfulVotes} found this helpful</span>

@@ -1,68 +1,263 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
-/* Dark Purple Theme - Gundam Card Game */
+@custom-variant dark (&:is(.dark *));
+
+/* =======================================================
+   NEWTYPE DECKS — DESIGN SYSTEM
+   Theme: Zinc dark, amber/gold accent, layered surfaces.
+   Accent is game-reactive: --game-primary is overridden
+   by [gameSlug]/layout.tsx with the game's brand color.
+   Outside game context, defaults to warm amber/gold.
+   ======================================================= */
+
 :root {
-  --bg-primary: #1a1625;
-  --bg-secondary: #2a1f3d;
-  --bg-card: #2d2640;
-  --bg-input: #1a1625;
-  --border-primary: #443a5c;
-  --border-hover: #6b5a8a;
-  --accent-primary: #6b5a8a;
-  --accent-hover: #8b7aaa;
-  --text-primary: #ffffff;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  /* Light mode stubs — app is forced dark via class="dark" on <html> */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Game-reactive accent — defaults to amber/gold (premium TCG feel).
+     Overridden per-game by [gameSlug]/layout.tsx. */
+  --game-primary: oklch(0.82 0.165 76); /* warm amber-gold */
+  --game-primary-foreground: oklch(0.12 0 0); /* near-black for contrast */
 }
 
-/* Clean, Professional Styles */
-* {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+.dark {
+  /* ── Page background — zinc-950 ── */
+  --background: oklch(0.09 0 0);
+  --foreground: oklch(0.93 0 0);
+
+  /* ── Card surface — zinc-900 ── */
+  --card: oklch(0.13 0 0);
+  --card-foreground: oklch(0.93 0 0);
+
+  /* ── Popover — slightly elevated ── */
+  --popover: oklch(0.155 0 0);
+  --popover-foreground: oklch(0.93 0 0);
+
+  /* ── Primary = game-reactive amber (or game color) ── */
+  --primary: var(--game-primary);
+  --primary-foreground: var(--game-primary-foreground);
+
+  /* ── Secondary — zinc-800 ── */
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.93 0 0);
+
+  /* ── Muted ── */
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.52 0 0); /* zinc-500 equivalent */
+
+  /* ── Accent — elevated surface tint ── */
+  --accent: oklch(0.2 0 0);
+  --accent-foreground: oklch(0.93 0 0);
+
+  /* ── Destructive ── */
+  --destructive: oklch(0.62 0.2 22);
+
+  /* ── Borders — very subtle ── */
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+
+  /* ── Focus ring = game primary ── */
+  --ring: var(--game-primary);
+
+  /* ── Radius ── */
+  --radius: 0.5rem;
+
+  /* ── Sidebar ── */
+  --sidebar: oklch(0.13 0 0);
+  --sidebar-foreground: oklch(0.93 0 0);
+  --sidebar-primary: var(--game-primary);
+  --sidebar-primary-foreground: var(--game-primary-foreground);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.93 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: var(--game-primary);
+
+  /* ── Charts ── */
+  --chart-1: var(--game-primary);
+  --chart-2: oklch(0.7 0.15 180);
+  --chart-3: oklch(0.65 0.18 260);
+  --chart-4: oklch(0.6 0.16 30);
+  --chart-5: oklch(0.55 0.14 330);
+
+  /* ── Depth surface tokens — layered UI ────────────────────────────
+     surface-0  page background       zinc-950  (#09090b)
+     surface-1  cards/panels          zinc-900  (~#111113)
+     surface-2  inputs/elevated       zinc-850  (~#161618)
+     surface-3  hover / chips / tags  zinc-800  (~#1c1c1f)
+     ────────────────────────────────────────────────────────────────── */
+  --surface-0: oklch(0.09 0 0);
+  --surface-1: oklch(0.13 0 0);
+  --surface-2: oklch(0.17 0 0);
+  --surface-3: oklch(0.22 0 0);
+
+  /* Border utilities */
+  --border-subtle: oklch(1 0 0 / 6%);
+  --border-default: oklch(1 0 0 / 9%);
+  --border-emphasis: oklch(1 0 0 / 16%);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  /* Atmospheric body background — subtle radial glow at top-center */
+  body {
+    background-color: var(--background);
+    background-image: radial-gradient(
+      ellipse 100% 50% at 50% -10%,
+      oklch(0.155 0.005 240 / 80%) 0%,
+      transparent 65%
+    );
+    background-attachment: fixed;
+    color: var(--foreground);
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  /* ── Typography — sharp, dense ── */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+}
+
+/* ── Scrollbar — narrow, zinc-toned ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(1 0 0 / 12%);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(1 0 0 / 22%);
+}
+
+/* ── Selection — game color tint ── */
+::selection {
+  background-color: color-mix(in oklch, var(--game-primary) 30%, transparent);
+  color: var(--foreground);
+}
+
+/* ── Card hover lift — applied via utility class ── */
+.card-lift {
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    border-color 150ms ease;
+}
+.card-lift:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 24px oklch(0 0 0 / 40%),
+    0 2px 8px oklch(0 0 0 / 30%);
+  border-color: oklch(1 0 0 / 16%);
+}
+
+/* ── Hero placeholder — gradient from game color ── */
+.hero-placeholder {
   background: linear-gradient(
     to bottom,
-    var(--bg-primary),
-    var(--bg-secondary),
-    var(--bg-primary)
+    color-mix(in oklch, var(--game-primary) 20%, transparent) 0%,
+    transparent 100%
   );
-  color: var(--text-primary);
-}
-
-/* Smooth scrollbar with theme colors */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-primary);
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--border-hover);
-}
-
-/* Selection color */
-::selection {
-  background-color: var(--accent-primary);
-  color: white;
-}
-
-::-moz-selection {
-  background-color: var(--accent-primary);
-  color: white;
 }

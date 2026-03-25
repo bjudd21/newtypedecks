@@ -13,7 +13,7 @@ export const CommentsEmptyState: React.FC<CommentsEmptyStateProps> = ({
   isAuthenticated,
 }) => {
   return (
-    <div className="py-8 text-center text-gray-600">
+    <div className="text-muted-foreground py-8 text-center">
       <div className="mb-2 text-4xl">💬</div>
       <p className="mb-2 text-lg font-medium">No Comments Yet</p>
       <p>Start the discussion about this deck!</p>

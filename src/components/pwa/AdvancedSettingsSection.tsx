@@ -34,7 +34,9 @@ function OfflineFeaturesList({ isActive }: { isActive: boolean }) {
     <div className="space-y-2 text-sm">
       {features.map((feature) => (
         <div key={feature} className="flex items-center gap-2">
-          <span className={isActive ? 'text-green-600' : 'text-gray-400'}>
+          <span
+            className={isActive ? 'text-green-600' : 'text-muted-foreground'}
+          >
             {isActive ? '✓' : '✗'}
           </span>
           <span>{feature}</span>
@@ -61,7 +63,7 @@ export function AdvancedSettingsSection({
           <div className="flex items-center justify-between">
             <div>
               <div className="font-medium text-gray-900">Service Worker</div>
-              <div className="text-sm text-gray-600">
+              <div className="text-muted-foreground text-sm">
                 Controls offline functionality and background sync
               </div>
             </div>

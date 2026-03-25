@@ -37,7 +37,7 @@ export const ZoomModal: React.FC<ZoomModalProps> = ({
               onClose();
             }
           }}
-          className="absolute -top-12 right-0 rounded-md p-1 text-white transition-colors hover:text-gray-300 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+          className="hover:text-foreground absolute -top-12 right-0 rounded-md p-1 text-white transition-colors focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
           aria-label="Close zoom view"
         >
           <svg
@@ -84,7 +84,7 @@ export const ZoomModal: React.FC<ZoomModalProps> = ({
             >
               {cardName}
             </h3>
-            <p id="zoom-modal-description" className="text-sm text-gray-300">
+            <p id="zoom-modal-description" className="text-foreground text-sm">
               Card image zoom view. Press Escape or click anywhere to close
             </p>
           </div>

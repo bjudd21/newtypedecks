@@ -24,7 +24,7 @@ export const ValidationHeader: React.FC<ValidationHeaderProps> = ({
         >
           {validationSummary.isValid ? '✅' : '❌'}
         </motion.span>
-        <span className="text-base tracking-wide text-[#a89ec7] uppercase">
+        <span className="text-primary/80 text-base tracking-wide uppercase">
           Deck Validation
         </span>
       </div>

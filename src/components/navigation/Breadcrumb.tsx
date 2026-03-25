@@ -45,12 +45,12 @@ export function Breadcrumb() {
   }
 
   return (
-    <nav className="mb-4 flex items-center space-x-2 text-sm text-gray-500">
+    <nav className="text-muted-foreground/70 mb-4 flex items-center space-x-2 text-sm">
       {breadcrumbs.map((item, index) => (
         <div key={item.href} className="flex items-center">
           {index > 0 && (
             <svg
-              className="mx-2 h-4 w-4 text-gray-400"
+              className="text-muted-foreground mx-2 h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ export function Breadcrumb() {
           ) : (
             <Link
               href={item.href}
-              className="transition-colors duration-200 hover:text-gray-700"
+              className="hover:text-muted-foreground transition-colors duration-200"
             >
               {item.name}
             </Link>

@@ -41,7 +41,7 @@ export function GamesPageContent() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">Game Management</h1>
-          <p className="mt-1 text-gray-400">
+          <p className="text-muted-foreground mt-1">
             Manage TCG game records and their configurations
           </p>
         </div>
@@ -59,56 +59,58 @@ export function GamesPageContent() {
 
       {/* Games Table */}
       {isLoading ? (
-        <div className="py-12 text-center text-gray-400">Loading games...</div>
+        <div className="text-muted-foreground py-12 text-center">
+          Loading games...
+        </div>
       ) : (
-        <div className="overflow-hidden rounded-lg border border-[#443a5c]">
+        <div className="border-border overflow-hidden rounded-lg border">
           <table className="w-full text-sm">
-            <thead className="bg-[#2d2640]">
+            <thead className="bg-card">
               <tr>
-                <th className="px-4 py-3 text-left font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-left font-medium">
                   Game
                 </th>
-                <th className="px-4 py-3 text-left font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-left font-medium">
                   Slug
                 </th>
-                <th className="px-4 py-3 text-left font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-left font-medium">
                   Publisher
                 </th>
-                <th className="px-4 py-3 text-right font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-right font-medium">
                   Cards
                 </th>
-                <th className="px-4 py-3 text-right font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-right font-medium">
                   Decks
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-center font-medium">
                   Status
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-gray-300">
+                <th className="text-foreground px-4 py-3 text-center font-medium">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#443a5c]/50">
+            <tbody className="divide-border/50 divide-y">
               {games.map((game) => (
-                <tr key={game.id} className="bg-[#1e1a2e] hover:bg-[#2d2640]">
+                <tr key={game.id} className="hover:bg-card bg-[#1e1a2e]">
                   <td className="px-4 py-3">
                     <div className="font-medium text-white">{game.name}</div>
                     {game.shortName && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-muted-foreground/70 text-xs">
                         {game.shortName}
                       </div>
                     )}
                   </td>
-                  <td className="px-4 py-3 font-mono text-gray-300">
+                  <td className="text-foreground px-4 py-3 font-mono">
                     {game.slug}
                   </td>
-                  <td className="px-4 py-3 text-gray-400">
+                  <td className="text-muted-foreground px-4 py-3">
                     {game.publisher || '—'}
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-300">
+                  <td className="text-foreground px-4 py-3 text-right">
                     {game.cardCount.toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-300">
+                  <td className="text-foreground px-4 py-3 text-right">
                     {game.deckCount.toLocaleString()}
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -117,7 +119,7 @@ export function GamesPageContent() {
                       className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                         game.isActive
                           ? 'bg-green-900/30 text-green-400 hover:bg-green-900/50'
-                          : 'bg-gray-800 text-gray-500 hover:bg-gray-700'
+                          : 'text-muted-foreground/70 hover:bg-secondary bg-gray-800'
                       }`}
                     >
                       {game.isActive ? 'Active' : 'Inactive'}
@@ -138,7 +140,7 @@ export function GamesPageContent() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-4 py-12 text-center text-gray-500"
+                    className="text-muted-foreground/70 px-4 py-12 text-center"
                   >
                     No games found. Add the first game to get started.
                   </td>
@@ -152,14 +154,14 @@ export function GamesPageContent() {
       {/* Create/Edit Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-2xl overflow-hidden rounded-xl border border-[#443a5c] bg-[#1a1625] shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#443a5c] px-6 py-4">
+          <div className="border-border bg-background w-full max-w-2xl overflow-hidden rounded-xl border shadow-2xl">
+            <div className="border-border flex items-center justify-between border-b px-6 py-4">
               <h2 className="text-lg font-bold text-white">
                 {editingGame ? `Edit — ${editingGame.name}` : 'Add New Game'}
               </h2>
               <button
                 onClick={handleModalClose}
-                className="text-gray-400 hover:text-white"
+                className="text-muted-foreground hover:text-foreground"
               >
                 ✕
               </button>
@@ -174,7 +176,7 @@ export function GamesPageContent() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-400">
+                  <label className="text-muted-foreground mb-1 block text-sm font-medium">
                     Name *
                   </label>
                   <Input
@@ -184,9 +186,9 @@ export function GamesPageContent() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-400">
+                  <label className="text-muted-foreground mb-1 block text-sm font-medium">
                     Slug *{' '}
-                    <span className="text-xs text-gray-500">
+                    <span className="text-muted-foreground/70 text-xs">
                       (lowercase, no spaces)
                     </span>
                   </label>
@@ -199,7 +201,7 @@ export function GamesPageContent() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-400">
+                  <label className="text-muted-foreground mb-1 block text-sm font-medium">
                     Short Name
                   </label>
                   <Input
@@ -209,7 +211,7 @@ export function GamesPageContent() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-400">
+                  <label className="text-muted-foreground mb-1 block text-sm font-medium">
                     Publisher
                   </label>
                   <Input
@@ -219,7 +221,7 @@ export function GamesPageContent() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-gray-400">
+                  <label className="text-muted-foreground mb-1 block text-sm font-medium">
                     Sort Order
                   </label>
                   <Input
@@ -238,7 +240,7 @@ export function GamesPageContent() {
                       onChange={(e) => setField('isActive', e.target.checked)}
                       className="h-4 w-4 rounded border-gray-600 bg-gray-800"
                     />
-                    <span className="text-sm font-medium text-gray-400">
+                    <span className="text-muted-foreground text-sm font-medium">
                       Active (visible to users)
                     </span>
                   </label>
@@ -246,9 +248,9 @@ export function GamesPageContent() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-400">
+                <label className="text-muted-foreground mb-1 block text-sm font-medium">
                   Config JSON *{' '}
-                  <span className="text-xs text-gray-500">
+                  <span className="text-muted-foreground/70 text-xs">
                     (GameConfig object)
                   </span>
                 </label>
@@ -256,13 +258,13 @@ export function GamesPageContent() {
                   value={formData.configJson}
                   onChange={(e) => setField('configJson', e.target.value)}
                   rows={16}
-                  className="w-full rounded-lg border border-[#443a5c] bg-[#2d2640] px-3 py-2 font-mono text-xs text-gray-200 focus:border-[#8b7aaa] focus:outline-none"
+                  className="border-border bg-card focus:border-primary w-full rounded-lg border px-3 py-2 font-mono text-xs text-gray-200 focus:outline-none"
                   spellCheck={false}
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 border-t border-[#443a5c] px-6 py-4">
+            <div className="border-border flex justify-end gap-3 border-t px-6 py-4">
               <Button variant="outline" onClick={handleModalClose}>
                 Cancel
               </Button>

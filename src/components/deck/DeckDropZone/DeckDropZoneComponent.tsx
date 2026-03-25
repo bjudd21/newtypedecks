@@ -47,10 +47,10 @@ export const DeckDropZoneComponent: React.FC<DeckDropZoneProps> = ({
       className={cn(
         'relative rounded-xl border-2 border-dashed transition-all duration-300',
         {
-          'border-[#8b7aaa] bg-[#8b7aaa]/10 shadow-lg shadow-[#8b7aaa]/20':
+          'border-primary bg-primary/10 shadow-primary/20 shadow-lg':
             isDragOver && isActive,
-          'border-[#443a5c] hover:border-[#8b7aaa]/50': !isDragOver && isActive,
-          'border-[#443a5c]/30 opacity-50': !isActive,
+          'border-border hover:border-primary/50': !isDragOver && isActive,
+          'border-border/30 opacity-50': !isActive,
         },
         className
       )}

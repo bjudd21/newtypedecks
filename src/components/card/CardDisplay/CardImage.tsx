@@ -31,7 +31,7 @@ export const CardImage: React.FC<CardImageProps> = ({
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gray-100">
           <svg
-            className="h-6 w-6 text-gray-400"
+            className="text-muted-foreground h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

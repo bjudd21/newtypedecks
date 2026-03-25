@@ -121,7 +121,7 @@ export const PWAStatusComponent: React.FC<PWAStatusProps> = ({
           {/* Cache Information */}
           <StatusItem icon="💾" label="Cache Size">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">
+              <span className="text-muted-foreground text-sm">
                 {pwaService.formatCacheSize(pwaState.cacheSize)}
               </span>
               {pwaState.cacheSize > 0 && (

@@ -73,7 +73,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
       {categories.map((cat) => (
         <div
           key={cat.key}
-          className="flex items-center gap-1 rounded border border-[#443a5c]/50 bg-[#1a1625]/40 px-2 py-1 text-xs"
+          className="border-border/50 bg-background/40 flex items-center gap-1 rounded border px-2 py-1 text-xs"
         >
           {editingKey === cat.key ? (
             <input
@@ -85,11 +85,11 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
                 if (e.key === 'Enter') handleRenameCommit();
                 if (e.key === 'Escape') setEditingKey(null);
               }}
-              className="min-w-0 flex-1 bg-transparent text-[#a89ec7] outline-none"
+              className="text-primary/80 min-w-0 flex-1 bg-transparent outline-none"
             />
           ) : (
             <span
-              className="min-w-0 flex-1 cursor-pointer truncate text-[#a89ec7] hover:text-white"
+              className="text-primary/80 hover:text-foreground min-w-0 flex-1 cursor-pointer truncate"
               onClick={() => handleRenameStart(cat)}
               title="Click to rename"
             >
@@ -98,7 +98,7 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
           )}
           <button
             onClick={() => handleDelete(cat.key)}
-            className="flex-shrink-0 text-gray-600 hover:text-red-400"
+            className="text-muted-foreground flex-shrink-0 hover:text-red-400"
             title="Delete category"
           >
             ×
@@ -113,12 +113,12 @@ export const CategoryManager: React.FC<CategoryManagerProps> = ({
           onChange={(e) => setNewLabel(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
           placeholder="New category…"
-          className="min-w-0 flex-1 rounded border border-[#443a5c] bg-[#1a1625]/40 px-2 py-1 text-xs text-[#a89ec7] placeholder-gray-600 outline-none focus:border-[#8b7aaa]"
+          className="border-border bg-background/40 text-primary/80 focus:border-primary min-w-0 flex-1 rounded border px-2 py-1 text-xs placeholder-gray-600 outline-none"
         />
         <button
           onClick={handleAdd}
           disabled={!newLabel.trim()}
-          className="rounded border border-[#443a5c] px-2 py-1 text-xs text-[#a89ec7] hover:border-[#8b7aaa] hover:bg-[#8b7aaa]/20 disabled:cursor-not-allowed disabled:opacity-40"
+          className="border-border text-primary/80 hover:border-primary hover:bg-primary/20 rounded border px-2 py-1 text-xs disabled:cursor-not-allowed disabled:opacity-40"
         >
           +
         </button>

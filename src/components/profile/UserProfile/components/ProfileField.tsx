@@ -39,7 +39,7 @@ export const ProfileField: React.FC<ProfileFieldProps> = ({
 
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-400">
+      <label className="text-muted-foreground mb-1 block text-sm font-medium">
         {label}
       </label>
       <p className="text-white">{value || `No ${label.toLowerCase()} set`}</p>

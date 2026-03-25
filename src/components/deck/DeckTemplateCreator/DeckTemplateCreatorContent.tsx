@@ -55,7 +55,7 @@ export const DeckTemplateCreatorContent: React.FC<DeckTemplateCreatorProps> = ({
       <Card>
         <CardHeader>
           <CardTitle>Create Template</CardTitle>
-          <div className="text-sm text-gray-600">
+          <div className="text-muted-foreground text-sm">
             Share this deck with the community by creating a public template
             that others can use.
           </div>

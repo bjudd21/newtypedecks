@@ -25,17 +25,25 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const gameName = game?.name ?? 'Card Game';
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-3xl font-bold text-transparent">
-          My Collection
-        </h1>
-        <p className="text-gray-400">
-          Track and manage your personal {gameName} collection
-        </p>
+    <div className="min-h-[calc(100vh-57px)]">
+      {/* Hero placeholder */}
+      <div
+        className="hero-placeholder relative h-20 overflow-hidden"
+        aria-hidden="true"
+      >
+        <div className="to-background absolute inset-0 bg-gradient-to-b from-transparent" />
       </div>
-
-      <CollectionManager />
+      <div className="container mx-auto px-4 pb-8">
+        <div className="mb-6">
+          <h1 className="text-foreground text-2xl font-semibold">
+            My Collection
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Track and manage your personal {gameName} collection
+          </p>
+        </div>
+        <CollectionManager />
+      </div>
     </div>
   );
 }

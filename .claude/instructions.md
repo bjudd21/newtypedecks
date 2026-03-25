@@ -19,7 +19,7 @@ Read the relevant skill file(s) before starting any task:
 When asked to work on frontend/UI tasks, adopt the **Frontend UI/UX Agent** persona defined in `.claude/skills/frontend-uiux.md`. This agent:
 
 - Designs for TCG power users (density over whitespace, speed over spectacle)
-- Uses the dark purple theme CSS variables
+- Uses zinc dark theme CSS variables with game-reactive accent colors from `game.primaryColor`
 - Renders game-specific UI from `useGame()` config
 - Tests every component against both Gundam and One Piece data
 - Follows mobile-first responsive design

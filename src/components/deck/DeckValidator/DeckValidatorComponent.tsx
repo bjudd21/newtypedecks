@@ -35,7 +35,7 @@ export const DeckValidatorComponent: React.FC<DeckValidatorProps> = ({
   }
 
   return (
-    <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
+    <Card className={`${className} border-border bg-card`}>
       <CardHeader>
         <ValidationHeader validationSummary={validationSummary} />
       </CardHeader>

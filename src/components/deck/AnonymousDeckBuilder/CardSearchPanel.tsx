@@ -18,9 +18,9 @@ export const CardSearchPanel: React.FC<CardSearchPanelProps> = ({
   onSearchResults,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-lg text-[#a89ec7]">ADD CARDS</CardTitle>
+        <CardTitle className="text-primary/80 text-lg">ADD CARDS</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -31,7 +31,7 @@ export const CardSearchPanel: React.FC<CardSearchPanelProps> = ({
             showFilters={false}
             limit={10}
           />
-          <div className="rounded-lg border border-[#443a5c]/30 bg-[#1a1625]/50 p-3 text-sm text-gray-400">
+          <div className="border-border/30 bg-background/50 text-muted-foreground rounded-lg border p-3 text-sm">
             Click or drag cards to add them to your deck. All changes are saved
             automatically to your browser.
           </div>

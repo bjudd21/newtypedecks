@@ -28,7 +28,7 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({
             >
               {analytics.cardEfficiency}
             </div>
-            <div className="mt-1 text-xs text-gray-600">
+            <div className="text-muted-foreground mt-1 text-xs">
               Power-to-cost ratio
             </div>
           </div>
@@ -39,7 +39,7 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({
             >
               {analytics.deckBalance}%
             </div>
-            <div className="mt-1 text-xs text-gray-600">
+            <div className="text-muted-foreground mt-1 text-xs">
               Distribution balance
             </div>
           </div>
@@ -50,7 +50,9 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({
             >
               {analytics.synergyScore}%
             </div>
-            <div className="mt-1 text-xs text-gray-600">Card interactions</div>
+            <div className="text-muted-foreground mt-1 text-xs">
+              Card interactions
+            </div>
           </div>
         </div>
       </CardContent>

@@ -23,16 +23,16 @@ export const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
   onDeleteAccount,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">ACCOUNT SETTINGS</CardTitle>
+        <CardTitle className="text-primary/80">ACCOUNT SETTINGS</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {/* Change Password */}
-          <div className="rounded-lg border border-[#443a5c] bg-[#1a1625] p-4">
+          <div className="border-border bg-background rounded-lg border p-4">
             <h3 className="mb-2 font-medium text-white">Password</h3>
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="text-muted-foreground mb-3 text-sm">
               Change your password to keep your account secure.
             </p>
             <Button
@@ -42,7 +42,7 @@ export const AccountSettingsCard: React.FC<AccountSettingsCardProps> = ({
                 /* TODO: Implement password change */
               }}
               disabled={isLoading}
-              className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
+              className="border-primary text-primary hover:bg-primary/10"
             >
               CHANGE PASSWORD
             </Button>

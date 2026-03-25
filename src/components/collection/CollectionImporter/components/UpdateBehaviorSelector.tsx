@@ -17,7 +17,7 @@ export const UpdateBehaviorSelector: React.FC<UpdateBehaviorSelectorProps> = ({
 }) => {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-gray-400">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         Update Behavior
       </label>
       <Select
@@ -31,7 +31,7 @@ export const UpdateBehaviorSelector: React.FC<UpdateBehaviorSelectorProps> = ({
           { value: 'skip', label: 'Skip cards already in collection' },
         ]}
       />
-      <div className="mt-1 text-xs text-gray-400">
+      <div className="text-muted-foreground mt-1 text-xs">
         How to handle cards that are already in your collection
       </div>
     </div>

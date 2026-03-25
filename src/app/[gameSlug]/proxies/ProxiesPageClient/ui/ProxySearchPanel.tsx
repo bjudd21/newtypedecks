@@ -50,7 +50,7 @@ export function ProxySearchPanel({
             onChange={(e) => onSearchQueryChange(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search cards by name..."
-            className="flex-1 rounded-md border border-[#443a5c] bg-[#2d2640] px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-[#8b7aaa] focus:outline-none"
+            className="border-border bg-card placeholder:text-muted-foreground/50 focus:border-primary flex-1 rounded-md border px-3 py-2 text-sm text-white focus:outline-none"
           />
           <Button
             variant="primary"
@@ -63,19 +63,19 @@ export function ProxySearchPanel({
       </div>
 
       {isSearching && (
-        <div className="py-8 text-center text-sm text-gray-400">
+        <div className="text-muted-foreground py-8 text-center text-sm">
           Searching...
         </div>
       )}
 
       {!isSearching && hasSearched && searchResults.length === 0 && (
-        <div className="py-8 text-center text-sm text-gray-400">
+        <div className="text-muted-foreground py-8 text-center text-sm">
           No cards found. Try a different search.
         </div>
       )}
 
       {!isSearching && !hasSearched && (
-        <div className="py-8 text-center text-sm text-gray-500">
+        <div className="text-muted-foreground/70 py-8 text-center text-sm">
           Search for cards to add to your proxy sheet.
         </div>
       )}
@@ -107,7 +107,7 @@ export function ProxySearchPanel({
                 key={card.id}
                 onClick={() => onAddCard(card)}
                 title={`Add ${card.name}`}
-                className="group relative flex flex-col items-center gap-1 rounded-md border border-transparent p-1 transition-colors hover:border-[#8b7aaa] hover:bg-[#2d2640]"
+                className="group hover:border-primary hover:bg-card relative flex flex-col items-center gap-1 rounded-md border border-transparent p-1 transition-colors"
               >
                 <div className="relative aspect-[5/7] w-full overflow-hidden rounded">
                   {(card.imageUrlSmall ?? card.imageUrl) ? (
@@ -119,7 +119,7 @@ export function ProxySearchPanel({
                       sizes="80px"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-[#2d2640] text-xs text-gray-500">
+                    <div className="bg-card text-muted-foreground/70 flex h-full w-full items-center justify-center text-xs">
                       No img
                     </div>
                   )}
@@ -128,7 +128,7 @@ export function ProxySearchPanel({
                     <span className="text-xl font-bold text-white">+</span>
                   </div>
                 </div>
-                <span className="line-clamp-1 w-full text-center text-xs text-gray-300">
+                <span className="text-foreground line-clamp-1 w-full text-center text-xs">
                   {card.name}
                 </span>
               </button>
@@ -145,7 +145,7 @@ export function ProxySearchPanel({
               >
                 ‹
               </Button>
-              <span className="text-sm text-gray-400">
+              <span className="text-muted-foreground text-sm">
                 {currentPage} / {totalPages}
               </span>
               <Button

@@ -22,9 +22,9 @@ const Spinner: React.FC<SpinnerProps> = ({
 
   const colorClasses = {
     primary: 'text-blue-600',
-    secondary: 'text-gray-600',
+    secondary: 'text-muted-foreground',
     white: 'text-white',
-    gray: 'text-gray-400',
+    gray: 'text-muted-foreground',
   };
 
   return (
@@ -75,10 +75,10 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
   return (
     <div className={cn('relative', className)}>
       {children}
-      <div className="bg-opacity-75 absolute inset-0 flex items-center justify-center bg-white">
+      <div className="bg-opacity-75 bg-card absolute inset-0 flex items-center justify-center">
         <div className="flex flex-col items-center space-y-2">
           <Spinner size="lg" />
-          <p className="text-sm text-gray-600">{message}</p>
+          <p className="text-muted-foreground text-sm">{message}</p>
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ export const ActiveSortsList: React.FC<ActiveSortsListProps> = ({
 
   return (
     <div className="space-y-2">
-      <div className="mb-2 text-xs font-medium text-gray-600">
+      <div className="text-muted-foreground mb-2 text-xs font-medium">
         Active Sorts:
       </div>
       {activeSorts
@@ -35,9 +35,9 @@ export const ActiveSortsList: React.FC<ActiveSortsListProps> = ({
           return (
             <div
               key={sort.field}
-              className="flex items-center gap-2 rounded border bg-white px-3 py-2"
+              className="bg-card flex items-center gap-2 rounded border px-3 py-2"
             >
-              <div className="flex items-center gap-1 text-xs text-gray-500">
+              <div className="text-muted-foreground/70 flex items-center gap-1 text-xs">
                 <span className="font-medium">{index + 1}.</span>
               </div>
               <div className="flex-1 text-sm">

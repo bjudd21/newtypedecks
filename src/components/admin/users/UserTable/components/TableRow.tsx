@@ -25,12 +25,12 @@ export const TableRow: React.FC<TableRowProps> = ({
     <tr className="transition-colors hover:bg-[#3d3450]/30">
       <td className="px-4 py-3">
         <div className="max-w-xs">
-          <div className="truncate text-sm text-gray-300">{user.email}</div>
+          <div className="text-foreground truncate text-sm">{user.email}</div>
         </div>
       </td>
       <td className="px-4 py-3">
         <div className="text-sm text-white">
-          {user.name || <span className="text-gray-500">—</span>}
+          {user.name || <span className="text-muted-foreground/70">—</span>}
         </div>
       </td>
       <td className="px-4 py-3">
@@ -45,7 +45,7 @@ export const TableRow: React.FC<TableRowProps> = ({
         <ActivityStats activity={user.activity} />
       </td>
       <td className="px-4 py-3">
-        <div className="text-sm text-gray-400">
+        <div className="text-muted-foreground text-sm">
           {formatDate(user.createdAt)}
         </div>
       </td>

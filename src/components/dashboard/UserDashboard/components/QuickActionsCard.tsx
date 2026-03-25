@@ -15,9 +15,9 @@ export const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
   actions,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="text-[#a89ec7]">QUICK ACTIONS</CardTitle>
+        <CardTitle className="text-primary/80">QUICK ACTIONS</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

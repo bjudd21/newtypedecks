@@ -16,7 +16,7 @@ export const SummaryBadges: React.FC<SummaryBadgesProps> = ({
   return (
     <div className="flex items-center gap-4 text-sm">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="font-semibold text-[#a89ec7]">
+        <span className="text-primary/80 font-semibold">
           {validationSummary.isValid ? 'Valid' : 'Invalid'}
         </span>
         {validationSummary.errors.length > 0 && (

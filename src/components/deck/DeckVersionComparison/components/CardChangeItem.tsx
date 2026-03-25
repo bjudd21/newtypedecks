@@ -23,7 +23,7 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
     added: 'border-green-200 bg-green-50',
     removed: 'border-red-200 bg-red-50',
     modified: 'border-yellow-200 bg-yellow-50',
-    unchanged: 'border-gray-200 bg-gray-50 opacity-75',
+    unchanged: 'border-border bg-accent opacity-75',
   }[change.type];
 
   return (
@@ -44,22 +44,22 @@ export const CardChangeItem: React.FC<CardChangeItemProps> = ({
       )}
       <div className="flex-1">
         <div
-          className={`font-medium ${change.type === 'unchanged' ? 'text-sm text-gray-700' : ''}`}
+          className={`font-medium ${change.type === 'unchanged' ? 'text-muted-foreground text-sm' : ''}`}
         >
           {change.card.name}
         </div>
         {change.type !== 'unchanged' && (
-          <div className="text-sm text-gray-600">
+          <div className="text-muted-foreground text-sm">
             {change.card.type.name} • {change.card.rarity.name}
           </div>
         )}
       </div>
       {showModifiedQuantities ? (
         <div className="flex items-center gap-2">
-          <Badge className="border-gray-200 bg-gray-100 text-gray-600">
+          <Badge className="border-border text-muted-foreground bg-gray-100">
             {change.oldQuantity}
           </Badge>
-          <span className="text-sm text-gray-400">→</span>
+          <span className="text-muted-foreground text-sm">→</span>
           <Badge className={getChangeBadgeColor(change.type)}>
             {change.newQuantity}
           </Badge>

@@ -38,7 +38,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
   return (
     <Card
-      className={`mb-4 ${isReply ? 'border-gray-200 bg-gray-50' : 'border-green-200 bg-green-50'}`}
+      className={`mb-4 ${isReply ? 'border-border bg-accent' : 'border-green-200 bg-green-50'}`}
     >
       <CardContent className="pt-4">
         <div className="space-y-3">
@@ -46,13 +46,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={placeholder}
-            className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className="border-border w-full resize-none rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
             rows={3}
             maxLength={2000}
           />
 
           <div className="flex items-center justify-between">
-            <div className="text-xs text-gray-600">
+            <div className="text-muted-foreground text-xs">
               {content.length}/2000 characters
             </div>
             <div className="flex items-center gap-2">

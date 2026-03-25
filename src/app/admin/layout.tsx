@@ -6,18 +6,18 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
+    <div className="min-h-screen">
       {/* Admin Content - Using main navbar from root layout */}
       <main className="container mx-auto px-4 py-8">{children}</main>
 
       {/* Admin Footer */}
-      <footer className="mt-auto border-t border-[#443a5c] bg-[#0f0d15]/80 backdrop-blur-sm">
+      <footer className="border-border bg-background/80 mt-auto border-t backdrop-blur-sm">
         <div className="container mx-auto px-4 py-6">
-          <div className="text-center text-sm text-gray-400">
-            <p className="font-medium text-gray-300">
+          <div className="text-muted-foreground text-center text-sm">
+            <p className="text-foreground font-medium">
               Admin Dashboard - Newtype Decks
             </p>
-            <p className="mt-1 text-gray-500">
+            <p className="text-muted-foreground/70 mt-1">
               Use admin functions responsibly. All actions are logged.
             </p>
           </div>

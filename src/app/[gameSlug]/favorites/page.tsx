@@ -48,7 +48,7 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
             Favorite Decks
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-muted-foreground text-lg">
             Manage your collection of favorite decks from the community. Keep
             track of decks you love and want to reference later.
           </p>
@@ -117,11 +117,11 @@ export default async function FavoritesPage({ params }: FavoritesPageProps) {
         </div>
 
         {/* Tips */}
-        <div className="mt-8 rounded-lg border border-gray-200 bg-gray-50 p-6">
+        <div className="border-border bg-accent mt-8 rounded-lg border p-6">
           <h2 className="mb-4 text-lg font-medium text-gray-900">
             💡 Tips for Managing Favorites
           </h2>
-          <div className="grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-2">
+          <div className="text-muted-foreground grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
             <ul className="space-y-2">
               <li>
                 • Use the search function to quickly find specific favorites

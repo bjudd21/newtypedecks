@@ -66,15 +66,15 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                 Author
               </Badge>
             )}
-            <span className="text-sm text-gray-500">
+            <span className="text-muted-foreground/70 text-sm">
               {formatTimeAgo(comment.createdAt)}
             </span>
             {comment.editedAt && (
-              <span className="text-xs text-gray-400">(edited)</span>
+              <span className="text-muted-foreground text-xs">(edited)</span>
             )}
           </div>
 
-          <p className="mb-3 whitespace-pre-wrap text-gray-700">
+          <p className="text-muted-foreground mb-3 whitespace-pre-wrap">
             {comment.content}
           </p>
 
@@ -86,7 +86,9 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                 variant="ghost"
                 size="sm"
                 className={`h-7 text-xs ${
-                  comment.isLiked ? 'bg-blue-50 text-blue-600' : 'text-gray-600'
+                  comment.isLiked
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-muted-foreground'
                 }`}
               >
                 👍 {comment.likes > 0 && comment.likes}
@@ -97,7 +99,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                 onClick={() => onReply(comment.id)}
                 variant="ghost"
                 size="sm"
-                className="h-7 text-xs text-gray-600"
+                className="text-muted-foreground h-7 text-xs"
               >
                 💬 Reply
               </Button>
@@ -106,7 +108,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 text-xs text-gray-600"
+                className="text-muted-foreground h-7 text-xs"
               >
                 ✏️ Edit
               </Button>
@@ -125,7 +127,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
 
           {/* Replies */}
           {comment.replies && comment.replies.length > 0 && (
-            <div className="mt-4 space-y-3 border-l border-gray-200 pl-4">
+            <div className="border-border mt-4 space-y-3 border-l pl-4">
               {comment.replies.map((reply) => (
                 <div key={reply.id} className="flex items-start gap-3">
                   <div className="flex-shrink-0">
@@ -154,12 +156,12 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                           Author
                         </Badge>
                       )}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-muted-foreground/70 text-xs">
                         {formatTimeAgo(reply.createdAt)}
                       </span>
                     </div>
 
-                    <p className="mb-2 text-sm text-gray-700">
+                    <p className="text-muted-foreground mb-2 text-sm">
                       {reply.content}
                     </p>
 
@@ -172,7 +174,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                           className={`h-6 text-xs ${
                             reply.isLiked
                               ? 'bg-blue-50 text-blue-600'
-                              : 'text-gray-600'
+                              : 'text-muted-foreground'
                           }`}
                         >
                           👍 {reply.likes > 0 && reply.likes}
@@ -182,7 +184,7 @@ export const CommentCard: React.FC<CommentCardProps> = ({
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-6 text-xs text-gray-600"
+                          className="text-muted-foreground h-6 text-xs"
                         >
                           ✏️ Edit
                         </Button>

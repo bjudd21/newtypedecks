@@ -19,7 +19,7 @@ export const SortingSummary: React.FC<SortingSummaryProps> = ({
   }
 
   return (
-    <div className="text-xs text-gray-500">
+    <div className="text-muted-foreground/70 text-xs">
       Sorting by:{' '}
       {activeSorts
         .sort((a, b) => a.priority - b.priority)

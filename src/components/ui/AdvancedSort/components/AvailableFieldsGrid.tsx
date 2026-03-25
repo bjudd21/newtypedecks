@@ -23,7 +23,7 @@ export const AvailableFieldsGrid: React.FC<AvailableFieldsGridProps> = ({
 }) => {
   return (
     <div className="space-y-2">
-      <div className="mb-2 text-xs font-medium text-gray-600">
+      <div className="text-muted-foreground mb-2 text-xs font-medium">
         Available Fields:
       </div>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
@@ -38,7 +38,7 @@ export const AvailableFieldsGrid: React.FC<AvailableFieldsGridProps> = ({
                 'rounded border p-2 transition-colors',
                 isActive
                   ? 'border-blue-200 bg-blue-50'
-                  : 'bg-white hover:bg-gray-50'
+                  : 'bg-card hover:bg-accent'
               )}
             >
               <div className="mb-1 flex items-center justify-between">
@@ -58,7 +58,7 @@ export const AvailableFieldsGrid: React.FC<AvailableFieldsGridProps> = ({
               </div>
 
               {option.description && (
-                <div className="mb-2 text-xs text-gray-500">
+                <div className="text-muted-foreground/70 mb-2 text-xs">
                   {option.description}
                 </div>
               )}

@@ -59,10 +59,10 @@ export function AuthGuard({
           <h2 className="mb-2 text-2xl font-semibold text-gray-900">
             Access Denied
           </h2>
-          <p className="mb-4 text-gray-600">
+          <p className="text-muted-foreground mb-4">
             You don&apos;t have permission to access this content.
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-muted-foreground/70 text-sm">
             Required role: {requiredRole} | Your role: {user?.role}
           </p>
         </div>

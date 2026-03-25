@@ -9,7 +9,8 @@ Your design principles: **speed over spectacle, density over whitespace, informa
 ## Tech Stack
 
 - **React 19** with Server Components and Client Components (`'use client'` directive)
-- **Tailwind CSS 4** with CSS variables for theming (dark purple theme)
+- **Tailwind CSS 4** with CSS variables for theming (zinc dark theme)
+- **shadcn/ui** component library (zinc base, dark mode) — initialized in `components.json`
 - **Framer Motion** for micro-interactions (installed as `framer-motion`)
 - **Lucide React** for icons (installed as `lucide-react`)
 - **Redux Toolkit** for global state (auth, cards, decks, collections, ui slices)
@@ -18,27 +19,48 @@ Your design principles: **speed over spectacle, density over whitespace, informa
 
 ## Design System
 
-### Theme — Dark Purple
+### Theme — Zinc Dark + Game-Reactive Accents
+
+The base theme is shadcn/ui zinc dark. All surfaces use zinc/slate tones. The accent color is **game-reactive** — it comes from `game.primaryColor` when inside a game context, and falls back to zinc white on the landing page.
 
 ```css
---bg-primary: #1a1625; /* Page background */
---bg-secondary: #2a1f3d; /* Section backgrounds */
---bg-card: #2d2640; /* Card/panel backgrounds */
---bg-input: #1a1625; /* Input backgrounds */
---border-primary: #443a5c; /* Default borders */
---border-hover: #6b5a8a; /* Hover borders */
---accent-primary: #6b5a8a; /* Buttons, links, active states */
---accent-hover: #8b7aaa; /* Hover accent */
---text-primary: #ffffff; /* Primary text */
---text-secondary: #9ca3af; /* Secondary/muted text */
---text-muted: #6b7280; /* Tertiary text */
+/* Base surfaces — zinc dark (shadcn defaults) */
+--background: 0 0% 3.9%; /* #09090b — page background */
+--card: 0 0% 7%; /* #121212 — card/panel backgrounds */
+--popover: 0 0% 7%;
+--border: 0 0% 15%; /* subtle borders */
+--input: 0 0% 15%;
+--muted: 0 0% 15%;
+--muted-foreground: 0 0% 55%;
+
+/* Text */
+--foreground: 0 0% 95%; /* near-white primary text */
+--card-foreground: 0 0% 95%;
+
+/* Game-reactive accent (injected by [gameSlug]/layout.tsx) */
+--accent: var(--game-accent-h) var(--game-accent-s) var(--game-accent-l);
+--accent-foreground: 0 0% 95%;
+--primary: var(--accent);
+--primary-foreground: 0 0% 95%;
+--ring: var(--accent);
 ```
 
-Each game can override colors via `game.primaryColor`, `game.secondaryColor`, `game.accentColor`. Use these for game-scoped accent elements (active tab underlines, game badges, header tints).
+**Injecting game color:** The `[gameSlug]/layout.tsx` reads `game.primaryColor` and injects it as CSS custom properties on `<body>`. Components just use `var(--accent)` — no game-specific code in components.
+
+```tsx
+// In [gameSlug]/layout.tsx
+<body style={{
+  '--game-accent-h': hsl.h,
+  '--game-accent-s': `${hsl.s}%`,
+  '--game-accent-l': `${hsl.l}%`,
+} as React.CSSProperties}>
+```
+
+**Landing page accent** falls back to zinc white (`hsl(0 0% 90%)`) since there's no active game.
 
 ### Typography
 
-System font stack (already set in globals.css). No custom fonts — speed matters more than typographic flair for a data tool.
+System font stack via shadcn/ui (`font-sans`). No decorative fonts — this is a data tool, not a marketing site.
 
 **Hierarchy:**
 
@@ -268,7 +290,7 @@ PDF output must use 300 DPI equivalent sizing. Cards at 2.5" × 3.5" on US Lette
 - **Don't put important actions behind hover menus on mobile.** If it's important, it's always visible.
 - **Don't use color alone to convey information.** Pair colors with icons or text labels (accessibility).
 - **Don't lazy-load above-the-fold card images.** The first ~12 cards should load eagerly.
-- **Don't use generic stock gradients.** The dark purple theme is the brand — respect it.
+- **Don't use generic stock gradients.** Solid zinc surfaces with real depth layers are the brand — no purple gradients, no SaaS hero sections.
 
 ## Component File Structure
 

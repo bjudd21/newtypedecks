@@ -22,15 +22,15 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <div className="group cursor-pointer overflow-hidden rounded-lg border border-[#443a5c] bg-[#2d2640]/60 p-6 backdrop-blur-md transition-all duration-300 hover:border-[#8b7aaa] hover:shadow-lg hover:shadow-[#8b7aaa]/20">
+      <div className="group border-border bg-card/60 hover:border-primary hover:shadow-primary/20 cursor-pointer overflow-hidden rounded-lg border p-6 backdrop-blur-md transition-all duration-300 hover:shadow-lg">
         <div className="mb-4 flex items-center">
-          <span className="mr-3 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#8b7aaa] to-[#6b5a8a] text-2xl shadow-lg">
+          <span className="bg-primary mr-3 flex h-12 w-12 items-center justify-center rounded-lg text-2xl shadow-lg">
             {icon}
           </span>
           <h3 className="text-lg font-semibold text-white">{title}</h3>
         </div>
-        <p className="text-gray-300">{description}</p>
-        <div className="mt-4 flex items-center text-sm font-medium text-[#8b7aaa] transition-colors group-hover:text-[#a89ec7]">
+        <p className="text-foreground">{description}</p>
+        <div className="text-primary group-hover:text-primary/80 mt-4 flex items-center text-sm font-medium transition-colors">
           <span>{actionLabel}</span>
           <svg
             className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1"

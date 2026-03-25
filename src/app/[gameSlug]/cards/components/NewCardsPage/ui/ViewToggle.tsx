@@ -6,9 +6,9 @@ import React from 'react';
 
 export const ViewToggle: React.FC = () => {
   return (
-    <div className="ml-auto flex items-center gap-1 overflow-hidden rounded-md border border-[#443a5c]">
+    <div className="border-border ml-auto flex items-center gap-1 overflow-hidden rounded-md border">
       <button
-        className="bg-[#6b5a8a] p-2 transition-colors hover:bg-[#8b7aaa]"
+        className="bg-primary/80 hover:bg-primary p-2 transition-colors"
         title="Grid view"
       >
         <svg
@@ -20,11 +20,11 @@ export const ViewToggle: React.FC = () => {
         </svg>
       </button>
       <button
-        className="bg-[#1a1625] p-2 transition-colors hover:bg-[#2d2640]"
+        className="bg-background hover:bg-card p-2 transition-colors"
         title="List view"
       >
         <svg
-          className="h-4 w-4 text-gray-400"
+          className="text-muted-foreground h-4 w-4"
           fill="currentColor"
           viewBox="0 0 20 20"
         >

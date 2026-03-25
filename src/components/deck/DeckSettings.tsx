@@ -36,10 +36,10 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
   ruleset,
   setRuleset,
 }) => (
-  <div className="space-y-4 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
+  <div className="border-border bg-card space-y-4 rounded-lg border p-4">
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-400">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Description
         </label>
         <Input
@@ -50,7 +50,7 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-400">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Format
         </label>
         <Select
@@ -65,7 +65,7 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-400">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Visibility
         </label>
         <Select
@@ -78,7 +78,7 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
 
     {/* Ruleset toggle */}
     <div>
-      <label className="mb-2 block text-sm font-medium text-gray-400">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         Ruleset
       </label>
       <div className="flex gap-2">
@@ -87,8 +87,8 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
           onClick={() => setRuleset('COMPETITIVE')}
           className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
             ruleset === 'COMPETITIVE'
-              ? 'border-[#8b7aaa] bg-[#8b7aaa]/30 text-white'
-              : 'border-[#443a5c] bg-transparent text-gray-400 hover:border-[#8b7aaa]/50 hover:text-gray-300'
+              ? 'border-primary bg-primary/30 text-white'
+              : 'border-border text-muted-foreground hover:border-primary/50 hover:text-foreground bg-transparent'
           }`}
         >
           Competitive — strict rules enforced
@@ -99,7 +99,7 @@ export const DeckSettings: React.FC<DeckSettingsProps> = ({
           className={`flex-1 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
             ruleset === 'CASUAL'
               ? 'border-amber-500 bg-amber-500/20 text-amber-300'
-              : 'border-[#443a5c] bg-transparent text-gray-400 hover:border-amber-500/50 hover:text-gray-300'
+              : 'border-border text-muted-foreground hover:text-foreground bg-transparent hover:border-amber-500/50'
           }`}
         >
           Casual — warnings only, any deck saves

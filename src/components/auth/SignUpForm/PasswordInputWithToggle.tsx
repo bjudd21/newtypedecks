@@ -46,7 +46,7 @@ export const PasswordInputWithToggle: React.FC<
       <button
         type="button"
         onClick={onToggleVisibility}
-        className="absolute top-9 right-3 text-gray-500 hover:text-gray-700"
+        className="text-muted-foreground/70 hover:text-muted-foreground absolute top-9 right-3"
         disabled={disabled}
         aria-label={showPassword ? 'Hide password' : 'Show password'}
       >

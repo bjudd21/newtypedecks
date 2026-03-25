@@ -19,19 +19,19 @@ export const SetInformation: React.FC<SetInformationProps> = ({ card }) => {
       </h3>
       {card.series && (
         <div className="mb-1 text-sm">
-          <span className="text-gray-400">Series: </span>
+          <span className="text-muted-foreground">Series: </span>
           <span className="text-white">{card.series}</span>
         </div>
       )}
       {card.set?.name && (
         <div className="mb-1 text-sm">
-          <span className="text-gray-400">Set: </span>
+          <span className="text-muted-foreground">Set: </span>
           <span className="text-white">{card.set.name}</span>
         </div>
       )}
       {card.setNumber && (
         <div className="text-sm">
-          <span className="text-gray-400">Card Number: </span>
+          <span className="text-muted-foreground">Card Number: </span>
           <span className="text-white">{card.setNumber}</span>
         </div>
       )}

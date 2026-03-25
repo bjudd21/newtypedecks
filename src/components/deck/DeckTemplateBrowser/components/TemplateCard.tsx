@@ -27,7 +27,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
   return (
     <div
       onClick={() => onTemplateClick(template)}
-      className={`cursor-pointer rounded-lg border p-4 transition-colors hover:bg-gray-50 ${
+      className={`hover:bg-accent cursor-pointer rounded-lg border p-4 transition-colors ${
         isSelected ? 'bg-blue-50 ring-2 ring-blue-500' : ''
       }`}
     >
@@ -36,7 +36,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
           <h3 className="truncate font-medium text-gray-900">
             {template.name}
           </h3>
-          <div className="truncate text-sm text-gray-600">
+          <div className="text-muted-foreground truncate text-sm">
             by {template.creator.name || 'Unknown'}
           </div>
         </div>
@@ -48,7 +48,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
       </div>
 
       {template.description && (
-        <div className="mb-3 line-clamp-2 text-sm text-gray-600">
+        <div className="text-muted-foreground mb-3 line-clamp-2 text-sm">
           {template.description}
         </div>
       )}
@@ -76,7 +76,9 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({
           {isCreating ? 'Creating...' : 'Use Template'}
         </Button>
 
-        <div className="text-xs text-gray-400">♥ {template.favoriteCount}</div>
+        <div className="text-muted-foreground text-xs">
+          ♥ {template.favoriteCount}
+        </div>
       </div>
     </div>
   );

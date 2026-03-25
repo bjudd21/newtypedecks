@@ -30,7 +30,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
       <CardContent>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Search
             </label>
             <Input
@@ -40,7 +40,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Sort By
             </label>
             <Select
@@ -56,7 +56,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Order
             </label>
             <Select
@@ -69,7 +69,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Ruleset
             </label>
             <Select

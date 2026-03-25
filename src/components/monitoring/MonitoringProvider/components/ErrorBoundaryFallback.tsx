@@ -12,8 +12,8 @@ export const ErrorBoundaryFallback: React.FC<ErrorBoundaryFallbackProps> = ({
   error,
 }) => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+    <div className="bg-accent flex min-h-screen items-center justify-center">
+      <div className="bg-card w-full max-w-md rounded-lg p-6 shadow-lg">
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <svg
@@ -34,7 +34,7 @@ export const ErrorBoundaryFallback: React.FC<ErrorBoundaryFallbackProps> = ({
             <h3 className="text-sm font-medium text-gray-800">
               Something went wrong
             </h3>
-            <div className="mt-2 text-sm text-gray-500">
+            <div className="text-muted-foreground/70 mt-2 text-sm">
               <p>
                 We&apos;re sorry, but something unexpected happened. The error
                 has been reported and we&apos;re working to fix it.
@@ -53,10 +53,10 @@ export const ErrorBoundaryFallback: React.FC<ErrorBoundaryFallbackProps> = ({
         </div>
         {process.env.NODE_ENV === 'development' && error && (
           <details className="mt-4">
-            <summary className="cursor-pointer text-sm text-gray-600">
+            <summary className="text-muted-foreground cursor-pointer text-sm">
               Error details (development only)
             </summary>
-            <pre className="mt-2 overflow-auto text-xs text-gray-500">
+            <pre className="text-muted-foreground/70 mt-2 overflow-auto text-xs">
               {error.stack}
             </pre>
           </details>

@@ -11,10 +11,10 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="mx-auto max-w-4xl">
-          <h1 className="mb-8 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-3xl font-bold text-transparent">
+          <h1 className="text-foreground mb-8 text-2xl font-semibold">
             Profile Settings
           </h1>
           <UserProfile user={session.user} />

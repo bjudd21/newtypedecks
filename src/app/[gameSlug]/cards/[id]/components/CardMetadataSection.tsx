@@ -25,7 +25,7 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
-            className="h-5 w-5 text-gray-400"
+            className="text-muted-foreground h-5 w-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -43,29 +43,29 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
       <CardContent>
         <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
           <div>
-            <label className="font-medium text-gray-300">Card ID</label>
-            <div className="mt-1 font-mono text-xs break-all text-gray-400">
+            <label className="text-foreground font-medium">Card ID</label>
+            <div className="text-muted-foreground mt-1 font-mono text-xs break-all">
               {card.id}
             </div>
           </div>
 
           <div>
-            <label className="font-medium text-gray-300">Language</label>
+            <label className="text-foreground font-medium">Language</label>
             <div className="mt-1 text-white">
               {card.language?.toUpperCase() || 'EN'}
             </div>
           </div>
 
           <div>
-            <label className="font-medium text-gray-300">Last Updated</label>
-            <div className="mt-1 text-gray-400">
+            <label className="text-foreground font-medium">Last Updated</label>
+            <div className="text-muted-foreground mt-1">
               {new Date(card.updatedAt).toLocaleDateString()}
             </div>
           </div>
 
           {card.keywords && card.keywords.length > 0 && (
             <div>
-              <label className="font-medium text-gray-300">
+              <label className="text-foreground font-medium">
                 Keywords Count
               </label>
               <div className="mt-1 text-white">
@@ -76,14 +76,16 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
 
           {card.tags && card.tags.length > 0 && (
             <div>
-              <label className="font-medium text-gray-300">Tags Count</label>
+              <label className="text-foreground font-medium">Tags Count</label>
               <div className="mt-1 text-white">{card.tags.length} tags</div>
             </div>
           )}
 
           {card.rulings && card.rulings.length > 0 && (
             <div>
-              <label className="font-medium text-gray-300">Rulings Count</label>
+              <label className="text-foreground font-medium">
+                Rulings Count
+              </label>
               <div className="mt-1 text-white">
                 {card.rulings.length} rulings
               </div>
@@ -93,13 +95,13 @@ export function CardMetadataSection({ card }: CardMetadataSectionProps) {
 
         {card.tags && card.tags.length > 0 && (
           <div className="mt-4 border-t border-gray-700 pt-4">
-            <h4 className="mb-2 font-medium text-gray-300">Tags</h4>
+            <h4 className="text-foreground mb-2 font-medium">Tags</h4>
             <div className="flex flex-wrap gap-1">
               {card.tags.map((tag, index) => (
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="bg-gray-700 text-xs text-gray-300"
+                  className="bg-secondary text-foreground text-xs"
                 >
                   #{tag}
                 </Badge>

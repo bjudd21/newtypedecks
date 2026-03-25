@@ -28,7 +28,7 @@ export const CardImageSection: React.FC<CardImageSectionProps> = ({
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-gray-500">
+          <div className="text-muted-foreground/70 flex h-full w-full items-center justify-center">
             <svg
               className="h-16 w-16"
               fill="none"

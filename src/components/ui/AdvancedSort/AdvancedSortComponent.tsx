@@ -34,7 +34,7 @@ export const AdvancedSortComponent: React.FC<AdvancedSortProps> = ({
     <div className={cn('space-y-2', className)}>
       {/* Simple Sort Control */}
       <div className="flex items-center gap-2">
-        <span className="text-sm whitespace-nowrap text-gray-600">
+        <span className="text-muted-foreground text-sm whitespace-nowrap">
           Sort by:
         </span>
 
@@ -83,13 +83,13 @@ export const AdvancedSortComponent: React.FC<AdvancedSortProps> = ({
 
       {/* Advanced Multi-Sort Controls */}
       {showMultiSort && isExpanded && (
-        <div className="rounded-lg border bg-gray-50 p-4">
+        <div className="bg-accent rounded-lg border p-4">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-medium text-gray-700">
+              <h4 className="text-muted-foreground text-sm font-medium">
                 Multi-Column Sorting
               </h4>
-              <div className="text-xs text-gray-500">
+              <div className="text-muted-foreground/70 text-xs">
                 Drag to reorder • Max {maxSorts} sorts
               </div>
             </div>
@@ -111,7 +111,7 @@ export const AdvancedSortComponent: React.FC<AdvancedSortProps> = ({
             />
 
             {/* Sorting Tips */}
-            <div className="rounded border bg-white p-2 text-xs text-gray-500">
+            <div className="bg-card text-muted-foreground/70 rounded border p-2 text-xs">
               <strong>Tips:</strong> Sort priority determines which field is
               sorted first. Lower numbers have higher priority. Use multiple
               sorts to create complex ordering like &quot;Level (High-Low), then

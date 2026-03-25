@@ -20,7 +20,13 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625] px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <div className="bg-primary/8 absolute top-1/4 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl" />
+      </div>
       <div className="w-full max-w-md space-y-8">
         {params.error && (
           <div className="rounded border border-red-900/50 bg-red-950/30 px-4 py-3 text-center text-sm text-red-400">

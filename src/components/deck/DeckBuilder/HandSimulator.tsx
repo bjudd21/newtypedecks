@@ -68,14 +68,14 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
   const hasHand = hand.length > 0;
 
   return (
-    <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-4">
+    <div className="border-border bg-background/50 rounded-lg border p-4">
       {/* Header */}
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
           <h3 className="text-sm font-semibold text-[#c8b8f0]">
             Hand Simulator
           </h3>
-          <p className="text-xs text-gray-500">
+          <p className="text-muted-foreground/70 text-xs">
             {totalCards} card{totalCards !== 1 ? 's' : ''} · draws {handSize}
             {mulliganCount > 0 &&
               ` · ${mulliganCount} mulligan${mulliganCount > 1 ? 's' : ''}`}
@@ -88,13 +88,13 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
               <button
                 onClick={drawOne}
                 disabled={remaining.length === 0}
-                className="rounded border border-[#443a5c] px-3 py-1 text-xs text-gray-400 transition-colors hover:border-[#8b7aaa] hover:text-[#c8b8f0] disabled:cursor-not-allowed disabled:opacity-40"
+                className="border-border text-muted-foreground hover:border-primary rounded border px-3 py-1 text-xs transition-colors hover:text-[#c8b8f0] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Draw 1
               </button>
               <button
                 onClick={() => drawHand(false)}
-                className="rounded border border-[#443a5c] px-3 py-1 text-xs text-gray-400 transition-colors hover:border-[#8b7aaa] hover:text-[#c8b8f0]"
+                className="border-border text-muted-foreground hover:border-primary rounded border px-3 py-1 text-xs transition-colors hover:text-[#c8b8f0]"
               >
                 Mulligan
               </button>
@@ -102,7 +102,7 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
           )}
           <button
             onClick={() => drawHand(!hasHand)}
-            className="rounded border border-[#8b7aaa]/50 bg-[#8b7aaa]/10 px-3 py-1 text-xs text-[#c8b8f0] transition-colors hover:bg-[#8b7aaa]/20"
+            className="border-primary/50 bg-primary/10 hover:bg-primary/20 rounded border px-3 py-1 text-xs text-[#c8b8f0] transition-colors"
           >
             {hasHand ? 'New Hand' : 'Draw Opening Hand'}
           </button>
@@ -111,7 +111,7 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
 
       {/* Hand display */}
       {!hasHand ? (
-        <p className="py-6 text-center text-sm text-gray-600">
+        <p className="text-muted-foreground py-6 text-center text-sm">
           Click &ldquo;Draw Opening Hand&rdquo; to simulate your starting hand
         </p>
       ) : (
@@ -122,7 +122,7 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
               className="flex flex-col items-center gap-1"
               title={card.name}
             >
-              <div className="flex h-24 w-16 items-center justify-center overflow-hidden rounded border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050]">
+              <div className="border-border from-card to-accent flex h-24 w-16 items-center justify-center overflow-hidden rounded border bg-gradient-to-br">
                 {(card.imageUrlSmall ?? card.imageUrl) ? (
                   <Image
                     src={(card.imageUrlSmall ?? card.imageUrl)!}
@@ -134,12 +134,12 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <span className="px-1 text-center text-[9px] leading-tight text-[#8b7aaa]/70">
+                  <span className="text-primary/70 px-1 text-center text-[9px] leading-tight">
                     {card.name}
                   </span>
                 )}
               </div>
-              <span className="max-w-[64px] truncate text-center text-[9px] text-gray-500">
+              <span className="text-muted-foreground/70 max-w-[64px] truncate text-center text-[9px]">
                 {card.name}
               </span>
             </div>
@@ -151,12 +151,12 @@ export const HandSimulator: React.FC<HandSimulatorProps> = ({
               className="flex flex-col items-center gap-1 opacity-30"
               title={`${remaining.length} cards remaining in deck`}
             >
-              <div className="flex h-24 w-16 items-center justify-center rounded border border-dashed border-[#443a5c]">
-                <span className="text-xs text-gray-500">
+              <div className="border-border flex h-24 w-16 items-center justify-center rounded border border-dashed">
+                <span className="text-muted-foreground/70 text-xs">
                   {remaining.length}
                 </span>
               </div>
-              <span className="text-[9px] text-gray-600">left</span>
+              <span className="text-muted-foreground text-[9px]">left</span>
             </div>
           )}
         </div>

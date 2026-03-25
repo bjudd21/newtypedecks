@@ -31,20 +31,20 @@ export const CardListText: React.FC<CardListTextProps> = ({
   <div className="space-y-3">
     {Object.entries(cardsByType).map(([typeName, cards]) => (
       <div key={typeName}>
-        <div className="mb-1 text-xs font-semibold tracking-wide text-gray-500 uppercase">
+        <div className="text-muted-foreground/70 mb-1 text-xs font-semibold tracking-wide uppercase">
           {typeName} ({cards.reduce((s, c) => s + c.quantity, 0)})
         </div>
         <div className="space-y-0.5">
           {cards.map((dc) => (
             <div
               key={dc.cardId}
-              className="flex items-center gap-2 rounded px-1.5 py-1 text-sm hover:bg-[#3a3050]"
+              className="hover:bg-accent flex items-center gap-2 rounded px-1.5 py-1 text-sm"
             >
               {isEditing ? (
                 <div className="flex shrink-0 items-center gap-1">
                   <button
                     onClick={() => onQuantityChange(dc.cardId, dc.quantity - 1)}
-                    className="flex h-5 w-5 items-center justify-center rounded text-gray-400 hover:bg-[#443a5c] hover:text-white"
+                    className="text-muted-foreground hover:bg-border hover:text-foreground flex h-5 w-5 items-center justify-center rounded"
                     aria-label="Decrease quantity"
                   >
                     −
@@ -54,7 +54,7 @@ export const CardListText: React.FC<CardListTextProps> = ({
                   </span>
                   <button
                     onClick={() => onQuantityChange(dc.cardId, dc.quantity + 1)}
-                    className="flex h-5 w-5 items-center justify-center rounded text-gray-400 hover:bg-[#443a5c] hover:text-white"
+                    className="text-muted-foreground hover:bg-border hover:text-foreground flex h-5 w-5 items-center justify-center rounded"
                     aria-label="Increase quantity"
                   >
                     +
@@ -85,11 +85,11 @@ export const CardListText: React.FC<CardListTextProps> = ({
                     <span className="shrink-0 text-xs text-red-400">✗</span>
                   );
                 })()}
-              <span className="hidden shrink-0 text-xs text-gray-500 sm:block">
+              <span className="text-muted-foreground/70 hidden shrink-0 text-xs sm:block">
                 {dc.card.type?.name ?? '—'}
               </span>
               {dc.card.cost != null && (
-                <span className="w-5 shrink-0 text-right text-xs text-gray-400">
+                <span className="text-muted-foreground w-5 shrink-0 text-right text-xs">
                   {dc.card.cost}
                 </span>
               )}

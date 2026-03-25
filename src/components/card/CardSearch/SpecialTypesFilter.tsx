@@ -29,7 +29,7 @@ export const SpecialTypesFilter: React.FC<SpecialTypesFilterProps> = ({
 }) => {
   return (
     <div className={cn('flex flex-col', className)}>
-      <label className="mb-2 block text-sm font-medium text-gray-700">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         Special Types
       </label>
       <div className="space-y-2">
@@ -38,18 +38,20 @@ export const SpecialTypesFilter: React.FC<SpecialTypesFilterProps> = ({
             type="checkbox"
             checked={isFoil || false}
             onChange={(e) => onFoilChange(e.target.checked || undefined)}
-            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            className="border-border rounded text-blue-600 focus:ring-blue-500"
           />
-          <span className="ml-2 text-sm text-gray-700">Foil Cards</span>
+          <span className="text-muted-foreground ml-2 text-sm">Foil Cards</span>
         </label>
         <label className="flex items-center">
           <input
             type="checkbox"
             checked={isPromo || false}
             onChange={(e) => onPromoChange(e.target.checked || undefined)}
-            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            className="border-border rounded text-blue-600 focus:ring-blue-500"
           />
-          <span className="ml-2 text-sm text-gray-700">Promo Cards</span>
+          <span className="text-muted-foreground ml-2 text-sm">
+            Promo Cards
+          </span>
         </label>
       </div>
     </div>

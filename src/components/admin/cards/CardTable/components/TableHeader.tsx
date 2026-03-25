@@ -18,12 +18,12 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
   onSort,
 }) => {
   return (
-    <thead className="border-b border-[#443a5c] bg-[#1a1625]">
+    <thead className="border-border bg-background border-b">
       <tr>
         <th className="px-4 py-3 text-left">
           <button
             onClick={() => onSort('imageUrl')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Image
           </button>
@@ -40,7 +40,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-left">
           <button
             onClick={() => onSort('type')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Type
           </button>
@@ -48,7 +48,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-left">
           <button
             onClick={() => onSort('rarity')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Rarity
           </button>
@@ -56,7 +56,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-left">
           <button
             onClick={() => onSort('set')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Set
           </button>
@@ -64,7 +64,7 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-center">
           <button
             onClick={() => onSort('level')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Level
           </button>
@@ -72,13 +72,13 @@ export const TableHeader: React.FC<TableHeaderProps> = ({
         <th className="px-4 py-3 text-center">
           <button
             onClick={() => onSort('cost')}
-            className="text-sm font-medium text-gray-300 hover:text-white"
+            className="text-foreground hover:text-foreground text-sm font-medium"
           >
             Cost
           </button>
         </th>
         <th className="px-4 py-3 text-right">
-          <span className="text-sm font-medium text-gray-300">Actions</span>
+          <span className="text-foreground text-sm font-medium">Actions</span>
         </th>
       </tr>
     </thead>

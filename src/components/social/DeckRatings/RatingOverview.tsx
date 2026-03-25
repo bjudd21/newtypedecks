@@ -30,7 +30,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
             size="text-2xl"
           />
         </div>
-        <div className="text-sm text-gray-600">
+        <div className="text-muted-foreground text-sm">
           Based on {totalRatings} review{totalRatings !== 1 ? 's' : ''}
         </div>
       </div>
@@ -50,7 +50,7 @@ export const RatingOverview: React.FC<RatingOverviewProps> = ({
                   style={{ width: `${percentage}%` }}
                 />
               </div>
-              <span className="w-8 text-sm text-gray-600">{count}</span>
+              <span className="text-muted-foreground w-8 text-sm">{count}</span>
             </div>
           );
         })}

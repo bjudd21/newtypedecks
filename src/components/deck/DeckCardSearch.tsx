@@ -47,7 +47,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={onClick}
-      className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 hover:bg-gray-50 ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''} `}
+      className={`hover:bg-accent flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-left transition-colors hover:border-blue-300 ${isDragging ? 'scale-95 transform opacity-50' : ''} ${ownedQuantity > 0 ? 'border-green-300 bg-green-50' : ''} `}
     >
       {/* Card Image Placeholder */}
       <div className="relative h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-gray-200">
@@ -62,7 +62,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="text-xs text-gray-500">IMG</span>
+            <span className="text-muted-foreground/70 text-xs">IMG</span>
           </div>
         )}
       </div>
@@ -73,7 +73,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
           {card.name}
         </div>
 
-        <div className="mt-1 flex items-center gap-2 text-xs text-gray-600">
+        <div className="text-muted-foreground mt-1 flex items-center gap-2 text-xs">
           {card.type && (
             <span className="rounded bg-gray-100 px-2 py-0.5">
               {card.type.name}
@@ -91,7 +91,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
           )}
         </div>
 
-        <div className="mt-1 text-xs text-gray-500">
+        <div className="text-muted-foreground/70 mt-1 text-xs">
           {card.set?.name} #{card.setNumber}
           {card.faction && ` • ${card.faction}`}
           {card.pilot && ` • ${card.pilot}`}
@@ -193,7 +193,7 @@ export const DeckCardSearch: React.FC<DeckCardSearchProps> = ({
       {/* Search Results */}
       {searchResults.length > 0 && (
         <div className="mt-4">
-          <h4 className="mb-3 text-sm font-medium text-gray-700">
+          <h4 className="text-muted-foreground mb-3 text-sm font-medium">
             Search Results ({searchResults.length} cards)
           </h4>
 

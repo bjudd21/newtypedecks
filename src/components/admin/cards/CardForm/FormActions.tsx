@@ -17,7 +17,7 @@ export const FormActions: React.FC<FormActionsProps> = ({
   isLoading,
   isUpdate,
 }) => (
-  <div className="flex justify-end gap-3 border-t border-[#443a5c] pt-6">
+  <div className="border-border flex justify-end gap-3 border-t pt-6">
     {onCancel && (
       <Button
         type="button"
@@ -28,12 +28,7 @@ export const FormActions: React.FC<FormActionsProps> = ({
         Cancel
       </Button>
     )}
-    <Button
-      type="submit"
-      variant="primary"
-      emphasis="high"
-      disabled={isLoading}
-    >
+    <Button type="submit" variant="primary" disabled={isLoading}>
       {isLoading ? 'Saving...' : isUpdate ? 'Update Card' : 'Create Card'}
     </Button>
   </div>

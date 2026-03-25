@@ -32,11 +32,13 @@ export const RangeFiltersSection: React.FC<RangeFiltersSectionProps> = ({
 
   return (
     <div>
-      <h4 className="mb-3 text-sm font-medium text-gray-700">Numeric Ranges</h4>
+      <h4 className="text-muted-foreground mb-3 text-sm font-medium">
+        Numeric Ranges
+      </h4>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {ranges.map((range) => (
           <div key={range.key}>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               {range.label}
             </label>
             <div className="flex items-center gap-2">
@@ -58,7 +60,7 @@ export const RangeFiltersSection: React.FC<RangeFiltersSectionProps> = ({
                 }
                 className="w-20 text-sm"
               />
-              <span className="text-gray-400">-</span>
+              <span className="text-muted-foreground">-</span>
               <Input
                 type="number"
                 placeholder="Max"

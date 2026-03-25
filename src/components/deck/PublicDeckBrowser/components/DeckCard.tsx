@@ -36,7 +36,9 @@ export const DeckCard: React.FC<DeckCardProps> = ({
         <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-lg">{deck.name}</CardTitle>
-            <p className="text-sm text-gray-600">by {deck.author.name}</p>
+            <p className="text-muted-foreground text-sm">
+              by {deck.author.name}
+            </p>
           </div>
           <Badge
             variant="outline"
@@ -48,7 +50,7 @@ export const DeckCard: React.FC<DeckCardProps> = ({
       </CardHeader>
       <CardContent>
         {deck.description && (
-          <p className="mb-3 line-clamp-2 text-sm text-gray-600">
+          <p className="text-muted-foreground mb-3 line-clamp-2 text-sm">
             {deck.description}
           </p>
         )}
@@ -63,7 +65,7 @@ export const DeckCard: React.FC<DeckCardProps> = ({
         {/* Color Identity */}
         {deck.statistics.colors.length > 0 && (
           <div className="mb-4">
-            <p className="mb-1 text-xs text-gray-600">Factions:</p>
+            <p className="text-muted-foreground mb-1 text-xs">Factions:</p>
             <div className="flex flex-wrap gap-1">
               {deck.statistics.colors.map((color) => (
                 <Badge key={color} variant="outline" className="text-xs">
@@ -114,7 +116,7 @@ export const DeckCard: React.FC<DeckCardProps> = ({
         </div>
 
         {/* Metadata */}
-        <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+        <div className="text-muted-foreground/70 mt-3 flex items-center justify-between text-xs">
           <span>👁 {deck.viewCount}</span>
           <span>Updated {new Date(deck.updatedAt).toLocaleDateString()}</span>
         </div>

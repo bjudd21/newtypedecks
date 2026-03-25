@@ -17,7 +17,14 @@
       "Bash(npx jest:*)",
       "Bash(npm run:*)",
       "mcp__plugin_playwright_playwright__browser_navigate",
-      "mcp__plugin_playwright_playwright__browser_take_screenshot"
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "Skill(update-config)",
+      "Bash(for port:*)",
+      "Bash(do ss:*)",
+      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/cards/page.tsx)",
+      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/decks/page.tsx)",
+      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/collection/page.tsx)",
+      "Bash(cat /home/bjudd/projects/newtypedecks/src/app/[gameSlug]/proxies/page.tsx)"
     ]
   },
   "enableAllProjectMcpServers": true,

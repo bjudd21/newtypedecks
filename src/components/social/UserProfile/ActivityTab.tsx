@@ -13,7 +13,7 @@ export const ActivityTab: React.FC = () => {
         <CardTitle>Activity Feed</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="py-8 text-center text-gray-600">
+        <div className="text-muted-foreground py-8 text-center">
           <div className="mb-2 text-4xl">📈</div>
           <p>Activity feed will be loaded here</p>
         </div>

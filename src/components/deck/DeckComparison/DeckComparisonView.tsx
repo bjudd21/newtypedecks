@@ -68,7 +68,7 @@ export const DeckComparisonView: React.FC<DeckComparisonViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Deck selectors */}
-      <div className="rounded-xl border border-[#443a5c] bg-[#2d2640] p-4">
+      <div className="border-border bg-card rounded-xl border p-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           <DeckPicker
             value={deckA}
@@ -76,7 +76,7 @@ export const DeckComparisonView: React.FC<DeckComparisonViewProps> = ({
             gameSlug={gameSlug}
             onChange={handleDeckAChange}
           />
-          <div className="flex-shrink-0 pt-6 text-center text-lg font-bold text-[#8b7aaa] sm:pt-7">
+          <div className="text-primary flex-shrink-0 pt-6 text-center text-lg font-bold sm:pt-7">
             vs
           </div>
           <DeckPicker
@@ -93,9 +93,9 @@ export const DeckComparisonView: React.FC<DeckComparisonViewProps> = ({
 
       {/* Diff panel */}
       {diff && (
-        <div className="space-y-5 rounded-xl border border-[#443a5c] bg-[#2d2640] p-4">
+        <div className="border-border bg-card space-y-5 rounded-xl border p-4">
           {!hasDiff && (
-            <div className="py-4 text-center text-sm text-gray-400">
+            <div className="text-muted-foreground py-4 text-center text-sm">
               These decks are identical.
             </div>
           )}
@@ -108,9 +108,9 @@ export const DeckComparisonView: React.FC<DeckComparisonViewProps> = ({
 
       {/* Empty state */}
       {(!deckA || !deckB) && (
-        <div className="rounded-xl border border-dashed border-[#443a5c] bg-[#1a1625]/30 py-16 text-center">
-          <div className="mb-3 text-4xl text-[#443a5c]">⚔</div>
-          <div className="text-sm text-gray-400">
+        <div className="border-border bg-background/30 rounded-xl border border-dashed py-16 text-center">
+          <div className="text-muted-foreground mb-3 text-4xl">⚔</div>
+          <div className="text-muted-foreground text-sm">
             {!deckA && !deckB
               ? 'Select two decks above to compare'
               : 'Select a second deck to compare'}

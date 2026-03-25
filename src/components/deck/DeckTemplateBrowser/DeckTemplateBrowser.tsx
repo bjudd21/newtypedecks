@@ -46,7 +46,7 @@ export const DeckTemplateBrowser: React.FC<DeckTemplateBrowserProps> = ({
       <Card>
         <CardHeader>
           <CardTitle>Deck Templates</CardTitle>
-          <div className="text-sm text-gray-600">
+          <div className="text-muted-foreground text-sm">
             Browse and use community-created deck templates to jumpstart your
             deck building
           </div>

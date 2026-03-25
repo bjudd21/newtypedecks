@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import './globals.css';
 import { ReduxProvider } from '@/store/Provider';
 import { AuthProvider } from '@/components/auth/AuthProvider';
@@ -10,11 +10,10 @@ import { PWAStatus } from '@/components/pwa';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/next';
+import { cn } from '@/lib/utils';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -22,7 +21,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#6b5a8a',
+  themeColor: '#09090b',
 };
 
 export const metadata: Metadata = {
@@ -108,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={cn('dark font-sans', geist.variable)}>
       <head>
         {/* PWA meta tags */}
         <meta name="application-name" content="Newtype Decks" />
@@ -118,7 +117,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-        <meta name="msapplication-TileColor" content="#6b5a8a" />
+        <meta name="msapplication-TileColor" content="#09090b" />
         <meta name="msapplication-tap-highlight" content="no" />
 
         {/* Apple touch icons */}
@@ -154,41 +153,43 @@ export default function RootLayout({
         />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625] font-sans antialiased">
+      <body className="min-h-screen antialiased">
         <AuthProvider>
           <ReduxProvider>
-            <div className="flex min-h-screen flex-col">
-              <header className="sticky top-0 z-50 border-b border-[#443a5c] bg-[#0f0d15]/95 backdrop-blur-sm">
-                <div className="container mx-auto px-4 py-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Link
-                        href="/"
-                        className="cursor-pointer text-2xl font-bold text-white transition-colors duration-200 hover:text-[#8b7aaa]"
-                      >
-                        Newtype Decks
-                      </Link>
-                      <GameBreadcrumb />
-                    </div>
-                    <div className="hidden items-center space-x-6 md:flex">
-                      <Navbar />
-                      <div className="flex items-center gap-4">
+            <TooltipProvider>
+              <div className="flex min-h-screen flex-col">
+                <header className="border-border/50 bg-background/95 sticky top-0 z-50 border-b backdrop-blur-sm">
+                  <div className="container mx-auto px-4 py-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <Link
+                          href="/"
+                          className="text-foreground hover:text-primary text-lg font-semibold transition-colors duration-150"
+                        >
+                          Newtype Decks
+                        </Link>
+                        <GameBreadcrumb />
+                      </div>
+                      <div className="hidden items-center gap-6 md:flex">
+                        <Navbar />
+                        <div className="flex items-center gap-3">
+                          <PWAStatus />
+                          <AuthStatus />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 md:hidden">
                         <PWAStatus />
-                        <AuthStatus />
+                        <MobileMenu />
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 md:hidden">
-                      <PWAStatus />
-                      <MobileMenu />
-                    </div>
                   </div>
-                </div>
-              </header>
+                </header>
 
-              <main className="flex-1">{children}</main>
+                <main className="flex-1">{children}</main>
 
-              <LegalComplianceFooter variant="full" />
-            </div>
+                <LegalComplianceFooter variant="full" />
+              </div>
+            </TooltipProvider>
           </ReduxProvider>
         </AuthProvider>
 

@@ -17,7 +17,7 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ cardPreview }) => {
 
   return (
     <div className="mb-4">
-      <p className="mb-2 text-xs text-gray-600">Preview:</p>
+      <p className="text-muted-foreground mb-2 text-xs">Preview:</p>
       <div className="flex space-x-1 overflow-x-auto">
         {cardPreview.map((cardEntry, index) => (
           <div key={index} className="flex-shrink-0">
@@ -33,7 +33,7 @@ export const CardPreview: React.FC<CardPreviewProps> = ({ cardPreview }) => {
               />
             ) : (
               <div className="flex h-16 w-12 items-center justify-center rounded border bg-gray-200">
-                <span className="text-xs text-gray-500">
+                <span className="text-muted-foreground/70 text-xs">
                   {cardEntry.quantity}x
                 </span>
               </div>

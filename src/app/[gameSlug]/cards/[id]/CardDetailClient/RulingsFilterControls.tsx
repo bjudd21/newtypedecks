@@ -33,7 +33,7 @@ export function RulingsFilterControls({
           />
         </svg>
         Rulings & Clarifications
-        <span className="text-sm font-normal text-gray-400">
+        <span className="text-muted-foreground text-sm font-normal">
           ({filteredCount} of {totalCount})
         </span>
       </CardTitle>

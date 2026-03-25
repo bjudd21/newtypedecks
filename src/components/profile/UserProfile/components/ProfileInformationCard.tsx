@@ -38,9 +38,9 @@ export const ProfileInformationCard: React.FC<ProfileInformationCardProps> = ({
   onCancel,
 }) => {
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between text-[#a89ec7]">
+        <CardTitle className="text-primary/80 flex items-center justify-between">
           PROFILE INFORMATION
           {!isEditing && (
             <Button
@@ -48,7 +48,7 @@ export const ProfileInformationCard: React.FC<ProfileInformationCardProps> = ({
               size="sm"
               onClick={onEditToggle}
               disabled={isLoading}
-              className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa]/10"
+              className="border-primary text-primary hover:bg-primary/10"
             >
               EDIT
             </Button>
@@ -80,7 +80,7 @@ export const ProfileInformationCard: React.FC<ProfileInformationCardProps> = ({
           />
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-400">
+            <label className="text-muted-foreground mb-1 block text-sm font-medium">
               Account Role
             </label>
             <p className="text-white capitalize">{user.role.toLowerCase()}</p>

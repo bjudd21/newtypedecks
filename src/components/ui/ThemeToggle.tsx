@@ -15,7 +15,7 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="h-9 w-9 animate-pulse rounded bg-[#2d2640]"></div>;
+    return <div className="bg-card h-9 w-9 animate-pulse rounded"></div>;
   }
 
   const toggleTheme = () => {
@@ -27,7 +27,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="group flex h-9 w-9 items-center justify-center rounded-lg text-gray-300 transition-colors hover:text-[#8b7aaa]"
+      className="group text-foreground hover:text-primary flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (

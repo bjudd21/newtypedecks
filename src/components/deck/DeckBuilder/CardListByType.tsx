@@ -32,11 +32,11 @@ export const CardListByType: React.FC<CardListByTypeProps> = ({
     <div className="space-y-4">
       {Object.entries(cardsByType).map(([typeName, cards]) => (
         <div key={typeName} className="space-y-2">
-          <div className="sticky top-0 flex items-center gap-2 bg-[#2d2640] py-1">
+          <div className="bg-card sticky top-0 flex items-center gap-2 py-1">
             <Badge variant="secondary" className="text-xs">
               {typeName}
             </Badge>
-            <span className="text-sm text-gray-400">
+            <span className="text-muted-foreground text-sm">
               ({cards.reduce((sum, card) => sum + card.quantity, 0)} cards)
             </span>
           </div>

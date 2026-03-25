@@ -8,7 +8,7 @@ export const SearchIcon: React.FC = () => {
   return (
     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
       <svg
-        className="h-5 w-5 text-gray-400"
+        className="text-muted-foreground h-5 w-5"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

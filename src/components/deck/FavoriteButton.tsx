@@ -129,7 +129,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       <button
         onClick={handleToggleFavorite}
         disabled={isLoading}
-        className={`transform text-2xl transition-colors duration-200 hover:scale-110 ${isFavorited ? 'text-red-500 hover:text-red-600' : 'text-gray-400 hover:text-red-500'} ${isLoading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${className} `}
+        className={`transform text-2xl transition-colors duration-200 hover:scale-110 ${isFavorited ? 'text-red-500 hover:text-red-600' : 'text-muted-foreground hover:text-red-500'} ${isLoading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${className} `}
         title={
           isFavorited
             ? `Remove ${deckName || 'deck'} from favorites`

@@ -50,7 +50,7 @@ export function InfiniteScrollResults({
       errorMessage={error || undefined}
       onRetry={onRetry}
       endMessage={
-        <div className="py-8 text-center text-gray-500">
+        <div className="text-muted-foreground/70 py-8 text-center">
           <svg
             className="mx-auto mb-2 h-8 w-8"
             fill="none"

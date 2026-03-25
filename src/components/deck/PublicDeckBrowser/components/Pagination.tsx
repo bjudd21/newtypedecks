@@ -28,7 +28,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       >
         Previous
       </Button>
-      <span className="text-sm text-gray-600">
+      <span className="text-muted-foreground text-sm">
         Page {pagination.page} of {pagination.pages}
       </span>
       <Button

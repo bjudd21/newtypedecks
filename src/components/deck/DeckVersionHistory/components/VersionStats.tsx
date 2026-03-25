@@ -11,7 +11,7 @@ interface VersionStatsProps {
 
 export const VersionStats: React.FC<VersionStatsProps> = ({ version }) => {
   return (
-    <div className="mb-3 flex items-center gap-4 text-xs text-gray-500">
+    <div className="text-muted-foreground/70 mb-3 flex items-center gap-4 text-xs">
       <span>{version.cardCount} cards</span>
       <span>{version.uniqueCards} unique</span>
       <span>{version.totalCost} total cost</span>

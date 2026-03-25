@@ -94,7 +94,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     <div className="w-full max-w-md space-y-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold text-gray-900">Reset Password</h1>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="text-muted-foreground mt-2 text-sm">
           Enter your new password below.
         </p>
       </div>
@@ -103,7 +103,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         <div>
           <label
             htmlFor="password"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="text-muted-foreground mb-1 block text-sm font-medium"
           >
             New Password
           </label>
@@ -117,7 +117,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             disabled={isLoading}
             minLength={8}
           />
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="text-muted-foreground/70 mt-1 text-xs">
             Password must be at least 8 characters long
           </p>
         </div>
@@ -125,7 +125,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         <div>
           <label
             htmlFor="confirmPassword"
-            className="mb-1 block text-sm font-medium text-gray-700"
+            className="text-muted-foreground mb-1 block text-sm font-medium"
           >
             Confirm Password
           </label>

@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const variants = {
       default:
-        'border-[#443a5c] bg-[#1a1625] text-white focus:border-[#8b7aaa] focus:ring-[#8b7aaa]/50',
+        'border-border bg-background text-white focus:border-primary focus:ring-ring/50',
       cyber:
         'border-cyan-400/50 bg-gray-900/70 text-cyan-100 focus:border-cyan-400 focus:ring-cyan-400/30 focus:shadow-lg focus:shadow-cyan-400/20',
       neon: 'border-green-400/50 bg-gray-900/70 text-green-100 focus:border-green-400 focus:ring-green-400/30 focus:shadow-lg focus:shadow-green-400/20',
@@ -43,7 +43,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     const labelVariants = {
-      default: 'text-gray-400',
+      default: 'text-muted-foreground',
       cyber: 'text-cyan-400',
       neon: 'text-green-400',
       plasma: 'text-purple-400',
@@ -75,7 +75,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <motion.input
             type={type}
             className={cn(
-              'flex h-11 w-full rounded-lg border-2 px-4 py-3 text-sm font-medium backdrop-blur-sm transition-all duration-300 placeholder:text-gray-500 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+              'placeholder:text-muted-foreground/70 flex h-11 w-full rounded-lg border-2 px-4 py-3 text-sm font-medium backdrop-blur-sm transition-all duration-300 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
               variants[variant],
               error &&
                 'border-red-500 focus:border-red-500 focus:ring-red-500/30',
@@ -107,7 +107,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               variant === 'cyber' && 'bg-cyan-400',
               variant === 'neon' && 'bg-green-400',
               variant === 'plasma' && 'bg-purple-500',
-              variant === 'default' && 'bg-[#8b7aaa]'
+              variant === 'default' && 'bg-primary'
             )}
             initial={{ width: '0%' }}
             animate={{ width: isFocused ? '100%' : '0%' }}
@@ -167,7 +167,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-2 text-sm text-gray-500"
+            className="text-muted-foreground/70 mt-2 text-sm"
           >
             {helperText}
           </motion.p>

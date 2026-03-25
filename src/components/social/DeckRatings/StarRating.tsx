@@ -29,7 +29,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
               : undefined
           }
           className={`${interactive ? 'cursor-pointer' : ''} ${
-            star <= rating ? 'text-yellow-400' : 'text-gray-300'
+            star <= rating ? 'text-yellow-400' : 'text-foreground'
           } ${interactive ? 'hover:text-yellow-300' : ''}`}
         >
           ★

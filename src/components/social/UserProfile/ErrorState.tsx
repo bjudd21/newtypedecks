@@ -16,7 +16,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ error, className }) => {
     <Card className={className}>
       <CardContent className="py-12 text-center">
         <div className="mb-4 text-red-600">⚠️</div>
-        <p className="text-gray-600">{error || 'Profile not found'}</p>
+        <p className="text-muted-foreground">{error || 'Profile not found'}</p>
       </CardContent>
     </Card>
   );

@@ -18,7 +18,7 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({ title, onClose }) => {
         variant="outline"
         size="sm"
         onClick={onClose}
-        className="border-gray-600 text-gray-400 hover:text-white"
+        className="text-muted-foreground hover:text-foreground border-gray-600"
       >
         <svg
           className="h-5 w-5"

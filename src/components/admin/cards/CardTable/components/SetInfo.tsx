@@ -10,13 +10,13 @@ interface SetInfoProps {
 
 export const SetInfo: React.FC<SetInfoProps> = ({ set }) => {
   if (!set) {
-    return <span className="text-sm text-gray-500">—</span>;
+    return <span className="text-muted-foreground/70 text-sm">—</span>;
   }
 
   return (
     <div className="text-sm">
-      <div className="text-gray-300">{set.name}</div>
-      <div className="text-xs text-gray-500">{set.code}</div>
+      <div className="text-foreground">{set.name}</div>
+      <div className="text-muted-foreground/70 text-xs">{set.code}</div>
     </div>
   );
 };

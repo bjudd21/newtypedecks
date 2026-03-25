@@ -9,15 +9,15 @@ import { motion } from 'framer-motion';
 export const AnonymousFeaturesNotice: React.FC = () => {
   return (
     <motion.div
-      className="rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-6 shadow-lg"
+      className="border-border from-card to-accent rounded-xl border bg-gradient-to-br p-6 shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.8 }}
     >
-      <h4 className="mb-4 text-lg font-semibold text-[#a89ec7]">
+      <h4 className="text-primary/80 mb-4 text-lg font-semibold">
         Anonymous Deck Building Features:
       </h4>
-      <ul className="space-y-2 text-sm text-gray-300">
+      <ul className="text-foreground space-y-2 text-sm">
         <li className="flex items-center gap-2">
           <span className="text-green-400">✅</span>
           Build decks with full card search and filtering
@@ -43,10 +43,10 @@ export const AnonymousFeaturesNotice: React.FC = () => {
           Share decks via temporary URLs
         </li>
       </ul>
-      <div className="mt-4 border-t border-[#443a5c] pt-4">
-        <p className="text-sm text-gray-300">
-          <strong className="text-[#a89ec7]">Want more?</strong> Sign in to save
-          decks permanently, share them with others, and access your deck
+      <div className="border-border mt-4 border-t pt-4">
+        <p className="text-foreground text-sm">
+          <strong className="text-primary/80">Want more?</strong> Sign in to
+          save decks permanently, share them with others, and access your deck
           collection from any device!
         </p>
       </div>

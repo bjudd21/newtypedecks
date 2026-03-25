@@ -22,7 +22,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
 
   if (variant === 'footer') {
     return (
-      <div className={`text-sm text-gray-300 ${className}`}>
+      <div className={`text-foreground text-sm ${className}`}>
         <h4 className="mb-2 font-semibold text-white">Terms of Use</h4>
         <ul className="space-y-1 text-xs">
           <li>• Community-driven, educational use only</li>
@@ -31,7 +31,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
           <li>• Report violations or concerns</li>
         </ul>
         {showLastUpdated && (
-          <p className="mt-2 text-xs text-gray-400">
+          <p className="text-muted-foreground mt-2 text-xs">
             Last updated: {currentDate}
           </p>
         )}
@@ -60,7 +60,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
   if (variant === 'page') {
     return (
       <div
-        className={`rounded-lg border border-gray-200 bg-white p-6 shadow-sm ${className}`}
+        className={`border-border bg-card rounded-lg border p-6 shadow-sm ${className}`}
       >
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
@@ -79,7 +79,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                   the site.
                 </p>
               </div>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 Welcome to Newtype Decks, a community-driven resource for
                 players and fans. These terms govern your use of our website and
                 services.
@@ -123,11 +123,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 User Accounts
               </h3>
               <div className="space-y-4">
-                <div className="rounded-lg bg-gray-50 p-4">
+                <div className="bg-accent rounded-lg p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
                     Account Responsibilities
                   </h4>
-                  <ul className="list-inside list-disc space-y-1 text-sm text-gray-700">
+                  <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
                     <li>Keep your login information secure and confidential</li>
                     <li>Use accurate information when creating your account</li>
                     <li>Notify us immediately of any security breaches</li>
@@ -155,37 +155,37 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 Intellectual Property
               </h3>
               <div className="space-y-4">
-                <div className="rounded-lg border border-gray-200 p-4">
+                <div className="border-border rounded-lg border p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
                     🎮 Game Content
                   </h4>
-                  <p className="mb-2 text-sm text-gray-700">
+                  <p className="text-muted-foreground mb-2 text-sm">
                     All card images, game rules, and official content are owned
                     by
                     <strong> Bandai Namco Entertainment Inc.</strong> and used
                     under fair use provisions.
                   </p>
-                  <ul className="list-inside list-disc space-y-1 text-xs text-gray-600">
+                  <ul className="text-muted-foreground list-inside list-disc space-y-1 text-xs">
                     <li>We claim no ownership of copyrighted game content</li>
                     <li>Content used for educational and reference purposes</li>
                     <li>Proper attribution provided where applicable</li>
                   </ul>
                 </div>
-                <div className="rounded-lg border border-gray-200 p-4">
+                <div className="border-border rounded-lg border p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
                     💻 Website Content
                   </h4>
-                  <p className="mb-2 text-sm text-gray-700">
+                  <p className="text-muted-foreground mb-2 text-sm">
                     The website design, code, and original content are
                     community-created and may be subject to open-source
                     licensing.
                   </p>
                 </div>
-                <div className="rounded-lg border border-gray-200 p-4">
+                <div className="border-border rounded-lg border p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
                     👤 User-Generated Content
                   </h4>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-muted-foreground text-sm">
                     Deck builds, comments, and other user contributions remain
                     your property, but you grant us permission to display and
                     share them on the platform.
@@ -242,11 +242,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     preservation.
                   </p>
                 </div>
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+                <div className="border-border bg-accent rounded-lg border p-4">
                   <h4 className="mb-2 font-medium text-gray-800">
                     📝 Accuracy
                   </h4>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-muted-foreground text-sm">
                     While we strive for accuracy, card information may contain
                     errors. Always refer to official sources for tournament
                     play.
@@ -268,13 +268,13 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <h3 className="mb-4 text-lg font-semibold text-gray-900">
                 Changes to Terms
               </h3>
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="mb-2 text-sm text-gray-700">
+              <div className="bg-accent rounded-lg p-4">
+                <p className="text-muted-foreground mb-2 text-sm">
                   We may update these terms occasionally to reflect changes in
                   our services or legal requirements. Significant changes will
                   be announced on the website.
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-muted-foreground text-sm">
                   Continued use of the website after changes constitutes
                   acceptance of the new terms.
                 </p>
@@ -285,11 +285,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <h3 className="mb-4 text-lg font-semibold text-gray-900">
                 Contact Information
               </h3>
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="mb-2 text-sm text-gray-700">
+              <div className="bg-accent rounded-lg p-4">
+                <p className="text-muted-foreground mb-2 text-sm">
                   Questions about these terms or our services?
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-muted-foreground text-sm">
                   This is a community project. For questions or concerns, please
                   check the project&apos;s documentation or contact the
                   maintainers through official channels.
@@ -299,8 +299,8 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
           </div>
 
           {showLastUpdated && (
-            <div className="mt-8 border-t border-gray-200 pt-6">
-              <p className="text-xs text-gray-500">
+            <div className="border-border mt-8 border-t pt-6">
+              <p className="text-muted-foreground/70 text-xs">
                 <strong>Last Updated:</strong> {currentDate} |
                 <strong> Effective Date:</strong> {currentDate}
               </p>
@@ -314,12 +314,12 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
   // Default inline variant
   return (
     <div
-      className={`rounded-lg border border-gray-200 bg-gray-50 p-4 ${className}`}
+      className={`border-border bg-accent rounded-lg border p-4 ${className}`}
     >
       <div className="flex items-start space-x-3">
         <div className="flex-shrink-0">
           <svg
-            className="h-5 w-5 text-gray-400"
+            className="text-muted-foreground h-5 w-5"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -334,7 +334,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
           <h4 className="mb-2 text-sm font-medium text-gray-900">
             Terms of Service
           </h4>
-          <div className="space-y-2 text-sm text-gray-700">
+          <div className="text-muted-foreground space-y-2 text-sm">
             <p>
               <strong>Purpose:</strong> This website is a community resource for
               educational and personal use. Commercial use is prohibited.
@@ -349,7 +349,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
             </p>
           </div>
           {showLastUpdated && (
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="text-muted-foreground/70 mt-3 text-xs">
               Last updated: {currentDate}
             </p>
           )}

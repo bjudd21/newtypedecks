@@ -36,7 +36,7 @@ export const VersionListItem: React.FC<VersionListItemProps> = ({
   const isCurrent = version.version === currentVersion;
 
   return (
-    <div className="rounded-lg border p-4 transition-colors hover:bg-gray-50">
+    <div className="hover:bg-accent rounded-lg border p-4 transition-colors">
       {/* Version Header */}
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export const VersionListItem: React.FC<VersionListItemProps> = ({
             </span>
           )}
         </div>
-        <div className="text-sm text-gray-600">
+        <div className="text-muted-foreground text-sm">
           {formatDistanceToNow(new Date(version.createdAt), {
             addSuffix: true,
           })}
@@ -58,7 +58,7 @@ export const VersionListItem: React.FC<VersionListItemProps> = ({
       </div>
 
       {/* Version Details */}
-      <div className="mb-2 text-sm text-gray-600">
+      <div className="text-muted-foreground mb-2 text-sm">
         <div>
           <strong>{version.name}</strong>
         </div>

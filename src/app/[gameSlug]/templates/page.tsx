@@ -22,7 +22,7 @@ export default function TemplatesPage() {
           <h1 className="mb-4 text-4xl font-bold text-gray-900">
             Deck Templates
           </h1>
-          <p className="mx-auto max-w-3xl text-lg text-gray-600">
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
             Discover proven deck strategies and competitive builds from the
             {game.name} community. Use these templates as starting points for
             your own deck creations or learn from successful tournament builds.
@@ -72,11 +72,11 @@ export default function TemplatesPage() {
         </div>
 
         {/* Community Guidelines */}
-        <div className="mt-12 rounded-lg border border-gray-200 bg-gray-50 p-6">
+        <div className="border-border bg-accent mt-12 rounded-lg border p-6">
           <h2 className="mb-4 text-lg font-medium text-gray-900">
             Community Guidelines
           </h2>
-          <div className="grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-2">
+          <div className="text-muted-foreground grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
             <ul className="space-y-2">
               <li>• Templates should be complete and playable decks</li>
               <li>
@@ -96,7 +96,7 @@ export default function TemplatesPage() {
 
         {/* Call to Action */}
         <div className="mt-8 text-center">
-          <p className="mb-4 text-gray-600">
+          <p className="text-muted-foreground mb-4">
             Have a great deck to share? Create a template from your own decks to
             help other players!
           </p>
@@ -109,7 +109,7 @@ export default function TemplatesPage() {
             </Link>
             <Link
               href={`/${gameSlug}/favorites`}
-              className="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-50"
+              className="border-border text-muted-foreground hover:bg-accent inline-flex items-center rounded-lg border px-4 py-2 transition-colors"
             >
               View My Favorites
             </Link>

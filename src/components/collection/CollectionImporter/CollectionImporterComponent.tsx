@@ -84,10 +84,10 @@ export const CollectionImporterComponent: React.FC<CollectionImporterProps> = ({
 
   return (
     <div className={className}>
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardHeader>
-          <CardTitle className="text-[#a89ec7]">IMPORT COLLECTION</CardTitle>
-          <div className="text-sm text-gray-400">
+          <CardTitle className="text-primary/80">IMPORT COLLECTION</CardTitle>
+          <div className="text-muted-foreground text-sm">
             Bulk import cards to your collection from various formats
           </div>
         </CardHeader>

@@ -27,9 +27,9 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
 }) => {
   return (
     <>
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardHeader>
-          <CardTitle className="text-[#a89ec7]">ADD CARDS</CardTitle>
+          <CardTitle className="text-primary/80">ADD CARDS</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -40,7 +40,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
               showFilters={false}
               limit={10}
             />
-            <div className="text-sm text-gray-400">
+            <div className="text-muted-foreground text-sm">
               Click or drag cards to add them to your deck. Cards will be added
               to the main deck by default.
             </div>

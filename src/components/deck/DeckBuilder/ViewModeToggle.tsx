@@ -24,7 +24,7 @@ export const ViewModeToggle: React.FC<ViewModeToggleProps> = ({
   viewMode,
   onChange,
 }) => (
-  <div className="flex gap-0.5 rounded border border-[#443a5c] p-0.5">
+  <div className="border-border flex gap-0.5 rounded border p-0.5">
     {MODES.map(({ key, icon, title }) => (
       <button
         key={key}
@@ -32,8 +32,8 @@ export const ViewModeToggle: React.FC<ViewModeToggleProps> = ({
         title={title}
         className={`rounded px-2 py-1 text-xs transition-colors ${
           viewMode === key
-            ? 'bg-[#443a5c] text-[#c8b8f0]'
-            : 'text-gray-500 hover:text-gray-300'
+            ? 'bg-border text-[#c8b8f0]'
+            : 'text-muted-foreground/70 hover:text-foreground'
         }`}
       >
         {icon}

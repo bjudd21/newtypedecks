@@ -9,7 +9,7 @@ export function NotFoundState() {
         <CardContent className="py-8">
           <div className="text-center">
             <svg
-              className="mx-auto h-12 w-12 text-gray-500"
+              className="text-muted-foreground/70 mx-auto h-12 w-12"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -24,7 +24,7 @@ export function NotFoundState() {
             <h3 className="mt-2 text-lg font-medium text-white">
               Card Not Found
             </h3>
-            <p className="mt-1 text-sm text-gray-400">
+            <p className="text-muted-foreground mt-1 text-sm">
               The requested card could not be found.
             </p>
             <div className="mt-4">

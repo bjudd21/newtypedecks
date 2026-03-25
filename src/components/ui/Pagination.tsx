@@ -86,11 +86,11 @@ const Pagination: React.FC<PaginationProps> = ({
         'relative inline-flex items-center px-4 py-2 text-sm font-medium transition-colors duration-200',
         isActive
           ? 'z-10 bg-blue-600 text-white'
-          : 'bg-white text-gray-700 hover:bg-gray-50',
+          : 'bg-card text-muted-foreground hover:bg-accent',
         isDisabled || disabled
           ? 'cursor-not-allowed opacity-50'
           : 'cursor-pointer',
-        typeof page === 'number' && 'border border-gray-300',
+        typeof page === 'number' && 'border-border border',
         typeof page === 'string' && 'border-0'
       )}
     >

@@ -23,5 +23,13 @@ export default async function GameLayout({
 
   if (!game) notFound();
 
-  return <GameProvider game={game}>{children}</GameProvider>;
+  // Inject the game's primary color as a CSS custom property so all
+  // descendant components can use it via var(--game-primary) / bg-primary.
+  const accentColor = game.primaryColor ?? 'oklch(0.88 0 0)';
+
+  return (
+    <div style={{ '--game-primary': accentColor } as React.CSSProperties}>
+      <GameProvider game={game}>{children}</GameProvider>
+    </div>
+  );
 }

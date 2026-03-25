@@ -43,11 +43,11 @@ export function UserDashboardComponent({
 
       {/* Per-game sections */}
       <div className="mb-8">
-        <h2 className="mb-4 text-sm font-semibold tracking-wide text-gray-400 uppercase">
+        <h2 className="text-muted-foreground mb-4 text-sm font-semibold tracking-wide uppercase">
           Your Games
         </h2>
         {gameData.length === 0 ? (
-          <p className="text-gray-500">No active games found.</p>
+          <p className="text-muted-foreground/70">No active games found.</p>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {gameData.map((data) => (

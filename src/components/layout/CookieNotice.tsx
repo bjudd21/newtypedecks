@@ -59,7 +59,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   if (variant === 'page') {
     return (
       <div
-        className={`rounded-lg border border-gray-200 bg-white p-6 shadow-sm ${className}`}
+        className={`border-border bg-card rounded-lg border p-6 shadow-sm ${className}`}
       >
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-6 text-2xl font-bold text-gray-900">
@@ -78,7 +78,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   experience.
                 </p>
               </div>
-              <p className="text-gray-700">
+              <p className="text-muted-foreground">
                 We use cookies to enhance your experience on our Gundam Card
                 Game website, remember your preferences, and provide
                 personalized features.
@@ -173,14 +173,14 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                 Cookie Management
               </h3>
               <div className="space-y-4">
-                <div className="rounded-lg bg-gray-50 p-4">
+                <div className="bg-accent rounded-lg p-4">
                   <h4 className="mb-2 font-medium text-gray-900">
                     Browser Settings
                   </h4>
-                  <p className="mb-2 text-sm text-gray-700">
+                  <p className="text-muted-foreground mb-2 text-sm">
                     You can control cookies through your browser settings:
                   </p>
-                  <ul className="list-inside list-disc space-y-1 text-sm text-gray-600">
+                  <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
                     <li>Block all cookies (may break website functionality)</li>
                     <li>Block third-party cookies only</li>
                     <li>Delete existing cookies</li>
@@ -226,7 +226,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   {showDeclineOption && (
                     <button
                       onClick={handleDecline}
-                      className="rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
+                      className="hover:bg-secondary rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors"
                     >
                       Essential Cookies Only
                     </button>
@@ -239,8 +239,8 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
               <h3 className="mb-4 text-lg font-semibold text-gray-900">
                 Contact Information
               </h3>
-              <div className="rounded-lg bg-gray-50 p-4">
-                <p className="text-sm text-gray-700">
+              <div className="bg-accent rounded-lg p-4">
+                <p className="text-muted-foreground text-sm">
                   Questions about our cookie policy? This is a community
                   project. Please refer to the project documentation or contact
                   the maintainers through the official channels.
@@ -249,8 +249,8 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             </section>
           </div>
 
-          <div className="mt-8 border-t border-gray-200 pt-6">
-            <p className="text-xs text-gray-500">
+          <div className="border-border mt-8 border-t pt-6">
+            <p className="text-muted-foreground/70 text-xs">
               <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
             </p>
           </div>
@@ -262,12 +262,12 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
   if (variant === 'inline') {
     return (
       <div
-        className={`rounded-lg border border-gray-200 bg-gray-50 p-4 ${className}`}
+        className={`border-border bg-accent rounded-lg border p-4 ${className}`}
       >
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
             <svg
-              className="h-5 w-5 text-gray-400"
+              className="text-muted-foreground h-5 w-5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -278,7 +278,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             <h4 className="mb-2 text-sm font-medium text-gray-900">
               Cookie Information
             </h4>
-            <div className="space-y-2 text-sm text-gray-700">
+            <div className="text-muted-foreground space-y-2 text-sm">
               <p>
                 We use cookies to enhance your experience, remember your
                 preferences, and provide personalized features.
@@ -298,7 +298,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                 </p>
               </div>
             </div>
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="text-muted-foreground/70 mt-3 text-xs">
               Current status: {cookieConsent || 'Not set'}
             </p>
           </div>
@@ -327,7 +327,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
               </div>
               <div>
                 <h4 className="mb-1 text-sm font-medium">We use cookies</h4>
-                <p className="text-sm text-gray-300">
+                <p className="text-foreground text-sm">
                   We use essential cookies for functionality and optional
                   cookies to improve your experience. You can choose which types
                   to allow.
@@ -346,7 +346,7 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
             {showDeclineOption && (
               <button
                 onClick={handleDecline}
-                className="rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-700"
+                className="hover:bg-secondary rounded-lg bg-gray-600 px-4 py-2 text-sm font-medium text-white transition-colors"
               >
                 Essential Only
               </button>

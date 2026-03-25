@@ -14,7 +14,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
 }) => {
   return (
     <div className="flex justify-center py-8">
-      <div className="flex items-center gap-2 text-gray-600">
+      <div className="text-muted-foreground flex items-center gap-2">
         <Spinner size="sm" />
         <span>{message}</span>
       </div>

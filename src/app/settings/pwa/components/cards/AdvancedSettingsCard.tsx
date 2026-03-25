@@ -34,7 +34,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <div className="font-medium text-gray-900">Service Worker</div>
-              <div className="text-sm text-gray-600">
+              <div className="text-muted-foreground text-sm">
                 Controls offline functionality and background sync
               </div>
             </div>
@@ -67,7 +67,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
                   className={
                     pwaState.isServiceWorkerRegistered
                       ? 'text-green-600'
-                      : 'text-gray-400'
+                      : 'text-muted-foreground'
                   }
                 >
                   {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
@@ -79,7 +79,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
                   className={
                     pwaState.isServiceWorkerRegistered
                       ? 'text-green-600'
-                      : 'text-gray-400'
+                      : 'text-muted-foreground'
                   }
                 >
                   {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
@@ -91,7 +91,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
                   className={
                     pwaState.isServiceWorkerRegistered
                       ? 'text-green-600'
-                      : 'text-gray-400'
+                      : 'text-muted-foreground'
                   }
                 >
                   {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}
@@ -103,7 +103,7 @@ export const AdvancedSettingsCard: React.FC<AdvancedSettingsCardProps> = ({
                   className={
                     pwaState.isServiceWorkerRegistered
                       ? 'text-green-600'
-                      : 'text-gray-400'
+                      : 'text-muted-foreground'
                   }
                 >
                   {pwaState.isServiceWorkerRegistered ? '✓' : '✗'}

@@ -12,7 +12,7 @@ export const ClearButton: React.FC<ClearButtonProps> = ({ onClear }) => {
   return (
     <button
       onClick={onClear}
-      className="absolute inset-y-0 right-0 flex items-center rounded-md pr-3 text-gray-400 hover:text-gray-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+      className="text-muted-foreground hover:text-muted-foreground focus:ring-primary absolute inset-y-0 right-0 flex items-center rounded-md pr-3 focus:ring-2 focus:ring-offset-2 focus:outline-none"
       aria-label="Clear search"
       tabIndex={-1}
     >

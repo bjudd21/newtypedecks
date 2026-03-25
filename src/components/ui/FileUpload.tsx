@@ -129,7 +129,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           'relative rounded-lg border-2 border-dashed p-6 text-center transition-colors',
           dragActive
             ? 'border-blue-400 bg-blue-50'
-            : 'border-gray-300 hover:border-gray-400',
+            : 'border-border hover:border-gray-400',
           disabled && 'cursor-not-allowed opacity-50',
           isUploading && 'cursor-not-allowed opacity-50'
         )}
@@ -142,13 +142,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           {isUploading ? (
             <div className="flex flex-col items-center space-y-2">
               <Spinner size="lg" />
-              <p className="text-sm text-gray-600">Uploading...</p>
+              <p className="text-muted-foreground text-sm">Uploading...</p>
             </div>
           ) : (
             <>
               <div className="flex flex-col items-center space-y-2">
                 <svg
-                  className="h-12 w-12 text-gray-400"
+                  className="text-muted-foreground h-12 w-12"
                   stroke="currentColor"
                   fill="none"
                   viewBox="0 0 48 48"
@@ -160,7 +160,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     strokeLinejoin="round"
                   />
                 </svg>
-                <div className="text-sm text-gray-600">
+                <div className="text-muted-foreground text-sm">
                   <p className="font-medium">
                     {dragActive ? 'Drop files here' : 'Upload card image'}
                   </p>

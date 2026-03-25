@@ -12,7 +12,7 @@ export const LoadingState: React.FC<{ className?: string }> = ({
     <div className={className}>
       <Card>
         <CardContent className="p-6 text-center">
-          <div className="text-gray-600">Loading favorite decks...</div>
+          <div className="text-muted-foreground">Loading favorite decks...</div>
         </CardContent>
       </Card>
     </div>

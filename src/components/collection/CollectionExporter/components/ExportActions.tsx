@@ -24,7 +24,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       <Button
         onClick={onQuickExport}
         disabled={isExporting}
-        className="flex-1 bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+        className="bg-primary hover:bg-primary/90 flex-1"
       >
         {isExporting
           ? 'EXPORTING...'
@@ -36,7 +36,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           onClick={onAdvancedExport}
           disabled={isExporting}
           variant="outline"
-          className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
+          className="border-primary text-primary hover:bg-primary hover:text-foreground"
         >
           ADVANCED EXPORT
         </Button>

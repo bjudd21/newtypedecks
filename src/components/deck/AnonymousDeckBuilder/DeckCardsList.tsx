@@ -28,14 +28,14 @@ export const DeckCardsList: React.FC<DeckCardsListProps> = ({
     <div className="space-y-4">
       {Object.entries(cardsByType).map(([typeName, cards]) => (
         <div key={typeName} className="space-y-2">
-          <div className="sticky top-0 z-10 flex items-center gap-2 bg-[#2d2640] py-2">
+          <div className="bg-card sticky top-0 z-10 flex items-center gap-2 py-2">
             <Badge
               variant="secondary"
-              className="border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-xs text-[#a89ec7]"
+              className="border-primary/30 bg-primary/20 text-primary/80 text-xs"
             >
               {typeName}
             </Badge>
-            <span className="text-sm text-gray-400">
+            <span className="text-muted-foreground text-sm">
               ({cards.reduce((sum, card) => sum + card.quantity, 0)} cards)
             </span>
           </div>

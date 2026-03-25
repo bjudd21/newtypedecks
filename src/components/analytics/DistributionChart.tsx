@@ -33,7 +33,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
     'bg-red-500',
     'bg-indigo-500',
     'bg-pink-500',
-    'bg-gray-500',
+    'bg-accent0',
   ];
 
   if (entries.length === 0) {
@@ -43,7 +43,7 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
           <CardTitle className="text-sm">{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="py-8 text-center text-gray-500">
+          <div className="text-muted-foreground/70 py-8 text-center">
             No data available
           </div>
         </CardContent>
@@ -69,8 +69,10 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
                     <div className="flex flex-1 items-center justify-between text-sm">
                       <span className="font-medium">{key}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-gray-600">{value.count}</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-muted-foreground">
+                          {value.count}
+                        </span>
+                        <span className="text-muted-foreground/70 text-xs">
                           ({value.percentage}%)
                         </span>
                       </div>
@@ -111,8 +113,10 @@ export const DistributionChart: React.FC<DistributionChartProps> = ({
                     <div className="flex items-center justify-between text-sm">
                       <span className="font-medium">{key}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-gray-600">{value.count}</span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-muted-foreground">
+                          {value.count}
+                        </span>
+                        <span className="text-muted-foreground/70 text-xs">
                           ({value.percentage}%)
                         </span>
                       </div>

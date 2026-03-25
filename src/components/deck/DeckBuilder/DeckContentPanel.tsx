@@ -148,10 +148,10 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
   const allDeckCards = deckCards ?? Object.values(cardsByType).flat();
 
   return (
-    <Card className="border-[#443a5c] bg-[#2d2640]">
+    <Card className="border-border bg-card">
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
-          <CardTitle className="text-[#a89ec7]">
+          <CardTitle className="text-primary/80">
             DECK CONTENTS ({totalCards} CARDS)
           </CardTitle>
           <div className="flex items-center gap-2">
@@ -161,8 +161,8 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                 title="Manage deck categories"
                 className={`rounded border px-2 py-1 text-xs transition-colors ${
                   showCategoryManager
-                    ? 'border-[#8b7aaa]/60 bg-[#8b7aaa]/10 text-[#a89ec7]'
-                    : 'border-[#443a5c] text-gray-500 hover:text-gray-300'
+                    ? 'border-primary/60 bg-primary/10 text-primary/80'
+                    : 'border-border text-muted-foreground/70 hover:text-foreground'
                 }`}
               >
                 Categories
@@ -175,7 +175,7 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
                 className={`rounded border px-2 py-1 text-xs transition-colors ${
                   showOwnership
                     ? 'border-green-500/50 bg-green-500/10 text-green-400'
-                    : 'border-[#443a5c] text-gray-500 hover:text-gray-300'
+                    : 'border-border text-muted-foreground/70 hover:text-foreground'
                 }`}
               >
                 Collection
@@ -211,13 +211,13 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
               return (
                 <div
                   key={zone.key}
-                  className="rounded border border-[#443a5c] p-3"
+                  className="border-border rounded border p-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-[#a89ec7]">
+                    <span className="text-primary/80 text-sm font-medium">
                       {zone.label}
                     </span>
-                    <span className="rounded bg-[#443a5c] px-2 py-0.5 text-xs text-[#c8b8f0]">
+                    <span className="bg-border rounded px-2 py-0.5 text-xs text-[#c8b8f0]">
                       {zone.maxSize ?? 0}/{zone.maxSize ?? 0} (auto)
                     </span>
                   </div>
@@ -240,10 +240,10 @@ export const DeckContentPanel: React.FC<DeckContentPanelProps> = ({
             return (
               <div key={zone.key}>
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="text-sm font-medium text-[#a89ec7]">
+                  <span className="text-primary/80 text-sm font-medium">
                     {zone.label}
                   </span>
-                  <span className="rounded bg-[#443a5c] px-2 py-0.5 text-xs text-[#c8b8f0]">
+                  <span className="bg-border rounded px-2 py-0.5 text-xs text-[#c8b8f0]">
                     {sizeLabel}
                   </span>
                 </div>

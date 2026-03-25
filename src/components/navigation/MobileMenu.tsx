@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Menu, X, ArrowLeftRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   getNavItemProps,
@@ -27,7 +28,6 @@ export function MobileMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle escape key to close menu
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === KEYBOARD_CODES.ESCAPE && isOpen) {
@@ -38,7 +38,6 @@ export function MobileMenu() {
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      // Focus trap for mobile menu
       if (menuRef.current) {
         const cleanup = trapFocus(menuRef.current);
         return () => {
@@ -53,7 +52,6 @@ export function MobileMenu() {
     };
   }, [isOpen]);
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -70,10 +68,7 @@ export function MobileMenu() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+  const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => {
     setIsOpen(false);
     buttonRef.current?.focus();
@@ -85,46 +80,28 @@ export function MobileMenu() {
         ref={buttonRef}
         onClick={toggleMenu}
         onKeyDown={(e) => handleKeyboardActivation(e, toggleMenu)}
-        className="rounded-md p-2 text-gray-600 hover:text-gray-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+        className="text-muted-foreground hover:text-foreground focus:ring-ring focus:ring-offset-background rounded-md p-2 transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
         aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
       >
-        <svg
-          className="h-6 w-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          {isOpen ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          )}
-        </svg>
+        {isOpen ? (
+          <X className="h-5 w-5" aria-hidden="true" />
+        ) : (
+          <Menu className="h-5 w-5" aria-hidden="true" />
+        )}
       </button>
 
       {isOpen && (
         <div
           ref={menuRef}
           id="mobile-menu"
-          className="absolute top-16 right-0 left-0 z-50 border-b border-gray-200 bg-white shadow-lg"
+          className="border-border bg-background absolute top-full right-0 left-0 z-50 border-b shadow-lg shadow-black/20"
           role="region"
           aria-label="Mobile navigation menu"
         >
           <nav
-            className="space-y-1 px-4 py-2"
+            className="space-y-1 px-4 py-3"
             role="navigation"
             aria-label="Mobile navigation"
           >
@@ -154,12 +131,11 @@ export function MobileMenu() {
                     }
                   }}
                   className={cn(
-                    'block rounded-lg px-4 py-2.5 transition-all duration-300',
-                    'border',
-                    'focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625] focus:outline-none',
+                    'block rounded-md px-3 py-2.5 text-sm font-medium transition-colors duration-150',
+                    'focus:ring-ring focus:ring-offset-background focus:ring-2 focus:ring-offset-2 focus:outline-none',
                     isActive
-                      ? 'border-[#8b7aaa] bg-[#6b5a8a] font-medium text-white shadow-md'
-                      : 'border-[#443a5c] bg-[#2d2640] text-gray-300 hover:border-[#6b5a8a] hover:bg-[#3a3050] hover:text-white hover:shadow-md'
+                      ? 'bg-accent text-foreground'
+                      : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
                   )}
                   {...navProps}
                 >
@@ -169,27 +145,13 @@ export function MobileMenu() {
               );
             })}
 
-            {/* Switch Game — only shown when inside a game context */}
             {gameSlug && (
               <Link
                 href="/"
                 onClick={closeMenu}
-                className="flex items-center gap-2 rounded-lg border border-[#2d2640] px-4 py-2.5 text-sm text-gray-500 transition-all duration-300 hover:border-[#443a5c] hover:text-[#8b7aaa] focus:ring-2 focus:ring-[#6b5a8a] focus:ring-offset-2 focus:ring-offset-[#1a1625] focus:outline-none"
+                className="text-muted-foreground/60 hover:bg-accent/50 hover:text-muted-foreground focus:ring-ring focus:ring-offset-background flex items-center gap-2 rounded-md px-3 py-2.5 text-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
               >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                  />
-                </svg>
+                <ArrowLeftRight className="h-3.5 w-3.5" aria-hidden="true" />
                 Switch Game
               </Link>
             )}

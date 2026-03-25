@@ -50,7 +50,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-lg border border-[#443a5c] bg-[#2d2640] shadow-2xl shadow-[#1a1625]/50 backdrop-blur-xl"
+            className="border-border bg-card absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-lg border shadow-2xl shadow-black/50 backdrop-blur-xl"
           >
             <div className="py-1.5">
               {menuItems.map((item, index) => (
@@ -58,10 +58,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   <motion.button
                     variants={itemVariants}
                     onClick={item.onClick}
-                    className="group flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-gray-300 transition-all hover:bg-[#3a3050] hover:text-white focus:ring-2 focus:ring-[#8b7aaa] focus:outline-none focus:ring-inset"
+                    className="group text-foreground hover:bg-accent hover:text-foreground focus:ring-ring flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium transition-all focus:ring-2 focus:outline-none focus:ring-inset"
                     whileHover={{ x: 4 }}
                   >
-                    <span className="text-[#8b7aaa] transition-colors group-hover:text-[#a89ec7]">
+                    <span className="text-primary group-hover:text-primary/80 transition-colors">
                       {item.icon}
                     </span>
                     <span className="flex-1">{item.label}</span>
@@ -69,7 +69,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   {index === 0 && (
                     <motion.div
                       variants={itemVariants}
-                      className="my-1.5 border-t border-[#443a5c]/60"
+                      className="border-border/60 my-1.5 border-t"
                     />
                   )}
                 </div>
@@ -80,7 +80,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 <>
                   <motion.div
                     variants={itemVariants}
-                    className="my-1.5 border-t border-[#443a5c]/60"
+                    className="border-border/60 my-1.5 border-t"
                   />
                   <motion.button
                     variants={itemVariants}
@@ -88,7 +88,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                       router.push('/admin');
                       onClose();
                     }}
-                    className="group flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-amber-400 transition-all hover:bg-amber-950/30 hover:text-amber-300 focus:ring-2 focus:ring-[#8b7aaa] focus:outline-none focus:ring-inset"
+                    className="group focus:ring-ring flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-amber-400 transition-all hover:bg-amber-950/30 hover:text-amber-300 focus:ring-2 focus:outline-none focus:ring-inset"
                     whileHover={{ x: 4 }}
                   >
                     <span className="text-amber-500 transition-colors group-hover:text-amber-400">
@@ -102,12 +102,12 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
               {/* Sign Out */}
               <motion.div
                 variants={itemVariants}
-                className="my-1.5 border-t border-[#443a5c]/60"
+                className="border-border/60 my-1.5 border-t"
               />
               <motion.button
                 variants={itemVariants}
                 onClick={handleSignOut}
-                className="group flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-red-400 transition-all hover:bg-red-950/30 hover:text-red-300 focus:ring-2 focus:ring-[#8b7aaa] focus:outline-none focus:ring-inset"
+                className="group focus:ring-ring flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium text-red-400 transition-all hover:bg-red-950/30 hover:text-red-300 focus:ring-2 focus:outline-none focus:ring-inset"
                 whileHover={{ x: 4 }}
               >
                 <span className="text-red-500 transition-colors group-hover:text-red-400">

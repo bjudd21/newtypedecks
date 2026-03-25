@@ -11,7 +11,7 @@ interface RarityBadgeProps {
 
 export const RarityBadge: React.FC<RarityBadgeProps> = ({ rarity }) => {
   if (!rarity) {
-    return <span className="text-sm text-gray-500">—</span>;
+    return <span className="text-muted-foreground/70 text-sm">—</span>;
   }
 
   return (

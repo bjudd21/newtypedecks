@@ -6,10 +6,10 @@ export function CardHeaderInfo({ card }: { card: CardWithRelations }) {
     <div className="mb-8">
       <h1 className="mb-2 text-4xl font-bold text-white">{card.name}</h1>
       {card.pilot && (
-        <p className="mb-1 text-xl text-gray-300">Pilot: {card.pilot}</p>
+        <p className="text-foreground mb-1 text-xl">Pilot: {card.pilot}</p>
       )}
       {card.model && (
-        <p className="text-lg text-gray-400">Model: {card.model}</p>
+        <p className="text-muted-foreground text-lg">Model: {card.model}</p>
       )}
     </div>
   );

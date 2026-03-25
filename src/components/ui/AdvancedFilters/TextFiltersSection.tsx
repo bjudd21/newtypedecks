@@ -20,7 +20,9 @@ export const TextFiltersSection: React.FC<TextFiltersSectionProps> = ({
 }) => {
   return (
     <div>
-      <h4 className="mb-3 text-sm font-medium text-gray-700">Text Search</h4>
+      <h4 className="text-muted-foreground mb-3 text-sm font-medium">
+        Text Search
+      </h4>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
         <Input
           label="Card Name"

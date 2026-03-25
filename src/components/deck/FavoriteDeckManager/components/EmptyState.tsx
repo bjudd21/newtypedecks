@@ -10,7 +10,7 @@ interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ searchQuery }) => {
   return (
-    <div className="py-8 text-center text-gray-600">
+    <div className="text-muted-foreground py-8 text-center">
       <div className="mb-2 text-4xl">♥</div>
       <div className="text-lg font-medium">No favorite decks yet</div>
       <div className="mt-1 text-sm">

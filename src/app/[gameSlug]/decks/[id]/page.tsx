@@ -39,25 +39,25 @@ export default function DeckDetailPage({
                 <Suspense fallback={<Skeleton lines={6} />}>
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-muted-foreground text-sm font-medium">
                         Name
                       </label>
                       <Skeleton className="mt-1 h-4 w-48" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-muted-foreground text-sm font-medium">
                         Creator
                       </label>
                       <Skeleton className="mt-1 h-4 w-32" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-muted-foreground text-sm font-medium">
                         Created
                       </label>
                       <Skeleton className="mt-1 h-4 w-24" />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-muted-foreground text-sm font-medium">
                         Description
                       </label>
                       <Skeleton className="mt-1 h-16 w-full" />
@@ -75,17 +75,19 @@ export default function DeckDetailPage({
                 <Suspense fallback={<Skeleton lines={4} />}>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Total Cards</span>
+                      <span className="text-muted-foreground text-sm">
+                        Total Cards
+                      </span>
                       <Skeleton className="h-4 w-8" />
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-muted-foreground text-sm">
                         Unique Cards
                       </span>
                       <Skeleton className="h-4 w-8" />
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-muted-foreground text-sm">
                         Average Cost
                       </span>
                       <Skeleton className="h-4 w-8" />

@@ -12,9 +12,9 @@ interface EmptyStateProps {
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ className = '' }) => {
   return (
-    <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
+    <Card className={`${className} border-border bg-card`}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-base tracking-wide text-[#a89ec7] uppercase">
+        <CardTitle className="text-primary/80 flex items-center gap-2 text-base tracking-wide uppercase">
           <span>📋</span>
           Deck Validation
         </CardTitle>
@@ -26,8 +26,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ className = '' }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="text-sm text-gray-400">No cards in deck</div>
-          <div className="mt-1 text-xs text-gray-500">
+          <div className="text-muted-foreground text-sm">No cards in deck</div>
+          <div className="text-muted-foreground/70 mt-1 text-xs">
             Add cards to see validation results
           </div>
         </motion.div>

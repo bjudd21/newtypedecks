@@ -46,9 +46,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   const combinedLoading = isLoading || isOAuthLoading;
 
   return (
-    <Card className={`${className} border-[#443a5c] bg-[#2d2640]`}>
+    <Card className={`${className} border-border bg-card`}>
       <CardHeader>
-        <CardTitle className="bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-center text-2xl text-transparent">
+        <CardTitle className="text-foreground text-center text-2xl">
           Create Account
         </CardTitle>
       </CardHeader>
@@ -97,10 +97,12 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
 
         {/* Sign In Link */}
         <div className="mt-6 text-center text-sm">
-          <span className="text-gray-400">Already have an account? </span>
+          <span className="text-muted-foreground">
+            Already have an account?{' '}
+          </span>
           <button
             onClick={() => router.push('/auth/signin')}
-            className="font-medium text-[#8b7aaa] hover:text-[#a89ec7]"
+            className="text-primary hover:text-primary/80 font-medium"
             disabled={combinedLoading}
           >
             Sign in

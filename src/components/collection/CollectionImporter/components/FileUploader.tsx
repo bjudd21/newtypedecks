@@ -11,14 +11,14 @@ interface FileUploaderProps {
 export const FileUploader: React.FC<FileUploaderProps> = ({ onFileUpload }) => {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-gray-400">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         Upload File
       </label>
       <input
         type="file"
         accept=".csv,.tsv,.txt,.json"
         onChange={onFileUpload}
-        className="block w-full text-sm text-gray-400 file:mr-4 file:rounded-full file:border-0 file:bg-[#8b7aaa]/20 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#8b7aaa] hover:file:bg-[#8b7aaa]/30"
+        className="text-muted-foreground file:bg-primary/20 file:text-primary hover:file:bg-primary/30 block w-full text-sm file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold"
       />
     </div>
   );

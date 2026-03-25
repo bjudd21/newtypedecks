@@ -100,11 +100,13 @@ export const DeckShare: React.FC<DeckShareProps> = ({
               className={`rounded-lg border p-3 text-left text-sm transition-colors ${
                 visibility === value
                   ? 'border-blue-500 bg-blue-50 text-blue-900'
-                  : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'
+                  : 'border-border bg-card text-muted-foreground hover:border-border hover:bg-accent'
               }`}
             >
               <div className="font-medium">{label}</div>
-              <div className="mt-0.5 text-xs text-gray-500">{description}</div>
+              <div className="text-muted-foreground/70 mt-0.5 text-xs">
+                {description}
+              </div>
             </button>
           ))}
         </div>
@@ -112,7 +114,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
         {/* Share URL (PRIVATE and PUBLIC) */}
         {isShareable && (
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="text-muted-foreground mb-2 block text-sm font-medium">
               Share URL
             </label>
             <div className="flex space-x-2">
@@ -155,7 +157,7 @@ export const DeckShare: React.FC<DeckShareProps> = ({
 
         {/* State hint for DRAFT */}
         {visibility === 'DRAFT' && (
-          <div className="rounded bg-gray-50 p-2 text-xs text-gray-500">
+          <div className="bg-accent text-muted-foreground/70 rounded p-2 text-xs">
             <strong>Draft:</strong> Set to Private or Public to share this deck.
           </div>
         )}

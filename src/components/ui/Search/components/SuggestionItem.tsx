@@ -35,7 +35,7 @@ export const SuggestionItem: React.FC<SuggestionItemProps> = ({
       <div className="flex flex-col">
         <span className="block truncate font-normal">{suggestion.label}</span>
         {suggestion.category && (
-          <span className="text-xs text-gray-500">
+          <span className="text-muted-foreground/70 text-xs">
             in {suggestion.category}
           </span>
         )}

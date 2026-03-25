@@ -46,9 +46,9 @@ export const SignInFormComponent: React.FC<SignInFormProps> = ({
     });
 
   return (
-    <Card className={`border-[#443a5c] bg-[#2d2640] shadow-2xl ${className}`}>
+    <Card className={`border-border bg-card shadow-2xl ${className}`}>
       <CardHeader>
-        <CardTitle className="text-center text-2xl text-[#8b7aaa]">
+        <CardTitle className="text-primary text-center text-2xl">
           Sign In
         </CardTitle>
       </CardHeader>

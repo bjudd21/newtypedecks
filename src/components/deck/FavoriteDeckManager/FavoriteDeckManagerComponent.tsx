@@ -49,7 +49,7 @@ export const FavoriteDeckManagerComponent: React.FC<
             ♥ Favorite Decks
             <Badge variant="secondary">{favorites.length}</Badge>
           </CardTitle>
-          <div className="text-sm text-gray-600">
+          <div className="text-muted-foreground text-sm">
             Manage your collection of favorite decks from the community
           </div>
         </CardHeader>

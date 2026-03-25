@@ -69,7 +69,7 @@ export function RulingsSection({
         ) : (
           <div className="py-8 text-center">
             <svg
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="text-muted-foreground mx-auto h-12 w-12"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ export function RulingsSection({
             <h3 className="mt-2 text-sm font-medium text-white">
               No rulings found
             </h3>
-            <p className="mt-1 text-sm text-gray-400">
+            <p className="text-muted-foreground mt-1 text-sm">
               {search || filter !== 'all'
                 ? 'Try adjusting your filters.'
                 : 'No rulings available for this card.'}

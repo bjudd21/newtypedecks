@@ -30,11 +30,11 @@ export const CollectionPagination: React.FC<CollectionPaginationProps> = ({
         size="sm"
         disabled={currentPage <= 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white disabled:opacity-50"
+        className="border-primary text-primary hover:bg-primary hover:text-foreground disabled:opacity-50"
       >
         Previous
       </Button>
-      <span className="text-sm text-gray-400">
+      <span className="text-muted-foreground text-sm">
         Page {currentPage} of {totalPages}
       </span>
       <Button
@@ -42,7 +42,7 @@ export const CollectionPagination: React.FC<CollectionPaginationProps> = ({
         size="sm"
         disabled={currentPage >= totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white disabled:opacity-50"
+        className="border-primary text-primary hover:bg-primary hover:text-foreground disabled:opacity-50"
       >
         Next
       </Button>

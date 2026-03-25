@@ -7,11 +7,11 @@ interface NoResultsStateProps {
 
 export function NoResultsState({ onClearFilters }: NoResultsStateProps) {
   return (
-    <Card className="border-gray-200">
+    <Card className="border-border">
       <CardContent className="py-8">
         <div className="text-center">
           <svg
-            className="mx-auto h-12 w-12 text-gray-400"
+            className="text-muted-foreground mx-auto h-12 w-12"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -26,7 +26,7 @@ export function NoResultsState({ onClearFilters }: NoResultsStateProps) {
           <h3 className="mt-2 text-sm font-medium text-gray-900">
             No cards found
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="text-muted-foreground/70 mt-1 text-sm">
             Try adjusting your search terms or filters.
           </p>
           <div className="mt-4">

@@ -30,7 +30,9 @@ export const TableRow: React.FC<TableRowProps> = ({
         <div className="max-w-xs">
           <div className="truncate font-medium text-white">{card.name}</div>
           {card.setNumber && (
-            <div className="text-xs text-gray-400">#{card.setNumber}</div>
+            <div className="text-muted-foreground text-xs">
+              #{card.setNumber}
+            </div>
           )}
         </div>
       </td>
@@ -40,7 +42,7 @@ export const TableRow: React.FC<TableRowProps> = ({
             {card.type.name}
           </Badge>
         ) : (
-          <span className="text-sm text-gray-500">—</span>
+          <span className="text-muted-foreground/70 text-sm">—</span>
         )}
       </td>
       <td className="px-4 py-3">
@@ -51,16 +53,16 @@ export const TableRow: React.FC<TableRowProps> = ({
       </td>
       <td className="px-4 py-3 text-center">
         {card.level !== null && card.level !== undefined ? (
-          <span className="text-sm text-gray-300">{card.level}</span>
+          <span className="text-foreground text-sm">{card.level}</span>
         ) : (
-          <span className="text-sm text-gray-500">—</span>
+          <span className="text-muted-foreground/70 text-sm">—</span>
         )}
       </td>
       <td className="px-4 py-3 text-center">
         {card.cost !== null && card.cost !== undefined ? (
-          <span className="text-sm text-gray-300">{card.cost}</span>
+          <span className="text-foreground text-sm">{card.cost}</span>
         ) : (
-          <span className="text-sm text-gray-500">—</span>
+          <span className="text-muted-foreground/70 text-sm">—</span>
         )}
       </td>
       <td className="px-4 py-3">

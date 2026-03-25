@@ -8,7 +8,7 @@ export function CardDescription({ description }: { description: string }) {
         <CardTitle>Description</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="leading-relaxed text-gray-300">{description}</p>
+        <p className="text-foreground leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );

@@ -23,7 +23,7 @@ export const ImportActions: React.FC<ImportActionsProps> = ({
       <Button
         onClick={onImport}
         disabled={!hasData || isImporting}
-        className="flex-1 bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+        className="bg-primary hover:bg-primary/90 flex-1"
       >
         {isImporting ? 'Importing...' : 'IMPORT TO COLLECTION'}
       </Button>
@@ -32,7 +32,7 @@ export const ImportActions: React.FC<ImportActionsProps> = ({
         onClick={onClear}
         variant="outline"
         disabled={isImporting}
-        className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
+        className="border-primary text-primary hover:bg-primary hover:text-foreground"
       >
         CLEAR
       </Button>

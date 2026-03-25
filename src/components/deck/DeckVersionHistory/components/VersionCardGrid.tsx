@@ -22,7 +22,7 @@ export const VersionCardGrid: React.FC<VersionCardGridProps> = ({
         {version.cards.map((versionCard) => (
           <div
             key={versionCard.id}
-            className="flex items-center gap-2 rounded border bg-white p-2 text-sm"
+            className="bg-card flex items-center gap-2 rounded border p-2 text-sm"
           >
             {versionCard.card.imageUrl && (
               <Image
@@ -39,11 +39,13 @@ export const VersionCardGrid: React.FC<VersionCardGridProps> = ({
               <div className="truncate font-medium">
                 {versionCard.card.name}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-muted-foreground/70 text-xs">
                 {versionCard.card.type.name} • {versionCard.card.rarity.name}
               </div>
             </div>
-            <div className="text-xs text-gray-600">x{versionCard.quantity}</div>
+            <div className="text-muted-foreground text-xs">
+              x{versionCard.quantity}
+            </div>
           </div>
         ))}
       </div>

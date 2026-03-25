@@ -32,17 +32,17 @@ export const ImportResultDisplay: React.FC<ImportResultDisplayProps> = ({
           <div className="text-lg font-bold text-green-400">
             {result.success}
           </div>
-          <div className="text-gray-400">Successful</div>
+          <div className="text-muted-foreground">Successful</div>
         </div>
         <div className="text-center">
           <div className="text-lg font-bold text-yellow-400">
             {result.skipped}
           </div>
-          <div className="text-gray-400">Skipped</div>
+          <div className="text-muted-foreground">Skipped</div>
         </div>
         <div className="text-center">
           <div className="text-lg font-bold text-red-400">{result.failed}</div>
-          <div className="text-gray-400">Failed</div>
+          <div className="text-muted-foreground">Failed</div>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export const ImportResultDisplay: React.FC<ImportResultDisplayProps> = ({
                 <span
                   className={`rounded px-1 text-xs ${
                     item.action === 'added'
-                      ? 'bg-[#8b7aaa]/30 text-[#8b7aaa]'
+                      ? 'bg-primary/30 text-primary'
                       : 'bg-orange-900/30 text-orange-400'
                   }`}
                 >
@@ -81,7 +81,7 @@ export const ImportResultDisplay: React.FC<ImportResultDisplayProps> = ({
               </div>
             ))}
             {result.imported.length > 10 && (
-              <div className="mt-1 text-gray-400">
+              <div className="text-muted-foreground mt-1">
                 ... and {result.imported.length - 10} more
               </div>
             )}

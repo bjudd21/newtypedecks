@@ -7,11 +7,11 @@ interface WelcomeMessageProps {
 
 export function WelcomeMessage({ onBrowseAll }: WelcomeMessageProps) {
   return (
-    <Card className="border-gray-200">
+    <Card className="border-border">
       <CardContent className="py-8">
         <div className="text-center">
           <svg
-            className="mx-auto h-16 w-16 text-gray-400"
+            className="text-muted-foreground mx-auto h-16 w-16"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -26,7 +26,7 @@ export function WelcomeMessage({ onBrowseAll }: WelcomeMessageProps) {
           <h3 className="mt-4 text-lg font-medium text-gray-900">
             Welcome to the Card Database
           </h3>
-          <p className="mx-auto mt-2 max-w-sm text-sm text-gray-500">
+          <p className="text-muted-foreground/70 mx-auto mt-2 max-w-sm text-sm">
             Use the search bar above to find specific cards, or use the advanced
             filters to browse cards by faction, series, level, and more.
           </p>

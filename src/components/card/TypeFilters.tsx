@@ -30,8 +30,8 @@ function TypeButton({ type, isSelected, onClick }: TypeButtonProps) {
       className={cn(
         'h-7 px-3 text-xs transition-all duration-300',
         isSelected
-          ? 'border-[#8b7aaa] bg-[#6b5a8a] text-white shadow-md'
-          : 'border-[#443a5c] bg-[#1a1625] text-white hover:border-[#6b5a8a] hover:bg-[#2d2640]'
+          ? 'border-primary bg-primary/80 text-white shadow-md'
+          : 'border-border bg-background hover:border-primary hover:bg-card text-white'
       )}
     >
       {type}
@@ -48,7 +48,9 @@ export function TypeFilters({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="mr-1 text-xs font-medium text-gray-400">TYPE:</span>
+      <span className="text-muted-foreground mr-1 text-xs font-medium">
+        TYPE:
+      </span>
       {types.map((type) => (
         <TypeButton
           key={type}

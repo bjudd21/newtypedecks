@@ -1,16 +1,17 @@
 'use client';
 
 /**
- * Landing page client component
+ * Landing page client component — game selector.
  *
- * Handles all interactive/animated content on the root landing page.
- * Receives pre-fetched game data as props from the server page.
+ * Design: Dense launcher grid. No marketing hero. Immediate utility.
+ * Each game card shows the game's accent color via a top border strip,
+ * plus card/deck counts and a direct entry link.
  */
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/Badge';
 import type { GameWithConfig } from '@/lib/types/game';
+import { Database, BookMarked, Archive, Layers } from 'lucide-react';
 
 interface GameWithCounts extends GameWithConfig {
   cardCount: number;
@@ -21,133 +22,162 @@ interface LandingClientProps {
   games: GameWithCounts[];
 }
 
+const QUICK_LINKS = [
+  { icon: Database, label: 'Cards' },
+  { icon: BookMarked, label: 'Decks' },
+  { icon: Archive, label: 'Collection' },
+];
+
 export function LandingClient({ games }: LandingClientProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
-      {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-4 py-16">
-        <div className="mx-auto w-full max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="mb-4 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-5xl font-bold text-transparent md:text-6xl">
-              Newtype Decks
+    <div className="min-h-[calc(100vh-57px)] px-4 py-8 md:px-6">
+      <div className="mx-auto max-w-5xl">
+        {/* Section header — minimal, functional */}
+        <div className="mb-6 flex items-baseline justify-between">
+          <div>
+            <h1 className="text-foreground text-base font-semibold">
+              Supported Games
             </h1>
-            <p className="mb-2 text-xl text-gray-300 md:text-2xl">
-              Multi-TCG card database, deck builder &amp; collection manager
-            </p>
-            <p className="text-sm text-gray-500">
-              Choose a game below to get started
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Game Selector Section */}
-      <section className="border-t border-[#2d2640] px-4 py-12">
-        <div className="mx-auto max-w-5xl">
-          <motion.h2
-            className="mb-8 text-center text-2xl font-bold text-white"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Supported Games
-          </motion.h2>
-
-          {games.length === 0 ? (
-            <p className="text-center text-gray-500">
-              No games available yet. Check back soon.
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {games.map((game, index) => (
-                <motion.div
-                  key={game.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                >
-                  <Link href={`/${game.slug}`}>
-                    <div
-                      className="group flex h-full flex-col rounded-xl border border-[#443a5c] bg-[#2d2640] p-6 transition-all duration-300 hover:border-[#8b7aaa] hover:bg-[#3a3050] hover:shadow-lg hover:shadow-[#8b7aaa]/20"
-                      style={
-                        game.primaryColor
-                          ? ({
-                              '--game-color': game.primaryColor,
-                            } as React.CSSProperties)
-                          : undefined
-                      }
-                    >
-                      {/* Game name + publisher */}
-                      <div className="mb-4 flex-1">
-                        <h3 className="mb-1 text-xl font-bold text-white transition-colors group-hover:text-[#a89ec7]">
-                          {game.name}
-                        </h3>
-                        {game.publisher && (
-                          <p className="text-sm text-gray-400">
-                            {game.publisher}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Stats row */}
-                      <div className="flex items-center gap-3">
-                        <Badge className="bg-[#443a5c] px-2 py-1 text-xs font-medium text-[#a89ec7]">
-                          {game.cardCount.toLocaleString()} cards
-                        </Badge>
-                        {game.deckCount > 0 && (
-                          <Badge className="bg-[#443a5c] px-2 py-1 text-xs font-medium text-[#a89ec7]">
-                            {game.deckCount.toLocaleString()} decks
-                          </Badge>
-                        )}
-                      </div>
-
-                      {/* CTA arrow */}
-                      <div className="mt-4 flex items-center text-sm font-medium text-[#8b7aaa] transition-all group-hover:gap-2 group-hover:text-[#a89ec7]">
-                        <span>Explore</span>
-                        <svg
-                          className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-[#2d2640] bg-[#0f0d15] px-4 py-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="border-t border-[#2d2640] pt-8 text-center">
-            <p className="mb-2 text-xs text-gray-600">
-              &copy; {new Date().getFullYear()} Newtype Decks. Not affiliated
-              with any game publisher.
-            </p>
-            <p className="text-xs text-gray-700">
-              Made with &#10084;&#65039; for the TCG community
+            <p className="text-muted-foreground mt-0.5 text-xs">
+              Select a game to access its card database, deck builder, and
+              collection tools.
             </p>
           </div>
+          {games.length > 0 && (
+            <span className="text-muted-foreground/50 text-xs">
+              {games.length} {games.length === 1 ? 'game' : 'games'}
+            </span>
+          )}
         </div>
-      </footer>
+
+        {/* Game grid */}
+        {games.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {games.map((game, index) => (
+              <GameCard key={game.id} game={game} index={index} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function GameCard({ game, index }: { game: GameWithCounts; index: number }) {
+  const accentColor = game.primaryColor ?? 'oklch(0.88 0 0)';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, delay: index * 0.06 }}
+    >
+      <Link href={`/${game.slug}`} className="group block h-full outline-none">
+        <div
+          className="border-border bg-card group-hover:border-border/80 group-hover:bg-accent/30 group-focus-visible:ring-ring relative flex h-full flex-col overflow-hidden rounded-lg border transition-all duration-150 group-focus-visible:ring-2"
+          style={{ '--game-accent': accentColor } as React.CSSProperties}
+        >
+          {/* Top accent strip — game primary color */}
+          <div
+            className="h-0.5 w-full flex-shrink-0"
+            style={{ backgroundColor: accentColor }}
+          />
+
+          <div className="flex flex-1 flex-col p-4">
+            {/* Game name + publisher */}
+            <div className="mb-3 flex-1">
+              <h2 className="text-foreground text-base leading-tight font-semibold">
+                {game.name}
+              </h2>
+              {game.publisher && (
+                <p className="text-muted-foreground mt-0.5 text-xs">
+                  {game.publisher}
+                </p>
+              )}
+            </div>
+
+            {/* Stats row */}
+            <div className="mb-3 flex items-center gap-3">
+              <Stat
+                icon={<Database className="h-3 w-3" />}
+                value={game.cardCount.toLocaleString()}
+                label="cards"
+              />
+              {game.deckCount > 0 && (
+                <Stat
+                  icon={<BookMarked className="h-3 w-3" />}
+                  value={game.deckCount.toLocaleString()}
+                  label="decks"
+                />
+              )}
+              {game.deckCount === 0 && (
+                <span
+                  className="rounded-sm px-1.5 py-0.5 text-[10px] font-medium"
+                  style={{
+                    backgroundColor: `color-mix(in oklch, ${accentColor} 15%, transparent)`,
+                    color: accentColor,
+                  }}
+                >
+                  New
+                </span>
+              )}
+            </div>
+
+            {/* Quick links */}
+            <div className="border-border/50 flex items-center justify-between border-t pt-3">
+              <div className="flex items-center gap-2">
+                {QUICK_LINKS.map(({ icon: Icon, label }) => (
+                  <span
+                    key={label}
+                    className="text-muted-foreground/60 flex items-center gap-1 text-[11px]"
+                  >
+                    <Icon className="h-3 w-3" />
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <span
+                className="text-xs font-medium transition-colors duration-150"
+                style={{ color: accentColor }}
+              >
+                Enter →
+              </span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+function Stat({
+  icon,
+  value,
+  label,
+}: {
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+}) {
+  return (
+    <span className="text-muted-foreground flex items-center gap-1 text-xs">
+      <span className="text-muted-foreground/50">{icon}</span>
+      <span className="text-foreground font-medium tabular-nums">{value}</span>
+      <span>{label}</span>
+    </span>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="border-border flex flex-col items-center justify-center rounded-lg border border-dashed py-20 text-center">
+      <Layers className="text-muted-foreground/30 mb-3 h-8 w-8" />
+      <p className="text-muted-foreground text-sm font-medium">
+        No games available yet
+      </p>
+      <p className="text-muted-foreground/60 mt-1 text-xs">Check back soon.</p>
     </div>
   );
 }

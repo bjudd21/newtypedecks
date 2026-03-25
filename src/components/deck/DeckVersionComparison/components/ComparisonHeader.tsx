@@ -16,7 +16,7 @@ export const ComparisonHeader: React.FC<ComparisonHeaderProps> = ({
   versionB,
 }) => {
   return (
-    <div className="flex items-center gap-4 text-sm text-gray-600">
+    <div className="text-muted-foreground flex items-center gap-4 text-sm">
       <div>
         <Badge variant="outline">v{versionA.version}</Badge>
         <span className="ml-2">{versionA.versionName || versionA.name}</span>

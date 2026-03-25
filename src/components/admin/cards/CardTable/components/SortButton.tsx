@@ -23,7 +23,7 @@ export const SortButton: React.FC<SortButtonProps> = ({
   return (
     <button
       onClick={() => onSort(field)}
-      className="flex items-center text-sm font-medium text-gray-300 hover:text-white"
+      className="text-foreground hover:text-foreground flex items-center text-sm font-medium"
     >
       {label}
       {currentField === field && (

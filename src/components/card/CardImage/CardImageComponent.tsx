@@ -78,12 +78,12 @@ export const CardImageComponent: React.FC<CardImageProps> = ({
       {/* Main image container */}
       <div
         className={cn(
-          'relative overflow-hidden rounded-lg border bg-gray-50',
+          'bg-accent relative overflow-hidden rounded-lg border',
           sizeConfig.className,
           className,
           (clickToZoom || onClick) &&
-            'cursor-pointer transition-shadow hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none',
-          hasError && 'border-gray-200'
+            'focus:ring-primary cursor-pointer transition-shadow hover:shadow-lg focus:ring-2 focus:ring-offset-2 focus:outline-none',
+          hasError && 'border-border'
         )}
         onClick={handleClick}
         onKeyDown={handleKeyDown}

@@ -112,7 +112,7 @@ export const DeckCommentsContent: React.FC<DeckCommentsProps> = ({
           ) : error ? (
             <div className="py-8 text-center">
               <div className="mb-4 text-red-600">⚠️</div>
-              <p className="text-gray-600">{error}</p>
+              <p className="text-muted-foreground">{error}</p>
             </div>
           ) : comments.length === 0 ? (
             <CommentsEmptyState isAuthenticated={isAuthenticated} />

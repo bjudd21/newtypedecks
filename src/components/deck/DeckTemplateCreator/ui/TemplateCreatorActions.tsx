@@ -33,7 +33,7 @@ export const TemplateCreatorActions: React.FC<TemplateCreatorActionsProps> = ({
       </div>
 
       {/* Success Note */}
-      <div className="text-center text-xs text-gray-500">
+      <div className="text-muted-foreground/70 text-center text-xs">
         Once created, your template will be available in the community template
         browser for others to discover and use.
       </div>

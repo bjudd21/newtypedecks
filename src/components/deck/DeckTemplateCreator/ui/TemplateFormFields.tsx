@@ -26,7 +26,7 @@ export const TemplateFormFields: React.FC<TemplateFormFieldsProps> = ({
     <>
       {/* Template Name */}
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Template Name *
         </label>
         <Input
@@ -39,24 +39,24 @@ export const TemplateFormFields: React.FC<TemplateFormFieldsProps> = ({
 
       {/* Template Description */}
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Description
         </label>
         <textarea
           value={templateDescription}
           onChange={(e) => onTemplateDescriptionChange(e.target.value)}
           placeholder="Describe this template's strategy, strengths, and when to use it..."
-          className="w-full resize-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className="border-border focus:border-primary focus:ring-primary w-full resize-none rounded-md border px-3 py-2 shadow-sm focus:ring-1 focus:outline-none"
           rows={3}
         />
-        <div className="mt-1 text-xs text-gray-500">
+        <div className="text-muted-foreground/70 mt-1 text-xs">
           Help other players understand when and how to use this template.
         </div>
       </div>
 
       {/* Template Source */}
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-700">
+        <label className="text-muted-foreground mb-1 block text-sm font-medium">
           Source Type
         </label>
         <Select
@@ -70,7 +70,7 @@ export const TemplateFormFields: React.FC<TemplateFormFieldsProps> = ({
             { value: 'Beginner', label: 'Beginner-Friendly' },
           ]}
         />
-        <div className="mt-1 text-xs text-gray-500">
+        <div className="text-muted-foreground/70 mt-1 text-xs">
           Choose the category that best describes this deck template.
         </div>
       </div>

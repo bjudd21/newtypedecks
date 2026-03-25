@@ -8,7 +8,7 @@ export const PageHeader: React.FC = () => {
   return (
     <div className="mb-8">
       <h1 className="mb-2 text-3xl font-bold text-gray-900">PWA Settings</h1>
-      <p className="text-gray-600">
+      <p className="text-muted-foreground">
         Manage app installation, offline features, and cached data
       </p>
     </div>

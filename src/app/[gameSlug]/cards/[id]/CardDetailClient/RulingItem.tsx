@@ -28,13 +28,13 @@ export function RulingItem({
         {ruling.source && (
           <Badge
             variant="secondary"
-            className="bg-gray-700 text-xs text-gray-300"
+            className="bg-secondary text-foreground text-xs"
           >
             {ruling.source}
           </Badge>
         )}
 
-        <span className="ml-auto text-xs text-gray-400">
+        <span className="text-muted-foreground ml-auto text-xs">
           Updated: {new Date(ruling.updatedAt).toLocaleDateString()}
         </span>
       </div>

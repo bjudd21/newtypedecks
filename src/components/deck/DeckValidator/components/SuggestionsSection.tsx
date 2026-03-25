@@ -21,16 +21,16 @@ export const SuggestionsSection: React.FC<SuggestionsSectionProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
     >
-      <h4 className="text-sm font-semibold tracking-wide text-[#a89ec7] uppercase">
+      <h4 className="text-primary/80 text-sm font-semibold tracking-wide uppercase">
         Suggestions
       </h4>
-      <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-3">
+      <div className="border-border bg-background/50 rounded-lg border p-3">
         {suggestions.map((suggestion, index) => (
           <div
             key={index}
-            className="flex items-start gap-2 py-1 text-sm text-gray-300"
+            className="text-foreground flex items-start gap-2 py-1 text-sm"
           >
-            <span className="mt-0.5 text-[#8b7aaa]">💡</span>
+            <span className="text-primary mt-0.5">💡</span>
             <span>{suggestion}</span>
           </div>
         ))}

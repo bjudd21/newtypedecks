@@ -27,12 +27,14 @@ export const CategoricalFiltersSection: React.FC<
 
   return (
     <div>
-      <h4 className="mb-3 text-sm font-medium text-gray-700">Categories</h4>
+      <h4 className="text-muted-foreground mb-3 text-sm font-medium">
+        Categories
+      </h4>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Types */}
         {referenceData.types && referenceData.types.length > 0 && (
           <div>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               Card Types
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
@@ -48,11 +50,11 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('typeIds', type.id);
                       }
                     }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
                   />
                   <span>{type.name}</span>
                   {type.count && (
-                    <span className="ml-auto text-xs text-gray-400">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       ({type.count})
                     </span>
                   )}
@@ -65,7 +67,7 @@ export const CategoricalFiltersSection: React.FC<
         {/* Rarities */}
         {referenceData.rarities && referenceData.rarities.length > 0 && (
           <div>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               Rarities
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
@@ -81,7 +83,7 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('rarityIds', rarity.id);
                       }
                     }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
                   />
                   <div className="flex items-center gap-1">
                     <div
@@ -91,7 +93,7 @@ export const CategoricalFiltersSection: React.FC<
                     <span>{rarity.name}</span>
                   </div>
                   {rarity.count && (
-                    <span className="ml-auto text-xs text-gray-400">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       ({rarity.count})
                     </span>
                   )}
@@ -104,7 +106,7 @@ export const CategoricalFiltersSection: React.FC<
         {/* Factions */}
         {referenceData.factions && referenceData.factions.length > 0 && (
           <div>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               Factions
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
@@ -120,11 +122,11 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('factions', faction.name);
                       }
                     }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
                   />
                   <span>{faction.name}</span>
                   {faction.count && (
-                    <span className="ml-auto text-xs text-gray-400">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       ({faction.count})
                     </span>
                   )}
@@ -137,7 +139,7 @@ export const CategoricalFiltersSection: React.FC<
         {/* Sets */}
         {referenceData.sets && referenceData.sets.length > 0 && (
           <div>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               Sets
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
@@ -153,13 +155,13 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('setIds', set.id);
                       }
                     }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
                   />
                   <span>
                     {set.name} ({set.code})
                   </span>
                   {set.count && (
-                    <span className="ml-auto text-xs text-gray-400">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       ({set.count})
                     </span>
                   )}
@@ -172,7 +174,7 @@ export const CategoricalFiltersSection: React.FC<
         {/* Series */}
         {referenceData.series && referenceData.series.length > 0 && (
           <div>
-            <label className="mb-2 block text-xs font-medium text-gray-600">
+            <label className="text-muted-foreground mb-2 block text-xs font-medium">
               Series
             </label>
             <div className="max-h-32 space-y-1 overflow-y-auto">
@@ -188,11 +190,11 @@ export const CategoricalFiltersSection: React.FC<
                         onRemoveFilter('series', series.name);
                       }
                     }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="border-border mr-2 rounded text-blue-600 focus:ring-blue-500"
                   />
                   <span>{series.name}</span>
                   {series.count && (
-                    <span className="ml-auto text-xs text-gray-400">
+                    <span className="text-muted-foreground ml-auto text-xs">
                       ({series.count})
                     </span>
                   )}

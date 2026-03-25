@@ -66,11 +66,11 @@ export const DistributionsTab: React.FC<DistributionsTabProps> = ({
                   };
                   return (
                     <div key={cost} className="text-center">
-                      <div className="text-xs font-medium text-gray-600">
+                      <div className="text-muted-foreground text-xs font-medium">
                         Cost {cost}+
                       </div>
                       <div className="text-sm font-bold">{data.count}</div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-muted-foreground/70 text-xs">
                         {data.percentage}%
                       </div>
                     </div>

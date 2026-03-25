@@ -35,14 +35,14 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
   const gameTypes = game.config.cardTypes;
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[#443a5c] bg-[#2d2640] p-4">
+    <div className="border-border bg-card flex flex-wrap items-center gap-3 rounded-lg border p-4">
       <ColorFilters
         selectedColors={selectedColors}
         onToggleColor={onToggleColor}
         colors={gameColors}
       />
 
-      {gameColors.length > 0 && <div className="h-7 w-px bg-[#443a5c]" />}
+      {gameColors.length > 0 && <div className="bg-border h-7 w-px" />}
 
       <TypeFilters
         selectedTypes={selectedTypes}
@@ -50,13 +50,13 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
         types={gameTypes}
       />
 
-      <div className="h-7 w-px bg-[#443a5c]" />
+      <div className="bg-border h-7 w-px" />
 
       <div className="flex items-center gap-2">
         <Button
           variant="outline"
           size="sm"
-          className="h-7 border-[#443a5c] bg-[#1a1625] px-3 text-xs text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a]"
+          className="border-border bg-background hover:border-primary hover:bg-primary/80 h-7 px-3 text-xs text-white"
           onClick={() => router.push('/cards?view=sets')}
         >
           📚 Sets
@@ -64,7 +64,7 @@ export const FilterToolbar: React.FC<FilterToolbarProps> = ({
         <Button
           variant="outline"
           size="sm"
-          className="h-7 border-[#443a5c] bg-[#1a1625] px-3 text-xs text-white hover:border-[#6b5a8a] hover:bg-[#6b5a8a]"
+          className="border-border bg-background hover:border-primary hover:bg-primary/80 h-7 px-3 text-xs text-white"
           onClick={onRandomCard}
         >
           🎲 Random

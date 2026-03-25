@@ -48,7 +48,7 @@ export const DiffSection: React.FC<DiffSectionProps> = ({ type, changes }) => {
         <span className={`text-sm font-semibold ${config.color}`}>
           {config.label}
         </span>
-        <span className="text-xs text-gray-500">
+        <span className="text-muted-foreground/70 text-xs">
           ({changes.length} unique · {totalCards} total)
         </span>
       </div>
@@ -58,7 +58,7 @@ export const DiffSection: React.FC<DiffSectionProps> = ({ type, changes }) => {
             key={change.cardId}
             className={`flex items-center gap-3 rounded border ${config.border} ${config.bg} px-3 py-2`}
           >
-            <div className="flex h-10 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded border border-[#443a5c] bg-[#1a1625]">
+            <div className="border-border bg-background flex h-10 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded border">
               {change.card.imageUrl ? (
                 <Image
                   src={change.card.imageUrl}
@@ -69,14 +69,14 @@ export const DiffSection: React.FC<DiffSectionProps> = ({ type, changes }) => {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <span className="text-xs text-gray-600">IMG</span>
+                <span className="text-muted-foreground text-xs">IMG</span>
               )}
             </div>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-[#a89ec7]">
+              <div className="text-primary/80 truncate text-sm font-medium">
                 {change.cardName}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-muted-foreground/70 text-xs">
                 {change.card.type?.name}
                 {change.card.cost !== undefined
                   ? ` · Cost ${change.card.cost}`

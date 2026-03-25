@@ -16,10 +16,12 @@ export const SignUpLink: React.FC<SignUpLinkProps> = ({ isLoading }) => {
 
   return (
     <div className="mt-6 text-center text-sm">
-      <span className="text-gray-400">Don&apos;t have an account? </span>
+      <span className="text-muted-foreground">
+        Don&apos;t have an account?{' '}
+      </span>
       <button
         onClick={() => router.push('/auth/signup')}
-        className="font-medium text-[#8b7aaa] hover:text-[#a89ec7]"
+        className="text-primary hover:text-primary/80 font-medium"
         disabled={isLoading}
       >
         Sign up

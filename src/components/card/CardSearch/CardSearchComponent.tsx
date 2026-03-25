@@ -106,7 +106,7 @@ export const CardSearchComponent: React.FC<CardSearchProps> = ({
               'flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors',
               showFilters
                 ? 'border-blue-500 bg-blue-50 text-blue-700'
-                : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                : 'border-border bg-card text-muted-foreground hover:bg-accent'
             )}
           >
             <svg
@@ -145,7 +145,9 @@ export const CardSearchComponent: React.FC<CardSearchProps> = ({
 
       {/* Loading indicator */}
       {isLoading && (
-        <div className="mt-2 text-sm text-gray-500">Searching...</div>
+        <div className="text-muted-foreground/70 mt-2 text-sm">
+          Searching...
+        </div>
       )}
     </div>
   );

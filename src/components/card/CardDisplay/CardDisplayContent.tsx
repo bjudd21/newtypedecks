@@ -68,7 +68,7 @@ export const CardDisplayContent: React.FC<CardDisplayProps> = ({
         {/* Description preview */}
         {card.description && (
           <div className="mt-3">
-            <p className="line-clamp-2 text-sm text-gray-600">
+            <p className="text-muted-foreground line-clamp-2 text-sm">
               {card.description}
             </p>
           </div>
@@ -105,7 +105,7 @@ export const CardDisplayContent: React.FC<CardDisplayProps> = ({
     return (
       <button
         onClick={handleClick}
-        className="w-full rounded-lg text-left focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+        className="focus:ring-primary w-full rounded-lg text-left focus:ring-2 focus:ring-offset-2 focus:outline-none"
       >
         {cardContent}
       </button>
@@ -115,7 +115,7 @@ export const CardDisplayContent: React.FC<CardDisplayProps> = ({
   return (
     <Link
       href={`/cards/${card.id}`}
-      className="block rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+      className="focus:ring-primary block rounded-lg focus:ring-2 focus:ring-offset-2 focus:outline-none"
     >
       {cardContent}
     </Link>

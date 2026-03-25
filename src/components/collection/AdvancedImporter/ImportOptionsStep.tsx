@@ -23,11 +23,13 @@ export function ImportOptionsStep({
 }: ImportOptionsStepProps) {
   return (
     <div className="space-y-4">
-      <div className="text-sm font-medium text-gray-400">Import Options</div>
+      <div className="text-muted-foreground text-sm font-medium">
+        Import Options
+      </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-400">
+          <label className="text-muted-foreground mb-1 block text-sm font-medium">
             Update Behavior
           </label>
           <Select
@@ -44,7 +46,7 @@ export function ImportOptionsStep({
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-400">
+          <label className="text-muted-foreground mb-1 block text-sm font-medium">
             Batch Size
           </label>
           <Select
@@ -72,9 +74,12 @@ export function ImportOptionsStep({
               skipDuplicates: e.target.checked,
             })
           }
-          className="rounded border-gray-300 text-[#8b7aaa] focus:ring-[#8b7aaa]"
+          className="border-border text-primary focus:ring-ring rounded"
         />
-        <label htmlFor="skipDuplicates" className="text-sm text-gray-400">
+        <label
+          htmlFor="skipDuplicates"
+          className="text-muted-foreground text-sm"
+        >
           Skip duplicate entries in import data
         </label>
       </div>
@@ -83,14 +88,14 @@ export function ImportOptionsStep({
         <Button
           onClick={onImport}
           disabled={isProcessing}
-          className="bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] hover:from-[#a89ec7] hover:to-[#8b7aaa]"
+          className="bg-primary hover:bg-primary/90"
         >
           {isProcessing ? 'IMPORTING...' : 'START IMPORT'}
         </Button>
         <Button
           onClick={onBack}
           variant="outline"
-          className="border-[#8b7aaa] text-[#8b7aaa] hover:bg-[#8b7aaa] hover:text-white"
+          className="border-primary text-primary hover:bg-primary hover:text-foreground"
         >
           Back to Preview
         </Button>

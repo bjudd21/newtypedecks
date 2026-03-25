@@ -37,7 +37,7 @@ export function ProxySheetPanel({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-white">Proxy Sheet</h2>
-          <p className="text-xs text-gray-400">
+          <p className="text-muted-foreground text-xs">
             {totalCards} card{totalCards !== 1 ? 's' : ''} · {pageCount} page
             {pageCount !== 1 ? 's' : ''} · 3×3 per page
           </p>
@@ -60,9 +60,9 @@ export function ProxySheetPanel({
 
       {/* Empty state */}
       {proxyEntries.length === 0 && (
-        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[#443a5c] py-16 text-center">
-          <div className="mb-2 text-3xl text-gray-600">🖨</div>
-          <p className="text-sm text-gray-500">
+        <div className="border-border flex flex-col items-center justify-center rounded-lg border border-dashed py-16 text-center">
+          <div className="text-muted-foreground mb-2 text-3xl">🖨</div>
+          <p className="text-muted-foreground/70 text-sm">
             Click cards on the left to add them to your proxy sheet.
           </p>
         </div>
@@ -74,7 +74,7 @@ export function ProxySheetPanel({
           {proxyEntries.map(({ card, quantity }) => (
             <div
               key={card.id}
-              className="flex items-center gap-3 rounded-md border border-[#443a5c] bg-[#2d2640] p-2"
+              className="border-border bg-card flex items-center gap-3 rounded-md border p-2"
             >
               {/* Thumbnail */}
               <div className="relative h-12 w-9 shrink-0 overflow-hidden rounded">
@@ -87,7 +87,7 @@ export function ProxySheetPanel({
                     sizes="36px"
                   />
                 ) : (
-                  <div className="h-full w-full bg-[#1a1625]" />
+                  <div className="bg-background h-full w-full" />
                 )}
               </div>
 
@@ -100,7 +100,7 @@ export function ProxySheetPanel({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => onSetQuantity(card.id, quantity - 1)}
-                  className="flex h-6 w-6 items-center justify-center rounded border border-[#443a5c] text-sm text-gray-300 hover:border-[#8b7aaa] hover:text-white"
+                  className="border-border text-foreground hover:border-primary hover:text-foreground flex h-6 w-6 items-center justify-center rounded border text-sm"
                 >
                   −
                 </button>
@@ -110,7 +110,7 @@ export function ProxySheetPanel({
                 <button
                   onClick={() => onSetQuantity(card.id, quantity + 1)}
                   disabled={quantity >= MAX_PROXY_QUANTITY}
-                  className="flex h-6 w-6 items-center justify-center rounded border border-[#443a5c] text-sm text-gray-300 hover:border-[#8b7aaa] hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                  className="border-border text-foreground hover:border-primary hover:text-foreground flex h-6 w-6 items-center justify-center rounded border text-sm disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   +
                 </button>
@@ -119,7 +119,7 @@ export function ProxySheetPanel({
               {/* Remove */}
               <button
                 onClick={() => onRemoveCard(card.id)}
-                className="ml-1 text-gray-500 hover:text-red-400"
+                className="text-muted-foreground/70 ml-1 hover:text-red-400"
                 title="Remove"
               >
                 ×
@@ -131,7 +131,7 @@ export function ProxySheetPanel({
 
       {/* Export hint */}
       {proxyEntries.length > 0 && (
-        <p className="text-xs text-gray-500">
+        <p className="text-muted-foreground/70 text-xs">
           PDF exports US Letter (8.5&quot;×11&quot;) at 2.5&quot;×3.5&quot; per
           card with cut marks. Print at 100% scale — do not fit to page.
         </p>

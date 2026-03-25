@@ -28,7 +28,7 @@ export const FormatSelectionGrid: React.FC<FormatSelectionGridProps> = ({
 }) => {
   return (
     <div>
-      <div className="mb-3 text-sm font-medium text-gray-400">
+      <div className="text-muted-foreground mb-3 text-sm font-medium">
         Choose Export Format:
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -38,15 +38,15 @@ export const FormatSelectionGrid: React.FC<FormatSelectionGridProps> = ({
             onClick={() => onFormatSelect(format)}
             className={`cursor-pointer rounded-lg border p-4 transition-colors ${
               selectedFormat.id === format.id
-                ? 'border-[#8b7aaa] bg-[#3a3050]'
-                : 'border-[#443a5c] hover:border-[#8b7aaa] hover:bg-[#1a1625]'
+                ? 'border-primary bg-accent'
+                : 'border-border hover:border-primary hover:bg-background'
             }`}
           >
             <div className="mb-2 flex items-center gap-3">
               <span className="text-2xl">{format.icon}</span>
               <div>
                 <div className="font-medium text-white">{format.name}</div>
-                <div className="text-sm text-gray-400">
+                <div className="text-muted-foreground text-sm">
                   {format.description}
                 </div>
               </div>

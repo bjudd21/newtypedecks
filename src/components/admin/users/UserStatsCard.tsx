@@ -24,9 +24,9 @@ interface UserStatsCardProps {
 export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-[#443a5c] bg-[#2d2640]/60 p-6 backdrop-blur-md">
+      <div className="border-border bg-card/60 rounded-lg border p-6 backdrop-blur-md">
         <div className="flex h-48 items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8b7aaa] border-t-transparent" />
+          <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
         </div>
       </div>
     );
@@ -54,7 +54,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
   ];
 
   return (
-    <div className="rounded-lg border border-[#443a5c] bg-[#2d2640]/60 p-6 backdrop-blur-md">
+    <div className="border-border bg-card/60 rounded-lg border p-6 backdrop-blur-md">
       <h3 className="mb-6 text-lg font-semibold text-white">User Statistics</h3>
 
       {/* Total Users */}
@@ -63,24 +63,24 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
           <div className="text-4xl font-bold text-white">
             {stats.total.toLocaleString()}
           </div>
-          <div className="mt-1 text-sm text-gray-400">Total Users</div>
+          <div className="text-muted-foreground mt-1 text-sm">Total Users</div>
         </div>
       </div>
 
       {/* Users by Role */}
       <div className="mb-6 space-y-3">
-        <div className="text-sm font-medium text-gray-300">By Role</div>
+        <div className="text-foreground text-sm font-medium">By Role</div>
         <div className="grid gap-3">
           {roleData.map(({ role, count, label, variant }) => (
             <div
               key={role}
-              className="flex items-center justify-between rounded-md border border-[#443a5c] bg-[#1a1625] px-4 py-3"
+              className="border-border bg-background flex items-center justify-between rounded-md border px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <Badge variant={variant} className="text-xs">
                   {role}
                 </Badge>
-                <span className="text-sm text-gray-300">{label}</span>
+                <span className="text-foreground text-sm">{label}</span>
               </div>
               <span className="text-lg font-semibold text-white">{count}</span>
             </div>
@@ -89,7 +89,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
       </div>
 
       {/* Additional Stats */}
-      <div className="space-y-3 border-t border-[#443a5c] pt-4">
+      <div className="border-border space-y-3 border-t pt-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-500/20">
@@ -105,7 +105,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
                 />
               </svg>
             </span>
-            <span className="text-sm text-gray-300">Verified</span>
+            <span className="text-foreground text-sm">Verified</span>
           </div>
           <span className="text-sm font-medium text-white">
             {stats.verified}
@@ -114,9 +114,9 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500/20">
+            <span className="bg-accent0/20 inline-flex h-5 w-5 items-center justify-center rounded-full">
               <svg
-                className="h-3 w-3 text-gray-400"
+                className="text-muted-foreground h-3 w-3"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -127,7 +127,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
                 />
               </svg>
             </span>
-            <span className="text-sm text-gray-300">Unverified</span>
+            <span className="text-foreground text-sm">Unverified</span>
           </div>
           <span className="text-sm font-medium text-white">
             {stats.unverified}
@@ -145,7 +145,7 @@ export function UserStatsCard({ stats, isLoading }: UserStatsCardProps) {
                 <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
               </svg>
             </span>
-            <span className="text-sm text-gray-300">New (30 days)</span>
+            <span className="text-foreground text-sm">New (30 days)</span>
           </div>
           <span className="text-sm font-medium text-white">
             {stats.recentSignups.last30Days}

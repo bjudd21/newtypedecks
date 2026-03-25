@@ -28,7 +28,7 @@ export const CopyrightDisclaimer: React.FC<CopyrightDisclaimerProps> = ({
 
   if (variant === 'compact') {
     return (
-      <div className={`text-xs text-gray-600 ${className}`}>
+      <div className={`text-muted-foreground text-xs ${className}`}>
         <p>
           © {currentYear} {publisherName} All rights reserved. This is an
           unofficial fan site.
@@ -39,7 +39,9 @@ export const CopyrightDisclaimer: React.FC<CopyrightDisclaimerProps> = ({
 
   if (variant === 'footer') {
     return (
-      <div className={`space-y-2 text-sm text-gray-500 ${className}`}>
+      <div
+        className={`text-muted-foreground/70 space-y-2 text-sm ${className}`}
+      >
         <p>
           <strong>{gameLabel}</strong> is a trademark of{' '}
           <strong>{publisherName}</strong> All card images, names, and game
@@ -57,7 +59,7 @@ export const CopyrightDisclaimer: React.FC<CopyrightDisclaimerProps> = ({
   // Full variant - detailed copyright notice
   return (
     <div
-      className={`rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700 ${className}`}
+      className={`border-border bg-accent text-muted-foreground rounded-lg border p-4 text-sm ${className}`}
     >
       <div className="space-y-3">
         <div>
@@ -89,8 +91,8 @@ export const CopyrightDisclaimer: React.FC<CopyrightDisclaimerProps> = ({
           </p>
         </div>
 
-        <div className="border-t border-gray-300 pt-2">
-          <p className="text-xs text-gray-600">
+        <div className="border-border border-t pt-2">
+          <p className="text-muted-foreground text-xs">
             <strong>Fair Use Notice:</strong> All copyrighted material on this
             website is used in accordance with fair use principles for
             non-commercial, educational, and transformative purposes including

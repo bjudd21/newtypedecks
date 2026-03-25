@@ -22,13 +22,13 @@ export const MobileSuitInfo: React.FC<MobileSuitInfoProps> = ({
       </h3>
       {pilot && (
         <div className="mb-1 text-sm">
-          <span className="text-gray-400">Pilot: </span>
+          <span className="text-muted-foreground">Pilot: </span>
           <span className="text-white">{pilot}</span>
         </div>
       )}
       {model && (
         <div className="text-sm">
-          <span className="text-gray-400">Model: </span>
+          <span className="text-muted-foreground">Model: </span>
           <span className="text-white">{model}</span>
         </div>
       )}

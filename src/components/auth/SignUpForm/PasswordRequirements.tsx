@@ -6,7 +6,7 @@ import React from 'react';
 
 export const PasswordRequirements: React.FC = () => {
   return (
-    <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3 text-sm text-gray-400">
+    <div className="border-border bg-background text-muted-foreground rounded border p-3 text-sm">
       <p className="mb-1 font-medium text-white">Password Requirements:</p>
       <ul className="space-y-1 text-xs">
         <li>• At least 8 characters long</li>

@@ -51,18 +51,25 @@ export default function DecksPage() {
 
   return (
     <ReduxProvider>
-      <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-[calc(100vh-57px)]">
+        {/* Hero placeholder — game art slots in here later */}
+        <div
+          className="hero-placeholder relative h-20 overflow-hidden"
+          aria-hidden="true"
+        >
+          <div className="to-background absolute inset-0 bg-gradient-to-b from-transparent" />
+        </div>
+        <div className="container mx-auto px-4 pb-8">
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="mb-2 bg-gradient-to-r from-[#8b7aaa] via-[#a89ec7] to-[#8b7aaa] bg-clip-text text-4xl font-bold text-transparent text-white">
+            <h1 className="text-foreground mb-2 text-2xl font-semibold">
               Deck Management
             </h1>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               Build, manage, and discover {game.name} decks
             </p>
           </motion.div>
@@ -74,15 +81,15 @@ export default function DecksPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <nav className="flex space-x-2 rounded-xl border border-[#443a5c] bg-[#2d2640] p-2 shadow-lg">
+            <nav className="border-border bg-card flex space-x-2 rounded-xl border p-2 shadow-lg">
               {tabs.map((tab, index) => (
                 <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
                   className={`relative flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-[#8b7aaa] to-[#6b5a8a] text-white shadow-lg shadow-[#8b7aaa]/30'
-                      : 'text-gray-400 hover:bg-[#3a3050] hover:text-white'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'text-muted-foreground hover:bg-accent hover:text-foreground'
                   } `}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -93,7 +100,7 @@ export default function DecksPage() {
                   <div>
                     <div className="font-semibold">{tab.label}</div>
                     <div
-                      className={`mt-1 text-xs ${activeTab === tab.id ? 'text-gray-200' : 'text-gray-500'}`}
+                      className={`mt-1 text-xs ${activeTab === tab.id ? 'text-gray-200' : 'text-muted-foreground/70'}`}
                     >
                       {tab.description}
                     </div>
@@ -113,10 +120,12 @@ export default function DecksPage() {
                 transition={{ duration: 0.4 }}
               >
                 <div className="relative mx-auto mb-6">
-                  <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-[#443a5c] border-t-[#8b7aaa]"></div>
-                  <div className="absolute inset-0 rounded-full bg-[#8b7aaa]/10 blur-xl"></div>
+                  <div className="border-border border-t-primary mx-auto h-16 w-16 animate-spin rounded-full border-4"></div>
+                  <div className="bg-primary/10 absolute inset-0 rounded-full blur-xl"></div>
                 </div>
-                <p className="text-lg text-gray-400">Loading deck builder...</p>
+                <p className="text-muted-foreground text-lg">
+                  Loading deck builder...
+                </p>
               </motion.div>
             }
           >
@@ -151,7 +160,7 @@ function MyDecksManager({ gameSlug }: { gameSlug: string }) {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardContent className="py-16 text-center">
           <motion.div
             className="mb-4 text-6xl"
@@ -163,8 +172,10 @@ function MyDecksManager({ gameSlug }: { gameSlug: string }) {
           <h3 className="mb-4 text-2xl font-bold text-white">
             Personal Deck Management
           </h3>
-          <p className="mb-2 text-gray-400">This feature is coming soon!</p>
-          <p className="mx-auto mb-8 max-w-md text-sm text-gray-500">
+          <p className="text-muted-foreground mb-2">
+            This feature is coming soon!
+          </p>
+          <p className="text-muted-foreground/70 mx-auto mb-8 max-w-md text-sm">
             For now, use the Deck Builder to create and save decks, and the
             Dashboard to view your saved decks.
           </p>

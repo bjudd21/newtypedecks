@@ -10,7 +10,7 @@ export default function ProxiesPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-gradient-to-b from-[#1a1625] via-[#2a1f3d] to-[#1a1625]" />
+        <div className="bg-background min-h-[calc(100vh-57px)] animate-pulse" />
       }
     >
       <ProxiesPageContent />

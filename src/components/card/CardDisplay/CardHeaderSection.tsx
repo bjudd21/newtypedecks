@@ -25,10 +25,14 @@ export const CardHeaderSection: React.FC<CardHeaderSectionProps> = ({
       <div className="min-w-0 flex-1">
         <h3 className="truncate text-lg font-semibold text-gray-900">{name}</h3>
         {pilot && (
-          <p className="truncate text-sm text-gray-600">Pilot: {pilot}</p>
+          <p className="text-muted-foreground truncate text-sm">
+            Pilot: {pilot}
+          </p>
         )}
         {model && (
-          <p className="truncate text-sm text-gray-500">Model: {model}</p>
+          <p className="text-muted-foreground/70 truncate text-sm">
+            Model: {model}
+          </p>
         )}
       </div>
 

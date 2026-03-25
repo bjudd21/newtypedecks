@@ -26,7 +26,9 @@ export const ActiveFiltersDisplay: React.FC<ActiveFiltersDisplayProps> = ({
 }) => {
   return (
     <div>
-      <h4 className="mb-3 text-sm font-medium text-gray-700">Active Filters</h4>
+      <h4 className="text-muted-foreground mb-3 text-sm font-medium">
+        Active Filters
+      </h4>
       <div className="flex flex-wrap gap-2">
         {/* Text filters */}
         {Object.entries(filters.textFilters).map(([key, value]) =>

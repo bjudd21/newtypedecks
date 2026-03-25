@@ -15,15 +15,15 @@ export const QuickActionButton: React.FC<QuickActionButtonProps> = ({
   return (
     <button
       onClick={action.action}
-      className="group rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 text-left transition-all duration-200 hover:border-[#8b7aaa] hover:bg-[#3a3050] hover:shadow-lg hover:shadow-[#8b7aaa]/20"
+      className="group border-border bg-background hover:border-primary hover:bg-accent hover:shadow-primary/20 rounded-lg border p-4 text-left transition-all duration-200 hover:shadow-lg"
     >
       <div className="mb-2 flex items-center">
         <span className="mr-3 text-xl">{action.icon}</span>
-        <h3 className="font-medium text-white transition-colors group-hover:text-[#a89ec7]">
+        <h3 className="group-hover:text-primary/80 font-medium text-white transition-colors">
           {action.title}
         </h3>
       </div>
-      <p className="text-sm text-gray-400">{action.description}</p>
+      <p className="text-muted-foreground text-sm">{action.description}</p>
     </button>
   );
 };

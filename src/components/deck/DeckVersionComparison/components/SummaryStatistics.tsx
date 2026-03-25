@@ -18,27 +18,27 @@ export const SummaryStatistics: React.FC<SummaryStatisticsProps> = ({
   unchangedCount,
 }) => {
   return (
-    <div className="mb-6 rounded-lg bg-gray-50 p-4">
+    <div className="bg-accent mb-6 rounded-lg p-4">
       <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
         <div className="text-center">
           <div className="text-lg font-bold text-green-600">{addedCount}</div>
-          <div className="text-gray-600">Added</div>
+          <div className="text-muted-foreground">Added</div>
         </div>
         <div className="text-center">
           <div className="text-lg font-bold text-red-600">{removedCount}</div>
-          <div className="text-gray-600">Removed</div>
+          <div className="text-muted-foreground">Removed</div>
         </div>
         <div className="text-center">
           <div className="text-lg font-bold text-yellow-600">
             {modifiedCount}
           </div>
-          <div className="text-gray-600">Modified</div>
+          <div className="text-muted-foreground">Modified</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-bold text-gray-600">
+          <div className="text-muted-foreground text-lg font-bold">
             {unchangedCount}
           </div>
-          <div className="text-gray-600">Unchanged</div>
+          <div className="text-muted-foreground">Unchanged</div>
         </div>
       </div>
     </div>

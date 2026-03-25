@@ -21,7 +21,7 @@ export const ValidationResultsList: React.FC<ValidationResultsListProps> = ({
 
   return (
     <div className="space-y-2">
-      <h4 className="text-sm font-semibold tracking-wide text-[#a89ec7] uppercase">
+      <h4 className="text-primary/80 text-sm font-semibold tracking-wide uppercase">
         {onlyErrors ? 'Errors' : 'Validation Results'}
       </h4>
 
@@ -49,7 +49,7 @@ export const ValidationResultsList: React.FC<ValidationResultsListProps> = ({
               </div>
               <Badge
                 variant="secondary"
-                className="ml-2 border-[#8b7aaa]/30 bg-[#8b7aaa]/20 text-xs text-[#a89ec7]"
+                className="border-primary/30 bg-primary/20 text-primary/80 ml-2 text-xs"
               >
                 {result.rule.category}
               </Badge>

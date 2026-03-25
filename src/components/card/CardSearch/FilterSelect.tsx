@@ -32,13 +32,13 @@ export const FilterSelect: React.FC<FilterSelectProps> = ({
 }) => {
   return (
     <div className={cn('flex flex-col', className)}>
-      <label className="mb-2 block text-sm font-medium text-gray-700">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         {label}
       </label>
       <select
         value={value || ''}
         onChange={(e) => onChange(e.target.value || undefined)}
-        className="block w-full rounded-md border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
+        className="border-border block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
         disabled={disabled}
       >
         <option value="">{placeholder}</option>

@@ -19,20 +19,22 @@ export const ImportPreviewList: React.FC<ImportPreviewListProps> = ({
 
   return (
     <div>
-      <div className="mb-2 text-sm font-medium text-gray-400">
+      <div className="text-muted-foreground mb-2 text-sm font-medium">
         Preview (first 5 cards)
       </div>
-      <div className="rounded border border-[#443a5c] bg-[#1a1625] p-3">
+      <div className="border-border bg-background rounded border p-3">
         {cards.map((card, index) => (
           <div key={index} className="flex items-center gap-4 py-1 text-sm">
             <span className="w-8 text-center font-mono">{card.quantity}x</span>
             <span className="flex-1 text-white">{card.cardName}</span>
             {card.setName && (
-              <span className="text-xs text-gray-400">({card.setName})</span>
+              <span className="text-muted-foreground text-xs">
+                ({card.setName})
+              </span>
             )}
           </div>
         ))}
-        <div className="mt-2 text-xs text-gray-400">
+        <div className="text-muted-foreground mt-2 text-xs">
           Ready to import {cards.length} card types
         </div>
       </div>

@@ -26,7 +26,7 @@ export const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
       maxSize={5 * 1024 * 1024} // 5MB
     />
     {imageUrl && (
-      <p className="text-sm text-gray-400">Current image: {imageUrl}</p>
+      <p className="text-muted-foreground text-sm">Current image: {imageUrl}</p>
     )}
   </div>
 );
@@ -178,7 +178,7 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
     <h3 className="text-lg font-semibold text-white">Card Text</h3>
     <div className="space-y-4">
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-300">
+        <label className="text-foreground mb-1 block text-sm font-medium">
           Description
         </label>
         <textarea
@@ -186,11 +186,11 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
           onChange={(e) => onChange('description', e.target.value)}
           placeholder="Enter card description..."
           rows={3}
-          className="w-full rounded-md border border-[#443a5c] bg-[#1a1625] px-3 py-2 text-white placeholder-gray-500 focus:border-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa]/20 focus:outline-none"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 w-full rounded-md border px-3 py-2 text-white focus:ring-2 focus:outline-none"
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium text-gray-300">
+        <label className="text-foreground mb-1 block text-sm font-medium">
           Official Text
         </label>
         <textarea
@@ -198,7 +198,7 @@ export const TextFieldsSection: React.FC<StatsSectionProps> = ({
           onChange={(e) => onChange('officialText', e.target.value)}
           placeholder="Enter official card text..."
           rows={3}
-          className="w-full rounded-md border border-[#443a5c] bg-[#1a1625] px-3 py-2 text-white placeholder-gray-500 focus:border-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa]/20 focus:outline-none"
+          className="border-border bg-background placeholder:text-muted-foreground/50 focus:border-primary focus:ring-ring/20 w-full rounded-md border px-3 py-2 text-white focus:ring-2 focus:outline-none"
         />
       </div>
     </div>
@@ -249,27 +249,27 @@ export const FlagsSection: React.FC<StatsSectionProps> = ({
           type="checkbox"
           checked={formData.isFoil || false}
           onChange={(e) => onChange('isFoil', e.target.checked)}
-          className="h-4 w-4 rounded border-[#443a5c] bg-[#1a1625] text-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa]/20"
+          className="border-border bg-background text-primary focus:ring-ring/20 h-4 w-4 rounded focus:ring-2"
         />
-        <span className="text-sm text-gray-300">Foil</span>
+        <span className="text-foreground text-sm">Foil</span>
       </label>
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={formData.isPromo || false}
           onChange={(e) => onChange('isPromo', e.target.checked)}
-          className="h-4 w-4 rounded border-[#443a5c] bg-[#1a1625] text-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa]/20"
+          className="border-border bg-background text-primary focus:ring-ring/20 h-4 w-4 rounded focus:ring-2"
         />
-        <span className="text-sm text-gray-300">Promo</span>
+        <span className="text-foreground text-sm">Promo</span>
       </label>
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={formData.isAlternate || false}
           onChange={(e) => onChange('isAlternate', e.target.checked)}
-          className="h-4 w-4 rounded border-[#443a5c] bg-[#1a1625] text-[#8b7aaa] focus:ring-2 focus:ring-[#8b7aaa]/20"
+          className="border-border bg-background text-primary focus:ring-ring/20 h-4 w-4 rounded focus:ring-2"
         />
-        <span className="text-sm text-gray-300">Alternate Art</span>
+        <span className="text-foreground text-sm">Alternate Art</span>
       </label>
     </div>
   </div>

@@ -42,7 +42,7 @@ export const SimpleSortSelector: React.FC<SimpleSortSelectorProps> = ({
           onAddSort(field, order as 'asc' | 'desc');
         }
       }}
-      className="min-w-0 rounded border border-gray-300 px-2 py-1 text-sm"
+      className="border-border min-w-0 rounded border px-2 py-1 text-sm"
     >
       <option value="">Default</option>
       {sortOptions.map((option) => (

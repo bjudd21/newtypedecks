@@ -40,11 +40,11 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
           <div className="text-center">
             <CopyrightDisclaimer
               variant="compact"
-              className="text-gray-300"
+              className="text-foreground"
               gameName={gameName}
               publisher={publisher}
             />
-            <div className="mt-2 text-xs text-gray-400">
+            <div className="text-muted-foreground mt-2 text-xs">
               This is an unofficial fan site not affiliated with {publisherName}
             </div>
           </div>
@@ -64,7 +64,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               </h4>
               <CopyrightDisclaimer
                 variant="footer"
-                className="text-gray-300"
+                className="text-foreground"
                 gameName={gameName}
                 publisher={publisher}
               />
@@ -75,7 +75,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               </h4>
               <NonAffiliationStatement
                 variant="footer"
-                className="text-gray-300"
+                className="text-foreground"
                 showIcon={false}
                 gameName={gameName}
                 publisher={publisher}
@@ -83,7 +83,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
             </div>
           </div>
           <div className="mt-6 border-t border-gray-600 pt-6 text-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-muted-foreground text-sm">
               © {currentYear} {gameLabel} Community Website. Built by fans, for
               fans. Not affiliated with {publisherName}
             </p>
@@ -105,18 +105,18 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               <h3 className="mb-4 text-lg font-semibold">
                 {gameLabel} Database
               </h3>
-              <p className="mb-4 text-sm text-gray-300">
+              <p className="text-foreground mb-4 text-sm">
                 An unofficial community resource for {gameLabel} players. Build
                 decks, manage collections, and connect with fellow pilots.
               </p>
               <div className="space-y-2">
-                <p className="text-xs text-gray-400">
+                <p className="text-muted-foreground text-xs">
                   <strong>Purpose:</strong> Educational &amp; Community
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-muted-foreground text-xs">
                   <strong>Status:</strong> Independent Fan Project
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-muted-foreground text-xs">
                   <strong>Last Updated:</strong>{' '}
                   {new Date().toLocaleDateString()}
                 </p>
@@ -126,7 +126,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
             {/* Quick Legal Summary */}
             <div>
               <h4 className="text-md mb-4 font-semibold">Legal Summary</h4>
-              <div className="space-y-3 text-sm text-gray-300">
+              <div className="text-foreground space-y-3 text-sm">
                 <div className="flex items-start space-x-2">
                   <span className="mt-1 text-red-400">⚠️</span>
                   <p>Not affiliated with {publisherName}</p>
@@ -149,7 +149,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
               </h4>
               <div className="space-y-3">
                 <div>
-                  <h5 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                  <h5 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
                     Legal Information
                   </h5>
                   <div className="space-y-1 text-sm">
@@ -174,7 +174,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   </div>
                 </div>
                 <div>
-                  <h5 className="mb-2 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                  <h5 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wider uppercase">
                     Official Resources
                   </h5>
                   <a
@@ -185,7 +185,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   >
                     → {publisherName}
                   </a>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="text-muted-foreground mt-1 text-xs">
                     For official rules and tournaments
                   </p>
                 </div>
@@ -199,7 +199,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
           <div className="border-t border-gray-700">
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="flex w-full items-center justify-between py-4 text-left text-sm text-gray-400 transition-colors hover:text-white"
+              className="text-muted-foreground hover:text-foreground flex w-full items-center justify-between py-4 text-left text-sm transition-colors"
               aria-expanded={isExpanded}
             >
               <span>
@@ -250,7 +250,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                   <h5 className="mb-3 font-semibold text-white">
                     Fair Use Statement
                   </h5>
-                  <div className="space-y-2 text-sm text-gray-300">
+                  <div className="text-foreground space-y-2 text-sm">
                     <p>
                       This website operates under fair use provisions of
                       copyright law for the following purposes:
@@ -273,7 +273,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
                         collection tools
                       </li>
                     </ul>
-                    <p className="mt-3 text-xs text-gray-400">
+                    <p className="text-muted-foreground mt-3 text-xs">
                       We respect intellectual property rights and will promptly
                       address any concerns from copyright holders.
                     </p>
@@ -286,7 +286,7 @@ export const LegalComplianceFooter: React.FC<LegalComplianceFooterProps> = ({
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 py-4">
-          <div className="flex flex-col items-center justify-between text-xs text-gray-400 md:flex-row">
+          <div className="text-muted-foreground flex flex-col items-center justify-between text-xs md:flex-row">
             <div>
               © {currentYear} Community-built {gameLabel} Database. Not
               affiliated with {publisherName}

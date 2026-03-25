@@ -26,7 +26,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
           <CardTitle>Deck Suggestions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="py-8 text-center text-gray-600">
+          <div className="text-muted-foreground py-8 text-center">
             <div className="mb-2 text-4xl">✨</div>
             <p>Your deck looks great!</p>
             <p className="text-sm">No specific suggestions at this time.</p>
@@ -53,7 +53,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
       case 'low':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-gray-100 text-gray-800 border-border';
     }
   };
 
@@ -80,7 +80,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
     <Card className={className}>
       <CardHeader>
         <CardTitle>Deck Suggestions</CardTitle>
-        <div className="text-sm text-gray-600">
+        <div className="text-muted-foreground text-sm">
           AI-powered recommendations to improve your deck
         </div>
       </CardHeader>
@@ -89,7 +89,7 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
           {sortedSuggestions.map((suggestion, index) => (
             <div
               key={index}
-              className="rounded-lg border p-4 transition-colors hover:bg-gray-50"
+              className="hover:bg-accent rounded-lg border p-4 transition-colors"
             >
               <div className="flex items-start gap-3">
                 <div className="text-2xl">{getTypeIcon(suggestion.type)}</div>
@@ -105,7 +105,9 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
                       {suggestion.type}
                     </Badge>
                     <div className="flex items-center gap-1">
-                      <span className="text-xs text-gray-500">Impact:</span>
+                      <span className="text-muted-foreground/70 text-xs">
+                        Impact:
+                      </span>
                       <span
                         className={`text-xs font-medium ${getImpactColor(suggestion.impact)}`}
                       >
@@ -161,19 +163,19 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
               <div className="font-semibold text-red-600">
                 {suggestions.filter((s) => s.priority === 'high').length}
               </div>
-              <div className="text-gray-600">High Priority</div>
+              <div className="text-muted-foreground">High Priority</div>
             </div>
             <div>
               <div className="font-semibold text-yellow-600">
                 {suggestions.filter((s) => s.priority === 'medium').length}
               </div>
-              <div className="text-gray-600">Medium Priority</div>
+              <div className="text-muted-foreground">Medium Priority</div>
             </div>
             <div>
               <div className="font-semibold text-blue-600">
                 {suggestions.filter((s) => s.priority === 'low').length}
               </div>
-              <div className="text-gray-600">Low Priority</div>
+              <div className="text-muted-foreground">Low Priority</div>
             </div>
           </div>
         </div>

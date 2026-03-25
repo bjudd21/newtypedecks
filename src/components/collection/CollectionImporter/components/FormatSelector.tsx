@@ -18,7 +18,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
 }) => {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-gray-400">
+      <label className="text-muted-foreground mb-2 block text-sm font-medium">
         Import Format
       </label>
       <Select
@@ -31,7 +31,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
           { value: 'mtga', label: 'MTG Arena Format' },
         ]}
       />
-      <div className="mt-1 text-xs text-gray-400">
+      <div className="text-muted-foreground mt-1 text-xs">
         {getFormatDescription(selectedFormat)}
       </div>
     </div>

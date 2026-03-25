@@ -10,7 +10,7 @@ export function ImportProgressStep() {
       <div className="mb-2 text-lg font-medium text-white">
         Importing Collection...
       </div>
-      <div className="text-sm text-gray-400">
+      <div className="text-muted-foreground text-sm">
         Please wait while we process your cards
       </div>
     </div>

@@ -81,7 +81,7 @@ const Modal: React.FC<ModalProps> = ({
       <div
         ref={modalRef}
         className={cn(
-          'w-full rounded-lg bg-white shadow-xl',
+          'bg-card w-full rounded-lg shadow-xl',
           sizeClasses[size],
           className
         )}
@@ -90,7 +90,7 @@ const Modal: React.FC<ModalProps> = ({
         aria-labelledby={title ? 'modal-title' : undefined}
       >
         {title && (
-          <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+          <div className="border-border flex items-center justify-between border-b px-6 py-4">
             <h2
               id="modal-title"
               className="text-lg font-semibold text-gray-900"
@@ -100,7 +100,7 @@ const Modal: React.FC<ModalProps> = ({
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                className="text-muted-foreground hover:text-muted-foreground rounded-md p-1 hover:bg-gray-100"
                 aria-label="Close modal"
               >
                 <svg

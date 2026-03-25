@@ -16,11 +16,11 @@ export const CurrentDeckStats: React.FC<CurrentDeckStatsProps> = ({
   deckDescription,
 }) => {
   return (
-    <div className="rounded-lg bg-gray-50 p-3">
+    <div className="bg-accent rounded-lg p-3">
       <div className="mb-2 text-sm font-medium text-gray-900">
         Current Deck:
       </div>
-      <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
+      <div className="text-muted-foreground grid grid-cols-2 gap-2 text-sm">
         <div>
           <strong>{deckName}</strong>
         </div>

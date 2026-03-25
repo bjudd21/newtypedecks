@@ -62,10 +62,10 @@ export const CollectionExporterComponent: React.FC<CollectionExporterProps> = ({
 
   return (
     <div className={className}>
-      <Card className="border-[#443a5c] bg-[#2d2640]">
+      <Card className="border-border bg-card">
         <CardHeader>
-          <CardTitle className="text-[#a89ec7]">EXPORT COLLECTION</CardTitle>
-          <div className="text-sm text-gray-400">
+          <CardTitle className="text-primary/80">EXPORT COLLECTION</CardTitle>
+          <div className="text-muted-foreground text-sm">
             Create backups and share your collection in various formats
           </div>
         </CardHeader>

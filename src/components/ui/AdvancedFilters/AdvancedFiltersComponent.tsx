@@ -47,7 +47,7 @@ export const AdvancedFiltersComponent: React.FC<AdvancedFiltersProps> = ({
   );
 
   return (
-    <div className={cn('rounded-lg border bg-white', className)}>
+    <div className={cn('bg-card rounded-lg border', className)}>
       {/* Header */}
       <FilterHeader
         activeFilterCount={activeFilterCount}

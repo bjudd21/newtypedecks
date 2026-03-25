@@ -97,7 +97,7 @@ export function DeleteConfirmModal({
         title={`Delete ${itemType === 'card' ? 'Card' : 'User'}`}
         size="md"
         closeOnOverlayClick={!isDeleting}
-        className="border border-[#443a5c] bg-[#1a1625]"
+        className="border-border bg-background border"
       >
         <div className="space-y-4">
           {/* Warning Icon */}
@@ -121,11 +121,11 @@ export function DeleteConfirmModal({
 
           {/* Message */}
           <div className="text-center">
-            <p className="text-gray-300">
+            <p className="text-foreground">
               Are you sure you want to delete{' '}
               <span className="font-semibold text-white">{itemName}</span>?
             </p>
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="text-muted-foreground mt-2 text-sm">
               This action cannot be undone.{' '}
               {itemType === 'user' &&
                 'All user data including decks and collections will be permanently removed.'}
@@ -133,7 +133,7 @@ export function DeleteConfirmModal({
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 border-t border-[#443a5c] pt-4">
+          <div className="border-border flex justify-end gap-3 border-t pt-4">
             <Button
               type="button"
               variant="secondary"

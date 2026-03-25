@@ -82,7 +82,7 @@ export function UsersPageContent() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">User Management</h1>
-        <p className="mt-1 text-gray-400">
+        <p className="text-muted-foreground mt-1">
           Manage user accounts and permissions (
           {pagination.totalCount.toLocaleString()} users)
         </p>

@@ -13,7 +13,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ className }) => {
   return (
     <Card className={className}>
       <CardContent className="py-12 text-center">
-        <p className="text-gray-600">Add cards to your deck to see analytics</p>
+        <p className="text-muted-foreground">
+          Add cards to your deck to see analytics
+        </p>
       </CardContent>
     </Card>
   );

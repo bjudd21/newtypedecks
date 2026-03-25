@@ -15,7 +15,7 @@ export const EndMessage: React.FC<EndMessageProps> = ({ customMessage }) => {
 
   return (
     <div className="flex justify-center py-8">
-      <div className="text-center text-gray-500">
+      <div className="text-muted-foreground/70 text-center">
         <svg
           className="mx-auto mb-2 h-8 w-8"
           fill="none"

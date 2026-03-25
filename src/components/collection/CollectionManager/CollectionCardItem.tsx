@@ -45,7 +45,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
   onConditionChange,
 }) => {
   return (
-    <div className="flex items-center justify-between rounded-lg border border-[#443a5c] bg-[#1a1625] p-4 hover:bg-[#3a3050]">
+    <div className="border-border bg-background hover:bg-accent flex items-center justify-between rounded-lg border p-4">
       <div className="flex items-center space-x-4">
         {(collectionCard.card.imageUrlSmall ??
           collectionCard.card.imageUrl) && (
@@ -89,7 +89,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
               </Badge>
             )}
           </div>
-          <p className="mt-1 text-sm text-gray-400">
+          <p className="text-muted-foreground mt-1 text-sm">
             Added: {new Date(collectionCard.addedAt).toLocaleDateString()}
           </p>
         </div>
@@ -99,7 +99,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
         {isEditing ? (
           <div className="flex items-center space-x-2">
             <div>
-              <label className="block text-xs text-gray-400">Qty</label>
+              <label className="text-muted-foreground block text-xs">Qty</label>
               <Input
                 type="number"
                 min="0"
@@ -112,7 +112,9 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-400">Condition</label>
+              <label className="text-muted-foreground block text-xs">
+                Condition
+              </label>
               <Select
                 value={editCondition}
                 onChange={onConditionChange}
@@ -147,7 +149,7 @@ export const CollectionCardItem: React.FC<CollectionCardItemProps> = ({
               <div className="font-semibold text-white">
                 {collectionCard.quantity}x
               </div>
-              <div className="text-xs text-gray-400">
+              <div className="text-muted-foreground text-xs">
                 {collectionCard.condition}
               </div>
             </div>

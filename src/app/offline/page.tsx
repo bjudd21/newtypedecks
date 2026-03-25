@@ -61,14 +61,14 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="bg-accent flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-lg">
         <Card>
           <CardHeader className="text-center">
             <div className="mb-4">
               <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gray-200">
                 <svg
-                  className="h-12 w-12 text-gray-400"
+                  className="text-muted-foreground h-12 w-12"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -88,7 +88,7 @@ export default function OfflinePage() {
           </CardHeader>
           <CardContent>
             <div className="mb-6 text-center">
-              <p className="mb-4 text-gray-600">
+              <p className="text-muted-foreground mb-4">
                 This page isn&apos;t available offline. Check your internet
                 connection and try again.
               </p>
@@ -110,7 +110,7 @@ export default function OfflinePage() {
               </div>
 
               {lastAttempt && (
-                <p className="mb-4 text-xs text-gray-500">
+                <p className="text-muted-foreground/70 mb-4 text-xs">
                   Last attempt: {lastAttempt.toLocaleTimeString()}
                 </p>
               )}
@@ -188,11 +188,11 @@ export default function OfflinePage() {
             </div>
 
             {/* Tips */}
-            <div className="mt-6 rounded-lg bg-gray-50 p-4">
+            <div className="bg-accent mt-6 rounded-lg p-4">
               <h4 className="mb-2 font-medium text-gray-900">
                 💡 Offline Tips
               </h4>
-              <ul className="space-y-1 text-sm text-gray-600">
+              <ul className="text-muted-foreground space-y-1 text-sm">
                 <li>• Recently viewed content is available offline</li>
                 <li>• Your decks are saved locally while offline</li>
                 <li>• Changes will sync when you&apos;re back online</li>

@@ -97,13 +97,13 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
   };
 
   const thClass =
-    'cursor-pointer select-none px-2 py-1.5 text-left text-xs font-semibold uppercase tracking-wide text-gray-400 hover:text-white';
+    'cursor-pointer select-none px-2 py-1.5 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground';
 
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-[#443a5c]">
+          <tr className="border-border border-b">
             <th className={thClass} onClick={() => handleSort('name')}>
               Name
               <SortIndicator col="name" sortKey={sortKey} sortDir={sortDir} />
@@ -149,7 +149,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
           {sorted.map((dc) => (
             <tr
               key={dc.cardId}
-              className="border-b border-[#3a3050] hover:bg-[#3a3050]"
+              className="hover:bg-accent border-b border-[#3a3050]"
             >
               <td className="px-2 py-1 text-white">{dc.card.name}</td>
               <td className="px-2 py-1 text-center">
@@ -159,7 +159,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
                       onClick={() =>
                         onQuantityChange(dc.cardId, dc.quantity - 1)
                       }
-                      className="flex h-5 w-5 items-center justify-center rounded text-gray-400 hover:bg-[#443a5c] hover:text-white"
+                      className="text-muted-foreground hover:bg-border hover:text-foreground flex h-5 w-5 items-center justify-center rounded"
                       aria-label="Decrease quantity"
                     >
                       −
@@ -171,7 +171,7 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
                       onClick={() =>
                         onQuantityChange(dc.cardId, dc.quantity + 1)
                       }
-                      className="flex h-5 w-5 items-center justify-center rounded text-gray-400 hover:bg-[#443a5c] hover:text-white"
+                      className="text-muted-foreground hover:bg-border hover:text-foreground flex h-5 w-5 items-center justify-center rounded"
                       aria-label="Increase quantity"
                     >
                       +
@@ -181,13 +181,13 @@ export const CardListSpreadsheet: React.FC<CardListSpreadsheetProps> = ({
                   <span className="text-[#c8b8f0]">{dc.quantity}x</span>
                 )}
               </td>
-              <td className="hidden px-2 py-1 text-gray-400 sm:table-cell">
+              <td className="text-muted-foreground hidden px-2 py-1 sm:table-cell">
                 {dc.card.type?.name ?? '—'}
               </td>
-              <td className="hidden px-2 py-1 text-center text-gray-400 sm:table-cell">
+              <td className="text-muted-foreground hidden px-2 py-1 text-center sm:table-cell">
                 {dc.card.cost ?? '—'}
               </td>
-              <td className="hidden px-2 py-1 text-gray-400 md:table-cell">
+              <td className="text-muted-foreground hidden px-2 py-1 md:table-cell">
                 {dc.card.rarity?.name ?? '—'}
               </td>
               {showOwnership &&

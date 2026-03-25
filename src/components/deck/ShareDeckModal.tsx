@@ -29,12 +29,12 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
 
   return (
     <div className="bg-opacity-75 fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
-      <div className="w-full max-w-md rounded-xl border border-[#443a5c] bg-gradient-to-br from-[#2d2640] to-[#3a3050] p-6 shadow-2xl">
+      <div className="border-border from-card to-accent w-full max-w-md rounded-xl border bg-gradient-to-br p-6 shadow-2xl">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-white">Share Deck</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 transition-colors hover:text-white"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <svg
               className="h-6 w-6"
@@ -86,11 +86,11 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
         ) : (
           <div>
             <div className="mb-4">
-              <p className="mb-3 text-sm text-gray-300">
+              <p className="text-foreground mb-3 text-sm">
                 Share your deck with this temporary URL. The link contains your
                 complete deck data and can be opened by anyone.
               </p>
-              <div className="rounded-lg border border-[#443a5c] bg-[#1a1625]/50 p-3">
+              <div className="border-border bg-background/50 rounded-lg border p-3">
                 <div className="flex items-center gap-2">
                   <input
                     type="text"
@@ -109,10 +109,10 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
               </div>
             </div>
 
-            <div className="mb-4 rounded-lg border border-[#8b7aaa]/30 bg-gradient-to-r from-[#2d2640] to-[#3a3050] p-3">
+            <div className="border-primary/30 from-card to-accent mb-4 rounded-lg border bg-gradient-to-r p-3">
               <div className="flex items-start">
                 <svg
-                  className="mt-0.5 mr-2 h-4 w-4 text-[#a89ec7]"
+                  className="text-primary/80 mt-0.5 mr-2 h-4 w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -125,10 +125,10 @@ export const ShareDeckModal: React.FC<ShareDeckModalProps> = ({
                   />
                 </svg>
                 <div>
-                  <h4 className="text-xs font-semibold text-[#a89ec7]">
+                  <h4 className="text-primary/80 text-xs font-semibold">
                     Temporary Share Link
                   </h4>
-                  <p className="mt-1 text-xs text-gray-300">
+                  <p className="text-foreground mt-1 text-xs">
                     This URL contains your deck data and works without an
                     account. For permanent sharing and deck libraries, sign in
                     to save decks to your account.
