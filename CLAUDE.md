@@ -25,17 +25,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-## ⚠️ Known Issues (last updated 2026-03-25)
+## ✅ Known Issues (last updated 2026-03-25)
 
-**Code debt — fix before One Piece launch:**
-
-1. **Import/export services map flat columns.** `csvImporter` and `jsonImporter` still set `faction`/`pilot`/`model` as flat fields. One Piece imports will fail until these are updated to use `gameAttributes` JSONB.
+**No blocking issues.** All Architect Review #2 items resolved.
 
 **Resolved since Architect Review #2 (2026-03-24):**
 ✅ middleware.ts — `/api/admin` now guarded, `[gameSlug]` route patterns fixed, deploy blocker resolved
 ✅ DeckShare / useDecks types — migrated to `visibility: DeckVisibility` enum
 ✅ ImageCacheService — already absent from codebase
 ✅ Design system — full amber rebrand, zero hardcoded purple/gray values, 500+ files updated
+✅ CSV/JSON exporters — dynamic `customFields` columns replace hardcoded Gundam fields; One Piece export works
 ✅ gameAttributes JSONB queries, ✅ most API routes game-scoped, ✅ hardcoded strings, ✅ Sentry, ✅ Vercel Analytics, ✅ vercel.json, ✅ health check, ✅ directUrl, ✅ .env.vercel.example
 
 ---
