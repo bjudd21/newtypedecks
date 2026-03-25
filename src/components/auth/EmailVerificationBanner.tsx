@@ -54,7 +54,7 @@ export function EmailVerificationBanner() {
   };
 
   return (
-    <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
+    <div className="border-l-4 border-yellow-400 bg-yellow-900/20 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
           <svg
@@ -72,10 +72,10 @@ export function EmailVerificationBanner() {
           </svg>
         </div>
         <div className="ml-3 flex-1">
-          <h3 className="text-sm font-medium text-yellow-800">
+          <h3 className="text-sm font-medium text-yellow-300">
             Email Verification Required
           </h3>
-          <div className="mt-2 text-sm text-yellow-700">
+          <div className="mt-2 text-sm text-yellow-400">
             <p>
               Please verify your email address to access all features. Check
               your inbox for a verification email.
@@ -94,7 +94,7 @@ export function EmailVerificationBanner() {
             <button
               type="button"
               onClick={() => setIsDismissed(true)}
-              className="text-sm text-yellow-800 underline hover:text-yellow-900"
+              className="text-sm text-yellow-300 underline hover:text-yellow-900"
             >
               Dismiss
             </button>
@@ -102,7 +102,7 @@ export function EmailVerificationBanner() {
           {message && (
             <div className="mt-2 text-sm text-green-600">{message}</div>
           )}
-          {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
+          {error && <div className="mt-2 text-sm text-red-400">{error}</div>}
         </div>
       </div>
     </div>

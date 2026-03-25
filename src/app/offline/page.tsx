@@ -102,7 +102,7 @@ export default function OfflinePage() {
                 />
                 <span
                   className={`text-sm ${
-                    isOnline ? 'text-green-600' : 'text-red-600'
+                    isOnline ? 'text-green-600' : 'text-red-400'
                   }`}
                 >
                   {isOnline ? 'Connected' : 'Disconnected'}

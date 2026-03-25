@@ -47,9 +47,9 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
   const getPriorityColor = (priority: DeckSuggestion['priority']) => {
     switch (priority) {
       case 'high':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-red-100 text-red-300 border-red-500/30';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-yellow-100 text-yellow-300 border-yellow-500/30';
       case 'low':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       default:
@@ -71,8 +71,8 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
   };
 
   const getImpactColor = (impact: number) => {
-    if (impact >= 0.7) return 'text-red-600';
-    if (impact >= 0.4) return 'text-yellow-600';
+    if (impact >= 0.7) return 'text-red-400';
+    if (impact >= 0.4) return 'text-yellow-400';
     return 'text-green-600';
   };
 
@@ -139,9 +139,9 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
                   )}
 
                   {suggestion.targetCard && (
-                    <div className="mt-2 rounded border bg-orange-50 p-2">
+                    <div className="mt-2 rounded border bg-orange-900/20 p-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-orange-600">
+                        <span className="text-xs font-medium text-orange-400">
                           Replace:
                         </span>
                         <span className="text-sm font-medium">
@@ -160,13 +160,13 @@ export const SuggestionsList: React.FC<SuggestionsListProps> = ({
         <div className="mt-6 border-t pt-4">
           <div className="grid grid-cols-3 gap-4 text-center text-sm">
             <div>
-              <div className="font-semibold text-red-600">
+              <div className="font-semibold text-red-400">
                 {suggestions.filter((s) => s.priority === 'high').length}
               </div>
               <div className="text-muted-foreground">High Priority</div>
             </div>
             <div>
-              <div className="font-semibold text-yellow-600">
+              <div className="font-semibold text-yellow-400">
                 {suggestions.filter((s) => s.priority === 'medium').length}
               </div>
               <div className="text-muted-foreground">Medium Priority</div>

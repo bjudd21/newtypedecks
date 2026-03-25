@@ -72,8 +72,8 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
               <h3 className="text-foreground mb-4 text-lg font-semibold">
                 Acceptance of Terms
               </h3>
-              <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                <p className="text-sm text-yellow-800">
+              <div className="mb-4 rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-4">
+                <p className="text-sm text-yellow-300">
                   <strong>Important:</strong> By using this website, you agree
                   to these terms. If you don&apos;t agree, please don&apos;t use
                   the site.
@@ -103,11 +103,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                     <li>• Fair use commentary and analysis</li>
                   </ul>
                 </div>
-                <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-                  <h4 className="mb-2 font-medium text-red-800">
+                <div className="rounded-lg border border-red-500/30 bg-red-900/20 p-4">
+                  <h4 className="mb-2 font-medium text-red-300">
                     ❌ Prohibited Uses
                   </h4>
-                  <ul className="space-y-1 text-sm text-red-700">
+                  <ul className="space-y-1 text-sm text-red-400">
                     <li>• Commercial use without permission</li>
                     <li>• Redistributing copyrighted content</li>
                     <li>• Automated data scraping</li>
@@ -232,11 +232,11 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({
                 Disclaimers
               </h3>
               <div className="space-y-3">
-                <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                  <h4 className="mb-2 font-medium text-yellow-800">
+                <div className="rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-4">
+                  <h4 className="mb-2 font-medium text-yellow-300">
                     ⚠️ Service Availability
                   </h4>
-                  <p className="text-sm text-yellow-700">
+                  <p className="text-sm text-yellow-400">
                     This is a community project provided &quot;as is&quot;
                     without warranties. We cannot guarantee 100% uptime or data
                     preservation.

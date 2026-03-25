@@ -91,9 +91,9 @@ export function AdvancedSettingsSection({
             <OfflineFeaturesList isActive={isServiceWorkerActive} />
           </div>
 
-          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
+          <div className="rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-3">
             <div className="mb-1 font-medium text-yellow-900">⚠️ Warning</div>
-            <div className="text-sm text-yellow-700">
+            <div className="text-sm text-yellow-400">
               Disabling the service worker will remove all offline
               functionality. You&apos;ll need to refresh the page to re-enable
               offline features.

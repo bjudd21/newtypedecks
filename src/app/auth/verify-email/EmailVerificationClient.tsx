@@ -114,10 +114,10 @@ export function EmailVerificationClient() {
   if (error) {
     return (
       <div className="w-full max-w-md space-y-4 text-center">
-        <div className="rounded-lg border border-red-200 bg-red-50 p-6">
+        <div className="rounded-lg border border-red-500/30 bg-red-900/20 p-6">
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
             <svg
-              className="h-6 w-6 text-red-600"
+              className="h-6 w-6 text-red-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -131,10 +131,10 @@ export function EmailVerificationClient() {
               />
             </svg>
           </div>
-          <h1 className="mb-2 text-2xl font-bold text-red-800">
+          <h1 className="mb-2 text-2xl font-bold text-red-300">
             Verification Failed
           </h1>
-          <p className="mb-4 text-red-600">{error}</p>
+          <p className="mb-4 text-red-400">{error}</p>
         </div>
         <div className="space-y-2">
           <Button

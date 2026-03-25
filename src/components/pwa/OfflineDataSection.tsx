@@ -83,11 +83,11 @@ export function OfflineDataSection({
           ))}
 
           {!pwaState.isOnline && (
-            <div className="mt-4 rounded-lg border border-orange-200 bg-orange-50 p-3">
+            <div className="mt-4 rounded-lg border border-orange-500/30 bg-orange-900/20 p-3">
               <div className="mb-1 font-medium text-orange-900">
                 📡 Currently Offline
               </div>
-              <div className="text-sm text-orange-700">
+              <div className="text-sm text-orange-400">
                 Data will automatically sync when you reconnect to the internet
               </div>
             </div>

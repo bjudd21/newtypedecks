@@ -129,11 +129,11 @@ export const PrivacyNotice: React.FC<PrivacyNoticeProps> = ({
                     <li>• Send account-related emails</li>
                   </ul>
                 </div>
-                <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-                  <h4 className="mb-2 font-medium text-red-800">
+                <div className="rounded-lg border border-red-500/30 bg-red-900/20 p-4">
+                  <h4 className="mb-2 font-medium text-red-300">
                     ❌ What We Don&apos;t Do
                   </h4>
-                  <ul className="space-y-1 text-sm text-red-700">
+                  <ul className="space-y-1 text-sm text-red-400">
                     <li>• Sell your personal information</li>
                     <li>• Share data with third parties</li>
                     <li>• Send promotional emails</li>

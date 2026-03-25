@@ -142,7 +142,7 @@ export const PWAStatusComponent: React.FC<PWAStatusProps> = ({
             <StatusItem icon="🔄" label="Pending Sync">
               <Badge
                 variant="outline"
-                className="border-orange-300 text-orange-600"
+                className="border-orange-300 text-orange-400"
               >
                 {pendingSync} items
               </Badge>

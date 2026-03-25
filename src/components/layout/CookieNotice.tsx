@@ -188,11 +188,11 @@ export const CookieNotice: React.FC<CookieNoticeProps> = ({
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                  <h4 className="mb-2 font-medium text-yellow-800">
+                <div className="rounded-lg border border-yellow-500/30 bg-yellow-900/20 p-4">
+                  <h4 className="mb-2 font-medium text-yellow-300">
                     ⚠️ Important Note
                   </h4>
-                  <p className="text-sm text-yellow-700">
+                  <p className="text-sm text-yellow-400">
                     Disabling essential cookies may prevent core website
                     features from working, such as staying logged in or saving
                     your deck builds.

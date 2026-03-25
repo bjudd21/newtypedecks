@@ -88,8 +88,8 @@ export function ForgotPasswordForm({
         </div>
 
         {error && (
-          <div className="rounded-md border border-red-200 bg-red-50 p-3">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="rounded-md border border-red-500/30 bg-red-900/20 p-3">
+            <p className="text-sm text-red-400">{error}</p>
           </div>
         )}
 
