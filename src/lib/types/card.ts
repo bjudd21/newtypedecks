@@ -51,6 +51,11 @@ export interface CreateCardData {
   isPromo?: boolean;
   isAlternate?: boolean;
   language?: string;
+
+  // Game scoping + game-specific attributes (stored in gameAttributes JSONB,
+  // shaped by the game's GameConfig.cardSchema.customFields)
+  gameId?: string;
+  gameAttributes?: Record<string, string | number | boolean | null>;
 }
 
 export interface UpdateCardData extends Partial<CreateCardData> {

@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/cards - Create a new card (admin only)
+// POST /api/cards?gameSlug=... - Create a new card (admin only)
 export async function POST(request: NextRequest) {
   try {
     // Check admin authentication
@@ -65,10 +65,14 @@ export async function POST(request: NextRequest) {
       return authError;
     }
 
+    const gameResult = await resolveGameFromRequest(request);
+    if (gameResult instanceof NextResponse) return gameResult;
+    const { gameId } = gameResult;
+
     const body = await request.json();
 
-    // Create card using CardService
-    const card = await CardService.createCard(body);
+    // Create card using CardService, scoped to the resolved game
+    const card = await CardService.createCard({ ...body, gameId });
 
     // Invalidate card search cache so new card appears immediately
     revalidateTag('cards', {});
