@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { UserRole } from '@prisma/client';
-import { CardsPageClient } from './CardsPageClient';
+import { CardEditorClient } from './CardEditorClient';
 
 export const metadata = {
-  title: 'Card Management | Admin',
-  description: 'Manage Gundam cards',
+  title: 'Card Data Admin | Admin',
+  description: 'Search, edit, and add card data',
 };
 
 export default async function AdminCardsPage() {
@@ -21,5 +21,5 @@ export default async function AdminCardsPage() {
     redirect('/admin');
   }
 
-  return <CardsPageClient />;
+  return <CardEditorClient />;
 }
