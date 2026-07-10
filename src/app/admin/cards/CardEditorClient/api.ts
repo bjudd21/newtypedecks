@@ -54,16 +54,18 @@ export async function fetchCards(
 
   const res = await fetch(`/api/cards?${params.toString()}`);
   const data = await res.json();
-  if (!res.ok || !data.success) {
+  if (!res.ok) {
     throw new Error(data.error || 'Failed to load cards');
   }
+  // GET /api/cards responds with { cards, pagination: { page, total,
+  // totalPages, hasNext, hasPrev }, filters } (see formatCardsResponse).
   return {
     cards: data.cards || [],
     pagination: {
-      currentPage: data.pagination?.currentPage ?? page,
+      currentPage: data.pagination?.page ?? page,
       totalPages: data.pagination?.totalPages ?? 1,
-      totalCount: data.pagination?.totalCount ?? 0,
-      hasMore: data.pagination?.hasMore ?? false,
+      totalCount: data.pagination?.total ?? 0,
+      hasMore: data.pagination?.hasNext ?? false,
     },
   };
 }
