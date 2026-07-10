@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn.gundam-gcg.com',
       },
+      // Vercel Blob storage (uploaded card images)
+      {
+        protocol: 'https',
+        hostname: '**.public.blob.vercel-storage.com',
+      },
       // External CDN providers
       {
         protocol: 'https',
